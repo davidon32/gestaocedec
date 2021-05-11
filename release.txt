@@ -1,0 +1,8 @@
+
+18/05/2018 - Adicionado Camada limite município no Mapa de Entrega de àgua do PMDA.
+22/05/2018 - Adicionado ícone Mapa PMDA com ponto de captação (módulo PMDA).
+23/05/2018 - Correção ícone mudança status PMDA (modulo pmda).
+23/05/2018 - Adicionado resumo de Usuários (COMPDEC) e ultimo Acesso. (modulo PMDA).
+
+05.06.2020 - correção do upload de Leis no cadastro de COMPDEC
+05/06/2020 - correção de acesso ao resetar a senha no sistema

@@ -1,0 +1,280 @@
+.layout {
+	width: 1024px;
+	height: 1024px;
+	
+	
+	
+}
+body {
+	margin: auto;
+/*	height: ;*/
+	page: auto;
+	font-family: Tahoma;
+	
+	
+}
+
+.titulo_c{
+	font-weight: bolder;
+	font-family: Tahoma;
+	font-size: 10px;
+	text-align: center;	
+	background: #BEBEBE;
+	border-right: 0.1em solid;
+}
+
+
+.titulo {
+	
+	text-align: center;
+	font-family: Tahoma;
+	font-size: 11px;
+	height: 30px;
+	font-weight: bolder;
+	
+}
+
+.corpo {
+	
+	
+}
+
+.dado {
+
+
+	padding-left: 5px;
+	padding-right: 5px;
+	width: 100px;
+	text-align: center;
+	
+}
+.dadoTotal {
+
+
+	padding-left: 5px;
+	padding-right: 5px;
+	text-align: center;
+	
+}
+/* dados relatorio*/
+.dado3 {
+	
+	font-size: 8px;	
+	padding-left: 5px;
+	padding-right: 5px;
+	width: auto;
+	text-align: lef;
+	border-bottom: 0.1em solid;
+	border-right: 0.1em solid;
+	white-space: pre;
+	
+	
+}
+
+/* dados relatorio MANOEL COMTABILIDADE */
+.dadoCont {
+    
+    font-size: 15px; 
+    padding-left: 5px;
+    padding-right: 5px;
+    width: auto;
+    text-align: lef;
+    border-bottom: 0.1em solid;
+    border-right: 0.1em solid;
+    white-space: pre;
+    
+    
+}
+/* dados relatorio dirf*/
+.dado5 {
+	
+	font-size: 10px;	
+	padding-left: 5px;
+	padding-right: 5px;
+	width: auto;
+	text-align: lef;
+	border-bottom: 0.1em solid;
+	border-right: 0.1em solid;
+	white-space: pre;
+	
+	
+}
+/* dados relatorio dirf ponta esquerda */
+.dado5_ponta_esq {
+	
+	font-size: 10px;	
+	padding-left: 5px;
+	padding-right: 5px;
+	width: auto;
+	text-align: lef;
+	border-left: 0.1em solid;
+	white-space: pre;
+	
+	
+}
+/* dados relatorio dirf ponta coluna para borda*/
+.dado5_ponta {
+	
+	font-size: 10px;	
+	padding-left: 5px;
+	padding-right: 5px;
+	width: auto;
+	text-align: lef;
+	border-bottom: 0.1em solid;
+	border-right: 0.1em solid;
+	white-space: pre;
+	
+	
+}
+
+/* dados relatorio dirf cabecalho coluna*/
+.dado6 {
+	
+	font-size: 10px;	
+	font-weight:bold;
+	padding-left: 5px;
+	padding-right: 5px;
+	width: auto;
+	text-align: lef;
+	border-top: 0.1em solid;
+	border-bottom : 0.1em solid;
+	white-space: pre;
+}
+
+/* dados relatorio dirf ponta */
+.dado6_ponta_esq {
+	
+	font-size: 10px;	
+	font-weight:bold;
+	padding-left: 5px;
+	padding-right: 5px;
+	width: auto;
+	text-align: lef;
+	border-top: 0.1em solid;
+	border-left: 0.1em solid;
+	white-space: pre;
+}
+/* dados relatorio dirf cabecalho coluna*/
+.dado6_ponta {
+	
+	font-size: 10px;	
+	font-weight:bold;
+	padding-left: 5px;
+	padding-right: 5px;
+	width: auto;
+	text-align: left;
+	border-top: 0.1em solid;
+	border-right: 0.1em solid;
+	white-space: pre;
+}
+
+/* dados relatorio dirf cabecalho coluna*/
+.detalhe_coluna {
+	
+	font-size: 10px;	
+	font-weight:bold;
+	padding-left: 5px;
+	padding-right: 5px;
+	width: auto;
+	text-align: lef;
+	white-space: pre;
+}
+
+/* dados relatorio dirf subtotal*/
+.detalhe_subtotal {
+	
+	font-size: 8px;	
+	font-weight:bold;
+	padding-left: 5px;
+	padding-right: 5px;
+	width: auto;
+	text-align: lef;
+	white-space: pre;
+}
+
+/* dados relatorio dirf subtotal coluna ponta para borda*/
+.detalhe_subtotal_ponta {
+	
+	font-size: 8px;	
+	font-weight:bold;
+	padding-left: 5px;
+	padding-right: 5px;
+	width: auto;
+	text-align: lef;
+	white-space: pre;
+	border-right: 0.1em solid ;
+}
+
+
+
+
+.dado4 {
+	
+	font-size: 8px;	
+	padding-left: 5px;
+	padding-right: 5px;
+	width: auto;
+	text-align: center;
+	border-bottom: 0.1em solid;
+	border-right: 0.1em solid;
+	white-space: pre;
+	font-weight: bolder;
+	
+}
+
+
+.dado_nome {
+
+	padding-left: 5px;
+	padding-right: 5px;
+	width: 200px;
+	text-align: center;
+	
+}
+
+.dado1 {
+
+	padding-left: 5px;
+	padding-right: 5px;
+	width: 150px;
+	text-align: left;
+	
+}
+
+.tit_rel {
+	text-align: center;
+	border-left: 0.1em solid;
+	border-right: 0.1em solid;
+	clear: both;
+
+}
+
+
+.data {
+	border-left: 0.1em solid;
+	width: 150px;
+	text-align: left;
+	float: left;
+	font-size: 11px;
+	
+}
+
+.hora {
+	border-right: 0.1em solid;
+	width: 150px;
+	text-align: right;
+	float: right;
+	font-size: 11px;
+	
+}
+
+.mes {
+
+	text-align: center;
+	border-left: 0.1em solid;
+	border-right: 0.1em solid;  
+	
+}
+
+
+

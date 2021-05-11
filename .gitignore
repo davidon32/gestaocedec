@@ -1,0 +1,16 @@
+/nbproject/private/
+/anexo
+/log
+/plugins/kml_layer
+/template/bower_components/
+/template/dist/
+/template/plugins/
+/vendor
+/plugins
+.vscode
+*.7z
+*.zip
+/git_velho
+/def_agora_template
+/gestaocedec_arquivos
+/bkp

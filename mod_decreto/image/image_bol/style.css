@@ -1,0 +1,71 @@
+/*
+** This CSS code is not done to the web.
+** The automatic HTML and CSS code are only a helper.
+*/
+
+body {
+  text-align: center;
+}
+
+#element-1 {
+  top: 3566px;
+  height: 112px;
+  width: 699px;
+  background: url("header.png") no-repeat;
+  position: absolute;
+  left: 2956px;
+}
+
+#element-2 {
+  top: 3763px;
+  height: 0px;
+  width: 699px;
+  background: url("bg_pg.png") no-repeat;
+  position: absolute;
+  left: 2957px;
+}
+
+#element-3 {
+  top: 3753px;
+  height: 231px;
+  width: 321px;
+  background: url("bl_1_previsao.png") no-repeat;
+  position: absolute;
+  left: 4063px;
+}
+
+#element-4 {
+  top: 3755px;
+  height: 232px;
+  width: 254px;
+  background: url("bl_1_s2id.png") no-repeat;
+  position: absolute;
+  left: 4407px;
+}
+
+#element-5 {
+  top: 4008px;
+  height: 112px;
+  width: 603px;
+  background: url("bl_2_ocorrencia.png") no-repeat;
+  position: absolute;
+  left: 4059px;
+}
+
+#element-6 {
+  top: 4144px;
+  height: 154px;
+  width: 216px;
+  background: url("bl_3_chuva.png") no-repeat;
+  position: absolute;
+  left: 4113px;
+}
+
+#element-7 {
+  top: 4598px;
+  height: 36px;
+  width: 183px;
+  background: url("rodape_impressao.png") no-repeat;
+  position: absolute;
+  left: 4016px;
+}

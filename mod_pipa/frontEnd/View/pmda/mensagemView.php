@@ -1,0 +1,268 @@
+<?php include_once "core/Model/indexModel.php";?>
+<?php include_once "mod_pipa/Model/IndexModel.php";?>
+<!-- =============== HEADER HTML PAGE ================= -->
+<?php include_once "template/page/headerPage.php";?>
+<!-- =================== HEADER ============================ -->
+<?php include_once "template/page/header.php";?>
+<!-- =================== MENU  ============================ -->
+<?php include_once "template/page/menuExterno.php";?>
+<!-- =================== CORPO  ============================ -->
+<?php include_once "template/page/corpoHeader.php";
+
+
+# id pmda
+$id = "";
+if(isset($_POST['id_pmda'])){
+	$id = (int)$_POST['id_pmda'];
+}elseif(isset($_GET['id_pmda'])){
+	$id = (int)$_GET['id_pmda'];
+}else {
+	$id = null;
+}
+
+$idLista = isset($_GET['id']) ? (int)$_GET['id'] : null;
+
+#status pmda
+$status = "";
+if(isset($_POST['status'])){
+	$status = (int)$_POST['status'];
+}elseif(isset($_GET['status'])){
+	$status = (int)$_GET['status'];	
+}else{
+	$status = null;
+}
+
+$opcao = "";
+if(isset($_POST['opcao'])){
+	$opcao = isset($_POST['opcao']);
+}elseif(isset($_GET['opcao'])){
+	$opcao = $_GET['opcao'];
+}else {
+	$opcao = null;
+}
+
+$id_msg_post = isset($_POST['id_msg']) ? (int)$_POST['id_msg'] : null;
+
+$id_mensagem = isset($_GET['id']) ? (int)$_GET['id'] : null;
+
+$id_municipio = isset($pageSession['session']['seguranca']['id_municipio']) ? $pageSession['session']['seguranca']['id_municipio'] : null;
+
+$pmda = new Pmda();
+
+?>
+
+<div class="col-md-12">
+
+<?php
+#  mensagens novas 
+if($opcao == "nv"){
+	 $lista = $pmda->listaMensagem($id);
+	 
+	print "<table class='table table-bordered table-striped'>";
+	print "<tr>
+			<th>#</th>
+			<th>Data Envio</th>
+			<th>Mensagem</th>
+			<th>Ação</th>
+	</tr>";	
+
+	if(count($lista) > 0) {
+		
+		foreach ($lista as $key=> $value) {
+			$background = ($value['status'] == 0) ? " style='background:#FF0000; color:#FFFFFF' title='Mensagem nova !'":"";
+			print "<tr>";
+			print "<td ".$background.">".($key+1)."</td>";
+			print "<td ".$background.">".DataMysql::dataCompletaVisual($value['dt_envio'])."</td>";
+			print "<td ".$background.">".$value['msg']."</td>";
+			if($value['status'] == "0"){
+				print "<td ".$background."><a onclick=\"mensagemLida(".$value['id'].", 'marcar_lida')\" title='Clique aqui para ler a Mensagem' name='msg' data-id_msg='".$value['id']."'>Marcar Como Lida Mensagem</a></td>";
+			}else {
+			print "<td ".$background." >Mensagem Lida</td>";
+			}
+				print "</tr>";
+		}
+	}else {
+		
+		echo "não Existe mensagens para este PMDA";
+		
+	}
+	print "</table>";
+
+# ler mensagem
+}elseif($opcao == 'ler'){
+	
+	$msg = $pmda->mensagem($id_msg_post);
+	print "<p style='text-align:center'>";
+	//print "<input type='button' value='voltar' onclick='javascript:history.back();'</p>";
+	print "<table class='table table-bordered table-striped'>";
+	print "<tr>";
+	print "<td style='text-align: justify;'>".$msg['msg']."</td>";
+	print "</tr>";
+
+ # Todas mensagens de um PMDA 
+}elseif((!is_null($id)) && ($opcao == 'msg_pmda')){
+	
+	$lista = $pmda->listaMensagem($id);
+	print "<p>".Municipio::PegaNomeMunicipio($lista[0]['id_municipio'])."</p>";
+	print "<br><h4><p style='text-align:center'>Histórico de Mensagens Recebidas PMDA</p></h4>";
+	print "<table class='table table-bordered table-striped'>";
+	
+	print "<th>#</th>";
+	print "<th>PMDA</th>";
+	print "<th>Data/Autor</th>";
+	print "<th>Mensagem</th>";
+	print "<th>Situação</th>";
+	
+	foreach ($lista as $key=> $value) {
+			
+		if($value['status'] == 0){
+			$situacao = 'Não Lida';
+			$css = "font-weight:bold;";
+		}else {
+			$situacao = 'Lida';
+			$css = "";
+		}
+			
+		print "<tr>";
+		print "<td style='".$css."'>".($key+1)."</td>";
+		print "<td style='".$css."'>".$value['protocolo']."</td>";
+		print "<td style='".$css."'>".DataMysql::dataCompletaVisual($value['dt_envio'])." / ".Usuario::getNomeId($value['id_usuario'])."</td>";
+		print "<td style='".$css."'>".$value['msg']."</td>";
+		print "<td style='".$css."'>".$situacao."</td>";
+		print "</tr>";
+
+	}
+
+	print "</table>";
+
+	print "</div>";
+
+# Historico geral de Mensagens de todos os PMDA'S
+}elseif ((is_null($opcao)) && (isset($id_municipio) && (is_null($id)))){
+
+	
+
+ 	$lista = $pmda->listaMsgMunicipio($id_municipio);
+ 	print "<br><p style='text-align:center'><input type='button' class='btn' onclick='javascript:history.back();' value='Voltar'></p>";
+ 	print "<br><h4><p style='text-align:center'>Histórico de Mensagens Recebidas</p></h4>";
+ 	print "<table class='table table-bordered table-striped'>";
+ 	
+ 	print "<th>#</th>";
+ 	print "<th>PMDA</th>";
+ 	print "<th>Data</th>";
+ 	print "<th>Mensegam</th>";
+ 	print "<th>Situação</th>";
+ 	
+ 	foreach ($lista as $key=> $value) {
+ 		
+ 		if($value['status'] == 0){
+ 			$situacao = 'Não Lida';
+ 			$css = "font-weight:bold;";
+ 		}else {
+ 			$situacao = 'Lida';
+ 			$css = "";
+ 		}
+ 		
+ 		print "<tr>";
+ 		print "<td style='".$css."'>".($key+1)."</td>";
+ 		print "<td style='".$css."'>".$value['protocolo']."</td>";
+ 		print "<td style='".$css."'>".DataMysql::dataCompletaVisual($value['dt_envio'])." / ".Usuario::getNomeId($value['id_usuario'])."</td>";
+ 		print "<td style='".$css."'>".$value['msg']."</td>";
+ 		print "<td style='".$css."'>".$situacao."</td>";
+ 		print "</tr>";
+ 	}
+ 	print "</table>";
+
+ #todas mensagens	
+ }elseif(!is_null($id)){
+	
+	$lista = $pmda->listaMensagem($id);
+	print "<p>".Municipio::PegaNomeMunicipio($lista[0]['id_municipio'])."</p>";
+	print "<br><h4><p style='text-align:center'>Histórico de Mensagens Recebidas</p></h4>";
+	print "<table class='table table-bordered table-striped'>";
+	
+	print "<th>#</th>";
+	print "<th>PMDA</th>";
+	print "<th>Data/Autor</th>";
+	print "<th>Mensagem</th>";
+	print "<th>Situação</th>";
+	
+	foreach ($lista as $key=> $value) {
+			
+		if($value['status'] == 0){
+			$situacao = 'Não Lida';
+			$css = "font-weight:bold;";
+		}else {
+			$situacao = 'Lida';
+			$css = "";
+		}
+			
+		print "<tr>";
+		print "<td style='".$css."'>".($key+1)."</td>";
+		print "<td style='".$css."'>".$value['protocolo']."</td>";
+		print "<td style='".$css."'>".DataMysql::dataCompletaVisual($value['dt_envio'])." / ".Usuario::getNomeId($value['id_usuario'])."</td>";
+		print "<td style='".$css."'>".$value['msg']."</td>";
+		print "<td style='".$css."'>".$situacao."</td>";
+		print "</tr>";
+
+	}
+
+	print "</table>";
+}
+
+	print "<div class='col-md-12'>";
+	 print "<p name='imprimir' id='imprimir' style='text-align:center;'><a class='btn btn-primary' href='javascript:window.print();' >Imprimir</a>
+	 <a class='btn btn-primary' href='javascript:history.back();'>Voltar-</a>
+	 </p>";
+	 print "</div>";
+
+?>
+</div>
+<?php include_once "template/page/rodape.php";?>
+<!-- =============== HEADER HTML PAGE ================= -->
+<?php include_once "template/page/rodapePage.php";?>
+<script type="text/javascript">
+
+/* Marca Mensagem lida */
+		function mensagemLida(id_msg, opcao){
+
+
+
+			$.ajax({
+				url : '/mod_index/app/login/ckLogin.php',
+			    type : 'POST',
+			    success : function(response) {
+			      	if(response == "sucesso"){
+						// codigo
+			
+			                var dados = {
+			                        		"id_msg" : id_msg,
+			                        		"opcao"  : opcao,
+			                        	};
+			    
+			                $.ajax({
+			                    type: 'POST',
+			                    url: '/mod_pipa/app/pmda/funcAdm.php',
+			                    data: dados,
+			                    success: function(response) {
+			                    	alert("Mensagem Lida !");
+									location.reload();
+			                    },
+			                    error: function(e){
+			    					console.log(dados+ 'erro'+JSON.stringify(e));
+			                    }
+			                    
+			                });
+			                
+			      	}else {
+				    	alert('Sessão expirada !')
+						window.location.href ='index2.php';
+					}
+				},
+				error : function(response){
+				    	console.log(JSON.stringify(response));
+				}
+			});
+
+		};
+</script>

@@ -1,0 +1,80 @@
+<?php if (session_status() !== PHP_SESSION_ACTIVE) {
+        session_start();
+        //include_once 'system/config.inc.php';
+        $login = isset($_SESSION['seguranca']['login']) ? $_SESSION['seguranca']['login'] :"";
+        
+        if(!$login){
+            $pagina = $_GET['page'] = 'login';
+        }
+      }
+
+$modulo = isset($_GET['mod']) ? $_GET['mod'] : 'index';
+$pagina = isset($_GET['page']) ? $_GET['page'] : 'menupg';
+$acao   = isset($_GET['action']) ? $_GET['action'] : 'inicio';
+$param  = isset($_GET['param']) ? $_GET['param'] : '';
+
+# menu principal
+if($pagina == "menupg") {
+  include_once "/template/page/menupg.php";
+#login
+}elseif ($pagina == "login") {
+  include_once "/template/page/login.php";
+# pagina branco
+}else {
+  include_once $pagina.'.php';
+}
+
+
+
+/*
+
+
+
+    $secao     = isset($_GET['secao'])  ? $_GET['secao'] : "login";
+      
+    $action    = isset($_GET['acao'])   ? $_GET['acao']  : "index";
+         
+    $param   = isset($_GET['param'])  ? "&param=".$_GET['param'] : "";
+    
+    $relatorio = isset($_GET['relatorio'])  ? $_GET['relatorio'] : "";
+    
+    $_id       = isset($_GET['id'])     ? (int)$_GET['id']    : "";
+
+    $modulo    = isset($_GET['modulo']) ? $_GET['modulo']: "";
+    
+    $protocolo = isset($_GET['p']) ? $_GET['p'] : null;
+    
+   
+    if(!empty($modulo)){
+        
+    	
+        if(!empty($relatorio)) { // relatorio
+            
+            include_once('mod_'.$modulo.'/app/'.$relatorio."/".$action.".php".$param);
+            
+        }else {
+        
+            if($modulo == "administrator") { // admin
+                include_once($modulo.'/app/'.$secao."/".$action.".php".$param);
+            }else {
+            	
+            	if(isset($protocolo)){ // pmda
+            		include_once('mod_'.$modulo.'/app/'.$secao."/".$action.".php");
+            		
+            	}else { // pmda
+            		if(($action == 'print') || ($action == 'printPmda') || ($action == "maps")){
+            			include_once('mod_'.$modulo.'/app/'.$secao."/".$action.".php");
+            		}else{ // normal
+                		include_once('mod_'.$modulo.'/app/'.$secao."/".$action.".php".$param);
+            		}
+            	}
+            }    
+            
+        }
+
+    }else {   
+        include_once('app/'.$secao."/".$action.".php".$param);
+        
+    }
+*/
+?>

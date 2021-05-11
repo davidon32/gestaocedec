@@ -1,0 +1,24 @@
+<?php 
+
+$_opcao = isset($_POST['ck_diario']) ? $_POST['ck_diario']: "";
+
+$_txt_id_deposito  = isset($_POST['txt_id_deposito']) ? $_POST['txt_id_deposito'] : ""; 
+$_txt_dt_inicial   = isset($_POST['txt_dt_inicial'])  ? $_POST['txt_dt_inicial']  : ""; 
+$_txt_dt_final     = isset($_POST['txt_dt_final'])    ? $_POST['txt_dt_final']    : ""; 
+$_txt_id_municipio = isset($_POST['txt_id_municipio'])? $_POST['txt_id_municipio']: ""; 
+$_txt_btn_enviar   = isset($_POST['txt_btn_enviar'])  ? $_POST['txt_btn_enviar']  : ""; 
+
+if($_opcao == '1') {
+	include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/resumo_diario.php';
+	exit();
+
+}else {
+	include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/resumo_geral.php';
+	exit();
+
+}
+
+
+?>
+
+

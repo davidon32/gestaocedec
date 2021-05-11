@@ -1,0 +1,139 @@
+@charset "utf-8";
+
+body {
+	text-align:center;
+	margin: auto;
+	font-family:Geneva, Arial, Helvetica, sans-serif;
+
+}
+
+.lay_vertical {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-style: normal;
+	padding: 5px;
+	height: 950px;
+	width: 800px;
+	float: left;
+	text-align: center;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-width: 1pt;
+	border-right-width: 1pt;
+	border-bottom-width: 1pt;
+	border-left-width: 1pt;
+}
+.cabecalho {
+	width:100%;
+	height: 13%;
+	border: 1px solid;
+}
+
+.imagem_1 {
+	width: 20%;
+	height: 100%;
+	float: left;
+	text-align: center;
+	margin-top: 5px;
+
+}
+
+.imagem_2 {
+	width: 20%;
+	height: 100%;
+	float: right;
+	text-align: center;
+	margin-top: 5px;
+
+}
+
+.tit_cabecalho {
+	float: left;
+	width: 60%;
+	height: 100%;
+	text-align: center;
+	font-weight: bold;
+	font-size: 12px;
+	
+
+}
+
+.conteudo {
+	width:100%;
+	height:77%;
+	
+}
+
+.rodape{
+	height: 3%;
+	width: 100%;
+	line-height: 40px;
+	border: 0.1em solid;
+	line-height:30px;
+
+}
+.titulo_relatorio{
+	clear:both;
+	height: 5%;
+	width: 100%;
+	border: 0.1em solid;
+	line-height: 40px;
+	font-size:15px;
+	font-weight: bolder;
+	background-color:#CCCCCC;
+	
+}
+
+.recibo {
+	
+	width: 700px;
+	height: 700px;
+	border: 0.1em solid;
+	margin: auto;
+	font-size: 12px;
+
+	
+}
+
+.titulo {
+	
+	font-weight: bolder;
+	text-transform: uppercase;
+	text-align: center; 
+	
+}
+.dado {
+	
+	text-align: left;
+	margin-left: 50px;
+	
+}
+
+.rcorpo {
+	
+	text-align: left;
+	margin-left: 50px;
+	
+}
+
+.rtopo {
+	
+	width: 700px;
+	height: 110px;
+	font-size:10px;
+	margin: auto;
+	text-align: center;
+	background-image:url(../imagem/topo_rel.png);
+	/*line-height: 220px;*/
+	/*border: 0.1em solid;*/
+}
+
+.t_recibo {
+	width: 350px;
+	
+}
+	
+	
+

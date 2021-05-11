@@ -1,0 +1,21 @@
+
+
+Barra usuario
+	Mensagens 
+	Notificação 
+	Perfil 
+	Configuração Template 
+
+Menu
+	Avatar
+	Nome
+	Pesquisa (Ocultar)
+	Itens
+	
+Corpo
+	BreadCumbs
+	
+
+rodape
+	Copyright
+	versao

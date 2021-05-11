@@ -1,0 +1,69 @@
+* {
+	
+	font-size: 10px;
+
+}
+
+body {
+	
+	width: 100%;
+	background-color: #d0e2ef;
+	
+}
+
+
+
+.cabecalho {
+	
+	padding: 5px;
+	color: #d0e2ef;
+	font-weight: bolder;
+	background-color: #2d5d87;
+	
+}
+
+.borda-cima {
+	
+	border-top: 0.1em solid; 
+}
+
+.borda-baixo {
+	
+	border-bottom: 0.1em solid; 
+}
+
+.borda-dir {
+	
+	border-right: 0.1em solid;
+}
+
+.borda-esq {
+	border-left: 0.1em solid;
+	
+}
+
+.centro {
+	
+	text-align: center;
+	
+}
+
+.esquerdo {
+	
+	text-align:left;
+	
+}
+
+.direito {
+	
+	text-align:right;
+	
+}
+
+
+.linha {
+	
+	background-color: #e1eff5;
+	
+	
+}

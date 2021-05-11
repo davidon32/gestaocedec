@@ -1,0 +1,106 @@
+<?php include_once '../../include.php';
+
+/* ****************************************************************************************
+ *  Org�o 		: Coordenadoria Estadual de Defesa Civil do Estado de Minas Gerais
+*	Sistema      : Sistema de Gest�o de Ajuda Humanit�ria
+*
+*	Autor        :  Demetrio Silva Passos
+*	Fun��o       : script para validacao de transferencia de materiais entre depositos
+*
+*******************************************************************************************/
+
+$_conexao = new ConexaoMysql();
+
+//Login::logado();
+
+//var_dump($_POST);
+
+  $_txt_saldo            = $_POST['txt_saldo']            ? $_POST['txt_saldo']            : ""; 
+  $_txt_id_produto       = $_POST['txt_id_produto']       ? $_POST['txt_id_produto']       : ""; 
+  $_txt_quantidade       = $_POST['txt_quantidade']       ? $_POST['txt_quantidade']       : ""; 
+  $_txt_dt_transferencia = $_POST['txt_dt_transferencia'] ? $_POST['txt_dt_transferencia'] : ""; 
+  $_txt_motorista        = $_POST['txt_motorista']        ? $_POST['txt_motorista']        : ""; 
+  $_txt_veiculo          = $_POST['txt_veiculo']          ? $_POST['txt_veiculo']          : ""; 
+  $_txt_placa            = $_POST['txt_placa']            ? $_POST['txt_placa']            : ""; 
+  $_txt_id_dep_origem    = $_POST['txt_id_dep_origem']    ? $_POST['txt_id_dep_origem']    : ""; 
+  $_txt_saida            = $_POST['txt_saida']            ? $_POST['txt_saida']            : ""; 
+  $_txt_hora_saida       = $_POST['txt_hora_saida']       ? $_POST['txt_hora_saida']       : ""; 
+  
+  #@deposito destino
+  $_id_deposito          = $_POST['id_deposito']          ? $_POST['id_deposito']          : ""; 
+  $_txt_chegada          = $_POST['txt_chegada']          ? $_POST['txt_chegada']          : ""; 
+  $_txt_hora_chegada     = $_POST['txt_hora_chegada']     ? $_POST['txt_hora_chegada']     : ""; 
+  $_btn_enviar           = $_POST['btn_enviar']           ? true                           : ""; 
+
+  $campos = array('Saldo'                =>$_txt_saldo,
+					'Pproduto'           =>$_txt_id_produto,
+					'Quantidade'         =>$_txt_quantidade,
+					'Data Transferencia' =>$_txt_dt_transferencia,
+					'Motorista'          =>$_txt_motorista,
+					'Veiculo'            =>$_txt_veiculo,
+					'Placa'              =>$_txt_placa,
+					'Dep Origem'         =>$_txt_id_dep_origem,
+					'Data Saida'         =>$_txt_saida,
+					'Hora Saida'         =>$_txt_hora_saida,
+					'Deposito'           =>$_id_deposito,
+					'Data Chegada'       =>$_txt_chegada,
+					'Hora Chegada'       =>$_txt_hora_chegada);
+
+
+#@ nome do material a ser transferido
+$_descricao = Material::PegaNomeId($_txt_id_produto);
+
+if(FuncaoBase::campoBranco($campos)){
+
+	if((!is_numeric($_txt_quantidade)) && ($_txt_quantidade < 1)) {
+		
+		print "<div style=\"text-align:center\">
+					Quantidade de Produtos inválida !
+				</div>";
+				FuncaoBase::voltar();
+		
+	}else if (!ControleSaldo::chSaldo($_txt_id_produto, $_txt_id_dep_origem, $_txt_quantidade)) {
+		
+		print "<div style=\"text-align:center\">
+					Produto Sem saldo !
+				</div>";
+			FuncaoBase::voltar();
+		
+	}else {
+		
+
+			$_SESSION['seguranca']['id_depDestino'] = $_id_deposito;
+		
+			#@realiza a transferencia de materiais
+			$transferencia = TransferenciaMaterial::Transferencia($_txt_id_produto, $_descricao, DataMysql::dataForm($_txt_dt_transferencia), $_txt_id_dep_origem, $_txt_quantidade, $_id_deposito, $_txt_saldo);
+		
+			#@ insere os dados na tabela transito e marca no saldo geral
+			$transito = GerTransito::Transito($_txt_id_produto, $_txt_id_dep_origem, $_id_deposito, $_txt_quantidade, $_txt_veiculo, $_txt_motorista, $_txt_placa, DataMysql::dataForm($_txt_saida).' '.$_txt_hora_saida.':00');
+		
+			if($transferencia && $transito){
+			    
+                $id_transferencia = getUltimoId();
+                
+                // log 
+                Log::GravaLog("Realizada Transferencia nr : ".$id_transferencia, "aju_log");
+					
+				//print 'Ok';
+				header("Location: ../secao.php?secao=material&acao=transferencia");
+					
+			}else {
+					
+				//var_dump(Produto::PegaIdProduto($_txt_id_produto));
+					
+				print 'Ocorreu um erro ao realizar a transferencia de materiais ! código 709';
+			}
+			
+		}
+
+
+	//echo FuncaoBase::alert('Transfer�ncia Realizada com Sucesso !');
+	//print '<a href="sc.transferencia.php">Voltar</a>';
+
+
+}
+
+?>

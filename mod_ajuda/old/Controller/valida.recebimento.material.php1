@@ -1,0 +1,102 @@
+<?php
+/* ****************************************************************************************
+*   Org�o 	 : Coordenadoria Estadual de Defesa Civil do Estado de Minas Gerais
+*	Sistema      : Sistema de Gest�o de Ajuda Humanit�ria
+*
+*	Autor        :  Demetrio Silva Passos
+*	Funcao       :  script para validacao de recebimento de material 	
+*
+*******************************************************************************************/
+
+	include_once $_SERVER['DOCUMENT_ROOT'].'/proj.portal_cedec/include.php';
+
+	/* ************ inicio login *********************/
+	
+	$login = new Login();
+	
+	$login->logado();
+	
+	//print FuncaoBase::vd($_SESSION);
+	/* ************ fim login *********************/	
+	
+	$_conexao = new ConexaoMysql();
+	
+	$id = isset($_GET['id']) ? (int)$_GET['id'] : null;
+	
+	$id_produto    = isset($_POST['produto']) ? $_POST['produto']: null;
+	$id_depDestino = isset($_POST['depDestino']) ? $_POST['depDestino']: null;
+	$quantidade    = isset($_POST['qtd']) ? $_POST['qtd']: null;
+	$dtChegada     = isset($_POST['dtChegada']) ? $_POST['dtChegada']: null;
+	$hrChegada     = isset($_POST['hrChegada']) ? $_POST['hrChegada']: null;
+	$responsavel   = isset($_POST['resp']) ? $_POST['resp']: null;
+	$identificacao = isset($_POST['ident']) ? $_POST['ident']: null;
+	$observacao    = isset($_POST['obs']) ? $_POST['obs']: null;
+	$baixa         = isset($_POST['baixa']) ? $_POST['baixa']: null;
+	$motivo		   = isset($_POST['motivo']) ? $_POST['motivo'] : null;
+	
+	FuncaoBase::vd($_POST);
+	
+	#@ busca por campos sem preenchimento
+	foreach ($_POST as $valor){
+
+		Global $passou;
+		
+		if(($valor != '') && ($valor != null)){
+			
+			$passou = true;
+		}else {
+			$passou = false;
+		}
+	}
+	
+		if($passou){
+			#@ atualiza a tabela TRANSITO com data e horario de chegada de materiais
+			$confTransito = GerTransito::EfetReceb(DataMysql::dataForm($dtChegada)." ".$hrChegada.":00",
+																		$responsavel,
+																		$identificacao,
+																		$observacao,
+																		$baixa,
+																		$id);
+			
+			#@ credita o saldo no deposito destino e por ventura ocorrer baixas já debita-as do saldo.
+			$confCredita = ControleSaldo::CreditarSaldo(Produto::PegaIdProduto($id_produto), Deposito::PegaIdDeposito($id_depDestino), ($quantidade-$baixa));
+		
+		
+			
+			if($baixa > 0){ 
+				
+				#@ insere na tabela BAIXA os materiais que tiveram perda para controle de baixa de materiais
+				GerTransito::ControleBaixa(Produto::PegaIdProduto($id_produto), Deposito::PegaIdDeposito($id_depDestino), date("Y/d/m H:i:s"), $quantidade, $motivo);
+			}
+			
+			FuncaoBase::vd($confCredita);
+			FuncaoBase::vd($confTransito);
+			if(($confTransito) and ($confCredita)){
+			    
+                Log::GravaLog("Recebimento de Transferencia de Material Nr: ".$id, "aju_log");
+				
+				print "<script language=\"JavaScript\">
+						alert('Recebimento realizado com Sucesso !');
+						</script>
+						";
+				header("Location: sc.receb.material.php");
+			}
+			
+		}
+		else {
+
+			print alert("Campos de Preenchimento Obrigatório Data e Hora Chegada !");
+			FuncaoBase::voltar();
+		}
+	
+	
+		
+			
+			
+	
+		
+	
+
+
+
+?>

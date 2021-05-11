@@ -1,0 +1,121 @@
+* {
+	font-size: 11px;
+	font-family: tahoma;
+	
+	
+}
+
+
+body {
+	
+}
+
+.cad {
+	width: 500px;
+	height: auto;
+	
+}
+
+.rota{
+	
+	width: 300px;
+	height: 430px;
+	border: 0.1em solid;
+	font-size: 11px;
+	float: left;
+	
+}
+
+.inforota{
+	
+	width: 300px;
+	height: 430px;
+	border: 0.1em solid;
+	font-size: 11px;
+	float: left;
+	color: blue;
+	
+}
+
+.base{
+	
+	width: 620px;
+	height: auto;
+	clear: both;
+	border: 0.1em solid;
+	font-size: 11px;
+	float: left;
+
+}
+
+.destaque {
+	
+	font-size: 15px;
+	font-weight: bolder;
+	text-transform: uppercase;
+	color: red;
+	
+}
+
+
+.form {
+	width: 100px;
+	float: left;
+	
+	
+}
+
+.info_ir{
+	width: 300px;
+	float: left;
+	height: 200px;
+	
+}
+
+td{
+	font-size: 11px;
+	width: 50px;
+	text-align: center;
+	font-weight: bolder; 	
+	
+}
+
+.titulo {
+	font-family:tahoma;
+	text-align: center;
+	font-size: 17px;
+	font-weight: bold;
+	width: 100%;
+		
+} 
+
+#placa {
+	
+	text-transform: uppercase;
+	
+}
+
+.rodapeJanela{
+
+		text-align: center;
+		display: block;
+	
+}
+
+.label {
+	width: 110px;
+	float: left;
+	font-size: 11px;
+}
+
+input select {
+	font-size: 10px;
+    height: 40px;
+	
+}
+
+select {
+	font-size: 10px;
+	
+}
+

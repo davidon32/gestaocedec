@@ -1,0 +1,31 @@
+@CHARSET "ISO-8859-1";
+
+td {
+	
+	text-align:center;
+
+	border-right: 0.1em dashed;
+		
+}
+
+table {
+	
+	text-align:center;
+
+	border-left: 0.1em dashed;
+	border-right: 0.1em dashed;
+	border-bottom: 0.1em dashed;
+	
+	
+	
+	
+		
+}
+
+tr {
+	
+	text-align:center;
+	/*color:#66FFCC;*/
+	
+			
+}

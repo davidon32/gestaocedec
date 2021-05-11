@@ -1,0 +1,2 @@
+<li><a href="?modulo=cedec&controller=municipio&action=buscar" title="Atualização dos dados Municipio"><i class="fa fa-th"></i>Municipio</a></li>
+<li><a href="?modulo=cedec&controller=agora&action=index" title="Defesa Civil Agora"><i class="fa fa-th"></i>Defesa Civil Agora</a></li>

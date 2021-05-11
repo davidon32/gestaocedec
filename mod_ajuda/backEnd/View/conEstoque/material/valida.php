@@ -1,0 +1,128 @@
+<?php include_once $_SERVER['DOCUMENT_ROOT'].'/core/include.php';
+
+/* Entrada de Materiais */
+if($_POST['opcao'] == 'cad_material') {
+
+	$_id_produto     = isset($_POST['id_produto'])     ? $_POST['id_produto']     : "";
+	$_txtDtEntrada   = isset($_POST['txtDtEntrada'])   ? $_POST['txtDtEntrada']   : "";
+	$_txtOrigem      = isset($_POST['txtOrigem'])      ? $_POST['txtOrigem']: "";
+	$_txtValidade    = isset($_POST['txtValidade'])    ? $_POST['txtValidade']    : "";
+	$_txtQtd         = isset($_POST['txtQtd'])         ? $_POST['txtQtd']         : "";
+	$_id_deposito    = isset($_POST['id_deposito'])    ? $_POST['id_deposito']    : "";
+	$_txarObs        = isset($_POST['txObs'])          ? FuncaoBase::tirarAcentos($_POST['txObs'])        : "";
+	$_nota       = isset($_FILES['fl_nota']['name'])   ? $_id_produto."_nota_entrada.".Anexo::getExtensao($_FILES['fl_nota']['name']) : "";
+	$_btnCadMaterial = isset($_POST['btnCadMaterial']) ? true 					  : "";
+
+
+	$campos = array("Produto"        => $_id_produto,    
+					"Data Entrada"   => $_txtDtEntrada,
+					"Origem Material"=> $_txtOrigem,     
+					"Quantidade"     => $_txtQtd,
+					"Deposito"       => $_id_deposito);  
+					
+			if(FuncaoBase::CampoBranco($campos)){
+					
+				if(Material::Cadastrar($_id_produto,
+										Unidade::PegaNomeId($_id_produto),
+										DataMysql::dataForm($_txtDtEntrada),
+										$_txtOrigem,
+										$_txarObs,
+										$_txtQtd,
+										Deposito::PegaNomeDeposito($_id_deposito),
+										DataMysql::dataForm($_txtValidade),
+										$_nota)) {
+
+					/* LANCA ATUALIZACAO SALDO DO MATERIAL */
+					Material::atualizarSaldo($_id_produto,$_id_deposito,$_txtQtd);
+					
+					/* LANCAMENTO DO CONTA CORRENTE */
+					/* ControleSaldo::lancaCC($_txtDtEntrada, $_id_produto, 
+											"ENTRADA NOTAS DE MATERIAL",
+											$_txtOrigem,
+											$_id_deposito,
+											"ENTRADA NOTA",
+											$_txtQtd,
+											"C"); */
+
+					if(!empty($_nota)){
+						$result = Anexo::upload(PATH.'/anexo/entrada_nota',
+												 $_FILES,
+												 "fl_nota",
+												 $_id_produto,
+												 'nota_entrada');
+						if($result) {
+							print "sucesso";
+						}else {
+							print var_dump($result);
+						}
+					}
+					
+					Log::GravaLog("Cadastro de material id_produto:".$_id_produto." qtd:".$_txtQtd." dataEntrada: ".$_txtDtEntrada." validade: ".$_txtValidade. " depDestino:".$_id_deposito, "aju_log");
+							
+					print "sucesso";
+				}
+	
+			}
+
+/* Cadastro produto (unidade) */
+}elseif($_POST['opcao'] == 'cad_prod') {
+
+		$_nome      = isset($_POST['nome'])      ? $_POST['nome']      : "";
+		$_descricao = isset($_POST['descricao']) ? $_POST['descricao'] : "";
+		$_btnCadMaterial = isset($_POST['btnCadProduto']) ? true 	   : "";
+	
+		$campos = array("nome"        => $_nome);  
+		
+				if(FuncaoBase::CampoBranco($campos)){
+						
+					$ultimoID = Material::CadProd($_nome,$_descricao);
+					
+					ControleSaldo::lancaSaldoGeralZerado($ultimoID);
+					Log::GravaLog("Cadastro de Produto nome:".$_nome." descricao:".$_descricao, "aju_log");		
+					print "sucesso";
+				
+				
+				}
+/* CADASTRO DE FONTE DE ENTRADA DE MATERIAIS */
+}elseif($_POST['opcao'] == 'cad_fonte') {
+
+	$_nome      = isset($_POST['nome'])      ? $_POST['nome']      : "";
+	$_btnCadMaterial = isset($_POST['btnCadFonte']) ? true 	   : "";
+	$_cad_por_mat = isset($_POST['cad_pelo_mat']) ? $_POST['cad_pelo_mat'] :"";
+
+	$campos = array("nome"        => $_nome);       
+	
+			if(FuncaoBase::CampoBranco($campos)){
+					
+				if(Material::CadFonte($_nome)) {
+
+					Log::GravaLog("Cadastro de Fonte material:".$_nome, "aju_log");		
+					if(strlen($_cad_por_mat) > 0) {
+						print "sucesso1";
+					}else {
+						print "sucesso";
+					}
+
+				}
+			}
+
+/* CADASTRO DE EVENTOS */
+}elseif($_POST['opcao'] == 'cad_evento') {
+
+	$_nome      = isset($_POST['nome'])      ? $_POST['nome']      : "";
+	$_btnCadMaterial = isset($_POST['btnCadEvento']) ? true 	   : "";
+
+	$campos = array("nome"        => $_nome);       
+	
+			if(FuncaoBase::CampoBranco($campos)){
+					
+				if(Material::CadEvento($_nome)) {
+
+					Log::GravaLog("Cadastro de Evento:".$_nome, "aju_log");		
+					print "sucesso";
+
+				}
+			}
+}
+
+?>

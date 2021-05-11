@@ -1,0 +1,150 @@
+*{
+                
+                font-size: 15px;
+                font-family: "Tahoma";
+                box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                padding-top: 3px;
+                padding-bottom: 1px;
+            }
+            
+            
+            .texto {
+            
+                font-size: 10px;
+                padding: 0;
+                margin: 0;
+                border-spacing :0;
+           
+            }
+
+            .campo {
+            
+                font-size: 11px;
+                padding: 0;
+                margin: 0;
+                border-spacing :0;
+           
+            }
+            
+            .campoTitulo {
+            
+                font-size: 11px;
+                padding: 0;
+                margin: 0;
+                border-spacing :0;
+                text-align: center;
+           
+            }
+            
+           
+ 
+            @media screen{
+                
+                
+        
+                body {
+                    margin: 0;
+                    padding: 0;
+                    background-color: #FAFAFA;
+                    
+                }
+                
+                .pagina {
+                    width: 21cm;
+                    /*min-height: 29.7cm;*/
+                    padding: 0.5cm;
+                    margin: 0.5cm auto;
+                    border: 1px #D3D3D3 solid;
+                    border-radius: 5px;
+                    background: white;
+                    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+                }
+    
+                 .paginaLandscape {
+                    width: 29.7cm;
+                    min-height: 21cm;
+                    padding: 0.5cm;
+                    margin: 0.5cm auto;
+                    border: 1px #D3D3D3 solid;
+                    border-radius: 5px;
+                    background: white;
+                    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+                }
+                
+                .quebra {
+    
+                    clear: both;
+                    page-break-inside: always;
+                }
+    
+                table {
+    
+                    width: 100%;
+                    margin: 0;
+                    padding: 0px;
+                   
+                }
+                
+                table.dsp {
+                	
+                	padding-bottom: 3px;
+                }
+                
+                
+            }
+            
+            
+            @media print {
+            
+                .imprimir {
+            
+                display: none;
+            
+            }
+                
+                *{
+                    font-size: 16px;
+                }
+   
+                body {
+                    margin: 0;
+                    padding: 0;
+
+                    
+                }
+                
+                .pagina {
+                    width: 100%;
+                    /* min-height: 29.7cm; */
+                    /* min-height: 28cm; */
+                    padding: 0.5cm;
+                    margin: 0.5cm auto;
+                }
+
+
+                .paginaLandscape {
+                    min-width: 29.7cm;
+                    /* min-height: 28cm; */
+                   min-height: 21cm;
+                    padding: 0.5cm;
+                    margin: 0.5cm auto;
+                }
+                                
+                
+    
+                
+                table {
+    
+                    width: 100%;
+                    margin: 0px;
+                    padding: 0px;
+                    border-collapse: separate;
+                    
+                    
+                }
+                
+                
+                
+                
+            }

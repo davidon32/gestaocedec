@@ -1,0 +1,68 @@
+body {
+	margin: 0 auto;
+	width: 800px;
+	height: auto;
+	border: none;
+	text-align: center;
+	font-size: 14px;
+	
+}
+.corpo {
+	margin-left: 2cm;
+	margin-right: 1.5cm;
+	width: 100%px;
+	text-align: justify;
+}
+.titulo {
+	font-weight: bold;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.primeiro {
+	margin-left: 40%;
+	font-weight: bold;
+	
+	
+}
+
+.dados {
+	text-transform: uppercase;
+	text-decoration: underline;
+		
+}
+
+
+
+.l1{
+	text-align: center;
+	font-size: 12px;
+	
+	width: 50%;
+	float: right;
+	/*border: 0.1em solid;*/
+	
+}
+.l2{
+	text-align: right;
+	font-size: 12px;
+	width: 100%;
+	float: left;
+	/*border: 0.1em solid;*/
+	
+}
+.topo {
+	text-align: center;
+	
+	
+}
+
+/* nomes para assinatura do contrato */
+.n_assina {
+	width:400px;
+	text-transform: uppercase;
+	font-weight: bold;
+	
+}
+
+

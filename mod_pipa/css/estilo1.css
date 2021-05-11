@@ -1,0 +1,201 @@
+@CHARSET "utf-8";
+
+body {
+	margin: 0 auto;
+	padding: 0px;
+	width: 970px;
+	height:auto;	
+	font-family: tahoma;
+}
+
+.topo {
+	margin: 0px;
+	padding: 0px;
+	height: 100px;
+	width: 100%;
+	background: url("../imagens/topo.png");
+}
+
+.menu {
+	margin: 0px;
+	padding: 0px;
+	height:1300px;
+	width: 15%;
+	float: left;
+	background: #cccccc;
+}
+
+.corpo {
+	float: left;
+	width: 85%;
+	height:1300px;
+	margin: 0px;
+	padding: 0px;
+	text-align: left;
+	background: #cccccc;
+}
+
+.rodape {
+	clear: both;
+	height: 30px;
+	width: 100%;
+	text-align: center;
+	background: #cccccc;
+	font-size: 10px;
+}
+
+label {
+	width: 110px;
+	float: left;
+}
+
+label.cad {
+	width: 60px;
+	text-align: left;
+}
+
+fieldset {
+	padding-left: 40px;
+	font-size: 11px;
+}
+
+select {
+	font-size: 11px;
+}
+
+option {
+	font-size: 10px;
+	
+}
+
+.limpa {
+	clear:both;	
+}
+
+.confirma_click {
+	
+	width:100%;
+	height:30px;
+	line-height:30px;
+	text-align:center;
+}
+
+.busca {
+	width: auto;
+	padding: 50px;
+	
+}
+
+.titulo {
+	font-family:tahoma;
+	text-align: center;
+	font-size: 17px;
+	font-weight: bold;
+	width: 100%;
+}
+
+.login {
+	text-align: center;
+}
+
+.exemplo {/* exemplo para digitacao do cpp ou cnpj para busca*/
+	opacity:0.55;
+	-moz-opacity: 0.55;
+	filter: alpha(opacity=55);
+	
+}
+
+.moto { /* container para esconder os dados do representante se s�o iguais*/
+	border: none;
+	width: 100%;
+	margin-left: 0px;
+}
+
+.btn_pesquisa {
+	width: 500px;
+	/*border: 0.1em solid;*/
+	text-align: center;	
+}
+
+.asterisco{
+	font-size: 15px;
+	color: red;
+	font-weight: bold;
+	width: 100px;
+}
+
+.volta {
+	 width: 100%;
+	 height:100px;
+	 line-height: 100px;
+	 text-align: center;	
+}
+
+#table {
+	font-size: 10px;
+}
+
+
+/*=============================================================================================*/
+/* tabela de exibicao de dados */
+.tabela {
+	font-family: tahoma;
+	font-size: 10px;
+}
+
+/* cabecalho de tabela e dados */
+td.cabTab{
+	color: #FFFFFF;
+	border-right: 0.1em solid;
+	background: activeborder;
+	border-color: #FFFFFF;
+	text-align: center;
+	padding-left: 7px;
+	padding-right: 7px;
+}
+
+/* linha de detalhe de dados */
+td.detaTab {
+	border-right: 0.1em solid;
+	border-bottom: 0.1em solid;
+	border-color: activeborder;
+	padding-left: 7px;
+	padding-right: 7px;
+	text-align: center;	
+}
+
+/* campo final da tabela para fechamento */
+td.ponta {
+	border-bottom: 0.1em solid;
+	border-color: activeborder;
+	padding-left: 7px;
+	padding-right: 6px;
+}
+
+input[type=text] {
+	width: 80px;
+	font-size: 8px;
+	text-transform: uppercase;	
+}
+
+input {
+	width: 80px;
+	font-size: 8px;
+}
+
+.telaRpa{
+	margin: auto;
+	width: 500px;
+	text-align: center;
+	
+}
+
+a {
+	font-size: 10px;	
+}
+
+/* div no centro da página */
+.centro {
+	width:100%;
+	text-align: center;
+}

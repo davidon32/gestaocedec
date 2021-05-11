@@ -1,0 +1,29 @@
+
+
+/* relatorio de materiais pagos*/
+.body_01 {
+	width: 800px;
+	height: 600px;
+	margin: 0;
+	color: #000066;
+	margin: 15px;
+}
+
+/*============================================*/
+
+* {
+	font-family: tahoma;
+	font-size: 13px;
+	
+	
+}
+.topo {
+	background: none;
+	
+}
+
+.botaoImpressao {
+	display: none;
+
+}
+

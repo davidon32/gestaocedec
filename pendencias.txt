@@ -1,0 +1,41 @@
+
+
+olhar com taciana a declaracao de conteudo
+
+montagem de carga
+    editar 
+
+produto
+    setfocus, auto close
+
+entrada de nota
+    (cadastro, edit )opcao remover produto adicionar errado
+    pesquisa (por data)
+pedido
+    (cadastro, edit )opcao remover produto adicionar errado
+    pesquisa (por data)
+
+verificar exportação excel
+log para alteração
+
+PEDIDO
+    mostrar justificativa em caso de cancelamento. no index e view
+
+SEPARAÇÃO DE MERCADORIAS
+    adicionar nome do separador (obrigatorio)
+    volume opcional
+    adicionar status pedido na separação
+
+NOTA
+    remover o botão na nota em caso de impressao
+
+RELATORIO INVENTARIO
+    colocar da da impressão geração
+RELATORIO PEDIDO
+    cnpj destinatario
+RELATORIO ENTRADA
+    adequar planilha
+RELATORIO DE SAIDA
+    adequar planilha
+    
+

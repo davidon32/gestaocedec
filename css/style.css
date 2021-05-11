@@ -1,0 +1,70 @@
+ 
+
+
+ .codigo{
+
+ 	background-color: #E6E6E6;
+ 	width: 90%;
+ 	margin: 0 auto;
+ 	color: #0B6138;
+
+}
+
+.obrigatorio {
+		color:red;
+		font-size: 10px;
+
+}
+
+.imgCinza{
+        -webkit-filter: grayscale(100%) !important;
+        filter: grayscale(100%) !important;
+		filter: gray !important; /* IE */
+		opacity : 0.6 !important;
+}
+
+.close{
+    width: 24px; /*largura*/
+    height: 24px; /*altura*/
+    /* font-size: 8px; */ /*tamanho da fonte (X)*/
+    /* line-height: 24px; */
+/*tamanho da linha que contem o texto -
+24 é o mesmo tamanho do botão para o X
+ficar alinhado no centro (cima-baixo)*/
+    text-align: center; /*alinhamento to texto no meio do botão (esq-dir)*/
+    /* position: relative; /*relativo para ficar por posicionado como está 
+- acima e para fora da caixa de alerta*/
+    right: -288px; /*posição em relação à  linha da caixa de alerta - horizontal*/
+    top: -12px; /*posição em relação à  linha da caixa de alerta - vertical*/
+    /* float: left; */ /*desacopla o botão do resto dos componentes*/
+    border-radius: 50%; /*raio de circunferencia dos cantos - 50% faz cada lado ficar totalmente redondo, criando um botão circular*/
+    /* border: 1px solid #ccc;  *//*borda do botão*/
+    background-color: #F55555; /*cor de fundo do botão*/
+    color: #000; /*cor do text*/
+    transition: all 0.2s ease; /*animação que ocorre quando alguma ação é realizada*/
+    cursor: pointer; /*mostra o dedo de link mostrando que é clicável*/
+}
+
+.swal2-title {
+    margin: 0px;
+    font-size: 20px;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.21);
+    margin-bottom: 28px;
+  }
+
+  .swal2-html-container {
+    font-size: 20px;
+  }
+  
+  
+  @media print {
+      .print {
+      display: none;
+  }
+  }
+  
+  .fix-altura {
+      height: 700px !important;
+  }
+  
+  

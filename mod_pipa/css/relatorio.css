@@ -1,0 +1,114 @@
+.layout {
+	width: 1024px;
+	height: 1024px;
+	
+	
+	
+}
+body {
+	margin: auto;
+/*	width:
+	height: */
+	page: auto;
+	
+}
+
+.titulo_c{
+	font-weight: bolder;
+	font-family: Tahoma;
+	font-size: 10px;
+	text-align: center;	
+	background: #BEBEBE;
+	border-right: 0.1em solid;
+	height: 7px;
+}
+
+.titulo {
+	
+	text-align: center;
+	font-family: Tahoma;
+	font-size: 11px;
+	height: 30px;
+	font-weight: bolder;
+	
+}
+
+.corpo {
+	
+	
+}
+
+.dado {
+	font-family: Tahoma;
+	font-size: 10px;	
+	padding-left: 5px;
+	padding-right: 5px;
+	width: 100px;
+	text-align: center;
+	
+}
+.dado2 {
+	font-family: Tahoma;
+	font-size: 10px;	
+	padding-left: 5px;
+	padding-right: 5px;
+	text-align: center;
+	
+}
+
+/* dados relatorio*/
+.dado3 {
+	font-family: Tahoma;
+	font-size: 10px;	
+	padding-left: 5px;
+	padding-right: 5px;
+	text-align: center;
+	border-bottom: 0.1em solid;
+	border-right: 0.1em solid;
+	
+}
+
+.dado4 {
+	font-family: Tahoma;
+	font-size: 10px;
+	font-weight:bold;	
+	padding-left: 5px;
+	padding-right: 5px;
+	text-align: center;
+	border-bottom: 0.1em solid;
+	border-right: 0.1em solid;
+	
+}
+.dado_nome {
+	font-family: Tahoma;
+	font-size: 10px;	
+	padding-left: 5px;
+	padding-right: 5px;
+	width: 200px;
+	text-align: center;
+	
+}
+
+.dado1 {
+	font-family: Tahoma;
+	font-size: 10px;	
+	padding-left: 5px;
+	padding-right: 5px;
+	width: 150px;
+	text-align: left;
+	
+}
+
+
+td {
+	width: auto;
+	font-size: 8px;
+	text-align: center;
+
+}
+td.titulo {
+	font-size: 8px;
+	font-weight: bold;
+	text-align: center;
+	
+}

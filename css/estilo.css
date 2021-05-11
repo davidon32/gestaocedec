@@ -1,0 +1,348 @@
+* {
+	font-family: tahoma;
+	font-size: 11px;
+}
+
+body {
+	margin: auto;
+	width: 970px;
+	height: 600px;
+	background: #FFFFFF;
+	font-family: tahoma;
+}
+
+/* tela adicionar material cesta */
+.cesta {
+	width: 900px;
+	height: 600px;
+	margin: auto;
+	background: #EAEAEA;
+	border: 0.1em solid;
+}
+
+.janela {
+	width: 800px;
+	height: 600px;
+	margin: auto;
+	background: #EAEAEA;
+	border: 0.1em solid;
+}
+
+/* janela para pequenas visualizacoes */
+.miniBody {
+	width: 570px;
+	height: 250px;
+	margin: auto;
+	background: #EAEAEA;
+	border: 0.1em solid;
+}
+
+.cad_mat {
+	width: 450px;
+	height: 450px;
+}
+
+.topo {
+	width: 100%;
+	height: 100px;
+	/*border: 0.1em solid;*/
+}
+
+fieldset {
+	background: #dddddd;
+	font-size: 11;
+	padding: 10px;
+}
+
+.m_menu {
+	width: 100%;
+	height: 40px;
+	border: 0.1em solid;
+}
+
+.m_corpo {
+	width: 100%;
+	height: 400px;
+	margin: 0 auto;
+	padding-top: 100px;
+}
+
+.rodape {
+	text-align: center;
+	width: 100%;
+	height: 35px;
+	font-size: 10px;
+}
+
+.m_cont_menu {
+	width: 250px;
+	height: 200px;
+	border: 0.1em solid;
+	margin: 0 auto;
+	padding-left: 50px;
+	padding-top: 50px;
+	background: #DDDDDD;
+}
+
+.m_campo_log {
+	width: 100px;
+	float: left;
+}
+
+.m_div_log {
+	display: block;
+	margin: 0 auto;
+}
+
+.m_div_centro {
+	width: 300px;
+	height: 300px;
+	border: 0.1em solid;
+	vertical-align: middle;
+	display: table-cell;
+}
+
+.m_campo_log {
+	width: 60px;
+	height: 10px;
+	font-size: 10px;
+	font-weight: bold;
+	vertical-align: middle;
+	display: table-cell;
+}
+
+.m_campo_log1 {
+	height: 10px;
+	font-size: 10px;
+	font-weight: bold;
+	vertical-align: middle;
+	display: table-cell;
+}
+
+.m_input {
+	height: 11px;
+	font-size: 9px;
+}
+
+.m_input_btn {
+	height: 23px;
+	width: 40px;
+	font-size: 9px;
+}
+
+input[text] {
+
+	font-size: 9px;
+	text-transform: uppercase;
+	width: 200px;
+	height: 20px;
+}
+
+textarea {
+	font-size: 9px;
+}
+
+.logout {
+	text-align: right;
+	padding-right: 10px;
+	padding-top: 10px;
+}
+
+.corpo {
+	width: 100%;
+	height: 400px;
+}
+
+.corpoMenu {
+	margin: auto;
+	height: 500px;
+	background: url("../imagem/fundo_455x500.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	text-align: center;
+}
+
+td {
+	font-size: 11px;
+}
+
+.titulo {
+	text-align: center;
+	font-size: 11px;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+/* titulo secundario Tabela dentro de Tabela */
+.tituloSec {
+	text-align: center;
+	font-size: 11px;
+	font-weight: bold;
+}
+
+label {
+	font-size: 11;
+}
+
+select {
+	font-size: 11px;
+}
+
+.liberacao {
+	width: 350px;
+	height: 390px;
+	text-align: left;
+	float: left;
+	font-size: 12px;
+}
+
+.liberacao1 {
+	width: 350px;
+	height: 390px;
+	text-align: center;
+	margin-left: 20px;
+	float: left;
+	font-size: 12px;
+}
+
+/* alinhamento central de objetos */
+.meio {
+	text-align: center;
+	margin-left: 20px;
+	width: 735px;
+	clear: both;
+}
+
+div,meio {
+	font-size: 11px;
+}
+
+div {
+	width: 100%;
+	text-align: center;
+}
+
+.campo {
+	text-align: left;
+}
+
+.rotulo {
+	border: 0.1em solid;
+	float: right;
+}
+
+.campoa {
+	float: right;
+	border: 0.1em solid;
+}
+
+.quadro_esq {
+	width: 440px;
+	float: left;
+}
+
+.quadro_dir {
+	width: 450px;
+	float: left;
+	background: #FFFFFF;
+}
+
+.coluna {
+	width: 5px;
+	float: left;
+}
+
+.menutbl {
+	text-align: center;
+}
+
+/* aviso do sistema */
+.aviso {
+	padding: 15px;
+	text-align: justify;
+	width: 300px;
+}
+
+td.aviso {
+	font-size: 14px !important;
+}
+
+/* tabel aviso do sistema */
+.tb_aviso {
+	border: 0.1em solid;
+	width: 320px;
+}
+
+.tb_fdo {
+	background: #DDDDDD;
+}
+
+.info {
+	color: red;
+}
+
+.nomeCampo {
+	font-weight: bold;
+}
+
+/* tabela de menu inicial */
+.tb_menu {
+	width: 800px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.volta {
+	padding-top: 120px;
+	margin: auto;
+	display: block;
+	vertical-align: middle;
+	text-align: center;
+	width: 400px;
+	height: 400px;
+}
+
+.alerta {
+	color: red;
+	font-size: 15px;
+}
+
+
+td.formulario {
+	text-align: left;
+	
+	}
+
+
+.corpoForm {
+	padding: 10px;
+	border: 0.1em solid;
+	
+}
+
+/* tabela de exibicao de dados */
+.tabela {
+    font-family: tahoma;
+    font-size: 10px;
+    width: 100%;
+}
+
+/* cabecalho de tabela e dados */
+td.cabTab{
+    color: #FFFFFF;
+    border-right: 0.1em solid;
+    background: activeborder;
+    border-color: #FFFFFF;
+    text-align: center;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+/* linha de detalhe de dados */
+td.detaTab {
+    border-right: 0.1em solid;
+    border-bottom: 0.1em solid;
+    border-color: activeborder;
+    padding-left: 7px;
+    padding-right: 7px;
+    text-align: center; 
+}

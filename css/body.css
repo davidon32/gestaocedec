@@ -1,0 +1,80 @@
+@CHARSET "ISO-8859-1";
+
+
+body {
+	
+/* 	background: #fee7bc; */
+	background: #f2f3ff;
+}
+
+.box {
+	position: relative;
+	width: 90%;
+	height: 100px;
+	background: #ccc;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	display: block;
+	margin: 0 auto 6px;
+}
+.box:before,
+.box:after {
+	z-index: -1;
+	position: absolute;
+	content: "";
+	bottom: 11px;
+	left: 0;
+	right: auto;
+	width: 50%;
+	height: 74%;
+	/*background: rgba(0, 0, 0, 0.7);*/
+	-webkit-box-shadow: 0 0 20px rgba(0,0,0, 0.7);
+	-moz-box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+	border-radius: 10%;
+}
+.box:after {
+	right: 0;
+	left: auto;
+}
+
+label{
+	font-weight: bolder;
+	
+}
+
+#menu_compdec {
+	background-color: #CEE3F6;
+	min-height: 600px;
+	
+}
+
+.form_cadastro{
+	background-color: #CEE3F6;
+
+}
+
+.field {
+	background: #f2f3ff !important;
+	margin: 0 auto;
+	padding: 3px;;	
+	width: 95%
+}
+
+hr {
+width: 98%;	
+tex-align: center;
+	
+}
+
+.obs {
+	font-family: tahoma;
+	font-weight: bold;
+	font-size: 10px;
+	color: #0000CC;	
+}
+
+table.tbl{
+	font-size: 10px !important;
+	
+}
