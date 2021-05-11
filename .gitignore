@@ -10,7 +10,9 @@
 .vscode
 *.7z
 *.zip
+*.rar
 /git_velho
 /def_agora_template
 /gestaocedec_arquivos
 /bkp
+
