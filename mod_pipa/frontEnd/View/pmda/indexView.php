@@ -170,7 +170,7 @@ foreach ($dadosPmda as $value) {
 
 
         $("#idVoltarMenu").click(function () {
-            window.location.href = 'index.php?ac=etn&modulo=index&controller=index&action=menue';
+            window.location.href = 'index.php?token=<?=hash('sha256', md5(VERSAO)."-".time())?>&modulo=index&controller=index&action=menue';
         })
 
 

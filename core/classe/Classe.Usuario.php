@@ -181,8 +181,6 @@ class Usuario extends UsuarioModel {
      */
     public static function atuaUsuarioExterno($dados) {
         
-        $reset = strtotime(date('Y-d-m H:i:s'));
-
         try {
 
             $con = Conexao::getInstance();

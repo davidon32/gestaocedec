@@ -38,13 +38,12 @@ class FuncaoBase extends Exception{
 	*	echo FuncaoBase::geraLink("itn","ajuda","relatorio", "rel1", $param);?>
 	*/
 	public static function geraLink($modulo,$controller,$action, array $param=null){
-
 		if(!is_null($param)){
 			$strParam = "&".http_build_query($param);
 		}else {
 			$strParam = "";
 		}
-		return "?token=".hash('sha256', md5(VERSAO))."&modulo=".$modulo."&controller=".$controller."&action=".$action.$strParam;
+		return "?token=".hash('sha256', md5(VERSAO)."-".time())."&modulo=".$modulo."&controller=".$controller."&action=".$action.$strParam;
 	}
 ######################################################################################
 

@@ -47,7 +47,7 @@
 						<table class="table">
 							<th>Usuario</th>
 							<th>Municipio</th>
-							<th>Email</th>
+							<th>Email (rec senha)</th>
 							<th>Status</th>
 							<th>Opções</th>
 							

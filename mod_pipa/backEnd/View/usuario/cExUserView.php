@@ -13,7 +13,7 @@
 $dados = Usuario::buscaUsuarioId($_GET['id']);
 ?>
 
-<form class="form-horizontal" action="" method="POST" id="cadUserEx" name="">
+<form class="form-horizontal" action="<?=FuncaoBase::geraLink("pipa", "pipa", "resetarSenha")?>" method="POST" id="cadUserEx" name="">
 <fieldset>
 
 <!-- Form Name -->
@@ -42,16 +42,15 @@ $dados = Usuario::buscaUsuarioId($_GET['id']);
 
 <!-- Password input-->
 
-  <label class="control-label" for="passwordinput">Conf. Senha</label>
-
-    <input id="senha" name="senha" type="password" value="<?=$dados['senha'] ?>" class="form-control" readonly="readonly">
+    <input id="senha" name="senha" type="hidden" value="<?=$dados['senha'] ?>" class="form-control" readonly="readonly">
     <input id="trSenha" name="trSenha" type="hidden" value="0">
-		<br>
-    <span class="alert alert-danger">Senha Padrao : "portal199"</span>&nbsp;<br>
-		<br>
-    <span id="btnResetar" class="btn btn-primary">Resetar Senha</span>
-     <span id="spAviso" class="alert alert-error">Senha Alterada para <b>portal199</b> !, clique em salvar para Gravar as Alterações </span>
-
+   
+    <input type="checkbox" id="ckReset" name="ckReset" >
+                      
+                <label>Resetar Senha</label>
+                <br>
+                <br>
+     
 <div class="control-group">
     <table class="table table-bordered table-striped" width="60%">
     	<tr>
@@ -107,32 +106,6 @@ $dados = Usuario::buscaUsuarioId($_GET['id']);
 
 </div>
 
-
-<?php 
-
-$btn = isset($_POST['btnAtua']) ? $_POST['btnAtua'] : "" ;
-
-if($btn == 'btnAtua'){
-
-	$_POST['ck_compdec'] = isset($_POST['ck_compdec']) ?$_POST['ck_compdec']: 0;
-	$_POST['ck_pmda']    = isset($_POST['ck_pmda'])    ?$_POST['ck_pmda']   : 0;
-	$_POST['ck_ajuda']   = isset($_POST['ck_ajuda'])   ?$_POST['ck_ajuda']  : 0;
-
-	if(Usuario::atuaUsuarioExterno($_POST)){
-	
-		print "<script>
-	 			alert('Usuario atualizado com Sucesso !');
-				window.location.href='?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=pipa&controller=pipa&action=pesquisaUsuario&volta=compdec';
-	 		</script>";
-          
-	}else{
-		
-		print "oi";
-	}
-}
-
-?>
-
 </div>       
 </div> 
 <!-- =================== RODAPE CORPO ==================== -->
@@ -149,7 +122,9 @@ if($btn == 'btnAtua'){
 <script type="text/javascript">
 
 $(document).ready(function(){
-
+    
+    $("#senha").val("");
+    
 	$("#cadUserEx").validate();
 
 	$("#email_rec").blur(function(){
@@ -191,12 +166,19 @@ $(document).ready(function(){
 	
 	$("#spAviso").hide();
 	
-	$("#btnResetar").click(function(){
+	$("#ckReset").click(function(){
+            
+            if($("#ckReset").is(":checked")){
+                $("#senha").val("<?=md5('portal199');?>");
+                $("#trSenha").val("1");
+            }else {
+                $("#senha").val("");
+                $("#trSenha").val("1");
+                alert('Você não resetou a senha, deseja continuar !');
+            }
 
-		$("#senha").val("<?=md5('portal199');?>");
-		$("#senha").css('background-color','#FF6347');
-		$("#spAviso").fadeIn("slow");
-		$("#trSenha").val("1");
+		
+		
 	});
 
 	$("#btnAtua").hover(function(){
@@ -204,8 +186,9 @@ $(document).ready(function(){
 			alert("O email nao pode ficar em branco");
 			$("#btnAtua").attr("disabled", "true");
 		};
+                
 	});
-
+        
 
 	$("#email_rec").blur(function (){
 		if($("#email_rec").val() != ""){
