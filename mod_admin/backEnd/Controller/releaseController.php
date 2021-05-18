@@ -5,35 +5,32 @@ include_once('core/Controller/Controller.php');
  * 	CEDEC-MG - Coordenadoria Estadual de Defesa Civil de Minas Gerais			  	*
  * 	
  *      Gerado de Código : 1.0
- * 	Controller tabela aju_entrada_nota										*
+ * 	Controller tabela cedec_release										*
  * 																					*
  * 	Autor: Demetrio da Silva Passos	
  *      MASP: 1296844
  * 																					*
- * 	Criacao : 29/09/2020															*
+ * 	Criacao : 18/05/2021															*
  * ********************************************************************************** */
 
-class entrada_notaController extends Controller {
+class releaseController extends Controller {
 
-    private $entrada_nota;
-    private $entrada_notas;
+    private $release;
+    private $releases;
     private $campos;
     public $numPage;
     
     public function __construct() {
-        $this->entrada_nota = new Entrada_notaConEstoqueModel;
-        $this->entrada_notas = $this->entrada_nota->lista();
-        
-       
+        $this->release = new ReleaseModel;
+        $this->releases = $this->release->lista();
 
     }
 
-    # index entrada_nota
+    # index release
 
     public function index() {
-        $entrada_notaModel = $this->entrada_nota;
-        
-        include_once 'mod_ajuda/backEnd/View/conEstoque/entrada_nota/index.php';
+        $releaseModel = $this->release;
+        include_once 'mod_admin/backEnd/View/release/index.php';
     }
 
     /* paginacao */
@@ -42,14 +39,14 @@ class entrada_notaController extends Controller {
         
         $this->numPage = $numPage;
 
-        $totalRegistro = count($this->entrada_notas);
+        $totalRegistro = count($this->releases);
         $regPorPagina = $numPage;
         
         $totPag = ceil($totalRegistro / $numPage);
 
         $start = ($page - 1) * $regPorPagina;
 
-        $paginacao = $this->entrada_nota->paginacao($start, $regPorPagina);
+        $paginacao = $this->release->paginacao($start, $regPorPagina);
        
         return array($paginacao, $totPag);
        
@@ -59,10 +56,14 @@ class entrada_notaController extends Controller {
     # Exportar dados excel
     public function exportar() {
 
-        $entrada_nota = new Entrada_notaConEstoqueModel;
-        $dados = $entrada_nota->listaExportar();
+        $release = new ReleaseConEstoqueModel;
+        
+        $dados = $release->lista();
+        
         $coluna = array_keys($dados[0]);
+        
         $data = array();
+        
         array_push($data, $coluna);
         
         foreach ($dados as $key => $dado) {
@@ -91,7 +92,7 @@ class entrada_notaController extends Controller {
 
     # formulario cadastro
     public function cadastro() {
-        include_once 'mod_ajuda/backEnd/View/conEstoque/entrada_nota/cadastro.php';
+        include_once 'mod_admin/backEnd/View/release/cadastro.php';
     }
 
     ################  GRAVAR ##################    
@@ -99,76 +100,91 @@ class entrada_notaController extends Controller {
 
     public function gravar() {
 
-        $entrada_nota = new Entrada_notaConEstoqueModel;
+        $release = new ReleaseModel;
 
-        $entrada_nota->gravar($_POST);
-        //die();
-        //$entrada_nota->gravar($_POST);
-                       
-            //FuncaoBase::alert("Registro Gravado com Sucesso !");
-            //$this->redirect("ajuda", "entrada_nota", "index");
-        
+        if ($release->gravar($_POST)) {
+            FuncaoBase::alert("Registro Gravado com Sucesso !");
+            $this->redirect("admin", "release", "index");
+        }
     }
             
     # pesquisa registro
 
     public function pesquisa() {
 
-            include_once 'mod_ajuda/backEnd/View/conEstoque/entrada_nota/pesquisa.php';
+            include_once 'mod_admin/backEnd/View/release/pesquisa.php';
     }
     
 
     #visualizar registro
 
     public function view() {
-         $entrada_notaModel = $this->entrada_nota;
-        $view = $this->entrada_nota->view($_GET['id']);
-        include_once 'mod_ajuda/backEnd/View/conEstoque/entrada_nota/view.php';
+         $releaseModel = $this->release;
+        $view = $this->release->view($_GET['id']);
+        include_once 'mod_admin/backEnd/View/release/view.php';
     }
 
     # editar registro
 
     public function edit() {
 
-        $entrada_notaModel = new Entrada_notaConEstoqueModel;
+        $releaseModel = new ReleaseModel  ;
 
         if ($this->isPost()) {
 
-            $result = $entrada_notaModel->edit($_POST);
+            $result = $releaseModel->edit($_POST);
             
             //var_dump($result);
             if (!empty($result)) {
                 FuncaoBase::alert("Registro Atualizado com Sucesso !");
-                $view = $entrada_notaModel->view($_POST['id_entrada_nota']);
-                $param = array('id'=> $_POST['id_entrada_nota']);
-                $this->redirect("ajuda", "entrada_nota", "view", $param);
+                $view = $releaseModel->view($_POST['id_release']);
+                $param = array('id'=> $_POST['id_release']);
+                $this->redirect("admin", "release", "view", $param);
             }
         } else {
 
-            $view = $entrada_notaModel->view($_GET['id']);
-            include_once 'mod_ajuda/backEnd/View/conEstoque/entrada_nota/edit.php';
+            $view = $releaseModel->view($_GET['id']);
+            include_once 'mod_admin/backEnd/View/release/edit.php';
         }
     }
     
     /*  deletar registro */
     public function delete() {
         
-        $id_entrada = isset($_GET['id']) ? $_GET['id'] : "";
-
-       # verifica liberação / transferencia com a entrada
-       if(!Pedido::existePedido($id_entrada) && !TransferenciaConMaterialModel::existeTransferencia($id_entrada)) {
-           $this->entrada_nota->delete($_GET['id']);
-           $this->entrada_nota->deleteCCCEntradaNota($_GET['id']);
+       if($this->release->delete($_GET['id'])){
            FuncaoBase::alert("Registro Apagado com Sucesso !");
-           $this->redirect("ajuda", "entrada_nota", "index");
-       }else {
-           print "<script>";
-           print "alert('Existe pedidos ja realizados para essa entrada de nota !');";
-           print "</script>";
-           $this->redirect("ajuda", "entrada_nota", "index");
        }
 
-            
+            $this->redirect("admin", "release", "index");
+    }
+    
+    /**
+     * 
+     *  
+     */
+    public function rel(){
+        
+        $dados_rel = $this->release->relRelease();
+
+        print "<style>*{ font-family: Consolas, monaco, monospace;font-size: 15pt;}"
+        . "table{ width:100%; padding:10px;} tr:nth-child(even) {background-color: #f2f2f2;} th{background-color:#999999}</style>";
+        print "<div style='overflow-x:auto;'>";
+        print "<p align='center'><a href='".FuncaoBase::geraLink("index", "index", "index")."'><img src='/core/imagem/voltar.png'></a></p>";
+        print "<table>";
+        print "<tr><th style='width:10%'>Data </th><th>Release</th></tr>";
+        
+        foreach ($dados_rel as $key => $value) {
+        print "<tr>";
+        print "<td>". DataMysql::dataVisual($value['data_release'])."</td>";
+        print "<td>".$value['texto']."</td>";
+        print "</tr>";
+        
+        
+        }
+        
+        print "</table>";
+        print "</div>";
+        
         
     }
 

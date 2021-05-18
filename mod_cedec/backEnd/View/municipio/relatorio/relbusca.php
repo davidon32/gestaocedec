@@ -1,5 +1,6 @@
+<?php include_once PATH.'/core/include.php';?>
 <?php include_once "core/Model/indexModel.php";?>
-<?php include_once "mod_admin/Model/admModel.php";?>
+<?php include_once "mod_cedec/Model/Model.php";?>
 <!-- =============== HEADER HTML PAGE ================= -->
 <?php include_once "template/page/headerPage.php";?>
 <!-- =================== HEADER ============================ -->
@@ -9,20 +10,23 @@
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php";?>
 
- 
-    <!-- configuracoes do sistema -->
-    <div class="col-md-2">
-        <a href='<?=FuncaoBase::geraLink("admin","release", "index")?>' class="btn btn-primary">Release</a>
-    </div>
+
+<div class="col-md-12">
     
-    <div class="col-md-2">
-        <a href='#' class="btn btn-primary">Backup Sistema</a>
-    </div>
-    <div class="col-md-12 text-center">
+    <a href="<?=FuncaoBase::geraLink("cedec", "municipio", "rel_email")?>" class="btn btn-primary">email prefeituras</a><br><br>
+    <a href="<?=FuncaoBase::geraLink("cedec", "municipio", "rel_email_ca")?>" class="btn btn-primary">email Outlook CA</a><br><br>
+    <a href="#"  class="btn btn-primary">Telefones</a>
+    
+    
     <br>
-    <a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=&modulo=index&controller=index&action=menu">Voltar</a>
+    <br>
+    
 </div>
-       
+<div class="col-md-12 text-right">
+    <a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=index&controller=index&action=menu">Voltar</a>
+</div>
+
+
 <!-- =================== RODAPE CORPO ==================== -->
 <?php include_once "template/page/corpoRodape.php";?>
 <!-- =================== RODAPE  ======================== -->

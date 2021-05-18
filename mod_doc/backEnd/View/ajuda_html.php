@@ -11,9 +11,21 @@
 <?php include_once "template/page/corpoHeader.php"; ?>
 <style>
     
+    *{
+        font-size: 15pt;
+    }
+    
     img {
         width: 300;
     }
+    
+    span.destaque1{
+        font-size: 15pt;
+        color: red;
+        font-weight: bold;
+    }
+    
+    
     
 </style>
     
@@ -23,8 +35,9 @@
         <a href="<?=FuncaoBase::geraLink("doc", "doc", "index")?>" class="btn btn-success">Voltar</a>
         <nav class="bs-docs-sidebar hidden-print hidden-sm hidden-xs affix">
             <legend><p>Indice</p></legend>
-            <a href="#">Glossário</a>  
-            <
+            <p><a href="#">Glossário</a> </p> 
+            <p><a href="#id_funcionalidade">Funcionalidades</a></p>
+            
             <ul>
                 <li class="fa fa-yelp">&nbsp;&nbsp;&nbsp;<a href="">ACESSO EMAIL INSTITUCIONAL <span class="label label-default">Novo</span></a>
                     <ul>
@@ -44,14 +57,36 @@
         </nav>
     </div>    
     <div class="col-md-9">
-       
         <div class="panel panel-default">
             <div id="acessowebmail" class="panel-heading">Acesso WebMail</div>
             <div class="panel-body">
-                Acesse : www.mail.ca.mg.gov.br <br>
-                no campo usuário coloque o mesmo que é usado para acessar os computadores da CA<br> 
-                <img width="400" src="core/imagem/img_ajuda/img1.jpg">
+                <p>Acesse : www.mail.ca.mg.gov.br </p>
+                <p>no campo usuário coloque o <span class="destaque1">mesmo que é usado para acessar os computadores da CA</span></p>
+                <p><img src="core/imagem/img_ajuda/webmail_01.png"></p>
+                <p>Abrir Caixa de Email da seção, ex: defesacivil@defesacivil.mg.gov.br</p>
+                <p>No canto superior direito</p>
+                
+                <p><img src="core/imagem/img_ajuda/webmail_02.png"></p>
             </div>
+            <!-- # inicio grupo -->
+            <div id="id_grupo" class="panel-heading">
+                Titulo Grupo
+            </div>
+            <div class="panel-body">
+                <p>informações</p>
+                <p><img src="imagens"></p>
+            </div>
+             <!-- # fim grupo  -->
+             
+            <!-- # inicio funcionalidades -->
+            <div id="id_funcionalidade" class="panel-heading">
+                Funcionalidades Disponíveis
+            </div>
+            <div class="panel-body">
+                <p>informações</p>
+                <p><img src="imagens"></p>
+            </div>
+             <!-- # fim funcionalidades  -->
         </div<br><br><br>
         
 

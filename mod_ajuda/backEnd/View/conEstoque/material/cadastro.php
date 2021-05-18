@@ -92,11 +92,12 @@
 				<th class="text-center">Deposito Destino</th>
 				<th class="text-center">Qtd</th>
 				<th class="text-center">Validade</th>
+				<th class="text-center">Nota F</th>
 			
 			</tr>
 				<?php
 
-					$material = Material::listaEntradaMaterial();
+					$material = Material::listaEntradaMaterial(50);
 
 					foreach ($material as $key => $value) {
 						print "<tr><td>".$value['id_produto']."</td>
@@ -105,7 +106,8 @@
 								<td>".$value['origem']."</td>
 								<td>".$value['depDestino']."</td>
 								<td>".$value['quantidade']."</td>
-								<td>".$value['validade']."</td>
+								<td>".(empty($value['validade']) ? "n/a" : $value['validade'] )."</td>
+                                                                <td>-</td>
 								</tr>";
 					}
 				?>

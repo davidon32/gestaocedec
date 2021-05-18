@@ -306,7 +306,30 @@ class Municipio extends DataMysql {
             echo $e->getMessage();
         }
     }
+    
+    public static function rel_email($param = 'todos') {
+        
+        $con = Conexao::getInstance();
+        
+        $dados = array();
+        
+        
+        $sql = "select id_municipio, nome, email from cedec_municipio "
+                . "where id_municipio != 7221";
+        
+        $result = $con->query($sql);
+        
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            if($param == 'existente'){
+                if(strlen($linha['email']) > 0){
+                    $dados[] = $linha;            
+                }
+            }else {
+                $dados[] = $linha;            
+            }
+        }
 
-}
+        return $dados;
+    }
 
-?>
+}?>

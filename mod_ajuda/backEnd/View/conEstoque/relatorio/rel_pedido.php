@@ -66,9 +66,10 @@
     <a class="btn btn-success imprimir" href="<?= FuncaoBase::geraLink("ajuda", "relatoriocon", "pedidos") ?>">Voltar</a>
 </div>
 <?php 
+
 if($dados){ 
     
-    var_dump($dados);
+    
     
     
     ?>
@@ -103,6 +104,7 @@ if($dados){
         <th>DATA_EMISSAO</th>
         <th>DATA_ENTREGA</th>
         <th>ARMAZEM</th>
+        <th>NR.NOTA</th>
         <th>TRANSPORTADORA</th>
         <th>DESTINATARIO</th>
         <th>DESTINATARIO_FINAL</th>
@@ -130,6 +132,7 @@ if($dados){
         print "<td>" . date('d/m/Y', strtotime($value['data_emissao'])) . "</td>";
         print "<td>" . (isset($value['data_entrega']) ? date('d/m/Y', strtotime($value['data_entrega'])) : "" ). "</td>";
         print "<td>" . $value['armazem'] . "</td>";
+        print "<td>" . $value['id_nota'] . "</td>";
         print "<td>" . $value['transportadora'] . "</td>";
         print "<td>" . $value['destinatario'] . "</td>";
         print "<td>" . $value['destinatario_final'] . "</td>";
@@ -143,14 +146,14 @@ if($dados){
         
         if(isset($value['id_unidade'])) {
         print"<tr>";
-        print "<td style='background-color: #E4E4E4' colspan='9'></td>";
+        print "<td style='background-color: #E4E4E4' colspan='10'></td>";
         print "<td style='background-color: #E4E4E4'>Código</td>";
         print "<td style='background-color: #E4E4E4'>Nome</td>";
         print "<td style='background-color: #E4E4E4'>Quatidade</td>";
         print "<td style='background-color: #E4E4E4'>Valor Unit.</td>";
         print "</tr>";
         
-        print "<td style='background-color: #E4E4E4' colspan='9'>Material</td>";
+        print "<td style='background-color: #E4E4E4' colspan='10'>Material</td>";
         print "<td style='background-color: #E4E4E4'>".$value['id_unidade']."</td>";
         print "<td style='background-color: #E4E4E4'>".$value['material']."</td>";
         print "<td style='background-color: #E4E4E4'>".$value['qtd']."</td>";

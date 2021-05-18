@@ -120,6 +120,7 @@ include_once PATH . '/mod_equipe/Model/FuncionarioEquipeModel.php';
 include_once PATH . '/mod_admin/classe/Classe.Msg.php';
 include_once PATH . '/mod_admin/classe/Classe.Conexao.php';
 
+
 #@ Mdulo Escola 
 include_once PATH . '/mod_escola/classe/Classe.Acesso.Escola.php';
 include_once PATH . '/mod_escola/classe/Classe.Professor.php';
@@ -153,3 +154,5 @@ include_once PATH . '/mod_ajuda/Model/Destinatario_finalConEstoqueModel.php';
 include_once PATH . '/mod_ajuda/Model/MontagemConEstoqueModel.php';
 include_once PATH . '/mod_ajuda/Model/RelatorioConEstoqueModel.php';
 include_once PATH . '/mod_ajuda/Model/EventoConEstoqueModel.php';
+include_once PATH . '/mod_ajuda/Model/TransferenciaConEstoqueModel.php';
+include_once PATH . '/mod_admin/Model/ReleaseModel.php';

@@ -8,7 +8,7 @@ include_once "core/Model/Model.php";
      
         public function index(){
             
-            include_once("mod_admin/backEnd/View/config/index.php");
+            include_once("mod_admin/backEnd/View/index.php");
             
         }
         

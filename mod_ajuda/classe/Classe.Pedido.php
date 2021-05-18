@@ -1,87 +1,93 @@
 <?php
-	/***********************************************************************************
-	 * 	CEDEC-MG - Coordenadoria Estadual de Defesa Civil de Minas Gerais			  	*
-	* 																					*
-	* 	Classe manipular materiais das liberacoes										*
-	* 																					*
-	* 	Autor: Demetrio da Silva Passos													*
-	* 																					*
-	* 	Criacao : 01/02/2012															*
-	************************************************************************************/
-	class Pedido extends FuncaoBase {
-		
-		private static $achou;	
-		#@ monta um item de pedido
-		function Item($_id_deposito, $_id_produto, $_descricao, $_quantidade, $evento){
-			$_item = array($_id_deposito, $_id_produto, $_descricao, $_quantidade, $evento);
-			return $_item;
-		}
-		
-		#@ busca item Duplicado
-		public function BuscaDuplicado($_item){
-			for($i =0; $i < count($_SESSION['cesta']); $i++){
-				if($_item[1] == $_SESSION['cesta'][$i][1]){
-					self::$achou = true;
-				}
-			}
-			self::$achou; 	
-		}
-		
-		#@ adiciona o item no pedido
-		function AdicionaItem($_item) {
-			if($saldo = ControleSaldo::chSaldo($_item[1], $_item[0], $_item[3])){ #@ verifica se o material tem saldo
-					if(!isset($_SESSION['cesta']) && ($_SESSION['cesta'][0] == null)){ #@ verifica se a sessao esta iniciada
-						$_SESSION['cesta'] = array();
-					}
-						$key = count($_SESSION['cesta']);
-							if ($key <= 0) {
-								$_SESSION['cesta'][] = $_item;
-								print "<script type='text/javascript'>";
-        						print "alert('Material Adicionado com Sucesso !');";
-        						print "history.back();";
-								print "</script>";
-							}else{
-								
-								if($_item[0] == $_SESSION['cesta'][0][0]){
-									for($i =0; $i < $key; $i++){
-										if($_item[1] == $_SESSION['cesta'][$i][1])
-											self::$achou = true ;
-									}
-										if(self::$achou == false){
-											$_SESSION['cesta'][] = $_item;
-											print "<script type='text/javascript'>";
-							        		print "alert('Material Adicionado Com Sucesso !');";
-							        		print "history.back();";
-											print "</script>";									
-										}else{
-											print "<script type='text/javascript'>";
-							        		print "alert('Material Duplicado !');";
-							        		print "history.back();";
-											print "</script>";		
-										}
-								}else{
-									print "<script type='text/javascript'>";
-					        		print "alert('Você está Adicionando material de outro deposito \\n \\nGentileza Confira o DEPOSITO de Origem !');";
-									print "</script>";
-								}
-							}
-				
-			}else{
-				print "<script type='text/javascript'>";
-        		print "alert('Saldo Insuficiente !');";
-        		//print "history.back();";
-				print "</script>";
-			}					
-		}		
-					
-		#@ mostra os materiais no pedido
-		static function MostraPedido($a){
-			if((!isset($a)) || ($a == null)){
-			}
-			else {
-				
-				echo '<table class="table table-bordered table-striped">';
-				echo '<tr>
+
+/* * *********************************************************************************
+ * 	CEDEC-MG - Coordenadoria Estadual de Defesa Civil de Minas Gerais			  	*
+ * 																					*
+ * 	Classe manipular materiais das liberacoes										*
+ * 																					*
+ * 	Autor: Demetrio da Silva Passos													*
+ * 																					*
+ * 	Criacao : 01/02/2012															*
+ * ********************************************************************************** */
+
+class Pedido extends FuncaoBase {
+
+    private static $achou;
+
+    #@ monta um item de pedido
+
+    function Item($_id_deposito, $_id_produto, $_descricao, $_quantidade, $evento) {
+        $_item = array($_id_deposito, $_id_produto, $_descricao, $_quantidade, $evento);
+        return $_item;
+    }
+
+    #@ busca item Duplicado
+
+    public function BuscaDuplicado($_item) {
+        for ($i = 0; $i < count($_SESSION['cesta']); $i++) {
+            if ($_item[1] == $_SESSION['cesta'][$i][1]) {
+                self::$achou = true;
+            }
+        }
+        self::$achou;
+    }
+
+    #@ adiciona o item no pedido
+
+    function AdicionaItem($_item) {
+        if ($saldo = ControleSaldo::chSaldo($_item[1], $_item[0], $_item[3])) { #@ verifica se o material tem saldo
+            if (!isset($_SESSION['cesta']) && ($_SESSION['cesta'][0] == null)) { #@ verifica se a sessao esta iniciada
+                $_SESSION['cesta'] = array();
+            }
+            $key = count($_SESSION['cesta']);
+            if ($key <= 0) {
+                $_SESSION['cesta'][] = $_item;
+                print "<script type='text/javascript'>";
+                print "alert('Material Adicionado com Sucesso !');";
+                print "history.back();";
+                print "</script>";
+            } else {
+
+                if ($_item[0] == $_SESSION['cesta'][0][0]) {
+                    for ($i = 0; $i < $key; $i++) {
+                        if ($_item[1] == $_SESSION['cesta'][$i][1])
+                            self::$achou = true;
+                    }
+                    if (self::$achou == false) {
+                        $_SESSION['cesta'][] = $_item;
+                        print "<script type='text/javascript'>";
+                        print "alert('Material Adicionado Com Sucesso !');";
+                        print "history.back();";
+                        print "</script>";
+                    } else {
+                        print "<script type='text/javascript'>";
+                        print "alert('Material Duplicado !');";
+                        print "history.back();";
+                        print "</script>";
+                    }
+                } else {
+                    print "<script type='text/javascript'>";
+                    print "alert('Você está Adicionando material de outro deposito \\n \\nGentileza Confira o DEPOSITO de Origem !');";
+                    print "</script>";
+                }
+            }
+        } else {
+            print "<script type='text/javascript'>";
+            print "alert('Saldo Insuficiente !');";
+            //print "history.back();";
+            print "</script>";
+        }
+    }
+
+    #@ mostra os materiais no pedido
+
+    static function MostraPedido($a) {
+        if ((!isset($a)) || ($a == null)) {
+            
+        } else {
+
+            echo '<table class="table table-bordered table-striped">';
+            echo '<tr>
 						<th style="text-align:center">Deposito</th>
 						<th style="text-align:center">Produto</th>
 						<th style="text-align:center">Evento</th>
@@ -89,29 +95,29 @@
 						<th style="text-align:center">Quantidade</th>
 						<th style="text-align:center">Op&ccedil;&atilde;o</th>
 						</tr>';
-				for ($i = 0; $i < count($a); $i++) {
-					print "<tr>
-							<td>".Deposito::PegaNomeDeposito($a[$i][0])."</td>
-							<td align='center'>".Produto::PegaNomeProduto($a[$i][1])."</td>
+            for ($i = 0; $i < count($a); $i++) {
+                print "<tr>
+							<td>" . Deposito::PegaNomeDeposito($a[$i][0]) . "</td>
+							<td align='center'>" . Produto::PegaNomeProduto($a[$i][1]) . "</td>
 							<td align='center'>{$a[$i][4]}</td>
 							<td align='center'>{$a[$i][2]}</td>
 							<td align='center'>{$a[$i][3]}</td>
-							<td align='center'><a class=\"btn btn-info\" href=\"?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=ajuda&controller=conEstoque&action=remove_item&item=".$i."&r=1\" title=\"Remove Item da Liberação\">Remover</a></td>
+							<td align='center'><a class=\"btn btn-info\" href=\"?token=" . hash('sha256', md5(VERSAO)) . "&ac=itn&modulo=ajuda&controller=conEstoque&action=remove_item&item=" . $i . "&r=1\" title=\"Remove Item da Liberação\">Remover</a></td>
 							</tr>";
-				}
-				print "</table>";
-			}
-		}
-		
- public function dadosPedidoId($id_pedido, $_id_municipio = false){
- 	
- 	$con = Conexao::getInstance();
- 	 
- 	$dados = array();
- 	
- 	try{
- 	
- 		$sql = "SELECT com_comdec.id_comdec,
+            }
+            print "</table>";
+        }
+    }
+
+    public function dadosPedidoId($id_pedido, $_id_municipio = false) {
+
+        $con = Conexao::getInstance();
+
+        $dados = array();
+
+        try {
+
+            $sql = "SELECT com_comdec.id_comdec,
     						com_comdec.id_municipio,
     						com_comdec.regiao,
     						com_comdec.associacao,
@@ -158,42 +164,43 @@
     						ON com_comdec.id_municipio = cedec_municipio.id_municipio
     						INNER JOIN cedec_user_ex
     						ON com_comdec.id_municipio = cedec_user_ex.id_municipio";
- 	
- 		if($_id_municipio) {
- 	
- 			$sql .= " WHERE com_comdec.id_municipio =:id_municipio";
- 		}
- 			
- 		$sql .= " ORDER BY cedec_municipio.nome";
- 	
- 		$result = $con->prepare($sql);
- 	
- 		$result->bindValue(':id_municipio', $_id_municipio);
- 	
- 		$result->execute();
- 	
- 	
- 		while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
- 	
- 			$dados[] = $linha;
- 			 
- 		}
- 	
- 		return $dados;
- 	
- 	}catch (Exception $e) {
- 	
- 		print FuncaoBase::getError($e->getMessage(), 'Erro ao buscar Registro');
- 	
- 	} 	
- 	
- }
- 
- public static function existePedido($id_entrada){
-     
-     $sql = "";
-     
- }
-		
-		
-}?>
+
+            if ($_id_municipio) {
+
+                $sql .= " WHERE com_comdec.id_municipio =:id_municipio";
+            }
+
+            $sql .= " ORDER BY cedec_municipio.nome";
+
+            $result = $con->prepare($sql);
+
+            $result->bindValue(':id_municipio', $_id_municipio);
+
+            $result->execute();
+
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+
+                $dados[] = $linha;
+            }
+
+            return $dados;
+        } catch (Exception $e) {
+
+            print FuncaoBase::getError($e->getMessage(), 'Erro ao buscar Registro');
+        }
+    }
+
+    public static function existePedido($id_entrada) {
+        $con = Conexao::getInstance();
+
+        $sql = "select *from aju_citens_pedido where id_nota = " . $id_entrada;
+        
+        $result = $con->query($sql);
+        
+        return ($result->rowCount() > 0) ? true: false;
+    }
+
+}
+
+?>

@@ -71,13 +71,16 @@ if ((isset($caminho[1]) && ($caminho[1] === 'mapa')) && ( (isset($caminho[2]) &&
         $ac = 'backEnd/';
         
         include_once "mod_" . $modulo . "/" . $ac . "Controller/" . $controller . ".php";
+        
     } else {
         if(isset($_COOKIE['SEGURANCA'])){
             include_once "mod_" . $modulo . "/Controller/" . $controller . ".php";
             include_once "template/page/login.php";
         }else {
-            
-            include_once "template/page/login.php";
+            print "<script>";
+            print "window.location.href='index.php'";
+            print "</script>";
+            //include_once "template/page/login.php";
         }
        
     }

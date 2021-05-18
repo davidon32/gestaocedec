@@ -199,8 +199,26 @@ include_once "core/Controller/Controller.php";
     
     
     public function resetarSenhaInterno() {
+   
+    }
+    
+    /*
+     * configurações do sistema
+     * 
+     */
+    public function config(){
         
+        include_once('mod_admin/backEnd/View/config/index.php');
         
+    }
+    
+    /*
+     * release
+     * 
+     */
+    public function release(){
+        var_dump($this);
+        include_once('mod_admin/backEnd/View/release/index.php');
         
     }
     

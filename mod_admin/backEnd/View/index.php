@@ -12,11 +12,10 @@
  
     <!-- configuracoes do sistema -->
     <div class="col-md-2">
-        <a href='<?=FuncaoBase::geraLink("admin","release", "index")?>' class="btn btn-primary">Release</a>
+        <a href='<?=FuncaoBase::geraLink("admin","adm", "usuario")?>' class="btn btn-primary">Cadastro Usuario</a>
     </div>
-    
     <div class="col-md-2">
-        <a href='#' class="btn btn-primary">Backup Sistema</a>
+        <a href='<?=FuncaoBase::geraLink("admin","adm", "config")?>' class="btn btn-primary">Configurações Gerais</a>
     </div>
     <div class="col-md-12 text-center">
     <br>

@@ -1,5 +1,5 @@
 <?php include_once('core/Controller/Controller.php');
- include_once '/core/include.php';
+ include_once 'core/include.php';
 
 class agoraController extends Controller {
     /* Index */

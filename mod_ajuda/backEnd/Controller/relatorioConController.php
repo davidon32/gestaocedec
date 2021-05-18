@@ -35,8 +35,7 @@ class relatorioConController extends Controller {
         $relatorio = $this->relatorio;
         
         $dados = $relatorio->inventario($_POST);
-        //var_dump($_POST);
-        //die();
+
             include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/rel_inventario.php';  
         }else {
           include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/form_inventario_busca.php';  
@@ -53,7 +52,6 @@ class relatorioConController extends Controller {
     public function rel_pedido() {
        
         if($this->isPost()){
-       
             $relatorio = $this->relatorio;
             $dados = $relatorio->rel_pedidoModel($_POST);
             include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/rel_pedido.php';  

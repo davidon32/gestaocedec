@@ -419,11 +419,13 @@ class Material {
 	/**
 	 * Lista Materiais entrada de material
 	 */
-	public static function listaEntradaMaterial(){
+	public static function listaEntradaMaterial($qtd = 0){
 
 		$con = Conexao::getInstance();
 
 		$dados = array();
+                
+                $filtro = ($qtd > 0) ? ' limit '.$qtd : "";
 
 		$sql = "SELECT aju_produto.id_produto,
 						aju_produto.codProd,
@@ -435,7 +437,8 @@ class Material {
 						aju_produto.depDestino,
 						aju_produto.validade,
 						aju_produto.nota_fiscal
-					FROM gestaocedec.aju_produto";
+					FROM gestaocedec.aju_produto
+                                        order by dtEntradaSaida desc ".$filtro;
 
 		$result = $con->query($sql);
 

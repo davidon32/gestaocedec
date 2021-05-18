@@ -106,12 +106,12 @@ class RelatorioConEstoqueModel extends Model {
         
         $data_inicial = " ";
         if (strlen($filtro['data_inicio']) > 0) {
-            $data_inicial = " and aju_cpedido.data_emissao >= '" . date("Y-m-d", strtotime($filtro['data_inicio'])) . "' ";
+            $data_inicial = " and aju_cpedido.data_emissao >= '" . date("Y-m-d", strtotime(str_replace("/","-",$filtro['data_inicio']))) . "' ";
         }
 
         $data_final = " ";
         if (strlen($filtro['data_final']) > 0) {
-            $data_final = " and aju_cpedido.data_emissao <= '" . date("Y-m-d", strtotime($filtro['data_final'])) . "' ";
+            $data_final = " and aju_cpedido.data_emissao <= '" . date("Y-m-d", strtotime(str_replace("/","-",$filtro['data_final']))) . "' ";
         }
 
         $municipio = " ";
@@ -130,13 +130,27 @@ class RelatorioConEstoqueModel extends Model {
             
         }
 
-
         $almoxarifado = " ";
         if (strlen($filtro['id_almoxarifado']) > 0) {
             $almoxarifado = " and aju_cpedido.id_almoxarifado = " . $filtro['id_almoxarifado'] . " ";
         }
-
-        $filtro_dados = $data_inicial.$data_final.$municipio.$armazem.$almoxarifado;
+        
+        $id_fornecedor = " ";
+        if (strlen($filtro['id_fornecedor']) > 0) {
+            $id_nota = " and aju_cpedido.id_fornecedor = " . $filtro['id_fornecedor'] . " ";
+        }
+        
+        $id_destinatario_final = "";
+        if (strlen($filtro['id_destinatario_final']) > 0) {
+            $id_nota = " and aju_cpedido.id_destinatario_final = " . $filtro['id_destinatario_final'] . " ";
+        }
+        
+        $id_nota = " ";
+        if (strlen($filtro['id_nota']) > 0) {
+            $id_nota = " and aju_citens_pedido.id_nota = " . $filtro['id_nota'] . " ";
+        }
+        
+        $filtro_dados = $data_inicial.$data_final.$municipio.$armazem.$almoxarifado.$id_fornecedor.$id_destinatario_final.$id_nota;
         
         
         $con = Conexao::getInstance();
@@ -146,7 +160,10 @@ class RelatorioConEstoqueModel extends Model {
         # filtro de material 
         if(strlen($material) > 1) {
             
-            $sql = "select aju_cpedido.id_pedido,
+            $filtro_dados .= $material; 
+        }
+        
+        $sql = "select aju_cpedido.id_pedido,
                         aju_cpedido.id_tp_pedido,
                         aju_ctp_pedido.nome as almoxarifado,
                         aju_cpedido.data_emissao,
@@ -164,10 +181,12 @@ class RelatorioConEstoqueModel extends Model {
                         aju_cpedido.situacao,
                         aju_cpedido.volume,
                         aju_cpedido.justificativa,
+                        aju_cfornecedor.nome,
                         aju_cunidade.id_unidade,
                         aju_cunidade.nome as material,
                         aju_citens_pedido.qtd,
-                        aju_citens_pedido.val_unid
+                        aju_citens_pedido.val_unid,
+                        aju_citens_pedido.id_nota
                         from aju_cpedido
                         inner join aju_ctp_pedido
                         on aju_cpedido.id_tp_pedido = aju_ctp_pedido.id_tp_pedido
@@ -181,43 +200,16 @@ class RelatorioConEstoqueModel extends Model {
                         on aju_cpedido.id_destinatario_final = aju_cdestinatario_final.id_destinatario_final
                         inner join aju_citens_pedido
                         on aju_cpedido.id_pedido = aju_citens_pedido.id_pedido
+                        inner join aju_centrada_nota
+                        on aju_citens_pedido.id_nota = aju_centrada_nota.id_entrada_nota
+                        inner join aju_cfornecedor
+                        on aju_centrada_nota.id_fornecedor = aju_cfornecedor.id_fornecedor
                         inner join aju_cunidade
                         on aju_citens_pedido.id_unidade = aju_cunidade.id_unidade
-                        where aju_cpedido.id_pedido > 0 ".$filtro_dados.$material;
-            
-        }else {
-        $sql = "select aju_cpedido.id_pedido,
-                    aju_cpedido.id_tp_pedido,
-                    aju_ctp_pedido.nome as almoxarifado,
-                    aju_cpedido.data_emissao,
-                    aju_cpedido.data_entrega,
-                    aju_cpedido.id_almoxarifado,
-                    aju_calmoxarifado.nome as armazem,
-                    aju_cpedido.id_transportadora,
-                    aju_ctransportadora.nome as transportadora,
-                    aju_cpedido.id_destinatario,
-                    aju_cdestinatario.nome as destinatario,
-                    aju_cpedido.id_destinatario_final,
-                    aju_cdestinatario_final.nome as destinatario_final,
-                    aju_cpedido.nome_destinatario_final,
-                    aju_cpedido.obs,
-                    aju_cpedido.situacao,
-                    aju_cpedido.volume
-                    from aju_cpedido
-                    inner join aju_ctp_pedido
-                    on aju_cpedido.id_tp_pedido = aju_ctp_pedido.id_tp_pedido
-                    inner join aju_calmoxarifado
-                    on aju_cpedido.id_almoxarifado = aju_calmoxarifado.id_almoxarifado
-                    inner join aju_ctransportadora
-                    on aju_cpedido.id_transportadora = aju_ctransportadora.id_transportadora
-                    inner join aju_cdestinatario
-                    on aju_cpedido.id_destinatario = aju_cdestinatario.id_destinatario
-                    inner join aju_cdestinatario_final
-                    on aju_cpedido.id_destinatario_final = aju_cdestinatario_final.id_destinatario_final 
-                    where id_pedido > 0 ".$filtro_dados;
-        }
+                        where aju_cpedido.id_pedido > 0 ".$filtro_dados;
         
-       
+        
+
         $result = $con->prepare($sql);
         $result->execute();
 
