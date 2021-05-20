@@ -2753,7 +2753,7 @@ $.ajax({
 					url: '#',
 					data: dados,
 					success: function(response) {
-							window.location.href = '?token=<?=hash("sha256", md5(VERSAO));?>&ac=&modulo=pipa&controller=pipa&action=pmda&param='+id_pmda+'&p='+protocolo+'&mun='+id_municipio;
+							window.location.href = '?token=<?=hash("sha256", md5(VERSAO).date('dmY'));?>&ac=&modulo=pipa&controller=pipa&action=pmda&param='+id_pmda+'&p='+protocolo+'&mun='+id_municipio;
 					},
 					error: function(response){
 						console.log(JSON.stringify(response));
@@ -2953,7 +2953,7 @@ function coordLat(latitude){
 * Download termo de compromisso
  */
 function termo_compromisso(){
-	window.location.href = 'index.php?token=<?=hash('sha256', md5(VERSAO));?>&ac=&modulo=pipa&controller=pipa&action=termo&param=<?=$id_pmda;?>&mun=<?=$id_municipio;?>';
+	window.location.href = 'index.php?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=&modulo=pipa&controller=pipa&action=termo&param=<?=$id_pmda;?>&mun=<?=$id_municipio;?>';
 
 }
 
@@ -2961,7 +2961,7 @@ function termo_compromisso(){
 * Download Declaração ISS
  */
 function declaracaoiss(){
-	window.location.href = 'index.php?token=<?=hash('sha256', md5(VERSAO));?>&ac=&modulo=pipa&controller=pipa&action=declaracaoiss&param=<?=$id_pmda;?>&mun=<?=$id_municipio;?>';
+	window.location.href = 'index.php?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=&modulo=pipa&controller=pipa&action=declaracaoiss&param=<?=$id_pmda;?>&mun=<?=$id_municipio;?>';
 
 }
 
@@ -2976,7 +2976,7 @@ function anexopmda(url){
 /* ver mensagens recebidas */
 function lerMensagemRecebida(id_pmda, status, opcao){
 	
-	window.location.href = 'index.php?token=<?=hash('sha256', md5(VERSAO));?>&ac=&modulo=pipa&controller=pipa&action=mensagem&id_pmda='+id_pmda+'&status='+status+'&opcao='+opcao;
+	window.location.href = 'index.php?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=&modulo=pipa&controller=pipa&action=mensagem&id_pmda='+id_pmda+'&status='+status+'&opcao='+opcao;
 
 }
 

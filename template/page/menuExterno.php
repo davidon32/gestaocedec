@@ -17,7 +17,7 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="">
         <?php
-            print "<a href=\"?token=".hash('sha256', md5(VERSAO))."&ac=etn&modulo=index&controller=index&action=index1e\"><i class=\"fa fa-home\"></i>&nbsp;&nbsp;&nbsp;<span>Início</span></a>";
+            print "<a href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=etn&modulo=index&controller=index&action=index1e\"><i class=\"fa fa-home\"></i>&nbsp;&nbsp;&nbsp;<span>Início</span></a>";
         ?>
         
         <!-- Central de Ajuda -->

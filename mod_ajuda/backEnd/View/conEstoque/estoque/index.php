@@ -23,14 +23,14 @@
 ?>
 	
 	<div class="col-md-12 text-center imprimir">
-		<a class='btn btn-success' href='index.php?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=conestoque&action=index'>Voltar</a>
+		<a class='btn btn-success' href='index.php?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=index'>Voltar</a>
 	    </div>
 		
 		<div class="col-md-12">
 			<legend>Busca Depósito</legend>
 			<?php Deposito::pegaDeposito();?>
 			<br>
-			<a class='btn btn-info' href='index.php?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=conestoque&action=saldo'>Saldo Geral</a>
+			<a class='btn btn-info' href='index.php?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=saldo'>Saldo Geral</a>
 	   	
 		</div>
 		
@@ -104,7 +104,7 @@ $(document).ready(function(){
 
 			ids = favorite.toString();
 
-			window.location.href = "?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=conestoque&action=saldoResumo&id="+ids;
+			window.location.href = "?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=saldoResumo&id="+ids;
 			
 
 	});

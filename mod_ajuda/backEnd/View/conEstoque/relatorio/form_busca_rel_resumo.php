@@ -23,7 +23,7 @@
 
 <div class="col-md-6">
     <form method="POST"
-        action="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=relatorio&action=relatorio"
+        action="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=relatorio&action=relatorio"
         name="frm_rel_liberacao">
 
         <div class="col-md-12">
@@ -53,7 +53,7 @@
         <br>
         <input class="btn btn-primary" type="submit" name="pesquisar" value="Pesquisar" />
         &nbsp;&nbsp;<a class="btn btn-success"
-            href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=conestoque&action=relIndex">Voltar</a>
+            href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=relIndex">Voltar</a>
 
 	</div>
 	<div class='col-md-6'>

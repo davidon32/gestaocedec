@@ -90,7 +90,7 @@ if ($btn == 'Pesquisar') {
             $existePmda = $pmda->listaPmda($value['id_municipio']);
             if (count($existePmda) > 0) {
                 print "<tr>
-						<td style='background-color:#01DF3A;text-align:center; color:#000000; font-size:15pt;'><a class='btn btn-primary' style='text-decoration:none;' href='?token=" . hash('sha256', md5(VERSAO)) . "&ac=itn&modulo=pipa&controller=pipa&action=pesquisaPmda&idmun=" . $value['id_municipio'] . "'>" . $value['nome'] . "</a></td>
+						<td style='background-color:#01DF3A;text-align:center; color:#000000; font-size:15pt;'><a class='btn btn-primary' style='text-decoration:none;' href='?token=" . hash('sha256', md5(VERSAO).date('dmY')) . "&ac=itn&modulo=pipa&controller=pipa&action=pesquisaPmda&idmun=" . $value['id_municipio'] . "'>" . $value['nome'] . "</a></td>
 						<td style='background-color:#01DF3A;text-align:center; color:#000000; font-size:15pt;'>" . count($existePmda) . "</td>
 						</tr>";
             } else {
@@ -212,8 +212,8 @@ if (!empty($dados)) {
             }
         }
         print "<td " . $homologado . " id='print'>";
-        print $pmdaLegado ? ("<a href='?token=" . hash('sha256', md5(VERSAO)) . "&ac=itn&modulo=pipa&controller=pipa&action=pmda&param=" . $value['id_pmda'] . "&a=9978&p=" . $busca . "&mun=" . $value['id_municipio'] . "' title='Alterar PMDA'><img src='core/imagem/editar.png' width='30px'></a>" . $alteraStatus) : "";
-        print "|<a href='?token=" . hash('sha256', md5(VERSAO)) . "&ac=itn&modulo=pipa&controller=pipa&action=printView&param=" . $value['id_pmda'] . "&mun=" . $value['id_municipio'] . "' title='Impressão PMDA'><img src='core/imagem/printer.png'></a>";
+        print $pmdaLegado ? ("<a href='?token=" . hash('sha256', md5(VERSAO).date('dmY')) . "&ac=itn&modulo=pipa&controller=pipa&action=pmda&param=" . $value['id_pmda'] . "&a=9978&p=" . $busca . "&mun=" . $value['id_municipio'] . "' title='Alterar PMDA'><img src='core/imagem/editar.png' width='30px'></a>" . $alteraStatus) : "";
+        print "|<a href='?token=" . hash('sha256', md5(VERSAO).date('dmY')) . "&ac=itn&modulo=pipa&controller=pipa&action=printView&param=" . $value['id_pmda'] . "&mun=" . $value['id_municipio'] . "' title='Impressão PMDA'><img src='core/imagem/printer.png'></a>";
         print $pmdaLegado ? ("|<a data-toggle='modal' data-target='#modalMensagem' id='btnMsg' name='TrocaMensagem' data-idpmda='" . $value['id_pmda'] . "' data-idusuario='" . $pageSession['session']['seguranca']['idUser'] . "' data-idmunicipio='" . $value['id_municipio'] . "' data-protocolo='" . $protocolo . "' ><img src='core/imagem/msg_tr.png' title='Troca de mensagens PMDA'></a>") :"";
         print "|<a data-toggle='modal' data-target='#modalComentario' id='btnComentario' name='Comentario' data-pmda='" . $value['id_pmda'] . "' title='Lançar Notas / Comentários neste PMDA'><img src='core/imagem/comment.png'></a>";
         print "|<a href='?ac=itn&modulo=pipa&controller=pipa&action=historicoMsg&id_pmda=" . $value['id_pmda'] . "' id='list_msg' name='list_msg' title='Historico de Mensagens do PMDA nº " . $protocolo . "'><img src='core/imagem/notas.png'></a></td>";

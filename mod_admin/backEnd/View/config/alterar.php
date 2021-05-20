@@ -24,7 +24,7 @@ $maspNumPol = Usuario::dadosFuncionario($usuario['id_funcionario']);
 <div class="col-md-12">
     <legend>Cadastro de Usuario</legend>
     <p style="text-align: right"><button class='btn btn-success' id='resetarSenha'>Resetar Senha </button>&nbsp;( Padrão : cedec199 )</p>   
-    <form action="?token=<?= hash('sha256', md5(VERSAO)); ?>&ac=&modulo=admin&controller=adm&action=cad_user_valida" method="POST" name="frmCadUserRapido" id="frmCadUserRapido">
+    <form action="?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=&modulo=admin&controller=adm&action=cad_user_valida" method="POST" name="frmCadUserRapido" id="frmCadUserRapido">
         <label>Numero Policia</label>
         <input class="form-control" type="text" name="txtNumPol" id="txtNumPol" maxlenght="9" readonly='readonly' value='<?= $maspNumPol[0]['num_masp']; ?>'>
 
@@ -353,7 +353,7 @@ $maspNumPol = Usuario::dadosFuncionario($usuario['id_funcionario']);
     <br>
     <div class="col-md-12 text-center">
         <br>
-        <a class="btn btn-success" href="?token=<?= hash('sha256', md5(VERSAO)); ?>&ac=&modulo=admin&controller=adm&action=usuario">Voltar</a>
+        <a class="btn btn-success" href="?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=&modulo=admin&controller=adm&action=usuario">Voltar</a>
     </div>
 
     <!-- =================== RODAPE CORPO ==================== -->

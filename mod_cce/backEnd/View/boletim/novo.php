@@ -44,7 +44,7 @@ $_id_usuario = $pageSession['session']['seguranca']['idUser'];
 					 </form>
 					 
 					 <br>      
-					 <p style="text-align: center"> <a href="?token=<?=hash('sha256', md5(VERSAO))?>&ac=itn&modulo=cce&controller=cce&action=index" class="btn btn-success">Voltar</a></p>
+					 <p style="text-align: center"> <a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=cce&controller=cce&action=index" class="btn btn-success">Voltar</a></p>
 				
 					
 <!-- =================== RODAPE CORPO ==================== -->

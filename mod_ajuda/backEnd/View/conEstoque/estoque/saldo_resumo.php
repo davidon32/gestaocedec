@@ -74,7 +74,7 @@
 		</style>
 	
 	    <div class="col-md-12 text-center imprimir">
-			<a class='btn btn-success' href='index.php?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=conestoque&action=salindex'>Voltar</a>
+			<a class='btn btn-success' href='index.php?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=salindex'>Voltar</a>
 			<?php FuncaoBase::Imprimir(); ?>
 	    </div>
 		

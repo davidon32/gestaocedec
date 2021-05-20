@@ -58,7 +58,7 @@ $_usuario = new Usuario();
                         
                         
                         /* link para alterar o historico*/
-                        $_linkAltera = "<a href=\"index.php?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=cce&controller=cce&action=alterarHist&idh=".$_lista[$i]['id_historico']."\" title=\"Alterar\"><i class='fa fa-edit'></i></a>";
+                        $_linkAltera = "<a href=\"index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=cce&controller=cce&action=alterarHist&idh=".$_lista[$i]['id_historico']."\" title=\"Alterar\"><i class='fa fa-edit'></i></a>";
                         
                         
                     }else {
@@ -81,7 +81,7 @@ $_usuario = new Usuario();
                                       <td style=\"text-align:justify\">" . $_lista[$i]['historico'] . "</td>
                                       <td>" . $_usuario->getNomeId($_lista[$i]['id_funcionario']) . "</td>
                                       <td>".$_linkAltera."</td>
-                                      <td><a href=\"index.php?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=cce&controller=cce&action=lancDiario&idh=".$_lista[$i]['id_historico']."&n=".$_lista[$i]['num']."&idd=".$_lista[$i]['id_diario']."\" title=\"Complementar Informação\"><i class=\"fa fa-plus\"></i></a></td>
+                                      <td><a href=\"index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=cce&controller=cce&action=lancDiario&idh=".$_lista[$i]['id_historico']."&n=".$_lista[$i]['num']."&idd=".$_lista[$i]['id_diario']."\" title=\"Complementar Informação\"><i class=\"fa fa-plus\"></i></a></td>
                                    </tr>";
                                   
                            
@@ -94,7 +94,7 @@ $_usuario = new Usuario();
                                       <td style=\"text-align:justify\">" . $_lista[$i]['historico'] . "</td>
                                       <td>" . $_usuario->getNomeId($_lista[$i]['id_funcionario']) . "</td>
                                       <td>".$_linkAltera."</td>
-                                      <td><a href=\"index.php?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=cce&controller=cce&action=lancDiario&idh=".$_lista[$i]['id_historico']."&n=".$_lista[$i]['num']."&idd=".$_lista[$i]['id_diario']."\" title=\"Complementar Informação\"><i class=\"fa fa-plus\"></i></a></td>
+                                      <td><a href=\"index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=cce&controller=cce&action=lancDiario&idh=".$_lista[$i]['id_historico']."&n=".$_lista[$i]['num']."&idd=".$_lista[$i]['id_diario']."\" title=\"Complementar Informação\"><i class=\"fa fa-plus\"></i></a></td>
                                    </tr>";
                                    
                             

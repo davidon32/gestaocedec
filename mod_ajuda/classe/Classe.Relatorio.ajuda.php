@@ -462,7 +462,7 @@ class RelatorioAju extends DataMysql {
         $total = $result->rowCount();
 
         print "<div class=\"row text-center\">
-            <br><a class=\"btn btn-success\" href=\"?token=" . hash('sha256', md5(VERSAO)) . "&ac=itn&modulo=ajuda&controller=relatorio&action=fbusca_liberacao\" title=\"Voltar Página\">Voltar</a>
+            <br><a class=\"btn btn-success\" href=\"?token=" . hash('sha256', md5(VERSAO).date('dmY')) . "&ac=itn&modulo=ajuda&controller=relatorio&action=fbusca_liberacao\" title=\"Voltar Página\">Voltar</a>
             <a href=\"#\" class=\"btn btn-info\" onclick=\"window.print();\" title=\"Voltar Página\">Imprimir</a>
             <br><h4>Relatorio de Materiais Liberados</h4>
             </div><br>";
@@ -547,7 +547,7 @@ class RelatorioAju extends DataMysql {
 
             print "</td>";
             print "<td style='font-size:11px; border-bottom:0.1em solid; vertical-align:middle' class=\"imprimir " . $background . "\">
-								<a class=\"btn btn-info\" href=\"index.php?token=" . hash('sha256', md5(VERSAO)) . "&ac=itn&modulo=ajuda&controller=relatorio&action=rel_liberacao_recibo&id=" . $linha['id_liberacao'] . "\" title=\"Segunda Via da Liberação\"><x-small>2º Liberacao<x-small></a>
+								<a class=\"btn btn-info\" href=\"index.php?token=" . hash('sha256', md5(VERSAO).date('dmY')) . "&ac=itn&modulo=ajuda&controller=relatorio&action=rel_liberacao_recibo&id=" . $linha['id_liberacao'] . "\" title=\"Segunda Via da Liberação\"><x-small>2º Liberacao<x-small></a>
 						</td>
 						</tr>";
         }

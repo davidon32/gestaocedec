@@ -114,15 +114,15 @@
 							$_SESSION['cesta'] = array();
 											
 						print "<br><br><div class='col-md-12 text-center'><br><br>";
-						print "<a class=\"btn btn-info\" href=\"?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=ajuda&controller=conestoque&action=comprov_lib&id=".$_SESSION['idLibera']."\" class='btn btn-success'>Impressao Recibo/PDF</a><br><br>";
-						print "<a class=\"btn btn-info\" href=\"?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=ajuda&controller=conestoque&action=liberacao\" class='btn btn-success'>Voltar</a><br><br>";
+						print "<a class=\"btn btn-info\" href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=comprov_lib&id=".$_SESSION['idLibera']."\" class='btn btn-success'>Impressao Recibo/PDF</a><br><br>";
+						print "<a class=\"btn btn-info\" href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=liberacao\" class='btn btn-success'>Voltar</a><br><br>";
 						print "</div>";
 						
 					}else {
 						
 						print "<br><br><div class='col-md-12 text-center'><br><br>";
-						print "<a class=\"btn btn-info\" href=\"?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=ajuda&controller=conestoque&action=comprov_lib&id=".$_SESSION['idLibera']."\" class='btn btn-success'>Impressao Recibo/PDF</a><br><br>";
-						print "<a class=\"btn btn-info\" href=\"?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=ajuda&controller=conestoque&action=liberacao\" class='btn btn-success'>Voltar</a><br><br>";
+						print "<a class=\"btn btn-info\" href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=comprov_lib&id=".$_SESSION['idLibera']."\" class='btn btn-success'>Impressao Recibo/PDF</a><br><br>";
+						print "<a class=\"btn btn-info\" href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=liberacao\" class='btn btn-success'>Voltar</a><br><br>";
 						print "</div>";
 						
 					}
@@ -133,8 +133,8 @@
 				
 				print "<br><br><div class='col-md-12 text-center'><br><br>";
 				print "<span class=\"alert\">Gentileza Preencher os Campos</span><br><br>";
-				//print "<a class=\"btn btn-info\" href=\"?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=ajuda&controller=conestoque&action=comprov_lib&id=".$_SESSION['idLibera']."\" class='btn btn-success'>Impressao Recibo/PDF</a><br><br>";
-				print "<a class=\"btn btn-info\" href=\"?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=ajuda&controller=conestoque&action=liberacao\" class='btn btn-success'>Voltar</a><br><br>";
+				//print "<a class=\"btn btn-info\" href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=comprov_lib&id=".$_SESSION['idLibera']."\" class='btn btn-success'>Impressao Recibo/PDF</a><br><br>";
+				print "<a class=\"btn btn-info\" href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=liberacao\" class='btn btn-success'>Voltar</a><br><br>";
 		print "</div>";
 	}
 								

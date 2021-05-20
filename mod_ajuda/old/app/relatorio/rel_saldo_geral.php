@@ -68,7 +68,7 @@
 </head>
 <body>
 	
-	    <div class="span12 text-center imprimir"><a class='btn btn-primary' href='index.php?token=<?=hash('sha256', md5(VERSAO));?>&ac=&modulo=ajuda&secao=menu'>Voltar</a></div>
+	    <div class="span12 text-center imprimir"><a class='btn btn-primary' href='index.php?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=&modulo=ajuda&secao=menu'>Voltar</a></div>
 		
 			<legend>Posicao Geral dos Depositos</lagend>
 			

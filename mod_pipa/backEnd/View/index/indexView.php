@@ -20,12 +20,12 @@ foreach ($alertaPreCadCom as $value) {
 ?>
 
 <div class="col-md-12 text-center">
-    <a href="?token=<?= hash('sha256', md5(VERSAO)); ?>&ac=itn&modulo=index&controller=index&action=menu" class="btn btn-success">Voltar</a>
+    <a href="?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=index&controller=index&action=menu" class="btn btn-success">Voltar</a>
 </div>
 
-<a class="btn btn-primary" href="?token=<?= hash('sha256', md5(VERSAO)); ?>&ac=itn&modulo=pipa&controller=pipa&action=usuario">Cadastro Usuario Externo</a><br> <br>  
-<a class="btn btn-primary" href="?token=<?= hash('sha256', md5(VERSAO)); ?>&ac=itn&modulo=pipa&controller=pipa&action=pesquisaPmda&a=adm">Administração PMDA</a><br><br>   
-<a class="btn btn-primary" href="?token=<?= hash('sha256', md5(VERSAO)); ?>&ac=itn&modulo=pipa&controller=pipa&action=pmdaCom&a=adm">Validação Comunidade   
+<a class="btn btn-primary" href="?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=pipa&controller=pipa&action=usuario">Cadastro Usuario Externo</a><br> <br>  
+<a class="btn btn-primary" href="?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=pipa&controller=pipa&action=pesquisaPmda&a=adm">Administração PMDA</a><br><br>   
+<a class="btn btn-primary" href="?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=pipa&controller=pipa&action=pmdaCom&a=adm">Validação Comunidade   
     <?= (count($alertaPreCadCom) > 0) ? "<img src='core/imagem/aviso.png' width='30px;' title='Existem Solicitações de Ativação de Comunidades !\nMunicipios:\n\n{$listCom}'>" : ""; ?>
 </a>
 <br>

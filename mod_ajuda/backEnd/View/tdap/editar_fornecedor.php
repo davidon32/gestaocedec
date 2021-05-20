@@ -45,7 +45,7 @@ $dados = Fornecedor::listaFornecedor($id);
     <br>
     <div class="col-md-12 text-center">
         <br>
-        <a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=tdap&action=index"" title="Relatorios">
+        <a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=tdap&action=index"" title="Relatorios">
             Voltar
             </a>
     </div>

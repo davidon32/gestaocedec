@@ -70,7 +70,7 @@ if(($opcao == "0") && ($_btn_enviar)){
     Email::emailLote($destinatario, $assunto, $mensagem);
 }
 
-$_funcaBase->vifs("volta", "?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=compdec&controller=compdec&action=email");
+$_funcaBase->vifs("volta", "?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=compdec&controller=compdec&action=email");
     print "&nbsp;&nbsp;&nbsp;";
 ?>
 

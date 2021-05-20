@@ -136,7 +136,7 @@ $_usuario = new Usuario();
         
         <div class="topo">
             <br>
-                <div class="imprimir" style="text-align: center"><?php print FuncaoBase::vifs('volta', 'index.php?token='.hash('sha256', md5(VERSAO)).'&ac=itn&modulo=cce&controller=cce&action=filtroRelDiario'); ?>
+                <div class="imprimir" style="text-align: center"><?php print FuncaoBase::vifs('volta', 'index.php?token='.hash('sha256', md5(VERSAO).date('dmY')).'&ac=itn&modulo=cce&controller=cce&action=filtroRelDiario'); ?>
                     <?php print FuncaoBase::vifs('imprimir'); ?>
                 </div>
         </div>

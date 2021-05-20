@@ -41,7 +41,7 @@ $_dados = $_transferencia->MaterialReceber($_id_transferencia);
 ?>
 			   
 	<legend> Receber Materiais Transferencia entre Depósito </legend>
-	<form method="POST" action="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=conestoque&action=vreceber" id="frm_recebe" name="frm_recebe" >
+	<form method="POST" action="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=vreceber" id="frm_recebe" name="frm_recebe" >
 				
 	<div class="col-md-6">
 		<div class="col-md-6">

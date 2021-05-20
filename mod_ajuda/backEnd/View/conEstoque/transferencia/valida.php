@@ -93,7 +93,7 @@ include_once "template/page/headerPageSimples.php";
 
                     print "alert('Transferência Realizada Com Sucesso !');";
                     
-                    print "window.location = '?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=ajuda&controller=relatorio&action=rec_transf_mat&id=".$id_transferencia."';";
+                    print "window.location = '?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=relatorio&action=rec_transf_mat&id=".$id_transferencia."';";
                     
                     print "</script>";
 

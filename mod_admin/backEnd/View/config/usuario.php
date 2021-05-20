@@ -17,7 +17,7 @@
 
     <div class="col-md-6">
         <br>
-        <a href='?token=<?=hash('sha256', md5(VERSAO));?>&ac=&modulo=admin&controller=adm&action=caduser' class="btn btn-primary">Cadastro Usuario</a>
+        <a href='?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=&modulo=admin&controller=adm&action=caduser' class="btn btn-primary">Cadastro Usuario</a>
     </div>
 
     <div class="col-md-6">
@@ -73,7 +73,7 @@
 </div>  
 <div class="col-md-12 text-center">
     <br>
-    <a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=&modulo=admin&controller=index&action=index">Voltar</a>
+    <a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=&modulo=admin&controller=index&action=index">Voltar</a>
 </div>   
 
 

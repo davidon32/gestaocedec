@@ -17,17 +17,17 @@
 <div class="container">
 
 <div class="col-md-12 text-center">
-			<a href="?token=<?=hash('sha256', md5(VERSAO))?>&modulo=index&controller=index&action=menu"class="btn btn-success">Voltar</a>
+			<a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&modulo=index&controller=index&action=menu"class="btn btn-success">Voltar</a>
 		</div>
     <!-- PAGINA -->
     <div class="container">
             <!-- CORPO -->
         <div class="row-fluid">
             <div class="span10">
-            <a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO))?>&ac=itn&modulo=cce&controller=cce&action=diario">Diário</a><br> <br>  
-            <a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO))?>&ac=itn&modulo=cce&controller=cce&action=filtroRelDiario">Relatorio Diário</a><br> <br>  
-            <a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO))?>&ac=itn&modulo=cce&controller=cce&action=boletim">Boletim</a><br> <br>
-            <a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO))?>&ac=itn&modulo=cce&controller=cce&action=boletimSite">Visualizar Publicação Site</a><br> <br>
+            <a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=cce&controller=cce&action=diario">Diário</a><br> <br>  
+            <a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=cce&controller=cce&action=filtroRelDiario">Relatorio Diário</a><br> <br>  
+            <a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=cce&controller=cce&action=boletim">Boletim</a><br> <br>
+            <a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=cce&controller=cce&action=boletimSite">Visualizar Publicação Site</a><br> <br>
             
             
             

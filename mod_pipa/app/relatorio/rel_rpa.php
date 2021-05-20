@@ -49,7 +49,7 @@ if($_mod != ""){
 
 	  $tit = 'Defesa Civil';
     $dados = $_SESSION['rpa_lote'];
-    $_volta = 'index.php?token='.hash('sha256', md5(VERSAO)).'&ac=&modulo=pipa&secao=conta&acao=filtro_rpa';
+    $_volta = 'index.php?token='.hash('sha256', md5(VERSAO).date('dmY')).'&ac=&modulo=pipa&secao=conta&acao=filtro_rpa';
 	
   #@ RPA Individual no Relatorio de RPA 
   }elseif($_mod == 2){
@@ -58,7 +58,7 @@ if($_mod != ""){
       
       //var_dump($dados);
 
-      $_volta = 'index.php?token='.hash('sha256', md5(VERSAO)).'&ac=&modulo=pipa&secao=conta&acao=filtro_rpa';
+      $_volta = 'index.php?token='.hash('sha256', md5(VERSAO).date('dmY')).'&ac=&modulo=pipa&secao=conta&acao=filtro_rpa';
 
       $tit = $dados[0]['motorista']."_".FuncaoBase::numTomes($_mes)."_Nr:".$_num_rpa;    
   }

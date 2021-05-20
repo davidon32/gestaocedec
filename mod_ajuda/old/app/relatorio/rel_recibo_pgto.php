@@ -36,7 +36,7 @@ body {
 		<table align="center" border="0">
 			<tr>
 				<td>
-					<?php FuncaoBase::vifs('volta', 'index.php?token='.hash('sha256', md5(VERSAO)).'&ac=&modulo=ajuda&secao=pagamento&acao=pagamento');?>
+					<?php FuncaoBase::vifs('volta', 'index.php?token='.hash('sha256', md5(VERSAO).date('dmY')).'&ac=&modulo=ajuda&secao=pagamento&acao=pagamento');?>
 				</td>
 			</tr>
 			<tr>

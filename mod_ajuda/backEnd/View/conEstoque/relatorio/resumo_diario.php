@@ -71,7 +71,7 @@
 <div class="row">
     <div class="col-md-12 text-center">
         <img src="core/imagem/topo1.png">
-        <br><a class='btn btn-info imprimir' href='index.php?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=relatorio&action=busca_resumog'>Voltar</a>
+        <br><a class='btn btn-info imprimir' href='index.php?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=relatorio&action=busca_resumog'>Voltar</a>
     </div>
 </div>
 

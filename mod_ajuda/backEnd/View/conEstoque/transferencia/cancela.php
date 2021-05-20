@@ -40,7 +40,7 @@ $nProd = new Produto();
 
 <div class="col-md-12">
 	<legend>Cancelar Transferencia de Materiais</legend>
-	<form method="POST" action="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=conestoque&action=vtransfcancela" name="frm_cancela">
+	<form method="POST" action="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=vtransfcancela" name="frm_cancela">
 	<div class="col-md-4">	
 		<label>Nº Transferência</label>
 			<input class="form-control" <?=$bl_input;?> value="<?=$id_transf;?>" type="text" name="txt_id_transferencia" id="txt_id_transferencia" title="Número da Transferencia" placeholder="Código Transferência">

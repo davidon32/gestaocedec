@@ -64,7 +64,7 @@ if($_btn_enviar) {
 		<tr>
 			<td style="text-align: center;">
 			    <br>
-				<?php FuncaoBase::vifs('volta', 'index.php?token='.hash('sha256', md5(VERSAO)).'&ac=&modulo=ajuda&secao=pagamento&acao=list_pgto_busca')."<br>".FuncaoBase::vifs('imprimir');?>
+				<?php FuncaoBase::vifs('volta', 'index.php?token='.hash('sha256', md5(VERSAO).date('dmY')).'&ac=&modulo=ajuda&secao=pagamento&acao=list_pgto_busca')."<br>".FuncaoBase::vifs('imprimir');?>
 			</td>
 		</tr>
 	</table>

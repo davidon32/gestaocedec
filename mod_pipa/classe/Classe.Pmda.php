@@ -184,6 +184,12 @@ class Pmda extends Comunidade {
             case 9:
                 return "Encerrado";
                 break;
+            case 6:
+                return "nulo";
+                break;
+            case 7:
+                return "Atendido";
+                break;
             default:
                 return "opção Inválida !";
                 break;

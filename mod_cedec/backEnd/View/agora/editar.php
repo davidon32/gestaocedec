@@ -67,7 +67,7 @@
             <input type="hidden" name="txtDtHora" id="txtDtHora" value="<?=date('Y-m-d H:i:s');?>">
 
             <br>
-            <a href="index.php?token=<?=hash('sha256', md5(VERSAO))?>&ac=itn&modulo=cedec&controller=agora&action=busca" class="btn btn-primary">Voltar</a>
+            <a href="index.php?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=cedec&controller=agora&action=busca" class="btn btn-primary">Voltar</a>
             <button type="button" class="btn btn-primary" name="btnSalvar" id="btnSalvar" title="Clique para salvar o Registro !">Salvar</button>
         </form>
   </div>
@@ -128,7 +128,7 @@ $(document).ready(function(){
                                 //alert('Erro ao Fazer o UPload do arquivo ! \n Possíveis Causas: \n - Arquivo maior que 2MB (Mega Bytes) \n - Arquivo com nome muito extenso ! \n	para reduzí-ló acesse https://smallpdf.com/pt ');
                             }else{
                                 alert('Registro Salvo com Sucesso !');
-                                    window.location.href = '?token=<?=hash('sha256', md5(VERSAO))?>&ac=itn&modulo=cedec&controller=agora&action=lista';
+                                    window.location.href = '?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=cedec&controller=agora&action=lista';
                             }      
                     },
                     error : function(e) {

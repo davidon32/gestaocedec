@@ -18,7 +18,7 @@
 
 <div class="col-md-6">
 
-	<form method="POST" action="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=relatorio&action=rel_material_pago" name="frm_rel_pagamento" >
+	<form method="POST" action="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=relatorio&action=rel_material_pago" name="frm_rel_pagamento" >
 		<legend>Relat&oacute;rio de Material Pago</legend>
 		<label>Dep&oacute;sito Destino:</label>
 		<?php $_deposito->pegaDeposito();?>
@@ -40,7 +40,7 @@
 
 <div class="col-md-12 text-center">
 <br>
-<a href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=conestoque&action=relIndex" class="btn btn-success">Voltar</a><br>
+<a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=relIndex" class="btn btn-success">Voltar</a><br>
 </div>
 <!-- =================== RODAPE CORPO ==================== -->
 <?php include_once "template/page/corpoRodape.php";?>

@@ -27,12 +27,12 @@ $dados = $boletim->listBoletim(10);
 
 
 <div class="col-md-12 text-center">
-    <a href="?token=<?=hash('sha256', md5(VERSAO))?>&ac=itn&modulo=cce&controller=cce&action=index"class="btn btn-success">Voltar</a>
+    <a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=cce&controller=cce&action=index"class="btn btn-success">Voltar</a>
 </div>
 
 					
 					   <p>
-					   	<a href="?token=<?=hash('sha256', md5(VERSAO))?>&ac=itn&modulo=cce&controller=cce&action=novo" title="Novo Boletim" class="btn btn-primary">Publicar Boletim</a>
+					   	<a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=cce&controller=cce&action=novo" title="Novo Boletim" class="btn btn-primary">Publicar Boletim</a>
 						<br><br>
 					   </p>
 					   <table class="table table-bordered table-condensed table-striped">

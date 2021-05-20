@@ -29,7 +29,7 @@ $_compdec = new Compdec();
 <div class="col-md-6">
     <legend> Filtro de Relatórios</legend>
     <br>
-    <form action="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=compdec&controller=compdec&action=relatorio" method="POST" name="frm_filtro">
+    <form action="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=compdec&controller=compdec&action=relatorio" method="POST" name="frm_filtro">
 
         <div class="span5 inline">
             <input type="radio" value="0" name="rb_filtro" id="rb_associacao">Compdec por Associação<br>
@@ -81,7 +81,7 @@ $_compdec = new Compdec();
     <input class="btn btn-primary" type="submit" name="btn_enviar" id="btn_enviar" value="Pesquisar" />
 </div>
 <div class='col-md-12 text-center'>
-    <a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=compdec&controller=compdec&action=index">Voltar</a><br> <br> 
+    <a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=compdec&controller=compdec&action=index">Voltar</a><br> <br> 
 </div>
 </form>
 <!-- =================== RODAPE CORPO ==================== -->

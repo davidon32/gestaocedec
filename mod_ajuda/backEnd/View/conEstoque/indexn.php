@@ -30,7 +30,7 @@
         if (Usuario::getPermissao('aju_cpermissao', 'cad_principal')) {
             ?>
             <div class="col-md-4 text-center">
-                <a href="?token=<?= hash('sha256', md5(VERSAO)); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=cadgeral" title="Cadastros Principais">
+                <a href="?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=cadgeral" title="Cadastros Principais">
                     <img src="/core/imagem/estoque/padrao_estoque.png" width="80px" height="80px"><br>
                     Cadastros Principais
                 </a>
@@ -49,7 +49,7 @@
         if (Usuario::getPermissao('aju_cpermissao', 'movimentacao')) {
             ?>
             <div class="col-md-4 text-center">
-                <a href="?token=<?= hash('sha256', md5(VERSAO)); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=movimentacao" title="Movimentações">
+                <a href="?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=movimentacao" title="Movimentações">
                     <img src="/core/imagem/estoque/padrao_estoque.png" width="80"><br>
                     Movimentações
                 </a>
@@ -69,7 +69,7 @@
         if (Usuario::getPermissao('aju_cpermissao', 'relatorios')) {
             ?>
             <div class="col-md-4 text-center">
-                <a href="?token=<?= hash('sha256', md5(VERSAO)); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=relgeral" title="Relatorios">
+                <a href="?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=relgeral" title="Relatorios">
                     <img src="/core/imagem/estoque/padrao_estoque.png" width="80px"><br>
                     Relatorios
                 </a>
@@ -86,7 +86,7 @@
       
         
         <div class="col-md-12 text-center"> <br>
-            <a class="btn btn-success" href="?token=<?= hash('sha256', md5(VERSAO)); ?>&ac=itn&modulo=ajuda&controller=index&action=index"" title="Voltar">
+            <a class="btn btn-success" href="?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=ajuda&controller=index&action=index"" title="Voltar">
                 Voltar
             </a>
         </div>

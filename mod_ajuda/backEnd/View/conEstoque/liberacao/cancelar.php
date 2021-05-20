@@ -26,7 +26,7 @@ $_readOnly = "";
 	<legend>Cancelar Liberação</legend>
 
 	<form method="POST" id="frmCancela" action="">
-	<!-- ?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=conestoque&action=lcancela" name="frm_cancela -->
+	<!-- ?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=lcancela" name="frm_cancela -->
 		
 	<div class="col-md-4">
 		<label>Nº Liberacao </label>
@@ -109,7 +109,7 @@ $_readOnly = "";
 
 	}
 ?>
-		<p style="text-align:center"><a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=conestoque&action=idxliberacao">Voltar</a></p>
+		<p style="text-align:center"><a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=idxliberacao">Voltar</a></p>
 
 	</div>
 

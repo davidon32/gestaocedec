@@ -23,7 +23,7 @@
 		<div class="col-md-12">
 			<br>
 			<input class="btn btn-primary" type="submit" onclick="return confirm('Confirmar Cadastro Evento?')"  name="btnCadEvento" id="btnCadEvento" value="Cadastrar"/>
-			<a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=conestoque&action=material"/>Voltar</a>
+			<a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=material"/>Voltar</a>
 		</div>
 	</div>
 
@@ -68,7 +68,7 @@ $(document).ready(function(){
 				success: function(response) {
 					if(response == 'sucesso'){
 					alert("Cadastro realizado com Sucesso !");
-					window.location.href = "?token=<?=hash('sha256', md5(VERSAO))?>&ac=itn&modulo=ajuda&controller=conestoque&action=material"; 
+					window.location.href = "?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=ajuda&controller=conestoque&action=material"; 
 					}
 				},
 				error: function(e){

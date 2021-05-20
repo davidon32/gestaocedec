@@ -47,7 +47,7 @@ $ajudaRelatorioModel->setOrdem($ordem);
 $dados = $ajudaRelatorioController->relatorioCadastroMaterial($ajudaRelatorioModel);
 ?>
 <br>
-<div class='text-center'><a class="btn btn-success" href='index.php?token=<?= hash('sha256', md5(VERSAO)); ?>&ac=itn&modulo=ajuda&controller=relatorio&action=fbusca_cad_mat' class="btn">Voltar</a></div>
+<div class='text-center'><a class="btn btn-success" href='index.php?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=ajuda&controller=relatorio&action=fbusca_cad_mat' class="btn">Voltar</a></div>
 </br>
 
 <p class="text-center"><legend> Relatório Entrada de Materiais</legend></p>

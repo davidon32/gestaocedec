@@ -21,7 +21,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<br>
-			<a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=conestoque&action=material"/>Voltar</a>
+			<a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=material"/>Voltar</a>
 			
 		</div>
 	</div>

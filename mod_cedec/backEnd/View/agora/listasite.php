@@ -12,7 +12,7 @@
     <h4>Envie para a CEDEC uma informação ou atividade de Defesa Civil realizada em sua região.</h4>
 </div>
 <div class="col-lg10 col-xs-2" style="line-height:100px;">
-     <a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO))?>&ac=itn&modulo=cedec&controller=agora&action=cadastro" title="Lançar uma Informação / Atividade de Defesa Civil.">
+     <a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=cedec&controller=agora&action=cadastro" title="Lançar uma Informação / Atividade de Defesa Civil.">
         <img width="100" src="core/imagem/botao.gif">    
     </a><br>
 </div>
@@ -125,7 +125,7 @@
  
  
     function view(id) {
-        window.location = 'index.php?token=<?=hash('sha256', md5(VERSAO))?>&ac=itn&modulo=cedec&controller=agora&action=view&id='+id;
+        window.location = 'index.php?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=cedec&controller=agora&action=view&id='+id;
     }
     
     

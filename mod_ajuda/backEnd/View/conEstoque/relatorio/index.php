@@ -13,32 +13,32 @@
 <h4><p class="text-center">Relatorios Gerais</p></h4>
 <div class="col-md-6">
     <br>
-    <a href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=relatorio&action=fbusca_cad_mat" class="btn btn-info">Entrada de Material</a><br>
+    <a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=relatorio&action=fbusca_cad_mat" class="btn btn-info">Entrada de Material</a><br>
     <br>
-    <a href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=relatorio&action=fbusca_liberacao" class="btn btn-info">Liberações</a><br>
+    <a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=relatorio&action=fbusca_liberacao" class="btn btn-info">Liberações</a><br>
     <br>
-    <a href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=relatorio&action=fbusca_pag_mat" class="btn btn-info">Pagamentos</a><br>
+    <a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=relatorio&action=fbusca_pag_mat" class="btn btn-info">Pagamentos</a><br>
     <br>
-    <a href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=relatorio&action=inventario" class="btn btn-info">Inventário</a><br>
+    <a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=relatorio&action=inventario" class="btn btn-info">Inventário</a><br>
     
     
     <br>
 </div>
 <div class="col-md-6">
     <br>
-    <a href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=relatorio&action=rel_material_tranf" class="btn btn-info">Transferencias entre Depositos</a><br>
+    <a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=relatorio&action=rel_material_tranf" class="btn btn-info">Transferencias entre Depositos</a><br>
     <br>
-    <a href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=relatorio&action=" class="btn btn-info">Recebimento de Materiais Transferidos</a><br>
+    <a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=relatorio&action=" class="btn btn-info">Recebimento de Materiais Transferidos</a><br>
     <br>
-    <a href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=relatorio&action=busca_resumog" class="btn btn-info">Resumo Liberação por Municipio</a><br>
+    <a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=relatorio&action=busca_resumog" class="btn btn-info">Resumo Liberação por Municipio</a><br>
     <br>
-    <a href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=relatorio&action=buscamapa" class="btn btn-info">Mapas</a><br>
+    <a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=relatorio&action=buscamapa" class="btn btn-info">Mapas</a><br>
     <br>
     
 </div>
 <div class="col-md-12 text-center">
     <br>
-    <a href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=conestoque&action=index" class="btn btn-success">Voltar</a><br>
+    <a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=index" class="btn btn-success">Voltar</a><br>
 </div>
 <!-- =================== RODAPE CORPO ==================== -->
 <?php include_once "template/page/corpoRodape.php";?>

@@ -30,13 +30,13 @@
 <?php
 
     if(isset($_GET['via'])){ ?>
-        <div class="col-md-12 text-center"><a href="?token=<?=hash('sha256', md5(VERSAO))?>&ac=itn&modulo=ajuda&controller=relatorio&action=rel_material_tranf" class="btn btn-success imprimir">Voltar</a></div>
+        <div class="col-md-12 text-center"><a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=ajuda&controller=relatorio&action=rel_material_tranf" class="btn btn-success imprimir">Voltar</a></div>
     <?php }else if(isset($_GET['idx'])) {
 ?>
-<div class="col-md-12 text-center"><a href="?token=<?=hash('sha256', md5(VERSAO))?>&ac=itn&modulo=ajuda&controller=conestoque&action=idxtransf" class="btn btn-success imprimir">Voltar</a></div>
+<div class="col-md-12 text-center"><a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=ajuda&controller=conestoque&action=idxtransf" class="btn btn-success imprimir">Voltar</a></div>
 <?php }else {
 ?>
-<div class="col-md-12 text-center"><a href="?token=<?=hash('sha256', md5(VERSAO))?>&ac=itn&modulo=ajuda&controller=conestoque&action=transf" class="btn btn-success imprimir">Voltar</a></div>
+<div class="col-md-12 text-center"><a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=ajuda&controller=conestoque&action=transf" class="btn btn-success imprimir">Voltar</a></div>
 <?php } ?>
 
 <table class="">

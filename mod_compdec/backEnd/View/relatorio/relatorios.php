@@ -97,7 +97,7 @@ tr:nth-child(even) {
     <div class="container">
         <div class="text-center imprimir">
             <br><br>
-            <?php $_funcaBase->vifs("volta", "?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=compdec&controller=compdec&action=filtroRelatorio");
+            <?php $_funcaBase->vifs("volta", "?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=compdec&controller=compdec&action=filtroRelatorio");
                 print "&nbsp;&nbsp;&nbsp;";
                 $_funcaBase->vifs("imprimir"); ?>
           <br>  

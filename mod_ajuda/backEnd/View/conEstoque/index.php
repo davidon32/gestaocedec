@@ -37,7 +37,7 @@
         if (Usuario::getPermissao('aju_permissao', 'rel_saldo_geral')) {
             ?>
             <div class="col-md-2 text-center">
-                <a href="?token=<?= hash('sha256', md5(VERSAO)); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=salindex" title="Saldo Estoque">
+                <a href="?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=salindex" title="Saldo Estoque">
                     <img src="/core/imagem/estoque/estoque.png" width="80"><br>
                     Estoque
                 </a>
@@ -57,7 +57,7 @@
         if (Usuario::getPermissao('aju_permissao', 'cad_liberacao')) {
             ?>
             <div class="col-md-2 text-center">
-                <a href="?token=<?= hash('sha256', md5(VERSAO)); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=idxliberacao" title="Liberacao de Materiais">
+                <a href="?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=idxliberacao" title="Liberacao de Materiais">
                     <img src="/core/imagem/estoque/liberacao.png" width="80px"><br>
                     Liberação
                 </a>
@@ -77,7 +77,7 @@
         if (Usuario::getPermissao('aju_permissao', 'cad_pagamento')) {
             ?> 
             <div class="col-md-2 text-center">
-                <a href="?token=<?= hash('sha256', md5(VERSAO)); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=idxpagamento" title="Fazer o pagamento de materiais liberados">
+                <a href="?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=idxpagamento" title="Fazer o pagamento de materiais liberados">
                     <img src="/core/imagem/estoque/pagamento.png" width="80px"><br>
                     Pagamento de Materiais
                 </a>
@@ -97,7 +97,7 @@
         if (Usuario::getPermissao('aju_permissao', 'cad_transferencia')) {
             ?> 
             <div class="col-md-2 text-center">
-                <a href="?token=<?= hash('sha256', md5(VERSAO)); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=idxtransf" title="Transferencia de Materiais entre Depositos">
+                <a href="?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=idxtransf" title="Transferencia de Materiais entre Depositos">
                     <img src="/core/imagem/estoque/transferencia.png" width="80x"><br>
                     Transferencia de Materiais
                 </a>
@@ -117,7 +117,7 @@
         if (Usuario::getPermissao('aju_permissao', 'relatorio')) {
             ?> 
             <div class="col-md-2 text-center">
-                <a href="?token=<?= hash('sha256', md5(VERSAO)); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=relIndex"" title="Relatorios">
+                <a href="?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=relIndex"" title="Relatorios">
                     <img src="/core/imagem/estoque/relatorios.png" width="80x"><br>
                     Relatorios
                 </a>
@@ -133,7 +133,7 @@
 
 
         <div class="col-md-12 text-center">
-            <a class="btn btn-success" href="?token=<?= hash('sha256', md5(VERSAO)); ?>&ac=itn&modulo=ajuda&controller=index&action=index"" title="Voltar">
+            <a class="btn btn-success" href="?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=ajuda&controller=index&action=index"" title="Voltar">
                 Voltar
             </a>
         </div>
@@ -143,25 +143,25 @@
         ?> <br>
 
         <div class="col-md-2 text-center">
-            <a href="?token=<?= hash('sha256', md5(VERSAO)); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=idxpagamento" title="Fazer o pagamento de materiais liberador">
+            <a href="?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=idxpagamento" title="Fazer o pagamento de materiais liberador">
                 <img src="/core/imagem/estoque/pagamento.png" width="80px"><br>
                 Pagamento de Materiais
             </a>
         </div>
         <div class="col-md-2 text-center">
-            <a href="?token=<?= hash('sha256', md5(VERSAO)); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=idxtransf" title="Transferencia de Materiais entre Depositos">
+            <a href="?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=idxtransf" title="Transferencia de Materiais entre Depositos">
                 <img src="/core/imagem/estoque/transferencia.png" width="80x"><br>
                 Transferencia de Materiais
             </a>
         </div>
         <div class="col-md-2 text-center">
-            <a href="?token=<?= hash('sha256', md5(VERSAO)); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=relIndex"" title="Relatorios">
+            <a href="?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=relIndex"" title="Relatorios">
                 <img src="/core/imagem/estoque/relatorios.png" width="80x"><br>
                 Relatorios
             </a>
         </div>
         <div class="col-md-12 text-center">
-            <a class="btn btn-success" href="?token=<?= hash('sha256', md5(VERSAO)); ?>&ac=itn&modulo=ajuda&controller=index&action=index"" title="Relatorios">
+            <a class="btn btn-success" href="?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=ajuda&controller=index&action=index"" title="Relatorios">
                 Voltar
             </a>
         </div>

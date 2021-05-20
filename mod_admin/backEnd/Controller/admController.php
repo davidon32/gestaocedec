@@ -90,14 +90,14 @@ include_once "core/Controller/Controller.php";
                 
                     print "<script>
                                 alert('Registro Gravado com Sucesso');
-                                window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO))."&ac=&modulo=admin&controller=index&action=index';
+                                window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=admin&controller=index&action=index';
                         </script>";
                 }
             }elseif($opcao == "atualiza") {
                     if($usuario->AtualizaEmail(array('txtEmail'=> $email, 'id_usuario'=>$id_usuario))){
                         print "<script>
                                     alert('Registro Atualizado com Sucesso');
-                                    window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO))."&ac=&modulo=admin&controller=adm&action=usuario';
+                                    window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=admin&controller=adm&action=usuario';
                             </script>";
                     }
             }

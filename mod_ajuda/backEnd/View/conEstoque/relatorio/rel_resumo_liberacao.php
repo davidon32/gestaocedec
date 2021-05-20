@@ -81,7 +81,7 @@
 ?>
 <div class="container">
     </br></br>
-    <div align="center" id="cabecalho"><a class='btn' href='index.php?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&secao=liberacao&acao=rel_busca_resumo'>Voltar</a><br><br></div>
+    <div align="center" id="cabecalho"><a class='btn' href='index.php?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&secao=liberacao&acao=rel_busca_resumo'>Voltar</a><br><br></div>
     <div align="center"><legend>Resumo de Liberações de Cesta Básica</legend><br><br></div>
     <div class="row">
         <div class="span6">Período : <?=DataMysql::dataVisual($_dtInicial);?> à <?=DataMysql::dataVisual($_dtFinal);?><br><br></div>

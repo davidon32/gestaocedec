@@ -13,29 +13,29 @@
 
 <div class="col-md-6">
     
-        <a href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=conestoque&action=cad_prod" class="btn btn-primary">Cadastro Produto</a>
+        <a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=cad_prod" class="btn btn-primary">Cadastro Produto</a>
 <br>
 <br>
-<a href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=conestoque&action=origem" class="btn btn-primary">Fonte de Entrada</a>
+<a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=origem" class="btn btn-primary">Fonte de Entrada</a>
 
 <br>
 <br>
-<a href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=conestoque&action=cadastro" class="btn btn-primary">Entrada Material</a>
+<a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=cadastro" class="btn btn-primary">Entrada Material</a>
 
 <br>
 <br>
-<a href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=conestoque&action=ajuste" class="btn btn-primary">Ajuste Saldo</a>
+<a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=ajuste" class="btn btn-primary">Ajuste Saldo</a>
 <br>
 <br>
 </div>
     <div class="col-md-6">
-        <a href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=conestoque&action=evento" class="btn btn-primary">Evento</a>
+        <a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=evento" class="btn btn-primary">Evento</a>
     </div>
 <br>
 <div class="col-md-12 text-center">
     <br>
     <br>
-        <a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=conestoque&action=index"/>Voltar</a>
+        <a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=index"/>Voltar</a>
 </div>
 
 <!-- =================== RODAPE CORPO ==================== -->

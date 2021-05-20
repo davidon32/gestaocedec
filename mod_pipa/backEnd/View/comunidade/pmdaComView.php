@@ -28,9 +28,9 @@
     						<br>
     						<!--<a class="btn btn-primary" href="?modulo=pipa&controller=pipa&action=cadcom" title="Cadastrar a Comunidade">Cadastrar / Alterar Comunidade</a><br>-->
     						<br>
-    						<a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=pipa&controller=pipa&action=valcom" title="Validar a Comunidade Cadastrada pelo Compdec">Validar Comunidade</a>
+    						<a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=pipa&controller=pipa&action=valcom" title="Validar a Comunidade Cadastrada pelo Compdec">Validar Comunidade</a>
 							<br><br>
-							<a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=pipa&controller=pipa&action=index">Voltar</a>
+							<a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=pipa&controller=pipa&action=index">Voltar</a>
     						<br>
 						</ul>
 
@@ -48,9 +48,9 @@
 
 		foreach ($pre_cadastro_comunidade as $key => $value) {
 			print "<tr>";
-			print "<td><a href='?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=pipa&controller=pipa&action=valcom&id=".$value['id_municipio']."' title='Visualiza Comunidades para Efetivação de Cadastro'>".$value['nome']."</a></td>";
-			print "<td><a href='?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=pipa&controller=pipa&action=valcom&id=".$value['id_municipio']."' title='Visualiza Comunidades para Efetivação de Cadastro'>".$value['total_com']."</a></td>";
-			print "<td><a href='?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=pipa&controller=pipa&action=valcom&id=".$value['id_municipio']."' title='Visualiza Comunidades para Efetivação de Cadastro'>Visualizar</a></td>";
+			print "<td><a href='?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=pipa&controller=pipa&action=valcom&id=".$value['id_municipio']."' title='Visualiza Comunidades para Efetivação de Cadastro'>".$value['nome']."</a></td>";
+			print "<td><a href='?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=pipa&controller=pipa&action=valcom&id=".$value['id_municipio']."' title='Visualiza Comunidades para Efetivação de Cadastro'>".$value['total_com']."</a></td>";
+			print "<td><a href='?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=pipa&controller=pipa&action=valcom&id=".$value['id_municipio']."' title='Visualiza Comunidades para Efetivação de Cadastro'>Visualizar</a></td>";
 			print "</tr>";
 		}
 	?>

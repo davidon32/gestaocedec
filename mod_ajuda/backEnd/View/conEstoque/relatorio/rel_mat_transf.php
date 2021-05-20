@@ -57,7 +57,7 @@ table th {
     
     ?>
         <br>
-        <div class='text-center'><a class="btn btn-success" href='index.php?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=relatorio&action=rel_material_tranf' class="btn">Voltar</a></div>
+        <div class='text-center'><a class="btn btn-success" href='index.php?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=relatorio&action=rel_material_tranf' class="btn">Voltar</a></div>
     </br>
 
     <legend> Relatório de Materiais Transferidos entre Depósitos</legend>
@@ -172,7 +172,7 @@ table th {
             //var_dump($itemTransf);
             
             print "</td>";
-            print "<td style='text-align:center; font-size:10px;' class='".$background."'><a href='?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=ajuda&controller=relatorio&action=rec_transf_mat&id=".$dados[$i]['id_transferencia']."&via=67676'><img width='25px' src='/core/imagem/recibo.png'></a></td>";          
+            print "<td style='text-align:center; font-size:10px;' class='".$background."'><a href='?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=relatorio&action=rec_transf_mat&id=".$dados[$i]['id_transferencia']."&via=67676'><img width='25px' src='/core/imagem/recibo.png'></a></td>";          
             
             print "</tr>";   
                         

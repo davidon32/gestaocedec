@@ -11,7 +11,7 @@
 <?php include_once "template/page/corpoHeader.php";?>
 
     <legend>Filtro Relatorio Cadastro Materiais</legend>
-                <form action="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=relatorio&action=rel_cad_mat" method="POST">
+                <form action="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=relatorio&action=rel_cad_mat" method="POST">
 
                 <div class="col-md-4">
                     <label>Data Inicial de Entrada no Sistema</label>
@@ -31,7 +31,7 @@
                 </div>
                                    
                             <input class="btn btn-info" type="submit" class="btn" id="" name="" value="Pesquisar"/>
-                            <a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=conestoque&action=relindex">Voltar</a>
+                            <a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=relindex">Voltar</a>
                 </form>
 <!-- =================== RODAPE CORPO ==================== -->
 <?php include_once "template/page/corpoRodape.php";?>

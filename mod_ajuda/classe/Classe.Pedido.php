@@ -102,7 +102,7 @@ class Pedido extends FuncaoBase {
 							<td align='center'>{$a[$i][4]}</td>
 							<td align='center'>{$a[$i][2]}</td>
 							<td align='center'>{$a[$i][3]}</td>
-							<td align='center'><a class=\"btn btn-info\" href=\"?token=" . hash('sha256', md5(VERSAO)) . "&ac=itn&modulo=ajuda&controller=conEstoque&action=remove_item&item=" . $i . "&r=1\" title=\"Remove Item da Liberação\">Remover</a></td>
+							<td align='center'><a class=\"btn btn-info\" href=\"?token=" . hash('sha256', md5(VERSAO).date('dmY')) . "&ac=itn&modulo=ajuda&controller=conEstoque&action=remove_item&item=" . $i . "&r=1\" title=\"Remove Item da Liberação\">Remover</a></td>
 							</tr>";
             }
             print "</table>";

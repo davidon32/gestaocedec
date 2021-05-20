@@ -28,7 +28,7 @@
 	?>
 
 	<div class="col-md-12">
-		<a class="btn btn-info" href="?token=<?=hash('sha256', md5(VERSAO))?>&ac=itn&modulo=ajuda&controller=conestoque&action=uprecpgto" title=\"Clique aqui para Pagar o Material\">Upload Recibo Pagamento</a>
+		<a class="btn btn-info" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=ajuda&controller=conestoque&action=uprecpgto" title=\"Clique aqui para Pagar o Material\">Upload Recibo Pagamento</a>
 		<br>
 		<br>
 	</div>
@@ -59,7 +59,7 @@
 ?>
 <div class="col-md-12 text-center">
 	<br>
-	<a href="?token=<?=hash('sha256', md5(VERSAO))?>&ac=itn&modulo=ajuda&controller=conestoque&action=index" class="btn btn-success">Voltar</a>
+	<a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=ajuda&controller=conestoque&action=index" class="btn btn-success">Voltar</a>
 </div>
 <!-- Modal -->
 <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

@@ -83,7 +83,7 @@ $nProd = new Produto();
 					</div>	
 
 					<div class="col-md-12 text-center">
-						<a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO))?>&ac=itn&modulo=ajuda&controller=conestoque&action=liberacao">Voltar</a>
+						<a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=ajuda&controller=conestoque&action=liberacao">Voltar</a>
 						<input class="btn btn-primary" type="submit" name="acao" value="Adicionar">
 						<br><br>
 					</div>

@@ -24,11 +24,11 @@ $_id_usuario = $pageSession['session']['seguranca']['idUser'];
 ?>
 
 <div class="col-md-12 text-center">
-    <a href="?token=<?=hash('sha256', md5(VERSAO))?>&ac=itn&modulo=cce&controller=cce&action=index"class="btn btn-success">Voltar</a>
+    <a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=cce&controller=cce&action=index"class="btn btn-success">Voltar</a>
 </div>
 
 
-					<form action="index.php?token=<?=hash('sha256', md5(VERSAO))?>&ac=itn&modulo=cce&controller=cce&action=diario" method="POST" name="cadastra_evento">
+					<form action="index.php?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=cce&controller=cce&action=diario" method="POST" name="cadastra_evento">
 						
 					   <legend>Diário do Plantão</legend>
 					   
@@ -131,7 +131,7 @@ $_id_usuario = $pageSession['session']['seguranca']['idUser'];
                                         
                                     print "window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=itn&modulo=cce&controller=cce&action=diario';";
                                         
-                                    print "window.open(\"index.php?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=cce&controller=historico&action=cadastro&idd=".$_diario['id_diario']."&p=".$_turno."\", \"Pagina2\" , \"left=300, top=200, height = 500 , width = 600\");";
+                                    print "window.open(\"index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=cce&controller=historico&action=cadastro&idd=".$_diario['id_diario']."&p=".$_turno."\", \"Pagina2\" , \"left=300, top=200, height = 500 , width = 600\");";
                                                                     
                                     print "</script>";
                                 
@@ -151,7 +151,7 @@ $_id_usuario = $pageSession['session']['seguranca']['idUser'];
                                         
                                     print "alert('Plantão já Aberto !');";
                                
-                                    print "window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=cce&controller=cadastro&action=diario';";
+                                    print "window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=cce&controller=cadastro&action=diario';";
                                
                                print "</script>"; 
                                

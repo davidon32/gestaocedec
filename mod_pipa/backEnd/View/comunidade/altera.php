@@ -38,7 +38,7 @@ $dados = $comunidade->buscaComunidadeId($id_comunidade);
 							<input type="hidden" id="txtIdComunidade" name="txtIdComunidade" value="<?=$dados['id_comunidade'];?>">
 							<br>
 							<button class="btn btn-primary" type="button" id="btnGravar" name="btnGravar" value="Gravar" title="Grava o nome da comunidade">Gravar</button>
-							<a  class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=pipa&controller=pipa&action=valcom&id=<?=$id_municipio;?>">Voltar</a>
+							<a  class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=pipa&controller=pipa&action=valcom&id=<?=$id_municipio;?>">Voltar</a>
 						</form>
 						<br>
 

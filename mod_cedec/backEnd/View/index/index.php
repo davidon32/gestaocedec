@@ -12,22 +12,22 @@
 
 
 <div class="col-md-4 text-center">
-    <p><a href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=cedec&controller=municipio&action=index" title="Informações dos Município"><img width="80" src='/core/imagem/prefeitura.png' /></a></p>
+    <p><a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=cedec&controller=municipio&action=index" title="Informações dos Município"><img width="80" src='/core/imagem/prefeitura.png' /></a></p>
     <p><label>Cadastro Prefeitura</label></p>
 <br><br>
-<a href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=cedec&controller=municipio&action=demanda" class="btn btn-primary" title="Dados Gerais do Município">Gerenciar Demanda</a>
+<a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=cedec&controller=municipio&action=demanda" class="btn btn-primary" title="Dados Gerais do Município">Gerenciar Demanda</a>
 </div>
 <div class="col-md-4 text-center">
-<a href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=cedec&controller=aguadoce&action=index" class="btn btn-primary" title="Manutenção Agua Doce Agora">Água Doce Agora</a>
+<a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=cedec&controller=aguadoce&action=index" class="btn btn-primary" title="Manutenção Agua Doce Agora">Água Doce Agora</a>
 <br><br>
 </div>
 <div class="col-md-4 text-center">
-<a href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=cedec&controller=agora&action=index" class="btn btn-primary" title="Manutenção Defesa Civil Agora">Defesa Civil Agora</a>
+<a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=cedec&controller=agora&action=index" class="btn btn-primary" title="Manutenção Defesa Civil Agora">Defesa Civil Agora</a>
 </div>
 <div class="col-md-12 text-center">
     <br>
     <br><br>
-    <a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=index&controller=index&action=menu">Voltar</a>
+    <a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=index&controller=index&action=menu">Voltar</a>
     
 </div>
 

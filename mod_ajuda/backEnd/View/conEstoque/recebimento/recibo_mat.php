@@ -48,7 +48,7 @@ $dados = $receb->CompRecebMateriais($id_transferencia);
 
 <br><br>
 
-<p class="text-center"><a href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=conestoque&action=idxtransf" class="btn btn-success">Voltar</a></p>
+<p class="text-center"><a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=idxtransf" class="btn btn-success">Voltar</a></p>
 
 <table>
     <tr>

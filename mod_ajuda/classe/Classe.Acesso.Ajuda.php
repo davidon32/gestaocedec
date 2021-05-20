@@ -29,7 +29,7 @@ class AcessoAjuda {
 
 
 		print "<li>
-		<a href=\"index.php?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=ajuda&secao=liberacao&acao=liberar\" title=\"Fazer a Liberação de Materiais\">Liberacao</a>
+		<a href=\"index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&secao=liberacao&acao=liberar\" title=\"Fazer a Liberação de Materiais\">Liberacao</a>
 		</li>";
 
 	}
@@ -40,8 +40,8 @@ class AcessoAjuda {
 		print "<li class=\"dropdown-submenu\">
 				<a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\" title=\"Pagar e Receber Materiais Liberados e Transferidos\">Depósito</a>
 				<ul class=\"dropdown-menu\">
-					<li><a href=\"index.php?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=ajuda&secao=pagamento&acao=pagamento\" title=\"Pagamento de Materiais Liberados\">Pagamento</a></li>
-					<li><a href=\"index.php?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=ajuda&secao=recebimento&acao=recebimento\" title=\"Recebimento de Materiais Trânsferidos\">Receb. Material Transf.</a></li>
+					<li><a href=\"index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&secao=pagamento&acao=pagamento\" title=\"Pagamento de Materiais Liberados\">Pagamento</a></li>
+					<li><a href=\"index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&secao=recebimento&acao=recebimento\" title=\"Recebimento de Materiais Trânsferidos\">Receb. Material Transf.</a></li>
 				</ul>
 				</li>";
 
@@ -51,7 +51,7 @@ class AcessoAjuda {
 	if($linha['cad_material'] == 1){
 
 		print "<li>
-		<a href=\"index.php?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=ajuda&secao=material&acao=cadastro\" title=\"Cadastro de Materiais\">Cadastro Material</a>
+		<a href=\"index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&secao=material&acao=cadastro\" title=\"Cadastro de Materiais\">Cadastro Material</a>
 		</li>";
 
 	}
@@ -60,7 +60,7 @@ class AcessoAjuda {
 	if($linha['cad_transferencia'] == 1){
 
 		print "<li>
-		<a href=\"index.php?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=ajuda&secao=transferencia&acao=transferencia\" title=\"Trânsferência de Material entre Depósitos\">Transf. Material Depósitos</a>
+		<a href=\"index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&secao=transferencia&acao=transferencia\" title=\"Trânsferência de Material entre Depósitos\">Transf. Material Depósitos</a>
 		</li>";
 	}
 
@@ -88,35 +88,35 @@ class AcessoAjuda {
 							if($linha['rel_saldo_geral'] == 1){
 									
 								print "<li class=\"dropdown\">
-										<a href=\"index.php?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=ajuda&secao=relatorio&acao=rel_saldo_geral\" title=\"Saldo Geral dos Depósitos Avançados\">Posi&ccedil;&atilde;o Geral do Estoque</a>
+										<a href=\"index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&secao=relatorio&acao=rel_saldo_geral\" title=\"Saldo Geral dos Depósitos Avançados\">Posi&ccedil;&atilde;o Geral do Estoque</a>
 										</li>";
 							}
 							#@ relatorio de	saldo por depósito
 							if($linha['rel_saldo_p_deposito'] == 1){
 								 
 								print "<li class=\"dropdown\">
-										<a href=\"index.php?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=ajuda&secao=relatorio&acao=rel_saldo_deposito\" title=\"Saldo por Depósito Avançado\">Posi&ccedil;&atilde;o Saldo por Dep&oacute;sito</a>
+										<a href=\"index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&secao=relatorio&acao=rel_saldo_deposito\" title=\"Saldo por Depósito Avançado\">Posi&ccedil;&atilde;o Saldo por Dep&oacute;sito</a>
 										</li>";
 							}
 							#@ 2ª via do comprovante de liberacao
 							if($linha['rel_comp_liberacao'] == 1){
 								 
 								print "<li class=\"dropdown\">
-										<a href=\"index.php?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=ajuda&secao=relatorio&acao=rel_segunda_via_liberacao\" title=\"Reimpressão do Comprovante de Liberação\">2ª Via Liberação</a>
+										<a href=\"index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&secao=relatorio&acao=rel_segunda_via_liberacao\" title=\"Reimpressão do Comprovante de Liberação\">2ª Via Liberação</a>
 										</li>";
 							}
 							#@ relatorio materiais liberados (liberacoes)
 							if($linha['rel_mat_liberado'] == 1){
 				
 								print "<li>
-										<a href=\"index.php?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=ajuda&secao=liberacao&acao=busca_rel_mat_liberado\" title=\"Histórico de Liberações Efetuadas\">Material Liberado</a>
+										<a href=\"index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&secao=liberacao&acao=busca_rel_mat_liberado\" title=\"Histórico de Liberações Efetuadas\">Material Liberado</a>
 										</li>";
 							}
 							#@ relatório materiais pago
 							if($linha['rel_mat_pago'] == 1){
 								
 								print "	<li>
-										<a href=\"index.php?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=ajuda&secao=pagamento&acao=list_pgto_busca\" title=\"Histórico de Pagamento de Materiais \">Material Pago </a>
+										<a href=\"index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&secao=pagamento&acao=list_pgto_busca\" title=\"Histórico de Pagamento de Materiais \">Material Pago </a>
 										</li>";
 							
 							}
@@ -124,7 +124,7 @@ class AcessoAjuda {
 							if($linha['rel_comp_mat_pago'] == 1){
 				
 								print "<li>
-										<a href=\"index.php?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=ajuda&secao=pagamento&acao=recibo_pgto_busca\" title=\"2ª Via do Recibo de Pagamento de Materiais\">2º Via Recibo Pgto Material </a>
+										<a href=\"index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&secao=pagamento&acao=recibo_pgto_busca\" title=\"2ª Via do Recibo de Pagamento de Materiais\">2º Via Recibo Pgto Material </a>
 										</li>";
 							}
                             
@@ -132,7 +132,7 @@ class AcessoAjuda {
                             if($linha['rel_resumo_liberacao'] == 1){
                 
                                 print "<li>
-                                        <a href=\"index.php?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=ajuda&secao=liberacao&acao=rel_busca_resumo\" title=\"Resumo de Liberações\">Resumo de Liberações </a>
+                                        <a href=\"index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&secao=liberacao&acao=rel_busca_resumo\" title=\"Resumo de Liberações\">Resumo de Liberações </a>
                                         </li>";
                             }
 						
@@ -151,14 +151,14 @@ class AcessoAjuda {
 				if($linha['rel_mat_transferido'] == 1){
 				
 					print "<li>
-							<a href=\"index.php?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=ajuda&secao=transferencia&acao=busca_rel_mat_transferido\" title=\"Transferência de Materiais entre Depósitos\">Material Transferido</a>
+							<a href=\"index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&secao=transferencia&acao=busca_rel_mat_transferido\" title=\"Transferência de Materiais entre Depósitos\">Material Transferido</a>
 							</li>";
 				}
 				#@ relatórios de materiais em trânsito
 				if($linha['rel_mat_transito'] == 1){
 	
 					print "<li>
-							<a href=\"index.php?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=ajuda&secao=relatorio&acao=rel_material_transito\" title=\"\">Relatório de Materiais em Tr&acirc;nsito </a>
+							<a href=\"index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&secao=relatorio&acao=rel_material_transito\" title=\"\">Relatório de Materiais em Tr&acirc;nsito </a>
 							</li>";
 				}
 
@@ -169,7 +169,7 @@ class AcessoAjuda {
                 if($linha['rel_cad_mat'] == 1){
     
                     print "<li>
-                            <a href=\"index.php?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=ajuda&secao=material&acao=busca_cadastro\" title=\"Relatorio de Cadastro de Materiais\">Cadastro de Material </a>
+                            <a href=\"index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&secao=material&acao=busca_cadastro\" title=\"Relatorio de Cadastro de Materiais\">Cadastro de Material </a>
                             </li>";
                 }
             

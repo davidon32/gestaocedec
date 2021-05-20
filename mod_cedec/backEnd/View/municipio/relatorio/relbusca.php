@@ -23,7 +23,7 @@
     
 </div>
 <div class="col-md-12 text-right">
-    <a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=index&controller=index&action=menu">Voltar</a>
+    <a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=index&controller=index&action=menu">Voltar</a>
 </div>
 
 

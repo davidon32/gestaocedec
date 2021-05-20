@@ -81,7 +81,7 @@
   					
   				$voltarCompdec = '<a href="javascript:history.back();" class="btn btn-primary">Voltar</a>';
   				
-  				$voltarAdm = "<a href=\"?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=pipa&controller=pipa&action=pesquisaPmda&idmun=".$id_municipio."\" class=\"btn btn-primary\">Voltar</a>";
+  				$voltarAdm = "<a href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=pipa&controller=pipa&action=pesquisaPmda&idmun=".$id_municipio."\" class=\"btn btn-primary\">Voltar</a>";
   			
   				print isset($_GET['a']) ? $voltarAdm : $voltarCompdec;
   			

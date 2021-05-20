@@ -1845,7 +1845,7 @@ class Usuario extends UsuarioModel {
 
             print "<div " . $div . ">";
 
-            print "<a href=\"?token=" . hash('sha256', md5(VERSAO)) . $link . "\" title=\"" . $texto . "\">
+            print "<a href=\"?token=" . hash('sha256', md5(VERSAO).date('dmY')) . $link . "\" title=\"" . $texto . "\">
                 <img src=\"/core/imagem/" . $imagem . "\" width=\"80px\"><br>Entrada de Materiais
             </a>";
         } else {

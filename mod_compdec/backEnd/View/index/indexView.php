@@ -14,19 +14,19 @@
             <!-- CORPO -->
         <div class="row-fluid">
             <div class="span10">
-            <a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=compdec&controller=compdec&action=buscarAlterar">Cadastro Compdec</a><br> <br>  
-            <a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=compdec&controller=compdec&action=filtroRelatorio">Relatórios</a><br> <br>  
+            <a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=compdec&controller=compdec&action=buscarAlterar">Cadastro Compdec</a><br> <br>  
+            <a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=compdec&controller=compdec&action=filtroRelatorio">Relatórios</a><br> <br>  
             
-            <a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=compdec&controller=compdec&action=email&">Envio Email / Lote</a><br> <br>  
+            <a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=compdec&controller=compdec&action=email&">Envio Email / Lote</a><br> <br>  
             
             <!--<a class="btn btn-primary" href="?modulo=pipa&controller=pipa&action=usuario">Add Usuario Externo</a><br> <br>  -->
             <a class="btn btn-primary" href="<?= FuncaoBase::geraLink('pipa','pipa', 'usuario', array('volta'=>'compdec'));?>">Ativar/Editar Usuario</a><br><br>   
             <!--<a class="btn btn-primary" href="?modulo=compdec&controller=pipa&action=pmdaCom&a=adm">Lista Usuarios</a>   -->
-            <a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=compdec&controller=plano&action=indexplano">Plano de Contingência</a>
+            <a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=compdec&controller=plano&action=indexplano">Plano de Contingência</a>
                                                
             </div>
             <div class='col-md-12 text-center'>
-                <a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO));?>&&modulo=index&controller=index&action=menu">Voltar</a><br> <br>  
+                <a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&&modulo=index&controller=index&action=menu">Voltar</a><br> <br>  
             </div>         
         </div> 
 <!-- =================== RODAPE CORPO ==================== -->

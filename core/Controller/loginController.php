@@ -53,7 +53,7 @@ if($action == "logar") {
 	}elseif($_loginExterno->logarExterno($_usuario, md5($_senha))){
 		
 		print "<script style='text/javascript'>";
-		print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=index&secao=cedec&acao=index'";
+		print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO)."-".date("dmY"))."&ac=&modulo=index&secao=cedec&acao=index'";
 		print "</script>";
 		
 	}else {

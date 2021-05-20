@@ -23,7 +23,7 @@ class indexController extends Controller
        if($logar == "indexAdm"){
             
             print "<script style='text/javascript'>";
-			print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time()."-".time())."&ac=itn&ac=&modulo=index&controller=index&action=index1'";
+			print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO)."-".date('dmY'))."&ac=itn&ac=&modulo=index&controller=index&action=index1'";
             print "</script>";
        }else if($logar == "trsenha"){
 

@@ -12,7 +12,7 @@ $result = Pagamento::RelPgto($id_liberacao);
 
 if(empty($result)){
 	print "<br><br><p class='text-center'><span class='alert alert-danger'>Não foi possivel gerar esse recibo</span><br><br>";
-	print "<a class=\"btn btn-success\" href=\"index.php?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=ajuda&controller=conestoque&action=idxpagamento\">voltar</a></p>";
+	print "<a class=\"btn btn-success\" href=\"index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=idxpagamento\">voltar</a></p>";
 	die();
 }
 
@@ -38,9 +38,9 @@ body {
 			<tr>
 				<td><br>
 					<?php if(isset($_GET['m'])){?>
-						<a class="btn btn-success" href="index.php?token=<?=hash('sha256', md5(VERSAO))?>&ac=itn&modulo=ajuda&controller=relatorio&action=fbusca_pag_mat">Voltar</a>
+						<a class="btn btn-success" href="index.php?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=ajuda&controller=relatorio&action=fbusca_pag_mat">Voltar</a>
 					<?php }else { ?>
-						<a class="btn btn-success" href="index.php?token=<?=hash('sha256', md5(VERSAO))?>&ac=itn&modulo=ajuda&controller=conestoque&action=recibopg&id=<?=$id_liberacao?>">Voltar</a>
+						<a class="btn btn-success" href="index.php?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=ajuda&controller=conestoque&action=recibopg&id=<?=$id_liberacao?>">Voltar</a>
 					<?php } ?>
 					</td>
 			</tr>

@@ -18,7 +18,7 @@
 	
 ?>
 <div class="col-md-12 text-center">
-	<a class='btn btn-info' href='?token=<?=hash('sha256', md5(VERSAO))?>&ac=itn&modulo=ajuda&controller=relatorio&action=fbusca_pag_mat'>Voltar</a>
+	<a class='btn btn-info' href='?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=ajuda&controller=relatorio&action=fbusca_pag_mat'>Voltar</a>
 
 </div>
 <div class="col-md-12 text-center">

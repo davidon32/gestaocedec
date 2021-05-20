@@ -30,7 +30,7 @@ $id = isset($_GET['id']) ? $_GET['id'] : "";
 	  	<div class="container iframe">
 		  <?php 
 		  	if($tp_acesso == "e"){
-				  print "<p style='text-align:center'><a href='?token=".hash('sha256', md5(VERSAO))."&ac=etn&modulo=compdec&controller=plano&action=index' class='btn btn-success'>Voltar</a></p>";
+				  print "<p style='text-align:center'><a href='?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=etn&modulo=compdec&controller=plano&action=index' class='btn btn-success'>Voltar</a></p>";
 			}  else {
 				print "<p style='text-align:center'><a href='#' onclick='history.back();' class='btn btn-primary'>Voltar</a></p>";
 			}

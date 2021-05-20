@@ -51,7 +51,7 @@ table td {
 
     ?>
         <br>
-        <div class='text-center'><a href='index.php?token=<?=hash('sha256', md5(VERSAO));?>"&ac=&modulo=ajuda&secao=material&acao=busca_cadastro' class="btn">Voltar</a></div>
+        <div class='text-center'><a href='index.php?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>"&ac=&modulo=ajuda&secao=material&acao=busca_cadastro' class="btn">Voltar</a></div>
     </br>
 
     <legend> Relatório Entrada de Materiais</legend>

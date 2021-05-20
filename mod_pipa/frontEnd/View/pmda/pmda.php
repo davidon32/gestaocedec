@@ -1947,7 +1947,6 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
                 success: function (response) {
                     if (response == "sucesso") {
 
-
                         if ($("#txtIdComunidadeSearch").val() == "") {
                             alert("Esta Comunidade Ainda não está Cadastrada ou não foi liberada para Uso no PMDA !");
                         } else if (
@@ -2671,7 +2670,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
                         url: '#',
                         data: dados,
                         success: function (response) {
-                            window.location.href = '?token=<?= hash("sha256", md5(VERSAO)); ?>&ac=etn&modulo=pipa&controller=pipa&action=pmda&param=' + id_pmda + '&p=' + protocolo + '&mun=' + id_municipio;
+                            window.location.href = '?token=<?= hash("sha256", md5(VERSAO).date('dmY')); ?>&ac=etn&modulo=pipa&controller=pipa&action=pmda&param=' + id_pmda + '&p=' + protocolo + '&mun=' + id_municipio;
                         },
                         error: function (response) {
                             console.log(JSON.stringify(response));
@@ -2707,7 +2706,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
                         url: '#',
                         data: dados,
                         success: function (response) {
-                            window.location.href = '?token=<?= hash('sha256', md5(VERSAO)) ?>&modulo=pipa&controller=pipa&action=mensagem&id_pmda=' + id_pmda;
+                            window.location.href = '?token=<?= hash('sha256', md5(VERSAO).date('dmY')) ?>&modulo=pipa&controller=pipa&action=mensagem&id_pmda=' + id_pmda;
                         },
                         error: function (response) {
                             console.log(JSON.stringify(response));
@@ -2739,7 +2738,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
                         url: '#',
                         data: dados,
                         success: function (response) {
-                            window.location.href = '?token=<?= hash('sha256', md5(VERSAO)) ?>&ac=etn&modulo=pipa&controller=pipa&action=printPmda&param=' + id_pmda + '&mun=' + id_municipio;
+                            window.location.href = '?token=<?= hash('sha256', md5(VERSAO).date('dmY')) ?>&ac=etn&modulo=pipa&controller=pipa&action=printPmda&param=' + id_pmda + '&mun=' + id_municipio;
                         },
                         error: function (response) {
                             console.log(JSON.stringify(response));
@@ -2875,7 +2874,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
      * Download termo de compromisso
      */
     function termo_compromisso() {
-        window.location.href = 'index.php?token=<?= hash('sha256', md5(VERSAO)); ?>&ac=etn&modulo=pipa&controller=pipa&action=termo&param=<?= $id_pmda; ?>&mun=<?= $id_municipio; ?>';
+        window.location.href = 'index.php?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=etn&modulo=pipa&controller=pipa&action=termo&param=<?= $id_pmda; ?>&mun=<?= $id_municipio; ?>';
 
     }
 
@@ -2883,7 +2882,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
      * Download Declaração ISS
      */
     function declaracaoiss() {
-        window.location.href = 'index.php?token=<?= hash('sha256', md5(VERSAO)); ?>&ac=etn&modulo=pipa&controller=pipa&action=declaracaoiss&param=<?= $id_pmda; ?>&mun=<?= $id_municipio; ?>';
+        window.location.href = 'index.php?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=etn&modulo=pipa&controller=pipa&action=declaracaoiss&param=<?= $id_pmda; ?>&mun=<?= $id_municipio; ?>';
 
     }
 
@@ -2901,11 +2900,11 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
 
     /* Ver historico de mensagens  */
     function historicoMsg(id_pmda, $opcao) {
-        window.location.href = 'index.php?token=<?= hash('sha256', md5(VERSAO)); ?>&modulo=pipa&controller=pipa&action=historicoMsg&id_pmda=' + id_pmda + '&opcao=msg_pmda';
+        window.location.href = 'index.php?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&modulo=pipa&controller=pipa&action=historicoMsg&id_pmda=' + id_pmda + '&opcao=msg_pmda';
     }
     /* ver mensagens recebidas */
     function lerMensagemRecebida(id_pmda, opcao) {
-        window.location.href = 'index.php?token=<?= hash('sha256', md5(VERSAO)); ?>&ac=etn&modulo=pipa&controller=pipa&action=mensagem&id_pmda=' + id_pmda + '&opcao=' + opcao;
+        window.location.href = 'index.php?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=etn&modulo=pipa&controller=pipa&action=mensagem&id_pmda=' + id_pmda + '&opcao=' + opcao;
     }
 
     function ajudacoordenada() {

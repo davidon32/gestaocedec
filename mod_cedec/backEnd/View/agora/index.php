@@ -12,20 +12,20 @@
 
 <div class="col-md-12 text-center">
     <br>
-    <a href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=cedec&controller=index&action=index" class="btn btn-success" title="Lançamento de novo Registro">Voltar</a>
+    <a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=cedec&controller=index&action=index" class="btn btn-success" title="Lançamento de novo Registro">Voltar</a>
 
 </div>
 
-<a href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=cedec&controller=agora&action=cadadm" class="btn btn-primary" title="Lançamento de novo Registro">Lançamento</a>
+<a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=cedec&controller=agora&action=cadadm" class="btn btn-primary" title="Lançamento de novo Registro">Lançamento</a>
 <br>
 <br>
-<a href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=cedec&controller=agora&action=busca" class="btn btn-primary">Buscar / Alterar</a>
+<a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=cedec&controller=agora&action=busca" class="btn btn-primary">Buscar / Alterar</a>
 <br>
 <br>
-<a href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=cedec&controller=agora&action=lista" class="btn btn-primary" title="Lista">Visualizar Lista</a>
+<a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=cedec&controller=agora&action=lista" class="btn btn-primary" title="Lista">Visualizar Lista</a>
 <br><br>
 <br>
-<a href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=cedec&controller=agora&action=listasite" class="btn btn-primary" title="Lista Site ">Visualizar Lista Site</a>
+<a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=cedec&controller=agora&action=listasite" class="btn btn-primary" title="Lista Site ">Visualizar Lista Site</a>
 <br><br>
 <table class="table table-bordered">
     <th>#</th>

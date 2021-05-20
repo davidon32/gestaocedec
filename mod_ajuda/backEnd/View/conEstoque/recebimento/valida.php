@@ -70,7 +70,7 @@ include_once "template/page/headerPageSimples.php";
                 
                 print "alert('Recebimento de materiais Realizada com Sucesso');";
                 
-                print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=ajuda&controller=conestoque&action=recebmat&id=".$_txt_id_transferencia."';";
+                print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=recebmat&id=".$_txt_id_transferencia."';";
                 print "</script>";
                 
             }

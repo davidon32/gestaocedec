@@ -28,7 +28,7 @@ $_territorio = new Territorio();
 	$municipios = $_municipio->dadosSelectMunicipio();
 
 ?>
-		<form action="index.php?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=compdec&controller=compdec&action=buscarAlterar" method="POST" accept-charset="utf-8">
+		<form action="index.php?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=compdec&controller=compdec&action=buscarAlterar" method="POST" accept-charset="utf-8">
 
 				<label>Município</label>
 				<input type="text" name="txtMunicipio" id="txtMunicipio">
@@ -122,7 +122,7 @@ $_territorio = new Territorio();
 			
 			?>	
 			<div class='col-md-12 text-center'>
-			<a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=compdec&controller=compdec&action=index">Voltar</a><br> <br> 
+			<a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=compdec&controller=compdec&action=index">Voltar</a><br> <br> 
 			</div>
 
 <!-- =================== RODAPE CORPO ==================== -->

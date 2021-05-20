@@ -42,7 +42,7 @@ if($_btn_enviar) {
 
 <div class="col-md-12 text-center">
 	<br>
-	<a href='?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=relatorio&action=fbusca_pag_mat' class='btn btn-success imprimir'>Voltar</a>
+	<a href='?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=relatorio&action=fbusca_pag_mat' class='btn btn-success imprimir'>Voltar</a>
 </div>
 <div class="col-md-12">
 	<div class="col-md-12 text-left">
@@ -104,8 +104,8 @@ if($_btn_enviar) {
 			
             print "</td>";
 			print "<td style='font-size: 10px; text-align: center;'>
-				<a href=\"?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=ajuda&controller=conestoque&action=imprecibopg&nlib=".$_mat_pago[$i]['id_liberacao']."&m=12872\" class='btn btn-info imprimir' title='2º Via comprovante de Pagamento de Materiais Liberados'>2ª Via C.Pgto</a>
-				<a href=\"?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=ajuda&controller=relatorio&action=visualizarRec&id=".$_mat_pago[$i]['id_liberacao']."&m=12872\" title='Visualizar recibo Digitalizado de Pagamento' class='imprimir'><img width='25' src='core/imagem/recibo.png'></a>
+				<a href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=imprecibopg&nlib=".$_mat_pago[$i]['id_liberacao']."&m=12872\" class='btn btn-info imprimir' title='2º Via comprovante de Pagamento de Materiais Liberados'>2ª Via C.Pgto</a>
+				<a href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=relatorio&action=visualizarRec&id=".$_mat_pago[$i]['id_liberacao']."&m=12872\" title='Visualizar recibo Digitalizado de Pagamento' class='imprimir'><img width='25' src='core/imagem/recibo.png'></a>
 			</td>";
 			
             print "</tr>";

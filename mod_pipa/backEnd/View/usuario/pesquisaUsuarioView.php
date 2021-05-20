@@ -84,7 +84,7 @@
                     	           print "<td>".$value['email_rec']."</td>";
                     	           print "<td>".$value['situacao']."</td>";
                     	           print "<td>
-						                      <a href='?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=pipa&controller=pipa&action=cUserEx&id=".$value['id'].$volta."'><img src='core/imagem/editar.png' title='Editar dados do usuario externo'></a>
+						                      <a href='?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=pipa&controller=pipa&action=cUserEx&id=".$value['id'].$volta."'><img src='core/imagem/editar.png' title='Editar dados do usuario externo'></a>
 						                      <!--<a href='#'><img src='core/imagem/view.png'></a>-->						        
 						          </td>";
                     	       }

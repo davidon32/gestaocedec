@@ -16,7 +16,7 @@
 </style>
 <br>
 <div class="col-md-12 text-center">
-  <a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=conestoque&action=index">Voltar</a>
+  <a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=index">Voltar</a>
   <br>
   <br>
 </div>
@@ -25,10 +25,10 @@
   if($_COOKIE['seguranca']['id_deposito'] == '1'){?>
 
     <div class="col-md-2 text-center">
-      <a class="btn btn-info" href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=conestoque&action=transf">Transferir Material</a>
+      <a class="btn btn-info" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=transf">Transferir Material</a>
       <br>
       <br>
-      <!--<a class="btn btn-info" href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=conestoque&action=transfcancela" class="btn window" title="">Cancelar Transferência</a>-->
+      <!--<a class="btn btn-info" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=transfcancela" class="btn window" title="">Cancelar Transferência</a>-->
       
     </div>
     
@@ -66,10 +66,10 @@
                     print "<td>".Deposito::PegaNomeDeposito($value['id_dep_origem'])."</td>";
                     print "<td>".Deposito::PegaNomeDeposito($value['id_dep_destino'])."</td>";
                     print "<td><button id=\"".$value['id_transferencia']."\" name=\"txtmattransf\" data-toggle=\"modal\" data-target=\"#myModal\" data-whatever=\"".$value['id_transferencia']."\"><img src='core/imagem/view.png' width='25px' title='Visualizar Materiais'></button></td>";
-                    print "<td><a href=\"?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=ajuda&controller=conestoque&action=receber&n=".$value['id_transferencia']."\" ><img src='core/imagem/cadastro.png' width='30px' title='Receber Materiais'></a>&nbsp;&nbsp;";
+                    print "<td><a href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=receber&n=".$value['id_transferencia']."\" ><img src='core/imagem/cadastro.png' width='30px' title='Receber Materiais'></a>&nbsp;&nbsp;";
                     
                     print ($permissaoAjudaH['cancela_transf']) ? "<a href=\"".FuncaoBase::geraLink("ajuda", "conestoque", "transfcancela", array('n'=>$value['id_transferencia']))."\"><img src='core/imagem/remove.png' width='25px' title='Cancelar Transferencia'></a>&nbsp;&nbsp;" : "";
-                    print "<a href=\"?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=ajuda&controller=relatorio&action=rec_transf_mat&id=".$value['id_transferencia']."&idx=uiuiu\"><img src='core/imagem/recibo.png' width='25px' title='Recibo de Transferencia'></a></td>";
+                    print "<a href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=relatorio&action=rec_transf_mat&id=".$value['id_transferencia']."&idx=uiuiu\"><img src='core/imagem/recibo.png' width='25px' title='Recibo de Transferencia'></a></td>";
                     print "</tr>";
                 }
             ?>

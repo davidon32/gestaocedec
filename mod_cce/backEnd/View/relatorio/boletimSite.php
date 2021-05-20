@@ -40,7 +40,7 @@ $dados = $boletim->relatoriosite();
 	<?php if(isset($_COOKIE['seguranca']['tipo'])) { ?>
 
 		<div class="col-md-12 text-center">
-			<a href="?token=<?=hash('sha256', md5(VERSAO))?>&ac=itn&modulo=cce&controller=cce&action=index"class="btn btn-success">Voltar</a>
+			<a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=cce&controller=cce&action=index"class="btn btn-success">Voltar</a>
 		</div>
 
 		<?php	}

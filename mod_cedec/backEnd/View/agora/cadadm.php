@@ -11,7 +11,7 @@
 
 <div class="col-lg10 col-xs-12">
 
-    <a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=cedec&controller=agora&action=index">Voltar</a>
+    <a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=cedec&controller=agora&action=index">Voltar</a>
     <br>
     <br>
 
@@ -85,9 +85,9 @@ if($btn == 'pesquisa'){
                     </td>";
        print "<td $status>".$defesaAgora->status($value['status1'])."</td>";
        print "<td>
-                <a href='?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=cedec&controller=agora&action=editar&id=".$value['id']."' id='lkEditar'><img src='core/imagem/editar.png' title='Editar Lançamento'></a>
+                <a href='?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=cedec&controller=agora&action=editar&id=".$value['id']."' id='lkEditar'><img src='core/imagem/editar.png' title='Editar Lançamento'></a>
                 <a href='#'><img src='core/imagem/delete.png' title='Deleta o Lançamento !' onclick='deletaLancamento(".$value['id'].")' id='lkDeletar'></a>
-                <a href='?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=cedec&controller=agora&action=lista&id=".$value['id']."''><img src='core/imagem/view.png' title='Visualizar Lançamento'id='lkVisualizar'></a>";
+                <a href='?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=cedec&controller=agora&action=lista&id=".$value['id']."''><img src='core/imagem/view.png' title='Visualizar Lançamento'id='lkVisualizar'></a>";
 
         print ($value['status1'] == 0) ?"<a href='#'><img src='core/imagem/ok.jpg' title='Ativar Lançamento' id='lkAtivar' onclick='ativar(".$value['id'].");'></a>":"";
         print "</td></tr>";

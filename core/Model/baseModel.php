@@ -11,7 +11,7 @@ class BaseModel extends Model {
         if(!empty($param)){
             $id = "&id=".$param;
         }
-    print "<a class=\"btn btn-".$botao."\" href=\"?token=".hash('sha256', md5(VERSAO))."&ac=".$acesso."&modulo=".$modulo."&controller=".$controller."&action=".$action.$id."\">".$texto."</a>";
+    print "<a class=\"btn btn-".$botao."\" href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=".$acesso."&modulo=".$modulo."&controller=".$controller."&action=".$action.$id."\">".$texto."</a>";
 
     }
 

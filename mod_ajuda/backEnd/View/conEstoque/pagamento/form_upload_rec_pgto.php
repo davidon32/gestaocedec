@@ -31,7 +31,7 @@ $_readOnly = "";
 		</div>
 		<div class="col-md-12">
 			<input class="btn btn-info" type="submit" name="btnUpload" value="btnUpload" id="btnUpload" />
-			<a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=conestoque&action=idxpagamento">Voltar</a>		
+			<a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=idxpagamento">Voltar</a>		
 		</div>
 <!-- =================== RODAPE CORPO ==================== -->
 <?php include_once "template/page/corpoRodape.php";?>

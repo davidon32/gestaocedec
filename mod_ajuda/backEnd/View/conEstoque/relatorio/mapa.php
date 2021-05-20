@@ -7,7 +7,7 @@
 $post = isset($_POST) ? $_POST :"";
 $icone = '/core/imagem/maps.png';
 //var_dump($post);
-$voltar = "<p style='text-align: center'><a class='button' href='?token=".hash('sha256', md5(VERSAO))."&modulo=ajuda&controller=relatorio&action=buscamapa'>Voltar</a></p>";
+$voltar = "<p style='text-align: center'><a class='button' href='?token=".hash('sha256', md5(VERSAO).date('dmY'))."&modulo=ajuda&controller=relatorio&action=buscamapa'>Voltar</a></p>";
 
 if(empty($post)) {
     

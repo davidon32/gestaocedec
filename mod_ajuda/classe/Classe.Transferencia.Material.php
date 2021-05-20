@@ -292,7 +292,7 @@
 						<td>".$linha['veiculo']."</td>
 						<td>".$linha['motorista']."</td>
 						<td>".DataMysql::extraiData($linha['dt_saida'])."</td>
-						<td><a class=\"btn btn-primary\" href=\"index.php?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=ajuda&secao=recebimento&acao=receber&id=".$linha['id_transferencia']."\"><i class=\"\">Receber</i></a></td>
+						<td><a class=\"btn btn-primary\" href=\"index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&secao=recebimento&acao=receber&id=".$linha['id_transferencia']."\"><i class=\"\">Receber</i></a></td>
 					</tr>";
 		}
 
@@ -527,7 +527,7 @@
 				if($nlinha > 0){
 					#@ monta o link com o icone de transferencia no item do saldo de materiais				
 					//return "<a href=\"javascript:NovaJanela('index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=ajuda&secao=transferencia&acao=visualiza_mat_transferido&dest=".$linha[2]."&mat=".$linha[0]."&id=".$linha[1]."', 700, 300)\"><img src='mod_ajuda/imagem/transito.png' title='Existe Material em Transito '></a>";
-	                return "<a href=\"javascript:NovaJanela('index.php?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=ajuda&controller=conEstoque&action=lembrete_transito&id=".$dados['id_transferencia']."', 700, 300)\"><img src='mod_ajuda/imagem/transito.png' title='Existe Material em Transito '></a>";
+	                return "<a href=\"javascript:NovaJanela('index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conEstoque&action=lembrete_transito&id=".$dados['id_transferencia']."', 700, 300)\"><img src='mod_ajuda/imagem/transito.png' title='Existe Material em Transito '></a>";
 				}
 		}catch (Exception $e){
 			

@@ -22,7 +22,7 @@ $municipio = new Municipio();
 						<label>Pesquisar Município</label>
 						<input class="form-control" type="text" id="txtMunicipio" name="txtMunicipio"><br>
 						<input class="btn btn-primary" type="submit" id="btnPesquisar" name="btnPesquisar" value="Pesquisar">
-						<a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=pipa&controller=pipa&action=pmdaCom&a=adm">Voltar</a>
+						<a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=pipa&controller=pipa&action=pmdaCom&a=adm">Voltar</a>
 						</form>
 						<br>
 						<?php
@@ -50,7 +50,7 @@ $municipio = new Municipio();
 									print "<tr>";
 									print "<td>".$value['id_municipio']."</td>";
 									print "<td>".$value['nome']."</td>";
-									print "<td><a href='?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=pipa&controller=pipa&action=valcom&id=".$value['id_municipio']."' title='Visualiza Comunidades para Efetivação de Cadastro'>Visualizar</a></td>";
+									print "<td><a href='?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=pipa&controller=pipa&action=valcom&id=".$value['id_municipio']."' title='Visualiza Comunidades para Efetivação de Cadastro'>Visualizar</a></td>";
 									print "</tr>";
 								}
 							}
@@ -76,7 +76,7 @@ $municipio = new Municipio();
 										print "<td $preCad>".$value['comunidade']."</td>";						
 										print "<td $preCad>".Usuario::getNomeId($value['id_user_validador'])."</td>";						
 										print "<td $preCad>";
-										print ($value['tipo_cad'] =="pre") ? "<a href='?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=pipa&controller=pipa&action=alteraComunidade&id=".$value['id_comunidade']."&idMun=".$id_municipio."' id='btnEfetiva' title='Editar Nome Comunidade'><img src='/core/imagem/editar.png' width='30px;'></a>
+										print ($value['tipo_cad'] =="pre") ? "<a href='?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=pipa&controller=pipa&action=alteraComunidade&id=".$value['id_comunidade']."&idMun=".$id_municipio."' id='btnEfetiva' title='Editar Nome Comunidade'><img src='/core/imagem/editar.png' width='30px;'></a>
 												<a onclick='javascript:efetivarCom(".$value['id_comunidade'].", ".$_COOKIE['seguranca']['idUser'].");' id='btnEfetiva' title='Liberar Comunidade para PMDA'><img src='/core/imagem/ok.jpg' width='30px;'></a>
 										      	<a onclick='javascript:deletaCom(".$value['id_comunidade'].")' id='btnDeleta' title='Deletar Registro'><img src='/core/imagem/delete.png' width='30px;'></a>" : "";								
 										print "</td>";		

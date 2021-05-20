@@ -41,7 +41,7 @@
 <!-- Resumo de liberacoes -->
 <div class="row">
     <div class="col-md-12 text-center">
-        <a class='btn btn-info' href='index.php?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=relatorio&action=busca_resumog'>Voltar</a><br><br>
+        <a class='btn btn-info' href='index.php?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=relatorio&action=busca_resumog'>Voltar</a><br><br>
         <br>
         <p style="text-align:text-center"><h3> Resumo Liberações</h3></p>
     </div>

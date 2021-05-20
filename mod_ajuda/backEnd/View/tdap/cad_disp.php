@@ -43,7 +43,7 @@ $nome = (!empty($id)) ? Fornecedor::getNome($id) : "";
     <br>
     <div class="col-md-12 text-center">
         <br>
-        <a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO));?>&&modulo=ajuda&controller=tdap&action=index"" title="Relatorios">
+        <a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&&modulo=ajuda&controller=tdap&action=index"" title="Relatorios">
             Voltar
             </a>
     </div>

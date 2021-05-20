@@ -15,10 +15,10 @@
 	
 ?>
 <div class="col-md-12 text-center">
-<a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=conestoque&action=relIndex">Voltar</a>	
+<a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=relIndex">Voltar</a>	
 </div>
 <div class="col-md-6">
-	<form method="POST" action="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=relatorio&action=rmattransf" name="frm_rel_liberacao" >
+	<form method="POST" action="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=relatorio&action=rmattransf" name="frm_rel_liberacao" >
 					
 		<legend>Relat&oacute;rio de Materiais Transferidos entre Depósitos</legend>
 						

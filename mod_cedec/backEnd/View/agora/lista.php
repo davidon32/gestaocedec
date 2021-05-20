@@ -10,7 +10,7 @@
 <?php include_once "template/page/corpoHeader.php";?>
 
 <div class="col-lg10 col-xs-12">
-    <a href="?token=<?=hash('sha256', md5(VERSAO))?>&ac=itn&modulo=cedec&controller=agora&action=index" class="btn btn-primary">Voltar</a>
+    <a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=cedec&controller=agora&action=index" class="btn btn-primary">Voltar</a>
     <?php
 
         $id = isset($_GET['id'])? $_GET['id'] : "";

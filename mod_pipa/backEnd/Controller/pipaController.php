@@ -148,7 +148,7 @@ class pipaController extends Controller {
                         print "Usuario : ".$_POST['email_rec']."<br>
                                 Senha   :  defesa199<br>";
 
-                        print "<a href='?token=" . hash('sha256', md5(VERSAO)) . "&ac=itn&modulo=pipa&controller=pipa&action=pesquisaUsuario&volta=compdec' class='btn'>Voltar</a>";
+                        print "<a href='?token=" . hash('sha256', md5(VERSAO).date('dmY')) . "&ac=itn&modulo=pipa&controller=pipa&action=pesquisaUsuario&volta=compdec' class='btn'>Voltar</a>";
             } else {
 
                 print "oi";

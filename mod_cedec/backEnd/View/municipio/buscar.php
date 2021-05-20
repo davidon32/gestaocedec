@@ -20,7 +20,7 @@
 ?>
 
 <div class="col-md-12 text-center">
-    <a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=cedec&controller=index&action=index">Voltar</a>
+    <a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=cedec&controller=index&action=index">Voltar</a>
 </div>
     <?php
             
@@ -54,7 +54,7 @@
                     	print "<tr>";
                     	print "<td>".$value['id_municipio']."</td>";
                     	print "<td>".$value['nome']."</td>";
-                    	print "<td><a href='?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=cedec&controller=municipio&action=cadastrar&id=".$value['id_municipio']."'' title='Editar dados do Municipio'><img width='30px' src='core/imagem/editar.png'>";
+                    	print "<td><a href='?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=cedec&controller=municipio&action=cadastrar&id=".$value['id_municipio']."'' title='Editar dados do Municipio'><img width='30px' src='core/imagem/editar.png'>";
                     	//print "<a href='?modulo=cedec&secao=relatorio&acao=info_municipio&id=".$value['id_municipio']."'' title='Visualizar Dados do Municipio'><img width='30px' src='imagem/impressao.png'></td>";
 						print "</tr>";
                     }

@@ -16,7 +16,7 @@ $decreto = new Decretacao();
 ?>
 
 <div class="col-md-6">
-<a href="??token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=decreto&controller=decreto&action=busca" class="btn btn-primary">Gerenciamento Processos</a>
+<a href="??token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=decreto&controller=decreto&action=busca" class="btn btn-primary">Gerenciamento Processos</a>
 </div>
 <div class="col-md-6">
 	<p style="text-align:center;">

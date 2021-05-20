@@ -25,7 +25,7 @@ $plano = new Plano();
 ?>
 
 <div class='col-md-12 text-center'>
-	<a class="btn btn-success" href="?token=<?= hash('sha256', md5(VERSAO)); ?>&ac=itn&modulo=compdec&controller=compdec&action=index">Voltar</a><br>
+	<a class="btn btn-success" href="?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=compdec&controller=compdec&action=index">Voltar</a><br>
 	<br>
 </div>
 <div class='col-md-8'>
@@ -46,7 +46,7 @@ $plano = new Plano();
 
 	foreach ($lista as $key => $value) {
 		print "<i class=\"glyphicon glyphicon-asterisk\"></i>";
-		print "<a href=\"?token=" . hash('sha256', md5(VERSAO)) . "&ac=itn&modulo=compdec&controller=plano&action=vupload&id=" . $value['id'] . "\">Plano Versao " . $value['versao'] . " -  Data: " . $value['dt_upload'] . "</a>";
+		print "<a href=\"?token=" . hash('sha256', md5(VERSAO).date('dmY')) . "&ac=itn&modulo=compdec&controller=plano&action=vupload&id=" . $value['id'] . "\">Plano Versao " . $value['versao'] . " -  Data: " . $value['dt_upload'] . "</a>";
 		print "&nbsp;&nbsp;<a href=\"#\" title=\"Deletar Plano\" onclick=\"removerPlano(" . $value['id'] . ")\"><img width=\"20px;\" src=\"core/imagem/delete.png\"></a>";
 		print "<br>";
 	}

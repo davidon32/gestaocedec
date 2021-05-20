@@ -24,7 +24,7 @@
     <div class="col-md-6 text-center">
 	<br>
 	
-			<a class="btn btn-info" href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=conestoque&action=add_mat_transf" class="btn window" title="">Adicionar Material</a>
+			<a class="btn btn-info" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=add_mat_transf" class="btn window" title="">Adicionar Material</a>
 			
 		<p class="text-center"><legend> Materiais da Transferencia</legend></p>
 
@@ -38,7 +38,7 @@
 	</div>
 	<div class="col-md-6">
 		<legend>Transfer&ecirc;ncia de Materiais</legend>
-		<form action="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=conestoque&action=transfgravar" method="POST" name="frm_cesta">
+		<form action="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=transfgravar" method="POST" name="frm_cesta">
 
 		<div class="col-md-6">
 			<label>Data</label>
@@ -85,7 +85,7 @@
 	</div>
 
 	<div class="col-md-12 text-center"><br>
-		<a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO))?>&ac=itn&modulo=ajuda&controller=conestoque&action=idxtransf">Voltar</a>
+		<a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=ajuda&controller=conestoque&action=idxtransf">Voltar</a>
 	</div>		
 <!-- =================== RODAPE CORPO ==================== -->
 <?php include_once "template/page/corpoRodape.php";?>

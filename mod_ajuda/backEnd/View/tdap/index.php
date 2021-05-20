@@ -17,7 +17,7 @@ if ($_COOKIE['seguranca']['id_deposito'] == 1) {
     ?>
 
     <!-- links acesso-->
-    <a href="?token=<?= hash('sha256', md5(VERSAO)) ?>&ac=itn&modulo=ajuda&controller=tdap&action=cadfornec" class="btn btn-info">Cadastro Fornecedor</a>
+    <a href="?token=<?= hash('sha256', md5(VERSAO).date('dmY')) ?>&ac=itn&modulo=ajuda&controller=tdap&action=cadfornec" class="btn btn-info">Cadastro Fornecedor</a>
     <br>
     <br>
     <a href="#" class="btn btn-info">Recebimento QRCode</a>
@@ -28,7 +28,7 @@ if ($_COOKIE['seguranca']['id_deposito'] == 1) {
 
 
 <<<<<<< HEAD
-<a href="?token=<?=hash('sha256', md5(VERSAO))?>&ac=itn&modulo=ajuda&controller=tdap&action=cadfornec" class="btn btn-info">Cadastro Fornecedor</a>
+<a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=ajuda&controller=tdap&action=cadfornec" class="btn btn-info">Cadastro Fornecedor</a>
 <a href="<?= FuncaoBase::geraLink("ajuda", "tdap", "listreceb")?>" class="btn btn-info">Recebimento QRCode</a>
 =======
        <?php } ?>
@@ -38,7 +38,7 @@ if ($_COOKIE['seguranca']['id_deposito'] == 1) {
        <br>
 <div class="col-md-12 text-center">
     <br>
-    <a class="btn btn-success" href="?token=<?= hash('sha256', md5(VERSAO)); ?>&ac=itn&modulo=index&controller=index&action=menu"" title="Relatorios">
+    <a class="btn btn-success" href="?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=index&controller=index&action=menu"" title="Relatorios">
         Voltar
     </a>
 </div>

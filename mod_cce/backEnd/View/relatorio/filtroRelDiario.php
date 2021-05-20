@@ -22,11 +22,11 @@ $_usuario = new Usuario();
 $_diario = new Diario();
 ?>
 <div class="col-md-12 text-center">
-    <a href="?token=<?=hash('sha256', md5(VERSAO))?>&ac=itn&modulo=cce&controller=cce&action=index"class="btn btn-success">Voltar</a>
+    <a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=cce&controller=cce&action=index"class="btn btn-success">Voltar</a>
 </div>
 
 
-					<form action="index.php?token=<?=hash('sha256', md5(VERSAO))?>&ac=itn&modulo=cce&controller=cce&action=relDiario" method="POST" name="cadastra_evento">
+					<form action="index.php?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=cce&controller=cce&action=relDiario" method="POST" name="cadastra_evento">
 						
 					   <legend>Relatório Diário </legend>
 					   

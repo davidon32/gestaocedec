@@ -580,7 +580,7 @@ static function logado($id) {
 			}
 		}else {
 			$login = new Login();
-			//$login->logout("?token=".hash('sha256', md5(VERSAO))."&modulo=index&controller=index&action=index");
+			//$login->logout("?token=".hash('sha256', md5(VERSAO).date('dmY'))."&modulo=index&controller=index&action=index");
 		}
 
 		$tipoAcesso = $_COOKIE['seguranca']['tipo'];
@@ -1261,15 +1261,15 @@ static function mostraModulos($_acesso){
 		 * */
 		
 		
-		$chave_acesso = array('0'=>'<a href="?token='.hash("sha256", md5(VERSAO)).'&ac=itn&modulo=ajuda&controller=index&action=index" title="Módulo Ajuda Humanitária"><img src="core/imagem/ajuda.png"><br />Ajuda Humanitária</a>',
-							  '1'=>'<a href="?token='.hash("sha256", md5(VERSAO)).'&ac=itn&modulo=pipa&controller=pipa&action=index" title="Módulo TDAP Transporte e Distribuição de Água Potável"><img src="core/imagem/pipa.png"><br />TDAP</a>',
-						  	  '2'=>'<a href="?token='.hash("sha256", md5(VERSAO)).'&ac=itn&modulo=cce&controller=cce&action=index" title="Módulo Controle de Emergência"><img src="core/imagem/cce.png"><br />Controle de Emergência</a>',
-							  '3'=>'<a href="?token='.hash("sha256", md5(VERSAO)).'&ac=itn&modulo=decreto&controller=index&action=index" title="Módulo Processo de Decretação"><img src="core/imagem/processo.png"><br />Processo de Decretação</a>',
-							  '4'=>'<a href="?token='.hash("sha256", md5(VERSAO)).'&ac=itn&modulo=compdec&controller=compdec&action=index" title="Módulo Cadastro Compdec"><img src="core/imagem/comdec.png"><br />Informações Compdec</a>',
-						 	  '5'=>'<a href="?token='.hash("sha256", md5(VERSAO)).'&ac=itn&modulo=equipe&secao=menu" title="Módulo Equipe de Apoio"><img src="core/imagem/equipe.png"><br />Equipe de Apoio</a>',
-							  '6'=>'<a href="?token='.hash("sha256", md5(VERSAO)).'&ac=itn&modulo=cedec&controller=index&action=index" title="Módulo CEDEC"><img src="core/imagem/cedec.png"><br />CEDEC</a>',
-							  '7'=>'<a href="?token='.hash("sha256", md5(VERSAO)).'&ac=itn&modulo=escola&secao=menu" title="Módulo Escola de Defesa Civil"><img src="core/imagem/escola.png"><br />Escola de Defesa Civil</a>',
-							  '8'=>'<a href="?token='.hash("sha256", md5(VERSAO)).'&ac=itn&modulo=admin&controller=index&action=index" title="Configurações"><img src="core/imagem/config.png"><br />Configurações</a>');
+		$chave_acesso = array('0'=>'<a href="?token='.hash("sha256", md5(VERSAO).date('dmY')).'&ac=itn&modulo=ajuda&controller=index&action=index" title="Módulo Ajuda Humanitária"><img src="core/imagem/ajuda.png"><br />Ajuda Humanitária</a>',
+							  '1'=>'<a href="?token='.hash("sha256", md5(VERSAO).date('dmY')).'&ac=itn&modulo=pipa&controller=pipa&action=index" title="Módulo TDAP Transporte e Distribuição de Água Potável"><img src="core/imagem/pipa.png"><br />TDAP</a>',
+						  	  '2'=>'<a href="?token='.hash("sha256", md5(VERSAO).date('dmY')).'&ac=itn&modulo=cce&controller=cce&action=index" title="Módulo Controle de Emergência"><img src="core/imagem/cce.png"><br />Controle de Emergência</a>',
+							  '3'=>'<a href="?token='.hash("sha256", md5(VERSAO).date('dmY')).'&ac=itn&modulo=decreto&controller=index&action=index" title="Módulo Processo de Decretação"><img src="core/imagem/processo.png"><br />Processo de Decretação</a>',
+							  '4'=>'<a href="?token='.hash("sha256", md5(VERSAO).date('dmY')).'&ac=itn&modulo=compdec&controller=compdec&action=index" title="Módulo Cadastro Compdec"><img src="core/imagem/comdec.png"><br />Informações Compdec</a>',
+						 	  '5'=>'<a href="?token='.hash("sha256", md5(VERSAO).date('dmY')).'&ac=itn&modulo=equipe&secao=menu" title="Módulo Equipe de Apoio"><img src="core/imagem/equipe.png"><br />Equipe de Apoio</a>',
+							  '6'=>'<a href="?token='.hash("sha256", md5(VERSAO).date('dmY')).'&ac=itn&modulo=cedec&controller=index&action=index" title="Módulo CEDEC"><img src="core/imagem/cedec.png"><br />CEDEC</a>',
+							  '7'=>'<a href="?token='.hash("sha256", md5(VERSAO).date('dmY')).'&ac=itn&modulo=escola&secao=menu" title="Módulo Escola de Defesa Civil"><img src="core/imagem/escola.png"><br />Escola de Defesa Civil</a>',
+							  '8'=>'<a href="?token='.hash("sha256", md5(VERSAO).date('dmY')).'&ac=itn&modulo=admin&controller=index&action=index" title="Configurações"><img src="core/imagem/config.png"><br />Configurações</a>');
 
 
 		$acesso = array();

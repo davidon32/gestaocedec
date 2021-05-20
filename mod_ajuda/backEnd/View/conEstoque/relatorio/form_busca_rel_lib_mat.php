@@ -24,7 +24,7 @@
 
 	<p class="text-center"><legend>Relat&oacute;rio de Libera&ccedil;&otilde;es</legend></p>
 
-	<form method="POST" action="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=relatorio&action=rel_lib_mat" name="frm_rel_liberacao" >
+	<form method="POST" action="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=relatorio&action=rel_lib_mat" name="frm_rel_liberacao" >
 		<div class="col-md-12">
                     <label>Dep&oacute;sito Destino:</label>
                     <?php $_deposito->pegaDeposito();?>
@@ -78,7 +78,7 @@
             </div>
             <div class="col-md-12">
             <input class="btn btn-primary" type="submit" name="pesquisar" value="Pesquisar" />
-					&nbsp;&nbsp;<a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=conestoque&action=relIndex">Voltar</a>				 
+					&nbsp;&nbsp;<a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=relIndex">Voltar</a>				 
             </div>
 
 	</form>

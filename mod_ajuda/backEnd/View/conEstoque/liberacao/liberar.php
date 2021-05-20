@@ -33,7 +33,7 @@
 				
 		<!-- Adicionar Materiais na Liberacao -->
 		<div class="col-md-12 text-center">
-			<a href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=conestoque&action=add_material" class="btn btn-info" rel="1024x600" title="Adicionar Materiais no Pedido">Adicionar Material</a>
+			<a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=add_material" class="btn btn-info" rel="1024x600" title="Adicionar Materiais no Pedido">Adicionar Material</a>
 			<br /><br />
 		
 			<?php
@@ -49,7 +49,7 @@
 
 
 	<div class="col-md-6">
-		<form method="POST" action="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=conestoque&action=fechar_liberacao" name="flibera" style="background: #F2F2F2;"/>
+		<form method="POST" action="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=fechar_liberacao" name="flibera" style="background: #F2F2F2;"/>
 
 			<legend>Liberação de Materiais</legend>
 								
@@ -126,7 +126,7 @@
 </div>
 <div class="col-md-12 text-center">
 	<br>
-		<a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=conestoque&action=idxliberacao">Voltar</a>
+		<a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=idxliberacao">Voltar</a>
 </div>
 <!-- =================== RODAPE CORPO ==================== -->
 <?php include_once "template/page/corpoRodape.php";?>

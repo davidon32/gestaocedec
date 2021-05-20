@@ -21,7 +21,7 @@
 
 <div class="col-md-6">
 <legend>Cadastro de Usuario</legend>
-    <form action="?token=<?=hash('sha256', md5(VERSAO));?>&ac=&modulo=admin&controller=adm&action=cad_user_valida" method="POST" name="frmCadUserRapido" id="frmCadUserRapido">
+    <form action="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=&modulo=admin&controller=adm&action=cad_user_valida" method="POST" name="frmCadUserRapido" id="frmCadUserRapido">
         <label>Numero Policia</label>
         <input class="form-control" type="text" name="txtNumPol" value="" id="txtNumPol" maxlenght="9" data-mask='9999999-9' >
 
@@ -50,7 +50,7 @@
 <br>
 <div class="col-md-12 text-center">
     <br>
-    <a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=&modulo=admin&controller=adm&action=usuario">Voltar</a>
+    <a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=&modulo=admin&controller=adm&action=usuario">Voltar</a>
 </div>
 
 <!-- =================== RODAPE CORPO ==================== -->

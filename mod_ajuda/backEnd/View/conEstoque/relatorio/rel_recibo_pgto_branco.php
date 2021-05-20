@@ -12,7 +12,7 @@ $result = Liberacao::comprovanteLiberacao($id_liberacao);
 
 if(empty($result)){
 	print "<br><br><p class='text-center'><span class='alert alert-danger'>Não foi possivel gerar esse recibo</span><br><br>";
-	print "<a class=\"btn btn-success\" href=\"index.php?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=ajuda&controller=conestoque&action=idxpagamento\">voltar</a></p>";
+	print "<a class=\"btn btn-success\" href=\"index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=idxpagamento\">voltar</a></p>";
 	die();
 }
 
@@ -44,9 +44,9 @@ body {
 	<div class="container">
 		<div class="col-md-12 text-center">
 		<?php if(isset($_GET['m'])){?>
-			<a class="btn btn-success" href="index.php?token=<?=hash('sha256', md5(VERSAO))?>&ac=itn&modulo=ajuda&controller=conestoque&action=idxliberacao">Voltar</a>
+			<a class="btn btn-success" href="index.php?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=ajuda&controller=conestoque&action=idxliberacao">Voltar</a>
 		<?php }else { ?>
-			<a class="btn btn-success" href="index.php?token=<?=hash('sha256', md5(VERSAO))?>&ac=itn&modulo=ajuda&controller=conestoque&action=comprov_lib&id=<?=$id_liberacao?>">Voltar</a>
+			<a class="btn btn-success" href="index.php?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=ajuda&controller=conestoque&action=comprov_lib&id=<?=$id_liberacao?>">Voltar</a>
 		<?php } ?>
 		
 		</div>

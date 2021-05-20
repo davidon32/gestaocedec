@@ -44,7 +44,7 @@
         $permissao = Usuario::getPermissao('aju_permissao', 'tdap');
 
         if($permissao == "1"){
-            print "<a href=\"?token=".hash('sha256', md5(VERSAO))."&ac=itn&modulo=ajuda&controller=tdap&action=index\" title=\"TDAP QRCode\">";
+            print "<a href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=tdap&action=index\" title=\"TDAP QRCode\">";
             print "<img src=\"core/imagem/tdap.png\" width=\"80px\"><br>TDAP</a>";
         }else {
             print "<img class=\"imgCinza\" src=\"core/imagem/tdap.png\" width=\"80px\"  height=\"80px\" title=\"Usuario sem Acesso\">";
@@ -60,7 +60,7 @@
     ?>
     <!-- CONTROLE DE ESTOQUE -->
     <div class="col-md-2 text-center">
-        <a href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=conestoque&action=index">
+        <a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=index">
             <img src="core/imagem/controle_estoque.png" width="80px" height="80px">
         <br>
         Controle de Estoque
@@ -77,7 +77,7 @@
     ?>
     <!-- CONTROLE DE ESTOQUE -->
     <div class="col-md-2 text-center">
-        <a href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=ajuda&controller=conestoque&action=indexn">
+        <a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=indexn">
         <img src="core/imagem/controle_estoque_novo.png" width="80px" height="80px">
         <br>
         Controle de Estoque
@@ -91,7 +91,7 @@
     <br>
     <div class="col-md-12 text-center">
         <br>
-        <a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=itn&modulo=index&controller=index&action=menu"" title="Relatorios">
+        <a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=index&controller=index&action=menu"" title="Relatorios">
             Voltar
             </a>
     </div>

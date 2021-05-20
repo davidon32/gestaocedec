@@ -13,7 +13,7 @@
   
     <!-- configuracoes do sistema -->
     <div class="col-md-2">
-        <a href='?token=<?=hash('sha256', md5(VERSAO));?>&ac=&modulo=admin&controller=adm&action=usuario' class="btn btn-primary">Cadastro Usuario</a>
+        <a href='?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=&modulo=admin&controller=adm&action=usuario' class="btn btn-primary">Cadastro Usuario</a>
     </div>
     <div class="col-md-2">
         <a href='#' class="btn btn-primary">Configurações Gerais</a>
@@ -23,7 +23,7 @@
     </div>
     <div class="col-md-12 text-center">
     <br>
-    <a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO));?>&ac=&modulo=admin&controller=index&action=usuario">Voltar</a>
+    <a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=&modulo=admin&controller=index&action=usuario">Voltar</a>
 </div>
        
 <!-- =================== RODAPE CORPO ==================== -->
