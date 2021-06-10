@@ -324,7 +324,7 @@
 				$extensao = substr($arquivo['file'], -3);
 				if($extensao != "pdf" || $extensao != "PDF"){
 				
-				print "<div class='col-md-12 text-center'><img style='width:900px;' src='anexo/".$arquivo['file']."'><br></div>";
+				print "<div class='col-md-12 text-center'><embed style='width:900px;' src='anexo/pmda/".$arquivo['file']."'><br></div>";
 			  }
   			}
   			//print "<iframe src=\"".$pmda->previewAnexo($value['id'])."\"&embedded=true\" width=\"700\" height=\"780\" style=\"border: none;\"></iframe>";

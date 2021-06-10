@@ -346,22 +346,18 @@ if (!empty($id_pmda)) {
                                         <h4 class="modal-title">Adicionar Comunidade</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <div class="col-xs-9 form-group">
-                                            <label data-toggle="tooltip" title="<?= $informacao['nome_comunidade_pesquisa']; ?>">Comunidade&nbsp;
-                                                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                                            </label>
-                                            <input class="form-control" type="text" name="txtComunidade" id="txtComunidade" />
-                                            <input class="form-control" type="hidden" name="txtIdComunidadeSearch" id="txtIdComunidadeSearch" />
-                                            <input class="form-control" type="hidden" name="idComunidade" id="idComunidade" />
-                                            <input class="form-control" type="hidden" name="txtIdPmda" id="txtIdPmda" value="<?= isset($id_pmda) ? $id_pmda : ""; ?>" /> <br>
+                                        <div class="form-group">
+                                            <label>Comunidade&nbsp;</label>
+                                            <input class="form-control col-md-10" type="text" name="txtComunidade" id="txtComunidade" >
+                                            <br>
+                                            <button href="#" class="btn btn-primary " id="btnAdicionar">Adicionar</button>
+                                        </div>    
+                                            <input type="hidden" name="txtIdComunidadeSearch" id="txtIdComunidadeSearch" />
+                                            <input type="hidden" name="idComunidade" id="idComunidade" />
+                                            <input type="hidden" name="txtIdPmda" id="txtIdPmda" value="<?= isset($id_pmda) ? $id_pmda : ""; ?>" /> <br>
                                                <span style="color: #FF0000; font-weight: bold;">Obs: Caso não encontre a comunidade na pesquisa, clique no Botão abaixo e Solicite o Cadastramento.</span>
-                                            <button type="button" class="btn btn-primary form-control col-md-2" id="btnCadastrarComunidade">Solicitar Cadastro de Comunidade</button>
-                                        </div>
-                                        <div class="col-xs-3 form-group">
-                                            <label>&nbsp;</label>
-                                            <button href="#" class="btn btn-primary form-control" id="btnAdicionar">Adicionar</button>
-
-                                        </div>
+                                            <button type="button" class="btn btn-primary col-md-10" id="btnCadastrarComunidade">Solicitar Cadastro de Comunidade</button>
+                                        
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>

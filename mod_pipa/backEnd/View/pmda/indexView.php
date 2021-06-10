@@ -461,7 +461,7 @@ if(!empty($id_pmda)){
 													<input class="form-control" type="hidden" name="idComunidade" id="idComunidade" />
 													<input class="form-control" type="hidden" name="txtIdPmda" id="txtIdPmda" value="<?=isset($id_pmda) ? $id_pmda : ""; ?>" /> <br>
 													<span style="color: #FF0000; font-weight: bold;">Obs: Caso não encontre a comunidade na pesquisa, clique no Botão abaixo e Solicite o Cadastramento.</span>
-													<button type="button" class="btn btn-primary form-control col-md-2" id="btnCadastrarComunidade" data-id_municipio='<?=$id_municipio?>'>Solicitar Cadastro de Comunidade</button>
+													<button type="button" class="btn btn-success form-control col-md-2" id="btnCadastrarComunidade" data-id_municipio='<?=$id_municipio?>'>Solicitar Cadastro de Comunidade</button>
 											</div>
 											<div class="col-xs-3 form-group">
 												<label>&nbsp;</label>

@@ -44,7 +44,7 @@ $id_municipio = isset($_GET['mun'])? $_GET['mun'] :"";
 										$extensao = substr($arquivo['file'], -3);
 										if($extensao == "pdf" || $extensao == "PDF"|| $extensao == "jpg" || $extensao == "peg"){
 										
-										print "<a style='text-decoration:none;'href="."/anexo/".$arquivo['file']."><img src='/core/imagem/pdf.png'>".$arquivo['file']."</a><br>";
+										print "<a style='text-decoration:none;'href="."/anexo/pmda/".$arquivo['file']."><img src='/core/imagem/pdf.png'>".$arquivo['file']."</a><br>";
 									  }
 						  			}
 						  			//print "<iframe src=\"".$pmda->previewAnexo($value['id'])."\"&embedded=true\" width=\"700\" height=\"780\" style=\"border: none;\"></iframe>";
