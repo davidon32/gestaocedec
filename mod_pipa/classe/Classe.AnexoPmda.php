@@ -35,7 +35,7 @@ class AnexoPmda extends Anexo {
 		try {
 				
 			/* 1.7mb = 1762762 */
-			if(($arquivo['fileAnexo']['error'] == '0') && ($arquivo['fileAnexo']['size'] <= '2000000' )){
+			if(($arquivo['fileAnexo']['error'] == '0') && ($arquivo['fileAnexo']['size'] <= '2082357' )){
 				
 			$sql = "insert into pip_anexo (id_pmda, arquivo, dt_anexo, descricao)
 							values (:id_pmda,
@@ -52,6 +52,7 @@ class AnexoPmda extends Anexo {
 				$nomeArquivo = str_replace(" ", "_", $arquivo['fileAnexo']['name']);
 				$nomeArquivo = FuncaoBase::tirarAcentos($nomeArquivo);
 				$nomeArquivo = strtoupper($nomeArquivo);
+
 			
 				$result->bindParam(":id_pmda", $dados['txtIdPmda']);
 				$result->bindParam(":arquivo", $nomeArquivo);
@@ -63,12 +64,14 @@ class AnexoPmda extends Anexo {
 
 				if(Anexo::uploadNovo($arquivo, $_SERVER['DOCUMENT_ROOT']."/".$caminho, $id_anexo."_".$nomeArquivo)){
 					return true;
+                                        exit();
 				}
 			}else {
 				
-				print "<script>";
+				/*print "<script>";
 				print "alert('Tamanho do arquivo máximo permitido 2Mb !');";
-				print "</script>";
+				print "</script>";*/
+                            return false;
 				
 			}
 			

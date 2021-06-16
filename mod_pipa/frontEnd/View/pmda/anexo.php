@@ -10,29 +10,6 @@ if(is_null($id_pmda)) {
 $anexoPmda = new AnexoPmda();
 $pmda = new Pmda();
 
-$files = isset($_FILES) ? $_FILES : "";
-$post  = isset($_POST)  ? $_POST  : "";
-
-$opcao = isset($post['opcao']) ? $post['opcao'] : "";
-
-
-
-if($opcao == 'gravar'){
-	
-	$anexoPmda->gravarAnexoPmda($post, $files, "anexo/pmda");
-	
-
-}else if($opcao == "delete"){
-	
-	//deletar
-	$anexoPmda->deletar($post['id_anexo']);
-	chdir(PATH.'/anexo');
-	$dirAnexo = getcwd();
-	if(unlink($dirAnexo.'/'.$post['id_anexo'].'_'.$post['arquivo'])){
-		
-	}
-}
-
 $dados = $anexoPmda->listaAnexo($id_pmda);
 
 	 print '<table style="width: 80%; margin:auto;" class="table table-bordered">
@@ -41,8 +18,8 @@ $dados = $anexoPmda->listaAnexo($id_pmda);
 				<th>#</th>
 				<th>Data</th>
 				<th>Arquivo</th>
-				<th>Descrição</th>
-				<th>Ação</th>
+				<th>Descriï¿½ï¿½o</th>
+				<th>Aï¿½ï¿½o</th>
 			</tr>';
 	
 	foreach ($dados as $key => $value) {

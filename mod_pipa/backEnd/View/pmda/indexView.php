@@ -1598,15 +1598,31 @@ $(document).ready(function(){
 								extensao.toLowerCase() == 'png'){
 
 								$.ajax({
-								       url : '/mod_pipa/backEnd/View/pmda/anexo.php',
+								       url : '/mod_pipa/backEnd/View/pmda/valida_anexo.php',
 								       type : 'POST',
 								       data : formData,
 								       processData: false,  // tell jQuery not to process the data
 								       contentType: false,  // tell jQuery not to set contentType
 								       success : function(response) {
-								    	   alert('Documento Anexado com Sucesso !');
-										   //location.reload();
-										   console.log(response);
+								    	   if(response.trim() == "sucesso"){
+                                                                               Swal.fire({
+                                                                                            position: 'top-end',
+                                                                                            icon: 'success',
+                                                                                            title: 'Arquivo anexado com Sucesso !',
+                                                                                            showConfirmButton: false,
+                                                                                            timer: 1500
+                                                                                          });
+                                                                                          
+										   setTimeout(() => {  location.reload(); }, 2000);
+                                                                               }else {
+                                                                                  Swal.fire({
+                                                                                                icon: 'error',
+                                                                                                title: 'Oops...',
+                                                                                                text: 'Algo deu Errado! \n Verifique o tamanho do documento ( Maximo 2Mb ou 2000Kb) ',
+                                                                                                footer: 'ou o nome do arquivo pode conter caracteres especiais !'
+                                                                                            })
+                                                                               }
+										   
 								       },
 								});
 								
@@ -2531,12 +2547,12 @@ function voltarAdm(){
 			    
 			            $.ajax({
 			                type: 'POST',
-			                url: '/mod_pipa/backEnd/View/pmda/anexo.php',
+			                url: '/mod_pipa/backEnd/View/pmda/valida_anexo.php',
 			                data: dados,
 			                success: function(response) {
 			                    //$("#tblAnexo").html(response);
 			                	alert("Registro apagado com sucesso !");
-								location.reload();
+                                            location.reload();
 			                    //console.log(response);
 			                },
 			                error:function(response){

@@ -55,7 +55,7 @@
 
 <script>
     $(document).ready(function () {
-
+        
         /* barra debug */
         var url = window.location.host;
         var host = url.indexOf('desenvolvimento.projetos');
@@ -146,7 +146,7 @@
             $(this).val($(this).val().toLowerCase());
         });
 
-        $('input[type="text"]:not([name^="val"]):not([name*="DtInici"]):not([name*="DtFinal"]),textarea').blur(function () {
+        $('input[type="text"]:not([name^="val"]):not([name*="DtInici"]):not([name*="DtFinal"]):not([name*="txtAliquota"]),textarea').blur(function () {
             function retira_acentos(palavra) {
                 var string = palavra;
                 var mapaAcentosHex = {

@@ -173,11 +173,15 @@ EOT;
 $useragent = $_SERVER['HTTP_USER_AGENT'];
 
 /* trava acesso google chrome */
-if (!preg_match('|Chrome|', $useragent) && $action != "listasite" && $controller != "agora" && $action != "cadastro") {
+if (preg_match('#\b(Edg|Firefox|OPR)\b#', $useragent) && $action != "listasite" && $controller != "agora" && $action != "cadastro") {
 
     print "<script type='text/javascript'>";
-    print "alert(\"Navegador não Homologado !\\n favor entrar pelo google Ghrome !\");";
-    print "window.location = 'http://www.defesacivil.mg.gov.br';";
+    print "Swal.fire({icon: 'error',
+                        title: 'Oops... Navegador não Homologado !',
+                        text: 'favor entrar pelo google Ghrome !',
+                        footer: '<a href=\"#\">Why do I have this issue?</a>'
+                  });";
+    print "setTimeout(() => {window.location = 'http://www.defesacivil.mg.gov.br';}, 2500);";
     print "</script>";
 } else {
     

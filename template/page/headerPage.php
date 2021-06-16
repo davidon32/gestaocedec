@@ -119,7 +119,7 @@ if(isset($pageSession)){
         background-color: #FFF;
         color: #FFF;
         background-color: #666;
-        //text-align: center; /* Centraliza o texto */
+        /*text-align: center; /* Centraliza o texto */
         z-index: 1000; /* Faz com que fique sobre todos os elementos da página */
     }
     #fechar { margin-right: 5px; font-size: 12px; }

@@ -21,6 +21,8 @@ $_loginEx = new LoginExterno();
     <tr>
         <?php
         $acessoModulo = $_loginEx->acessoModulo($pageSession['session']['seguranca']['idUser']);
+        
+        var_dump($acessoModulo);
         $id = $pageSession['session']['seguranca']['id_municipio'];
 
         # pmda

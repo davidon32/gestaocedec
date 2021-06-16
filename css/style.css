@@ -68,3 +68,6 @@ ficar alinhado no centro (cima-baixo)*/
   }
   
   
+#panel-inicio{
+    min-height: 500px;
+}
