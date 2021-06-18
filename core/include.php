@@ -156,3 +156,4 @@ include_once PATH . '/mod_ajuda/Model/RelatorioConEstoqueModel.php';
 include_once PATH . '/mod_ajuda/Model/EventoConEstoqueModel.php';
 include_once PATH . '/mod_ajuda/Model/TransferenciaConEstoqueModel.php';
 include_once PATH . '/mod_admin/Model/ReleaseModel.php';
+include_once PATH . '/mod_compdec/Model/TesteModel.php';

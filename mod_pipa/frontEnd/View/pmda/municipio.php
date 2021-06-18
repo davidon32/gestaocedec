@@ -19,7 +19,8 @@ if($dados['btnInfoMunicipio'] == "gravar"){
 	
 	if(!$erro) {
 		if($muncipio->alterarMunPmda($dados)){
-			print 'sucesso';
+                    #log alteração
+                    print 'sucesso';
 		}else {
 			print 'erro';
 		}

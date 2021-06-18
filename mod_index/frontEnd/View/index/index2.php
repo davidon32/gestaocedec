@@ -22,7 +22,7 @@ $_loginEx = new LoginExterno();
         <?php
         $acessoModulo = $_loginEx->acessoModulo($pageSession['session']['seguranca']['idUser']);
         
-        var_dump($acessoModulo);
+        //var_dump($acessoModulo);
         $id = $pageSession['session']['seguranca']['id_municipio'];
 
         # pmda
