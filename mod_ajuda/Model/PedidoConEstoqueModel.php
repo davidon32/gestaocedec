@@ -525,7 +525,7 @@ ORDER by aju_cpedido.id_pedido DESC";
             $result->bindValue(":nome_destinatario_final", $dados['nome_destinatario_final']);
             $result->bindValue(":obs", $dados['obs']);
 
-            $dadosItens = json_decode($dados['itens']);
+            $dadosItens = json_decode(str_replace("\\", "", $dados['itens']));
             
             $result->execute();
 

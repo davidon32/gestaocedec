@@ -446,7 +446,9 @@ $dadosDestinatario_final = $pedidoModel->listaid_destinatario_finalAutocomplete(
                         'data_validade': $("#dat_validade").val(),
                         'id_nota': $("#id_nota").val(),
                     };
-                    var linha = "<tr><td>" + item['id_unidade'] + "</td>";
+                   
+                    
+                var linha = "<tr><td>" + item['id_unidade'] + "</td>";
                     linha += "<td>" + item['nome'] + "</td>";
                     linha += "<td>" + item['id_nota'] + "</td>";
                     linha += "<td>" + item['data_validade'] + "</td>";
