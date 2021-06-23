@@ -104,8 +104,8 @@
                                     console.log(response);
                                         var resposta = response;
 					if(resposta.trim() === 'sucesso'){
-					alert("Cadastro realizado com Sucesso !");
-					//location.reload();
+					alert("Separação realizada com Sucesso !");
+					window.location.href = '<?= FuncaoBase::geraLink("ajuda", "pedido", "separacao") ?>'
 					}
 				},
 				error: function(e){

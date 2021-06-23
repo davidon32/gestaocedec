@@ -185,7 +185,7 @@ static function alert($msg, $volta = false){
 		print '<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript">
 		alert ("'.$msg.'");
 		</SCRIPT>';
-		FuncaoBase::vd($msg);
+		//FuncaoBase::vd($msg);
 
 	}
 }

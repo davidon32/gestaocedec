@@ -637,10 +637,12 @@ ORDER by aju_cpedido.id_pedido DESC";
     ################  Atualizar dados pedido  ###################
 
     public static function gravarSeparacao(array $dados) {
+        
 
         $con = Conexao::getInstance();
 
-        $sql = "UPDATE data_entrega= :data_entrega,
+        $sql = "UPDATE aju_cpedido set 
+                data_entrega= :data_entrega,
                 volume= :volume,
                 situacao= :situacao
                 WHERE id_pedido = :id_pedido";

@@ -168,9 +168,9 @@ class pedidoController extends Controller {
     public function gravseparar() {
 
         if ($this->isPost()) {
-            if ($this->pedido->gravarSeparacao($_POST)) {
-                FuncaoBase::alert("Registro Atualizado com Sucesso !");
-                $this->redirect("ajuda", "pedido", "separacao");
+            
+            if($this->pedido->gravarSeparacao($_POST)){
+                print "sucesso";
             }
         }
     }
