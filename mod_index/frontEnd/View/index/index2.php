@@ -40,7 +40,7 @@ $_loginEx = new LoginExterno();
         # ajuda humanitaria
         print ($acessoModulo['mod_ajuda'] == '1') ?
                         '<td align="center">
-	  							<a class="" href="?token=' . hash("sha256", md5(VERSAO)."-".time()) . '&ac=etn&modulo=ajuda&controller=ajudahuman&action=index" title="Ajuda Humanitária"><img alt="core/imagem/ajuda.png" src="core/imagem/ajuda.png"><br><b>Ajuda Humanitária</b></a>
+	  							<a class="" href="?token=' . hash("sha256", md5(VERSAO)."-".time()) . '&ac=etn&modulo=ajuda&controller=h_pedido_index&action=index" title="Ajuda Humanitária"><img alt="core/imagem/ajuda.png" src="core/imagem/ajuda.png"><br><b>Ajuda Humanitária</b></a>
 								</td>' : '';
         # plano de contingencia			
         print ($acessoModulo['mod_plano'] == '1') ?

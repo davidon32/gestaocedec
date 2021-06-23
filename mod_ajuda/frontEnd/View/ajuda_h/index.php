@@ -19,7 +19,7 @@
 </div>
 <div class="col-md-12">
 <br>
-<a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "ajudahuman", "novo")?>">Novo Pedido</a>
+<a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "cadastro")?>">Novo Pedido</a>
 <br><br>
 <table class="table table-bordered">
         <tr>
