@@ -272,11 +272,35 @@ class RelatorioAju extends DataMysql {
      * 
      * #@ relatorio de pagamento de materiais 
      */
-    static function MaterialPago($_dt_inicial = false, $_dt_final = false, $_municipio = false, $_deposito = false, $_nivel, $_material = false) {
+    static function MaterialPago($_dt_inicial = false,
+            $_dt_final = false,
+            $_municipio = false,
+            $_deposito = false,
+            $_nivel,
+            $_material = false,
+            $getMaterial = false) {
 
         $data = "";
         $id_municipio = "";
         $id_deposito = "";
+        
+        /* adicionar material lista */
+        $sql_material_part1 = "";
+        $sql_material_part2 = "";
+
+        if($getMaterial) {
+            $sql_material_part1 = ",
+                                    aju_item.id_item as codigo_item,
+                                    aju_item.cod as codigo_material,
+                                    aju_unidade.nome as nome_material,
+                                    aju_item.descricao, 
+                                    aju_item.quantidade, 
+                                    aju_item.evento ";
+            $sql_material_part2 = " inner join aju_item
+                                    on aju_liberacao.id_liberacao = aju_item.id_liberacao
+                                    inner join aju_unidade
+                                    on aju_item.cod = aju_unidade.id_unidade "; 
+        }
 
         if (( strlen($_dt_inicial) > 0) && (strlen($_dt_final) > 0)) {
             $data = ' AND aju_pagamento.dtPagto BETWEEN "' . $_dt_inicial . '" AND "' . $_dt_final . '" ';
@@ -308,9 +332,11 @@ class RelatorioAju extends DataMysql {
 						aju_liberacao.depDestino as depDestino,
 						aju_liberacao.id_municipio as id_municipio,
 						aju_pagamento.id_pagamento as id_pagamento
+                                                ".$sql_material_part1."
 							FROM aju_pagamento 
 							INNER JOIN aju_liberacao
-							ON aju_pagamento.id_liberacao = aju_liberacao.id_liberacao 
+							ON aju_pagamento.id_liberacao = aju_liberacao.id_liberacao
+                                                        ".$sql_material_part2."
 							WHERE aju_pagamento.id_pagamento > '0' " . $data . $id_municipio . $id_deposito;
 
         //print ($sql);

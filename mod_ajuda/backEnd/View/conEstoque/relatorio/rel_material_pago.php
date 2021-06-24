@@ -12,6 +12,7 @@ $_txt_dt_final   = isset($_POST['txt_dt_final'])   ? DataMysql::dataForm(htmlent
 $_txt_municipio  = isset($_POST['id_municipio'])   ? $_POST['id_municipio'] : "";
 $_txt_deposito   = isset($_POST['id_deposito'])    ? $_POST['id_deposito'] : "" ;
 $_txt_material   = isset($_POST['id_produto'])     ? $_POST['id_produto'] : "";
+$_txt_nivel      = $_COOKIE['seguranca']['nivel'];
 $_btn_enviar     = isset($_POST['btn_enviar'])     ? true : "";
 
 
@@ -21,9 +22,35 @@ if($_btn_enviar) {
 	$_txt_dt_final,
 	$_txt_municipio,
 	$_txt_deposito,
-	$_COOKIE['seguranca']['nivel'],
-	$_txt_material);	
-
+	$_txt_nivel,
+	$_txt_material);
+        
+        $export_param = array();
+        
+        $export_param['txt_nivel'] = $_txt_nivel;
+        
+        if(!is_null($_txt_dt_inicial)){
+            $export_param['txt_dt_inicial'] = $_txt_dt_inicial;
+        }
+        if(!is_null($_txt_dt_final)){
+            $export_param['txt_dt_final'] = $_txt_dt_final;
+        }
+        if(!is_null($_txt_municipio)){
+            $export_param['txt_municipio'] = $_txt_municipio;
+        }
+        if(!is_null($_txt_deposito)){
+            $export_param['txt_deposito'] = $_txt_deposito;
+        }
+        if(!is_null($_txt_material)){
+            $export_param['txt_material'] = $_txt_material;
+        }
+        if(!is_null($_txt_material)){
+            $export_param['txt_material'] = $_txt_material;
+        }
+        
+        
+        
+        //var_dump($_mat_pago);
 }
 ?>
 <style>
@@ -42,7 +69,8 @@ if($_btn_enviar) {
 
 <div class="col-md-12 text-center">
 	<br>
-	<a href='?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=relatorio&action=fbusca_pag_mat' class='btn btn-success imprimir'>Voltar</a>
+        <a href='<?= FuncaoBase::geraLink('ajuda', 'relatorio', 'exp_mat_pago', $export_param);?>' class='btn btn-success imprimir'>Exportar Excel </a>
+	<a href='?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=relatorio&action=fbusca_pag_mat' class='btn btn-primary imprimir'>Voltar</a>
 </div>
 <div class="col-md-12">
 	<div class="col-md-12 text-left">

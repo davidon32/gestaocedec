@@ -147,6 +147,59 @@ include_once(MODEL_AJUDA_BACKEND.'/AjudaRelatorioModel.php');
         }
 
 
+        ################  EXPORTAR ##################    
+    # Exportar dados excel
+    public function exp_mat_pago() {
+
+        $_txt_dt_inicial = isset($_GET['txt_dt_inicial']) ? htmlentities(htmlspecialchars($_GET['txt_dt_inicial'])) : "";
+        $_txt_dt_final   = isset($_GET['txt_dt_final'])   ? htmlentities(htmlspecialchars($_GET['txt_dt_final'])) : "" ;
+        $_txt_municipio  = isset($_GET['txt_municipio'])   ? $_GET['txt_municipio'] : "";
+        $_txt_deposito   = isset($_GET['txt_deposito'])    ? $_GET['txt_deposito'] : "" ;
+        $_txt_nivel   = isset($_GET['txt_nivel'])     ? $_GET['txt_nivel'] : "";
+        $_txt_material   = isset($_GET['txt_material'])     ? $_GET['txt_material'] : "";
+        
+       
+        /* ultimo parametro true, agrega os materiais*/
+        $dados = RelatorioAju::MaterialPago($_txt_dt_inicial,
+                $_txt_dt_final,
+                $_txt_municipio,
+                $_txt_deposito,
+                $_txt_nivel,
+                $_txt_material,
+                true);
+        
+        $coluna = array_map('strtoupper', array_keys($dados[0]));
+ 
+        $data = array();
+        
+        array_push($data, $coluna);
+               
+        foreach ($dados as $key => $dado) {
+            $dado['dataLibera'] = DataMysql::dataVisual($dado['dataLibera']);
+            $dado['dtPagto'] = DataMysql::dataVisual($dado['dtPagto']);
+            $dado['depDestino'] = Deposito::PegaNomeDeposito($dado['depDestino']);
+            $dado['id_municipio'] = Municipio::PegaNomeMunicipio($dado['id_municipio']);
+            $data[] = $dado; 
+        }
+
+        $nomeFileExcel = sys_get_temp_dir()."/Cadastro".ucfirst($_GET['controller'])."_".date("dmY_his").".xlsx";
+
+        $writer = new XLSXWriter();
+        $writer->writeSheet($data);
+        $writer->writeToFile($nomeFileExcel);
+
+        header('Content-Description: File Transfer');
+        header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        header("Content-Disposition: attachment; filename=\"" . basename($nomeFileExcel) . "\"");
+        header("Content-Transfer-Encoding: binary");
+        header("Expires: 0");
+        header("Pragma: public");
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+        header('Content-Length: ' . filesize($nomeFileExcel)); //Remove
+        ob_clean();
+        flush();
+        readfile($nomeFileExcel);
+    }
 
 
 

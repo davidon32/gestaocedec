@@ -20,6 +20,7 @@ $parametro = explode('/', $parametro);
 
 $controller = isset($_GET['controller']) ? $_GET['controller'] . "Controller" : "indexController";
 $action = isset($_GET['action']) ? $_GET['action'] : "index";
+
 $param = isset($_GET['param']) ? "&param=" . $_GET['param'] : "";
 $modulo = isset($_GET['modulo']) ? $_GET['modulo'] : "index";
 
