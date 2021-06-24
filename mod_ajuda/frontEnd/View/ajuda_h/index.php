@@ -12,6 +12,9 @@
 <?php
 
     $id_municipio = isset($pageSession['session']['seguranca']['id_municipio']) ? $pageSession['session']['seguranca']['id_municipio'] :"";
+    
+    $dados = H_pedido_pedidajuda_hModel::lista();
+    $pedido_h = new H_pedido_pedidajuda_hModel();
 	
 ?>	
 <div class="col-md-12 text-center">
@@ -23,28 +26,37 @@
 <br><br>
 <table class="table table-bordered">
         <tr>
-            <th colspan="2">Pedidos Recentes</th>
+            <th colspan="7">Pedidos Recentes</th>
         </tr>
      <tbody>
         <tr>
             <td>Nr</td>
             <td>Data</td>
             <td>Tipo</td>
+            <td>Analista</td>
             <td>Status</td>
+            <td>Data Envio Analise</td>
             <td>Ações</td>
             
         </tr>
         <?php
+        var_dump($dados);
+        foreach ($dados as $key => $value){
         
             print "<tr>
-            <td>Nr</td>
-            <td>Data</td>
-            <td>Tipo</td>
-            <td>A</td>
-            <td>Ações</td>
+            <td>".$value['numero']."-".substr($value['data_entrada_sistema'], 0, 4)."</td>
+            <td>".$value['data_entrada_sistema']."</td>
+            <td>". Decreto::getNomeCobrade($value['id_cobrade'])."</td>
+            <td>".(($value['despachante_analista'] == "") ? "enviando   " : $value['despachante_analista'])."</td>
+            <td>".$pedido_h->enumStatus($value['status'])."</td>
+            <td>".$value['data_hora_envio']."</td>
+            <td>
+            ".(($value['status'] == 0)? "<a href='".FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit", array('id'=> $value['id']))."'><img src='/core/imagem/editar.png'></a>" : "")."
+            <a href='".FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "impressao", array('id'=> $value['id']))."'><img src='/core/imagem/impressao.png'></a>
+            </td>
             
         </tr>";
-        
+        }
         ?>
         
     </tbody>

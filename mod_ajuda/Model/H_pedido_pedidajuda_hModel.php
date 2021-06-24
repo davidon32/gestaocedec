@@ -23,7 +23,7 @@ class H_pedido_pedidajuda_hModel extends Model {
     private static $con;
     
     
-    private $id = null;
+private $id = null;
 private $numero = null;
 private $data_entrada_sistema = null;
 private $despachante_analista = null;
@@ -77,7 +77,7 @@ private $data_hora_envio = null;
          
          $dados = array();
  
-        $sql = "SELECT";
+        $sql = "SELECT id, ";
         $sql .= " ".implode(", ",self::$model['dados']['campos'])."";
         
         if (empty($id)) {
@@ -120,8 +120,6 @@ private $data_hora_envio = null;
 
     public function getNomeIdFk($nome_tabela, $id_tabela, $id) {
 
-    
-
         if(!is_null($id)){
         
             $con = Conexao::getInstance();
@@ -132,6 +130,7 @@ private $data_hora_envio = null;
                                   FROM {$nome_tabela}
                                   WHERE {$id_tabela} = $id";
 
+                                  
             try {
 
                 $result = $con->query($sql);
@@ -139,13 +138,14 @@ private $data_hora_envio = null;
                 while ($linha = $result->fetch(PDO::FETCH_OBJ)) {
                     $dados = $linha;
                 }
-
+                
                 return $dados;
             
         
         
             } catch (Exception $e) {
                 return $e->getMessage();
+                var_dump($sql);
             }
         }else {
             $dados = new \stdClass();
@@ -164,7 +164,7 @@ private $data_hora_envio = null;
          
          $dados = array();
  
-        $sql = "SELECT";
+        $sql = "SELECT ";
         $sql .= " ".self::$model['dados']['id'].", ";
         $sql .= " ".implode(", ",self::$model['dados']['campos'])."";
         
@@ -276,8 +276,16 @@ $result->bindValue(":tipo_decreto", $dados['tipo_decreto']);
 $result->bindValue(":esforcos_realizados", $dados['esforcos_realizados']);
 $result->bindValue(":data_hora_envio", DataMysql::dataForm($dados['data_hora_envio']));
 
- 
-            $result->execute();
+            if($result->execute()){
+                $id = self::$con->lastInsertId();
+
+                print "<script>";
+                print "window.location.href = '".(FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "add_itens", array("id" => $id)))."';";
+                print "</script>";
+            }else {
+                print 'erro';
+                die();
+            }
 
             #Log::GravaLog("Cadastro de marca : " . $dados['nome'] . " " . $_COOKIE['seguranca']['login'], "aju_log");
 
@@ -293,8 +301,6 @@ $result->bindValue(":data_hora_envio", DataMysql::dataForm($dados['data_hora_env
     ################  Atualizar dados h_pedido_pedid  ###################
 
     public static function edit(array $dados) {
-        
- 
 
         $con = Conexao::getInstance();
 
@@ -390,7 +396,7 @@ aju_h_pedido_pedid.tel_prefeito,
 aju_h_pedido_pedid.cel_prefeito,
 aju_h_pedido_pedid.email_prefeito,
 aju_h_pedido_pedid.id_cobrade,
-dec_cobrade.nome as nome_dec_cobrade,
+dec_cobrade.descricao as nome_dec_cobrade,
 aju_h_pedido_pedid.pop_atendida,
 aju_h_pedido_pedid.decreto_se_ecp_vig,
 aju_h_pedido_pedid.numero_decreto,
@@ -406,7 +412,7 @@ ON aju_h_pedido_pedid.id_regiao = com_regiao.id_regiao
 LEFT JOIN dec_cobrade
 ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
 
-                              WHERE id_h_pedido_pedid = " . $id_h_pedido_pedid;
+                              WHERE id = " . $id_h_pedido_pedid;
 
         try {
 
@@ -818,6 +824,54 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
         } catch (Exception $e) {
             return $e->getMessage() . "Ocorreu um erro !";
         }
+    }
+    
+    
+    /* enumStatus get status */
+    public function enumStatus($status) {
+        
+        switch ($status) {
+            case 0:
+                return 'Em análise';
+                break;
+            case 1:
+                return 'Atendido';
+                break;
+            case 2:
+                return 'Cancelado';
+                break;
+            default:
+                break;
+        }
+        
+    }
+    
+    
+    /* busca material para pedido ajuda*/
+    public static function MaterialPedido(){
+        
+        $con = Conexao::getInstance();
+        
+        $dado = array();
+        
+        $sql = "select id_unidade, nome, descricao from aju_unidade
+                where pedido_h = 1
+                order by nome";
+        
+        try {
+
+            $result = $con->query($sql);
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dado[] = $linha;
+            }
+            
+            return $dado;
+            
+        } catch (Exception $e) {
+            return $e->getMessage() . "Ocorreu um erro !";
+        }
+        
     }
 
 }

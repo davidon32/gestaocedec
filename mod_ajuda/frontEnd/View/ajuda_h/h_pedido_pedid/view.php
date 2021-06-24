@@ -83,7 +83,7 @@
             </tr></div>
 
 <tr>
-                <td class="col-md-3">Decreto SE ou ECP Vigente ? :</td><td><?=$view[0]['decreto_se_ecp_vig'];?></td>
+                <td class="col-md-3">Decreto SE ou ECP Vigente ? :</td><td><?=(($view[0]['decreto_se_ecp_vig'] == 0) ? "Não" : "Sim");?></td>
             </tr></div>
 
 <tr>

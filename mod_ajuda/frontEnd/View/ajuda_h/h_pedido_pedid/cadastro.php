@@ -1,5 +1,3 @@
-
-
 <?php include_once PATH . '/core/include.php'; ?>
 <?php include_once "core/Model/indexModel.php"; ?>
 <?php include_once "mod_ajuda/Model/indexModel.php"; ?>
@@ -34,8 +32,8 @@ $municipio = Municipio::PegaNomeMunicipio($_COOKIE['seguranca']['id_municipio'])
 <legend>Cadastro de H_pedido_pedid</legend>
 <form action="<?=FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "gravar");?>" method="post" accept-charset="utf-8" name="frmH_pedido_pedid" id="frmH_pedido_pedid">
     
-    <div class='row'>
-</div>
+<div class='col-md-12'>
+
 <div class='row'>
 <div class='col-md-2'>
 <label>Data Entrada Sistema</label>
@@ -187,13 +185,16 @@ $municipio = Municipio::PegaNomeMunicipio($_COOKIE['seguranca']['id_municipio'])
 <input type="text" class='form form-control' name='data_hora_envio' id='data_hora_envio' maxlength='' required >
 </div>
 </div>
-
+    
     <div class="col-md-12 text-center">
         <br>
         <a class="btn btn-success" href="<?=FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "index")?>">Voltar</a>
-        <input type="submit" class="btn btn-info" name="btnGravar" id="btnGravar" value="Gravar">
+        <input type="submit" class="btn btn-info" name="btnGravar" id="btnGravar" value="Prosseguir >>">
     </div>
-</form>
+    
+    </form>
+</div>
+
     
  <!--######################  MODAL com_regiao ###################-->
 
@@ -262,7 +263,7 @@ $municipio = Municipio::PegaNomeMunicipio($_COOKIE['seguranca']['id_municipio'])
 <script>
         
     $(document).ready(function () {
-        
+
         $("#numero_decreto,#data_vigencia").val("");
         $("#numero_decreto,#data_vigencia").attr('readonly', 'readonly');
         $("#data_vigencia").datepicker("destroy");

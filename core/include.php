@@ -32,6 +32,7 @@ include_once PATH . '/core/classe/Classe.Config.php';
 include_once PATH . '/core/classe/Classe.Image.php';
 include_once PATH . '/core/Model/baseModel.php';
 include_once PATH . '/core/classe/Classe.Banco.php';
+include_once PATH . '/core/classe/Classe.Decreto.php';
 
 #@ mod cedec
 include_once PATH . '/mod_cedec/classe/Classe.Arquivo.Oficio.php';
@@ -158,8 +159,3 @@ include_once PATH . '/mod_ajuda/Model/TransferenciaConEstoqueModel.php';
 include_once PATH . '/mod_admin/Model/ReleaseModel.php';
 include_once PATH . '/mod_compdec/Model/TesteModel.php';
 include_once PATH . '/mod_ajuda/Model/H_pedido_pedidajuda_hModel.php';
-include_once PATH . '/mod_ajuda/Model/H_pedido_pedidajuda_hModel.php';
-include_once PATH . '/mod_ajuda/Model/H_pedido_anexoajuda_hModel.php';
-include_once PATH . '/mod_ajuda/Model/H_pedido_benefajuda_hModel.php';
-include_once PATH . '/mod_ajuda/Model/H_pedido_itensajuda_hModel.php';
-include_once PATH . '/mod_ajuda/Model/H_pedido_prestajuda_hModel.php';

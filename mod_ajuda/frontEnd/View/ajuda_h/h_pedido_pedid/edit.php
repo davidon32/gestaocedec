@@ -14,54 +14,47 @@
 
 <?php
 
-$cedec_municipio = new H_pedido_pedidConEstoqueModel();
+$cedec_municipio = new H_pedido_pedidajuda_hModel();
   
                     $dadosMunicipio = $cedec_municipio->listaid_municipioAutocomplete();
-$com_regiao = new H_pedido_pedidConEstoqueModel();
+$com_regiao = new H_pedido_pedidajuda_hModel();
   
                     $dadosRegiao = $com_regiao->listaid_regiaoAutocomplete();
-$dec_cobrade = new H_pedido_pedidConEstoqueModel();
+$dec_cobrade = new H_pedido_pedidajuda_hModel();
   
                     $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
-
-
+                   
 ?>
-
+<div class='col-md-12'>
 <legend>Editar Cadastro H_pedido_pedid</legend>
 
 
 <form action="<?=FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit");?>" method="post" accept-charset="utf-8" name="frmH_pedido_pedid" id="frmH_pedido_pedid">
-    
-<div class='col-md-12'>
-<div class='col-md-1'>
-<label>Identificador do Pedido</label>
-<input type="text" class='form form-control' name='id' id='id' value='<?=$view[0]['id']?>'  readonly=readonly >
-</div>
-</div>
+
+<div>
+<div class='row'>
 <div class='col-md-2'>
 <label>Número Pedido</label>
-<input type="text" class='form form-control' name='numero' id='numero' value='<?=$view[0]['numero']?>'  maxlength='-1' required>
+<input type="text" class='form form-control' name='numero' id='numero' value='<?=$view[0]['numero']?>' readonly=readonly>
+<input type="hidden" id='id' name='id' value='<?=$view[0]['id']?>'>
+<input type="hidden" id='despachante_analista' name='despachante_analista' value='<?=$view[0]['despachante_analista']?>'>
+<input type="hidden" id='despachante_dlog' name='despachante_dlog' value='<?=$view[0]['despachante_dlog']?>'>
 </div>
+</div>
+<div class='row'>
 <div class='col-md-2'>
 <label>Data Entrada Sistema</label>
 <input type="text" class='form form-control' name='data_entrada_sistema' id='data_entrada_sistema' value='<?=DataMysql::dataVisual($view[0]['data_entrada_sistema'])?>'  maxlength='-1' required>
 </div>
-<div class='col-md-6'>
-<label>Analista CEDEC</label>
-<input type="text" class='form form-control' name='despachante_analista' id='despachante_analista' value='<?=$view[0]['despachante_analista']?>'  maxlength='44' required>
 </div>
+<div class='row'>
 <div class='col-md-6'>
-<label>Analista DLOG</label>
-<input type="text" class='form form-control' name='despachante_dlog' id='despachante_dlog' value='<?=$view[0]['despachante_dlog']?>'  maxlength='44' required>
-</div>
-<div class='col-md-6'>
-<label>Identificador Municipio</label>
-<div class="input-group">
+<label>Municipio</label>
 <input type="text" class='form form-control' name='nomeMunicipio_fk' id='nomeMunicipio_fk' value='<?=$h_pedido_pedidModel->getNomeIdFk('cedec_municipio','id_municipio', $view[0]['id_municipio'])->nome;?>' required readonly='readonly'>
-<span onclick="" class="input-group-addon" id="btnBuscaid_municipio">
-                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-            </span> </div><input type="hidden" name='id_municipio' id='id_municipio' required readonly='readonly' value='<?=$view[0]['id_municipio']?>'>
+<input type="hidden" name='id_municipio' id='id_municipio' required readonly='readonly' value='<?=$view[0]['id_municipio']?>'>
 </div>
+</div>
+<div class='row'>
 <div class='col-md-6'>
 <label>Identificador Mesorregião</label>
 <div class="input-group">
@@ -70,70 +63,126 @@ $dec_cobrade = new H_pedido_pedidConEstoqueModel();
                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
             </span> </div><input type="hidden" name='id_regiao' id='id_regiao' required readonly='readonly' value='<?=$view[0]['id_regiao']?>'>
 </div>
+</div>
+<div class='row'>  
 <div class='col-md-6'>
 <label>Nome do Coordenador</label>
 <input type="text" class='form form-control' name='nome_coordenador' id='nome_coordenador' value='<?=$view[0]['nome_coordenador']?>'  maxlength='44' required>
 </div>
+</div>
+<div class='row'>
 <div class='col-md-2'>
 <label>Telefone do Coordenador</label>
 <input type="text" class='form form-control' name='tel_coordenador' id='tel_coordenador' value='<?=$view[0]['tel_coordenador']?>'  maxlength='12' required>
 </div>
+</div>
+<div class='row'>
 <div class='col-md-2'>
 <label>Celular do Coordenador</label>
 <input type="text" class='form form-control' name='cel_coordenador' id='cel_coordenador' value='<?=$view[0]['cel_coordenador']?>'  maxlength='12' required>
 </div>
+</div>
+<div class='row'>
 <div class='col-md-6'>
 <label>Email do Coordenador</label>
 <input type="text" class='form form-control' name='email_coordenador' id='email_coordenador' value='<?=$view[0]['email_coordenador']?>'  maxlength='49' required>
 </div>
+</div>
+<div class='row'>
 <div class='col-md-6'>
 <label>Nome do Prefeito</label>
 <input type="text" class='form form-control' name='nome_prefeito' id='nome_prefeito' value='<?=$view[0]['nome_prefeito']?>'  maxlength='44' required>
 </div>
+</div>
+<div class='row'>
 <div class='col-md-2'>
 <label>Telefone do Prefeito</label>
 <input type="text" class='form form-control' name='tel_prefeito' id='tel_prefeito' value='<?=$view[0]['tel_prefeito']?>'  maxlength='12' required>
 </div>
+</div>
+<div class='row'>
 <div class='col-md-2'>
 <label>Celular do Prefeito</label>
 <input type="text" class='form form-control' name='cel_prefeito' id='cel_prefeito' value='<?=$view[0]['cel_prefeito']?>'  maxlength='12' required>
 </div>
+</div>
+<div class='row'>
 <div class='col-md-6'>
 <label>Email do Prefeito</label>
 <input type="text" class='form form-control' name='email_prefeito' id='email_prefeito' value='<?=$view[0]['email_prefeito']?>'  maxlength='49' required>
 </div>
+</div>
+<div class='row'>
 <div class='col-md-6'>
 <label>Tipo do Desastre</label>
 <div class="input-group">
-<input type="text" class='form form-control' name='nomeCobrade_fk' id='nomeCobrade_fk' value='<?=$h_pedido_pedidModel->getNomeIdFk('dec_cobrade','id_cobrade', $view[0]['id_cobrade'])->nome;?>' required readonly='readonly'>
+<input type="text" class='form form-control' name='nomeCobrade_fk' id='nomeCobrade_fk' value='<?=$h_pedido_pedidModel->getNomeIdFk('dec_cobrade','id_cobrade', $view[0]['id'])->nome;?>' required readonly='readonly'>
 <span onclick="" class="input-group-addon" id="btnBuscaid_cobrade">
                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
             </span> </div><input type="hidden" name='id_cobrade' id='id_cobrade' required readonly='readonly' value='<?=$view[0]['id_cobrade']?>'>
 </div>
+</div>
+<div class='row'>
 <div class='col-md-2'>
 <label>População Atendida</label>
 <input type="text" class='form form-control' name='pop_atendida' id='pop_atendida' value='<?=$view[0]['pop_atendida']?>'  maxlength='-1' required>
 </div>
+</div>
+<div class='row'>
 <div class='col-md-2'>
 <label>Decreto SE ou ECP Vigente ?</label>
-<input type="text" class='form form-control' name='decreto_se_ecp_vig' id='decreto_se_ecp_vig' value='<?=$view[0]['decreto_se_ecp_vig']?>'  maxlength='-1' required>
+<div class="radio">
+  <label>
+    <input type="radio" name="decreto_se_ecp_vig" id="nao" value="0" <?=($view[0]['decreto_se_ecp_vig']) == "0" ? ' checked' : "";?>>
+    Não
+  </label>
 </div>
+<div class="radio">
+  <label>
+    <input type="radio" name="decreto_se_ecp_vig" id="sim" value="1" <?=($view[0]['decreto_se_ecp_vig']) == "1" ? ' checked' : "";?>>
+    Sim
+  </label>
+</div>
+</div>
+</div>
+<div class='row'>
 <div class='col-md-2'>
 <label>Número do Decreto</label>
-<input type="text" class='form form-control' name='numero_decreto' id='numero_decreto' value='<?=$view[0]['numero_decreto']?>'  maxlength='19' required>
+<input type="text" class='form form-control' name='numero_decreto' id='numero_decreto' value='<?=$view[0]['numero_decreto']?>'  maxlength='19' >
 </div>
+</div>
+<div class='row'>
 <div class='col-md-2'>
 <label>Data de Vigencia Decreto</label>
-<input type="text" class='form form-control' name='data_vigencia' id='data_vigencia' value='<?=DataMysql::dataVisual($view[0]['data_vigencia'])?>'  maxlength='-1' required>
+<input type="text" class='form form-control' name='data_vigencia' id='data_vigencia' value='<?=DataMysql::dataVisual($view[0]['data_vigencia'])?>'  maxlength='-1' >
 </div>
+</div>
+<div class='row'>
 <div class='col-md-6'>
 <label>Tipo do Decreto</label>
-<input type="text" class='form form-control' name='tipo_decreto' id='tipo_decreto' value='<?=$view[0]['tipo_decreto']?>'  maxlength='44' required>
+<div class="radio">
+  <label>
+    <input type="radio" name="tipo_decreto" id="ECP" value="ECP" checked>
+    ECP
+  </label>
 </div>
+<div class="radio">
+  <label>
+    <input type="radio" name="tipo_decreto" id="SE" value="SE">
+    SE
+  </label>
+</div>
+</div>
+</div>
+<div class='row'>
 <div class='col-md-12'>
-<label>Esforços Realizados</label>
-<input type="text" class='form form-control' name='esforcos_realizados' id='esforcos_realizados' value='<?=$view[0]['esforcos_realizados']?>'  maxlength='65534' required>
+    <label>Esforços Realizados</label><span id='caracteres'></span>
+<textarea class='form form-control' name='esforcos_realizados' id='esforcos_realizados' maxlength='65534' required>
+<?=$view[0]['esforcos_realizados']?>
+</textarea>
 </div>
+</div>
+<div class='row'>
 <div class='col-md-2'>
 <label>Data Hora Envio Homologação</label>
 <input type="text" class='form form-control' name='data_hora_envio' id='data_hora_envio' value='<?=DataMysql::dataVisual($view[0]['data_hora_envio'])?>'  maxlength='-1' required>
@@ -237,17 +286,58 @@ $dec_cobrade = new H_pedido_pedidConEstoqueModel();
 <script>
         
     $(document).ready(function () {
+        
+        $("#caracteres").text($("#esforcos_realizados").text().length);
+        
+        if($("#nao").is(":checked")){
+                $("#nao").attr("checked",true);
+                $("#sim").attr("checked",false);
+                 
+                /* campos numero decreto, data vigencia */
+                $("#numero_decreto,#data_vigencia").val("");
+                $("#numero_decreto,#data_vigencia").attr('readonly', 'readonly');
+                $("#data_vigencia").datepicker("destroy");
+                $("#numero_decreto,#data_vigencia").css('cursor', 'not-allowed');
+                
+            }
+        
+        $("[name=decreto_se_ecp_vig]").change(function(){
+            if($("#nao").is(":checked")){
+                $("#nao").attr("checked",true);
+                $("#sim").attr("checked",false);
+                 
+                /* campos numero decreto, data vigencia */
+                $("#numero_decreto,#data_vigencia").val("");
+                $("#numero_decreto,#data_vigencia").attr('readonly', 'readonly');
+                $("#data_vigencia").datepicker("destroy");
+                $("#numero_decreto,#data_vigencia").css('cursor', 'not-allowed');
+                
+            } else if($("#sim").is(":checked")){
+                $("#sim").attr("checked",true);
+                $("#nao").attr("checked",false);
+                
+                /* campos numero decreto, data vigencia */
+                $("#numero_decreto,#data_vigencia").removeAttr('readonly');
+                $("#data_vigencia").datepicker();
+                
+                $("#numero_decreto,#data_vigencia").css('cursor', 'text');
+            }
+        });
+        
+        $("[name=tipo_decreto]").change(function(){
+            if($("#ECP").is(":checked")){
+                $("#ECP").attr("checked",true);
+                $("#SE").attr("checked",false);
+            } else if($("#SE").is(":checked")){
+                $("#SE").attr("checked",true);
+                $("#ECP").attr("checked",false);
+            }
+            
+        });
     
-     /* close focus pesquisa */
-         /* clic form campo FK fornecedor */
-        $("#nomeMunicipio").click(function(){
-            $("#modal_id_municipio").modal({backdrop: 'static', keyboard: false});   
-        });
-        /* focus no campo pesquisa fornecedor */
-        $('#modal_id_municipio').on('shown.bs.modal', function (e) {
-            $("#searcid_municipio").focus();
-        });
- /* clic form campo FK fornecedor */
+    
+        
+ /* clic form campo FK  */
         $("#nomeRegiao").click(function(){
             $("#modal_id_regiao").modal({backdrop: 'static', keyboard: false});   
         });
@@ -255,7 +345,7 @@ $dec_cobrade = new H_pedido_pedidConEstoqueModel();
         $('#modal_id_regiao').on('shown.bs.modal', function (e) {
             $("#searcid_regiao").focus();
         });
- /* clic form campo FK fornecedor */
+ /* clic form campo FK  */
         $("#nomeCobrade").click(function(){
             $("#modal_id_cobrade").modal({backdrop: 'static', keyboard: false});   
         });
@@ -263,15 +353,15 @@ $dec_cobrade = new H_pedido_pedidConEstoqueModel();
         $('#modal_id_cobrade').on('shown.bs.modal', function (e) {
             $("#searcid_cobrade").focus();
         });
- /* clic form campo FK fornecedor */
+ /* clic form campo FK  */
         $("#nomeMunicipio").click(function(){
             $("#modal_id_municipio").modal('show');   
         });
-        /* focus no campo pesquisa fornecedor */
+        /* focus no campo pesquisa  */
         $('#modal_id_municipio').on('shown.bs.modal', function (e) {
             $("#searcid_municipio").focus();
         });
- /* clic form campo FK fornecedor */
+ /* clic form campo FK  */
         $("#nomeRegiao").click(function(){
             $("#modal_id_regiao").modal('show');   
         });
@@ -288,10 +378,6 @@ $dec_cobrade = new H_pedido_pedidConEstoqueModel();
             $("#searcid_cobrade").focus();
         });
 
-
-        
-        
-        
     
      /* ###################  fk_cedec_municipio ####################*/
         $('#btnBuscaid_municipio').click(function () {
@@ -363,7 +449,7 @@ $dec_cobrade = new H_pedido_pedidConEstoqueModel();
         var itens = {
             data:
             <?php print json_encode($dadosCobrade); ?>, // array com os dados
-            getValue: "nome", /* alterar com nome do item BD */
+            getValue: "descricao", /* alterar com nome do item BD */
             list: {
                 match: {
                     enabled: true
@@ -371,9 +457,9 @@ $dec_cobrade = new H_pedido_pedidConEstoqueModel();
 
                 onSelectItemEvent: function () {
                     var id = $("#searcid_cobrade").getSelectedItemData().id_cobrade;
-                    var nome = $("#searcid_cobrade").getSelectedItemData().nome;
+                    var nome = $("#searcid_cobrade").getSelectedItemData().descricao;
                      
-                        $("#nomeCobrade_fk").val(nome); // Mudar
+                        $("#nomeCobrade_fk").val(descricao); // Mudar
                        $("#id_cobrade").val(id);
                 },
                 onClickEvent:function(){
