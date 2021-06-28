@@ -228,7 +228,7 @@ cedec_release.texto,
 cedec_release.data_release
                                 FROM cedec_release
                                 
-                                ORDER By id_release DESC LIMIT $start, $regPorPagina");
+                                ORDER By cedec_release.data_release DESC LIMIT $start, $regPorPagina");
         $stmt->execute();
 
         $result = $stmt->fetchAll();

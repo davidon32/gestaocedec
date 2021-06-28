@@ -221,7 +221,6 @@ include_once "core/Controller/Controller.php";
         include_once('mod_admin/backEnd/View/release/index.php');
         
     }
-    
-    
+
     
 }
