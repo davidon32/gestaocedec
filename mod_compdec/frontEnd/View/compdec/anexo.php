@@ -14,7 +14,6 @@ $opcao = isset($_POST['opcao']) ? $_POST['opcao'] : "";
 
 if($opcao == 'gravarleis'){
 	
-	
 	if($anexo->gravarLeisCompdec($post, $files)){ 
 		
 		print "<script type='text/javascript'>";

@@ -59,13 +59,13 @@ class AnexoCompdec extends Anexo {
 	 * @param $arquivo - $_FILES
 	 */
 	public static function gravarLeisCompdec($dados, $arquivo) {
-	
+            
 		try {
 	
 			/* 1.7mb = 1762762 */
 			if(
 					($arquivo['fileAnexoLeis']['error'] == '0') &&
-					(strlen($arquivo['fileAnexoLeis']['name']) <="60") &&
+					//(strlen($arquivo['fileAnexoLeis']['name']) <="60") &&
 					($arquivo['fileAnexoLeis']['size'] > '0') &&
 					($arquivo['fileAnexoLeis']['size'] <= '2000000' )
 					
@@ -88,8 +88,7 @@ class AnexoCompdec extends Anexo {
 				# remove espacos e adiciona underline
 				$nomeArquivo = str_replace(" ", "_", $arquivo['fileAnexoLeis']['name']);
 				$nomeArquivo = FuncaoBase::tirarAcentos($nomeArquivo);
-				$nomeArquivo = strtoupper($nomeArquivo);
-				
+				$nomeArquivo = strtoupper(substr($nomeArquivo, 0, 10));
 				#identificador unico
 				$hash = date('his');
 				$nomeFoto = $dados['txtIdMunicipio']."_".$hash."_".$nomeArquivo;		

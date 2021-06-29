@@ -87,7 +87,6 @@ if ((isset($caminho[1]) && ($caminho[1] === 'mapa')) && ( (isset($caminho[2]) &&
     }
 }
 
-
 #agua doce / lista
 #agua doce / lancamento
 #boletim
@@ -174,17 +173,21 @@ EOT;
 $useragent = $_SERVER['HTTP_USER_AGENT'];
 
 /* trava acesso google chrome */
-if (preg_match('#\b(Edg|Firefox|OPR)\b#', $useragent) && $action != "listasite" && $controller != "agora" && $action != "cadastro") {
+if (preg_match('#\b(Edg|Firefox|OPR)\b#', $useragent)) {
 
     print "<script type='text/javascript'>";
+    print "alert();";
     print "Swal.fire({icon: 'error',
                         title: 'Oops... Navegador não Homologado !',
                         text: 'favor entrar pelo google Ghrome !',
-                        footer: '<a href=\"#\">Why do I have this issue?</a>'
+                        footer: '<a href=\"#\">-</a>'
                   });";
-    print "setTimeout(() => {window.location = 'http://www.defesacivil.mg.gov.br';}, 2500);";
+    print "setTimeout(() => {window.location = 'http://www.defesacivil.mg.gov.br';}, 3000);";
     print "</script>";
-} else {
-    
+} else if (preg_match('#\b(Mozilla/4.0)\b#', $useragent)){
+    print "<script type='text/javascript'>";
+    print "alert('Navegador nao homologado \n Favor Entrar pelo Google Chrome ! ');";
+    print "setTimeout(function() {window.location = 'http://www.defesacivil.mg.gov.br';}, 1000);";
+    print "</script>";
 }
 ?>

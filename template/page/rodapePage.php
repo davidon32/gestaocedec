@@ -34,13 +34,9 @@
 <script src="/plugins/jqueryValidation/additional-methods.min.js"></script>
 <script src="/js/script.js"></script>
 
-<!-- icone ajuda -->
-<div id="div-icon" class="imprimir">
-    <div class="close">x</div>
-    <a href="index.php?modulo=doc&controller=doc&action=index">
-        <img src="/core/imagem/cedec_help.png" id="img-ajuda">
-    </a>
-</div>
+<?php
+    include_once('ajuda_php.php');
+?>
 
 <!-- barra debug --> 
 <div id="posiciona"> 

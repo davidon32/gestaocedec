@@ -76,9 +76,12 @@
 
     <a href="index.php?modulo=equipe&controller=usuario&action=recsenha">Esqueci minha senha</a><br>
     <!--<a href="register.html" class="text-center">Registrar novo Usuário</a>-->
+    
+
 
   </div>
   <!-- /.login-box-body -->
+
 </div>
 <!-- /.login-box -->
 

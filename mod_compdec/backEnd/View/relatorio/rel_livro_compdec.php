@@ -49,7 +49,7 @@ $_dados = $_compdec->buscaDadosCompdec();
 	                <br>
 	                <table class="table table-striped table-bordered table-condensed" align="center">
 	                	<tr>	
-	                		<td style="text-align: center;"><img src="/imagem/compdec/<?=AnexoCompdec::Foto($dadosCompdec['id_municipio']);?>" style="padding-bottom: 3px; width: 100px;"></td>
+                                    <td style="text-align: center;"><img src="/anexo/compdec/<?=AnexoCompdec::Foto($dadosCompdec['id_municipio']);?>" style="padding-bottom: 3px; max-width: 80px;"></td>
 	                		<td colspan="3">Prefeito : <?=(isset($dadosMunicipio['nome'])) ? $dadosMunicipio['nome'] : "-";?><br>
 	                						Telefone: <?=(isset($dadosMunicipio['telefone'])) ? $dadosMunicipio['telefone'] : "-";?><br>
 	                						Celular: <?=(isset($dadosMunicipio['celular'])) ? $dadosMunicipio['celular'] : "-";?><br>
@@ -191,6 +191,7 @@ $_dados = $_compdec->buscaDadosCompdec();
    
 	        	<?php
 	        	/* fecha foreach */
+                        
 					 }
 					 
 				?>

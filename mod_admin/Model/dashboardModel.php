@@ -1,5 +1,5 @@
-<?php include_once "core/Controller/Controller.php";
-include_once "core/Model/Model.php";
+<?php include_once PATH."/core/Controller/Controller.php";
+include_once PATH."/core/Model/Model.php";
 
 class dashboardModel {
     

@@ -147,7 +147,7 @@
 	// autocomplete usuario senha
 	var currentLocation = window.location;
 
-		if(currentLocation['host'] == 'desenvolvimento.sgecedec.com'){
+		if(currentLocation['host'] == 'desenvolvimento.sgecedec'){
 
 			$("#login").val('MUNICIPIOTESTE');
 			$("#senha").val('portal199');

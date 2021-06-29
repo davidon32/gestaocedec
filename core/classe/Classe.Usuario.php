@@ -1769,6 +1769,8 @@ class Usuario extends UsuarioModel {
         $sql = "Select * from cedec_usuario 
 			where nome like '%" . $nome . "%'";
 
+        var_dump($sql);
+        
         $result = $con->query($sql);
 
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -2081,7 +2083,7 @@ class Usuario extends UsuarioModel {
 
     /* permissao poco */
     
-    
+    /* get usuario com opcao reset */
     public function getResetUsuario($reset) {
         
         $con = Conexao::getInstance();
@@ -2103,7 +2105,7 @@ class Usuario extends UsuarioModel {
         return $dados;
         
     }
-    
+        
     public function getResetUsuarioEx($reset) {
         
         $con = Conexao::getInstance();

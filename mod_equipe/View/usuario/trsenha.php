@@ -1,7 +1,6 @@
 <?php include_once PATH . '/core/include.php'; ?>
 <?php include_once "core/Model/indexModel.php"; ?>
 <?php include_once "mod_equipe/Model/indexModel.php"; ?>
-<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -30,6 +29,47 @@
         <!-- Google Font -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     </head>
+    <?php
+
+   
+    $param = isset($_GET[md5('use70')]) ? $_GET[md5('use70')] : "";
+
+    $usuario = new Usuario();
+    
+        if(isset($param[md5('use70')])){
+            $dados = $usuario->getResetUsuario($param);
+            $dataBanco = new DateTime();
+            $dataBanco->setTimestamp($data);
+            //echo "Data Banco ".$dataBanco->format('d/m/Y H:i:s')."<br>";
+
+            $expira = new DateTime(); 
+            $expira->setTimestamp($data);
+            $expira->modify('+4 hours');
+            $expira->getTimestamp();
+            //print "Data Prazo Expira " .$expira->format('d/m/Y H:i:s')."<br>";
+
+            $agora = new DateTime();
+            $agora->getTimestamp();  
+            echo "Data agora " .$agora->format('d/m/Y H:i:s')."<br>";
+
+            print "<br>";
+        }
+    
+        if (isset($param[md5('use70')]) && (isset($dados))) {
+                       
+            if(isset($dados['reset'])) {
+                if($agora <= $expira){
+                    //print "nahora";
+                }else {
+                   print "<script>";
+                    print "alert('Link Expirado !');";
+                    print "window.location.href ='".FuncaoBase::geraLink("index", "index", "index")."'";
+                    print "</script>";
+                }
+            }
+            
+        }else {
+    ?>
     <br>
     <br>
     <div style="width:600px; margin:0 auto;">
@@ -49,52 +89,7 @@
             <?=FuncaoBase::voltar(false, FuncaoBase::geraLink("index", "index", "index"));?>
         </form>
     </div>
-    <?php
-    $param = $_GET;
-    $data = $param[md5('use70')];
-    
-    $dataBanco = new DateTime();
-    $dataBanco->setTimestamp($data);
-    //echo "Data Banco ".$dataBanco->format('d/m/Y H:i:s')."<br>";
-    
-    $expira = new DateTime(); 
-    $expira->setTimestamp($data);
-    $expira->modify('+4 hours');
-    $expira->getTimestamp();
-    //print "Data Prazo Expira " .$expira->format('d/m/Y H:i:s')."<br>";
-
-    $agora = new DateTime();
-    $agora->getTimestamp();  
-    echo "Data agora " .$agora->format('d/m/Y H:i:s')."<br>";
-    
-    print "<br>";
-    
-        $usuario = new Usuario();
-        $dados = $usuario->getResetUsuario($data);
-    
-        if (isset($param[md5('use70')]) && (isset($dados))) {
-                       
-            if(isset($dados['reset'])) {
-                if($agora <= $expira){
-                    //print "nahora";
-                }else {
-                   print "<script>";
-                    print "alert('Link Expirado !');";
-                    print "window.location.href ='".FuncaoBase::geraLink("index", "index", "index")."'";
-                    print "</script>";
-                }
-            }else {
-                
-                
-            }
-            
-        } else {
-            print "<script>";
-            print "alert('Link Expirado !.');";
-            print "window.location.href ='".FuncaoBase::geraLink("index", "index", "index")."'";
-            print "</script>";
-        }
-
+<?php
     $senha_nova = isset($_POST['senha_nova']) ? trim($_POST['senha_nova']) : "";
     $envia_troca = isset($_POST['btn_trocasenha']) ? $_POST['btn_trocasenha'] : "";
     $externo = isset($_POST['txtExterno']) ? $_POST['txtExterno'] : "";
@@ -111,7 +106,7 @@
             if ($campo_branco) {
                 $_login = new Login();
 
-                if ($_login->TrocaSenha($dados['login'], $senha_nova)) {
+                if ($_login->TrocaSenha($_COOKIE['seguranca']['login'], $senha_nova)) {
 
                     print "<script type='text/javascript'>";
 
@@ -123,9 +118,8 @@
                 }
             }
         }
-    } else {
-        
-    }
+    } 
+        }
     ?>
     <!-- jQuery 3 -->
     <script src="template/bower_components/jquery/dist/jquery.min.js"></script>
@@ -145,14 +139,8 @@
                     alert("As senhas nao conferem !");
                 } else {
                 }
-
-
             });
-
-
-
         });
 
     </script>
-</body>
 </html>
