@@ -24,7 +24,9 @@
 							    	<a class="add_field_button btn btn-primary">Adicionar &nbsp;&nbsp; <img alt="Adicionar Comunidade" src="core/imagem/add.png" width="25px;"></a>
 							</div>
 							<br>
-                                                        <p style="text-align: right"><input class="btn btn-primary btn-lg" type="submit" value="Gravar" name="btnEnviar"></p>
+                                                        <p style="text-align: right">
+                                                            <input class="btn btn-primary btn-lg" type="submit" value="Gravar" name="btnEnviar">
+                                                        </p>
 						</form>
 						
 						</div>
@@ -91,7 +93,7 @@
 		    
 		    var x = 1; //initlal text box count
 		    $(add_button).click(function(e){ //on add input button click
-                        var val_com         = $(".add_field_button").parent().children().val();
+                        var val_com  = $(".add_field_button").parent().children().val();
 		        e.preventDefault();
                         if(val_com != ""){
                             if(x < max_fields){ //max input box allowed

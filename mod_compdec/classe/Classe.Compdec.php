@@ -708,6 +708,8 @@ class Compdec{
 					$sql = "select cedec_municipio.nome,
 							cedec_municipio.id_municipio,
 							cedec_municipio.tel as tel_prefeitura,
+                                                        cedec_prefeitura.tel1 as tel_prefeitura1,
+                                                        cedec_prefeitura.tel2 as tel_prefeitura2,
 							com_comdec.fone_com1 as tel_compdec1,
 							com_comdec.fone_com2 as tel_compdec2
 							from cedec_municipio
@@ -715,6 +717,8 @@ class Compdec{
 							on cedec_municipio.id_municipio = com_comdec.id_municipio
 							inner join cedec_user_ex
 							on cedec_municipio.id_municipio = cedec_user_ex.id_municipio
+                                                        inner join cedec_prefeitura
+                                                        on cedec_municipio.id_municipio = cedec_prefeitura.id_municipio
 							where com_comdec.com_const = 1
 							and cedec_municipio.id_municipio <> 7221
 							order by cedec_municipio.nome";
@@ -754,9 +758,6 @@ class Compdec{
 				while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
 					if(isset($linha['funcao']) && strtolower($linha['funcao']) == "coordenador") {
 						$dados = $linha['telefone']."/".$linha['celular'];
-						return $dados;
-					}else{
-						$dados = "não cadastrado";
 						return $dados;
 					}
 				}

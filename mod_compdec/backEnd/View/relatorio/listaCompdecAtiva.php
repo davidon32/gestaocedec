@@ -60,7 +60,7 @@ $dados = $compdec->listaCompdecAtiva();
         print "<td style='text-align:left;padding-left:5px;'>".$value['nome']."</td>";
         print "<td style='text-align:center; font-size:11pt;'>".$value['tel_compdec1']." / ".$value['tel_compdec2']."</td>";
         print "<td style='text-align:center; font-size:11pt;'>".$telCoordenador."</td>";
-        print "<td style='text-align:center; font-size:11pt;'>".(isset($value['tel_prefeitura']) ? $value['tel_prefeitura'] : "não cadastrado") ."</td>";
+        print "<td style='text-align:center; font-size:11pt;'>".$value['tel_prefeitura']."/".$value['tel_prefeitura1']."/".$value['tel_prefeitura2'] ."</td>";
         print "</tr>";
       }
 

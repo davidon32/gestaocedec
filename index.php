@@ -176,11 +176,10 @@ $useragent = $_SERVER['HTTP_USER_AGENT'];
 if (preg_match('#\b(Edg|Firefox|OPR)\b#', $useragent)) {
 
     print "<script type='text/javascript'>";
-    print "alert();";
     print "Swal.fire({icon: 'error',
                         title: 'Oops... Navegador não Homologado !',
-                        text: 'favor entrar pelo google Ghrome !',
-                        footer: '<a href=\"#\">-</a>'
+
+                        footer: 'favor entrar pelo google Ghrome ! <img src=\"/core/imagem/chrome-48.png\">'
                   });";
     print "setTimeout(() => {window.location = 'http://www.defesacivil.mg.gov.br';}, 3000);";
     print "</script>";

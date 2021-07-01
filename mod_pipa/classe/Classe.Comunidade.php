@@ -547,6 +547,7 @@ class Comunidade extends Log {
                             pip_comunidade.comunidade as nome
                             from pip_comunidade
                             where pip_comunidade.comunidade like '%" . $comunidade . "%'
+                            and pip_comunidade.tipo_cad = 'Ativo'
                             and pip_comunidade.id_municipio = " . $id_municipio . ";";
 
             $resultComMun = $con->query($sqlComMun);
