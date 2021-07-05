@@ -931,5 +931,37 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
         }
         
     }
+    
+    /**
+     * Lista de usuario cadastrados como analista
+     */
+    public static function listaAnalistaPedidoAjuda(){
+        
+        $con = Conexao::getInstance();
+        $dado = array();
+        
+        $sql = "SELECT id_permissao,
+                    login,
+                    id_usuario,
+                    analista_drd,
+                    analista_dlog,
+                    analista_coord
+                FROM aju_h_permissao";
+        try {
+
+            $result = $con->query($sql);
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dado[] = $linha;
+            }
+            
+            return $dado;
+            
+        } catch (Exception $e) {
+            return $e->getMessage() . "erro ao selecionar as permissões !";
+        }
+        
+        
+    }
 
 }

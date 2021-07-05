@@ -117,7 +117,22 @@ class Log {
             $e->getMessage() . 'Código : 10 erro ao gravar log' . $_modulo;
         }
     }
+    
+    /**
+     * 
+     */
+    public static function LogSdc($texto){
+        
+        $nome = date('d-m-Y').".log";
+        
+        $arquivo = fopen(PATH.'/log/'.$nome,'a');
+        
+        if ($arquivo == false) die('Não foi possível criar o arquivo.');
+        
+        $log = date('d/m/Y H:i:s'). " | ". $_COOKIE['seguranca']['nome_usuario']." | ".$texto;
+        fwrite($arquivo, $log);
+        fclose($arquivo);
+        
+    }
 
-}
-
-?>
+}?>

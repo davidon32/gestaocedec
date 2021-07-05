@@ -31,7 +31,7 @@ class h_pedido_pedidController extends Controller {
 
     public function index() {
         $h_pedido_pedidModel = $this->h_pedido_pedid;
-        include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_pedid/index.php';
+        include_once 'mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/index.php';
     }
 
     /* paginacao */
@@ -93,7 +93,7 @@ class h_pedido_pedidController extends Controller {
 
     # formulario cadastro
     public function cadastro() {
-        include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_pedid/cadastro.php';
+        include_once 'mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/cadastro.php';
     }
 
     ################  GRAVAR ##################    
@@ -119,7 +119,7 @@ class h_pedido_pedidController extends Controller {
 
     public function pesquisa() {
 
-            include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_pedid/pesquisa.php';
+            include_once 'mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/pesquisa.php';
     }
     
 
@@ -128,7 +128,7 @@ class h_pedido_pedidController extends Controller {
     public function view() {
          $h_pedido_pedidModel = $this->h_pedido_pedid;
         $view = $this->h_pedido_pedid->view($_GET['id']);
-        include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_pedid/view.php';
+        include_once 'mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/view.php';
     }
 
     # editar registro
@@ -152,7 +152,7 @@ class h_pedido_pedidController extends Controller {
         } else {
 
             $view = $h_pedido_pedidModel->view($_GET['id']);
-            include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_pedid/edit.php';
+            include_once 'mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/edit.php';
         }
     }
     
@@ -169,9 +169,17 @@ class h_pedido_pedidController extends Controller {
     
     /* add pedido sesssion*/
     public function add_itens() {
-        include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_pedid/add_itens.php';
+        include_once 'mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/add_itens.php';
     }
     
+    /**
+     * 
+     */
+    public function config_ajuda(){
+        
+        include_once 'mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/config_ajuda.php';
+        
+    }
     
     
 

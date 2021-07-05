@@ -557,6 +557,36 @@ class Usuario extends UsuarioModel {
             
         }
     }
+    
+    /**
+     * Monta um dropbox com nome dos usuarios e retorna o id do usuario
+     * @param 
+     * @return combo com lista de usuario
+     * 
+     */
+    function getIdNome($situacao = "") {
+        
+        $filtro = ($situacao != "") ? "'".$situacao."'" : "";
+        $dados = array();
+        try {
+
+            $con = Conexao::getInstance();
+
+            $sql = 'select id_usuario, nome
+                    from cedec_usuario 
+                    where situacao = '.$filtro.' order by nome';
+
+            $result = $con->query($sql);
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dados[] = $linha;
+            }
+
+           return $dados;
+        } catch (Exception $e) {
+            
+        }
+    }
 
     /**
      * funcao busca o log do usuario
@@ -1336,7 +1366,7 @@ class Usuario extends UsuarioModel {
 
             if ($email == $emailCad['email_rec']) {
 
-                $reset = strtotime(date('Y-d-m H:i:s'));
+                $reset = strtotime(date('Y-m-d H:i:s'));
                 $sql = "UPDATE cedec_user_ex
                      SET reset = '" .$reset. "'
                      WHERE id = '" . $id . "'";

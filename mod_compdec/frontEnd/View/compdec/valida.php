@@ -51,10 +51,13 @@
 	/* dados parte 2 */
 	}elseif($opcao == "parte2"){
 
+            //var_dump(Log::LogSdc("Alterar dados Compdec ".implode($post)));
+                        
 		if($_compdec->AtualizacaoParte2($post)){
 			$_compdec->AtualizEmailRec($post);
 			$_compdec->AtualizPreDadPref($post);
 			
+                        
 			print "sucesso";
 		}else{
 			print "erro parte 2";

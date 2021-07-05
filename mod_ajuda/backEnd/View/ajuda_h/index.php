@@ -27,7 +27,7 @@
 <a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "index")?>">Pesquisa</a>
 </div>
 <div class="col-md-6">
-    <p class="text-right"> <a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "cad_anaista")?>" title="Cadastro Analistas">Usuarios</a></p>
+    <p class="text-right"> <a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "config_ajuda")?>" title="Cadastro Analistas">Configurações</a></p>
     </div>
 </div>
 <table class="table table-bordered">
