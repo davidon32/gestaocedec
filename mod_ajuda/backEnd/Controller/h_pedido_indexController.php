@@ -14,7 +14,7 @@ include_once('core/Controller/Controller.php');
  * 	Criacao : 21/06/2021															*
  * ********************************************************************************** */
 
-class h_pedido_pedidController extends Controller {
+class h_pedido_indexController extends Controller {
 
     private $h_pedido_pedid;
     private $h_pedido_pedids;
@@ -31,7 +31,7 @@ class h_pedido_pedidController extends Controller {
 
     public function index() {
         $h_pedido_pedidModel = $this->h_pedido_pedid;
-        include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_pedid/index.php';
+        include_once 'mod_ajuda/backEnd/View/ajuda_h/index.php';
     }
 
     /* paginacao */
@@ -89,90 +89,10 @@ class h_pedido_pedidController extends Controller {
         flush();
         readfile($nomeFileExcel);
     }
-        
-
-    # formulario cadastro
-    public function cadastro() {
-        include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_pedid/cadastro.php';
-    }
-
-    ################  GRAVAR ##################    
-    # gravar registro
-
-    public function gravar() {
-
-        $h_pedido_pedid = new H_pedido_pedidajuda_hModel;
-
-            $_POST['numero'] = $h_pedido_pedid->gerarNumero();
-            $_POST['despachante_analista'] = "";
-            $_POST['despachante_dlog'] = "";
-            
-
-            //var_dump($h_pedido_pedid->gravar($_POST));
-        if ($h_pedido_pedid->gravar($_POST)) {
-            //FuncaoBase::alert("Registro Gravado com Sucesso !");
-            //$this->redirect("ajuda", "h_pedido_pedid", "index");
-        }
-    }
-            
+           
     # pesquisa registro
-
     public function pesquisa() {
 
-            include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_pedid/pesquisa.php';
+            include_once 'mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/pesquisa.php';
     }
-    
-
-    #visualizar registro
-
-    public function view() {
-         $h_pedido_pedidModel = $this->h_pedido_pedid;
-        $view = $this->h_pedido_pedid->view($_GET['id']);
-        include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_pedid/view.php';
-    }
-
-    # editar registro
-
-    public function edit() {
-
-        $h_pedido_pedidModel = new H_pedido_pedidajuda_hModel;
-
-        if ($this->isPost()) {
-
-            $result = $h_pedido_pedidModel->edit($_POST);
-            
-            
-            //var_dump($result);
-            if (!empty($result)) {
-                FuncaoBase::alert("Registro Atualizado com Sucesso !");
-                $view = $h_pedido_pedidModel->view($_POST['id']);
-                $param = array('id'=> $_POST['id']);
-                $this->redirect("ajuda", "h_pedido_pedid", "view", $param);
-            }
-        } else {
-
-            $view = $h_pedido_pedidModel->view($_GET['id']);
-            include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_pedid/edit.php';
-        }
-    }
-    
-    /*  deletar registro */
-    public function delete() {
-        
-       if($this->h_pedido_pedid->delete($_GET['id'])){
-           FuncaoBase::alert("Registro Apagado com Sucesso !");
-       }
-
-            $this->redirect("ajuda", "h_pedido_pedid", "index");
-        
-    }
-    
-    /* add pedido sesssion*/
-    public function add_itens() {
-        include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_pedid/add_itens.php';
-    }
-    
-    
-    
-
 }

@@ -495,7 +495,39 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
             return $e->getMessage() . "Erro Deletar H_pedido_pedid !";
         }
     }
-            
+        
+
+    #####################  Iten pedido  ######################
+    public static function item_pedido($id_pedido) {
+
+        
+        $con = Conexao::getInstance();
+
+        $dados = array();
+
+        $sql = "select aju_h_pedido_itens.id,
+                aju_h_pedido_itens.codigo,
+                aju_h_pedido_itens.descricao_item,
+                aju_h_pedido_itens.qtd,
+                aju_h_pedido_itens.qtd_familia_atendida
+                from 
+                aju_h_pedido_itens
+                where id_pedido = ".$id_pedido;
+
+        try {
+
+            $result = $con->query($sql);
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dados[] = $linha;
+            }
+
+            return $dados;
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }    
+        
+}
      
 
 
@@ -870,6 +902,32 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
             
         } catch (Exception $e) {
             return $e->getMessage() . "Ocorreu um erro !";
+        }
+        
+    }
+    
+    
+    /**
+     * 
+     * 
+     */
+    public function getCorStatus($status) {
+        
+        switch ($status) {
+            case 0:
+                # em analise
+                return '#e6e600';
+                break;
+            case 1:
+                # atendido
+                return '#00cc00';
+                break;
+            case 2:
+                #cancelado
+                return '#ff5c33';
+                break;
+            default:
+                break;
         }
         
     }

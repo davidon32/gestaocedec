@@ -6,7 +6,7 @@ include_once('core/Controller/Controller.php');
  * 	CEDEC-MG - Coordenadoria Estadual de Defesa Civil de Minas Gerais			  	*
  * 	
  *      Gerado de Código : 1.0
- * 	Controller tabela aju_h_pedido_itens										*
+ * 	Controller tabela aju_h_pedido_prest										*
  * 																					*
  * 	Autor: Demetrio da Silva Passos	
  *      MASP: 1296844
@@ -14,24 +14,24 @@ include_once('core/Controller/Controller.php');
  * 	Criacao : 21/06/2021															*
  * ********************************************************************************** */
 
-class h_pedido_itensController extends Controller {
+class h_pedido_prestController extends Controller {
 
-    private $h_pedido_itens;
-    private $h_pedido_itenss;
+    private $h_pedido_prest;
+    private $h_pedido_prests;
     private $campos;
     public $numPage;
     
     public function __construct() {
-        $this->h_pedido_itens = new H_pedido_itensajuda_hModel;
-        $this->h_pedido_itenss = $this->h_pedido_itens->lista();
+        $this->h_pedido_prest = new H_pedido_prestajuda_hModel;
+        $this->h_pedido_prests = $this->h_pedido_prest->lista();
 
     }
 
-    # index h_pedido_itens
+    # index h_pedido_prest
 
     public function index() {
-        $h_pedido_itensModel = $this->h_pedido_itens;
-        include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_itens/index.php';
+        $h_pedido_prestModel = $this->h_pedido_prest;
+        include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_prest/index.php';
     }
 
     /* paginacao */
@@ -40,14 +40,14 @@ class h_pedido_itensController extends Controller {
         
         $this->numPage = $numPage;
 
-        $totalRegistro = count($this->h_pedido_itenss);
+        $totalRegistro = count($this->h_pedido_prests);
         $regPorPagina = $numPage;
         
         $totPag = ceil($totalRegistro / $numPage);
 
         $start = ($page - 1) * $regPorPagina;
 
-        $paginacao = $this->h_pedido_itens->paginacao($start, $regPorPagina);
+        $paginacao = $this->h_pedido_prest->paginacao($start, $regPorPagina);
        
         return [$paginacao, $totPag];
        
@@ -57,9 +57,9 @@ class h_pedido_itensController extends Controller {
     # Exportar dados excel
     public function exportar() {
 
-        $h_pedido_itens = new H_pedido_itensajuda_hModel;
+        $h_pedido_prest = new H_pedido_prestajuda_hModel;
         
-        $dados = $h_pedido_itens->lista();
+        $dados = $h_pedido_prest->lista();
         
         $coluna = array_keys($dados[0]);
         
@@ -93,18 +93,19 @@ class h_pedido_itensController extends Controller {
 
     # formulario cadastro
     public function cadastro() {
-        include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_itens/cadastro.php';
+        include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_prest/cadastro.php';
     }
 
     ################  GRAVAR ##################    
     # gravar registro
 
     public function gravar() {
-        
-        $h_pedido_itens = new H_pedido_itensajuda_hModel;
-        if ($h_pedido_itens->gravar($_POST)) {
+
+        $h_pedido_prest = new H_pedido_prestajuda_hModel;
+
+        if ($h_pedido_prest->gravar($_POST)) {
             FuncaoBase::alert("Registro Gravado com Sucesso !");
-            $this->redirect("ajuda", "h_pedido_itens", "index");
+            $this->redirect("ajuda", "h_pedido_prest", "index");
         }
     }
             
@@ -112,55 +113,50 @@ class h_pedido_itensController extends Controller {
 
     public function pesquisa() {
 
-            include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_itens/pesquisa.php';
+            include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_prest/pesquisa.php';
     }
     
 
     #visualizar registro
 
     public function view() {
-         $h_pedido_itensModel = $this->h_pedido_itens;
-        $view = $this->h_pedido_itens->view($_GET['id']);
-        include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_itens/view.php';
+         $h_pedido_prestModel = $this->h_pedido_prest;
+        $view = $this->h_pedido_prest->view($_GET['id']);
+        include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_prest/view.php';
     }
 
     # editar registro
 
     public function edit() {
 
-        $h_pedido_itensModel = new H_pedido_itensajuda_hModel;
+        $h_pedido_prestModel = new H_pedido_prestajuda_hModel;
 
         if ($this->isPost()) {
 
-            $result = $h_pedido_itensModel->edit($_POST);
-
+            $result = $h_pedido_prestModel->edit($_POST);
+            
+            //var_dump($result);
             if (!empty($result)) {
                 FuncaoBase::alert("Registro Atualizado com Sucesso !");
-                if($_POST['add_pedido'] = 1){
-                   $param = array('id'=> $_POST['id_pedido']);
-                   $this->redirect("ajuda", "h_pedido_pedid", "add_itens", $param);
-                }else {
-                FuncaoBase::alert("Registro Atualizado com Sucesso !");
-                $view = $h_pedido_itensModel->view($_POST['id']);
-                $param = array('id'=> $_POST['id']);
-                $this->redirect("ajuda", "h_pedido_itens", "view", $param);
-                }
+                $view = $h_pedido_prestModel->view($_POST['id_h_pedido_prest']);
+                $param = array('id'=> $_POST['id_h_pedido_prest']);
+                $this->redirect("ajuda", "h_pedido_prest", "view", $param);
             }
         } else {
 
-            $view = $h_pedido_itensModel->view($_GET['id']);
-            include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_itens/edit.php';
+            $view = $h_pedido_prestModel->view($_GET['id']);
+            include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_prest/edit.php';
         }
     }
     
     /*  deletar registro */
     public function delete() {
-
-       if($this->h_pedido_itens->delete($_GET['id'])){
+        
+       if($this->h_pedido_prest->delete($_GET['id'])){
            FuncaoBase::alert("Registro Apagado com Sucesso !");
        }
 
-            $this->redirect("ajuda", "h_pedido_itens", "index");
+            $this->redirect("ajuda", "h_pedido_prest", "index");
         
     }
 

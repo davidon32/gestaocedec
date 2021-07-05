@@ -1,3 +1,4 @@
+
 <?php include_once PATH . '/core/include.php'; ?>
 <?php include_once "core/Model/indexModel.php"; ?>
 <?php include_once "mod_ajuda/Model/indexModel.php"; ?>
@@ -10,29 +11,38 @@
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php"; ?>
 
-<a class="btn btn-success" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_index", "index") ?>">Voltar</a>
+<a class="btn btn-success" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "index") ?>">Voltar</a>
 <a class="btn btn-info" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "cadastro") ?>" title="Novo Registro">+ Novo</a>
-<a class="btn btn-info" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "pesquisa") ?>" title="Busca Registro">Pesquisa</a>
-<a class="btn btn-info" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "exportar") ?>" title="Exportar dados Excel">Exportar Excel</a>
-   <br>
+
 <br>
+<br>
+
+<form method="post" action="#" name="frmBuscaH_pedido_pedid" id="frmBuscaH_pedido_pedid">
+    <label>Pesquisa :</label>
+    <input type="text" class="form form-control" name="searchH_pedido_pedidName" id="searcH_pedido_pedidName">
+
+    <br>
+
+    <input type="submit" class="btn btn-info" name="btnBuscaH_pedido_pedid" id="btnBuscaH_pedido_pedid" value="Pesquisar">
+
+</form>
 
 <?php
 
 
-$page = (!isset($_GET['page'])) ? 1 : $_GET['page'];
+$btn = isset($_POST['btnBuscaH_pedido_pedid']) ? $_POST['btnBuscaH_pedido_pedid'] : null;
+$nome = isset($_POST['searchH_pedido_pedidName']) ? $_POST['searchH_pedido_pedidName'] : null;
 
-$numRegPorPagina = 10;
-$pag = new H_pedido_pedidController();
-$paginacao= $pag->paginacao($page, $numRegPorPagina);
+if ($btn == 'Pesquisar') {
 
-$no = ($page >1) ? 1: 1;
+    $busca = new H_pedido_pedidajuda_hModel();
+    $h_pedido_pedids = $busca->listaNome($nome);
+    
+    //var_dump($unidades);
 
-$nr = 0;
+    print "<legend>Pesquisa H_pedido_pedid</legend>";
 
-print "<legend>Cadastro H_pedido_pedid</legend>";
-
-print "<div class=\"table-responsive\"><table class=\"table table-bordered table-striped\">
+    print "<div class=\"table-responsive\"><table class=\"table table-bordered table-striped\">
     <thead>
             <tr>
                 <th>id</th>
@@ -63,7 +73,7 @@ print "<div class=\"table-responsive\"><table class=\"table table-bordered table
 </thead>
 <tbody>";
 
-foreach ($paginacao[0] as $h_pedido_pedid) {
+    foreach ($h_pedido_pedids as $h_pedido_pedid) {
 
             print "<tr>
                     <td>".$h_pedido_pedid['id']."</td>
@@ -71,8 +81,8 @@ foreach ($paginacao[0] as $h_pedido_pedid) {
 <td>".$h_pedido_pedid['data_entrada_sistema']."</td>
 <td>".$h_pedido_pedid['despachante_analista']."</td>
 <td>".$h_pedido_pedid['despachante_dlog']."</td>
-<td>".$h_pedido_pedidModel->getNomeIdFk('cedec_municipio','id_municipio', $h_pedido_pedid['id_municipio'])->nome."</td>
-<td>".$h_pedido_pedidModel->getNomeIdFk('com_regiao','id_regiao', $h_pedido_pedid['id_regiao'])->nome."</td>
+<td>".$h_pedido_pedid['id_municipio']."</td>
+<td>".$h_pedido_pedid['id_regiao']."</td>
 <td>".$h_pedido_pedid['nome_coordenador']."</td>
 <td>".$h_pedido_pedid['tel_coordenador']."</td>
 <td>".$h_pedido_pedid['cel_coordenador']."</td>
@@ -81,7 +91,7 @@ foreach ($paginacao[0] as $h_pedido_pedid) {
 <td>".$h_pedido_pedid['tel_prefeito']."</td>
 <td>".$h_pedido_pedid['cel_prefeito']."</td>
 <td>".$h_pedido_pedid['email_prefeito']."</td>
-<td>".$h_pedido_pedidModel->getNomeIdFk('dec_cobrade','id_cobrade', $h_pedido_pedid['id_cobrade'])->nome."</td>
+<td>".$h_pedido_pedid['id_cobrade']."</td>
 <td>".$h_pedido_pedid['pop_atendida']."</td>
 <td>".$h_pedido_pedid['decreto_se_ecp_vig']."</td>
 <td>".$h_pedido_pedid['numero_decreto']."</td>
@@ -100,30 +110,11 @@ foreach ($paginacao[0] as $h_pedido_pedid) {
                     "</td>";
 
             print "</tr>";
-            $nr += $no;
         }
        
 
-        print " </tbody></table></div>";
-        
-        print "<div class=\"col-md-12 text-center\">";
-
-        print "<ul class=\"pagination\">";
-
-        print "<li><a href=\"" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'index', array('page' => '1')) . "\">Primeiro</a></li>";
-
-        for ($p = 1; $p <= $paginacao[1]; $p++) {
-
-            print "<li class=\"" . ($page == $p ? 'active' : '') . "\"><a href=\"" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'index', array('page' => $p)) . "\">" . $p . "</a></li>";
-            if(($p > 1) && ($p % 15 == 0)) {
-            print "</ul>";
-                print "<ul class=\"pagination\">";
-            }
-        }
-        print "<li><a href=\"" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'index', array('page' => $paginacao[1])) . "\">Último</a></li>";
-        print "</ul>";
-        print "</div>";
-
+    print " </tbody></table></div>";
+}
 ?>
 
 
@@ -138,6 +129,27 @@ foreach ($paginacao[0] as $h_pedido_pedid) {
 <script>
 
     $(document).ready(function () {
+
+        var itens = {
+            data:
+<?php print json_encode($dadosH_pedido_pedid); ?>, // array com os dados
+            getValue: "nome", /* alterar com nome do item BD */
+            list: {
+                match: {
+                    enabled: true
+                },
+
+                onSelectItemEvent: function () {
+                    //var id = $("#searcid_marca").getSelectedItemData().id_marca;
+                    //var nome = $("#searcid_marca").getSelectedItemData().nome;
+
+                    // $("#nomeMarca_fk").val(nome); // Mudar
+                    //$("#id_marca").val(id);
+                }
+            }
+        };
+        /*********** autocomplete ***********/
+        $("#searchH_pedido_pedidName").easyAutocomplete(itens);
 
     });
 </script>

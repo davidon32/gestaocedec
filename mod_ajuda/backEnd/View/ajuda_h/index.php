@@ -18,13 +18,18 @@
 	
 ?>	
 <div class="col-md-12 text-center">
-<a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=etn&modulo=index&controller=index&action=menue">Voltar</a>
+<a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&modulo=ajuda&controller=index&action=index">Voltar</a>
 </div>
 <div class="col-md-12">
-<br>
+<div class="row">
+<div class="col-md-6">
 <a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "cadastro")?>">Novo Pedido</a>
 <a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "index")?>">Pesquisa</a>
-<br><br>
+</div>
+<div class="col-md-6">
+    <p class="text-right"> <a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "cad_anaista")?>" title="Cadastro Analistas">Usuarios</a></p>
+    </div>
+</div>
 <table class="table table-bordered">
         <tr>
             <th colspan="7">Pedidos Recentes</th>

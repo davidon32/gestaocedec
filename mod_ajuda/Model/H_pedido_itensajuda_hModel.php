@@ -141,15 +141,17 @@ private $qtd_familia_atendida = null;
     public static function gravar(array $dados) {
 
 
-        var_dump(self::$model);
+        //var_dump(self::$model);
         $sql = "INSERT INTO aju_h_pedido_itens (codigo,
 descricao_item,
 qtd,
-qtd_familia_atendida 
+qtd_familia_atendida,
+id_pedido
 ) VALUES (:codigo,
 :descricao_item,
 :qtd,
-:qtd_familia_atendida 
+:qtd_familia_atendida,
+:id_pedido
 )";
 
         try {
@@ -160,6 +162,7 @@ qtd_familia_atendida
 $result->bindValue(":descricao_item", $dados['descricao_item']);
 $result->bindValue(":qtd", $dados['qtd']);
 $result->bindValue(":qtd_familia_atendida", $dados['qtd_familia_atendida']);
+$result->bindValue(":id_pedido", $dados['id_pedido']);
 
  
             $result->execute();
@@ -178,17 +181,15 @@ $result->bindValue(":qtd_familia_atendida", $dados['qtd_familia_atendida']);
     ################  Atualizar dados h_pedido_itens  ###################
 
     public static function edit(array $dados) {
-        
- 
 
         $con = Conexao::getInstance();
 
         $sql = "UPDATE aju_h_pedido_itens SET 
-        codigo= :codigo,
-descricao_item= :descricao_item,
-qtd= :qtd,
-qtd_familia_atendida= :qtd_familia_atendida
-            WHERE id = :id";
+                codigo= :codigo,
+                descricao_item= :descricao_item,
+                qtd= :qtd,
+                qtd_familia_atendida= :qtd_familia_atendida
+                WHERE id = :id";
 
         try {
 
@@ -273,7 +274,7 @@ aju_h_pedido_itens.qtd_familia_atendida
 
         $con = Conexao::getInstance();
 
-        $sql = "DELETE FROM aju_h_pedido_itens WHERE id_h_pedido_itens = " . $id;
+        $sql = "DELETE FROM aju_h_pedido_itens WHERE id = " . $id;
 
         try {
 

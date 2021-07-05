@@ -26,14 +26,14 @@
         $permissao = Usuario::getPermissao('aju_permissao', 'pedido_ajuda');
         if($permissao == "1"){
     ?>
-    <a href="#">
+<a href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_index", "index")?>">
         <img src="core/imagem/pedido_cesta.png" width="80px">
         <br>
-        Pedido Cesta
+        Pedido Ajuda Humanitária
         </a>
     <?php }else {
         print  "<img class=\"imgCinza\" src=\"core/imagem/pedido_cesta.png\" width=\"80px\" title=\"Usuario sem Acesso !\">";
-        print " <br>Pedido Cesta";
+        print " <br>Pedido Ajuda Humanitária";
     } ?>
     </div>
 

@@ -77,7 +77,10 @@
     <a href="index.php?modulo=equipe&controller=usuario&action=recsenha">Esqueci minha senha</a><br>
     <!--<a href="register.html" class="text-center">Registrar novo Usuário</a>-->
     
-
+    <!--<a href="register.html" class="text-center">Precisando de Ajuda Clique Aqui</a>
+    ou envie email para o suporte <br>demetrio.passos@defesacivil.mg.gov.br-->
+    
+    
 
   </div>
   <!-- /.login-box-body -->
