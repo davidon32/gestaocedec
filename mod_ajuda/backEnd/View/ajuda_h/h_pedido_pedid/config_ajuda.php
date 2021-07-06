@@ -38,7 +38,7 @@
                 <option>Selecione o Analista</option>
                 <?php
                     foreach ($usuarios as $key => $dados) {
-                        print "<option id='".$dados['id_usuario']."'>".$dados['nome']."</option>";
+                        print "<option value='".$dados['id_usuario']."' data-login='".$dados['login']."'>".$dados['nome']."</option>";
                     }
                 ?>
             </select>
@@ -51,18 +51,18 @@
                     </label>
                 </div>
                 <div class="checkbox">
-                    <label><input type="checkbox" name="ck_alta_performance" id="ck_alta_performance">
+                    <label><input type="checkbox" name="ck_analista_dlog" id="ck_analista_dlog">
                         Analista DLOG
                     </label>
                 </div>
                 <div class="checkbox">
-                    <label><input type="checkbox" name="ck_alta_performance" id="ck_alta_performance">
+                    <label><input type="checkbox" name="ck_analista_coord" id="ck_analista_coord">
                     Analista Coordenador(a) Adjunto
                     </label>
                 </div>
-            </div>
-            <button class="btn btn-primary" type="button" name="btn_add_permissao" id="btn_add_permissao">Adicionar</button>
             <!-- checkbox div permissao fim-->
+            <button class="btn btn-primary" type="button" name="btn_add_permissao" id="btn_add_permissao">Adicionar</button>
+            </div>
         </div>
         <div class="col-md-6">
             <legend>Lista Analistas</legend>
@@ -77,18 +77,17 @@
                 </tr>
                 <?php
                 
-                    $listaAnalistaCad = H_pedido_pedidajuda_hModel::listaAnalistaPedidoAjuda();
-                    
-                    foreach ($listaAnalistaCad as $key => $value) {
-                        print "<tr>";
-                        print "<td>".$value['id']."</td>";
-                        print "<td>".$value['login']."</td>";
-                        print "<td>".$value['nome']."</td>";
-                        print "<td>".$value['analista_drd']."</td>";
-                        print "<td>".$value['analista_dlog']."</td>";
-                        print "<td>".$value['analista_coord']."</td>";
-                        print "</tr>";
-                    }
+                        $listaAnalistaCad = H_pedido_pedidajuda_hModel::listaAnalistaPedidoAjuda();
+                        foreach ($listaAnalistaCad as $key => $value) {
+                            print "<tr>";
+                            print "<td>".$value['id_usuario']."</td>";
+                            print "<td>".$value['login']."</td>";
+                            print "<td>".Usuario::getNomeId($value['id_usuario'])."</td>";
+                            print "<td>".(($value['analista_drd'] == '1') ? 'Sim' : 'Não')."</td>";
+                            print "<td>".(($value['analista_dlog'] == '1') ? 'Sim' : 'Não')."</td>";
+                            print "<td>".(($value['analista_coord'] == '1') ? 'Sim' : 'Não')."</td>";
+                            print "</tr>";
+                        }
                 ?>
             </table>
         </div>
@@ -111,10 +110,42 @@
     $(document).ready(function () {
         
         $("#permissao").hide();
-        
+        $("#btn_add_permissao").hide();
         $("#sel_usuario").change(function(){
             $("#permissao").show();
+            $("#btn_add_permissao").show();
         });
+        
+        $("#btn_add_permissao").click(function(){
+            
+            var analista_drd = $("#ck_analista_drd").is(':checked') ? 1 : 0;
+            var analista_dlog = $("#ck_analista_dlog").is(':checked') ? 1 : 0;
+            var analista_coord = $("#ck_analista_coord").is(':checked') ? 1 : 0;
+            
+            var formData = new FormData();
+		formData.append('opcao', 'add_permissao');
+		formData.append('id_usuario', $("#sel_usuario").val()); 
+		formData.append('analista_drd', analista_drd); 
+		formData.append('analista_dlog', analista_dlog); 
+		formData.append('analista_coord', analista_coord); 
+		formData.append('login', $("#sel_usuario").find(':selected').data('login')); 
+                
+           $.ajax({
+		url : '/mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/ajax.php',
+		type : 'POST',
+		data : formData,
+		processData: false,  // tell jQuery not to process the data
+		contentType: false,  // tell jQuery not to set contentType
+		success : function(response) {
+                    Swal.fire('Cadastro realizada com Sucesso !')
+		},
+		error : function(e) {
+		//console.log(JSON.stringify(e));
+		}
+            });
+
+            
+        })
 
     });
 </script>

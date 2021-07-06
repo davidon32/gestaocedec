@@ -572,7 +572,7 @@ class Usuario extends UsuarioModel {
 
             $con = Conexao::getInstance();
 
-            $sql = 'select id_usuario, nome
+            $sql = 'select id_usuario, nome, login
                     from cedec_usuario 
                     where situacao = '.$filtro.' order by nome';
 
