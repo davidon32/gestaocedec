@@ -56,7 +56,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 				<td width="20%">
 					&nbsp;&nbsp;<img class="img-circle" src="/anexo/prefeito/<?= AnexoPref::Foto($_dados[0]['id_municipio']); ?>" width="115px;"><br><br>
 					&nbsp;&nbsp;
-					<a class="btn btn-primary" onClick="uploadModal('prefeito')" title="Anexar Foto Prefeito" id="btnAlterarFotoPrefeito" name="btnAlterarFotoPrefeito">Alterar</a>
+					<a class="btn btn-primary glyphicon glyphicon-user" onClick="uploadModal('prefeito')" title="Anexar Foto Prefeito" id="btnAlterarFotoPrefeito" name="btnAlterarFotoPrefeito">Alterar</a>
 				</td>
 				<td>
                                     <table class="table">
@@ -70,7 +70,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
                                             <td>Bairro:</td><td><input class="form-control" type="text" value="<?= $dadosMunicipio['bairro']; ?>" name="txtBairroPref" id="txtBairroPref"></td>
                                             </tr>
                                             <tr>
-                                            <td>Cep:</td><td><input class="form-control" type="text" value="<?= $dadosMunicipio['cep']; ?>" name="txtCepPref" id="txtCepPref"></td>
+                                                <td>Cep:</td><td><input class="form-control" type="text" value="<?= $dadosMunicipio['cep']; ?>" name="txtCepPref" id="txtCepPref" maxlength="9"></td>
                                         </tr>
                                     </table>
 				</td>
@@ -669,9 +669,6 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 		});
 
 
-		$("#tel_pref").mask("(00) 0-0000-0009");
-		$("#cel_pref").mask("(00) 0-0000-0009");
-
 		$("#txtTelMembro").mask("(00) 0-0000-0009");
 		$("#txtCelMembro").mask("(00) 0-0000-0009");
 		$("#txt_comp_fone1").mask("(00) 0-0000-0009");
@@ -822,7 +819,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 					//dataType: 'json',
 					success: function(response) {
 						//alert("Registro Atualizado com Sucesso !");
-						//console.log(response);
+						console.log(response);
 						//location.reload();
 					},
 					error: function(e) {
@@ -921,6 +918,10 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 						"tel_pref": $("#tel_pref").val(),
 						"cel_pref": $("#cel_pref").val(),
 						"id_municipio": $("#id_municipio").val(),
+						"prefeito": $("#txtPrefeito").val(),
+						"pref_endereco": $("#txtEndPref").val(),
+						"pref_bairro": $("#txtBairroPref").val(),
+						"pref_cep": $("#txtCepPref").val(),
 					};
 
 					$.ajax({

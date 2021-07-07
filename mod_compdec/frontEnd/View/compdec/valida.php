@@ -39,6 +39,7 @@
   $_btn_enviar      = isset($_POST['btn_enviar'])       ? true                                 : "";
   $_txt_email2       = isset($_POST['txt_email2'])        ? $_POST['txt_email2']                  : ""; 
   $_txt_email3       = isset($_POST['txt_email3'])        ? $_POST['txt_email3']                  : ""; 
+  
 		
 	/* dados parte 1 */
 	if($opcao == "parte1"){

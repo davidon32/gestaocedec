@@ -338,14 +338,19 @@ class Compdec{
 
 	#@ atualizar email telefone Prefeitura
 	function AtualizPreDadPref($dados){
-
+            
+ 
 		try {
 			$con = Conexao::getInstance();
 			
 			$sql = "UPDATE cedec_municipio 
 					SET email =:email,
 					tel_pref =:tel_pref,
-					cel_pref =:cel_pref
+					cel_pref =:cel_pref,
+                                        prefeito =:prefeito,
+                                        endereco =:endereco,
+                                        bairro =:bairro,
+                                        cep =:cep
 					WHERE id_municipio=:id_municipio";
 						
 				$result = $con->prepare($sql);		
@@ -353,10 +358,10 @@ class Compdec{
 				$result->bindValue(":tel_pref", $dados['tel_pref']);
 				$result->bindValue(":cel_pref", $dados['cel_pref']);
 				$result->bindValue(":id_municipio", $dados['id_municipio']);
-                                $result->bindValue(":prefeito", $dados['txtPrefeito']);
-                                $result->bindValue(":endereco", $dados['txtEndPref']);
-                                $result->bindValue(":bairro", $dados['txtBairroPref']);
-                                $result->bindValue(":cep", $dados['txtCepPref']);
+                                $result->bindValue(":prefeito", $dados['prefeito']);
+                                $result->bindValue(":endereco", $dados['pref_endereco']);
+                                $result->bindValue(":bairro", $dados['pref_bairro']);
+                                $result->bindValue(":cep", $dados['pref_cep']);
 				$result->execute();
 					
 				return true;
