@@ -31,11 +31,19 @@
             </tr></div>
 
 <tr>
+                <td class="col-md-3">Checkebox 1 :</td><td><?=$view[0]['ck_check'];?></td>
+            </tr></div>
+
+<tr>
                 <td class="col-md-3">Cod Municipio :</td><td><?=$view[0]['Codmun'];?></td>
             </tr></div>
 
 <tr>
                 <td class="col-md-3">Nome Municipio :</td><td><?=$view[0]['NomeMunic'];?></td>
+            </tr></div>
+
+<tr>
+                <td class="col-md-3">Radio 2 :</td><td><?=$view[0]['rb_radio'];?></td>
             </tr></div>
 
 

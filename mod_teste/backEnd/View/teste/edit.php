@@ -31,7 +31,7 @@
 </div>
 <div class='col-md-2'>
 <label>Data Registro</label>
-<input type="text" class='form form-control' name='data_reg' id='data_reg' value='<?=DataMysql::dataVisual($view[0]['data_reg'])?>'  maxlength='-1' required>
+<input type="date" class='form form-control' name='data_reg' id='data_reg' value='<?=DataMysql::dataVisual($view[0]['data_reg'])?>'  maxlength='-1' required>
 </div>
 <div class='col-md-6'>
 <label>Codigo UF</label>
@@ -41,6 +41,10 @@
 <label>Codigo Municpio DV</label>
 <input type="text" class='form form-control' name='Codmundv' id='Codmundv' value='<?=$view[0]['Codmundv']?>'  maxlength='49' required>
 </div>
+<div class='col-md-2'>
+<label>Checkebox 1</label>
+<input type="checkbox" class='form form-control' name='ck_check' id='ck_check' value='<?=$view[0]['ck_check']?>'  maxlength='-1' required>
+</div>
 <div class='col-md-6'>
 <label>Cod Municipio</label>
 <input type="text" class='form form-control' name='Codmun' id='Codmun' value='<?=$view[0]['Codmun']?>'  maxlength='49' required>
@@ -48,6 +52,10 @@
 <div class='col-md-6'>
 <label>Nome Municipio</label>
 <input type="text" class='form form-control' name='NomeMunic' id='NomeMunic' value='<?=$view[0]['NomeMunic']?>'  maxlength='69' required>
+</div>
+<div class='col-md-2'>
+<label>Radio 2</label>
+<input type="radio" class='form form-control' name='rb_radio' id='rb_radio' value='<?=$view[0]['rb_radio']?>'  maxlength='-1' required>
 </div>
 
     <div class="col-md-12 text-center">

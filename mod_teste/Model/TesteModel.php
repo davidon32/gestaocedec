@@ -27,19 +27,21 @@ class TesteModel extends Model {
 private $data_reg = null;
 private $CodUf = null;
 private $Codmundv = null;
+private $ck_check = null;
 private $Codmun = null;
 private $NomeMunic = null;
+private $rb_radio = null;
 
 
     
     
- public function getNomeMunic(){
-        return $this->NomeMunic;
+ public function getRb_radio(){
+        return $this->rb_radio;
     }
 
             
-    public function setNomeMunic($NomeMunic){
-            $this->NomeMunic = $NomeMunic;
+    public function setRb_radio($rb_radio){
+            $this->rb_radio = $rb_radio;
     }
     
 
@@ -146,13 +148,17 @@ private $NomeMunic = null;
         $sql = "INSERT INTO teste (data_reg,
 CodUf,
 Codmundv,
+ck_check,
 Codmun,
-NomeMunic 
+NomeMunic,
+rb_radio 
 ) VALUES (:data_reg,
 :CodUf,
 :Codmundv,
+:ck_check,
 :Codmun,
-:NomeMunic 
+:NomeMunic,
+:rb_radio 
 )";
 
         try {
@@ -162,8 +168,10 @@ NomeMunic
             $result->bindValue(":data_reg", DataMysql::dataForm($dados['data_reg']));
 $result->bindValue(":CodUf", $dados['CodUf']);
 $result->bindValue(":Codmundv", $dados['Codmundv']);
+$result->bindValue(":ck_check", isset($dados['ck_check']) ? 1 : 0);
 $result->bindValue(":Codmun", $dados['Codmun']);
 $result->bindValue(":NomeMunic", $dados['NomeMunic']);
+$result->bindValue(":rb_radio", $dados['rb_radio']);
 
  
             $result->execute();
@@ -191,8 +199,10 @@ $result->bindValue(":NomeMunic", $dados['NomeMunic']);
         data_reg= :data_reg,
 CodUf= :CodUf,
 Codmundv= :Codmundv,
+ck_check= :ck_check,
 Codmun= :Codmun,
-NomeMunic= :NomeMunic
+NomeMunic= :NomeMunic,
+rb_radio= :rb_radio
             WHERE id_teste = :id_teste";
 
         try {
@@ -203,8 +213,10 @@ NomeMunic= :NomeMunic
             $result->bindValue(":data_reg", DataMysql::dataForm($dados['data_reg']));
 $result->bindValue(":CodUf", $dados['CodUf']);
 $result->bindValue(":Codmundv", $dados['Codmundv']);
+$result->bindValue(":ck_check", isset($dados['ck_check']) ? 1 : 0);
 $result->bindValue(":Codmun", $dados['Codmun']);
 $result->bindValue(":NomeMunic", $dados['NomeMunic']);
+$result->bindValue(":rb_radio", $dados['rb_radio']);
 
             
             $result->execute();
@@ -231,8 +243,10 @@ $result->bindValue(":NomeMunic", $dados['NomeMunic']);
 teste.data_reg,
 teste.CodUf,
 teste.Codmundv,
+teste.ck_check,
 teste.Codmun,
-teste.NomeMunic
+teste.NomeMunic,
+teste.rb_radio
                               FROM teste
                               
                               WHERE id_teste = " . $id_teste;
@@ -261,8 +275,10 @@ teste.NomeMunic
 teste.data_reg,
 teste.CodUf,
 teste.Codmundv,
+teste.ck_check,
 teste.Codmun,
-teste.NomeMunic
+teste.NomeMunic,
+teste.rb_radio
                                 FROM teste
                                 
                                 ORDER By id_teste DESC LIMIT $start, $regPorPagina");

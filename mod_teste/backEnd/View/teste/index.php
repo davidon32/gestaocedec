@@ -39,8 +39,10 @@ print "<div class=\"table-responsive\"><table class=\"table table-bordered table
 <th>data_reg</th>
 <th>CodUf</th>
 <th>Codmundv</th>
+<th>ck_check</th>
 <th>Codmun</th>
 <th>NomeMunic</th>
+<th>rb_radio</th>
 <th>Opções</th>
             </tr>
 </thead>
@@ -53,8 +55,10 @@ foreach ($paginacao[0] as $teste) {
 <td>".$teste['data_reg']."</td>
 <td>".$teste['CodUf']."</td>
 <td>".$teste['Codmundv']."</td>
+<td>".$teste['ck_check']."</td>
 <td>".$teste['Codmun']."</td>
 <td>".$teste['NomeMunic']."</td>
+<td>".$teste['rb_radio']."</td>
 ";
                     
             print "<td>";
