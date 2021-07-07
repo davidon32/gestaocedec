@@ -819,7 +819,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 					//dataType: 'json',
 					success: function(response) {
 						//alert("Registro Atualizado com Sucesso !");
-						console.log(response);
+						//console.log(response);
 						//location.reload();
 					},
 					error: function(e) {
