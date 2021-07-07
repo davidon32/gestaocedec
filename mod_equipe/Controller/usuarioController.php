@@ -53,7 +53,7 @@ class usuarioController extends Controller {
 
                             $quebraEmail = substr($email_rec[0]['email_rec'], 0, 4) . "******" . substr($email_rec[0]['email_rec'], strpos($email_rec[0]['email_rec'], "@"));
 
-                            $us_hash = "&" . md5('use70') . "=" . $_resultado[4];
+                            $us_hash = "&" . md5('use70') . "=" . $_resultado[4]."&res=".date('His');
                             $link = FuncaoBase::geraLink('equipe', 'usuario', 'trsenha_compdec') . $us_hash;
 
                             $mensagem = <<<MSG
@@ -63,12 +63,11 @@ class usuarioController extends Controller {
 
 <p style='font-size:15pt'>1)    Clique para trocar a Senha : <a href='http://sistema.defesacivil.mg.gov.br/index.php{$link}'>Trocar Senha</a></p>
 
-<p style='font-size:15pt'>2)	Entre com seu usuário :  <span style='color:blue'>{$_resultado[3]}</span>  ou email : <span style='color:blue'>{$email_rec[0]['email_rec']}</span>.</p>
-
 <p style='font-size:15pt'> O usuário será redirecionado para uma pagina de troca de senha, onde deverá fazer a troca de senha</p>
 
+<p style='font-size:15pt'>Obs: Seu usuario de acesso ao sistema é: <br> <span style='color:blue'>{$email_rec[0]['email_rec']}</span>.</p>
 
-<p style='font-size:15pt'> O usuário será redirecionado para uma pagina de troca de senha, onde deverá colocar a senha provisória: <span style='color:red'>$_resultado[1]</span> e a nova senha</p>.
+<p style='font-size:15pt'> Se você, não requisitou alteração de senha favor desconsiderar esse email.</p>
         
 <p style='font-size:15pt'> Att.</p>
 <p style='font-size:15pt'> Equipe de Suporte ADS.</p>

@@ -931,5 +931,100 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
         }
         
     }
+    
+    /**
+     * Lista de usuario cadastrados como analista
+     */
+    public static function listaAnalistaPedidoAjuda(){
+        
+        $con = Conexao::getInstance();
+        $dado = array();
+        
+        $sql = "SELECT id_permissao,
+                    login,
+                    id_usuario,
+                    analista_drd,
+                    analista_dlog,
+                    analista_coord
+                FROM aju_h_permissao";
+        try {
 
+            $result = $con->query($sql);
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dado[] = $linha;
+            }
+            
+            return $dado;
+            
+        } catch (Exception $e) {
+            return $e->getMessage() . "erro ao selecionar as permissões !";
+        }
+        
+        
+    }
+    
+    
+    /**
+     * Busca analista 
+     */
+    public function buscaAnalista($id_usuario) {
+        
+        $con = Conexao::getInstance();
+        
+        $dado = array();
+        $sql = "select analista_drd,
+                analista_dlog,
+                analista_coord
+                from aju_h_permissao
+                where id_usuario = ".$id_usuario;
+        try {
+
+            $result = $con->query($sql);
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dado[] = $linha;
+            }
+            
+            return $dado;
+            
+        } catch (Exception $e) {
+            return $e->getMessage() . "erro ao selecionar as permissões !";
+        }
+    }
+        
+        
+        /**
+     * Adicionar permissao usuario
+     */
+    public function AddPermissao(array $dados) {
+        
+        $con = Conexao::getInstance();
+        $sql = "INSERT INTO aju_h_permissao (login,
+                                                id_usuario,
+                                                analista_drd,
+                                                analista_dlog,
+                                                analista_coord)
+                                                    VALUES (:login,
+                                                    :id_usuario,
+                                                    :analista_drd,
+                                                    :analista_dlog,
+                                                    :analista_coord)";
+
+        try {
+            $result = $con->prepare($sql);
+            $result->bindValue(":login", $dados['login']);
+            $result->bindValue(":id_usuario", $dados['id_usuario']);
+            $result->bindValue(":analista_drd", $dados['analista_drd']);
+            $result->bindValue(":analista_dlog", $dados['analista_dlog']);
+            $result->bindValue(":analista_coord", $dados['analista_coord']);
+            $result->execute();
+
+            return true;
+        } catch (Exception $e) {
+            return $e->getMessage() . "Erro ao inserir Permissao";
+        }
+        
+            
+    }
 }

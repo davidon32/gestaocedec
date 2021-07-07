@@ -52,70 +52,85 @@
     
     $usuario = new Usuario();
     
-    # troca de senha via link email
-    if (isset($_GET['res'])) {
+    $senha_antiga = isset($_POST['senha_antiga']) ? trim($_POST['senha_antiga']) : "";
+    $senha_nova = isset($_POST['senha_nova']) ? trim($_POST['senha_nova']) : "";
+    $envia_troca = isset($_POST['btn_trocasenha']) ? $_POST['btn_trocasenha'] : "";
+    $externo = isset($_POST['txtExterno']) ? $_POST['txtExterno'] : "";
+    
+    $campo = array("Senha Nova" => $senha_nova);
+    
+    if ($envia_troca == "trocar") {
+   
+        # troca de senha via link email
+        if (isset($_GET['res'])) {
 
-        $param = $_GET['has'];
-        $data = $param[md5('use70')];
+            $param = $_GET;
+            $data = $param[md5('use70')];
 
-        $dataBanco = new DateTime();
-        $dataBanco->setTimestamp($data);
-        //echo "Data Banco ".$dataBanco->format('d/m/Y H:i:s')."<br>";
+            $dataBanco = new DateTime();
+            $dataBanco->setTimestamp($data);
+            echo "Data Banco ".$dataBanco->format('d/m/Y H:i:s')."<br>";
 
-        $expira = new DateTime();
-        $expira->setTimestamp($data);
-        $expira->modify('+4 hours');
-        $expira->getTimestamp();
-        //print "Data Prazo Expira " .$expira->format('d/m/Y H:i:s')."<br>";
+            $expira = new DateTime();
+            $expira->setTimestamp($data);
+            $expira->modify('+4 hours');
+            $expira->getTimestamp();
+            print "Data Prazo Expira " .$expira->format('d/m/Y H:i:s')."<br>";
 
-        $agora = new DateTime();
-        $agora->getTimestamp();
-        //echo "Data agora " .$agora->format('d/m/Y H:i:s')."<br>";
+            $agora = new DateTime();
+            $agora->getTimestamp();
+            echo "Data agora " .$agora->format('d/m/Y H:i:s')."<br>";
 
-        print "<br>";
+            print "<br>";
 
-        
-        $dados = $usuario->getResetUsuarioEx($data);
-        
-        if (isset($param[md5('use70')]) && (isset($dados))) {
+            $dados = $usuario->getResetUsuarioEx($data);
 
-            if (isset($dados['reset'])) {
-                if ($agora <= $expira) {
-                    print "<script>";
-                    //print "window.location.href ='".FuncaoBase::geraLink("index", "index", "index")."'";
-                    print "</script>";
+            # troca de senha 
+            if (isset($param[md5('use70')]) && (isset($dados))) {
+                if (isset($dados['reset'])) {
+                    if ($agora <= $expira) {
+                        #interno
+                        if (empty($externo)) {
+
+                            $campo_branco = FuncaoBase::CampoBranco($campo);
+
+                            if ($campo_branco) {
+
+                                $_loginExt = new LoginExterno();
+
+                                if ($_loginExt->TrocaSenha($dados['usuario'], $senha_nova )) {
+
+                                    print "<script type='text/javascript'>";
+
+                                    print "alert('Troca de Senha Realizada Com Sucesso !-');";
+
+                                    print "window.location.href='index.php';";
+
+                                    print "</script>";
+                                }
+                            }
+                        }
+                    } else {
+                        print "<script>";
+                        print "alert('Link Expirado !');";
+                        print "window.location.href ='" . FuncaoBase::geraLink("index", "index", "index") . "'";
+                        print "</script>";
+                        die();
+                    }
                 } else {
-                    print "<script>";
-                    print "alert('Link Expirado !');";
-                    //print "window.location.href ='" . FuncaoBase::geraLink("index", "index", "index") . "'";
-                    print "</script>";
+
                 }
             } else {
-                
+                print "<script>";
+                print "alert('Link Expirado !-');";
+                //print "window.location.href ='" . FuncaoBase::geraLink("index", "index", "index") . "'";
+                print "</script>";
             }
+
+        # grava a troca de senha via (Administrador CEDEC) sistema.
         } else {
-            print "<script>";
-            print "alert('Link Expirado !');";
-            print "window.location.href ='" . FuncaoBase::geraLink("index", "index", "index") . "'";
-            print "</script>";
-        }
-        
-    # grava a troca de senha via (Administrador CEDEC) sistema.
-    } else {
 
-        $dados = $usuario->getDadosUsuarioEx($_COOKIE['seguranca']['idUser']);
-        
-    }
-        
-        $senha_antiga = isset($_POST['senha_antiga']) ? trim($_POST['senha_antiga']) : "";
-        $senha_nova = isset($_POST['senha_nova']) ? trim($_POST['senha_nova']) : "";
-        $envia_troca = isset($_POST['btn_trocasenha']) ? $_POST['btn_trocasenha'] : "";
-        $externo = isset($_POST['txtExterno']) ? $_POST['txtExterno'] : "";
-
-        $campo = array("Senha Nova" => $senha_nova);
-
-        if ($envia_troca == "trocar") {
-
+            $dados = $usuario->getDadosUsuarioEx($_COOKIE['seguranca']['idUser']);
             #interno
             if (empty($externo)) {
 
@@ -123,13 +138,13 @@
 
                 if ($campo_branco) {
 
-                    $_loginExt = new LoginExterno();
+                        $_loginExt = new LoginExterno();
 
                     if ($_loginExt->TrocaSenha($dados['usuario'], $senha_nova )) {
 
                         print "<script type='text/javascript'>";
 
-                        print "alert('Troca de Senha Realizada Com Sucesso !');";
+                        print "alert('Troca de Senha Realizada Com Sucesso !-');";
 
                         print "window.location.href='index.php';";
 
@@ -137,9 +152,9 @@
                     }
                 }
             }
-        } else {
-            
         }
+       
+    }
     
     ?>
     <!-- jQuery 3 -->
