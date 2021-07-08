@@ -224,7 +224,8 @@ numero_decreto,
 data_vigencia,
 tipo_decreto,
 esforcos_realizados,
-data_hora_envio 
+data_hora_envio,
+tramit
 ) VALUES (:numero,
 :data_entrada_sistema,
 :despachante_analista,
@@ -246,8 +247,8 @@ data_hora_envio
 :data_vigencia,
 :tipo_decreto,
 :esforcos_realizados,
-:data_hora_envio 
-)";
+:data_hora_envio, 
+:tramit)";
 
         try {
 
@@ -275,6 +276,7 @@ $result->bindValue(":data_vigencia", DataMysql::dataForm($dados['data_vigencia']
 $result->bindValue(":tipo_decreto", $dados['tipo_decreto']);
 $result->bindValue(":esforcos_realizados", $dados['esforcos_realizados']);
 $result->bindValue(":data_hora_envio", DataMysql::dataForm($dados['data_hora_envio']));
+$result->bindValue(":tramit", "analise_drd");
 
             if($result->execute()){
                 $id = self::$con->lastInsertId();
@@ -1025,6 +1027,59 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
             return $e->getMessage() . "Erro ao inserir Permissao";
         }
         
+    }
+        
+        
+     /**
+     * atualizar permissao usuario
+     */
+    public function AtualizarPermissao(array $dados) {
+        
+        $con = Conexao::getInstance();
+        $sql = "update aju_h_permissao set analista_drd = :analista_drd,
+                                           analista_dlog = :analista_dlog,
+                                           analista_coord = :analista_coord
+                                           where id_usuario = :id_usuario";
+
+        try {
+            $result = $con->prepare($sql);
+            $result->bindValue(":id_usuario", $dados['id_usuario']);
+            $result->bindValue(":analista_drd", $dados['analista_drd']);
+            $result->bindValue(":analista_dlog", $dados['analista_dlog']);
+            $result->bindValue(":analista_coord", $dados['analista_coord']);
+            $result->execute();
+
+            return true;
+        } catch (Exception $e) {
+            return $e->getMessage() . "Erro ao inserir Permissao";
+        }
+        
             
     }
+    
+        /**
+     * Remover permissao usuario 
+     */
+    public function removerPermissao($dados) {
+        
+        $con = Conexao::getInstance();
+        $sql = "update aju_h_permissao set analista_drd = 0,
+                                           analista_dlog = 0,
+                                           analista_coord = 0
+                                           where id_usuario = :id_usuario";
+
+        try {
+            $result = $con->prepare($sql);
+            $result->bindValue(":id_usuario", $dados);
+            
+            $result->execute();
+
+            return true;
+        } catch (Exception $e) {
+            return $e->getMessage() . "Erro ao remover Permissao";
+        }
+        
+            
+    }
+    
 }

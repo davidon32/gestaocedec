@@ -102,6 +102,14 @@ foreach ($dadosPmda as $value) {
     print ($pmda->opcao($value ['id_pmda']) == "2") ? (($pmdaLegado) ? "<a href='#'><img width='30px' src='core/imagem/request.png' title='Solicitar Alteração' id='lk_alteracao'></a>" :"") : "-";
     print ($pmda->buscaStatus($value ['id_pmda']) == '1') ? (($pmdaLegado) ? "<button value='btnEnviar' id='btnEnviarHom' class='btn btn-primary' onclick='javascrip:homologa(" . $value ['id_pmda'] . ")' title='Solicita a Homologação do PMDA'>Enviar p/ Homologação</button>" : "") : "";
     print ($pmda->buscaStatus($value ['id_pmda']) < '2') ? (($pmdaLegado) ? "&nbsp;<a id='btnVerificar' onclick='javascrip:verificaPendencia(" . $value ['id_pmda'] . ")' title='Verifica o Status do PMDA'><img width='30px' src='core/imagem/atualizar.png'></a>" :"") : "";
+    
+    # duplicar pmda
+    if ( ($pmda->buscaStatus($value ['id_pmda']) == '1') && 
+         ($pmda->buscaStatus($value ['id_pmda']) > '2')  &&
+         ($pmdaLegado))
+         {
+            print "&nbsp;<a id='btnVerificar' onclick='javascrip:duplicar(" . $value ['id_pmda'] . ")' title='Criar Cópia deste PMDA'><img width='30px' src='core/imagem/copia.png'></a>";
+         }
 
 
     # somente mensagem novas
@@ -694,6 +702,61 @@ foreach ($dadosPmda as $value) {
                                     //window.location.reload();
 
                                     //alert("Este PMDA está com o mínino de condições para ser homologado, \nesta condição porém, deve ser avaliada pelo corpo técnico da Diretoria de Resposta à Desastres ! \n Por favor Clique em \"Enviar p/ Homologação\"");
+                                }
+                            },
+                            error: function (response) {
+                                console.log(JSON.stringify(response));
+                            }
+                        });
+                    }
+
+                } else {
+                    alert('Sessão expirada !')
+                    window.location.href = 'index2.php';
+                }
+            },
+            error: function (response) {
+                console.log(JSON.stringify(response));
+            }
+        });
+        
+    }    
+        /**
+         *  DUPLICAR PMRAA
+         *
+         */
+    function duplicar(id_pmda) {
+
+        $.ajax({
+            url: '/mod_index/app/login/ckLogin.php',
+            type: 'POST',
+            success: function (response) {
+                if (response == "sucesso") {
+
+                    var dados = {
+
+                        "btnEnviar": "duplicar",
+                        "id_pmda": id_pmda,
+                    };
+                    var result = confirm("Confirma a Duplicação deste PMDA ?");
+
+                    if (result) {
+
+                        $.ajax({
+                            type: 'POST',
+                            url: '/mod_pipa/frontEnd/View/pmda/duplicar.php',
+                            data: dados,
+                            success: function (response) {
+                                if (response == "sucesso") {
+                                    Swal.fire({
+                                        position: 'top-end',
+                                        icon: 'success',
+                                        title: 'Este PMDA foi duplicado com Sucesso ',
+                                        showCloseButton: true,
+                                        timer: 5500
+                                    }).then((result) => {
+                                        window.location.reload();
+                                    });
                                 }
                             },
                             error: function (response) {

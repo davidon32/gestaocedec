@@ -13,6 +13,9 @@
 
     $usuario = new Usuario();
     $usuarios = $usuario->getIdNome("1");
+    
+    $h_pedido_pedid = new H_pedido_pedidajuda_hModel();
+    
 
 ?>
 
@@ -65,7 +68,7 @@
             </div>
         </div>
         <div class="col-md-6">
-            <legend>Lista Analistas</legend>
+            <legend>Permissoes Lista Analistas</legend>
             <table class="table table-bordered">
                 <tr>
                     <th>Cod</th>
@@ -74,18 +77,43 @@
                     <th>Analista DRD</th>
                     <th>Analista DLOG</th>
                     <th>Analista Corrd.Adj</th>
+                    <th>opcao</th>
                 </tr>
                 <?php
                 
                         $listaAnalistaCad = H_pedido_pedidajuda_hModel::listaAnalistaPedidoAjuda();
+                        
                         foreach ($listaAnalistaCad as $key => $value) {
+                            
+                            $cor = (($value['analista_drd'] == '1') ? 'style=\'font-size:15pt;font-weight:bold; color:#04B431;\'' : '');
+                            
                             print "<tr>";
                             print "<td>".$value['id_usuario']."</td>";
                             print "<td>".$value['login']."</td>";
                             print "<td>".Usuario::getNomeId($value['id_usuario'])."</td>";
-                            print "<td>".(($value['analista_drd'] == '1') ? 'Sim' : 'Não')."</td>";
-                            print "<td>".(($value['analista_dlog'] == '1') ? 'Sim' : 'Não')."</td>";
-                            print "<td>".(($value['analista_coord'] == '1') ? 'Sim' : 'Não')."</td>";
+                            
+                            print "<td ".$cor."><select name='sel_analista_drd'>"
+                                        . "<option value='1'>Sim</option>"
+                                        . "<option value='0'>Não</option>"
+                                    . "</select>"
+                                    .(($value['analista_drd'] == '1') ? 'Sim' : 'Não')
+                                    ."</td>";
+                            
+                            print "<td ".$cor."><select name='sel_analista_dlog'>"
+                                        . "<option value='1'>Sim</option>"
+                                        . "<option value='0'>Não</option>"
+                                    . "</select>"
+                                    .(($value['analista_dlog'] == '1') ? 'Sim' : 'Não')
+                                    ."</td>";
+                            
+                            print "<td ".$cor."><select name='sel_analista_coord'>"
+                                        . "<option value='1'>Sim</option>"
+                                        . "<option value='0'>Não</option>"
+                                    . "</select>"
+                                    .(($value['analista_coord'] == '1') ? 'Sim' : 'Não')
+                                    ."</td>";
+                            print "<td><!--<a href='#' name='permissao_edit' title='Editar Permissoes'><img src='/core/imagem/editar.png'</a> |-->";
+                            print "<a href='index.php?".FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "config_ajuda", array('id'=>$value['id_usuario']))."' name='permissao_remove' data-id_usuario='".$value['id_usuario']."' title='Remover Permissoes'><img src='/core/imagem/delete.png'</a></td>";
                             print "</tr>";
                         }
                 ?>
@@ -98,6 +126,19 @@
 
 </div>
 
+<?php
+
+    $id_usuario = isset($_GET['id']) ? $_GET['id'] : "";
+    
+    if(!empty($id_usuario)){
+        $h_pedido_pedid->removerPermissao($id_usuario);
+        print "<script>";
+        print "window.location.href = 'index.php?".FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "config_ajuda")."';";
+        print "</script>";
+    }
+
+?>
+
 <!-- =================== RODAPE CORPO ==================== -->
 <?php include_once "template/page/corpoRodape.php"; ?>
 <!-- =================== RODAPE  ======================== -->
@@ -109,12 +150,20 @@
 
     $(document).ready(function () {
         
+        $("select[name='sel_analista_drd']").hide();
+        $("select[name='sel_analista_dlog']").hide();
+        $("select[name='sel_analista_coord']").hide();
+        
         $("#permissao").hide();
         $("#btn_add_permissao").hide();
         $("#sel_usuario").change(function(){
             $("#permissao").show();
             $("#btn_add_permissao").show();
         });
+        
+        
+        
+        
         
         $("#btn_add_permissao").click(function(){
             
@@ -138,6 +187,7 @@
 		contentType: false,  // tell jQuery not to set contentType
 		success : function(response) {
                     Swal.fire('Cadastro realizada com Sucesso !')
+                    window.location.reload();
 		},
 		error : function(e) {
 		//console.log(JSON.stringify(e));
@@ -146,6 +196,8 @@
 
             
         })
+        
+       
 
     });
 </script>

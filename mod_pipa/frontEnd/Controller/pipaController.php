@@ -135,66 +135,7 @@
 
         }
         
-        
-        /**
-         *  Duplicar pmda
-         */
-        public function duplicarPmda($param) {
-            
-            $dados['id_pmda'];
-            $dados['pmda'];
-            $dados['comun_pmda'];
-            $dados['representante'];
-            
-            # pmda
-            $sql_pmda = "select data, status, id_municipio, acoes, qtd_caminhão, pop_at_municipio from pip_pmda where id_pmda = ".$dados['id_pmda'];
-            
-            $result_pmda = $con->query($sql_pmda);
-            $dados_pmda = array();
-            while ($linha_pmda = $result){
-                $dados_pmda[] = $linha_pmda;
-            }
-            $generics = new SqlGenerics();
-            $generics->insert('pip_pmda', $dados_pmda);
-            
-            #pega id do pmda inserido
-            
-
-            /*# comunidades do pmda
-            $sql_comun_pmda = "select id_pmda, id_comunidade, id_municipio, id_ponto, latitude, longitude, trecho_pav, trecho_n_pav, pop_atendida from pip_pmda_comun where id_pmda = ".$dados['id_pmda'];
-            
-            $result_comun_pmda = $con->query($sql_comun_pmda);
-            $dados_pmda = array();
-            
-            # id do pmda novo
-            array_push();
-            while ($linha_comun_pmda = $result){
-                $dados_comun_pmda[] = $linha_comun_pmda;
-
-            $generics = new SqlGenerics();
-            $generics->insert('pip_pmda_comun', $dados_comun_pmda);
-            
-            # representante 
-            $sql_representante = "select id, id_comunidade, nome, tel, edndereco, bairro, email, cpf, watsapp id_pmda from pip_representante where id_pmda = ".$dados['id_pmda'];
-            
-            $result_comun_pmda = $con->query($sql_comun_pmda);
-            $dados_pmda = array();
-            while ($linha_comun_pmda = $result){
-                $dados_comun_pmda[] = $linha_comun_pmda;
-
-            $generics = new SqlGenerics();
-            $generics->insert('pip_pmda', $dados_comun_pmda);
-            
-             */
-            
-            
-        }
-        
-        
-
-
-
-
-        
+ 
+    
     }
     

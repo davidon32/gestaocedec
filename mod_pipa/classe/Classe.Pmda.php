@@ -1312,46 +1312,7 @@ class Pmda extends Comunidade {
         }
     }
 
-    /**
-     *
-     * Duplicar PMDA 
-     * @param $id_municipio
-     * @param $id_pmda
-     * 
-     */
-    public function duplicarPmda($id_municipio, $id_pmda) {
-
-        $dados = "";
-        $pmda = $this->buscaPmda($id_pmda);
-
-        try {
-
-            if (!empty($id_municipio) && (!empty($id_pmda))) {
-
-                $con = Conexao::getInstance();
-
-
-
-                $sql = "insert into pip ";
-
-                $result = $con->prepare($sql);
-                $result->bindParam(":id_municipio", $id_municipio);
-                $result->execute();
-
-                while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-
-                    $dados = $linha['num_pmda'];
-                }
-
-                return "sucesso";
-            } else {
-                return null;
-            }
-        } catch (Exception $e) {
-            
-        }
-    }
-
+    
     /**
      *  atualiza ultima alteração pmda
      */
@@ -1370,6 +1331,236 @@ class Pmda extends Comunidade {
 
         return true;
     }
+    
+    /**
+     *
+     * Duplicar PMDA 
+     * @param $id_municipio
+     * @param $id_pmda
+     * 
+     */
+    public function copiaPmda($id_pmda) {
+
+        $dados = "";
+        
+        /* pmda */
+        $id_pmda_novo = $this->duplicaPmda($id_pmda);
+        
+        /* comunidades */
+        $this->duplicaComunidades($id_pmda, $id_pmda_novo);
+        
+        /* representante */
+        $this->duplicaRepresentantes($id_pmda, $id_pmda_novo);
+        
+        print "sucesso";
+        
+    }
+    
+    
+    /* duplica PMDA */
+    public function duplicaPmda($id_pmda) {
+        
+        $con = Conexao::getInstance();
+        
+        $dadosPmda = $this->buscaPmda($id_pmda);
+        $id_municipio = $dadosPmda[0]['id_municipio'];
+
+        $sql = "INSERT INTO pip_pmda (data,
+                                    status,
+                                    id_municipio,
+                                    acoes,
+                                    qtd_caminhao,
+                                    pop_at_municipio,
+                                    pedido_altera,
+                                    em_analise,
+                                    resp_homolog,
+                                    dt_analise,
+                                    dt_ultima_alteracao) VALUES (:data,
+								:status,
+								:id_municipio,
+								:acoes,
+								:qtd_caminhao,
+								:pop_at_municipio,
+								:pedido_altera,
+								:em_analise,
+								:resp_homolog,
+								:dt_analise,
+								:dt_ultima_alteracao);";
+        $result = $con->prepare($sql);
+        
+        $result->bindParam("data",               $dadosPmda[0]['data']);
+        $result->bindParam("status",             $dadosPmda[0]['status']);
+        $result->bindParam("id_municipio",       $dadosPmda[0]['id_municipio']);
+        $result->bindParam("acoes",              $dadosPmda[0]['acoes']);
+        $result->bindParam("qtd_caminhao",       $dadosPmda[0]['qtd_caminhao']);
+        $result->bindParam("pop_at_municipio",   $dadosPmda[0]['pop_at_municipio']);
+        $result->bindParam("pedido_altera",      $dadosPmda[0]['pedido_altera']);
+        $result->bindParam("em_analise",         $dadosPmda[0]['em_analise']);
+        $result->bindParam("resp_homolog",       $dadosPmda[0]['resp_homolog']);
+        $result->bindParam("dt_analise",         $dadosPmda[0]['dt_analise']);
+        $result->bindParam("dt_ultima_alteracao",$dadosPmda[0]['dt_ultima_alteracao']);
+        $result->execute();
+
+        return $con->lastInsertId();
+    }
+    
+    /**
+     * 
+     * busca comunudades do pmda
+     */
+    public function buscaComunidades($id_pmda) {
+    
+        $con = Conexao::getInstance();
+
+        $dados = array();
+        
+        $sql = "SELECT id_com_pmda,
+                        id_pmda,
+                        id_comunidade,
+                        id_municipio,
+                        id_ponto,
+                        latitude,
+                        longitude,
+                        trecho_pav,
+                        trecho_n_pav,
+                        pop_atendida
+                        FROM pip_pmda_comun
+                        where id_pmda = ".$id_pmda;
+        
+            $result = $con->query($sql);
+            //$result->execute();
+
+                while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+
+                    $dados[] = $linha;
+                }
+
+                return $dados;
+    
+    }
+    
+    /* duplica Comunidades */
+    public function duplicaComunidades($id_pmda, $id_pmda_novo) {
+        
+        $con = Conexao::getInstance();
+        
+        $dadosComnidades = $this->buscaComunidades($id_pmda);    
+        
+        $sql = "INSERT INTO pip_pmda_comun (id_pmda,
+			id_comunidade,
+			id_municipio,
+			id_ponto,
+			latitude,
+			longitude,
+			trecho_pav,
+			trecho_n_pav,
+			pop_atendida) VALUES (:id_pmda,
+                                                    :id_comunidade,
+                                                    :id_municipio,
+                                                    :id_ponto,
+                                                    :latitude,
+                                                    :longitude,
+                                                    :trecho_pav,
+                                                    :trecho_n_pav,
+                                                    :pop_atendida)";
+        
+             $result = $con->prepare($sql);
+        
+            foreach ($dadosComnidades as $key => $dados) {
+
+                $result->bindParam("id_pmda",      $id_pmda_novo);
+                $result->bindParam("id_comunidade",$dados["id_comunidade"]);
+                $result->bindParam("id_municipio", $dados["id_municipio"]);
+                $result->bindParam("id_ponto",     $dados["id_ponto"]);
+                $result->bindParam("latitude",     $dados["latitude"]);
+                $result->bindParam("longitude",    $dados["longitude"]);
+                $result->bindParam("trecho_pav",   $dados["trecho_pav"]);
+                $result->bindParam("trecho_n_pav", $dados["trecho_n_pav"]);
+                $result->bindParam("pop_atendida", $dados["pop_atendida"]);
+                $result->execute();
+            }
+            
+            return true;
+        }
+
+        
+        /**
+     * 
+     * busca representantes
+     */
+    public function buscaRepresentates($id_pmda) {
+    
+        $con = Conexao::getInstance();
+
+        $dados = array();
+        
+        $sql = "SELECT id,
+                        id_comunidade,
+                        nome,
+                        tel,
+                        endereco,
+                        bairro,
+                        email,
+                        cpf,
+                        watsapp,
+                        id_pmda
+                        FROM pip_representante
+                        where id_pmda = ".$id_pmda;
+        
+            $result = $con->query($sql);
+
+                while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+
+                    $dados[] = $linha;
+                }
+
+                return $dados;
+    
+    }
+    
+    /* duplica Representantes */
+    public function duplicaRepresentantes($id_pmda, $id_pmda_novo) {
+        
+        $con = Conexao::getInstance();
+        
+        $dadosRepresentantes = $this->buscaRepresentates($id_pmda);    
+
+        $sql = "INSERT INTO pip_representante (id_comunidade,
+                                                            nome,
+                                                            tel,
+                                                            endereco,
+                                                            bairro,
+                                                            email,
+                                                            cpf,
+                                                            watsapp,
+                                                            id_pmda)
+                                                            VALUES(:id_comunidade,
+                                                                        :nome,
+                                                                        :tel,
+                                                                        :endereco,
+                                                                        :bairro,
+                                                                        :email,
+                                                                        :cpf,
+                                                                        :watsapp,
+                                                                        :id_pmda)";
+             $result = $con->prepare($sql);
+             
+            foreach ($dadosRepresentantes as $key => $dados) {
+
+                $result->bindParam("id_comunidade", $dados['id_comunidade']);
+                $result->bindParam("nome",          $dados['nome']);
+                $result->bindParam("tel",           $dados['tel']);
+                $result->bindParam("endereco",      $dados['endereco']);
+                $result->bindParam("bairro",        $dados['bairro']);
+                $result->bindParam("email",         $dados['email']);
+                $result->bindParam("cpf",           $dados['cpf']);
+                $result->bindParam("watsapp",       $dados['watsapp']);
+                $result->bindParam("id_pmda",       $id_pmda_novo);
+                $result->execute();
+            }
+            
+            return true;
+        }
 
 }
 

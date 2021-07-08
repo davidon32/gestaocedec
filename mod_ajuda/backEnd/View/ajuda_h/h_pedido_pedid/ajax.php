@@ -19,11 +19,15 @@ print json_encode($dados);
     if(empty($h_pedido_pedid->buscaAnalista($_POST['id_usuario']))){
     
         # nova permissao
-        var_dump($h_pedido_pedid->AddPermissao($_POST));
-
+        $h_pedido_pedid->AddPermissao($_POST);
+    }else {
+        
+       $h_pedido_pedid->AtualizarPermissao($_POST);
+        
     }
-}elseif($opcao == 'add_permissao'){
+}elseif($opcao == 'remover_permissao'){
     
+    $h_pedido_pedid->removerPermissao($_POST);
    // $h_pedido_pedid->
 }
 
