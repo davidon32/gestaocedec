@@ -201,7 +201,7 @@ $dec_cobrade = new H_pedido_pedidajuda_hModel();
          
          <?php
          
-         $materiais = H_pedido_pedidajuda_hModel::item_pedido($view[0]['id']);
+         var_dump($materiais = H_pedido_pedidajuda_hModel::item_pedido($view[0]['id']));
          
          foreach ($materiais as $key => $material) {
              

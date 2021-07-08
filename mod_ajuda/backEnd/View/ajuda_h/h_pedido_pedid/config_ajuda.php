@@ -85,28 +85,30 @@
                         
                         foreach ($listaAnalistaCad as $key => $value) {
                             
-                            $cor = (($value['analista_drd'] == '1') ? 'style=\'font-size:15pt;font-weight:bold; color:#04B431;\'' : '');
+                            $corDRD = (($value['analista_drd'] == '1') ? 'style=\'font-size:15pt;font-weight:bold; color:#04B431;\'' : '');
+                            $corDLOG = (($value['analista_dlog'] == '1') ? 'style=\'font-size:15pt;font-weight:bold; color:#04B431;\'' : '');
+                            $corCORRD = (($value['analista_coord'] == '1') ? 'style=\'font-size:15pt;font-weight:bold; color:#04B431;\'' : '');
                             
                             print "<tr>";
                             print "<td>".$value['id_usuario']."</td>";
                             print "<td>".$value['login']."</td>";
                             print "<td>".Usuario::getNomeId($value['id_usuario'])."</td>";
                             
-                            print "<td ".$cor."><select name='sel_analista_drd'>"
+                            print "<td ".$corDRD."><select name='sel_analista_drd'>"
                                         . "<option value='1'>Sim</option>"
                                         . "<option value='0'>Não</option>"
                                     . "</select>"
                                     .(($value['analista_drd'] == '1') ? 'Sim' : 'Não')
                                     ."</td>";
                             
-                            print "<td ".$cor."><select name='sel_analista_dlog'>"
+                            print "<td ".$corDLOG."><select name='sel_analista_dlog'>"
                                         . "<option value='1'>Sim</option>"
                                         . "<option value='0'>Não</option>"
                                     . "</select>"
                                     .(($value['analista_dlog'] == '1') ? 'Sim' : 'Não')
                                     ."</td>";
                             
-                            print "<td ".$cor."><select name='sel_analista_coord'>"
+                            print "<td ".$corCORRD."><select name='sel_analista_coord'>"
                                         . "<option value='1'>Sim</option>"
                                         . "<option value='0'>Não</option>"
                                     . "</select>"

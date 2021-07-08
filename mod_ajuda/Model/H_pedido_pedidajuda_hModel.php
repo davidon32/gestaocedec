@@ -514,7 +514,7 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
                 aju_h_pedido_itens.qtd_familia_atendida
                 from 
                 aju_h_pedido_itens
-                where id_pedido = ".$id_pedido;
+                where id = ".$id_pedido;
 
         try {
 
@@ -880,6 +880,25 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
         
     }
     
+    /* enumStatus get status */
+    public function enumFase($fase) {
+        
+        switch ($fase) {
+            case 'analise_drd':
+                return 'em Análise DRD';
+                break;
+            case 'analise_dlog':
+                return 'em Análise DLOG';
+                break;
+            case 'analise_coord':
+                return 'em Análise Coord. Adjunto CEDEC';
+                break;
+            default:
+                break;
+        }
+        
+    }
+    
     
     /* busca material para pedido ajuda*/
     public static function MaterialPedido(){
@@ -1077,9 +1096,60 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
             return true;
         } catch (Exception $e) {
             return $e->getMessage() . "Erro ao remover Permissao";
-        }
-        
-            
+        }      
     }
     
+    
+    /**
+     *  
+     * 
+     */
+    public function buscaPedidoH() {
+        
+        $con = Conexao::getInstance();
+        $dados = array();
+        
+        $sql = "SELECT aju_h_pedido_pedid.id,
+                            aju_h_pedido_pedid.numero,
+                            aju_h_pedido_pedid.data_entrada_sistema,
+                            aju_h_pedido_pedid.despachante_analista,
+                            aju_h_pedido_pedid.despachante_dlog,
+                            aju_h_pedido_pedid.id_municipio,
+                            aju_h_pedido_pedid.id_regiao,
+                            aju_h_pedido_pedid.nome_coordenador,
+                            aju_h_pedido_pedid.tel_coordenador,
+                            aju_h_pedido_pedid.cel_coordenador,
+                            aju_h_pedido_pedid.email_coordenador,
+                            aju_h_pedido_pedid.nome_prefeito,
+                            aju_h_pedido_pedid.tel_prefeito,
+                            aju_h_pedido_pedid.cel_prefeito,
+                            aju_h_pedido_pedid.email_prefeito,
+                            aju_h_pedido_pedid.id_cobrade,
+                            aju_h_pedido_pedid.pop_atendida,
+                            aju_h_pedido_pedid.decreto_se_ecp_vig,
+                            aju_h_pedido_pedid.numero_decreto,
+                            aju_h_pedido_pedid.data_vigencia,
+                            aju_h_pedido_pedid.tipo_decreto,
+                            aju_h_pedido_pedid.esforcos_realizados,
+                            aju_h_pedido_pedid.data_hora_envio,
+                            aju_h_pedido_pedid.status,
+                            aju_h_pedido_pedid.tramit
+                            FROM gestaocedec.aju_h_pedido_pedid";
+        
+        try {
+
+            $result = $con->query($sql);
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dados[] = $linha;
+            }
+            
+            return $dados;
+            
+        } catch (Exception $e) {
+            return $e->getMessage() . "erro ao selecionar as perdidos !";
+        }
+        
+        
+    }
 }
