@@ -11,10 +11,16 @@
 <?php
 
     $id_usuario = isset($_GET['id']) ? $_GET['id'] : null;
+    
+    # pega dos dados do usuario "cedec_usuario"
     $usuario = Usuario::getDadoUsuario($id_usuario);
 
+    # pega permissao dos modulos 
     $permissaoModulo = Usuario::getPermissaoModulo($_COOKIE['seguranca']['login']);
+    
+    # pega permissa ajuda humanitaria
     $permissaoAjudaH = Usuario::getPermissaoAjudaH($_COOKIE['seguranca']['login']);
+    
     
     
 ?>

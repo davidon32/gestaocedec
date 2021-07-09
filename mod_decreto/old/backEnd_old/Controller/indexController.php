@@ -3,11 +3,11 @@
     {
 
         public function Index(){
-            include_once 'mod_decreto/backEnd/View/decreto/index.php';
+            include_once 'mod_decreto/backEnd/View/index/index.php';
+
+
         }
         
-        
-
     }
     
 

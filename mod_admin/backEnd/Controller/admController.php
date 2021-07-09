@@ -46,6 +46,7 @@ include_once "core/Controller/Controller.php";
 
             if($opcao == "caduser"){
                 
+                # cadastro "cedec_funcionario"
                 if($usuario->cadFuncionario($numPolicia, $nomeComp, $username, $setor, $email)){
                     
                 /* inserir usuario "cedec_usuario" */
@@ -59,16 +60,26 @@ include_once "core/Controller/Controller.php";
                             'login'=>$username,
                             'id_funcionario'=>Usuario::idFuncionario($numPolicia)));
                 
+                /* inserir permissoes CEDEC PERMISSAO */
+                SqlGenerics::Inserir('cedec_permissao', array('login'=>$username));
+                
                 /* inserir permissoes AJUDA */
-                SqlGenerics::Inserir('aju_permissao', array('login'=>$username,
+                SqlGenerics::Inserir('aju_cpermissao', array('login'=>$username,
                                                             'nivel'=>0,
                                                             'id_usuario'=> Usuario::getIdUsuario($username)));
+                
+                /* inserir permissoes AJUDA Humanitaria */
+                SqlGenerics::Inserir('aju_h_permissao', array('login'=>$username,
+                                                            'id_usuario'=> Usuario::getIdUsuario($username)));
+                
                 
                 /* inserir permissoes CCE */
                 SqlGenerics::Inserir('cce_permissao', array('login'=>$username));
                 
                 /* inserir permissoes DECRETAÇÂO */
-                SqlGenerics::Inserir('dec_permissao', array('login'=>$username));
+                SqlGenerics::Inserir('dec_permissao', array('login'=>$username,
+                                                            'nivel'=>0,
+                                                            'id_usuario'=> Usuario::getIdUsuario($username)));
                 
                 /* inserir permissoes COMPDEC */
                 SqlGenerics::Inserir('com_permissao', array('login'=>$username,
@@ -77,17 +88,11 @@ include_once "core/Controller/Controller.php";
                 /* inserir permissoes EQUIPE */
                 SqlGenerics::Inserir('equ_permissao', array('login'=>$username));
                 
-                /* inserir permissoes ESCOLA */
-                SqlGenerics::Inserir('esc_permissao', array('login'=>$username));
                 
                 /* inserir permissoes PIPA */
                 SqlGenerics::Inserir('pip_permissao', array('login'=>$username));
                 
-                /* inserir permissoes CONTROLE ESTOQUE */
-                SqlGenerics::Inserir('pip_cpermissao', array('login'=>$username,
-                                                             'nivel'=>0,
-                                                             'id_usuario'=> Usuario::getIdUsuario($username)));
-                
+                               
                     print "<script>
                                 alert('Registro Gravado com Sucesso');
                                 window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=admin&controller=index&action=index';

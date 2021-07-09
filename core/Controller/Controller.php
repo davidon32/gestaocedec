@@ -45,7 +45,7 @@
                     $result = "Busca Registro";
                     break;
                 default:
-                    $result = "Contexto de Página";
+                    $result = "-";
                     break;
             }
             

@@ -1,20 +1,14 @@
 <?php
 
-    
-
-    
-
     function cusu($array){
 
     }
 
+    
     function permCompdec($array){
 
     }
     
-    
-
-
     /*$cadUsuario = "INSERT INTO cedec_usuario
                    FROM gestaocedec (id_deposito,
                                      nome,

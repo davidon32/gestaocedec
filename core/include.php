@@ -164,4 +164,7 @@ include_once PATH . '/mod_teste/Model/TesteModel.php';
 include_once PATH . '/mod_teste/Model/TesteModel.php';
 include_once PATH . '/mod_teste/Model/TesteModel.php';
 include_once PATH . '/mod_teste/Model/TesteModel.php';
-include_once PATH . '/mod_cce/Model/PermissaodecretoModel.php';
+include_once PATH . '/mod_decreto/Model/PermissaodecretoModel.php';
+include_once PATH . '/mod_decreto/Model/ProcessodecretoModel.php';
+include_once PATH . '/mod_decreto/Model/CobradeModel.php';
+include_once PATH . '/mod_decreto/Model/ProcessodecretoModel.php';
