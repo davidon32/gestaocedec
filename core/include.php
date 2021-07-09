@@ -164,3 +164,4 @@ include_once PATH . '/mod_teste/Model/TesteModel.php';
 include_once PATH . '/mod_teste/Model/TesteModel.php';
 include_once PATH . '/mod_teste/Model/TesteModel.php';
 include_once PATH . '/mod_teste/Model/TesteModel.php';
+include_once PATH . '/mod_cce/Model/PermissaodecretoModel.php';
