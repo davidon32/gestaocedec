@@ -15,6 +15,8 @@
     
     $dados = H_pedido_pedidajuda_hModel::lista();
     $pedido_h = new H_pedido_pedidajuda_hModel();
+    
+    $id_usuario = $_COOKIE['seguranca']['idUser']
 	
 ?>	
 <div class="col-md-12 text-center">
@@ -30,38 +32,84 @@
     <p class="text-right"> <a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "config_ajuda")?>" title="Cadastro Analistas">Configurações</a></p>
     </div>
 </div>
+    
+    Total Registros : <span id='total_registro'></span>
 <table class="table table-bordered">
         <tr>
-            <th colspan="7">Pedidos Recentes</th>
+            <th colspan="8">Pedidos Recentes</th>
         </tr>
      <tbody>
         <tr>
             <td>Nr</td>
+            <td>Municipio</td>
             <td>Data</td>
             <td>Tipo</td>
-            <td>Analista</td>
             <td>Status</td>
+            <td>Fase do Processo</td>
             <td>Data Envio Analise</td>
             <td>Ações</td>
             
         </tr>
         <?php
-        foreach ($dados as $key => $value){
+        
+        $permissao = $pedido_h->buscaAnalista($id_usuario);
+     
+        $listaPedido = $pedido_h->buscaPedidoH();
+        $total_reg = 0;
+        
+        
+        foreach ($listaPedido as $key => $pedid) {
+            # get permissao
+
+            if(($pedid['tramit']== 'analise_drd' && $permissao[0]['analista_drd'] == '1') ||
+            ($pedid['tramit']== 'analise_dlog' && $permissao[0]['analista_dlog'] == '1') || 
+            ($pedid['tramit']== 'analise_coord' && $permissao[0]['analista_coord'] == '1')) {
             
-            $cor = $pedido_h->getCorStatus($value['status']);
-            print "<tr style='background-color:".$cor."'>
-            <td>".$value['numero']."-".substr($value['data_entrada_sistema'], 0, 4)."</td>
-            <td>".$value['data_entrada_sistema']."</td>
-            <td>". Decreto::getNomeCobrade($value['id_cobrade'])."</td>
-            <td>".(($value['despachante_analista'] == "") ? "enviando   " : $value['despachante_analista'])."</td>
-            <td>".$pedido_h->enumStatus($value['status'])."</td>
-            <td>".$value['data_hora_envio']."</td>
-            <td>";
-            print "<a href='".FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit', array('id'=> $value['id']))."' title='Editar Pedido'><img src='/core/imagem/editar.png'></a>";
-            print "<a href='".FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "impressao", array('id'=> $value['id']))."' title='Visualiação e Impressa do Pedido'><img src='/core/imagem/impressao.png'></a> ";
-            print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'peido_itens', 'pcont')."' title='Presatação de contas'><img width='25' src='/core/imagem/relatorio.png'></a>";
-            print "</td>";
-            print "</tr>";
+                $total_reg++;
+                $cor = $pedido_h->getCorStatus($pedid['status']);
+                print "<tr style='background-color:".$cor."'>
+                <td>".$pedid['numero']."-".substr($pedid['data_entrada_sistema'], 0, 4)."</td>
+                <td>".Municipio::PegaNomeMunicipio($pedid['id_municipio'])."</td>
+                <td>".$pedid['data_entrada_sistema']."</td>
+                <td>". Decreto::getNomeCobrade($pedid['id_cobrade'])."</td>
+                <td>".$pedido_h->enumStatus($pedid['status'])."</td>
+                <td>".$pedido_h->enumFase($pedid['tramit'])."</td>
+                <td>".$pedid['data_hora_envio']."</td>
+                <td>";
+                print "<a href='".FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit', array('id'=> $pedid['id']))."' title='Editar Pedido'><img src='/core/imagem/editar.png'></a> |";
+                print "<a href='".FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "impressao", array('id'=> $pedid['id']))."' title='Visualiação e Impressa do Pedido'><img src='/core/imagem/impressao.png'></a> |";
+                print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'peido_itens', 'pcont')."' title='Presatação de contas'><img width='25' src='/core/imagem/relatorio.png'></a>";
+                
+                # analise DRD
+                if($permissao[0]['analista_drd'] == 1) {
+                    # editar
+                    print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'peido_itens', 'edit')."' title='Analise DRD'><img width='25' src='/core/imagem/cedec.png'></a>";
+                }else {
+                    # visualizar
+                    print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'peido_itens', 'view')."' title='Analise DRD'><img width='25' src='/core/imagem/cedec.png'></a>";
+                }
+                
+                # analise_dlog
+                if($permissao[0]['analista_dlog'] == 1) {
+                    # editar
+                    print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'peido_itens', 'edit')."' title='Analise DLOG'><img width='25' src='/core/imagem/dlog.png'></a>";
+                }else {
+                    # visualizar
+                    print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'peido_itens', 'view')."' title='Analise DLOG'><img width='25' src='/core/imagem/dlog.png'></a>"; 
+                }
+                
+                # analise_coord
+                if($permissao[0]['analista_coord'] == 1) {
+                    # editar
+                    print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'peido_itens', 'edit')."' title='Analise Coord. Adjuto'><img width='25' src='/core/imagem/boss.png'></a>";
+                }else {
+                    # visualizar
+                    print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'peido_itens', 'view')."' title='Analise Coord. Adjuto'><img width='25' src='/core/imagem/boss.png'></a>";
+                }
+                
+                print "</td>";
+                print "</tr>";
+            }
         }
         ?>
         
@@ -82,118 +130,10 @@
 /* Criar novo plano de contingencia */
 (function($) {
 
-	novoPlano = function() {
+    $("#total_registro").text(<?=$total_reg;?>);
+	
 
-		if(confirm("Deseja Começar o preenchimento de um novo Plano de Contingência ?")){
-
-			$.ajax({
-			url: 'mod_compdec/View/plano/process.php',
-			type: 'POST',
-			data: {
-					identificador : "novoPlano",
-					id_municipio: "<?=$id_municipio;?>"
-				  },
-
-			success: function (response) {
-				console.log(response);
-				if(response == "sucesso"){
-					window.location.href = "?modulo=compdec&secao=plano&acao=planomenu&id=<?=$id_municipio;?>";
-
-				}
-			},
-			error: function(jqXHR, textStatus, errorThrown) {
-			console.log(textStatus, errorThrown, "-");
-			}
-
-
-			});
-	}
-
-	return false;
-
-	}
-
-	})(jQuery);
-
-	/* upload de plano de contingencia */
-	(function($) {
-
-		uploadModal = function(){
-			$("#myModal").modal('show');
-		}
-
-	})(jQuery);
-
-
-	/* Upload arquivo  */
-	$('#btnUpload').on('click', function() {
-		
-		var file_data = $('#filePlano').prop('files')[0];   
-		var versao = $('#selVersao').val();
-		var dt = $('#txtData').val();
-		var id = $('#txtIdMunicipio').val();
-
-		var form_data = new FormData();                  
-
-		form_data.append('file', file_data);
-		form_data.append('identificador', 'upload')
-		form_data.append('id', id);
-		form_data.append('dt_upload', dt);
-		form_data.append('versao', versao);
-		//alert(form_data);                             
-		$.ajax({
-			url: 'mod_compdec/View/plano/process.php', // point to server-side PHP script 
-			dataType: 'text',  // what to expect back from the PHP script, if anything
-			cache: false,
-			contentType: false,
-			processData: false,
-			data: form_data,                         
-			type: 'post',
-			success: function(response){
-				alert(response);
-				$("#myModal").modal('hide');
-				window.location.reload();
-			}
-		});
-	});
-
-
-	(function($) {
-		/* Remover o plano de Contingencia */
-		removerPlano = function(id_plano) {
-
-		if(confirm("Deseja realmente deletar este Plano de Contingencia ?\nProcesso sem volta !")){
-
-			$.ajax({
-			url: 'mod_compdec/View/plano/process.php',
-			type: 'POST',
-			data: {
-					identificador : "removerPlano",
-					id_municipio: "<?=$id_municipio;?>",
-					id_plano : id_plano,
-				},
-
-			success: function (response) {
-
-				if(response == "sucesso"){
-					alert("Plano de Contingencia Deletado com Sucesso !");
-					window.location.reload();
-
-				}
-			},
-			error: function(jqXHR, textStatus, errorThrown) {
-			console.log(textStatus, errorThrown, "-");
-			}
-
-
-			});
-		}
-
-		return false;
-
-		}
-
-	})(jQuery);
+})(jQuery);
 
 </script>
 </body>
