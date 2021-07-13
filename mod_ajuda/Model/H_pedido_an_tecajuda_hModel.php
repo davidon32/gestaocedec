@@ -5,47 +5,48 @@ require_once(PATH . '/core/classe/Classe.Data.php');
  * 	
  *    Gerador de código : 1.0
  *
- * 	Classe para manipulacao da tabela aju_h_pedido_itens										*
+ * 	Classe para manipulacao da tabela aju_h_pedido_an_tec										*
  * 																					*
  * 	Autor: Demetrio da Silva Passos	
  *      MASP: 1296844
  * 																					*
- * 	Criacao : 21/06/2021															*
+ * 	Criacao : 12/07/2021															*
  * ********************************************************************************** */
 
-class H_pedido_itensajuda_hModel extends Model {
+class H_pedido_an_tecajuda_hModel extends Model {
 
     
-    private $table = "aju_h_pedido_itens";
+    private $table = "aju_h_pedido_an_tec";
     public static $model;
     private static $mod;
     private $marca;
     private static $con;
     
     
-    private $id = null;
-private $codigo = null;
-private $descricao_item = null;
-private $qtd = null;
-private $qtd_familia_atendida = null;
+    private $id_analise = null;
+private $id_usuario = null;
+private $id_pedido = null;
+private $data_parecer = null;
+private $parecer = null;
+private $tramit_parecer = null;
 
 
     
     
- public function getQtd_familia_atendida(){
-        return $this->qtd_familia_atendida;
+ public function getTramit_parecer(){
+        return $this->tramit_parecer;
     }
 
             
-    public function setQtd_familia_atendida($qtd_familia_atendida){
-            $this->qtd_familia_atendida = $qtd_familia_atendida;
+    public function setTramit_parecer($tramit_parecer){
+            $this->tramit_parecer = $tramit_parecer;
     }
     
 
     #################  CONSTRUTOR ##################
      function __construct() {
 
-         self::$model = $this->Tabela('aju_h_pedido_itens');
+         self::$model = $this->Tabela('aju_h_pedido_an_tec');
 
          self::$mod = "aju";
          
@@ -58,7 +59,7 @@ private $qtd_familia_atendida = null;
     public static function lista($id = null) {
          
          $dados = array();
-         
+ 
         $sql = "SELECT";
         $sql .= " ".implode(", ",self::$model['dados']['campos'])."";
         
@@ -69,8 +70,7 @@ private $qtd_familia_atendida = null;
             $result =  self::$con->query($sql);
         } else {
 
-            var_dump($sql);
-            $sql .= " FROM ".self::$model['tabela']->TABLE_NAME."  
+            $sql .= " FROM ".self::$model['tabela']."  
                             WHERE ".self::$model['campos'][0]." = :id
                             ORDER BY nome";
             $result = self::$con->prepare($sql);
@@ -141,27 +141,29 @@ private $qtd_familia_atendida = null;
 
     public static function gravar(array $dados) {
 
-        $sql = "INSERT INTO aju_h_pedido_itens (codigo,
-descricao_item,
-qtd,
-qtd_familia_atendida,
-id_pedido
-) VALUES (:codigo,
-:descricao_item,
-:qtd,
-:qtd_familia_atendida,
-:id_pedido
+
+        var_dump(self::$model);
+        $sql = "INSERT INTO aju_h_pedido_an_tec (id_usuario,
+id_pedido,
+data_parecer,
+parecer,
+tramit_parecer 
+) VALUES (:id_usuario,
+:id_pedido,
+:data_parecer,
+:parecer,
+:tramit_parecer 
 )";
 
         try {
 
             $result = self::$con->prepare($sql);
 
-            $result->bindValue(":codigo", $dados['codigo']);
-$result->bindValue(":descricao_item", $dados['descricao_item']);
-$result->bindValue(":qtd", $dados['qtd']);
-$result->bindValue(":qtd_familia_atendida", $dados['qtd_familia_atendida']);
+            $result->bindValue(":id_usuario", $dados['id_usuario']);
 $result->bindValue(":id_pedido", $dados['id_pedido']);
+$result->bindValue(":data_parecer", DataMysql::dataForm($dados['data_parecer']));
+$result->bindValue(":parecer", $dados['parecer']);
+$result->bindValue(":tramit_parecer", $dados['tramit_parecer']);
 
  
             $result->execute();
@@ -177,33 +179,37 @@ $result->bindValue(":id_pedido", $dados['id_pedido']);
     #################  EDIT ##################
             
             
-    ################  Atualizar dados h_pedido_itens  ###################
+    ################  Atualizar dados h_pedido_an_tec  ###################
 
     public static function edit(array $dados) {
+        
+ 
 
         $con = Conexao::getInstance();
 
-        $sql = "UPDATE aju_h_pedido_itens SET 
-                codigo= :codigo,
-                descricao_item= :descricao_item,
-                qtd= :qtd,
-                qtd_familia_atendida= :qtd_familia_atendida
-                WHERE id = :id";
+        $sql = "UPDATE aju_h_pedido_an_tec SET 
+        id_usuario= :id_usuario,
+id_pedido= :id_pedido,
+data_parecer= :data_parecer,
+parecer= :parecer,
+tramit_parecer= :tramit_parecer
+            WHERE id_analise = :id_analise";
 
         try {
 
             $result = $con->prepare($sql);
             
-            $result->bindValue(":id", $dados['id']);
-            $result->bindValue(":codigo", $dados['codigo']);
-$result->bindValue(":descricao_item", $dados['descricao_item']);
-$result->bindValue(":qtd", $dados['qtd']);
-$result->bindValue(":qtd_familia_atendida", $dados['qtd_familia_atendida']);
+            $result->bindValue(":id_analise", $dados['id_analise']);
+            $result->bindValue(":id_usuario", $dados['id_usuario']);
+$result->bindValue(":id_pedido", $dados['id_pedido']);
+$result->bindValue(":data_parecer", DataMysql::dataForm($dados['data_parecer']));
+$result->bindValue(":parecer", $dados['parecer']);
+$result->bindValue(":tramit_parecer", $dados['tramit_parecer']);
 
             
             $result->execute();
 
-            #Log::GravaLog("Atualizar Cadastro de H_pedido_itens : " . $dados['nome'] . " " . $_COOKIE['seguranca']['login'], "aju_log");
+            #Log::GravaLog("Atualizar Cadastro de H_pedido_an_tec : " . $dados['nome'] . " " . $_COOKIE['seguranca']['login'], "aju_log");
 
             return true;
         } catch (Exception $e) {
@@ -215,34 +221,34 @@ $result->bindValue(":qtd_familia_atendida", $dados['qtd_familia_atendida']);
     /**
      * View Marca
      */
-    public static function view($id_h_pedido_itens) {
+    public static function view($id_h_pedido_an_tec) {
 
         $con = Conexao::getInstance();
 
         $fornecedor = "";
 
-        $sql = "SELECT aju_h_pedido_itens.id,
-aju_h_pedido_itens.codigo,
-aju_h_pedido_itens.descricao_item,
-aju_h_pedido_itens.qtd,
-aju_h_pedido_itens.qtd_familia_atendida,
-aju_h_pedido_itens.id_pedido
-                              FROM aju_h_pedido_itens
+        $sql = "SELECT aju_h_pedido_an_tec.id_analise,
+aju_h_pedido_an_tec.id_usuario,
+aju_h_pedido_an_tec.id_pedido,
+aju_h_pedido_an_tec.data_parecer,
+aju_h_pedido_an_tec.parecer,
+aju_h_pedido_an_tec.tramit_parecer
+                              FROM aju_h_pedido_an_tec
                               
-                              WHERE id = " . $id_h_pedido_itens;
+                              WHERE id_h_pedido_an_tec = " . $id_h_pedido_an_tec;
 
         try {
 
             $result = $con->query($sql);
 
             while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-                $h_pedido_itens = $linha;
+                $h_pedido_an_tec = $linha;
             }
 
            $model = self::$model;
-            return array($h_pedido_itens, $model);
+            return array($h_pedido_an_tec, $model);
         } catch (Exception $e) {
-            return $e->getMessage() . "Erro ao inserir H_pedido_itens";
+            return $e->getMessage() . "Erro ao inserir H_pedido_an_tec";
         }
     }
     
@@ -251,14 +257,15 @@ aju_h_pedido_itens.id_pedido
     public function paginacao($start, $regPorPagina){
         $con = Conexao::getInstance();
 
-            $stmt = $con->prepare("SELECT aju_h_pedido_itens.id,
-aju_h_pedido_itens.codigo,
-aju_h_pedido_itens.descricao_item,
-aju_h_pedido_itens.qtd,
-aju_h_pedido_itens.qtd_familia_atendida
-                                FROM aju_h_pedido_itens
+            $stmt = $con->prepare("SELECT aju_h_pedido_an_tec.id_analise,
+aju_h_pedido_an_tec.id_usuario,
+aju_h_pedido_an_tec.id_pedido,
+aju_h_pedido_an_tec.data_parecer,
+aju_h_pedido_an_tec.parecer,
+aju_h_pedido_an_tec.tramit_parecer
+                                FROM aju_h_pedido_an_tec
                                 
-                                ORDER By id_h_pedido_itens DESC LIMIT $start, $regPorPagina");
+                                ORDER By id_h_pedido_an_tec DESC LIMIT $start, $regPorPagina");
             $stmt->execute();
 
             $result = $stmt->fetchAll();
@@ -268,13 +275,13 @@ aju_h_pedido_itens.qtd_familia_atendida
     }
 
     #################  DELETAR  ##################
-    # @ deletar o h_pedido_itens
+    # @ deletar o h_pedido_an_tec
 
     public static function delete($id) {
 
         $con = Conexao::getInstance();
 
-        $sql = "DELETE FROM aju_h_pedido_itens WHERE id = " . $id;
+        $sql = "DELETE FROM aju_h_pedido_an_tec WHERE id_h_pedido_an_tec = " . $id;
 
         try {
 
@@ -282,7 +289,7 @@ aju_h_pedido_itens.qtd_familia_atendida
 
             return true;
         } catch (Exception $e) {
-            return $e->getMessage() . "Erro Deletar H_pedido_itens !";
+            return $e->getMessage() . "Erro Deletar H_pedido_an_tec !";
         }
     }
             
@@ -295,9 +302,9 @@ aju_h_pedido_itens.qtd_familia_atendida
 
 
     /**
-     * Lista h_pedido_itens
+     * Lista h_pedido_an_tec
      */
-    public function listah_pedido_itenss() {
+    public function listah_pedido_an_tecs() {
 
         $con = Conexao::getInstance();
 
@@ -446,6 +453,41 @@ aju_h_pedido_itens.qtd_familia_atendida
         } catch (Exception $e) {
             return $e->getMessage() . "Erro ao inserir Fornecedor";
         }
+    }
+    
+    
+         
+/**
+*
+* Lista de pareceer tecnido dos pedidos 
+*/
+    public static function listAnalise($id_pedido){
+        
+        $con = Conexao::getInstance();
+        
+        $dado = array();
+        $sql = "SELECT id_analise,
+                id_usuario,
+                id_pedido,
+                data_parecer,
+                parecer,
+                tramit_parecer
+                FROM aju_h_pedido_an_tec;
+                where id_pedido =".$id_pedido;
+        try {
+
+            $result = $con->query($sql);
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dado[] = $linha;
+            }
+            
+            return $dado;
+            
+        } catch (Exception $e) {
+            return $e->getMessage() . "erro ao selecionar as Analise tecnica !";
+        }
+        
     }
 
 }

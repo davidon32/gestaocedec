@@ -1,5 +1,6 @@
 <!DOCTYPE html><?php
 if(isset($pageSession)){
+    
         if(!empty($_COOKIE['seguranca']['email_rec'])){
           $ses_email = $_COOKIE['seguranca']['email_rec'];
           $email = trim($ses_email);
@@ -8,10 +9,12 @@ if(isset($pageSession)){
           
         }else {
           $gravataremail =  "/core/imagem/padrao.png";
+          
         }
         
     }else{
-        header('Location: /index.php');
+        header('Location: /index.php');var_dump($pageSession, !empty($_COOKIE['seguranca']['email_rec']));
+            die();
     }
 ?>
 <html>

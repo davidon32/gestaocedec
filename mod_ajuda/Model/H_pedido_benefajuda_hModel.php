@@ -147,12 +147,14 @@ private $data_entrega = null;
 rg,
 comunidade,
 qtd,
-data_entrega 
+data_entrega,
+id_prest_conta
 ) VALUES (:nome_beneficiario,
 :rg,
 :comunidade,
 :qtd,
-:data_entrega 
+:data_entrega,
+:id_prest_conta
 )";
 
         try {
@@ -164,6 +166,7 @@ $result->bindValue(":rg", $dados['rg']);
 $result->bindValue(":comunidade", $dados['comunidade']);
 $result->bindValue(":qtd", $dados['qtd']);
 $result->bindValue(":data_entrega", DataMysql::dataForm($dados['data_entrega']));
+$result->bindValue(":id_prest_conta", DataMysql::dataForm($dados['id_prest_conta']));
 
  
             $result->execute();
@@ -281,7 +284,7 @@ aju_h_pedido_benef.data_entrega
 
         $con = Conexao::getInstance();
 
-        $sql = "DELETE FROM aju_h_pedido_benef WHERE id_h_pedido_benef = " . $id;
+        $sql = "DELETE FROM aju_h_pedido_benef WHERE id = " . $id;
 
         try {
 
@@ -454,5 +457,62 @@ aju_h_pedido_benef.data_entrega
             return $e->getMessage() . "Erro ao inserir Fornecedor";
         }
     }
+    
+    
+     /**
+     * lista beneficiario id_prescont
+     */
+    public static function listBeneficiario($id_prest_conta) {
+
+        $con = Conexao::getInstance();
+
+        $dados = array();
+
+        $sql = "SELECT id,
+                    nome_beneficiario,
+                    rg,
+                    comunidade,
+                    qtd,
+                    data_entrega,
+                    id_prest_conta
+                FROM aju_h_pedido_benef
+                where id_prest_conta = " . $id_prest_conta;
+
+        try {
+
+            $result = $con->query($sql);
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dados[] = $linha;
+            }
+
+            return $dados;
+        } catch (Exception $e) {
+            return $e->getMessage() . "Erro ao inserir Fornecedor";
+        }
+    }
+    
+    
+    /**
+     * Verifica o restante de lancamentos do beneficiarios
+     * 
+     */
+    public function verificaRestanteBenef($id_prest_conta){
+        
+        $h_pedido_prest_conta = new H_pedido_prestajuda_hModel();
+        
+        # conta total de lancamentos beneficiarios
+        $total_benef = $h_pedido_prest_conta::percBenef($id_prest_conta);
+        
+        #qtd de material pedido 
+        $total_mat_prest_conta = $h_pedido_prest_conta::QtdMaterialPrest($id_prest_conta);
+        
+        $result = $total_mat_prest_conta-$total_benef;
+        
+       return $result;
+        
+    }
+    
+    
 
 }

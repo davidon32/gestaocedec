@@ -11,5 +11,21 @@ $h_pedido_pedid = new H_pedido_pedidajuda_hModel();
 $dados = $h_pedido_pedid->buscaDadosPedido($id_municipio);
 
 print json_encode($dados);
+
+
+}elseif($opcao == 'inicia_prestconta'){
+    
+
+    $h_pedido_pedid = new H_pedido_pedidajuda_hModel();
+    
+    if($dados = $h_pedido_pedid->iniciaPrestContas($_POST['id_pedido'])){
+        print 'sucesso';
+    }
+    
+    
+    
+
+    
 }
+
 

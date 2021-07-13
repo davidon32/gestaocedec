@@ -100,12 +100,19 @@ class h_pedido_benefController extends Controller {
     # gravar registro
 
     public function gravar() {
-
+        
         $h_pedido_benef = new H_pedido_benefajuda_hModel;
 
-        if ($h_pedido_benef->gravar($_POST)) {
-            FuncaoBase::alert("Registro Gravado com Sucesso !");
-            $this->redirect("ajuda", "h_pedido_benef", "index");
+        # quantidade restante de lancamento
+        if($_POST['qtd'] <= $h_pedido_benef->verificaRestanteBenef($_POST['id_prest_conta'])) {
+
+            if ($h_pedido_benef->gravar($_POST)) {
+                FuncaoBase::alert("Registro Gravado com Sucesso !");
+                $this->redirect("ajuda", "h_pedido_benef", "cadastro", array('id'=>$_POST['id_prest_conta'], 'id_pedido'=>$_POST['id_pedido']));
+            }
+        }else {
+            FuncaoBase::alert("Quantidade de Material excede o limite esperado para prestar contas !\\n\\nVerifique o material restante para prestar Contas !");
+            $this->redirect("ajuda", "h_pedido_benef", "cadastro", array('id'=>$_POST['id_prest_conta'], 'id_pedido'=>$_POST['id_pedido']));
         }
     }
             
@@ -151,12 +158,12 @@ class h_pedido_benefController extends Controller {
     
     /*  deletar registro */
     public function delete() {
-        
+
        if($this->h_pedido_benef->delete($_GET['id'])){
            FuncaoBase::alert("Registro Apagado com Sucesso !");
        }
 
-            $this->redirect("ajuda", "h_pedido_benef", "index");
+            $this->redirect("ajuda", "h_pedido_prest", "view", array('id'=>$_GET['id_prest_conta']));
         
     }
 

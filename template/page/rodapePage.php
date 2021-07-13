@@ -134,7 +134,7 @@
 
 
 
-        $('input[type="text"]:not([type="email"]),textarea').blur(function () {
+        $('input[type="text"]:not([type="email"]):not([type="submit"]),textarea').blur(function () {
             $(this).val($(this).val().toUpperCase());
         });
 

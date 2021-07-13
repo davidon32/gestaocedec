@@ -137,14 +137,14 @@ static function SetCookieExterno($dados){
 	if(empty($dados)){
 		try{
 			ob_start();
-				setcookie("seguranca[idUser]", 		$_COOKIE['seguranca']['idUser'], time()+SESSAOEX, "/");
-				setcookie("seguranca[login]", 		$_COOKIE['seguranca']['login'], time()+SESSAOEX, "/");
-				setcookie("seguranca[nome_usuario]",$_COOKIE['seguranca']['nome_usuario'], time()+SESSAOEX, "/");
-				setcookie("seguranca[email_rec]", 	$_COOKIE['seguranca']['email_rec'], time()+SESSAOEX, "/");
-				
-				setcookie("seguranca[id_municipio]",$_COOKIE['seguranca']['id_municipio'], time()+SESSAOEX, "/");
-				setcookie("seguranca[externo]", 	$_COOKIE['seguranca']['externo'], time()+SESSAOEX, "/");
-				setcookie("seguranca[tipo]",		$_COOKIE['seguranca']['tipo'], time()+SESSAOEX); //4 horas
+				setcookie("seguranca[idUser]", 	    $_COOKIE['seguranca']['idUser'],        time()+SESSAOEX, "/");
+				setcookie("seguranca[login]", 	    $_COOKIE['seguranca']['login'],         time()+SESSAOEX, "/");
+				setcookie("seguranca[nome_usuario]",$_COOKIE['seguranca']['nome_usuario'],  time()+SESSAOEX, "/");
+				setcookie("seguranca[email_rec]",   $_COOKIE['seguranca']['email_rec'],     time()+SESSAOEX, "/");				
+				setcookie("seguranca[id_municipio]",$_COOKIE['seguranca']['id_municipio'],  time()+SESSAOEX, "/");
+				setcookie("seguranca[externo]",     $_COOKIE['seguranca']['externo'],       time()+SESSAOEX, "/");
+				setcookie("seguranca[tipo]",	    $_COOKIE['seguranca']['tipo'],          time()+SESSAOEX, "/"); //4 horas
+				setcookie("seguranca[sessao]",	    $_COOKIE['seguranca']['sesao'],          time()+SESSAOEX, "/"); //4 horas
 			ob_end_clean();
 
 		}catch (Exception $e){
@@ -156,20 +156,20 @@ static function SetCookieExterno($dados){
 	}else {
 		try{
 			ob_start();
-				setcookie("seguranca[idUser]", $dados['id'], time()+SESSAOEX);
-				setcookie("seguranca[login]", self::$login, time()+SESSAOEX);
-				setcookie("seguranca[nome_usuario]", $dados['nome'], time()+SESSAOEX);
-				setcookie("seguranca[email_rec]", $dados['email_rec'], time()+SESSAOEX);
+				setcookie("seguranca[idUser]",      $dados['id'],         time()+SESSAOEX, "/");
+				setcookie("seguranca[login]",       self::$login,         time()+SESSAOEX, "/");
+				setcookie("seguranca[nome_usuario]",$dados['nome'],       time()+SESSAOEX, "/");
+				setcookie("seguranca[email_rec]",   $dados['email_rec'],  time()+SESSAOEX, "/");
 				
-				setcookie("seguranca[id_municipio]", self::$_id_municipio, time()+SESSAOEX);
-				setcookie("seguranca[externo]", true, time()+SESSAOEX);
-				setcookie("seguranca[tipo]", "e", time()+SESSAOEX); //4 horas
-				setcookie("seguranca[sessao]", time()+SESSAOEX, time()+SESSAOEX); //4 horas
+				setcookie("seguranca[id_municipio]",self::$_id_municipio, time()+SESSAOEX, "/");
+				setcookie("seguranca[externo]",     true,                 time()+SESSAOEX, "/");
+				setcookie("seguranca[tipo]",        "e",                  time()+SESSAOEX, "/"); //4 horas
+				setcookie("seguranca[sessao]",      time()+SESSAOEX,      time()+SESSAOEX, "/"); //4 horas
 				
 				if(isset($_COOKIE['seguranca']['sessao_id'])){
 					session_regenerate_id();
 				}else {
-					setcookie("seguranca[sessao_id]", session_id(), time()+SESSAOEX);
+					setcookie("seguranca[sessao_id]", session_id(), time()+SESSAOEX, "/");
 				}
 			ob_end_clean();
 			return true;

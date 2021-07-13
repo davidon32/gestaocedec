@@ -11,7 +11,6 @@
 <?php include_once "template/page/corpoHeader.php"; ?>
 
 <a class="btn btn-success" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_index", "index") ?>">Voltar</a>
-<a class="btn btn-info" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "cadastro") ?>" title="Novo Registro">+ Novo</a>
 <a class="btn btn-info" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "pesquisa") ?>" title="Busca Registro">Pesquisa</a>
 <a class="btn btn-info" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "exportar") ?>" title="Exportar dados Excel">Exportar Excel</a>
    <br>
@@ -27,36 +26,21 @@ $pag = new H_pedido_pedidController();
 $paginacao= $pag->paginacao($page, $numRegPorPagina);
 
 $no = ($page >1) ? 1: 1;
-
 $nr = 0;
 
-print "<legend>Cadastro H_pedido_pedid</legend>";
+$pedido_pedid = new H_pedido_pedidajuda_hModel();
+
+print "<legend>Pedidos de Ajuda Humanitária</legend>";
 
 print "<div class=\"table-responsive\"><table class=\"table table-bordered table-striped\">
     <thead>
-            <tr>
-                <th>id</th>
+<tr>
+<th>Código</th>
 <th>numero</th>
-<th>data_entrada_sistema</th>
-<th>despachante_analista</th>
-<th>despachante_dlog</th>
-<th>id_municipio</th>
-<th>id_regiao</th>
-<th>nome_coordenador</th>
-<th>tel_coordenador</th>
-<th>cel_coordenador</th>
-<th>email_coordenador</th>
-<th>nome_prefeito</th>
-<th>tel_prefeito</th>
-<th>cel_prefeito</th>
-<th>email_prefeito</th>
+<th>Data Entrada</th>
+<th>Tramitação/ Status</th>
 <th>id_cobrade</th>
 <th>pop_atendida</th>
-<th>decreto_se_ecp_vig</th>
-<th>numero_decreto</th>
-<th>data_vigencia</th>
-<th>tipo_decreto</th>
-<th>esforcos_realizados</th>
 <th>data_hora_envio</th>
 <th>Opções</th>
             </tr>
@@ -65,41 +49,47 @@ print "<div class=\"table-responsive\"><table class=\"table table-bordered table
 
 foreach ($paginacao[0] as $h_pedido_pedid) {
 
-            print "<tr>
-                    <td>".$h_pedido_pedid['id']."</td>
-<td>".$h_pedido_pedid['numero']."</td>
-<td>".$h_pedido_pedid['data_entrada_sistema']."</td>
-<td>".$h_pedido_pedid['despachante_analista']."</td>
-<td>".$h_pedido_pedid['despachante_dlog']."</td>
-<td>".$h_pedido_pedidModel->getNomeIdFk('cedec_municipio','id_municipio', $h_pedido_pedid['id_municipio'])->nome."</td>
-<td>".$h_pedido_pedidModel->getNomeIdFk('com_regiao','id_regiao', $h_pedido_pedid['id_regiao'])->nome."</td>
-<td>".$h_pedido_pedid['nome_coordenador']."</td>
-<td>".$h_pedido_pedid['tel_coordenador']."</td>
-<td>".$h_pedido_pedid['cel_coordenador']."</td>
-<td>".$h_pedido_pedid['email_coordenador']."</td>
-<td>".$h_pedido_pedid['nome_prefeito']."</td>
-<td>".$h_pedido_pedid['tel_prefeito']."</td>
-<td>".$h_pedido_pedid['cel_prefeito']."</td>
-<td>".$h_pedido_pedid['email_prefeito']."</td>
+print "<tr>
+       <td>".$h_pedido_pedid['id']."</td> 
+<td>".$h_pedido_pedid['numero']."-".substr($h_pedido_pedid['data_entrada_sistema'], 0, 4)."</td>
+<td>".DataMysql::dataCompletaVisual($h_pedido_pedid['data_entrada_sistema'])."</td>
+<td>".$h_pedido_pedid['tramit']."/ ".$pedido_pedid->enumStatus($h_pedido_pedid['status'])."</td>
 <td>".$h_pedido_pedidModel->getNomeIdFk('dec_cobrade','id_cobrade', $h_pedido_pedid['id_cobrade'])->nome."</td>
 <td>".$h_pedido_pedid['pop_atendida']."</td>
-<td>".$h_pedido_pedid['decreto_se_ecp_vig']."</td>
-<td>".$h_pedido_pedid['numero_decreto']."</td>
-<td>".$h_pedido_pedid['data_vigencia']."</td>
-<td>".$h_pedido_pedid['tipo_decreto']."</td>
-<td>".$h_pedido_pedid['esforcos_realizados']."</td>
-<td>".$h_pedido_pedid['data_hora_envio']."</td>
+<td>".DataMysql::dataCompletaVisual($h_pedido_pedid['data_hora_envio'])."</td>
 ";
                     
             print "<td>";
+            
+            # envio para analise se nao existir processos em analise e pendente prestacao de contas
+            if( ( $pedido_pedid::compdecVerificaPedido($h_pedido_pedid['id_municipio'] ) ) &&
+                ( $h_pedido_pedid['status'] == "0" ) ){
+                print "<a href='#' id='enviar_analise_drd' data-id_pedido='".$h_pedido_pedid['id']."'><img src='/core/imagem/analise.png' title='Enviar para analise'></a>|";
+            }
+            
+            # ver registro
             print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "view", array('id' => $h_pedido_pedid['id'])) . "'><img src='/core/imagem/view.png' title='Visualizar Registro'></a>|";
-            print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit", array('id' => $h_pedido_pedid['id'])) . "'><img src='/core/imagem/editar.png' title='Editar Registro'></a>|";
-            print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "delete", array('id' => $h_pedido_pedid['id'])) . "' onclick=\"return confirm('Deseja Deletar esse Registro ?')\"><img src='/core/imagem/delete.png' title='Deletar Registro'></a>";
+            
+            # editar somente em fase status 0=edicao
+            if($h_pedido_pedid['status'] == 0){
+                print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit", array('id' => $h_pedido_pedid['id'])) . "'><img src='/core/imagem/editar.png' title='Editar Registro'></a>|";
+            }
+            
+            # prestação de  contas somente status atendido
+            if($h_pedido_pedid['status'] == 5){
+                print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'pcont')."' id='prestConta' title='Presatação de contas'><img width='25' src='/core/imagem/relatorio.png'></a>";
+            }
+            
+            # somente pedido status 0=edicao e 6=cancelado pode ser deletado
+            if( ( $h_pedido_pedid['status'] == 0 ) || ($h_pedido_pedid['status'] == 6 ) ){
+                print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "delete", array('id' => $h_pedido_pedid['id'])) . "' onclick=\"return confirm('Deseja Deletar esse Registro ?')\"><img src='/core/imagem/delete.png' title='Deletar Registro'></a>";
+            }
 
-            print
-                    "</td>";
-
+            print "</td>";
             print "</tr>";
+            
+            
+            
             $nr += $no;
         }
        
@@ -138,7 +128,48 @@ foreach ($paginacao[0] as $h_pedido_pedid) {
 <script>
 
     $(document).ready(function () {
+        
+          $("#enviar_analise_drd").click(function(){
+            var formData = new FormData();
+		formData.append('id_pedido', $("#enviar_analise_drd").data('id_pedido')); 
+           $.ajax({
+		url : '<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "analise_drd")?>',
+		type : 'POST',
+		data : formData,
+		processData: false,  // tell jQuery not to process the data
+		contentType: false,  // tell jQuery not to set contentType
+		success : function(response) {
+                    
+                    if(response.trim() == 'sucesso'){
+                        Swal.fire('Pedido enviado para analise !')
+                    }
+		},
+		error : function(e) {
+		//console.log(JSON.stringify(e));
+		}
+            });
+        });
+        
+        $("#prestConta").click(function(){
 
+        var formData = new FormData();
+        formData.append('id_pedido', $("#prestConta").data('id_pedido'));
+    
+        $.ajax({
+            url : '<?="index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'pcont');?>"',
+            type : 'POST',
+            data : formData,
+            processData: false, // tell jQuery not to process the data
+            contentType: false, // tell jQuery not to set contentType
+            success : function(response) {
+                console.log(response);
+                //Swal.fire('Importação realizada com Sucesso !')
+            },
+            error : function(e) {
+            //console.log(JSON.stringify(e));
+            }
+    });
+    });
     });
 </script>
         

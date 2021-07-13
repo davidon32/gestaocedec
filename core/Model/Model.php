@@ -40,7 +40,7 @@ class Model {
                 . " where table_name = '".$tabela."'";
         
         $result = $con->query($sql);
-      
+             
       while ($linha = $result->fetch(PDO::FETCH_OBJ)){
           $dados['tabela'] = $linha;
       }

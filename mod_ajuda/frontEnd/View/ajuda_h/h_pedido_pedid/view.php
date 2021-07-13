@@ -10,8 +10,23 @@
 <?php include_once "template/page/menu.php"; ?>
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php"; ?>
+<?php
+
+$h_pedido_pedido_model = new H_pedido_pedidajuda_hModel();?>
+
+<style>
+    
+    @media print{
+        a:link{
+            display: none;
+        }
+    }
+    
+</style>
 
 <legend><?=$view[1]['tabela']->TABLE_COMMENT?></legend>
+
+<legend>Status do Pedido : <?=$h_pedido_pedido_model::enumStatus($view[0]['status'])?></legend>
 <table class="table table-bordered table-striped">
 
     <tr>
@@ -23,7 +38,7 @@
             </tr></div>
 
 <tr>
-                <td class="col-md-3">Data Entrada Sistema :</td><td><?=$view[0]['data_entrada_sistema'];?></td>
+    <td class="col-md-3">Data Entrada Sistema :</td><td><?=DataMysql::dataCompletaVisual($view[0]['data_entrada_sistema']);?></td>
             </tr></div>
 
 <tr>
@@ -103,13 +118,133 @@
             </tr></div>
 
 <tr>
-                <td class="col-md-3">Data Hora Envio Homologação :</td><td><?=$view[0]['data_hora_envio'];?></td>
+                <td class="col-md-3">Data Hora Envio Homologação :</td><td><?=DataMysql::dataCompletaVisual($view[0]['data_hora_envio']);?></td>
             </tr></div>
-
-
 
   </table>
 <br>
+<!- tabela de materiais do pedido -->
+    <div class='row table-responsive'>
+        <div class='col-md-1'>
+        </div>
+        <div class='col-md-10'><br>
+            <legend>Materiais do Pedido</legend>
+
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <td>Cod. Item</td>
+                    <td>Cod. Material</td>
+                    <td>Descrição</td>
+                    <td>Qtd</td>
+                    <td>Qtd Familias At.</td>
+                    <td>Opções</td>
+                </tr>
+<?php
+$materiais = H_pedido_pedidajuda_hModel::item_pedido($view[0]['id']);
+
+foreach ($materiais as $key => $material) {
+
+    print "<tr>";
+    print "<td class='col-md-1'>" . $material['id'] . "</td>";
+    print "<td class='col-md-2'>" . $material['codigo'] . "</td>";
+    print "<td class='col-md-5'>" . $material['descricao_item'] . "</td>";
+    print "<td class='col-md-1'>" . $material['qtd'] . "</td>";
+    print "<td class='col-md-2'>" . $material['qtd_familia_atendida'] . "</td>";
+    print "<td class='col-md-1'>";
+    print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_itens', 'edit', array('id' => $material['id'])) . "'><img src='/core/imagem/editar.png'></a>";
+    print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_itens', 'delete', array('id' => $material['id'], 'id_pedido' => $view[0]['id'])) . "'><img src='/core/imagem/delete.png'></a>";
+    print "</td>";
+    print "</tr>";
+}
+?>
+
+            </table>
+        </div>
+        <div class='col-md-1'>
+            &nbsp;
+        </div>
+    </div>
+
+<?php
+
+$analises_tecnica = H_pedido_an_tecajuda_hModel::listAnalise($view[0]['id']);
+
+$analise_drd = array();
+$analise_dlog = array();
+$analise_coord = array();
+
+foreach ($analises_tecnica as $key => $analise) {
+    
+    if($analise['tramit_parecer'] == 'analise_drd'){
+        $analise_drd[] = $analise;
+    }
+    if($analise['tramit_parecer'] == 'analise_dlog'){
+        $analise_dlog[] = $analise;
+    }
+    if($analise['tramit_parecer'] == 'analise_coord'){
+        $analise_coord[] = $analise;
+    }
+    
+}
+
+    #pareceer técnico DRD
+    if(count($analise_drd) > 0){
+        
+        print "<br><legend> Parecer técnico DRD</legend>";
+        foreach ($analise_drd as $key => $an_drd) {
+ 
+            print "<div class='row'>";
+                print "<div class='col-md-1'>";
+                    print "<p>". DataMysql::dataVisual($an_drd['data_parecer'])."</p>";
+                print "</div>";
+
+                print "<div class='col-md-11'>";
+                    print "<p style='text-align: justify'>".$an_drd['parecer']."</p><hr>";
+                print "</div>";
+            print "</div>";
+        }
+    }
+
+    # pareceer técnico DLOG
+    if(count($analise_dlog) > 0){
+        
+        print "<br><legend> Parecer técnico DLOG</legend>";
+        foreach ($analise_dlog as $key => $an_dlog) {
+ 
+            print "<div class='row'>";
+                print "<div class='col-md-1'>";
+                    print "<p>".DataMysql::dataVisual($an_dlog['data_parecer'])."</p>";
+                print "</div>";
+
+                print "<div class='col-md-11'>";
+                    print "<p style='text-align: justify'>".$an_dlog['parecer']."</p><hr>";
+                print "</div>";
+            print "</div>";
+        }
+    }
+    
+    # pareceer técnico COORD
+    if(count($analise_coord) > 0){
+        
+        print "<br><legend> Parecer técnico COORD</legend>";
+        foreach ($analise_coord as $key => $an_coord) {
+ 
+            print "<div class='row'>";
+                print "<div class='col-md-1'>";
+                    print "<p>".DataMysql::dataVisual($an_coord['data_parecer'])."</p>";
+                print "</div>";
+
+                print "<div class='col-md-11'>";
+                    print "<p style='text-align: justify'>".$an_coord['parecer']."</p><hr>";
+                print "</div>";
+            print "</div>";
+        }
+    }
+
+    
+    
+?>
+
 <a class="btn btn-success" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "index") ?>">Voltar</a>
 <a class="btn btn-info" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit", array('id'=>$view[0]['id'])) ?>">Editar</a>
 <br>

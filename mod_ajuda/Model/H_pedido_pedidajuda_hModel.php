@@ -74,7 +74,8 @@ private $data_hora_envio = null;
    # lista {$model}
   
     public static function lista($id = null) {
-         
+        
+        
          $dados = array();
  
         $sql = "SELECT id, ";
@@ -87,9 +88,11 @@ private $data_hora_envio = null;
             $result =  self::$con->query($sql);
         } else {
 
-            $sql .= " FROM ".self::$model['tabela']."  
+            $sql .= " FROM ".self::$model['tabela']->TABLE_NAME."  
                             WHERE ".self::$model['campos'][0]." = :id
                             ORDER BY nome";
+            
+            
             $result = self::$con->prepare($sql);
             $result->bindValue(":id", $id);
             $result->execute();
@@ -201,9 +204,7 @@ private $data_hora_envio = null;
 
     public static function gravar(array $dados) {
 
-
-        var_dump(self::$model);
-        $sql = "INSERT INTO aju_h_pedido_pedid (numero,
+       $sql = "INSERT INTO aju_h_pedido_pedid (numero,
 data_entrada_sistema,
 despachante_analista,
 despachante_dlog,
@@ -282,11 +283,10 @@ $result->bindValue(":tramit", "analise_drd");
                 $id = self::$con->lastInsertId();
 
                 print "<script>";
-                print "window.location.href = '".(FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "add_itens", array("id" => $id)))."';";
+                print "window.location.href = '".(FuncaoBase::geraLink("ajuda", "h_pedido_itens", "cadastro", array("id" => $id)))."';";
                 print "</script>";
             }else {
                 print 'erro';
-                die();
             }
 
             #Log::GravaLog("Cadastro de marca : " . $dados['nome'] . " " . $_COOKIE['seguranca']['login'], "aju_log");
@@ -405,7 +405,9 @@ aju_h_pedido_pedid.numero_decreto,
 aju_h_pedido_pedid.data_vigencia,
 aju_h_pedido_pedid.tipo_decreto,
 aju_h_pedido_pedid.esforcos_realizados,
-aju_h_pedido_pedid.data_hora_envio
+aju_h_pedido_pedid.data_hora_envio,
+aju_h_pedido_pedid.status
+
                               FROM aju_h_pedido_pedid
                               LEFT JOIN cedec_municipio
 ON aju_h_pedido_pedid.id_municipio = cedec_municipio.id_municipio
@@ -461,7 +463,9 @@ aju_h_pedido_pedid.numero_decreto,
 aju_h_pedido_pedid.data_vigencia,
 aju_h_pedido_pedid.tipo_decreto,
 aju_h_pedido_pedid.esforcos_realizados,
-aju_h_pedido_pedid.data_hora_envio
+aju_h_pedido_pedid.data_hora_envio,
+aju_h_pedido_pedid.status,
+aju_h_pedido_pedid.tramit
                                 FROM aju_h_pedido_pedid
                                 LEFT JOIN cedec_municipio
 ON aju_h_pedido_pedid.id_municipio = cedec_municipio.id_municipio
@@ -514,7 +518,7 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
                 aju_h_pedido_itens.qtd_familia_atendida
                 from 
                 aju_h_pedido_itens
-                where id = ".$id_pedido;
+                where aju_h_pedido_itens.id_pedido = ".$id_pedido;
 
         try {
 
@@ -838,10 +842,14 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
  cedec_municipio.prefeito as nome_prefeito,
  cedec_municipio.tel_pref as tel_prefeito,
  cedec_municipio.cel_pref as cel_prefeito,
- cedec_municipio.email as email_prefeito
+ cedec_municipio.email as email_prefeito,
+ cedec_meso.id_meso,
+ cedec_meso.nome as nome_meso
  from com_eq_comdec
  inner join cedec_municipio
  on cedec_municipio.id_municipio = com_eq_comdec.id_municipio
+ inner join cedec_meso
+ on cedec_municipio.id_meso = cedec_meso.id_meso
  where cedec_municipio.id_municipio = '".$id_municipio."' 
  and com_eq_comdec.funcao = 'COORDENADOR'";
                 
@@ -866,12 +874,24 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
         
         switch ($status) {
             case 0:
-                return 'Em análise';
+                return 'Edição Compdec';
                 break;
             case 1:
                 return 'Atendido';
                 break;
             case 2:
+                return 'Analise DRD';
+                break;
+            case 3:
+                return 'Analise DLOG';
+                break;
+            case 4:
+                return 'Analise Coord.';
+                break;
+            case 5:
+                return 'Atendido';
+                break;
+            case 6:
                 return 'Cancelado';
                 break;
             default:
@@ -1152,4 +1172,128 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
         
         
     }
+    
+    
+    /**
+     * 
+     * verifica pedido estado de envio para analise
+     */
+    public static function compdecVerificaPedido($id_municipio){
+        
+        $con = Conexao::getInstance();
+        $dados = array();
+        
+        $sql = "select count(id) from aju_h_pedido_pedid
+                where status < 4 and id_municipio =".$id_municipio;
+        
+        try {
+
+            $result = $con->query($sql);
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dados = $linha;
+            }
+            
+            return (count($dados) > 0) ? true : false;
+            
+        } catch (Exception $e) {
+            return $e->getMessage() . "erro ao selecionar as perdidos !";
+        }
+        
+    }
+    
+    
+    
+    /**
+     *  inicia prestação de contas
+     * 
+     */
+    public function iniciaPrestContas($id_pedido){
+        
+        
+        $h_pedido_pedid = new H_pedido_pedidajuda_hModel();
+        
+        # Busca materiais Pedido
+        $dados = $h_pedido_pedid->item_pedido($id_pedido);
+
+        try{
+            # lanca materiais perestaçao de contas
+            foreach ($dados as $key => $value) {      
+                $h_pedido_pedid->lancaMaterialPrest($value); 
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        
+        return true;
+    }
+    
+    
+    /**
+     * Lancamento de materiais para prestação de contas
+     * 
+     */
+    public function lancaMaterialPrest($dados){
+        
+        $con = Conexao::getInstance();
+        $sql = "INSERT INTO aju_h_pedido_prest (id_pedido,
+                                                cod_material,
+                                                nome_material,
+                                                total_familia_at,
+                                                qtd)
+                                                    VALUES (:id_pedido,
+                                                    :cod_material,
+                                                    :nome_material,
+                                                    :total_familia_at,
+                                                    :qtd)";
+
+        try {
+            $result = $con->prepare($sql);
+            $result->bindValue(":id_pedido", $dados['id']);
+            $result->bindValue(":cod_material", $dados['codigo']);
+            $result->bindValue(":nome_material", $dados['descricao_item']);
+            $result->bindValue(":total_familia_at", $dados['qtd_familia_atendida']);
+            $result->bindValue(":qtd", $dados['qtd']);
+            $result->execute();
+
+            return true;
+        } catch (Exception $e) {
+            return $e->getMessage() . "Erro ao inserir material em prestacao de contas";
+        }
+        
+    }
+    
+    
+    /**
+     *  busca status em edição para novo pedido
+     * 
+     */ 
+    public static function buscaStatus($id_municipio){
+        
+        $con = Conexao::getInstance();
+        $dados = array();
+        
+        $sql = "select count(id) as id from aju_h_pedido_pedid
+                where status = '0' and id_municipio =".$id_municipio;
+        
+        try {
+
+            $result = $con->query($sql);
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dados = $linha;
+            }
+            
+            return (count($dados) > 0) ? true : false;
+            
+        } catch (Exception $e) {
+            return $e->getMessage() . "erro ao selecionar as perdidos !";
+        }
+        
+    }
+    
+    
+    
+    
+    
 }

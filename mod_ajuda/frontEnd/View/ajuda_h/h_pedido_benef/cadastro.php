@@ -14,17 +14,20 @@
 
 <?php
 
-
+$id_pedido = isset($_GET['id_pedido']) ? $_GET['id_pedido'] : "";
+$id = isset($_GET['id']) ? $_GET['id'] : "";
 
 ?>
 
-<legend>Cadastro de H_pedido_benef</legend>
+<legend>Lançamento Beneficiario Prestação de Contas Pedido Nr : <?=$id_pedido;?> </legend>
 <form action="<?=FuncaoBase::geraLink("ajuda", "h_pedido_benef", "gravar");?>" method="post" accept-charset="utf-8" name="frmH_pedido_benef" id="frmH_pedido_benef">
     
     <div class='row'>
 <div class='col-md-6'>
 <label>Nome Beneficiário</label>
 <input type="text" class='form form-control' name='nome_beneficiario' id='nome_beneficiario' maxlength='69' required >
+<input type="hidden" name='id_prest_conta' id='id_prest_conta' required readonly="readonly" value="<?=$id;?>">
+<input type="hidden" name='id_pedido' id='id_pedido' required readonly="readonly" value="<?=$id_pedido;?>">
 </div>
 </div>
 <div class='row'>
@@ -52,10 +55,13 @@
 </div>
 </div>
 
-    <div class="col-md-12 text-center">
+    <div class="col-md-6 text-left">
+        <br>
+        <input type="submit" class="btn btn-info" name="btnGravar" id="btnGravar" value="Gravar">
+    </div>
+    <div class="col-md-6 text-center">
         <br>
         <a class="btn btn-success" href="<?=FuncaoBase::geraLink("ajuda", "h_pedido_benef", "index")?>">Voltar</a>
-        <input type="submit" class="btn btn-info" name="btnGravar" id="btnGravar" value="Gravar">
     </div>
 </form>
     

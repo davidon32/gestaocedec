@@ -186,6 +186,36 @@ $municipio = Municipio::PegaNomeMunicipio($_COOKIE['seguranca']['id_municipio'])
 </div>
 </div>
     
+<!-- envio de documentos -->
+
+<div class="table-responsive">
+
+    <table class="table table-bordered table-condensed">
+
+    <tr><!-- comment -->
+    <td>Código</td>
+    <td>nome</td>
+    <td>Descrição</td>
+    <td>Opção</td>
+    </tr>
+
+    <?php
+    $anexos = H_pedido_pedidajuda_hModel::listaAnexo($view[0]['id']);
+
+    foreach ($anexos as $key => $anexo) {
+
+        print "<tr>";
+        print "<td>" . $anexo['codigo'] . "</td>";
+        print "<td>" . $anexo['nome'] . "</td>";
+        print "<td>" . $anexo['descricao'] . "</td>";
+        print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'delete', array('id'=>$anexo['id']))  . "'><img src='/core/imagem/delete.png'></a>";
+        print "</td>";
+        print "</tr>";
+    }
+    ?>
+    </table>
+</div> 
+    
     <div class="col-md-12 text-center">
         <br>
         <a class="btn btn-success" href="<?=FuncaoBase::geraLink("ajuda", "h_pedido_index", "index")?>">Voltar</a>
@@ -319,7 +349,7 @@ $municipio = Municipio::PegaNomeMunicipio($_COOKIE['seguranca']['id_municipio'])
 		contentType: false,  // tell jQuery not to set contentType
 		success : function(response) {
                     var dados = JSON.parse(response);
-                    console.log(dados.nome_coordenador);
+                    console.log(dados.nome_meso);
                     $("#nome_coordenador").val(dados.nome_coordenador);
                     $("#tel_coordenador").val(dados.tel_coordenador);
                     $("#cel_coordenador").val(dados.cel_coordenador);
@@ -328,6 +358,8 @@ $municipio = Municipio::PegaNomeMunicipio($_COOKIE['seguranca']['id_municipio'])
                     $("#tel_prefeito").val(dados.tel_prefeito);
                     $("#cel_prefeito").val(dados.cel_prefeito);
                     $("#email_prefeito").val(dados.email_prefeito);
+                    $("#id_regiao").val(dados.id_meso);
+                    $("#nomeRegiao_fk").val(dados.nome_meso);
                     Swal.fire('Importação realizada com Sucesso !')
 		},
 		error : function(e) {

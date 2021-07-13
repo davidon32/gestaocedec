@@ -4,7 +4,7 @@
     <section class="content-header print">
       <h1>
        
-          <small><?=($_GET['controller'] != 'almoxarifado') ? ucfirst($_GET['controller']) : 'Armazém';?></small>
+          <small><?=($_GET['controller'] != 'almoxarifado') ? Config::traducaoController($_GET['controller']) : 'Armazém';?></small>
       </h1>
       <ol class="breadcrumb">
           
@@ -17,7 +17,7 @@
                 print "<li><a href=".FuncaoBase::geraLink("index", "index", "menu")."><i class=\"fa\"></i> Menu</a></li>";
             }
             ?>
-        <li class="active "><?=($_GET['controller'] == "almoxarifado" ? "Armazém" : $_GET['controller']);?></li>
+        <li class="active "><?=($_GET['controller'] == "almoxarifado" ? "Armazém" : Config::traducaobreadcrumb($_GET['controller']));?></li>
       </ol>
     </section>
 

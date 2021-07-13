@@ -12,7 +12,6 @@
 <?php include_once "template/page/corpoHeader.php"; ?>
 
 <a class="btn btn-success" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "index") ?>">Voltar</a>
-<a class="btn btn-info" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "cadastro") ?>" title="Novo Registro">+ Novo</a>
 
 <br>
 <br>
@@ -40,7 +39,7 @@ if ($btn == 'Pesquisar') {
     
     //var_dump($unidades);
 
-    print "<legend>Pesquisa H_pedido_pedid</legend>";
+    print "<legend>Pesquisa Pedido de Ajuda Humanitaria</legend>";
 
     print "<div class=\"table-responsive\"><table class=\"table table-bordered table-striped\">
     <thead>

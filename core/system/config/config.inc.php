@@ -43,7 +43,7 @@ define('VERSAO', 'versão - 3.4.1.3-2 - 09.07.2021');
 define('SESSAOADM', '14400');
 
 #@ tempo sessao Externo
-define('SESSAOEX', '3600');
+define('SESSAOEX', '1800');
 
 #@ titulo página
 define('TITULO', 'Coordenadoria Estadual de Defesa Civil de Minas Gerais');

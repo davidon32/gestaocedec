@@ -59,7 +59,7 @@ private $total_familia_at = null;
          
          $dados = array();
  
-        $sql = "SELECT";
+        $sql = "SELECT ";
         $sql .= " ".implode(", ",self::$model['dados']['campos'])."";
         
         if (empty($id)) {
@@ -72,6 +72,8 @@ private $total_familia_at = null;
             $sql .= " FROM ".self::$model['tabela']."  
                             WHERE ".self::$model['campos'][0]." = :id
                             ORDER BY nome";
+            
+            var_dump($sql);
             $result = self::$con->prepare($sql);
             $result->bindValue(":id", $id);
             $result->execute();
@@ -225,10 +227,12 @@ $result->bindValue(":total_familia_at", $dados['total_familia_at']);
 aju_h_pedido_prest.id_pedido,
 aju_h_pedido_prest.cod_material,
 aju_h_pedido_prest.nome_material,
+aju_h_pedido_prest.qtd,
 aju_h_pedido_prest.total_familia_at
+
                               FROM aju_h_pedido_prest
                               
-                              WHERE id_h_pedido_prest = " . $id_h_pedido_prest;
+                              WHERE id = " . $id_h_pedido_prest;
 
         try {
 
@@ -257,7 +261,7 @@ aju_h_pedido_prest.nome_material,
 aju_h_pedido_prest.total_familia_at
                                 FROM aju_h_pedido_prest
                                 
-                                ORDER By id_h_pedido_prest DESC LIMIT $start, $regPorPagina");
+                                ORDER By id DESC LIMIT $start, $regPorPagina");
             $stmt->execute();
 
             $result = $stmt->fetchAll();
@@ -446,5 +450,97 @@ aju_h_pedido_prest.total_familia_at
             return $e->getMessage() . "Erro ao inserir Fornecedor";
         }
     }
+    
+    /**
+     *  Lista de materiais para fazer a prestacao d contas
+     *  
+     */
+    public static function listaPrestContasporPedido($id_pedido){
+        
+         $con = Conexao::getInstance();
 
+        $dados = array();
+        
+        $sql = "SELECT id,
+                    id_pedido,
+                    cod_material,
+                    nome_material,
+                    total_familia_at,
+                    qtd
+                FROM aju_h_pedido_prest
+                where id_pedido = ".$id_pedido;
+        
+         try {
+
+            $result = $con->query($sql);
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dados[] = $linha;
+            }
+            
+            return $dados;
+        } catch (Exception $e) {
+            return $e->getMessage() . "Erro seleciona os prestacao de contas";
+        }
+       
+        
+    }
+
+    
+    /**
+     *  qtd benefiarios prestação de contas
+     * @param id do item da prestacao de contas (material para prestar contas)
+     */
+    public static function percBenef($id_prest_conta){
+        
+        $con = Conexao::getInstance();
+
+        $dados = "";
+
+        
+        $sql = "select sum(qtd) as id from aju_h_pedido_benef
+                where id_prest_conta = ".$id_prest_conta;
+        
+         try {
+
+            $result = $con->query($sql);
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dados = $linha;
+            }
+
+            return (empty($dados['id']) ? 0 : $dados['id']);
+        } catch (Exception $e) {
+            return $e->getMessage() . "Erro seleciona os beneficiarios";
+        }
+    }
+    
+    
+    /**
+     *  qtd material pedido 
+     * @param id_prest_cont
+     */
+    public static function QtdMaterialPrest($id_prest_conta){
+        
+        $con = Conexao::getInstance();
+
+        $dados = "";
+
+        
+        $sql = "select qtd from aju_h_pedido_prest
+                where id = ".$id_prest_conta;
+         try {
+
+            $result = $con->query($sql);
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dados = $linha;
+            }
+
+            return $dados['qtd'];
+        } catch (Exception $e) {
+            return $e->getMessage() . "Erro seleciona os beneficiarios";
+        }
+        
+    }
 }

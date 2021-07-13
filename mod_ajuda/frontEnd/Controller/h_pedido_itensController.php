@@ -102,9 +102,10 @@ class h_pedido_itensController extends Controller {
     public function gravar() {
         
         $h_pedido_itens = new H_pedido_itensajuda_hModel;
+        
         if ($h_pedido_itens->gravar($_POST)) {
             FuncaoBase::alert("Registro Gravado com Sucesso !");
-            $this->redirect("ajuda", "h_pedido_itens", "index");
+            $this->redirect("ajuda", "h_pedido_itens", "cadastro", array('id'=>$_POST['id']));
         }
     }
             
@@ -134,18 +135,12 @@ class h_pedido_itensController extends Controller {
 
             $result = $h_pedido_itensModel->edit($_POST);
 
-            if (!empty($result)) {
-                FuncaoBase::alert("Registro Atualizado com Sucesso !");
-                if($_POST['add_pedido'] = 1){
-                   $param = array('id'=> $_POST['id_pedido']);
-                   $this->redirect("ajuda", "h_pedido_pedid", "add_itens", $param);
-                }else {
                 FuncaoBase::alert("Registro Atualizado com Sucesso !");
                 $view = $h_pedido_itensModel->view($_POST['id']);
-                $param = array('id'=> $_POST['id']);
-                $this->redirect("ajuda", "h_pedido_itens", "view", $param);
-                }
-            }
+                $param = array('id'=> $_POST['id_pedido']);
+                $this->redirect("ajuda", "h_pedido_itens", "cadastro", $param);
+                
+            
         } else {
 
             $view = $h_pedido_itensModel->view($_GET['id']);
@@ -159,8 +154,8 @@ class h_pedido_itensController extends Controller {
        if($this->h_pedido_itens->delete($_GET['id'])){
            FuncaoBase::alert("Registro Apagado com Sucesso !");
        }
-
-            $this->redirect("ajuda", "h_pedido_itens", "index");
+        $this->redirect("ajuda", "h_pedido_itens", "cadastro", array('id'=>$_GET['id_pedido']));
+       
         
     }
 
