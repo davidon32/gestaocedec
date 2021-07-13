@@ -34,7 +34,6 @@ $pedido_h = new H_pedido_pedidajuda_hModel();
     <br>
     
     <?php
-    
         if( !$pedido_h->buscaStatus($id_municipio) ) {
             print "<a class=\"btn btn-primary\" name='novo_pedido' data-destaque='false' href=\"".FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "cadastro")."\">Novo Pedido</a>";
         }else {
@@ -72,17 +71,27 @@ foreach ($dados as $key => $value) {
             <td>" . $pedido_h->enumStatus($value['status']) . "</td>
             <td>" . $value['data_hora_envio'] . "</td>
             <td>";
-    print "<a href='" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit', array('id' => $value['id'])) . "' title='Editar Pedido'><img src='/core/imagem/editar.png'></a>";
-    print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "view", array('id' => $value['id'])) . "' title='Visualiação e Impressa do Pedido'><img src='/core/imagem/impressao.png'></a> ";
+    
+    # editar pedido 
+    if( $value['status'] == 0 ){
+        print "<a href='" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit', array('id' => $value['id'], 'voltar'=>'idx_recente')) . "' title='Editar Pedido'><img src='/core/imagem/editar.png'></a> |";
+    }
+    
+    # envio para homologação status 0=edicao
+    if($value['status'] == 0){
+        print " <a name='envia_analise' data-id_pedido='".$value['id']."'><img src='/core/imagem/envio_pedido.png' title='Envio para Analise'></a>|";
+    }
+    
+    print " <a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "view", array('id' => $value['id'])) . "' title='Visualiação e Impressa do Pedido'><img src='/core/imagem/impressao.png'></a> | ";
 
     # prestação de  contas somente status atendido
     if ($value['status'] == 5) {
-        print "<a href='#' name='prestConta' data-id_pedido='" . $value['id'] . "' title='Presatação de contas'><img width='25' src='/core/imagem/relatorio.png'></a>";
+        print " <a href='#' name='prestConta' data-id_pedido='" . $value['id'] . "' title='Presatação de contas'><img width='25' src='/core/imagem/relatorio.png'></a> |";
     }
 
     # somente pedido status 0=edicao e 6=cancelado pode ser deletado
     if (( $value['status'] == 0 ) || ($value['status'] == 6 )) {
-        print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "delete", array('id' => $value['id'])) . "' onclick=\"return confirm('Deseja Deletar esse Registro ?')\"><img src='/core/imagem/delete.png' title='Deletar Registro'></a>";
+        print " <a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "delete", array('id' => $value['id'])) . "' onclick=\"return confirm('Deseja Deletar esse Registro ?')\"><img src='/core/imagem/delete.png' title='Deletar Registro'></a>";
     }
 
     print "</td>";
@@ -114,6 +123,7 @@ $(document).ready(function() {
         }
     });
     
+   /* abre a prestação de contas */
     $("a[name=prestConta]").click(function(){
 
         var formData = new FormData();
@@ -132,7 +142,38 @@ $(document).ready(function() {
             success : function(response) {
                 console.log(response);
                 window.location.href = 'index.php?hash=<?= md5(date('y-m-d'))?>&modulo=ajuda&controller=h_pedido_prest&action=index&id='+id_pedido;
-                //Swal.fire('Importação realizada com Sucesso !')
+                Swal.fire('Importação realizada com Sucesso !')
+            },
+            error : function(e) {
+            //console.log(JSON.stringify(e));
+            }
+    });
+    });
+    
+   /* Enviar pedido para analise */
+    $("a[name=envia_analise]").click(function(){
+
+        var formData = new FormData();
+        
+        var id_pedido = $(this).data('id_pedido');
+              
+        formData.append('opcao', 'envia_pedido');
+        formData.append('id_pedido', id_pedido);
+        formData.append('tramit', 'analise_drd');
+        formData.append('status', '2');
+    
+        $.ajax({
+            url : '/mod_ajuda/frontEnd/View/ajuda_h/h_pedido_pedid/ajax.php',
+            type : 'POST',
+            data : formData,
+            processData: false, // tell jQuery not to process the data
+            contentType: false, // tell jQuery not to set contentType
+            success : function(response) {
+                if(response.trim() == 'sucesso'){
+                    Swal.fire('Pedido enviado para analise ! \n Aguarde o prazo e verifique o status do pedido');
+                }else {
+                    Swal.fire('Ocorreu um erro no sistema! \n gentileza enviar um \'print\' desta tela para o suporte'); 
+                }
             },
             error : function(e) {
             //console.log(JSON.stringify(e));

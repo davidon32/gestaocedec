@@ -870,14 +870,14 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
     
     
     /* enumStatus get status */
-    public function enumStatus($status) {
+    public static function enumStatus($status) {
         
         switch ($status) {
             case 0:
                 return 'Edição Compdec';
                 break;
             case 1:
-                return 'Atendido';
+                return '-';
                 break;
             case 2:
                 return 'Analise DRD';
@@ -956,21 +956,37 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
         
         switch ($status) {
             case 0:
-                # em analise
+                # edição compdec
                 return '#e6e600';
                 break;
             case 1:
-                # atendido
-                return '#00cc00';
+                # -
+                return '#275bf5';
                 break;
             case 2:
-                #cancelado
-                return '#ff5c33';
+                # analise_drd
+                return '#e6e600';
+                break;
+            case 3:
+                # analise dlog
+                return '#e6e600';
+                break;
+            case 4:
+                # analise_coord
+                return '#e6e600';
+                break;
+            case 5:
+                # Atendido
+                return '#00cc00';
+                break;
+            case 6:
+                # Cancelado
+                return '#f53682';
                 break;
             default:
                 break;
         }
-        
+                
     }
     
     /**
@@ -1121,7 +1137,7 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
     
     
     /**
-     *  
+     *  busca dados do pedido
      * 
      */
     public function buscaPedidoH() {
@@ -1271,7 +1287,7 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
     public static function buscaStatus($id_municipio){
         
         $con = Conexao::getInstance();
-        $dados = array();
+        $dados = "";
         
         $sql = "select count(id) as id from aju_h_pedido_pedid
                 where status = '0' and id_municipio =".$id_municipio;
@@ -1284,7 +1300,7 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
                 $dados = $linha;
             }
             
-            return (count($dados) > 0) ? true : false;
+            return ($dados['id'] > 0) ? true : false;
             
         } catch (Exception $e) {
             return $e->getMessage() . "erro ao selecionar as perdidos !";
@@ -1293,7 +1309,30 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
     }
     
     
+     /**
+     * Envia pedido para analise
+      * @param id_pedido
+      * @param tramit
+     */
+    public function envia_pedido(array $dados) {
+        
+        $con = Conexao::getInstance();
+        $sql = "update aju_h_pedido_pedid set tramit = :tramit,
+                                           status = 2
+                                           where id = :id_pedido";
+
+        try {
+            $result = $con->prepare($sql);
+            $result->bindValue(":id_pedido", $dados['id_pedido']);
+            $result->bindValue(":tramit", $dados['tramit']);
+            
+            $result->execute();
+
+            return true;
+        } catch (Exception $e) {
+            return $e->getMessage() . "-";
+        }      
+    }
     
-    
-    
+       
 }

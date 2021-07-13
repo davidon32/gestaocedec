@@ -72,7 +72,12 @@ print "<tr>
             
             # editar somente em fase status 0=edicao
             if($h_pedido_pedid['status'] == 0){
-                print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit", array('id' => $h_pedido_pedid['id'])) . "'><img src='/core/imagem/editar.png' title='Editar Registro'></a>|";
+                print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit", array('id' => $h_pedido_pedid['id'], 'voltar'=>'idx_index')) . "'><img src='/core/imagem/editar.png' title='Editar Registro'></a>|";
+            }
+            
+            # envio para homologação status 0=edicao
+            if($h_pedido_pedid['status'] == 0){
+                print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "envio", array('id' => $h_pedido_pedid['id'], 'voltar'=>'idx_index')) . "'><img src='/core/imagem/envio_pedido.png' title='Editar Registro'></a>|";
             }
             
             # prestação de  contas somente status atendido

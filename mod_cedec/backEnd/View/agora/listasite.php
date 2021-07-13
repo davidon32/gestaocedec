@@ -3,15 +3,22 @@
 <!-- =============== HEADER HTML PAGE ================= -->
 <?php include_once "template/page/headerPageSimplesFull.php";?>
 
+<style>
+    img {
+        border-radius: 8px;
+    }
+    
+</style>
+
 <div class="container-fluid">
-<div class="col-lg10 col-xs-12 text-center" style="height:100px;">
+<div class="col-lg-3 col-xs-3 text-center" style="height:100px;">
     <h4>Defesa Civil Agora</h4>
     <img src="/core/imagem/DEFESACIVILMG_400.png" width="50px;" >
 </div>
-<div class="col-lg10 col-xs-10"><br>
+<div class="col-lg4 col-xs-6"><br>
     <h4>Envie para a CEDEC uma informação ou atividade de Defesa Civil realizada em sua região.</h4>
 </div>
-<div class="col-lg10 col-xs-2" style="line-height:100px;">
+<div class="col-lg3 col-xs-3" style="line-height:100px;">
      <a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=cedec&controller=agora&action=cadastro" title="Lançar uma Informação / Atividade de Defesa Civil.">
         <img width="100" src="core/imagem/botao.gif">    
     </a><br>
