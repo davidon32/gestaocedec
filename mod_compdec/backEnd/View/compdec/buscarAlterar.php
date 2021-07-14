@@ -81,7 +81,7 @@ $_territorio = new Territorio();
 							<td>".$alteracao."</td>
 							<td><input type='checkbox' name='ck_PMDA' id='ck_PMDA'></td>
 							<td><input type='checkbox' name='ck_Ajuda' id='ck_Ajuda'></td>
-							<td><a href='?modulo=compdec&controller=compdec&action=plano&id=".$_dados[0]['id_municipio']."'>Visualizar</a></td>
+							<td><a href='".FuncaoBase::geraLink("compdec", "compdec", "plano", array("id"=>$_dados[0]['id_municipio']))."'>Visualizar</a></td>
 
 						</tr>
 						<tr>
