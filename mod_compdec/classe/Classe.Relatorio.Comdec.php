@@ -257,13 +257,11 @@ Class RelatorioComdec {
 
         $sql = "select distinct cedec_municipio.nome,
                     com_plano_upload.file_plano,
-                    com_plano_upload.dt_upload,
-                    count(com_plano_upload.file_plano) as qtd_plano
+                    com_plano_upload.dt_upload
                         from cedec_municipio
                             inner join com_plano_upload
                             on cedec_municipio.id_municipio = com_plano_upload.id_municipio
                             where cedec_municipio.nome <> \"MUNICIPIO TESTE\"
-                            group by cedec_municipio.nome
                             order by cedec_municipio.nome;";
 
         $result = $con->query($sql);

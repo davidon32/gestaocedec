@@ -83,7 +83,7 @@
                 # analise DRD
                 if($permissao[0]['analista_drd'] == 1) {
                     # editar
-                    print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'peido_itens', 'edit')."' title='Analise DRD'><img width='25' src='/core/imagem/cedec.png'></a>";
+                    print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'peido_itens', 'edit', array('id' => $pedid['id'], 'voltar'=>'idx_recente'))."' title='Analise DRD'><img width='25' src='/core/imagem/cedec.png'></a>";
                 }else {
                     # visualizar
                     print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'peido_itens', 'view')."' title='Analise DRD'><img width='25' src='/core/imagem/cedec.png'></a>";

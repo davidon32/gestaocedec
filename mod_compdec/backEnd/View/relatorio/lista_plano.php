@@ -38,15 +38,13 @@
                    </tr>";
 
             foreach ($dados as $key => $value) {
-                //var_dump(strlen($value['file_plano']));
-                
+               
                 print "<tr>";
-
                 print "<td class=\"\">".($key+1)."</td>";
                 print "<td class=\"dados\">".$value['nome']."</td>";
                 print "<td class=\"dados\">".( (strlen($value['file_plano']) > 0) ? "<a onclick=\"javascript:anexoView('anexo/planoCont/".$value['file_plano']."')\">".$value['file_plano']."&nbsp;<img src='/core/imagem/impressao.png'></a>" : "Sem Plano de Contingência")."</td>";    
                 print "<td class=\"dados\">".$value['dt_upload']."</td>";    
-                print "<td class=\"dados\">".$value['qtd_plano']."</td>";    
+                //print "<td class=\"dados\">".$value['qtd_plano']."</td>";    
 
                 
                 
