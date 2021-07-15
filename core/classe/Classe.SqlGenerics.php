@@ -1,6 +1,6 @@
 <?php
 
-    include_once 'Classe.Funcao.Base.php';
+    include_once 'Classe.FuncaoBase.php';
 
 class SqlGenerics extends FuncaoBase {
     

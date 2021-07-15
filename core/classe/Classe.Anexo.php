@@ -1,4 +1,4 @@
-<?php include_once('Classe.Funcao.Base.php');
+<?php //include_once('Classe.FuncaoBase.php');
 
 class Anexo extends FuncaoBase  {
 	

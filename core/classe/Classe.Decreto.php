@@ -1,7 +1,6 @@
 <?php
 
-include_once 'Classe.Funcao.Base.php';
-include_once 'Classe.PDO.php';
+
 /* * *********************************************************************************
  * 	CEDEC-MG - Coordenadoria Estadual de Defesa Civil de Minas Gerais			  	*
  * 																					*

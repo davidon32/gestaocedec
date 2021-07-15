@@ -1,4 +1,4 @@
-<?php include_once 'Classe.PDO.php';
+<?php
 
 /************************************************************************************
  * 			Gabinete Militar do Governador

@@ -65,6 +65,8 @@
             if($extensao == 'pdf' || $extensao == 'doc' || $extensao == 'docx'){
                 print $anexo->uploadSimple('file', '/anexo/planoCont', $dados['filePlano']);
                 $plano->gravaUpload($dados);
+                //var_dump(Log::Log_reg("Upload plano de contingencia"));
+                
             }else {
                 print 'Extensao Inválida !';
             }

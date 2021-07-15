@@ -1,7 +1,8 @@
 
 <?php
+
 include_once('core/Controller/Controller.php');
-        
+
 /* * *********************************************************************************
  * 	CEDEC-MG - Coordenadoria Estadual de Defesa Civil de Minas Gerais			  	*
  * 	
@@ -20,11 +21,10 @@ class h_pedido_pedidController extends Controller {
     private $h_pedido_pedids;
     private $campos;
     public $numPage;
-    
+
     public function __construct() {
         $this->h_pedido_pedid = new H_pedido_pedidajuda_hModel;
         $this->h_pedido_pedids = $this->h_pedido_pedid->lista();
-
     }
 
     # index h_pedido_pedid
@@ -37,41 +37,41 @@ class h_pedido_pedidController extends Controller {
     /* paginacao */
 
     public function paginacao($page, $numPage) {
-        
+
         $this->numPage = $numPage;
 
         $totalRegistro = count($this->h_pedido_pedids);
         $regPorPagina = $numPage;
-        
+
         $totPag = ceil($totalRegistro / $numPage);
 
         $start = ($page - 1) * $regPorPagina;
 
         $paginacao = $this->h_pedido_pedid->paginacao($start, $regPorPagina);
-       
+
         return [$paginacao, $totPag];
-       
     }
-        
+
     ################  EXPORTAR ##################    
     # Exportar dados excel
+
     public function exportar() {
 
         $h_pedido_pedid = new H_pedido_pedidajuda_hModel;
-        
+
         $dados = $h_pedido_pedid->lista();
-        
+
         $coluna = array_keys($dados[0]);
-        
+
         $data = array();
-        
+
         array_push($data, $coluna);
-        
+
         foreach ($dados as $key => $dado) {
-            $data[] = $dado; 
+            $data[] = $dado;
         }
 
-        $nomeFileExcel = sys_get_temp_dir()."/Cadastro".ucfirst($_GET['controller'])."_".date("dmY_his").".xlsx";
+        $nomeFileExcel = sys_get_temp_dir() . "/Cadastro" . ucfirst($_GET['controller']) . "_" . date("dmY_his") . ".xlsx";
 
         $writer = new XLSXWriter();
         $writer->writeSheet($data);
@@ -89,9 +89,9 @@ class h_pedido_pedidController extends Controller {
         flush();
         readfile($nomeFileExcel);
     }
-        
 
     # formulario cadastro
+
     public function cadastro() {
         include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_pedid/cadastro.php';
     }
@@ -103,27 +103,24 @@ class h_pedido_pedidController extends Controller {
 
         $h_pedido_pedid = new H_pedido_pedidajuda_hModel;
 
-            $_POST['numero'] = $h_pedido_pedid->gerarNumero();
-            $_POST['despachante_analista'] = "";
-            $_POST['despachante_dlog'] = "";
+        $_POST['numero'] = $h_pedido_pedid->gerarNumero();
+        $_POST['despachante_analista'] = "";
+        $_POST['despachante_dlog'] = "";
 
-            var_dump($_POST, $h_pedido_pedid->gravar($_POST));
-            
-            
+        var_dump($_POST, $h_pedido_pedid->gravar($_POST));
     }
-            
+
     # pesquisa registro
 
     public function pesquisa() {
 
-            include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_pedid/pesquisa.php';
+        include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_pedid/pesquisa.php';
     }
-    
 
     #visualizar registro
 
     public function view() {
-         $h_pedido_pedidModel = $this->h_pedido_pedid;
+        $h_pedido_pedidModel = $this->h_pedido_pedid;
         $view = $this->h_pedido_pedid->view($_GET['id']);
         include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_pedid/view.php';
     }
@@ -137,13 +134,12 @@ class h_pedido_pedidController extends Controller {
         if ($this->isPost()) {
 
             $result = $h_pedido_pedidModel->edit($_POST);
-            
-            
+
             //var_dump($result);
             if (!empty($result)) {
                 FuncaoBase::alert("Registro Atualizado com Sucesso !");
                 $view = $h_pedido_pedidModel->view($_POST['id']);
-                $param = array('id'=> $_POST['id']);
+                $param = array('id' => $_POST['id']);
                 $this->redirect("ajuda", "h_pedido_pedid", "view", $param);
             }
         } else {
@@ -152,36 +148,42 @@ class h_pedido_pedidController extends Controller {
             include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_pedid/edit.php';
         }
     }
-    
+
     /*  deletar registro */
+
     public function delete() {
         
-       if($this->h_pedido_pedid->delete($_GET['id'])){
-           FuncaoBase::alert("Registro Apagado com Sucesso !");
-       }
-
-            $this->redirect("ajuda", "h_pedido_pedid", "index");
         
+        $voltar = isset($_GET['voltar']) ? $_GET['voltar'] : "index";
+
+        if (var_dump($this->h_pedido_pedid->delete($_GET['id']))) {
+            die();
+            FuncaoBase::alert("Registro Apagado com Sucesso !");
+        }
+        
+        
+        if ($voltar == "index_recent") {
+            $this->redirect("ajuda", "h_pedido_index", "index");
+        }else if($voltar == "index") {
+            $this->redirect("ajuda", "h_pedido_pedid", "index");
+        }
     }
-    
-    /* add pedido sesssion*/
+
+    /* add pedido sesssion */
+
     public function add_itens() {
         include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_pedid/add_itens.php';
     }
-    
-    
+
     /**
      *  enviar Pedido para analise DRD
      */
-    public function analise_drd(){
+    public function analise_drd() {
 
-        if($this->h_pedido_pedid->analiseDrd($_POST['id_pedido'])){
-            
+        if ($this->h_pedido_pedid->analiseDrd($_POST['id_pedido'])) {
+
             print 'sucesso';
         }
-        
     }
-    
-        
 
 }

@@ -89,9 +89,9 @@ foreach ($dados as $key => $value) {
         print " <a href='#' name='prestConta' data-id_pedido='" . $value['id'] . "' title='Presatação de contas'><img width='25' src='/core/imagem/relatorio.png'></a> |";
     }
 
-    # somente pedido status 0=edicao e 6=cancelado pode ser deletado
+    # deletar somente pedido status 0=edicao e 6=cancelado pode ser deletado
     if (( $value['status'] == 0 ) || ($value['status'] == 6 )) {
-        print " <a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "delete", array('id' => $value['id'])) . "' onclick=\"return confirm('Deseja Deletar esse Registro ?')\"><img src='/core/imagem/delete.png' title='Deletar Registro'></a>";
+        print " <a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "delete", array('id' => $value['id'], 'voltar'=>'index_recente')) . "' onclick=\"return confirm('Deseja Deletar esse Registro ?')\"><img src='/core/imagem/delete.png' title='Deletar Registro'></a>";
     }
 
     print "</td>";

@@ -490,7 +490,7 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
 
         $con = Conexao::getInstance();
 
-        $sql = "DELETE FROM aju_h_pedido_pedid WHERE id_h_pedido_pedid = " . $id;
+        $sql = "DELETE FROM aju_h_pedido_pedid WHERE id = " . $id;
 
         try {
 

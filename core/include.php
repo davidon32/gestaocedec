@@ -11,19 +11,19 @@ include_once PATH . '/vendor/mimemessage/sendmail_message.php';
 
 
 //include PATH.'/vendor/autoload.php';
-//include_once PATH.'/administrator/classe/Classe.Conexao.php';
 
-include_once PATH . '/core/classe/Classe.PDO.php';
+
+include_once PATH . '/core/classe/Classe.Conexao.php';
 include_once PATH . '/core/classe/Classe.Data.php';
 include_once PATH . '/core/classe/Classe.Municipio.php';
 include_once PATH . '/core/classe/Classe.Log.php';
 include_once PATH . '/core/classe/Classe.Usuario.php';
-include_once PATH . '/core/classe/Classe.Funcao.Base.php';
-include_once PATH . '/core/classe/Classe.Generics.php';
+include_once PATH . '/core/classe/Classe.FuncaoBase.php';
+include_once PATH . '/core/classe/Classe.SqlGenerics.php';
 include_once PATH . '/core/classe/Classe.Estado.php';
 include_once PATH . '/mod_escola/classe/Classe.Dao.php';
 include_once PATH . '/mod_escola/classe/Classe.Curso.php';
-include_once PATH . '/core/classe/Classe.Seguranca.Acesso.php';
+//include_once PATH . '/core/classe/Classe.Seguranca.Acesso.php';
 include_once PATH . '/core/classe/Classe.Html.php';
 include_once PATH . '/core/classe/Classe.Menu.php';
 include_once PATH . '/core/classe/Classe.Gravatar.php';

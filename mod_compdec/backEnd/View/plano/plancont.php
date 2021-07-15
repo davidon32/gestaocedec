@@ -114,6 +114,8 @@
 /* Criar novo plano de contingencia */
 (function($) {
 
+
+        /* ENVIAR PLANO */
 	novoPlano = function() {
 
 		if(confirm("Deseja Começar o preenchimento de um novo Plano de Contingência ?")){
@@ -185,7 +187,9 @@
 				alert(response);
 				$("#myModal").modal('hide');
 				window.location.reload();
-			}
+			},error: function(response){
+                            console.log(response)
+                        }
 		});
 	});
 

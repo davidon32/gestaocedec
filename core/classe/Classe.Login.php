@@ -8,7 +8,6 @@
 * 	Criacao : 01/02/2012															*
 ************************************************************************************/
 require_once PATH.'/mod_ajuda/classe/Classe.Liberacao.php';
-include_once PATH.'/core/classe/Classe.PDO.php';
 
 
 class Login extends Liberacao {
