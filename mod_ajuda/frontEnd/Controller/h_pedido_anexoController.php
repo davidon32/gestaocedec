@@ -97,15 +97,28 @@ class h_pedido_anexoController extends Controller {
     }
 
     ################  GRAVAR ##################    
-    # gravar registro
+    # gravar registro / upload
 
     public function gravar() {
-
         $h_pedido_anexo = new H_pedido_anexoajuda_hModel;
+        
+        $municipio = $_COOKIE['seguranca']['nome_usuario'];
+        
+        
+        $_POST['data_envio'] = date('Y-m-d H:i:s');
+        
+        $result = Upload2mb::upload("/anexo/pedido_ajuda_h", $municipio);
 
-        if ($h_pedido_anexo->gravar($_POST)) {
-            FuncaoBase::alert("Registro Gravado com Sucesso !");
+        if ($result['result']){
+                $_POST['nome_arquivo'] = $result['nome_arquivo'];
+                $h_pedido_anexo->gravar($_POST);
+                FuncaoBase::alert("Upload realizado com Sucesso !");
+                $this->redirect("ajuda", "h_pedido_pedid", "edit", array('id'=>$_POST['id_pedido'], 'voltar'=>$_POST['voltar']));
+        }else {
+            
+            FuncaoBase::alert($result);
             $this->redirect("ajuda", "h_pedido_anexo", "index");
+            $this->redirect("ajuda", "h_pedido_pedido", "edit", array('id'=>$_POST['id_pedido'], 'voltar'=>$_POST['voltar']));
         }
     }
             
@@ -134,8 +147,6 @@ class h_pedido_anexoController extends Controller {
         if ($this->isPost()) {
 
             $result = $h_pedido_anexoModel->edit($_POST);
-            
-            //var_dump($result);
             if (!empty($result)) {
                 FuncaoBase::alert("Registro Atualizado com Sucesso !");
                 $view = $h_pedido_anexoModel->view($_POST['id_h_pedido_anexo']);
@@ -151,13 +162,14 @@ class h_pedido_anexoController extends Controller {
     
     /*  deletar registro */
     public function delete() {
-        
-       if($this->h_pedido_anexo->delete($_GET['id'])){
-           FuncaoBase::alert("Registro Apagado com Sucesso !");
-       }
-
-            $this->redirect("ajuda", "h_pedido_anexo", "index");
-        
+       if($this->h_pedido_anexo->delete($_POST['id'])){
+           chdir(PATH.'\anexo\pedido_ajuda_h');
+            $dirAnexo = getcwd();
+            if(unlink($dirAnexo.'\\'.$_POST['nome_arquivo'])) {
+            }
+        print 'sucesso';
+        }
+ 
     }
 
 }

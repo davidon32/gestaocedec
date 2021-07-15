@@ -1,5 +1,5 @@
 <?php
-require_once(PATH . '/core/classe/Classe.Data.php');
+//require_once(PATH . '/core/classe/Classe.Data.php');
 /* * *********************************************************************************
  * 	CEDEC-MG - Coordenadoria Estadual de Defesa Civil de Minas Gerais			  	*
  * 	
@@ -225,7 +225,6 @@ numero_decreto,
 data_vigencia,
 tipo_decreto,
 esforcos_realizados,
-data_hora_envio,
 tramit
 ) VALUES (:numero,
 :data_entrada_sistema,
@@ -248,7 +247,6 @@ tramit
 :data_vigencia,
 :tipo_decreto,
 :esforcos_realizados,
-:data_hora_envio, 
 :tramit)";
 
         try {
@@ -276,7 +274,6 @@ $result->bindValue(":numero_decreto", $dados['numero_decreto']);
 $result->bindValue(":data_vigencia", DataMysql::dataForm($dados['data_vigencia']));
 $result->bindValue(":tipo_decreto", $dados['tipo_decreto']);
 $result->bindValue(":esforcos_realizados", $dados['esforcos_realizados']);
-$result->bindValue(":data_hora_envio", DataMysql::dataForm($dados['data_hora_envio']));
 $result->bindValue(":tramit", "analise_drd");
 
             if($result->execute()){

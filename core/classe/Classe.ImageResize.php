@@ -10,7 +10,7 @@
    # ========================================================================#
 
 
-        class resize
+        class ImageResize
         {
             // *** Class variables
             private $image;

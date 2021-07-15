@@ -159,6 +159,7 @@ $(document).ready(function() {
               
         formData.append('opcao', 'envia_pedido');
         formData.append('id_pedido', id_pedido);
+        formData.append('data_hora_envio', '<?=date('Y-m-d H:i:s')?>');
         formData.append('tramit', 'analise_drd');
         formData.append('status', '2');
     
@@ -169,6 +170,8 @@ $(document).ready(function() {
             processData: false, // tell jQuery not to process the data
             contentType: false, // tell jQuery not to set contentType
             success : function(response) {
+                
+                console.log(response);
                 if(response.trim() == 'sucesso'){
                     Swal.fire('Pedido enviado para analise ! \n Aguarde o prazo e verifique o status do pedido');
                 }else {

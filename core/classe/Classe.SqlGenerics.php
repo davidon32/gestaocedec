@@ -1,67 +1,64 @@
 <?php
-
-    include_once 'Classe.FuncaoBase.php';
-
 class SqlGenerics extends FuncaoBase {
-    
+
     private $parametro;
-    
-    
-    
-    
-    
-    
-     /**
+
+    /**
      * Classe para manipulacao generica de dados
      * 
      * 
      */
-     public static function Inserir($tabela, array $parametro){
-         
-         $con = Conexao::getInstance();
-            
-         $campo = array();
-         $valor = array();
-         
-         foreach ($parametro as $key=>$value) {
-             $campo[] = $key;
-             $valor[] = $value;
-             
-         } 
-          
-         $a = "".implode(",",$campo)."";
-         $b = "'".implode("','",$valor)."'";
+    public static function Inserir($tabela, array $parametro) {
 
-         $sql = "INSERT INTO $tabela ($a) VALUES ($b)";
-                 
-         $result = $con->query($sql);
-         
-         return true;
-     }
-     
-     /**
-      * Select tabela
-      * @param $_sql
-      * 
-      */
-      public static function Select($sql){
-          
-          //print $sql;
-          $dados = array();
-          
-          $result = mysql_query($sql) or die (mysql_error().'Código: 07');
-          
-          while ($linha = mysql_fetch_array($result)){
-          
+        $con = Conexao::getInstance();
+
+        $campo = array();
+        $valor = array();
+
+        foreach ($parametro as $key => $value) {
+            $campo[] = $key;
+            $valor[] = $value;
+        }
+
+        $a = "" . implode(",", $campo) . "";
+        $b = "'" . implode("','", $valor) . "'";
+
+        $sql = "INSERT INTO $tabela ($a) VALUES ($b)";
+
+        $result = $con->query($sql);
+
+        return true;
+    }
+
+    /**
+     * Select tabela
+     * @param $_sql
+     * 
+     */
+    public static function Select($sql) {
+
+        //print $sql;
+        $dados = array();
+
+        $result = mysql_query($sql) or die(mysql_error() . 'Código: 07');
+
+        while ($linha = mysql_fetch_array($result)) {
+
             $dados[] = $linha;
-              
-          }
-          
-          return $dados[0];
-          
-                
-      }
-     
-     
-     
-}?>
+        }
+
+        return $dados[0];
+    }
+
+    function QueryBD($_tipo, $_tabela, $_campos, $_parametro) {
+
+        $sql = $_tipo . " " . $_campos . " from " . $_tabela;
+
+        $result = mysql_query($query);
+
+        //print $sql;       
+    }
+
+}
+
+?>

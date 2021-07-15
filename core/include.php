@@ -1,6 +1,6 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/core/system/config/config.inc.php';
-include_once PATH . '/core/classe/Classe.Login.php';
+//include_once PATH . '/core/classe/Classe.Login.php';
 
 # plugins
 include_once PATH . '/plugins/phplot-6.1.0/phplot.php';
@@ -10,9 +10,15 @@ include_once PATH . '/vendor/mimemessage/email_message.php';
 include_once PATH . '/vendor/mimemessage/sendmail_message.php';
 
 
-//include PATH.'/vendor/autoload.php';
+include PATH.'/vendor/autoload.php';
+
+# core/classe
+spl_autoload_register(function ($class_name) {
+    include PATH.'/core/classe/Classe.'.$class_name . '.php';
+});
 
 
+/*
 include_once PATH . '/core/classe/Classe.Conexao.php';
 include_once PATH . '/core/classe/Classe.Data.php';
 include_once PATH . '/core/classe/Classe.Municipio.php';
@@ -21,23 +27,24 @@ include_once PATH . '/core/classe/Classe.Usuario.php';
 include_once PATH . '/core/classe/Classe.FuncaoBase.php';
 include_once PATH . '/core/classe/Classe.SqlGenerics.php';
 include_once PATH . '/core/classe/Classe.Estado.php';
-include_once PATH . '/mod_escola/classe/Classe.Dao.php';
-include_once PATH . '/mod_escola/classe/Classe.Curso.php';
-//include_once PATH . '/core/classe/Classe.Seguranca.Acesso.php';
+include_once PATH . '/core/classe/Classe.Seguranca.Acesso.php';
 include_once PATH . '/core/classe/Classe.Html.php';
 include_once PATH . '/core/classe/Classe.Menu.php';
 include_once PATH . '/core/classe/Classe.Gravatar.php';
 include_once PATH . '/core/classe/Classe.Anexo.php';
 include_once PATH . '/core/classe/Classe.Config.php';
-include_once PATH . '/core/classe/Classe.Image.php';
-include_once PATH . '/core/Model/baseModel.php';
+include_once PATH . '/core/classe/Classe.ImageResize.php';
 include_once PATH . '/core/classe/Classe.Banco.php';
-include_once PATH . '/core/classe/Classe.Decreto.php';
+include_once PATH . '/core/classe/Classe.Decreto.php';*/
+
+
+#model
+include_once PATH . '/core/Model/baseModel.php';
 
 #@ mod cedec
-include_once PATH . '/mod_cedec/classe/Classe.Arquivo.Oficio.php';
-include_once PATH . '/mod_cedec/classe/Classe.Acesso.Cedec.php';
-include_once PATH . '/mod_cedec/classe/Classe.Anexo.Pref.php';
+include_once PATH . '/mod_cedec/classe/Classe.ArquivoOficio.php';
+include_once PATH . '/mod_cedec/classe/Classe.AcessoCedec.php';
+include_once PATH . '/mod_cedec/classe/Classe.AnexoPref.php';
 include_once PATH . '/mod_cedec/classe/Classe.Cedec.php';
 include_once PATH . '/mod_cedec/classe/Classe.DefesaAgora.php';
 include_once PATH . '/mod_cedec/classe/Classe.AguaDoce.php';
@@ -125,9 +132,11 @@ include_once PATH . '/mod_admin/classe/Classe.Conexao.php';
 #@ Mdulo Escola 
 include_once PATH . '/mod_escola/classe/Classe.Acesso.Escola.php';
 include_once PATH . '/mod_escola/classe/Classe.Professor.php';
+include_once PATH . '/mod_escola/classe/Classe.Dao.php';
+include_once PATH . '/mod_escola/classe/Classe.Curso.php';
 
 #@ Acesso Externo
-include_once PATH . '/core/classe/Classe.LoginExterno.php';
+//include_once PATH . '/core/classe/Classe.LoginExterno.php';
 
 #@ Plano Contingencia
 include_once PATH . '/mod_compdec/classe/Classe.Plano.Cont.php';
@@ -168,3 +177,4 @@ include_once PATH . '/mod_decreto/Model/ProcessodecretoModel.php';
 include_once PATH . '/mod_ajuda/Model/H_pedido_an_tecajuda_hModel.php';
 include_once PATH . '/mod_ajuda/Model/H_pedido_prestajuda_hModel.php';
 include_once PATH . '/mod_ajuda/Model/H_pedido_benefajuda_hModel.php';
+include_once PATH . '/mod_ajuda/Model/H_pedido_anexoajuda_hModel.php';

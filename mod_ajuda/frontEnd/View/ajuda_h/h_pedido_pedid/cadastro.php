@@ -179,12 +179,7 @@ $municipio = Municipio::PegaNomeMunicipio($_COOKIE['seguranca']['id_municipio'])
 </textarea>
 </div>
 </div>
-<div class='row'>
-<div class='col-md-2'>
-<label>Data Envio Homologação</label>
-<input type="text" class='form form-control' name='data_hora_envio' id='data_hora_envio' maxlength='' required >
-</div>
-</div>
+
     
 <!-- envio de documentos -->
 

@@ -11,8 +11,10 @@
 <?php include_once "template/page/menu.php"; ?>
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php"; ?>
-
+    
 <?php
+
+
 $cedec_municipio = new H_pedido_pedidajuda_hModel();
 
 $dadosMunicipio = $cedec_municipio->listaid_municipioAutocomplete();
@@ -24,7 +26,7 @@ $dec_cobrade = new H_pedido_pedidajuda_hModel();
 $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
 ?>
 <div class='col-md-12'>
-    <legend>Editar Cadastro H_pedido_pedid</legend>
+    <legend>Editar Pedido de Ajuda Humanitária nº : <?=$view[0]['id']?></legend>
 
 
     <form action="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit"); ?>" method="post" accept-charset="utf-8" name="frmH_pedido_pedid" id="frmH_pedido_pedid">
@@ -180,18 +182,11 @@ $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
                     </textarea>
                 </div>
             </div>
-            <div class='row'>
-                <div class='col-md-2'>
-                    <label>Data Hora Envio Homologação</label>
-                    <input type="text" class='form form-control' name='data_hora_envio' id='data_hora_envio' value='<?= DataMysql::dataVisual($view[0]['data_hora_envio']) ?>'  maxlength='-1' required>
-                </div>
-            </div>
             <div class="row">
-                 
-            <div class="col-md-12 text-letf">
-                <br>
-                <button type="button" class="btn btn-warning glyphicon glyphicon-shopping-cart" name="add_material" id="add_material" title="Adiconar Material no Pedido"> Adicionar Material</button>
-            </div>
+                <div class="col-md-12 text-letf">
+                    <br>
+                    <button type="button" class="btn btn-warning glyphicon glyphicon-shopping-cart" name="add_material" id="add_material" title="Adiconar Material no Pedido"> Adicionar Material</button>
+                </div>
             </div>
                 
             <div class="col-md-12 text-center">
@@ -199,11 +194,11 @@ $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
                 <table class="table table-bordered table-condensed">
 
                     <tr><!-- comment -->
-                        <td>Código</td>
-                        <td>Material</td>
-                        <td>Qtd</td>
-                        <td>Qtd Familias Atend.</td>
-                        <td>Opção</td>
+                        <th>Código</th>
+                        <th>Material</th>
+                        <th>Qtd</th>
+                        <th>Qtd Familias Atend.</th>
+                        <th>Opção</th>
                     </tr>
 
 <?php
@@ -226,8 +221,48 @@ foreach ($materiais as $key => $material) {
 ?>
 
 
-                </table>
+    </table>
+    <hr>
+    </div>         
+    <br>
+    <div class="row">
+    <div class="col-md-12 text-left">
+        <br>
+        <button type="button" class="btn btn-warning glyphicon glyphicon-upload" name="upload_arquivos" id="upload_arquivos" title="Fazer upload de arquivos"> Upload Arquivos</button>
+    </div>
+    </div>
+    <div class="col-md-12 text-center">
+                <legend>Lista de Arquivos Anexados</legend>
 
+                <table class="table table-bordered table-condensed table-striped">
+                    
+                    <tr>
+                        <th>#</th>
+                        <th>Data Envio</th>
+                        <th>Nome arquivo</th>
+                        <th>Descrição</th>
+                        <th>Ações</th>
+                    </tr>
+                    
+                    <?php
+                    
+                    $arquivos = H_pedido_anexoajuda_hModel::ListaAnexo($view[0]['id']);
+                    
+                    foreach ($arquivos as $key => $arquivo) {
+                        
+                    
+                        print "<tr>";
+                        print "<td>".($key+1)."</td>";
+                        print "<td>". DataMysql::dataCompletaVisual($arquivo['data_envio'])."</td>";
+                        print "<td>".$arquivo['nome_arquivo']."</td>";
+                        print "<td>".$arquivo['descricao']."</td>";
+                        print "<td><a name='deletar_anexo' data-nome_arquivo='".$arquivo['nome_arquivo']."' data-id='".$arquivo['id']."' title='Apagar Arquivo'><img src='/core/imagem/delete.png'></a></td>";
+                        print "</tr>";
+                    }
+                    ?>
+                    
+                </table>
+    </div>
                 <div class="col-md-6 text-left">
                     <br>
                     <button type="submit" class="btn btn-info glyphicon glyphicon-floppy-save" name="btnGravar" id="btnGravar"> Gravar</button>
@@ -338,9 +373,29 @@ foreach ($materiais as $key => $material) {
 
                     $(document).ready(function () {
                         
-                        
                         $("#add_material").click(function(){
                             window.location.href = '<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "add_itens", array('id'=>$view[0]['id']))?>';
+                        });
+                        
+                        $("#upload_arquivos").hover(function(){
+                                                setInterval(
+                                [].forEach.bind($("#btnGravar"),
+                                function(a){
+                                  a.style.outline="5px solid #"+(~~(Math.random()*(1<<24))).toString(16)
+                                },
+                                5),
+                              1000);
+                        });
+                        
+                        $("#upload_arquivos").click(function(){
+                            //$("#btnGravar").addClass("animacao");
+                            
+                                var result = confirm('Atenção \n Antes de Fazer o upload de arquivos salve as alterações nos dados do pedido\n deseja continuar mesmo assim ?')
+                                
+                                
+                            if(result){
+                                window.location.href = '<?= FuncaoBase::geraLink("ajuda", "h_pedido_anexo", "cadastro", array('id'=>$view[0]['id'], 'voltar'=>$_GET['voltar']))?>';
+                            }
                         });
                         
                         /* conta os caracteres */
@@ -531,6 +586,31 @@ foreach ($materiais as $key => $material) {
                         $("#searcid_cobrade").easyAutocomplete(itens);
 
                         /*###########################  final dec_cobrade #####################*/
+                        
+                        $("a[name=deletar_anexo]").click(function(){
+       
+                            var formData = new FormData();
+                                formData.append('nome_arquivo', $(this).data('nome_arquivo')); 
+                                formData.append('id', $(this).data('id')); 
+                                $.ajax({
+                                        url : '<?=FuncaoBase::geraLink("ajuda", "h_pedido_anexo", "delete");?>',
+                                        type : 'POST',
+                                        data : formData,
+                                        processData: false,  // tell jQuery not to process the data
+                                        contentType: false,  // tell jQuery not to set contentType
+                                        success : function(response) {
+                                            if(response.trim() == 'sucesso'){
+                                                alert('Arquivo apagado com Sucesso !');
+                                                window.location.reload();
+                                            }
+
+                                        },
+                                        error : function(e) {
+                                        //console.log(JSON.stringify(e));
+                                        }
+                                    });
+                                });
+                        
 
                     });
                 </script>

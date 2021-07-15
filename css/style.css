@@ -71,3 +71,10 @@ ficar alinhado no centro (cima-baixo)*/
 #panel-inicio{
     min-height: 500px;
 }
+
+
+/* informacao label */
+.labelInfo{
+    font-size: 10pt;
+    color: #A4A4A4;   
+}

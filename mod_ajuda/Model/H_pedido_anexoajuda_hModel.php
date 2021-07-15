@@ -1,5 +1,5 @@
 <?php
-require_once(PATH . '/core/classe/Classe.Data.php');
+//require_once(PATH . '/core/classe/Classe.Data.php');
 /* * *********************************************************************************
  * 	CEDEC-MG - Coordenadoria Estadual de Defesa Civil de Minas Gerais			  	*
  * 	
@@ -139,21 +139,24 @@ private $nome_arquivo = null;
     public static function gravar(array $dados) {
 
 
-        var_dump(self::$model);
         $sql = "INSERT INTO aju_h_pedido_anexo (id_pedido,
-nome_arquivo 
-) VALUES (:id_pedido,
-:nome_arquivo 
-)";
+                                                nome_arquivo,
+                                                data_envio,
+                                                descricao
+                                                ) VALUES (:id_pedido,
+                                                :nome_arquivo,
+                                                :data_envio,
+                                                :descricao)";
 
         try {
 
             $result = self::$con->prepare($sql);
 
             $result->bindValue(":id_pedido", $dados['id_pedido']);
-$result->bindValue(":nome_arquivo", $dados['nome_arquivo']);
+            $result->bindValue(":nome_arquivo", $dados['nome_arquivo']);
+            $result->bindValue(":data_envio", $dados['data_envio']);
+            $result->bindValue(":descricao", $dados['descricao']);
 
- 
             $result->execute();
 
             #Log::GravaLog("Cadastro de marca : " . $dados['nome'] . " " . $_COOKIE['seguranca']['login'], "aju_log");
@@ -257,7 +260,7 @@ aju_h_pedido_anexo.nome_arquivo
 
         $con = Conexao::getInstance();
 
-        $sql = "DELETE FROM aju_h_pedido_anexo WHERE id_h_pedido_anexo = " . $id;
+        $sql = "DELETE FROM aju_h_pedido_anexo WHERE id = " . $id;
 
         try {
 
@@ -430,5 +433,37 @@ aju_h_pedido_anexo.nome_arquivo
             return $e->getMessage() . "Erro ao inserir Fornecedor";
         }
     }
+    
+    
+    /**
+     * 
+     * 
+     */
+    public static function ListaAnexo($id_pedido){
+        $con = Conexao::getInstance();
 
+        $dados = array();
+
+        $sql = "SELECT id,"
+                . " id_pedido,"
+                . " nome_arquivo,"
+                . " data_envio,"
+                . " descricao"
+                . " FROM aju_h_pedido_anexo"
+                . " WHERE id_pedido = " . $id_pedido;
+
+        try {
+
+            $result = $con->query($sql);
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dados[] = $linha;
+            }
+
+            return $dados;
+        } catch (Exception $e) {
+            return $e->getMessage() . "Erro ao inserir Fornecedor";
+        }
+        
+    }
 }

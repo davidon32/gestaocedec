@@ -34,7 +34,19 @@ class Upload2mb {
         return $ext ? $ext : false;
     }
     
-/**
+    /**
+     * normalização nome do arquivo
+     */
+    public static function normalizacao($nome_arquivo){
+        
+        $result = self::removerAcentoEspaco($nome_arquivo);
+        $result = substr($result, 0, 15);
+        
+        return $result;
+    }
+
+
+    /**
  *
  * @param string $path    - caminho para arquivo
  * @param string $nome    - nome alternativo "será concatenado com data/hora envio"
@@ -61,42 +73,41 @@ class Upload2mb {
 
                 #retricao tipo arquivo
                 if(is_null($extensao)) {
-
                     $ext_permitido = "true";
-                
                 # caso haja restriçao faz o filtro
                 }else {
-                
                     $ext_permitido = in_array($ext, $extensao, false);
                 }
                 
-                if($ext_permitido){
+                    if($ext_permitido){
 
-                    $nome_arquivo = "";
-                    
-                    # sem passar o nome do arquivo, nome do arquivo conterá "_Upload_file_dia mes ano segundo"
-                    if(is_null($nome)){
-                        
-                        $nome_arquivo = $_FILES[$input]['name'];
-                        $nome_arquivo = self::removerAcentoEspaco($nome_arquivo);
-                        $nome_arquivo = substr($nome_arquivo, 0, 15);
-                    
-                    # remomeando, , nome do arquivo conterá "_Upload_file_dia mes ano segundo"
-                    }else {
-                    
-                        $nome_arquivo = $nome;
-                        $nome_arquivo = self::removerAcentoEspaco($nome_arquivo);
-                        $nome_arquivo = substr($nome_arquivo, 0, 15);
-                    
+                        $nome_arquivo = "";
+
+                        # sem passar o nome do arquivo, nome do arquivo conterá "_Upload_file_dia mes ano segundo"
+                        if(is_null($nome)){
+
+                            $nome_arquivo = self::normalizacao($_FILES[$input]['name']);
+
+
+                        # remomeando, , nome do arquivo conterá "_Upload_file_dia mes ano segundo"
+                        }else {
+
+                            $nome_arquivo = self::normalizacao($nome);                    
+                        }
+
+                        $nome_arquivo = $nome_arquivo."_Upload_file_".date('dmys').".".$ext;
+
+                        if(move_uploaded_file($arquivo[$input]['tmp_name'], PATH."/".$path."/".$nome_arquivo)){
+                            $result = array('result'=>true, 'nome_arquivo'=>$nome_arquivo);
+                        }else {
+                            $result = array('result'=>false, 'nome_arquivo'=>'');
+                        }
+
+                        return $result;
+                    }else{
+
+                        return "Extensões permitidas são : ".strtoupper(implode(", ", $extensao));
                     }
-                    
-                    $result = move_uploaded_file($arquivo[$input]['tmp_name'], $path."/".$nome_arquivo."_Upload_file_".date('dmys').".".$ext);
-                    
-                    return $result;
-                }else{
-                    
-                    return "Extensões permitidas são : ".strtoupper(implode(", ", $extensao));
-                }
             # exedido o tamanho
             }else {
 

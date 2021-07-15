@@ -89,3 +89,5 @@ function dataVisual(data){
     return dia+"/"+mes+"/"+ano;
     
 }
+
+

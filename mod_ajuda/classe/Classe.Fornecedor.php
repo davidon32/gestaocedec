@@ -1,4 +1,4 @@
-<?php require_once(PATH.'/core/classe/Classe.Data.php');
+<?php //require_once(PATH.'/core/classe/Classe.Data.php');
 /***********************************************************************************
  * 	CEDEC-MG - Coordenadoria Estadual de Defesa Civil de Minas Gerais			  	*
 * 																					*
