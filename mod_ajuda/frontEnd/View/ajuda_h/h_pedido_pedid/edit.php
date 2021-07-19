@@ -29,7 +29,7 @@ $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
     <legend>Editar Pedido de Ajuda Humanitária nº : <?=$view[0]['id']?></legend>
 
 
-    <form action="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit"); ?>" method="post" accept-charset="utf-8" name="frmH_pedido_pedid" id="frmH_pedido_pedid">
+    <form action="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit", array('voltar'=>'index')); ?>" method="post" accept-charset="utf-8" name="frmH_pedido_pedid" id="frmH_pedido_pedid">
 
         <div>
             <div class='row'>
@@ -212,8 +212,8 @@ foreach ($materiais as $key => $material) {
     print "<td>" . $material['qtd'] . "</td>";
     print "<td>" . $material['qtd_familia_atendida'] . "</td>";
     print "<td>";
-    print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'add_itens', array('id'=>$view[0]['id'], 'id_material'=>$material['id'])) . "'><img src='/core/imagem/editar.png'></a>";
-    print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_itens', 'delete', array('id'=>$material['id'], 'action1'=>'edit', 'id_pedido'=>$view[0]['id'])) . "'><img src='/core/imagem/delete.png'></a>";
+    print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'add_itens', array('id'=>$view[0]['id'], 'id_material'=>$material['id'], 'volta'=>'idx_recente')) . "'><img src='/core/imagem/editar.png'></a>";
+    print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_itens', 'delete', array('id'=>$material['id'], 'action1'=>'edit', 'id_pedido'=>$view[0]['id'], 'voltar'=>'edit_ped')) . "'><img src='/core/imagem/delete.png'></a>";
 
     print "</td>";
     print "</tr>";
@@ -374,7 +374,7 @@ foreach ($materiais as $key => $material) {
                     $(document).ready(function () {
                         
                         $("#add_material").click(function(){
-                            window.location.href = '<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "add_itens", array('id'=>$view[0]['id']))?>';
+                            window.location.href = '<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "add_itens", array('id'=>$view[0]['id'], 'voltar'=>'idx_recente'))?>';
                         });
                         
                         $("#upload_arquivos").hover(function(){

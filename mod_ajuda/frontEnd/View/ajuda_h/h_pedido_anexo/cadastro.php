@@ -1,5 +1,3 @@
-
-
 <?php include_once PATH . '/core/include.php'; ?>
 <?php include_once "core/Model/indexModel.php"; ?>
 <?php include_once "mod_ajuda/Model/indexModel.php"; ?>
@@ -25,8 +23,8 @@ if(empty($id)){
 
 ?>
 
-<legend>Cadastro de H_pedido_anexo</legend>
-<form action="<?=FuncaoBase::geraLink("ajuda", "h_pedido_anexo", "gravar");?>" method="post" accept-charset="utf-8" name="frmH_pedido_anexo" id="frmH_pedido_anexo" enctype="multipart/form-data">
+<legend>Upload de Arquivos</legend>
+<form action="<?=FuncaoBase::geraLink("ajuda", "h_pedido_anexo", "gravar", array('id'=>$id, 'voltar'=>'idx_recente'));?>" method="post" accept-charset="utf-8" name="frmH_pedido_anexo" id="frmH_pedido_anexo" enctype="multipart/form-data">
     
     <div class='row'>
 <div class='col-md-2'>

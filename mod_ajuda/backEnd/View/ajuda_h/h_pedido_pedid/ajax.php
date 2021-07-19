@@ -7,11 +7,8 @@ $opcao = isset($_POST['opcao']) ? $_POST['opcao'] :"";
 $h_pedido_pedid = new H_pedido_pedidajuda_hModel();
 
 if($opcao == 'dados_compdec') {
-
-
-$dados = $h_pedido_pedid->buscaDadosPedido($id_municipio);
-
-print json_encode($dados);
+    $dados = $h_pedido_pedid->buscaDadosPedido($id_municipio);
+    print json_encode($dados);
 
 }elseif($opcao == 'add_permissao'){
 
@@ -22,12 +19,18 @@ print json_encode($dados);
         $h_pedido_pedid->AddPermissao($_POST);
     }else {
         
-       $h_pedido_pedid->AtualizarPermissao($_POST);
-        
+       $h_pedido_pedid->AtualizarPermissao($_POST);  
     }
+    
 }elseif($opcao == 'remover_permissao'){
     
     $h_pedido_pedid->removerPermissao($_POST);
-   // $h_pedido_pedid->
+    
+}elseif($opcao == 'ck_alta_perf'){
+    
+    if(Config::AtualizaConfig('aju_h_alta_perf', $_POST['aju_h_alta_perf'])){
+        print 'sucesso';
+    }
+    
 }
 

@@ -107,7 +107,7 @@ class h_pedido_pedidController extends Controller {
         $_POST['despachante_analista'] = "";
         $_POST['despachante_dlog'] = "";
 
-        var_dump($_POST, $h_pedido_pedid->gravar($_POST));
+        $h_pedido_pedid->gravar($_POST);
     }
 
     # pesquisa registro
@@ -120,14 +120,14 @@ class h_pedido_pedidController extends Controller {
     #visualizar registro
 
     public function view() {
-        $h_pedido_pedidModel = $this->h_pedido_pedid;
+                $h_pedido_pedidModel = $this->h_pedido_pedid;
         $view = $this->h_pedido_pedid->view($_GET['id']);
         include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_pedid/view.php';
     }
 
     # editar registro
 
-    public function edit() {
+    public function edit() {      
 
         $h_pedido_pedidModel = new H_pedido_pedidajuda_hModel;
 
@@ -139,8 +139,12 @@ class h_pedido_pedidController extends Controller {
             if (!empty($result)) {
                 FuncaoBase::alert("Registro Atualizado com Sucesso !");
                 $view = $h_pedido_pedidModel->view($_POST['id']);
-                $param = array('id' => $_POST['id']);
-                $this->redirect("ajuda", "h_pedido_pedid", "view", $param);
+                $param = array('id' => $_POST['id'] );
+                if($_GET['voltar'] == 'idx_recente') {
+                    $this->redirect("ajuda", "h_pedido_pedid", "index");
+                }else {
+                    $this->redirect("ajuda", "h_pedido_pedid", "view", array('id' => $_POST['id'],'voltar'=>'idx_recente'));
+                }
             }
         } else {
 
@@ -156,13 +160,11 @@ class h_pedido_pedidController extends Controller {
         
         $voltar = isset($_GET['voltar']) ? $_GET['voltar'] : "index";
 
-        if (var_dump($this->h_pedido_pedid->delete($_GET['id']))) {
-            die();
+        if ($this->h_pedido_pedid->delete($_GET['id'])) {
             FuncaoBase::alert("Registro Apagado com Sucesso !");
         }
-        
-        
-        if ($voltar == "index_recent") {
+       
+        if ($voltar == "idx_recente") {
             $this->redirect("ajuda", "h_pedido_index", "index");
         }else if($voltar == "index") {
             $this->redirect("ajuda", "h_pedido_pedid", "index");

@@ -103,11 +103,11 @@ class h_pedido_anexoController extends Controller {
         $h_pedido_anexo = new H_pedido_anexoajuda_hModel;
         
         $municipio = $_COOKIE['seguranca']['nome_usuario'];
-        
-        
+       
         $_POST['data_envio'] = date('Y-m-d H:i:s');
         
-        $result = Upload2mb::upload("/anexo/pedido_ajuda_h", $municipio);
+        $result = Upload2mb::upload("anexo/pedido_ajuda_h", $municipio);
+        
 
         if ($result['result']){
                 $_POST['nome_arquivo'] = $result['nome_arquivo'];
@@ -115,10 +115,9 @@ class h_pedido_anexoController extends Controller {
                 FuncaoBase::alert("Upload realizado com Sucesso !");
                 $this->redirect("ajuda", "h_pedido_pedid", "edit", array('id'=>$_POST['id_pedido'], 'voltar'=>$_POST['voltar']));
         }else {
-            
-            FuncaoBase::alert($result);
-            $this->redirect("ajuda", "h_pedido_anexo", "index");
-            $this->redirect("ajuda", "h_pedido_pedido", "edit", array('id'=>$_POST['id_pedido'], 'voltar'=>$_POST['voltar']));
+            $msg = isset($result['msg']) ? $result['msg'] : "Ocorreu um erro";
+            FuncaoBase::alert($msg);
+            $this->redirect("ajuda", "h_pedido_anexo", "cadastro", array('id'=>$_GET['id'], 'voltar'=>$_GET['voltar']));
         }
     }
             

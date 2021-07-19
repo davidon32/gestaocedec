@@ -12,6 +12,8 @@
 <style>
   tr:hover {background-color: #FF8C00;}
   </style>
+  
+  
 <?php
 $id_municipio = isset($pageSession['session']['seguranca']['id_municipio']) ? $pageSession['session']['seguranca']['id_municipio'] : "";
 
@@ -78,11 +80,14 @@ foreach ($dados as $key => $value) {
     }
     
     # envio para homologação status 0=edicao
-    if($value['status'] == 0){
+    # envio para analise se nao existir processos em analise e pendente prestacao de contas
+            if( ( $pedido_h::compdecVerificaPedido($value['id_municipio'] ) ) &&
+                ( $value['status'] == "0" ) ){
         print " <a name='envia_analise' data-id_pedido='".$value['id']."'><img src='/core/imagem/envio_pedido.png' title='Envio para Analise'></a>|";
     }
     
-    print " <a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "view", array('id' => $value['id'])) . "' title='Visualiação e Impressa do Pedido'><img src='/core/imagem/impressao.png'></a> | ";
+    # Visualizar 
+    print " <a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "view", array('id' => $value['id'], 'voltar'=> 'idx_recente')) . "' title='Visualiação e Impressa do Pedido'><img src='/core/imagem/view.png'></a> | ";
 
     # prestação de  contas somente status atendido
     if ($value['status'] == 5) {
@@ -96,6 +101,9 @@ foreach ($dados as $key => $value) {
 
     print "</td>";
     print "</tr>";
+    
+    
+    
 }
 ?>
 
@@ -162,26 +170,35 @@ $(document).ready(function() {
         formData.append('data_hora_envio', '<?=date('Y-m-d H:i:s')?>');
         formData.append('tramit', 'analise_drd');
         formData.append('status', '2');
+        
+        var result = confirm('Deseja enviar este pedido para analse ?');
+        
+        if(result){
     
-        $.ajax({
-            url : '/mod_ajuda/frontEnd/View/ajuda_h/h_pedido_pedid/ajax.php',
-            type : 'POST',
-            data : formData,
-            processData: false, // tell jQuery not to process the data
-            contentType: false, // tell jQuery not to set contentType
-            success : function(response) {
-                
-                console.log(response);
-                if(response.trim() == 'sucesso'){
-                    Swal.fire('Pedido enviado para analise ! \n Aguarde o prazo e verifique o status do pedido');
-                }else {
-                    Swal.fire('Ocorreu um erro no sistema! \n gentileza enviar um \'print\' desta tela para o suporte'); 
+            $.ajax({
+                url : '/mod_ajuda/frontEnd/View/ajuda_h/h_pedido_pedid/ajax.php',
+                type : 'POST',
+                data : formData,
+                processData: false, // tell jQuery not to process the data
+                contentType: false, // tell jQuery not to set contentType
+                success : function(response) {
+
+                    //console.log(response);
+                    if(response.trim() == 'sucesso'){
+                        Swal.fire('Pedido enviado para analise ! \n Aguarde o prazo e verifique o status do pedido').then(function() {
+                                window.location.reload();
+                        }); 
+
+                    }else {
+                        Swal.fire('Ocorreu um erro no sistema! \n gentileza enviar um \'print\' desta tela para o suporte')
+                    }
+
+                },
+                error : function(e) {
+                //console.log(JSON.stringify(e));
                 }
-            },
-            error : function(e) {
-            //console.log(JSON.stringify(e));
-            }
-    });
+            });
+        }
     });
 
 

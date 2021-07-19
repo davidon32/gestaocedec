@@ -61,31 +61,28 @@ print "<tr>
                     
             print "<td>";
             
-            # envio para analise se nao existir processos em analise e pendente prestacao de contas
-            if( ( $pedido_pedid::compdecVerificaPedido($h_pedido_pedid['id_municipio'] ) ) &&
-                ( $h_pedido_pedid['status'] == "0" ) ){
-                print "<a href='#' id='enviar_analise_drd' data-id_pedido='".$h_pedido_pedid['id']."'><img src='/core/imagem/analise.png' title='Enviar para analise'></a>|";
-            }
-            
-            # ver registro
-            print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "view", array('id' => $h_pedido_pedid['id'])) . "'><img src='/core/imagem/view.png' title='Visualizar Registro'></a>|";
-            
             # editar somente em fase status 0=edicao
             if($h_pedido_pedid['status'] == 0){
                 print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit", array('id' => $h_pedido_pedid['id'], 'voltar'=>'idx_index')) . "'><img src='/core/imagem/editar.png' title='Editar Registro'></a>|";
             }
             
-            # envio para homologação status 0=edicao
-            if($h_pedido_pedid['status'] == 0){
-                print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "envio", array('id' => $h_pedido_pedid['id'], 'voltar'=>'idx_index')) . "'><img src='/core/imagem/envio_pedido.png' title='Editar Registro'></a>|";
+            # envio para analise se nao existir processos em analise e pendente prestacao de contas
+            if( ( $pedido_pedid::compdecVerificaPedido($h_pedido_pedid['id_municipio'] ) ) &&
+                ( $h_pedido_pedid['status'] == "0" ) ){
+                print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "envio", array('id' => $h_pedido_pedid['id'], 'voltar'=>'idx_index')) . "'><img src='/core/imagem/envio_pedido.png' title='Enviar para Homologação'></a>|";
             }
+            
+            # Visualizar
+            print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "view", array('id' => $h_pedido_pedid['id'], 'voltar'=>'index')) . "'><img src='/core/imagem/view.png' title='Visualizar Registro'></a>|";
+            
+            
             
             # prestação de  contas somente status atendido
             if($h_pedido_pedid['status'] == 5){
                 print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'pcont')."' id='prestConta' title='Presatação de contas'><img width='25' src='/core/imagem/relatorio.png'></a>";
             }
             
-            # somente pedido status 0=edicao e 6=cancelado pode ser deletado
+            # deletar somente pedido status 0=edicao e 6=cancelado pode ser deletado
             if( ( $h_pedido_pedid['status'] == 0 ) || ($h_pedido_pedid['status'] == 6 ) ){
                 print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "delete", array('id' => $h_pedido_pedid['id'])) . "' onclick=\"return confirm('Deseja Deletar esse Registro ?')\"><img src='/core/imagem/delete.png' title='Deletar Registro'></a>";
             }

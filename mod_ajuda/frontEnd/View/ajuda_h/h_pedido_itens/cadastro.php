@@ -24,7 +24,7 @@ if (isset($_GET['id'])) {
 ?>
 
 <legend>Lancamento de Item de Pedido</legend>
-<form action="<?= FuncaoBase::geraLink("ajuda", "h_pedido_itens", "gravar"); ?>" method="post" accept-charset="utf-8" name="frmH_pedido_itens" id="frmH_pedido_itens">
+<form action="<?= FuncaoBase::geraLink("ajuda", "h_pedido_itens", "gravar", array('voltar'=>'idx_recente')); ?>" method="post" accept-charset="utf-8" name="frmH_pedido_itens" id="frmH_pedido_itens">
 
 <div class='row'>
         <div class="col-md-6">

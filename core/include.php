@@ -12,7 +12,7 @@ include_once PATH . '/vendor/mimemessage/sendmail_message.php';
 
 include PATH.'/vendor/autoload.php';
 
-# core/classe
+# core/classe 
 spl_autoload_register(function ($class_name) {
     include PATH.'/core/classe/Classe.'.$class_name . '.php';
 });
@@ -65,7 +65,6 @@ include_once PATH . '/mod_pipa/classe/Classe.rpa.php';
 include_once PATH . '/mod_pipa/classe/Classe.Comunidade.php';
 include_once PATH . '/mod_pipa/classe/Classe.Pmda.php';
 include_once PATH . '/mod_pipa/classe/Classe.PontoCap.php';
-
 include_once PATH . '/mod_pipa/classe/Classe.EquipeCompdec.php';
 include_once PATH . '/mod_pipa/classe/Classe.RepPmda.php';
 include_once PATH . '/mod_pipa/classe/Classe.AnexoPmda.php';
@@ -122,12 +121,17 @@ include_once PATH . '/mod_compdec/classe/Classe.AnexoCompdec.php';
 include_once PATH . '/mod_equipe/classe/Classe.Acesso.Equipe.php';
 include_once PATH . '/mod_equipe/classe/Classe.Equipe.Funcionario.php';
 include_once PATH . '/mod_equipe/classe/Classe.Equipe.Dsp.php';
+
+
 include_once PATH . '/mod_equipe/Model/FuncionarioEquipeModel.php';
 
 #@ administracao
 include_once PATH . '/mod_admin/classe/Classe.Msg.php';
 include_once PATH . '/mod_admin/classe/Classe.Conexao.php';
 
+
+include_once PATH . '/mod_admin/Model/ReleaseModel.php';
+include_once PATH . '/mod_admin/Model/dashboardModel.php';
 
 #@ Mdulo Escola 
 include_once PATH . '/mod_escola/classe/Classe.Acesso.Escola.php';
@@ -140,7 +144,6 @@ include_once PATH . '/mod_escola/classe/Classe.Curso.php';
 
 #@ Plano Contingencia
 include_once PATH . '/mod_compdec/classe/Classe.Plano.Cont.php';
-
 include_once PATH .'/mod_cedec/backEnd/Model/DefesaCivilAgoraModel.php';
 
 # estoque
@@ -165,16 +168,21 @@ include_once PATH . '/mod_ajuda/Model/MontagemConEstoqueModel.php';
 include_once PATH . '/mod_ajuda/Model/RelatorioConEstoqueModel.php';
 include_once PATH . '/mod_ajuda/Model/EventoConEstoqueModel.php';
 include_once PATH . '/mod_ajuda/Model/TransferenciaConEstoqueModel.php';
-include_once PATH . '/mod_admin/Model/ReleaseModel.php';
-include_once PATH . '/mod_ajuda/Model/H_pedido_pedidajuda_hModel.php';
-include_once PATH . '/mod_ajuda/Model/H_pedido_itensajuda_hModel.php';
-include_once PATH . '/mod_admin/Model/dashboardModel.php';
-include_once PATH . '/mod_teste/Model/TesteModel.php';
-include_once PATH . '/mod_decreto/Model/PermissaodecretoModel.php';
-include_once PATH . '/mod_decreto/Model/ProcessodecretoModel.php';
-include_once PATH . '/mod_decreto/Model/CobradeModel.php';
-include_once PATH . '/mod_decreto/Model/ProcessodecretoModel.php';
 include_once PATH . '/mod_ajuda/Model/H_pedido_an_tecajuda_hModel.php';
 include_once PATH . '/mod_ajuda/Model/H_pedido_prestajuda_hModel.php';
 include_once PATH . '/mod_ajuda/Model/H_pedido_benefajuda_hModel.php';
 include_once PATH . '/mod_ajuda/Model/H_pedido_anexoajuda_hModel.php';
+include_once PATH . '/mod_ajuda/Model/H_pedido_pedidajuda_hModel.php';
+include_once PATH . '/mod_ajuda/Model/H_pedido_itensajuda_hModel.php';
+
+
+
+include_once PATH . '/mod_decreto/Model/PermissaodecretoModel.php';
+include_once PATH . '/mod_decreto/Model/ProcessodecretoModel.php';
+include_once PATH . '/mod_decreto/Model/CobradeModel.php';
+include_once PATH . '/mod_decreto/Model/ProcessodecretoModel.php';
+
+
+
+
+include_once PATH . '/mod_teste/Model/TesteModel.php';

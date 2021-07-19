@@ -25,7 +25,7 @@
 <div class="col-md-12">
 <div class="row">
 <div class="col-md-6">
-<a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "cadastro")?>">Novo Pedido</a>
+<!--<a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "cadastro")?>">Novo Pedido</a>-->
 <a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "index")?>">Pesquisa</a>
 </div>
 <div class="col-md-6">
@@ -52,15 +52,32 @@
         </tr>
         <?php
         
-        $permissao = $pedido_h->buscaAnalista($id_usuario);
+        $dadosConfig = Config::getConfig();
+        
+        $permissao[] = array('analista_drd'=>0, 'analista_dlog'=>0, 'analista_coord'=>0);
+        
+        
+        
+        if($dadosConfig['aju_h_alta_perf'] == 1){
+            
+            $permissao[0]['analista_drd'] = '1';
+            $permissao[0]['analista_dlog'] = '1';
+            $permissao[0]['analista_coord'] = '1';
+                                
+        }else {
+
+            $permissao = $pedido_h->buscaAnalista($id_usuario);
+                
+        }
+        
      
         $listaPedido = $pedido_h->buscaPedidoH();
         $total_reg = 0;
-        
-        
+
         foreach ($listaPedido as $key => $pedid) {
             # get permissao
-
+            
+            
             if(($pedid['tramit']== 'analise_drd' && $permissao[0]['analista_drd'] == '1') ||
             ($pedid['tramit']== 'analise_dlog' && $permissao[0]['analista_dlog'] == '1') || 
             ($pedid['tramit']== 'analise_coord' && $permissao[0]['analista_coord'] == '1')) {
@@ -78,33 +95,28 @@
                 <td>";
                 print "<a href='".FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit', array('id'=> $pedid['id']))."' title='Editar Pedido'><img src='/core/imagem/editar.png'></a> |";
                 print "<a href='".FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "impressao", array('id'=> $pedid['id']))."' title='Visualiação e Impressa do Pedido'><img src='/core/imagem/impressao.png'></a> |";
-                print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'peido_itens', 'pcont')."' title='Presatação de contas'><img width='25' src='/core/imagem/relatorio.png'></a>";
+                
+                #prestação de contas
+                if($pedid['status'] == 5){
+                    print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'pedido_itens', 'pcont')."' title='Presatação de contas'><img width='25' src='/core/imagem/relatorio.png'></a>";
+                }
                 
                 # analise DRD
                 if($permissao[0]['analista_drd'] == 1) {
-                    # editar
-                    print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'peido_itens', 'edit', array('id' => $pedid['id'], 'voltar'=>'idx_recente'))."' title='Analise DRD'><img width='25' src='/core/imagem/cedec.png'></a>";
-                }else {
-                    # visualizar
-                    print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'peido_itens', 'view')."' title='Analise DRD'><img width='25' src='/core/imagem/cedec.png'></a>";
+                    
+                    print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar'=>'idx_recente', 'an'=>'analise_drd'))."' title='Analise DRD'><img width='25' src='/core/imagem/cedec.png'></a>";
                 }
                 
                 # analise_dlog
                 if($permissao[0]['analista_dlog'] == 1) {
-                    # editar
-                    print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'peido_itens', 'edit')."' title='Analise DLOG'><img width='25' src='/core/imagem/dlog.png'></a>";
-                }else {
-                    # visualizar
-                    print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'peido_itens', 'view')."' title='Analise DLOG'><img width='25' src='/core/imagem/dlog.png'></a>"; 
+                    
+                    print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'analise_dlog')."' title='Analise DLOG'><img width='25' src='/core/imagem/dlog.png'></a>";
                 }
                 
                 # analise_coord
                 if($permissao[0]['analista_coord'] == 1) {
-                    # editar
-                    print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'peido_itens', 'edit')."' title='Analise Coord. Adjuto'><img width='25' src='/core/imagem/boss.png'></a>";
-                }else {
-                    # visualizar
-                    print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'peido_itens', 'view')."' title='Analise Coord. Adjuto'><img width='25' src='/core/imagem/boss.png'></a>";
+                    
+                    print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'analise_coord')."' title='Analise Coord. Adjuto'><img width='25' src='/core/imagem/boss.png'></a>";
                 }
                 
                 print "</td>";

@@ -53,8 +53,11 @@ class Upload2mb {
  * @param array $extensao - restrição de tipos aceitos ex. array(pdf) 
  * @return void
  */
-    public static function upload($path, $nome=null, array $extensao = null){ 
-
+    public static function upload($path, $nome=null, array $extensao = null){
+        
+        $result = array('result'=>'',
+                        'nome_arquivo'=>'',
+                        'msg'=>'');
 
 
         if(!empty($_FILES)){
@@ -91,37 +94,51 @@ class Upload2mb {
 
                         # remomeando, , nome do arquivo conterá "_Upload_file_dia mes ano segundo"
                         }else {
-
                             $nome_arquivo = self::normalizacao($nome);                    
                         }
 
                         $nome_arquivo = $nome_arquivo."_Upload_file_".date('dmys').".".$ext;
 
+                        # sucesso no upload
                         if(move_uploaded_file($arquivo[$input]['tmp_name'], PATH."/".$path."/".$nome_arquivo)){
-                            $result = array('result'=>true, 'nome_arquivo'=>$nome_arquivo);
+                            $result = array('result'=>true,
+                                            'nome_arquivo'=>$nome_arquivo,
+                                           'msg'=>"Upload de arquivo ralizado com sucesso");
+                        
+                        # erro de sistema
                         }else {
-                            $result = array('result'=>false, 'nome_arquivo'=>'');
+                            $result = array('result'=>false,
+                                            'nome_arquivo'=>'',
+                                            'msg'=>"Ocorreu um erro ao realizar esta operação, tente mais tarde !");
                         }
 
                         return $result;
+                    
+                    # extensao não permitida    
                     }else{
+                        $result = array('result'=>false,
+                        'nome_arquivo'=>'',
+                        'msg'=>"Extensões permitidas : ".strtoupper(implode(", ", $extensao)));
 
-                        return "Extensões permitidas são : ".strtoupper(implode(", ", $extensao));
                     }
             # exedido o tamanho
             }else {
-
-                return "Tamanho arquivo Excedido ! <br>O arquivo não pode ser maior que : 2MB ou 2000 Kb.";
+                $result = array('result'=>false,
+                                'nome_arquivo'=>"",
+                                'msg'=>"Tamanho arquivo Excedido ! \nO arquivo não pode ser maior que : 2MB ou 2000 Kb.");
             
             }
 
-        # nao escolheu o arquivo    
+        # nao escolheu o arquivo  / ou muito grande  
         }else {
-
-            return "Arquivo muito Grande ou ! <br>O arquivo não pode ser maior que : 2MB ou 2000 Kb.";
-
+            $result = array('result'=>false,
+                        'nome_arquivo'=>'',
+                        'msg'=>'Arquivo muito Grande ou ! não foi Escolhido \nO arquivo não pode ser maior que : 2MB ou 2000 Kb.');
         }
+    
+        return $result;
     }
+    
 
 }
 

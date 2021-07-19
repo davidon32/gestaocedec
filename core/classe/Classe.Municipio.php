@@ -178,7 +178,45 @@ class Municipio extends DataMysql {
 
         $con = Conexao::getInstance();
 
-        $sql = "SELECT * FROM cedec_municipio WHERE id_municipio = :id_municipio";
+        $sql = "SELECT cedec_municipio.id_municipio,
+   cedec_municipio.nome as nome,
+   cedec_municipio.macroregiao,
+   cedec_municipio.latitude,
+   cedec_municipio.longitude,
+   cedec_municipio.latitude_dec,
+   cedec_municipio.longitude_dec,
+   cedec_municipio.distancia_bh,
+   cedec_municipio.populacao,
+   cedec_municipio.territorio_desenv,
+   cedec_municipio.tel,
+   cedec_municipio.fax,
+   cedec_municipio.endereco,
+   cedec_municipio.bairro,
+   cedec_municipio.cep,
+   cedec_municipio.email,
+   cedec_municipio.tel_pref,
+   cedec_municipio.cel_pref,
+   cedec_municipio.pop_rural,
+   cedec_municipio.qtd_pipa,
+   cedec_municipio.prefeito,
+   cedec_municipio.area,
+   cedec_municipio.aliquota_iss,
+   cedec_municipio.resp_cob_iss,
+   cedec_municipio.num_lei_iss,
+   cedec_municipio.cobra_iss,
+   cedec_municipio.CodUf,
+   cedec_municipio.Codmundv,
+   cedec_municipio.Codmun,
+   cedec_municipio.id_meso,
+   cedec_municipio.id_micro,
+   cedec_meso.nome as mesorregiao,
+   cedec_micro.nome as microrregiao
+    FROM gestaocedec.cedec_municipio
+    inner join cedec_meso
+    on cedec_municipio.id_meso = cedec_meso.id_meso
+    inner join cedec_micro
+    on cedec_municipio.id_micro = cedec_micro.id_micro
+    where cedec_municipio.id_municipio = :id_municipio";
 
         $result = $con->prepare($sql);
 

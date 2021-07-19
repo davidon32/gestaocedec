@@ -324,8 +324,7 @@ decreto_se_ecp_vig= :decreto_se_ecp_vig,
 numero_decreto= :numero_decreto,
 data_vigencia= :data_vigencia,
 tipo_decreto= :tipo_decreto,
-esforcos_realizados= :esforcos_realizados,
-data_hora_envio= :data_hora_envio
+esforcos_realizados= :esforcos_realizados
             WHERE id = :id";
 
         try {
@@ -354,8 +353,6 @@ $result->bindValue(":numero_decreto", $dados['numero_decreto']);
 $result->bindValue(":data_vigencia", DataMysql::dataForm($dados['data_vigencia']));
 $result->bindValue(":tipo_decreto", $dados['tipo_decreto']);
 $result->bindValue(":esforcos_realizados", $dados['esforcos_realizados']);
-$result->bindValue(":data_hora_envio", DataMysql::dataForm($dados['data_hora_envio']));
-
             
             $result->execute();
 
@@ -811,7 +808,7 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
             if(is_null($dado)){
                 return 1;
             }else {
-                return $dado+1;
+                return (int)$dado+1;
             }
         } catch (Exception $e) {
             return $e->getMessage() . "Ocorreu um erro !";
@@ -1315,12 +1312,14 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
         
         $con = Conexao::getInstance();
         $sql = "update aju_h_pedido_pedid set tramit = :tramit,
-                                           status = 2
+                                           status = 2,
+                                           data_hora_envio = :data_hora_envio
                                            where id = :id_pedido";
 
         try {
             $result = $con->prepare($sql);
             $result->bindValue(":id_pedido", $dados['id_pedido']);
+            $result->bindValue(":data_hora_envio", $dados['data_hora_envio']);
             $result->bindValue(":tramit", $dados['tramit']);
             
             $result->execute();
@@ -1330,6 +1329,5 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
             return $e->getMessage() . "-";
         }      
     }
-    
-       
+
 }

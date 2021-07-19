@@ -30,7 +30,10 @@ class Config {
         $result['h_pedido_itens'] = 'MÓDULO AJUDA HUMANITARIA';
         $result['h_pedido_prest'] = 'MÓDULO AJUDA HUMANITARIA';
         $result['h_pedido_benef'] = 'MÓDULO AJUDA HUMANITARIA';
+        $result['h_pedido_anexo'] = 'MÓDULO AJUDA HUMANITARIA';
+        $result['h_pedido_an_tec'] = 'MÓDULO AJUDA HUMANITARIA';
 
+        
         
         return isset($result[$controller]) ? $result[$controller] : $controller;
     }
@@ -49,5 +52,60 @@ class Config {
         
         return isset($result[$controller]) ? $result[$controller] : $controller;
     }
-}
-?>
+    
+    
+    /**
+     * Marca checkbox Alta performance
+     * 
+     */
+    public static function AtualizaConfig($campo, $valor) {
+        
+        $con = Conexao::getInstance();
+        $sql = "update cedec_config set ".$campo." = :campo
+                                               where id = 1";
+        try {
+            $result = $con->prepare($sql);
+            $result->bindValue(":campo", $valor);
+            
+            $result->execute();
+
+            return true;
+        } catch (Exception $e) {
+            return $e->getMessage() . "-";
+        }      
+        
+    }
+    
+    
+    /**
+     * Busca dados Config
+     * 
+     */
+    public static function getConfig() {
+        
+        $con = Conexao::getInstance();
+        
+        $dado = "";
+        
+        $sql = "select *from cedec_config limit 1";
+        
+        
+        try {
+
+            $result = $con->query($sql);
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dado = $linha;
+            }
+            
+            return $dado;
+            
+        } catch (Exception $e) {
+            return $e->getMessage() . "Erro get Config!";
+        }
+        
+               
+        
+    }
+       
+}?>

@@ -165,6 +165,45 @@ foreach ($materiais as $key => $material) {
         </div>
     </div>
 
+   <div class="row table-responsive">
+       <div class='col-md-1'>
+        </div>
+       <div class="col-md-10">
+                <legend>Lista de Arquivos Anexados</legend>
+
+                <table class="table table-bordered table-condensed table-striped">
+                    
+                    <tr>
+                        <th>#</th>
+                        <th>Data Envio</th>
+                        <th>Nome arquivo</th>
+                        <th>Descrição</th>
+                        <th>Ações</th>
+                    </tr>
+                    
+                    <?php
+                    
+                    $arquivos = H_pedido_anexoajuda_hModel::ListaAnexo($view[0]['id']);
+                    
+                    foreach ($arquivos as $key => $arquivo) {
+                        
+                    
+                        print "<tr>";
+                        print "<td>".($key+1)."</td>";
+                        print "<td>". DataMysql::dataCompletaVisual($arquivo['data_envio'])."</td>";
+                        print "<td>".$arquivo['nome_arquivo']."</td>";
+                        print "<td>".$arquivo['descricao']."</td>";
+                        print "<td><a name='deletar_anexo' data-nome_arquivo='".$arquivo['nome_arquivo']."' data-id='".$arquivo['id']."' title='Apagar Arquivo'><img src='/core/imagem/delete.png'></a></td>";
+                        print "</tr>";
+                    }
+                    ?>
+                    
+                </table>
+       </div>
+       <div class='col-md-1'>
+        </div>
+    </div>
+
 <?php
 
 $analises_tecnica = H_pedido_an_tecajuda_hModel::listAnalise($view[0]['id']);
@@ -243,10 +282,15 @@ foreach ($analises_tecnica as $key => $analise) {
 
     
     
-?>
 
-<a class="btn btn-success" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "index") ?>">Voltar</a>
-<a class="btn btn-info" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit", array('id'=>$view[0]['id'])) ?>">Editar</a>
+if($_GET['voltar'] == 'idx_recente'){
+    print "<a class=\"btn btn-success\" href=\"".FuncaoBase::geraLink("ajuda", "h_pedido_index", "index")."\">Voltar</a>";
+}else{
+    print "<a class=\"btn btn-success\" href=\"".FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "index")."\">Voltar</a>";
+}
+
+        ?>
+<!--<a class="btn btn-info" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit", array('id'=>$view[0]['id'])) ?>">Editar</a>-->
 <br>
 <br>
 

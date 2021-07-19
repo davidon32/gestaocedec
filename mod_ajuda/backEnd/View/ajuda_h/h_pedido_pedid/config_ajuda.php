@@ -16,6 +16,8 @@
     
     $h_pedido_pedid = new H_pedido_pedidajuda_hModel();
     
+    $alta_perf = Config::getConfig();
+    
 
 ?>
 
@@ -29,7 +31,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="checkbox">
-                <label><input type="checkbox" name="ck_alta_performance" id="ck_alta_performance"> Manter Fluxo de analise de Alta Performance ?</label>
+                <label><input type="checkbox" name="ck_alta_performance" id="ck_alta_performance" <?=($alta_perf['aju_h_alta_perf'] == 1 ? "checked" :"")?>> Manter Fluxo de analise de Alta Performance ?</label>
                 <br><span style="font-size: 12px; color: #666666; font-style: italic"> *Nessa modalidade, os processos são analisados, por qualquer analista, não obedecendo as suas devidas Diretorias.</span>
             </div>  
         </div>
@@ -163,9 +165,30 @@
             $("#btn_add_permissao").show();
         });
         
-        
-        
-        
+        $("#ck_alta_performance").change(function(){
+            var result = $("#ck_alta_performance").is(':checked') ? 1 : 0;
+            var formData = new FormData();
+		formData.append('opcao', 'ck_alta_perf');
+		formData.append('aju_h_alta_perf', result); 
+           $.ajax({
+		url : '/mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/ajax.php',
+		type : 'POST',
+		data : formData,
+		processData: false,  // tell jQuery not to process the data
+		contentType: false,  // tell jQuery not to set contentType
+		success : function(response) {
+                    console.log(response);
+                    //Swal.fire('Gravação realizada com Sucesso !').then(function(){
+                        //window.location.reload();
+                    //});//
+		},
+		error : function(e) {
+		//console.log(JSON.stringify(e));
+		}
+            });
+
+            
+        });
         
         $("#btn_add_permissao").click(function(){
             
@@ -188,8 +211,9 @@
 		processData: false,  // tell jQuery not to process the data
 		contentType: false,  // tell jQuery not to set contentType
 		success : function(response) {
-                    Swal.fire('Cadastro realizada com Sucesso !')
-                    window.location.reload();
+                    Swal.fire('Cadastro realizada com Sucesso !').then(function(){
+                        window.location.reload();
+                    });
 		},
 		error : function(e) {
 		//console.log(JSON.stringify(e));

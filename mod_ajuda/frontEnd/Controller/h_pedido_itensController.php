@@ -101,11 +101,18 @@ class h_pedido_itensController extends Controller {
 
     public function gravar() {
         
+        //var_dump($_GET);
+        
         $h_pedido_itens = new H_pedido_itensajuda_hModel;
         
         if ($h_pedido_itens->gravar($_POST)) {
             FuncaoBase::alert("Registro Gravado com Sucesso !");
-            $this->redirect("ajuda", "h_pedido_itens", "cadastro", array('id'=>$_POST['id']));
+            
+            if($_GET['voltar']== 'idx_recente'){
+                $this->redirect("ajuda", "h_pedido_pedid", "add_itens", array('id'=>$_POST['id'], 'voltar'=>'idx_recente'));
+            }else {
+                //$this->redirect("ajuda", "h_pedido_itens", "cadastro", array('id'=>$_POST['id']));
+            }
         }
     }
             
@@ -150,11 +157,17 @@ class h_pedido_itensController extends Controller {
     
     /*  deletar registro */
     public function delete() {
-
+        
        if($this->h_pedido_itens->delete($_GET['id'])){
            FuncaoBase::alert("Registro Apagado com Sucesso !");
        }
-        $this->redirect("ajuda", "h_pedido_itens", "cadastro", array('id'=>$_GET['id_pedido']));
+       
+       if($_GET['voltar'] == 'idx_recente'){
+            $this->redirect("ajuda", "h_pedido_pedid", "add_itens", array('id'=>$_GET['id_pedido'], 'voltar'=>'idx_recente'));
+       }elseif($_GET['voltar']== 'edit_ped') {
+            $this->redirect("ajuda", "h_pedido_pedid", "edit", array('id'=>$_GET['id_pedido'], 'voltar'=> 'idx_recente'));
+       }
+       
        
         
     }

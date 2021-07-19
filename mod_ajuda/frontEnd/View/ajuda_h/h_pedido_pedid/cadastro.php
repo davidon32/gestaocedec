@@ -13,19 +13,17 @@
 <?php
 
 
-$cedec_municipio = new H_pedido_pedidajuda_hModel();
+$pedid_model = new H_pedido_pedidajuda_hModel();
   
-$dadosMunicipio = $cedec_municipio->listaid_municipioAutocomplete();
-
-$com_regiao = new H_pedido_pedidajuda_hModel();
+$dadosMunicipio = $pedid_model->listaid_municipioAutocomplete();
+ 
+$dadosRegiao = $pedid_model->listaid_regiaoAutocomplete();
   
-$dadosRegiao = $com_regiao->listaid_regiaoAutocomplete();
-
-$dec_cobrade = new H_pedido_pedidajuda_hModel();
-  
-$dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
+$dadosCobrade = $pedid_model->listaid_cobradeAutocomplete();
     
-$municipio = Municipio::PegaNomeMunicipio($_COOKIE['seguranca']['id_municipio']);    
+$id_municipio = $_COOKIE['seguranca']['id_municipio'];  
+
+$dados = Municipio::dadosMunicipio($id_municipio);
 
 ?>
 
@@ -37,7 +35,7 @@ $municipio = Municipio::PegaNomeMunicipio($_COOKIE['seguranca']['id_municipio'])
 <div class='row'>
 <div class='col-md-2'>
 <label>Data Entrada Sistema</label>
-<input type="text" class='form form-control' name='data_entrada_sistema' id='data_entrada_sistema' maxlength='' required >
+<input type="text" class='form form-control' name='data_entrada_sistema' id='data_entrada_sistema' maxlength='' required value='<?=date('d/m/Y')?>'>
 </div>
 </div>
 
@@ -45,18 +43,16 @@ $municipio = Municipio::PegaNomeMunicipio($_COOKIE['seguranca']['id_municipio'])
 <div class='col-md-6'>
 <label>Identificador Municipio</label>
 <div class="input-group">
-    <input type="text" class='form form-control' name='nomeMunicipio_fk' id='nomeMunicipio_fk' required readonly='readonly' value="<?=$municipio;?>">
-</div><input type="hidden" name='id_municipio' id='id_municipio' required readonly='readonly' value="<?=$_COOKIE['seguranca']['id_municipio']?>">
+    <input type="text" class='form form-control' name='nomeMunicipio_fk' id='nomeMunicipio_fk' required readonly='readonly' value="<?=$dados['nome'];?>">
+    <input type="hidden" name='id_municipio' id='id_municipio' required readonly='readonly' value="<?=$dados['id_municipio']?>">
+</div>
 </div>
 </div>
 <div class='row'>
 <div class='col-md-3'>
 <label>Identificador Mesorregião</label>
-<div class="input-group">
-<input type="text" class='form form-control' name='nomeRegiao_fk' id='nomeRegiao_fk' required readonly='readonly'>
-<span onclick="" class="input-group-addon" id="btnBuscaid_regiao">
-                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-            </span> </div><input type="hidden" name='id_regiao' id='id_regiao' required readonly='readonly'>
+<input type="text" class='form form-control' name='nomeRegiao_fk' id='nomeRegiao_fk' required readonly='readonly' value='<?=$dados['mesorregiao']?>'>
+<input type="hidden" name='id_regiao' id='id_regiao' required readonly='readonly'>
 </div>
 </div>
 <div class='row'>
@@ -180,37 +176,7 @@ $municipio = Municipio::PegaNomeMunicipio($_COOKIE['seguranca']['id_municipio'])
 </div>
 </div>
 
-    
-<!-- envio de documentos -->
-
-<div class="table-responsive">
-
-    <table class="table table-bordered table-condensed">
-
-    <tr><!-- comment -->
-    <td>Código</td>
-    <td>nome</td>
-    <td>Descrição</td>
-    <td>Opção</td>
-    </tr>
-
-    <?php
-    $anexos = H_pedido_pedidajuda_hModel::listaAnexo($view[0]['id']);
-
-    foreach ($anexos as $key => $anexo) {
-
-        print "<tr>";
-        print "<td>" . $anexo['codigo'] . "</td>";
-        print "<td>" . $anexo['nome'] . "</td>";
-        print "<td>" . $anexo['descricao'] . "</td>";
-        print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'delete', array('id'=>$anexo['id']))  . "'><img src='/core/imagem/delete.png'></a>";
-        print "</td>";
-        print "</tr>";
-    }
-    ?>
-    </table>
-</div> 
-    
+        
     <div class="col-md-12 text-center">
         <br>
         <a class="btn btn-success" href="<?=FuncaoBase::geraLink("ajuda", "h_pedido_index", "index")?>">Voltar</a>

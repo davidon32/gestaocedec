@@ -162,7 +162,7 @@ tramit_parecer
             $result->bindValue(":id_usuario", $dados['id_usuario']);
 $result->bindValue(":id_pedido", $dados['id_pedido']);
 $result->bindValue(":data_parecer", DataMysql::dataForm($dados['data_parecer']));
-$result->bindValue(":parecer", $dados['parecer']);
+$result->bindValue(":parecer", nl2br($dados['parecer']));
 $result->bindValue(":tramit_parecer", $dados['tramit_parecer']);
 
  
@@ -472,7 +472,7 @@ aju_h_pedido_an_tec.tramit_parecer
                 data_parecer,
                 parecer,
                 tramit_parecer
-                FROM aju_h_pedido_an_tec;
+                FROM aju_h_pedido_an_tec
                 where id_pedido =".$id_pedido;
         try {
 

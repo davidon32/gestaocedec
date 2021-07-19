@@ -29,7 +29,7 @@ if (isset($id)) {
 }
 ?>    
 <div class="container-fluid">
-    <form action="<?= FuncaoBase::geraLink("ajuda", "h_pedido_itens", "gravar") ?>" method="POST" name="frmAdd" id="frmAdd">
+    <form action="<?= FuncaoBase::geraLink("ajuda", "h_pedido_itens", "gravar", array('id'=>$id, 'voltar'=> $_GET['voltar'])) ?>" method="POST" name="frmAdd" id="frmAdd">
         <!-- material -->
         <div class='row'>
 
@@ -108,7 +108,7 @@ foreach ($materiais as $key => $material) {
     print "<td class='col-md-2'>" . $material['qtd_familia_atendida'] . "</td>";
     print "<td class='col-md-1'>";
     print "<img id='editar' src='/core/imagem/editar.png'>";
-    print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_itens', 'delete', array('id' => $material['id'], 'id_pedido' => $id_pedido)) . "'><img src='/core/imagem/delete.png'></a>";
+    print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_itens', 'delete', array('id' => $material['id'], 'id_pedido' => $id_pedido, 'voltar'=>'idx_recente')) . "'><img src='/core/imagem/delete.png'></a>";
     print "</td>";
     print "</tr>";
 }
@@ -122,7 +122,7 @@ foreach ($materiais as $key => $material) {
     </div>
     <div class="col-md-12 text-right">
                 <br>
-                <a class="btn btn-success" href='<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit", array('id' => $id_pedido)); ?>'>Voltar</a>  
+                <a class="btn btn-success" href='<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit", array('id' => $id_pedido, 'voltar'=>'idx_recente')); ?>'>Voltar</a>  
             </div>
 </div>
 <?php include_once "template/page/corpoRodape.php"; ?>
