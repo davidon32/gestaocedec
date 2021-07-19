@@ -34,20 +34,20 @@
 </div>
     
     Total Registros : <span id='total_registro'></span>
-<table class="table table-bordered">
+<table class="table table-condensed">
         <tr>
             <th colspan="8">Pedidos Recentes</th>
         </tr>
      <tbody>
         <tr>
-            <td>Nr</td>
-            <td>Municipio</td>
-            <td>Data</td>
-            <td>Tipo</td>
-            <td>Status</td>
-            <td>Fase do Processo</td>
-            <td>Data Envio Analise</td>
-            <td>Ações</td>
+            <th>Nr</th>
+            <th>Municipio</th>
+            <th>Data</th>
+            <th>Tipo</th>
+            <th>Status</th>
+            <th>Fase do Processo</th>
+            <th>Data Envio Analise</th>
+            <th>Ações</th>
             
         </tr>
         <?php
@@ -84,14 +84,15 @@
             
                 $total_reg++;
                 $cor = $pedido_h->getCorStatus($pedid['status']);
-                print "<tr style='background-color:".$cor."'>
+
+                print "<tr style='color:".$cor['fonte']."; background-color:".$cor['fdo']."'>
                 <td>".$pedid['numero']."-".substr($pedid['data_entrada_sistema'], 0, 4)."</td>
                 <td>".Municipio::PegaNomeMunicipio($pedid['id_municipio'])."</td>
-                <td>".$pedid['data_entrada_sistema']."</td>
+                <td>". DataMysql::dataCompletaVisual($pedid['data_entrada_sistema'])."</td>
                 <td>". Decreto::getNomeCobrade($pedid['id_cobrade'])."</td>
                 <td>".$pedido_h->enumStatus($pedid['status'])."</td>
                 <td>".$pedido_h->enumFase($pedid['tramit'])."</td>
-                <td>".$pedid['data_hora_envio']."</td>
+                <td>".DataMysql::dataCompletaVisual($pedid['data_hora_envio'])."</td>
                 <td>";
                 print "<a href='".FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit', array('id'=> $pedid['id']))."' title='Editar Pedido'><img src='/core/imagem/editar.png'></a> |";
                 print "<a href='".FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "impressao", array('id'=> $pedid['id']))."' title='Visualiação e Impressa do Pedido'><img src='/core/imagem/impressao.png'></a> |";
@@ -110,13 +111,13 @@
                 # analise_dlog
                 if($permissao[0]['analista_dlog'] == 1) {
                     
-                    print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'analise_dlog')."' title='Analise DLOG'><img width='25' src='/core/imagem/dlog.png'></a>";
+                    print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar'=>'idx_recente', 'an'=>'analise_dlog'))."' title='Despacho DLOG'><img width='25' src='/core/imagem/dlog.png'></a>";
                 }
                 
                 # analise_coord
                 if($permissao[0]['analista_coord'] == 1) {
                     
-                    print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'analise_coord')."' title='Analise Coord. Adjuto'><img width='25' src='/core/imagem/boss.png'></a>";
+                    print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar'=>'idx_recente', 'an'=>'analise_coord'))."' title='Despacho Coordenador Adjunto'><img width='25' src='/core/imagem/boss.png'></a>";
                 }
                 
                 print "</td>";

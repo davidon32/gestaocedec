@@ -950,32 +950,32 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
         
         switch ($status) {
             case 0:
-                # edição compdec
-                return '#e6e600';
+                # edição compdec / amarelo
+                return array('fdo'=>'#F3E2A9', 'fonte'=>'#2E2E2E');
                 break;
             case 1:
                 # -
-                return '#275bf5';
+                return array('fdo'=>'#F3E2A9', 'fonte'=>'#2E2E2E');
                 break;
             case 2:
-                # analise_drd
-                return '#e6e600';
+                # analise_drd / cinza
+                return array('fdo'=>'#D8D8D8', 'fonte'=>'#000000');
                 break;
             case 3:
-                # analise dlog
-                return '#e6e600';
+                # analise dlog / azul
+                return array('fdo'=>'#2E64FE', 'fonte'=>'#FFFFFF');
                 break;
             case 4:
-                # analise_coord
-                return '#e6e600';
+                # analise_coord / laranja
+                return array('fdo'=>'#FE642E', 'fonte'=>'#151515');;
                 break;
             case 5:
-                # Atendido
-                return '#00cc00';
+                # Atendido / verde
+                return array('fdo'=>'#4B8A08', 'fonte'=>'#FFFFFF');;
                 break;
             case 6:
-                # Cancelado
-                return '#f53682';
+                # Cancelado / vermelho
+                return array('fdo'=>'#B40404', 'fonte'=>'#2E2E2E');;
                 break;
             default:
                 break;

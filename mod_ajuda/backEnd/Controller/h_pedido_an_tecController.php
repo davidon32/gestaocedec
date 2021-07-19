@@ -103,15 +103,13 @@ class h_pedido_an_tecController extends Controller {
 
     public function gravar() {
         
-        
-        
         $_POST['id_usuario'] = $_COOKIE['seguranca']['idUser'];
         
         $h_pedido_an_tec = new H_pedido_an_tecajuda_hModel;
 
-        if (var_dump($h_pedido_an_tec->gravar($_POST))) {
+        if ($h_pedido_an_tec->gravar($_POST)) {
             FuncaoBase::alert("Registro Gravado com Sucesso !");
-            $this->redirect("ajuda", "h_pedido_an_tec", "index");
+            $this->redirect("ajuda", "h_pedido_an_tec", "cadastro", array('id'=>$_POST['id_pedido'], 'voltar'=>'idx_recente', 'an'=>$_POST['tramit_parecer']));
         }
     }
             
@@ -157,13 +155,29 @@ class h_pedido_an_tecController extends Controller {
     
     /*  deletar registro */
     public function delete() {
-        
+
        if($this->h_pedido_an_tec->delete($_GET['id'])){
            FuncaoBase::alert("Registro Apagado com Sucesso !");
        }
 
-            $this->redirect("ajuda", "h_pedido_an_tec", "index");
+            $this->redirect("ajuda", "h_pedido_an_tec", "cadastro", array('id'=>$_GET['id_pedido'], 'voltar'=>'idx_recente', 'an'=>$_GET['an']));
         
     }
+    
+    
+    /**
+     *  tramitar despacho 
+     * 
+     */
+    public function tramitarParecer() {
 
+        if($this->h_pedido_an_tec->tramitar($_POST)){
+            
+           //FuncaoBase::alert("Registro Apagado com Sucesso !");
+       }
+
+            //$this->redirect("ajuda", "h_pedido_an_tec", "index");
+        
+        
+    }
 }

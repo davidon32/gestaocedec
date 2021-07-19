@@ -1,5 +1,4 @@
-<?php include_once PATH.'/core/include.php';
-include_once "core/Controller/Controller.php";
+<?php
 
     class admController extends Controller{
 
@@ -226,6 +225,36 @@ include_once "core/Controller/Controller.php";
         include_once('mod_admin/backEnd/View/release/index.php');
         
     }
+    
+    
+    /*
+     * relatorios
+     * 
+     */
+    public function relatorio(){
+        include_once('mod_admin/backEnd/View/relatorio/index.php');
+        
+    }
+    /*
+     * relatorio usuarios
+     * 
+     */
+    public function rel_agente(){
+        $agente = true;
+        include_once('mod_admin/backEnd/View/relatorio/rel_user.php');
+        
+    }
+    
+    /*
+     * relatorio usuarios
+     * 
+     */
+    public function rel_user(){
+        include_once('mod_admin/backEnd/View/relatorio/rel_user.php');
+        
+    }
+    
+    
 
     
 }

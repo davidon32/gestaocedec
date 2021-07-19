@@ -10,19 +10,14 @@
 <?php include_once "template/page/corpoHeader.php";?>
 
  
-    <!-- configuracoes do sistema -->
     <div class="col-md-2">
-        <a href='<?=FuncaoBase::geraLink("admin","adm", "usuario")?>' class="btn btn-primary">Cadastro Usuario</a>
-    </div>
-    <div class="col-md-2">
-        <a href='<?=FuncaoBase::geraLink("admin","adm", "config")?>' class="btn btn-primary">Configurações Gerais</a>
-    </div>
-    <div class="col-md-2">
-        <a href='<?=FuncaoBase::geraLink("admin","adm", "relatorio")?>' class="btn btn-primary">Relatórios</a>
+        <a href='<?=FuncaoBase::geraLink("admin","adm", "rel_user")?>' class="btn btn-primary">Relatório Acesso</a>
+        <br><br>
+        <a href='<?=FuncaoBase::geraLink("admin","adm", "rel_agente")?>' class="btn btn-primary">Lista Agentes Regionais</a>
     </div>
     <div class="col-md-12 text-center">
     <br>
-    <a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=&modulo=index&controller=index&action=menu">Voltar</a>
+    <a class="btn btn-success" href="<?=FuncaoBase::geraLink("admin","index", "index");?>">Voltar</a>
 </div>
        
 <!-- =================== RODAPE CORPO ==================== -->

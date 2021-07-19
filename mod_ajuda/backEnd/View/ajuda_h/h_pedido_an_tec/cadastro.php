@@ -14,18 +14,22 @@
 
 <?php
 
+    
 
     $secao = isset($_GET['an']) ? $_GET['an'] :"";
    
     $id_pedido = isset($_GET['id']) ? $_GET['id'] :"";
     
-    
+    $sigla = 'DRD';
     if($secao == 'analise_drd'){
         $label_secao = 'DRD - Diretoria de Redução de Desastre';
+        $sigla_despacho = "DLOG";
     }else if($secao == 'analise_dlog'){
         $label_secao = 'Diretoria de Logistica';
+        $sigla_despacho = "CORRD. ADJUNTO";
     }else if($secao == 'analise_cood') {
         $label_secao = 'Coordenadoria Adjunda';
+        $sigla_despacho = "Aprovação";
         
     }
 
@@ -60,7 +64,7 @@
  <div class="col-md-6 text-left">
         <br>
         <input type="submit" class="btn btn-info" name="btnGravar" id="btnGravar" value="Gravar"><br><br>
-        <button type="button" class="btn btn-warning" name="despachar_dlog" id="despachar_dlog" title="Enviar para o Responsavel pela Dlog">Despachar DLOG</button>
+        <button type="button" class="btn btn-warning" name="despachar_dlog" id="despachar_dlog" title="Enviar para o Responsavel pela <?=$label_secao?>">Despachar <?=$sigla_despacho?></button>
 </div>
 <div class="col-md-6 text-right">
         <br>
@@ -75,26 +79,43 @@
 <div class="col-md-12">
   
     <?php
-    
-    $analises_tecnica = H_pedido_an_tecajuda_hModel::listAnalise($id_pedido);
-    
-    print "<br><legend> Parecer técnico DRD</legend>";
-        foreach ($analises_tecnica as $key => $an_drd) {
- 
-            print "<div class='row'>";
-                print "<div class='col-md-1'>";
-                    print "Data :<p>". DataMysql::dataVisual($an_drd['data_parecer'])."</p>";
-                print "</div>";
+        $analises_tecnica = H_pedido_an_tecajuda_hModel::listAnalise($id_pedido);
+    ?>
 
-                print "<div class='col-md-11'>";
-                    print "Parecer : <p style='text-align: justify'>".$an_drd['parecer']."</p>";
-                print "</div>";
-            print "</div>";
-            print "<hr>";
+    <br><legend> Parecer técnico DRD</legend>
+    <table class="table table-bordered table-condensed table-striped">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Analista</th>
+                <th>Parecer</th>
+                <th>Opções</th>
+            </tr>
+        </thead>
+    <?php
+
+        foreach ($analises_tecnica as $key => $an_drd) {
+
+            if($an_drd['tramit_parecer'] == $secao){
+                print "<tr>";
+                    print "<td>".DataMysql::dataVisual($an_drd['data_parecer'])."</td>";
+                    print "<td>".Usuario::getNomeId($an_drd['id_usuario'])."</td>";
+                    print "<td style='text-align: justify'>".$an_drd['parecer']."</td>";
+                    print "<td>";
+                    if($an_drd['id_usuario'] == $_COOKIE['seguranca']['idUser']){
+                        print "<a href='".FuncaoBase::geraLink("ajuda", "h_pedido_an_tec", 'edit', array('id'=>$an_drd['id_analise'], 'id_pedido'=>$id_pedido, 'an'=>$_GET['an']))."'><img src='/core/imagem/editar.png' title='Editar Perecer'></a>";
+                        print "<a href='".FuncaoBase::geraLink("ajuda", "h_pedido_an_tec", 'delete', array('id'=>$an_drd['id_analise'], 'id_pedido'=>$id_pedido, 'an'=>$_GET['an']))."'><img src='/core/imagem/delete.png' title='Deletar Parecer'></a>";
+                    }else {
+                        print "<img src='/core/imagem/status.png' title='Somente o usuario que Criou o parecer pode editá-lo !'>";
+                        //print "<a href='#'><img src='/core/imagem/revisao.png'title='Solicitar alteração'></a>";
+                    }
+                    print "</td>";
+                print "</tr>";
+            }
         }
     
-    
     ?>
+    </table>
     
 </div>
 </div>
@@ -129,17 +150,18 @@
            if(result) {
            
                 var formData = new FormData();
-                formData.append('analise_dlog', 'analise_dlog'); 
+                formData.append('id_pedido', '<?=$id_pedido?>'); 
+                formData.append('tramit', 'analise_dlog'); 
                 $.ajax({
-                        url : '<?= FuncaoBase::geralink("ajuda", "h_pedido_pedid", "action"); ?>',
+                        url : '<?= FuncaoBase::geralink("ajuda", "h_pedido_an_tec", "tramitarParecer"); ?>',
                         type : 'POST',
                         data : formData,
                         processData: false,  // tell jQuery not to process the data
                         contentType: false,  // tell jQuery not to set contentType
                         success : function(response) {
-                            Swal.fire('Importação realizada com Sucesso !').then(function(){
+                            Swal.fire('Documento Transmitido para DLOG !').then(function(){
                                 window.location.reload();
-                            );
+                            });
                         },
                         error : function(e) {
                         //console.log(JSON.stringify(e));

@@ -843,6 +843,12 @@ function ListagemEmail(){
         print "<label>Seção/Diretoria</label>
                         <select class='form form-control' title='Seção / Diretoria' name='txt_secao'>
                             <option>".$default."</option> 
+                            <option>DRRD</option>
+                            <option>DRD</option>
+                            <option>ADS</option>
+                            <option>DEPDC</option>
+                            <option>DLOG</option>
+                            <option>SECRETARIA</option>
                             <option>CCE</option>
                             <option>CHEFIA</option>
                             <option>DADM</option>
@@ -856,7 +862,6 @@ function ListagemEmail(){
                             <option>SADM</option>
                             <option>DEDC</option>
                             <option>DAR</option>
-                            <option>DLOG</option>
                         </select>";
     } 
     

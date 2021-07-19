@@ -2180,4 +2180,45 @@ class Usuario extends UsuarioModel {
     }
     
     
+    /**
+     * Dados usuario
+     * 
+     */
+    public static function dadosUsuarios($agente = false) {
+        
+        $con = Conexao::getInstance();
+
+        $dados = array();
+        
+        $filtro = ($agente) ? " and cedec_funcionario.funcao = 'REDEC'": ""; 
+
+        $sql = "SELECT cedec_usuario.nome,
+cedec_usuario.email_rec,
+cedec_usuario.login,
+cedec_usuario.situacao,
+cedec_usuario.ultimo_acesso,
+cedec_usuario.nivel,
+cedec_usuario.cedec_admin,
+cedec_funcionario.secao,
+cedec_funcionario.posto,
+cedec_funcionario.funcao,
+cedec_funcionario.desc_funcao
+from cedec_usuario
+inner join cedec_funcionario
+on cedec_usuario.id_funcionario = cedec_funcionario.id_funcionario
+where cedec_usuario.situacao = 1 
+and cedec_usuario.nome not in('SUPORTE') ".$filtro." 
+ order by cedec_admin desc ";
+        
+        $result = $con->query($sql);
+
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            $dados[] = $linha;
+        }
+
+        return $dados;
+        
+
+    }
+    
 }?>

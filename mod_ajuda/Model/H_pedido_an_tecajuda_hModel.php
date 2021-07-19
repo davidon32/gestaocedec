@@ -142,7 +142,6 @@ private $tramit_parecer = null;
     public static function gravar(array $dados) {
 
 
-        var_dump(self::$model);
         $sql = "INSERT INTO aju_h_pedido_an_tec (id_usuario,
 id_pedido,
 data_parecer,
@@ -188,12 +187,12 @@ $result->bindValue(":tramit_parecer", $dados['tramit_parecer']);
         $con = Conexao::getInstance();
 
         $sql = "UPDATE aju_h_pedido_an_tec SET 
-        id_usuario= :id_usuario,
-id_pedido= :id_pedido,
-data_parecer= :data_parecer,
-parecer= :parecer,
-tramit_parecer= :tramit_parecer
-            WHERE id_analise = :id_analise";
+                            id_usuario= :id_usuario,
+                            id_pedido= :id_pedido,
+                            data_parecer= :data_parecer,
+                            parecer= :parecer,
+                            tramit_parecer= :tramit_parecer
+                            WHERE id_analise = :id_analise";
 
         try {
 
@@ -235,7 +234,7 @@ aju_h_pedido_an_tec.parecer,
 aju_h_pedido_an_tec.tramit_parecer
                               FROM aju_h_pedido_an_tec
                               
-                              WHERE id_h_pedido_an_tec = " . $id_h_pedido_an_tec;
+                              WHERE id_analise = " . $id_h_pedido_an_tec;
 
         try {
 
@@ -281,7 +280,7 @@ aju_h_pedido_an_tec.tramit_parecer
 
         $con = Conexao::getInstance();
 
-        $sql = "DELETE FROM aju_h_pedido_an_tec WHERE id_h_pedido_an_tec = " . $id;
+        $sql = "DELETE FROM aju_h_pedido_an_tec WHERE id_analise = " . $id;
 
         try {
 
@@ -489,5 +488,29 @@ aju_h_pedido_an_tec.tramit_parecer
         }
         
     }
+    
+    
+    /**
+     * tramitar pedido
+     */
+    public static function tramitar(array $dados) {
+
+        $con = Conexao::getInstance();
+        $sql = "update aju_h_pedido_pedid set tramit = :tramit
+                            where id = :id_pedido";
+
+        try {
+
+            $result = $con->prepare($sql);
+            $result->bindValue(":id_pedido", $dados['id_pedido']);
+            $result->bindValue(":tramit", $dados['tramit']);
+            $result->execute();
+
+            return true;
+        } catch (Exception $e) {
+            return $e->getMessage() . "Erro ao tramitar pedido !";
+        }
+    }
+    
 
 }
