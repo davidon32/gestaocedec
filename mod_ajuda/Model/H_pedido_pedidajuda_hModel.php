@@ -907,6 +907,9 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
             case 'analise_coord':
                 return 'em Análise Coord. Adjunto CEDEC';
                 break;
+            case 'atendido':
+                return 'Prestação de Contas';
+                break;
             default:
                 break;
         }
@@ -1163,7 +1166,8 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
                             aju_h_pedido_pedid.esforcos_realizados,
                             aju_h_pedido_pedid.data_hora_envio,
                             aju_h_pedido_pedid.status,
-                            aju_h_pedido_pedid.tramit
+                            aju_h_pedido_pedid.tramit,
+                            aju_h_pedido_pedid.data_aprovacao
                             FROM gestaocedec.aju_h_pedido_pedid";
         
         try {
@@ -1329,5 +1333,22 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
             return $e->getMessage() . "-";
         }      
     }
+    
+    
+    /**
+     *  prazo Prestacao d contas
+     */
+    public static function prazo_presta_conta($dt_aprovacao) {
+
+        $config = Config::getConfig();
+        
+        $prazo_prest_conta = '+'.$config['aju_prazo_prest_conta'].' day';
+        
+        
+        $data_aprovacao = date("d/m/Y", strtotime($prazo_prest_conta, strtotime($dt_aprovacao)));
+
+        return $data_aprovacao;
+    }
+    
 
 }

@@ -24,12 +24,18 @@
     if($secao == 'analise_drd'){
         $label_secao = 'DRD - Diretoria de Redução de Desastre';
         $sigla_despacho = "DLOG";
+        $despacho = 'analise_dlog';
+        $status = 3;
     }else if($secao == 'analise_dlog'){
         $label_secao = 'Diretoria de Logistica';
         $sigla_despacho = "CORRD. ADJUNTO";
-    }else if($secao == 'analise_cood') {
+        $despacho = 'analise_coord';
+        $status = 4;
+    }else if($secao == 'analise_coord') {
         $label_secao = 'Coordenadoria Adjunda';
-        $sigla_despacho = "Aprovação";
+        $sigla_despacho = "Aprovacaoção";
+        $despacho = 'atendido';
+        $status = 5;
         
     }
 
@@ -64,7 +70,7 @@
  <div class="col-md-6 text-left">
         <br>
         <input type="submit" class="btn btn-info" name="btnGravar" id="btnGravar" value="Gravar"><br><br>
-        <button type="button" class="btn btn-warning" name="despachar_dlog" id="despachar_dlog" title="Enviar para o Responsavel pela <?=$label_secao?>">Despachar <?=$sigla_despacho?></button>
+        <button type="button" class="btn btn-warning" name="despachar" id="despachar" data-secao='<?=$secao?>' title="Enviar para <?=$sigla_despacho?>">Despachar <?=$sigla_despacho?></button>
 </div>
 <div class="col-md-6 text-right">
         <br>
@@ -82,7 +88,7 @@
         $analises_tecnica = H_pedido_an_tecajuda_hModel::listAnalise($id_pedido);
     ?>
 
-    <br><legend> Parecer técnico DRD</legend>
+    <br><legend> Parecer técnico <span style="font-style: italic"><?=$label_secao?></span></legend>
     <table class="table table-bordered table-condensed table-striped">
         <thead>
             <tr>
@@ -142,16 +148,19 @@
         });
     
     
-        /* despachar dlog*/
-        $("#despachar_dlog").click(function(){
+        /* despachar para coord. adjunto*/
+        $("#despachar").click(function(){
             
-           var result = confirm('Deseja enviar para o despachante da DLOg ? ') ;
+            
+           var result = confirm('Deseja enviar para o despachante da <?=$sigla_despacho?> ? ') ;
            
            if(result) {
            
                 var formData = new FormData();
                 formData.append('id_pedido', '<?=$id_pedido?>'); 
-                formData.append('tramit', 'analise_dlog'); 
+                formData.append('tramit', '<?=$despacho?>'); 
+                formData.append('status', '<?=$status?>'); 
+                formData.append('data_aprovacao', '<?=($despacho == 'atendido') ? date('Y-m-d') : null;?>'); 
                 $.ajax({
                         url : '<?= FuncaoBase::geralink("ajuda", "h_pedido_an_tec", "tramitarParecer"); ?>',
                         type : 'POST',
@@ -159,8 +168,9 @@
                         processData: false,  // tell jQuery not to process the data
                         contentType: false,  // tell jQuery not to set contentType
                         success : function(response) {
-                            Swal.fire('Documento Transmitido para DLOG !').then(function(){
-                                window.location.reload();
+                            //console.log(response);
+                            Swal.fire('Documento Transmitido para <?=$sigla_despacho?>  !').then(function(){
+                                window.location.href = '<?= FuncaoBase::geralink("ajuda", "h_pedido_index", "index"); ?>';
                             });
                         },
                         error : function(e) {

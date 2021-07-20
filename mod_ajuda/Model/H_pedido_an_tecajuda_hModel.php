@@ -496,7 +496,9 @@ aju_h_pedido_an_tec.tramit_parecer
     public static function tramitar(array $dados) {
 
         $con = Conexao::getInstance();
-        $sql = "update aju_h_pedido_pedid set tramit = :tramit
+        $sql = "update aju_h_pedido_pedid set tramit = :tramit,
+            status = :status,
+            data_aprovacao = :data_aprovacao
                             where id = :id_pedido";
 
         try {
@@ -504,6 +506,8 @@ aju_h_pedido_an_tec.tramit_parecer
             $result = $con->prepare($sql);
             $result->bindValue(":id_pedido", $dados['id_pedido']);
             $result->bindValue(":tramit", $dados['tramit']);
+            $result->bindValue(":status", $dados['status']);
+            $result->bindValue(":data_aprovacao", $dados['data_aprovacao']);
             $result->execute();
 
             return true;

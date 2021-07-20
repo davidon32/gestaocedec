@@ -78,9 +78,14 @@
             # get permissao
             
             
+            $prazo = $pedido_h->prazo_presta_conta($pedid['data_aprovacao']);
+            if(strtotime(date('Y-m-d')) > strtotime($prazo)){
+                print 'vencido';
+            }
             if(($pedid['tramit']== 'analise_drd' && $permissao[0]['analista_drd'] == '1') ||
-            ($pedid['tramit']== 'analise_dlog' && $permissao[0]['analista_dlog'] == '1') || 
-            ($pedid['tramit']== 'analise_coord' && $permissao[0]['analista_coord'] == '1')) {
+            ($pedid['tramit'] == 'analise_dlog' && $permissao[0]['analista_dlog'] == '1') || 
+            ($pedid['tramit'] == 'analise_coord' && $permissao[0]['analista_coord'] == '1') ||
+            ($pedid['tramit'] == 'atendido')) {
             
                 $total_reg++;
                 $cor = $pedido_h->getCorStatus($pedid['status']);
@@ -91,10 +96,13 @@
                 <td>". DataMysql::dataCompletaVisual($pedid['data_entrada_sistema'])."</td>
                 <td>". Decreto::getNomeCobrade($pedid['id_cobrade'])."</td>
                 <td>".$pedido_h->enumStatus($pedid['status'])."</td>
-                <td>".$pedido_h->enumFase($pedid['tramit'])."</td>
+                <td>".$pedido_h->enumFase($pedid['tramit']).( ($pedid['status'] == 5) ? " <br>Prazo : ".($prazo) : "")."</td>
                 <td>".DataMysql::dataCompletaVisual($pedid['data_hora_envio'])."</td>
                 <td>";
-                print "<a href='".FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit', array('id'=> $pedid['id']))."' title='Editar Pedido'><img src='/core/imagem/editar.png'></a> |";
+                
+                if($pedid['status'] == 2){
+                    print "<a href='".FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit', array('id'=> $pedid['id']))."' title='Editar Pedido'><img src='/core/imagem/editar.png'></a> |";
+                }
                 print "<a href='".FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "impressao", array('id'=> $pedid['id']))."' title='Visualiação e Impressa do Pedido'><img src='/core/imagem/impressao.png'></a> |";
                 
                 #prestação de contas

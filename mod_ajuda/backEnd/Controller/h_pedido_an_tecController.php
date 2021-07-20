@@ -170,8 +170,10 @@ class h_pedido_an_tecController extends Controller {
      * 
      */
     public function tramitarParecer() {
+        
+        var_dump($_POST);
 
-        if($this->h_pedido_an_tec->tramitar($_POST)){
+        if(var_dump($this->h_pedido_an_tec->tramitar($_POST))){
             
            //FuncaoBase::alert("Registro Apagado com Sucesso !");
        }

@@ -27,8 +27,9 @@ if($opcao == 'dados_compdec') {
     $h_pedido_pedid->removerPermissao($_POST);
     
 }elseif($opcao == 'ck_alta_perf'){
-    
-    if(Config::AtualizaConfig('aju_h_alta_perf', $_POST['aju_h_alta_perf'])){
+      
+    if(Config::AtualizaConfig('aju_h_alta_perf', $_POST['aju_h_alta_perf']) && 
+            Config::AtualizaConfig('aju_prazo_prest_conta', $_POST['aju_prazo_prest_conta'])){
         print 'sucesso';
     }
     

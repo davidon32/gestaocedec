@@ -16,7 +16,7 @@
     
     $h_pedido_pedid = new H_pedido_pedidajuda_hModel();
     
-    $alta_perf = Config::getConfig();
+    $configuracao = Config::getConfig();
     
 
 ?>
@@ -29,13 +29,16 @@
     </div>
     
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="checkbox">
-                <label><input type="checkbox" name="ck_alta_performance" id="ck_alta_performance" <?=($alta_perf['aju_h_alta_perf'] == 1 ? "checked" :"")?>> Manter Fluxo de analise de Alta Performance ?</label>
+                <label><input type="checkbox" name="ck_alta_performance" id="ck_alta_performance" <?=($configuracao['aju_h_alta_perf'] == 1 ? "checked" :"")?>> Manter Fluxo de analise de Alta Performance ?</label>
                 <br><span style="font-size: 12px; color: #666666; font-style: italic"> *Nessa modalidade, os processos são analisados, por qualquer analista, não obedecendo as suas devidas Diretorias.</span>
             </div>  
+            <label>Prazo Prestação de Contas ( Padrão X Dias )</label>
+            <input type="number" class='form form-control col-md-2' name="prazo_prest_cont" id="prazo_prest_cont" value='<?=$configuracao['aju_prazo_prest_conta']?>'>
         </div>
-    </div>    
+    </div>
+        <br>
     <div class="row">
         <div class="col-md-6">
             <legend>Cadastrar Analistas</legend>
@@ -69,7 +72,10 @@
             <button class="btn btn-primary" type="button" name="btn_add_permissao" id="btn_add_permissao">Adicionar</button>
             </div>
         </div>
-        <div class="col-md-6">
+    </div>
+        <br>
+    <div class="row">
+        <div class="col-md-12">
             <legend>Permissoes Lista Analistas</legend>
             <table class="table table-bordered">
                 <tr>
@@ -125,6 +131,7 @@
         </div>
     </div>
     
+    
 </div>
     
 
@@ -165,11 +172,13 @@
             $("#btn_add_permissao").show();
         });
         
-        $("#ck_alta_performance").change(function(){
-            var result = $("#ck_alta_performance").is(':checked') ? 1 : 0;
+        $("#ck_alta_performance, #prazo_prest_cont").change(function(){
+            var result_ck = $("#ck_alta_performance").is(':checked') ? 1 : 0;
+            var result_dias = $("#prazo_prest_cont").val();
             var formData = new FormData();
 		formData.append('opcao', 'ck_alta_perf');
-		formData.append('aju_h_alta_perf', result); 
+		formData.append('aju_h_alta_perf', result_ck); 
+		formData.append('aju_prazo_prest_conta', result_dias); 
            $.ajax({
 		url : '/mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/ajax.php',
 		type : 'POST',
@@ -178,9 +187,9 @@
 		contentType: false,  // tell jQuery not to set contentType
 		success : function(response) {
                     console.log(response);
-                    //Swal.fire('Gravação realizada com Sucesso !').then(function(){
-                        //window.location.reload();
-                    //});//
+                    Swal.fire('Parâmetros Alterados com Sucesso !').then(function(){
+                        window.location.reload();
+                    });
 		},
 		error : function(e) {
 		//console.log(JSON.stringify(e));
