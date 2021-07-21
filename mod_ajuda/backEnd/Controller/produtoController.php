@@ -48,7 +48,7 @@ class produtoController extends Controller {
 
         $paginacao = $this->produto->paginacao($start, $regPorPagina);
        
-        return [$paginacao, $totPag];
+        return array($paginacao, $totPag);
        
     }
 

@@ -48,7 +48,7 @@ class eventoController extends Controller {
 
         $paginacao = $this->evento->paginacao($start, $regPorPagina);
        
-        return [$paginacao, $totPag];
+        return array($paginacao, $totPag);
        
     }
         

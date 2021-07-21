@@ -247,7 +247,8 @@ tramit
 :data_vigencia,
 :tipo_decreto,
 :esforcos_realizados,
-:tramit)";
+:tramit,
+:ano)";
 
         try {
 
@@ -275,6 +276,7 @@ $result->bindValue(":data_vigencia", DataMysql::dataForm($dados['data_vigencia']
 $result->bindValue(":tipo_decreto", $dados['tipo_decreto']);
 $result->bindValue(":esforcos_realizados", $dados['esforcos_realizados']);
 $result->bindValue(":tramit", "analise_drd");
+$result->bindValue(":ano", date('Y'));
 
             if($result->execute()){
                 $id = self::$con->lastInsertId();
@@ -400,7 +402,9 @@ aju_h_pedido_pedid.data_vigencia,
 aju_h_pedido_pedid.tipo_decreto,
 aju_h_pedido_pedid.esforcos_realizados,
 aju_h_pedido_pedid.data_hora_envio,
-aju_h_pedido_pedid.status
+aju_h_pedido_pedid.status,
+aju_h_pedido_pedid.ano
+
 
                               FROM aju_h_pedido_pedid
                               LEFT JOIN cedec_municipio
@@ -459,7 +463,8 @@ aju_h_pedido_pedid.tipo_decreto,
 aju_h_pedido_pedid.esforcos_realizados,
 aju_h_pedido_pedid.data_hora_envio,
 aju_h_pedido_pedid.status,
-aju_h_pedido_pedid.tramit
+aju_h_pedido_pedid.tramit,
+aju_h_pedido_pedid.ano
                                 FROM aju_h_pedido_pedid
                                 LEFT JOIN cedec_municipio
 ON aju_h_pedido_pedid.id_municipio = cedec_municipio.id_municipio

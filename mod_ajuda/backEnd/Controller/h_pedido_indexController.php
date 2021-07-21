@@ -49,7 +49,7 @@ class h_pedido_indexController extends Controller {
 
         $paginacao = $this->h_pedido_pedid->paginacao($start, $regPorPagina);
        
-        return [$paginacao, $totPag];
+        return array($paginacao, $totPag);
        
     }
         

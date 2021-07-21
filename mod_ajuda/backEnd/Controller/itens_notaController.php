@@ -48,7 +48,7 @@ class itens_notaController extends Controller {
 
         $paginacao = $this->itens_nota->paginacao($start, $regPorPagina);
        
-        return [$paginacao, $totPag];
+        return array($paginacao, $totPag);
        
     }
         

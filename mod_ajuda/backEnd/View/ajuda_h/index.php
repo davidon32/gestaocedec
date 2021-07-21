@@ -1,166 +1,196 @@
-<?php include_once 'core/include.php';?>
-<?php include_once 'core/Model/indexModel.php';?>
-<?php include_once 'mod_compdec/Model/Model.php';?>
+<?php include_once 'core/include.php'; ?>
+<?php include_once 'core/Model/indexModel.php'; ?>
+<?php include_once 'mod_compdec/Model/Model.php'; ?>
 <!-- =============== HEADER HTML PAGE ================= -->
-<?php include_once "template/page/headerPage.php";?>
+<?php include_once "template/page/headerPage.php"; ?>
 <!-- =================== HEADER ============================ -->
-<?php include_once "template/page/header.php";?>
+<?php include_once "template/page/header.php"; ?>
 <!-- =================== MENU  ============================ -->
 <?php //include_once "template/page/menuExterno.php";?>
 <!-- =================== CORPO  ============================ -->
-<?php include_once "template/page/corpoHeader.php";?>
+<?php include_once "template/page/corpoHeader.php"; ?>
 <?php
+$id_municipio = isset($pageSession['session']['seguranca']['id_municipio']) ? $pageSession['session']['seguranca']['id_municipio'] : "";
 
-    $id_municipio = isset($pageSession['session']['seguranca']['id_municipio']) ? $pageSession['session']['seguranca']['id_municipio'] :"";
-    
-    $dados = H_pedido_pedidajuda_hModel::lista();
-    $pedido_h = new H_pedido_pedidajuda_hModel();
-    
-    $id_usuario = $_COOKIE['seguranca']['idUser']
-	
+$dados = H_pedido_pedidajuda_hModel::lista();
+$pedido_h = new H_pedido_pedidajuda_hModel();
+
+$id_usuario = $_COOKIE['seguranca']['idUser']
 ?>	
 <div class="col-md-12 text-center">
-<a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&modulo=ajuda&controller=index&action=index">Voltar</a>
+    <a class="btn btn-success" href="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')) ?>&modulo=ajuda&controller=index&action=index">Voltar</a>
 </div>
 <div class="col-md-12">
-<div class="row">
-<div class="col-md-6">
-<!--<a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "cadastro")?>">Novo Pedido</a>-->
-<a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "index")?>">Pesquisa</a>
-</div>
-<div class="col-md-6">
-    <p class="text-right"> <a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "config_ajuda")?>" title="Cadastro Analistas">Configurações</a></p>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-6">
+        <!--<a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "cadastro") ?>">Novo Pedido</a>-->
+            <a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "index") ?>">Pesquisa</a>
+            <br></br>
+            <p class=""> <a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "config_ajuda") ?>" title="Cadastro Analistas">Configurações</a></p>
+            </div>
+            <div class="col-md-3">
+                <h3>Legenda</h3>
+                <img width="25" src='/core/imagem/cedec.png'>     
+                &nbsp; Permissão de Despacho DRD. <br>
+                
+                <img width="25" src='/core/imagem/dlog.png'>     
+                &nbsp; Permissão de Despacho DLOG. <br>
+                
+                <img width="25" src='/core/imagem/boss.png'>     
+                &nbsp; Permissão de Despacho do Coord. Adjunto. <br>
+            </div>
+            <div class="col-md-3 text-left"><br>
+                <span style="background-color: #F3E2A9;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+                &nbsp; Em edição COMPDEC.<br>
+                
+                <span style="background-color: #D8D8D8;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+                &nbsp; Análise DRD.<br>
+                
+                <span style="background-color: #2E64FE;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+                &nbsp; Análise DLOG.<br>
+                
+                <span style="background-color: #FE642E">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+                &nbsp; Coord. Adjunto(a).<br>
+                
+                <span style="background-color: #4B8A08;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+                &nbsp; Atendido ( Aguardando Prestação de Contas ).<br>
+                
+                <span style="background-color: #B40404;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+                &nbsp; Cancelado / Nulo.<br>
+                
+            </div>
+        </div>
     </div>
-</div>
-    
+
     Total Registros : <span id='total_registro'></span>
-<table class="table table-condensed">
+    <table class="table table-condensed">
         <tr>
             <th colspan="8">Pedidos Recentes</th>
         </tr>
-     <tbody>
-        <tr>
-            <th>Nr</th>
-            <th>Municipio</th>
-            <th>Data</th>
-            <th>Tipo</th>
-            <th>Status</th>
-            <th>Fase do Processo</th>
-            <th>Data Envio Analise</th>
-            <th>Ações</th>
-            
-        </tr>
-        <?php
-        
-        $dadosConfig = Config::getConfig();
-        
-        $permissao[] = array('analista_drd'=>0, 'analista_dlog'=>0, 'analista_coord'=>0);
-        
-        
-        
-        if($dadosConfig['aju_h_alta_perf'] == 1){
-            
-            $permissao[0]['analista_drd'] = '1';
-            $permissao[0]['analista_dlog'] = '1';
-            $permissao[0]['analista_coord'] = '1';
-                                
-        }else {
+        <tbody>
+            <tr>
+                <th>Nr</th>
+                <th>Municipio</th>
+                <th>Data</th>
+                <th>Tipo</th>
+                <th>Status</th>
+                <th>Fase do Processo</th>
+                <th>Data Envio Analise</th>
+                <th>Ações</th>
 
-            $permissao = $pedido_h->buscaAnalista($id_usuario);
-                
-        }
-        
-     
-        $listaPedido = $pedido_h->buscaPedidoH();
-        $total_reg = 0;
+            </tr>
+<?php
+$dadosConfig = Config::getConfig();
 
-        foreach ($listaPedido as $key => $pedid) {
-            # get permissao
-            
-            
-            $prazo = $pedido_h->prazo_presta_conta($pedid['data_aprovacao']);
-            if(strtotime(date('Y-m-d')) > strtotime($prazo)){
-                print 'vencido';
-            }
-            if(($pedid['tramit']== 'analise_drd' && $permissao[0]['analista_drd'] == '1') ||
-            ($pedid['tramit'] == 'analise_dlog' && $permissao[0]['analista_dlog'] == '1') || 
+$permissao[] = array('analista_drd' => 0, 'analista_dlog' => 0, 'analista_coord' => 0);
+
+
+
+if ($dadosConfig['aju_h_alta_perf'] == 1) {
+
+    $permissao[0]['analista_drd'] = '1';
+    $permissao[0]['analista_dlog'] = '1';
+    $permissao[0]['analista_coord'] = '1';
+} else {
+
+    $permissao = $pedido_h->buscaAnalista($id_usuario);
+}
+
+
+$listaPedido = $pedido_h->buscaPedidoH();
+$total_reg = 0;
+
+foreach ($listaPedido as $key => $pedid) {
+    # get permissao
+
+
+    $prazo = $pedido_h->prazo_presta_conta($pedid['data_aprovacao']);
+    if (strtotime(date('Y-m-d')) > strtotime($prazo)) {
+        print 'vencido';
+    }
+    if (($pedid['tramit'] == 'analise_drd' && $permissao[0]['analista_drd'] == '1') ||
+            ($pedid['tramit'] == 'analise_dlog' && $permissao[0]['analista_dlog'] == '1') ||
             ($pedid['tramit'] == 'analise_coord' && $permissao[0]['analista_coord'] == '1') ||
             ($pedid['tramit'] == 'atendido')) {
-            
-                $total_reg++;
-                $cor = $pedido_h->getCorStatus($pedid['status']);
 
-                print "<tr style='color:".$cor['fonte']."; background-color:".$cor['fdo']."'>
-                <td>".$pedid['numero']."-".substr($pedid['data_entrada_sistema'], 0, 4)."</td>
-                <td>".Municipio::PegaNomeMunicipio($pedid['id_municipio'])."</td>
-                <td>". DataMysql::dataCompletaVisual($pedid['data_entrada_sistema'])."</td>
-                <td>". Decreto::getNomeCobrade($pedid['id_cobrade'])."</td>
-                <td>".$pedido_h->enumStatus($pedid['status'])."</td>
-                <td>".$pedido_h->enumFase($pedid['tramit']).( ($pedid['status'] == 5) ? " <br>Prazo : ".($prazo) : "")."</td>
-                <td>".DataMysql::dataCompletaVisual($pedid['data_hora_envio'])."</td>
+        $total_reg++;
+        $cor = $pedido_h->getCorStatus($pedid['status']);
+
+        print "<tr style='color:" . $cor['fonte'] . "; background-color:" . $cor['fdo'] . "'>
+                <td>" . $pedid['numero'] . "-" . substr($pedid['data_entrada_sistema'], 0, 4) . "</td>
+                <td>" . Municipio::PegaNomeMunicipio($pedid['id_municipio']) . "</td>
+                <td>" . DataMysql::dataCompletaVisual($pedid['data_entrada_sistema']) . "</td>
+                <td>" . Decreto::getNomeCobrade($pedid['id_cobrade']) . "</td>
+                <td>" . $pedido_h->enumStatus($pedid['status']) . "</td>
+                <td>" . $pedido_h->enumFase($pedid['tramit']) . ( ($pedid['status'] == 5) ? " <br>Prazo : " . ($prazo) : "") . "</td>
+                <td>" . DataMysql::dataCompletaVisual($pedid['data_hora_envio']) . "</td>
                 <td>";
-                
-                # EDITAR
-                if($pedid['status'] == 2){
-                    print "<a href='".FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit', array('id'=> $pedid['id']))."' title='Editar Pedido'><img src='/core/imagem/editar.png'></a> |";
-                }
-                
-                # visualizar 
-                print "<a href='".FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "view", array('id'=> $pedid['id']))."' title='Visualiação e Impressa do Pedido'><img src='/core/imagem/view.png'></a> |";
-                
-                #prestação de contas
-                if($pedid['status'] == 5){
-                    print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'pedido_itens', 'pcont')."' title='Presatação de contas'><img width='25' src='/core/imagem/relatorio.png'></a>";
-                }
-                
-                # analise DRD
-                if($permissao[0]['analista_drd'] == 1 && $pedid['status'] !=5) {
-                    
-                    print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar'=>'idx_recente', 'an'=>'analise_drd'))."' title='Analise DRD'><img width='25' src='/core/imagem/cedec.png'></a>";
-                }
-                
-                # analise_dlog
-                if($permissao[0]['analista_dlog'] == 1 && $pedid['status'] !=5) {
-                    
-                    print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar'=>'idx_recente', 'an'=>'analise_dlog'))."' title='Despacho DLOG'><img width='25' src='/core/imagem/dlog.png'></a>";
-                }
-                
-                # analise_coord
-                if($permissao[0]['analista_coord'] == 1) {
-                    
-                    print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar'=>'idx_recente', 'an'=>'analise_coord'))."' title='Despacho Coordenador Adjunto'><img width='25' src='/core/imagem/boss.png'></a>";
-                }
-                
-                print "</td>";
-                print "</tr>";
-            }
+
+        # EDITAR
+        if ($pedid['status'] == 2) {
+            print "<a href='" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit', array('id' => $pedid['id'])) . "' title='Editar Pedido'><img src='/core/imagem/editar.png'></a> |";
         }
-        ?>
-        
-    </tbody>
-</table>
+
+        # visualizar 
+        print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "view", array('id' => $pedid['id'], 'voltar'=>'idx_recente')) . "' title='Visualiação e Impressa do Pedido'><img width='25px' src='/core/imagem/view1.png'></a> |";
+
+        #prestação de contas
+        if ($pedid['status'] == 5) {
+            print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'pedido_itens', 'pcont') . "' title='Presatação de contas'><img width='25' src='/core/imagem/relatorio.png'></a>";
+        }
+
+        # analise DRD
+        if ($permissao[0]['analista_drd'] == 1 
+                && $pedid['status'] != 5
+                && $pedid['status'] != 4) {
+
+            print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar' => 'idx_recente', 'an' => 'analise_drd')) . "' title='Analise DRD'><img width='25' src='/core/imagem/cedec.png'></a>";
+        }
+
+        # analise_dlog
+        if ($permissao[0]['analista_dlog'] == 1 
+                && $pedid['status'] != 5
+                && $pedid['status'] != 4) {
+
+            print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar' => 'idx_recente', 'an' => 'analise_dlog')) . "' title='Despacho DLOG'><img width='25' src='/core/imagem/dlog.png'></a>";
+        }
+
+        # analise_coord
+        if ($permissao[0]['analista_coord'] == 1) {
+
+            print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar' => 'idx_recente', 'an' => 'analise_coord')) . "' title='Despacho Coordenador Adjunto'><img width='25' src='/core/imagem/boss.png'></a>";
+        }
+
+        print "</td>";
+        print "</tr>";
+    }
+}
+?>
+
+        </tbody>
+    </table>
 
 </div>
 
- <!-- =================== RODAPE CORPO ==================== -->
-<?php include_once "template/page/corpoRodape.php";?>
+<!-- =================== RODAPE CORPO ==================== -->
+<?php include_once "template/page/corpoRodape.php"; ?>
 <!-- =================== RODAPE  ======================== -->
-<?php include_once "template/page/rodape.php"?>
-<?php include_once "template/page/barra_config_template.php";?>
+<?php include_once "template/page/rodape.php" ?>
+<?php include_once "template/page/barra_config_template.php"; ?>
 <!-- =============== HEADER HTML PAGE ================= -->
-<?php include_once "template/page/rodapePage.php";?>
+<?php include_once "template/page/rodapePage.php"; ?>
 <script>
 
-/* Criar novo plano de contingencia */
-(function($) {
+    /* Criar novo plano de contingencia */
+    (function ($) {
 
-    $("#total_registro").text(<?=$total_reg;?>);
-	
+        $("#total_registro").text(<?= $total_reg; ?>);
 
-})(jQuery);
+
+    })(jQuery);
 
 </script>
 </body>
 </html>
-	  	
-	
+

@@ -1,4 +1,3 @@
-
 <?php
 include_once('core/Controller/Controller.php');
         
@@ -6,60 +5,70 @@ include_once('core/Controller/Controller.php');
  * 	CEDEC-MG - Coordenadoria Estadual de Defesa Civil de Minas Gerais			  	*
  * 	
  *      Gerado de Código : 1.0
- * 	Controller tabela aju_h_pedido_pedid										*
+ * 	Controller relatorios										*
  * 																					*
  * 	Autor: Demetrio da Silva Passos	
  *      MASP: 1296844
  * 																					*
- * 	Criacao : 21/06/2021															*
+ * 	Criacao : 15/10/2020															*
  * ********************************************************************************** */
 
-class h_pedido_indexController extends Controller {
+class relatorioConController extends Controller {
 
-    private $h_pedido_pedid;
-    private $h_pedido_pedids;
-    private $campos;
-    public $numPage;
-    
+    private $relatorio;
+       
     public function __construct() {
-        $this->h_pedido_pedid = new H_pedido_pedidajuda_hModel;
-        $this->h_pedido_pedids = $this->h_pedido_pedid->lista();
-
+        $this->relatorio = new RelatorioConEstoqueModel();
     }
 
-    # index h_pedido_pedid
-
-    public function index() {
-        $h_pedido_pedidModel = $this->h_pedido_pedid;
-        include_once 'mod_ajuda/frontEnd/View/ajuda_h/index.php';
+    /* form filtro relatorio */
+    public function inventario() {
+        $relatorio = $this->relatorio;
+        include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/form_inventario_busca.php';
     }
-
-    /* paginacao */
-
-    public function paginacao($page, $numPage) {
-        
-        $this->numPage = $numPage;
-
-        $totalRegistro = count($this->h_pedido_pedids);
-        $regPorPagina = $numPage;
-        
-        $totPag = ceil($totalRegistro / $numPage);
-
-        $start = ($page - 1) * $regPorPagina;
-
-        $paginacao = $this->h_pedido_pedid->paginacao($start, $regPorPagina);
+    
+    /* relatorio inventario */
+    public function rel_inventario() {
+         
+        if($this->isPost()){
        
-        return array($paginacao, $totPag);
-       
+        $relatorio = $this->relatorio;
+        
+        $dados = $relatorio->inventario($_POST);
+
+            include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/rel_inventario.php';  
+        }else {
+          include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/form_inventario_busca.php';  
+        }
     }
+    
+    /* form filtro relatorio */
+    public function pedidos() {
+        $relatorio = $this->relatorio;
+        include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/form_pedido_busca.php';
+    }
+    
+    /* relatorio inventario */
+    public function rel_pedido() {
+       
+        if($this->isPost()){
+            $relatorio = $this->relatorio;
+            $dados = $relatorio->rel_pedidoModel($_POST);
+            include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/rel_pedido.php';  
+            
+        }else {
+          include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/form_pedido_busca.php';  
+        }
+    }
+
         
     ################  EXPORTAR ##################    
     # Exportar dados excel
     public function exportar() {
 
-        $h_pedido_pedid = new H_pedido_pedidajuda_hModel;
+        $montagem = new MontagemConEstoqueModel;
         
-        $dados = $h_pedido_pedid->lista();
+        $dados = $montagem->lista();
         
         $coluna = array_keys($dados[0]);
         
@@ -89,10 +98,7 @@ class h_pedido_indexController extends Controller {
         flush();
         readfile($nomeFileExcel);
     }
+    
            
-    # pesquisa registro
-    public function pesquisa() {
 
-            include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_pedid/pesquisa.php';
-    }
 }

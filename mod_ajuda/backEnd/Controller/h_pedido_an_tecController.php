@@ -49,7 +49,7 @@ class h_pedido_an_tecController extends Controller {
 
         $paginacao = $this->h_pedido_an_tec->paginacao($start, $regPorPagina);
        
-        return [$paginacao, $totPag];
+        return array($paginacao, $totPag);
        
     }
         
@@ -170,12 +170,14 @@ class h_pedido_an_tecController extends Controller {
      * 
      */
     public function tramitarParecer() {
-        
+                       
         $h_pedido_pedid = new H_pedido_pedidajuda_hModel();
 
-        if($this->h_pedido_an_tec->tramitar($_POST)){
+        if(var_dump($this->h_pedido_an_tec->tramitar($_POST))){
             
-        $h_pedido_pedid->iniciaPrestContas($_POST['id_pedido']);
+            if($_POST['tramit'] == 'aprovacao'){
+                $h_pedido_pedid->iniciaPrestContas($_POST['id_pedido']);
+            }
             
            //FuncaoBase::alert("Registro Apagado com Sucesso !");
        }

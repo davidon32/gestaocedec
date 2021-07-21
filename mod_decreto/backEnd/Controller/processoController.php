@@ -49,7 +49,7 @@ class processoController extends Controller {
 
         $paginacao = $this->processo->paginacao($start, $regPorPagina);
        
-        return [$paginacao, $totPag];
+        return array($paginacao, $totPag);
        
     }
         

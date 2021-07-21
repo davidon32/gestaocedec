@@ -507,13 +507,57 @@ aju_h_pedido_an_tec.tramit_parecer
             $result->bindValue(":id_pedido", $dados['id_pedido']);
             $result->bindValue(":tramit", $dados['tramit']);
             $result->bindValue(":status", $dados['status']);
-            $result->bindValue(":data_aprovacao", $dados['data_aprovacao']);
+            $result->bindValue(":data_aprovacao", (!empty($dados['data_aprovacao'])) ? $dados['data_aprovacao']: null );
             $result->execute();
+            
+            # gravar tramitação 
+            var_dump(self::tramit_historico(array('data_tramit'=>date('Y-m-d'),
+                                            'id_pedido'=>$dados['id_pedido'],
+                                            'id_usuario'=> $_COOKIE['seguranca']['idUser'],
+                                            'tipo'=> 'orig: '.$dados['origem'].' dest: '.$dados['tramit']." status: ".$dados['status'])
+                                    ));
 
             return true;
         } catch (Exception $e) {
             return $e->getMessage() . "Erro ao tramitar pedido !";
         }
+    }
+    
+    /**
+     * Gravar historico tramitação
+     * @param data_tramit - 
+     * @param id_pedido   -
+     * @param id_usuario  -
+     * @param tipo        -
+     */
+    public static function tramit_historico(array $_dados){
+    
+        $con = Conexao::getInstance();
+        $sql = "INSERT INTO aju_h_tramita_pedido
+                            (data_tramit,
+                            id_pedido,
+                            id_usuario,
+                            tipo)
+                            VALUES (:data_tramit,
+                                    :id_pedido,
+                                    :id_usuario,
+                                    :tipo)";
+
+            try {
+
+                $result = $con->prepare($sql);
+                $result->bindValue(":data_tramit", $_dados['data_tramit']);
+                $result->bindValue(":id_pedido", $_dados['id_pedido']);
+                $result->bindValue(":id_usuario", $_dados['id_usuario']);
+                $result->bindValue(":tipo", $_dados['tipo']);
+                $result->execute();
+
+                return true;
+            } catch (Exception $e) {
+                return $e->getMessage() . "Erro lancamento de historico de tramit !";
+            }
+    
+    
     }
     
 

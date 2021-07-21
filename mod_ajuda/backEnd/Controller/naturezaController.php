@@ -48,7 +48,7 @@ class naturezaController extends Controller {
 
         $paginacao = $this->natureza->paginacao($start, $regPorPagina);
        
-        return [$paginacao, $totPag];
+        return array($paginacao, $totPag);
        
     }
         

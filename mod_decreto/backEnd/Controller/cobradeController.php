@@ -49,7 +49,7 @@ class cobradeController extends Controller {
 
         $paginacao = $this->cobrade->paginacao($start, $regPorPagina);
        
-        return [$paginacao, $totPag];
+        return array($paginacao, $totPag);
        
     }
         

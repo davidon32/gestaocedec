@@ -49,7 +49,7 @@ class h_pedido_benefController extends Controller {
 
         $paginacao = $this->h_pedido_benef->paginacao($start, $regPorPagina);
        
-        return [$paginacao, $totPag];
+        return array($paginacao, $totPag);
        
     }
         
