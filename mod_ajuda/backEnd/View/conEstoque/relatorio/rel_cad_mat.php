@@ -10,7 +10,7 @@ require_once(CONTROLLER_AJUDA_BACKEND . '/AjudaRelatorioController.php');
 <!-- =================== HEADER ============================ -->
 <?php include_once "template/page/header.php"; ?>
 <!-- =================== MENU  ============================ -->
-<?php include_once "template/page/menu.php"; ?>
+<?php //include_once "template/page/menu.php";?>
 <!-- =================== CORPO  ============================ -->
 <?php
 include_once "template/page/corpoHeader.php";

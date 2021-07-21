@@ -130,6 +130,7 @@ if(isset($pageSession)){
 </style>
 
 </head>
-<body class="hold-transition skin-blue sidebar-mini" id="menuLateral">
+<!--<body class="hold-transition skin-blue sidebar-mini" id="menuLateral"> remover bara lateral --> 
+<body class="hold-transition skin-blue" id="menuLateral">
 <!-- Site wrapper --> 
-<div class="wrapper">
+<!--<div class="wrapper">-->

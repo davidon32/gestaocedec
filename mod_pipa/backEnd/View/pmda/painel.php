@@ -16,7 +16,7 @@ print "<!DOCTYPE html>";
 <!-- =================== HEADER ============================ -->
 <?php include_once "template/page/header.php";?>
 <!-- =================== MENU  ============================ -->
-<?php include_once "template/page/menu.php";?>
+<?php //include_once "template/page/menu.php";?>
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php";?>
  <div class="container">

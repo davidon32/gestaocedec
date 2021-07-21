@@ -6,7 +6,7 @@
 <!-- =================== HEADER ============================ -->
 <?php include_once "template/page/header.php"; ?>
 <!-- =================== MENU  ============================ -->
-<?php include_once "template/page/menu.php"; ?>
+<?php //include_once "template/page/menu.php";?>
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php"; ?>
 
@@ -277,7 +277,14 @@ $dados = Municipio::dadosMunicipio($id_municipio);
                 
                 /* campos numero decreto, data vigencia */
                 $("#numero_decreto,#data_vigencia").removeAttr('readonly');
-                $("#data_vigencia").datepicker();
+                $("#data_vigencia").datepicker({dateFormat: 'dd/mm/yy',
+                    orientation: "bottom left",
+                    beforeShow: function () { /* problema datapicker atras controle input*/
+                        setTimeout(function () {
+                            $('.ui-datepicker').css('z-index', 99999999999999);
+                        }, 0);
+                    }
+                }, );
                 
                 $("#numero_decreto,#data_vigencia").css('cursor', 'text');
             }

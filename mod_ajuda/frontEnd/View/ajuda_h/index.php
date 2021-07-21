@@ -6,7 +6,7 @@
 <!-- =================== HEADER ============================ -->
 <?php include_once "template/page/header.php"; ?>
 <!-- =================== MENU  ============================ -->
-<?php include_once "template/page/menuExterno.php"; ?>
+<?php //include_once "template/page/menuExterno.php"; ?>
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php"; ?>
 <style>
@@ -65,7 +65,7 @@ $pedido_h = new H_pedido_pedidajuda_hModel();
 foreach ($dados as $key => $value) {
 
     $cor = $pedido_h->getCorStatus($value['status']);
-    print "<tr style='background-color:" . $cor . "'>
+    print "<tr style='background-color:" . $cor['fdo'] . "'>
             <td>" . $value['numero'] . "-" . substr($value['data_entrada_sistema'], 0, 4) . "</td>
             <td>" . $value['data_entrada_sistema'] . "</td>
             <td>" . Decreto::getNomeCobrade($value['id_cobrade']) . "</td>
@@ -88,10 +88,12 @@ foreach ($dados as $key => $value) {
     
     # Visualizar 
     print " <a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "view", array('id' => $value['id'], 'voltar'=> 'idx_recente')) . "' title='Visualiação e Impressa do Pedido'><img src='/core/imagem/view.png'></a> | ";
+    
 
     # prestação de  contas somente status atendido
     if ($value['status'] == 5) {
-        print " <a href='#' name='prestConta' data-id_pedido='" . $value['id'] . "' title='Presatação de contas'><img width='25' src='/core/imagem/relatorio.png'></a> |";
+        print " <a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_prest", "index", array('id' => $value['id'], 'voltar'=> 'idx_recente')) . "' title='Presatação de contas'><img width='25' src='/core/imagem/relatorio.png'></a> |";
+        
     }
 
     # deletar somente pedido status 0=edicao e 6=cancelado pode ser deletado
@@ -130,34 +132,7 @@ $(document).ready(function() {
             
         }
     });
-    
-   /* abre a prestação de contas */
-    $("a[name=prestConta]").click(function(){
-
-        var formData = new FormData();
-        
-        var id_pedido = $(this).data('id_pedido');
-              
-        formData.append('id_pedido', id_pedido);
-        formData.append('opcao', 'inicia_prestconta');
-    
-        $.ajax({
-            url : '/mod_ajuda/frontEnd/View/ajuda_h/h_pedido_pedid/ajax.php',
-            type : 'POST',
-            data : formData,
-            processData: false, // tell jQuery not to process the data
-            contentType: false, // tell jQuery not to set contentType
-            success : function(response) {
-                console.log(response);
-                window.location.href = 'index.php?hash=<?= md5(date('y-m-d'))?>&modulo=ajuda&controller=h_pedido_prest&action=index&id='+id_pedido;
-                Swal.fire('Importação realizada com Sucesso !')
-            },
-            error : function(e) {
-            //console.log(JSON.stringify(e));
-            }
-    });
-    });
-    
+   
    /* Enviar pedido para analise */
     $("a[name=envia_analise]").click(function(){
 

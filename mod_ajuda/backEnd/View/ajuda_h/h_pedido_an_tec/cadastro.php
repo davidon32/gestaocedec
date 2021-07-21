@@ -8,7 +8,7 @@
 <!-- =================== HEADER ============================ -->
 <?php include_once "template/page/header.php"; ?>
 <!-- =================== MENU  ============================ -->
-<?php include_once "template/page/menu.php"; ?>
+<?php //include_once "template/page/menu.php";?>
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php"; ?>
 
@@ -33,16 +33,36 @@
         $status = 4;
     }else if($secao == 'analise_coord') {
         $label_secao = 'Coordenadoria Adjunda';
-        $sigla_despacho = "Aprovacaoção";
+        $sigla_despacho = "Aprovação";
         $despacho = 'atendido';
         $status = 5;
         
     }
 
 ?>
+<div class='row'>
+<div class="col-md-12">
+    
+    <br>
+    <button type="button" class="btn btn-primary" name="cadastro" id="cadastro" title="Redigir Parecer Despacho">Redigir Despacho</button><br><br>
+    
+    <label>Tramitar Pedido :</label>
+    <select class='form form-control' name="sel_despacho" id="sel_despacho">
+        <option value="analise_drd">Escolha uma Seção</option>
+        <option value="analise_drd">Analise DRD</option>
+        <option value="analise_drd">Analise DLOG</option>
+        <option value="analise_drd">Aprovação</option>
+        
+    </select><br>
+    <button type="button" class="btn btn-warning" name="despachar" id="despachar" data-secao='<?=$secao?>' title="Enviar para <?=$sigla_despacho?>">Tramitar Pedido <?=$sigla_despacho?></button>
+    
+</div>
+</div>
+    
+     
 
 
-<legend>Analise Técnica Parecer : <span style='color:red'><?=$label_secao?></span></legend>
+<legend id="lg_parecer">Analise Técnica Parecer : <span style='color:red'><?=$label_secao?></span></legend>
 
 <form action="<?=FuncaoBase::geraLink("ajuda", "h_pedido_an_tec", "gravar");?>" method="post" accept-charset="utf-8" name="frmH_pedido_an_tec" id="frmH_pedido_an_tec">
     
@@ -69,15 +89,16 @@
 
  <div class="col-md-6 text-left">
         <br>
+        <?php #<!-- despacho parecer -->?>
         <input type="submit" class="btn btn-info" name="btnGravar" id="btnGravar" value="Gravar"><br><br>
-        <button type="button" class="btn btn-warning" name="despachar" id="despachar" data-secao='<?=$secao?>' title="Enviar para <?=$sigla_despacho?>">Despachar <?=$sigla_despacho?></button>
+
 </div>
+</form>
 <div class="col-md-6 text-right">
         <br>
         <a class="btn btn-success" href="<?=FuncaoBase::geraLink("ajuda", "h_pedido_index", "index")?>">Voltar</a>
 </div>   
     
-</form>
     
 <br>
 <br>
@@ -86,6 +107,7 @@
   
     <?php
         $analises_tecnica = H_pedido_an_tecajuda_hModel::listAnalise($id_pedido);
+        $aprovacao = 'nao';
     ?>
 
     <br><legend> Parecer técnico <span style="font-style: italic"><?=$label_secao?></span></legend>
@@ -103,6 +125,8 @@
         foreach ($analises_tecnica as $key => $an_drd) {
 
             if($an_drd['tramit_parecer'] == $secao){
+                $aprovacao = (count($an_drd['tramit_parecer'])) > 0 ? 'sim': 'nao';
+                
                 print "<tr>";
                     print "<td>".DataMysql::dataVisual($an_drd['data_parecer'])."</td>";
                     print "<td>".Usuario::getNomeId($an_drd['id_usuario'])."</td>";
@@ -139,6 +163,15 @@
     $(document).ready(function () {
         
         $("#frmH_pedido_an_tec").trigger("reset");
+        $("#frmH_pedido_an_tec").hide();
+        $("#lg_parecer").hide();
+        
+        
+        $("#cadastro").click(function(){
+            $("#frmH_pedido_an_tec").show();
+            $("#lg_parecer").show();
+        });
+        
         
         
         /* conta os caracteres */
@@ -168,9 +201,9 @@
                         processData: false,  // tell jQuery not to process the data
                         contentType: false,  // tell jQuery not to set contentType
                         success : function(response) {
-                            //console.log(response);
+                            console.log(response);
                             Swal.fire('Documento Transmitido para <?=$sigla_despacho?>  !').then(function(){
-                                window.location.href = '<?= FuncaoBase::geralink("ajuda", "h_pedido_index", "index"); ?>';
+                                //window.location.href = '<?= FuncaoBase::geralink("ajuda", "h_pedido_index", "index"); ?>';
                             });
                         },
                         error : function(e) {

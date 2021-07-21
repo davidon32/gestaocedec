@@ -6,7 +6,7 @@
 <!-- =================== HEADER ============================ -->
 <?php include_once "template/page/header.php";?>
 <!-- =================== MENU  ============================ -->
-<?php include_once "template/page/menuExterno.php";?>
+<?php //include_once "template/page/menuExterno.php";?>
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php";?>
 <?php
@@ -100,10 +100,13 @@
                 <td>".DataMysql::dataCompletaVisual($pedid['data_hora_envio'])."</td>
                 <td>";
                 
+                # EDITAR
                 if($pedid['status'] == 2){
                     print "<a href='".FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit', array('id'=> $pedid['id']))."' title='Editar Pedido'><img src='/core/imagem/editar.png'></a> |";
                 }
-                print "<a href='".FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "impressao", array('id'=> $pedid['id']))."' title='Visualiação e Impressa do Pedido'><img src='/core/imagem/impressao.png'></a> |";
+                
+                # visualizar 
+                print "<a href='".FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "view", array('id'=> $pedid['id']))."' title='Visualiação e Impressa do Pedido'><img src='/core/imagem/view.png'></a> |";
                 
                 #prestação de contas
                 if($pedid['status'] == 5){
@@ -111,13 +114,13 @@
                 }
                 
                 # analise DRD
-                if($permissao[0]['analista_drd'] == 1) {
+                if($permissao[0]['analista_drd'] == 1 && $pedid['status'] !=5) {
                     
                     print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar'=>'idx_recente', 'an'=>'analise_drd'))."' title='Analise DRD'><img width='25' src='/core/imagem/cedec.png'></a>";
                 }
                 
                 # analise_dlog
-                if($permissao[0]['analista_dlog'] == 1) {
+                if($permissao[0]['analista_dlog'] == 1 && $pedid['status'] !=5) {
                     
                     print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar'=>'idx_recente', 'an'=>'analise_dlog'))."' title='Despacho DLOG'><img width='25' src='/core/imagem/dlog.png'></a>";
                 }

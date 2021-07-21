@@ -7,7 +7,7 @@
 <!-- =================== HEADER ============================ -->
 <?php include_once "template/page/header.php"; ?>
 <!-- =================== MENU  ============================ -->
-<?php include_once "template/page/menu.php"; ?>
+<?php //include_once "template/page/menu.php";?>
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php"; ?>
 <?php
@@ -124,11 +124,11 @@ $h_pedido_pedido_model = new H_pedido_pedidajuda_hModel();?>
   </table>
 <br>
 <!- tabela de materiais do pedido -->
+    <legend>Materiais do Pedido</legend>
     <div class='row table-responsive'>
         <div class='col-md-1'>
         </div>
         <div class='col-md-10'><br>
-            <legend>Materiais do Pedido</legend>
 
             <table class="table table-bordered table-striped">
                 <tr>
@@ -165,11 +165,11 @@ foreach ($materiais as $key => $material) {
         </div>
     </div>
 
+                <legend>Lista de Arquivos Anexados</legend>
    <div class="row table-responsive">
        <div class='col-md-1'>
         </div>
        <div class="col-md-10">
-                <legend>Lista de Arquivos Anexados</legend>
 
                 <table class="table table-bordered table-condensed table-striped">
                     
@@ -234,13 +234,13 @@ foreach ($analises_tecnica as $key => $analise) {
  
             print "<div class='row'>";
                 print "<div class='col-md-1'>";
-                    print "<p>". DataMysql::dataVisual($an_drd['data_parecer'])."</p>";
+                    print "#".($key+1)."<p>". DataMysql::dataVisual($an_drd['data_parecer'])."</p>";
                 print "</div>";
 
                 print "<div class='col-md-11'>";
-                    print "<p style='text-align: justify'>".$an_drd['parecer']."</p><hr>";
+                    print "<p style='text-align: justify'>".$an_drd['parecer']."</p>";
                 print "</div>";
-            print "</div>";
+            print "</div><hr>";
         }
     }
 
@@ -252,13 +252,13 @@ foreach ($analises_tecnica as $key => $analise) {
  
             print "<div class='row'>";
                 print "<div class='col-md-1'>";
-                    print "<p>".DataMysql::dataVisual($an_dlog['data_parecer'])."</p>";
+                    print "#".($key+1)."<p>".DataMysql::dataVisual($an_dlog['data_parecer'])."</p>";
                 print "</div>";
 
                 print "<div class='col-md-11'>";
-                    print "<p style='text-align: justify'>".$an_dlog['parecer']."</p><hr>";
+                    print "<p style='text-align: justify'>".$an_dlog['parecer']."</p>";
                 print "</div>";
-            print "</div>";
+            print "</div><hr>";
         }
     }
     
@@ -269,14 +269,14 @@ foreach ($analises_tecnica as $key => $analise) {
         foreach ($analise_coord as $key => $an_coord) {
  
             print "<div class='row'>";
-                print "<div class='col-md-1'>";
+                print "#".($key+1)."<div class='col-md-1'>";
                     print "<p>".DataMysql::dataVisual($an_coord['data_parecer'])."</p>";
                 print "</div>";
 
                 print "<div class='col-md-11'>";
-                    print "<p style='text-align: justify'>".$an_coord['parecer']."</p><hr>";
+                    print "<p style='text-align: justify'>".$an_coord['parecer']."</p>";
                 print "</div>";
-            print "</div>";
+            print "</div><hr>";
         }
     }
 
