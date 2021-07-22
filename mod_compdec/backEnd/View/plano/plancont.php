@@ -184,9 +184,11 @@
 			data: form_data,                         
 			type: 'post',
 			success: function(response){
-				alert(response);
-				$("#myModal").modal('hide');
-				window.location.reload();
+				if( response.trim() == 'sucesso' ){
+                                    alert('Upload realizado com Sucesso "');
+                                    $("#myModal").modal('hide');
+                                    window.location.reload();
+                                }
 			},error: function(response){
                             console.log(response)
                         }

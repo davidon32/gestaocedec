@@ -167,15 +167,18 @@ class Anexo extends FuncaoBase  {
 
 
 	static public function getExtensao($nome){
-
-		$extensao = substr($nome, -3, 3);
+                
+                
+		$extensao = strtolower(substr($nome, -3, 3));
+                $result = $extensao;
+                
 		if($extensao == "ocx"){
-			$extensao = "docx";
+			$result = "docx";
 		}else if($extensao == 'peg'){
-			$extensao = "jpeg";
+			$result = "jpeg";
 		}
 
-		return strtolower($extensao);
+		return $result;
 	}
 
 	/**

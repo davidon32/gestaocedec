@@ -35,7 +35,9 @@ $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
             <div class='row'>
                 <div class='col-md-2'>
                     <label>Número Pedido</label>
-                    <input type="text" class='form form-control' name='numero' id='numero' value='<?= $view[0]['numero']."-". substr($view[0]['data_entrada_sistema'], 0, 4) ?>' readonly=readonly>
+                    <input type="text" class='form form-control' value='<?= $view[0]['numero']."-". substr($view[0]['data_entrada_sistema'], 0, 4) ?>' readonly=readonly>
+                    <input type="text" class='form form-control' name='cpf_cnpj_mot' id='cpf_cnpj_mot' >
+                    <input type="hidden" class='form form-control' name='numero' id='numero' value='<?= $view[0]['numero']?>' readonly=readonly>
                     <input type="hidden" id='id' name='id' value='<?= $view[0]['id'] ?>'>
                     <input type="hidden" id='despachante_analista' name='despachante_analista' value='<?= $view[0]['despachante_analista'] ?>'>
                     <input type="hidden" id='despachante_dlog' name='despachante_dlog' value='<?= $view[0]['despachante_dlog'] ?>'>

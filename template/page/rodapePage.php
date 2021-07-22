@@ -78,13 +78,38 @@
             $('a.logo').hide();
         }
 
+        /* jquery.mask.js igor escobar*/
         $("input[name^='val_'").mask("#.##0,00", {reverse: true});
 
-        $("input[name^='cep'").mask("99999-999");
+        $("input[name^='cep'").mask("00000-000");
+        
+        $("input[name^='tel'").mask("(00) 0000-0000");
+        $("input[name^='cel'").mask("(00) 0-0000-0000");
+        
+        /* Placa */
+        var pl_mask =  {
+                onKeyPress: function(placa, e, field, options) {
+                  var masks = ['AAA 0000', 'AAA 0A00'];
+                  var mask = (typeof placa.substr(3,1) == 'string') ? masks[1] : masks[0];
+                  $("input[name^='pl_'").mask(mask, options);
+              }};
 
-        $("input[name^='tel'").mask("(99)9999-9999");
-        $("input[name^='cel'").mask("(99)99999-9999");
+              $("input[name^='pl_'").mask('AAA-0000', pl_mask);
+              
+              
+        /* cpf/ CNPJ */
+        var cpf_cnpj =  {
+                onKeyPress: function(cpfcnpj, e, field, options) {
+                    console.log(cpfcnpj.length);
+                  var masks = ['99.999.999/9999-99', '999.999.999-99_'];
+                  var mask = (cpfcnpj.length ==14) ? masks[1] : masks[0];
+                   console.log(mask);
+                  $("input[name^='cpf_cnpj_'").mask(mask, options);
+              }};
 
+              $("input[name^='cpf_cnpj_'").mask('99.999.999/9999-99', cpf_cnpj);
+              
+              
         $("input[name^='data_'").datepicker({dateFormat: 'dd/mm/yy',
             orientation: "bottom left",
             beforeShow: function () { /* problema datapicker atras controle input*/

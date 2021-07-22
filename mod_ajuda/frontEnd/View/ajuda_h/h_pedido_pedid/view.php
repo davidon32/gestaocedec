@@ -39,15 +39,7 @@ $h_pedido_pedido_model = new H_pedido_pedidajuda_hModel();?>
 
 <tr>
     <td class="col-md-3">Data Entrada Sistema :</td><td><?=DataMysql::dataCompletaVisual($view[0]['data_entrada_sistema']);?></td>
-            </tr></div>
-
-<tr>
-                <td class="col-md-3">Analista CEDEC :</td><td><?=$view[0]['despachante_analista'];?></td>
-            </tr></div>
-
-<tr>
-                <td class="col-md-3">Analista DLOG :</td><td><?=$view[0]['despachante_dlog'];?></td>
-            </tr></div>
+            </tr>
 
 <tr>
                 <td class="col-md-3">Identificador Municipio :</td><td><?=$h_pedido_pedidModel->getNomeIdFk('cedec_municipio','id_municipio', $view[0]['id_municipio'])->nome;?></td>

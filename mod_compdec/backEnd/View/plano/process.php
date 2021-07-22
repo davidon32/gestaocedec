@@ -35,7 +35,9 @@
             print "sucesso";
             
         };
-    }elseif($identificador == 'upload'){
+    
+        
+        }elseif($identificador == 'upload'){
 
         if(!isset($_FILES['file'])){
             print "Favor Carregar o arquivo !";
@@ -44,7 +46,7 @@
         }else {
             
 
-            $extensao = $anexo->getExtensao($_FILES['file']['name']);
+            $extensao = strtolower($anexo->getExtensao($_FILES['file']['name']));
 
             $data_upload = isset($_POST['dt_upload']) ? $_POST['dt_upload'] :"";
             
@@ -68,7 +70,7 @@
                 //var_dump(Log::Log_reg("Upload plano de contingencia"));
                 
             }else {
-                print 'Extensao Inválida !';
+                print "-".$extensao.'Extensao Inválida !';
             }
         }
     }elseif ($identificador = "removerPlano") {

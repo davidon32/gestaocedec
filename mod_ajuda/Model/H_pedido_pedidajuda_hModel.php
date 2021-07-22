@@ -225,8 +225,8 @@ numero_decreto,
 data_vigencia,
 tipo_decreto,
 esforcos_realizados,
-tramit
-) VALUES (:numero,
+tramit,
+ano) VALUES (:numero,
 :data_entrada_sistema,
 :despachante_analista,
 :despachante_dlog,
@@ -285,12 +285,12 @@ $result->bindValue(":ano", date('Y'));
                 print "window.location.href = '".(FuncaoBase::geraLink("ajuda", "h_pedido_itens", "cadastro", array("id" => $id)))."';";
                 print "</script>";
             }else {
-                print 'erro';
+                print "erro";
             }
 
             #Log::GravaLog("Cadastro de marca : " . $dados['nome'] . " " . $_COOKIE['seguranca']['login'], "aju_log");
 
-            return true;
+            print "sucesso";
         } catch (Exception $e) {
             return $e->getMessage() . "Erro ao inserir marca";
         }
@@ -354,7 +354,7 @@ $result->bindValue(":decreto_se_ecp_vig", $dados['decreto_se_ecp_vig']);
 $result->bindValue(":numero_decreto", $dados['numero_decreto']);
 $result->bindValue(":data_vigencia", DataMysql::dataForm($dados['data_vigencia']));
 $result->bindValue(":tipo_decreto", $dados['tipo_decreto']);
-$result->bindValue(":esforcos_realizados", $dados['esforcos_realizados']);
+$result->bindValue(":esforcos_realizados", nl2br($dados['esforcos_realizados']));
             
             $result->execute();
 

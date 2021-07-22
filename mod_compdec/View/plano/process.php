@@ -64,13 +64,15 @@
 
 
             if($extensao == 'pdf' || $extensao == 'doc' || $extensao == 'docx'){
-                $anexo->uploadSimple('file', '/anexo/planoCont', $dados['filePlano']);
-                $plano->gravaUpload($dados);
+                if($anexo->uploadSimple('file', '/anexo/planoCont', $dados['filePlano']) &&
+                $plano->gravaUpload($dados)){
+                    print "sucesso";
+                }
                 
 
 
             }else {
-                print 'Extensao Inválida !';
+                print $extensao.'Extensao Inválida !';
             }
         }
 
