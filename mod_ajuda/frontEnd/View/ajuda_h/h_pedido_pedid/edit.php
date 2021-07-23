@@ -36,7 +36,6 @@ $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
                 <div class='col-md-2'>
                     <label>Número Pedido</label>
                     <input type="text" class='form form-control' value='<?= $view[0]['numero']."-". substr($view[0]['data_entrada_sistema'], 0, 4) ?>' readonly=readonly>
-                    <input type="text" class='form form-control' name='cpf_cnpj_mot' id='cpf_cnpj_mot' >
                     <input type="hidden" class='form form-control' name='numero' id='numero' value='<?= $view[0]['numero']?>' readonly=readonly>
                     <input type="hidden" id='id' name='id' value='<?= $view[0]['id'] ?>'>
                     <input type="hidden" id='despachante_analista' name='despachante_analista' value='<?= $view[0]['despachante_analista'] ?>'>
@@ -46,7 +45,7 @@ $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
             <div class='row'>
                 <div class='col-md-2'>
                     <label>Data Entrada Sistema</label>
-                    <input type="text" class='form form-control' name='data_entrada_sistema' id='data_entrada_sistema' value='<?= DataMysql::dataVisual($view[0]['data_entrada_sistema']) ?>'  maxlength='-1' required>
+                    <input type="text" class='form form-control' name='data_entrada_sistema' id='data_entrada_sistema' value='<?= DataMysql::dataVisual($view[0]['data_entrada_sistema']) ?>'  maxlength='-1' readonly=readonly>
                 </div>
             </div>
             <div class='row'>
@@ -256,7 +255,7 @@ foreach ($materiais as $key => $material) {
                         print "<tr>";
                         print "<td>".($key+1)."</td>";
                         print "<td>". DataMysql::dataCompletaVisual($arquivo['data_envio'])."</td>";
-                        print "<td>".$arquivo['nome_arquivo']."</td>";
+                        print "<td><a name='lk_visualiza'>".$arquivo['nome_arquivo']."</a></td>";
                         print "<td>".$arquivo['descricao']."</td>";
                         print "<td><a name='deletar_anexo' data-nome_arquivo='".$arquivo['nome_arquivo']."' data-id='".$arquivo['id']."' title='Apagar Arquivo'><img src='/core/imagem/delete.png'></a></td>";
                         print "</tr>";
@@ -374,6 +373,12 @@ foreach ($materiais as $key => $material) {
                 <script>
 
                     $(document).ready(function () {
+                        
+                        $("a[name='lk_visualiza']").click(function(){
+                            $.post('<?=FuncaoBase::geraLink("ajuda", "h_pedido_anexo", "visualizafile", array('file'=>$arquivo['nome_arquivo'], 'id'=>$arquivo['id']))?>', 
+                            { arquivo: '<?=PATH.'/anexo/pedido_ajuda_h/'.$arquivo['nome_arquivo']?>', id: <?=$arquivo['id']?>, 'path': '/anexo/pedido_ajuda_h' });
+                            
+                        });
                         
                         $("#add_material").click(function(){
                             window.location.href = '<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "add_itens", array('id'=>$view[0]['id'], 'voltar'=>'idx_recente'))?>';

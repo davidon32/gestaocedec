@@ -246,6 +246,5 @@ class Anexo extends FuncaoBase  {
 			
 		}
 	}
-	
-	
+
 }?>

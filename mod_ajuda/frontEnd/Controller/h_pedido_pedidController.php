@@ -191,5 +191,11 @@ class h_pedido_pedidController extends Controller {
             print 'sucesso';
         }
     }
+    
+    
+    public function visualizaArquivo(){
+        
+        print Upload2mb::visualizaFile($_POST);
+    }
 
 }

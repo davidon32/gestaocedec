@@ -170,5 +170,19 @@ class h_pedido_anexoController extends Controller {
         }
  
     }
+    
+    
+    
+    public function visualizafile(){
+        
+        //var_dump($_POST);
+        //die();
+        
+        //$dados['arquivo'] = PATH.'/anexo/pedido_ajuda_h/'.$_GET['file'];
+        //$dados['id'] = $_GET['id'];
+        
+        Upload2mb::visualizaFile($_POST);
+            
+    }
 
 }

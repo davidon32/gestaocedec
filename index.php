@@ -32,12 +32,17 @@ $acesso = isset($_COOKIE['seguranca']['tipo']) ? $_COOKIE['seguranca']['tipo'] :
 # Acesso Comun (raiz modulo)
 # acesso externo
 
-
 if ((isset($caminho[1]) && ($caminho[1] === 'mapa')) && ( (isset($caminho[2]) && $caminho[2] === 'site'))) { # mapas
     include_once "mod_ajuda/backEnd/Controller/relatorioController.php";
     $app = new relatorioController();
     $app->mapa();
-} else if (($action === 'recsenha') || ($action === 'recsenha_compdec') || ($action === 'recsenha_cedec') || ($action === 'trsenha') || ($action === 'trsenha_compdec') || ($modulo === 'index')) {
+} else if (
+            ($action === 'recsenha') ||
+            ($action === 'recsenha_compdec') ||
+            ($action === 'recsenha_cedec') || 
+            ($action === 'trsenha') || 
+            ($action === 'trsenha_compdec') || 
+            ($modulo === 'index') ) {
 
     include_once "mod_" . $modulo . "/Controller/" . $controller . ".php";
 } else if ((isset($caminho[1]) && $caminho[1] == "tdap")) { # TDAP
@@ -47,6 +52,8 @@ if ((isset($caminho[1]) && ($caminho[1] === 'mapa')) && ( (isset($caminho[2]) &&
     include_once("/plugins/api-rest-php/view/" . ucfirst($controller) . "/" . $action . ".php");
 //$app = new $controller();
 //$app->$action($id);
+    
+
 } else if (isset($_COOKIE['seguranca']['tipo'])) {
 
     if ($acesso === "e") {
