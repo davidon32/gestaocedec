@@ -210,12 +210,16 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 
 		<br>
 		<div class='col-md-12'>
-			<label style="color:red">Email : ( será usado para Login e Recuperação de Senha de acesso, apenas um email )</label>
-			<?php //Compdec::getEmailRec();
-			?>
-                        <input class="form-control" type="email" name="txt_email" id="txt_email" value="<?php print $_dados[0]['email']; ?>" required maxlength="100">
+			<label style="color:red">Email Rec : ( será usado para Login e Recuperação de Senha de acesso, apenas um email )</label>
+                        <input class="form-control" type="email" name="txt_email_rec" id="txt_email_rec" value="<?php print $_dados[0]['email_rec']; ?>" required maxlength="100">
 		</div>
                 
+                <div class='col-md-12'><br>
+			<label style="">Email 1:</label>
+			<?php //Compdec::getEmailRec();
+			?>
+			<input class="form-control" type="email" name="txt_email" id="txt_email" value="<?php print $_dados[0]['email']; ?>" required maxlength="100">
+		</div>
                 <div class='col-md-12'><br>
 			<label style="">Email 2:</label>
 			<?php //Compdec::getEmailRec();
@@ -494,7 +498,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-						<button type="button" class="btn btn-primary" name="btnGravarFoto" id="btnGravarFoto">Upload</button>
+						<button type="button" class="btn btn-primary" name="btnGravarFoto" id="btnGravarFoto">Upload Foto</button>
 					</div>
 				</div>
 			</div>
@@ -595,6 +599,11 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 <?php include_once "template/page/rodapePage.php"; ?>
 <script type="text/javascript">
 	$(document).ready(function() {
+            
+            $("#btn_anexo").click(function(){
+               $("#btnDados2").trigger('click', [false]);
+                
+            });
 
 
 		/* $("#txt_email").blur(function(){
@@ -748,7 +757,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 
 				$.ajax({
 					type: 'POST',
-					url: 'mod_pipa/frontEnd/View/pmda/membroEquipe.php',
+					url: 'mod_pipa/frontEnd/View/pmda/membroEquipe.php?v=<?=md5(VERSAO)?>',
 					data: dados,
 					//dataType: 'json',
 					success: function(response) {
@@ -814,7 +823,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 
 				$.ajax({
 					type: 'POST',
-					url: 'mod_compdec/frontEnd/View/compdec/valida.php',
+					url: 'mod_compdec/frontEnd/View/compdec/valida.php?v=<?=md5(VERSAO)?>',
 					data: dados,
 					//dataType: 'json',
 					success: function(response) {
@@ -835,7 +844,8 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 		 * dados parte 2
 		 *
 		 */
-		$("#btnDados2").click(function() {
+		$("#btnDados2").click(function(e, param) {
+
 
 			if (validaEmail($("#txt_email").val())) {
 
@@ -895,6 +905,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 					var dados = {
 						"opcao": "parte2",
 						"txt_email": $("#txt_email").val(),
+						"txt_email_rec": $("#txt_email_rec").val(),
                                                 "txt_email2": $("#txt_email2").val(),
                                                 "txt_email3": $("#txt_email3").val(),
 						"rdb_plano": $('input[name="rdb_plano"]:checked').val(),
@@ -926,12 +937,15 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 
 					$.ajax({
 						type: 'POST',
-						url: 'mod_compdec/frontEnd/View/compdec/valida.php',
+						url: 'mod_compdec/frontEnd/View/compdec/valida.php?v=<?=md5(VERSAO)?>',
 						data: dados,
 						success: function(response) {
-							alert("Registro Atualizado com sucesso !");
-							location.reload();
-							//console.log(response);
+						
+							if(typeof param === 'undefined') {
+                                                            alert("Registro Atualizado com sucesso !");
+                                                            location.reload();
+                                                        }
+							
 						},
 						error: function(e) {
 							console.log(JSON.stringify(e));
@@ -974,7 +988,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 
 			$.ajax({
 				type: 'POST',
-				url: 'mod_compdec/frontEnd/View/compdec/valida.php',
+				url: 'mod_compdec/frontEnd/View/compdec/valida.php?v=<?=md5(VERSAO)?>',
 				data: dados,
 				//dataType: 'json',
 				success: function(response) {
@@ -1015,7 +1029,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 
 			$.ajax({
 				type: 'POST',
-				url: 'mod_compdec/frontEnd/View/compdec/valida.php',
+				url: 'mod_compdec/frontEnd/View/compdec/valida.php?v=<?=md5(VERSAO)?>',
 				data: dados,
 				//dataType: 'json',
 				success: function(response) {
@@ -1047,7 +1061,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 			};
 			$.ajax({
 				type: 'POST',
-				url: 'mod_pipa/frontEnd/View/pmda/membroEquipe.php',
+				url: 'mod_pipa/frontEnd/View/pmda/membroEquipe.php?v=<?=md5(VERSAO)?>',
 				data: dados,
 				success: function(response) {
 					alert("Registro alterado com sucesso !");
@@ -1089,7 +1103,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 		$("#btnGravarFoto").click(function() {
 
 			$.ajax({
-				url: '/mod_index/app/login/ckLogin.php',
+				url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 				type: 'POST',
 				success: function(response) {
 
@@ -1116,7 +1130,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 								extensao.toLowerCase() == 'png') {
 
 								$.ajax({
-									url: 'mod_compdec/frontEnd/View/compdec/valida.php',
+									url: 'mod_compdec/frontEnd/View/compdec/valida.php?v=<?=md5(VERSAO)?>',
 									type: 'POST',
 									enctype: 'multipart/form-data',
 									data: formData,
@@ -1155,7 +1169,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 		$("#btnGravarFotoPref").click(function() {
 
 			$.ajax({
-				url: '/mod_index/app/login/ckLogin.php',
+				url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 				type: 'POST',
 				success: function(response) {
 
@@ -1182,7 +1196,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 								extensao.toLowerCase() == 'png') {
 
 								$.ajax({
-									url: 'mod_cedec/app/prefeitura/valida.php',
+									url: 'mod_cedec/app/prefeitura/valida.php?v=<?=md5(VERSAO)?>',
 									type: 'POST',
 									data: formData,
 									processData: false, // tell jQuery not to process the data
@@ -1221,7 +1235,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 		$("#btnGravarLeis").click(function() {
 
 			$.ajax({
-				url: '/mod_index/app/login/ckLogin.php',
+				url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 				type: 'POST',
 				success: function(response) {
 
@@ -1254,7 +1268,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 								extensao.toLowerCase() == 'png') {
 
 								$.ajax({
-									url: 'mod_compdec/frontEnd/View/compdec/anexo.php',
+									url: 'mod_compdec/frontEnd/View/compdec/anexo.php?v=<?=md5(VERSAO)?>',
 									type: 'POST',
 									data: formData,
 									processData: false, // tell jQuery not to process the data
@@ -1315,7 +1329,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 
 			$.ajax({
 				type: 'POST',
-				url: 'mod_compdec/frontEnd/View/compdec/anexo.php',
+				url: 'mod_compdec/frontEnd/View/compdec/anexo.php?v=<?=md5(VERSAO)?>',
 				data: dados,
 				success: function(response) {
 					$("#tblAnexoLeis").html(response);
@@ -1355,7 +1369,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 
 			$.ajax({
 				type: 'POST',
-				url: 'mod_pipa/frontEnd/View/pmda/membroEquipe.php',
+				url: 'mod_pipa/frontEnd/View/pmda/membroEquipe.php?v=<?=md5(VERSAO)?>',
 				data: dados,
 				success: function(response) {
 					alert("Registro apagado com sucesso !");

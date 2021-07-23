@@ -141,8 +141,8 @@ class Upload2mb {
      */
 
     public static function visualizaFile(array $dados) {
-        
-        if (isset($dados['arquivo']) && file_exists($dados['arquivo'])) {
+
+        if (isset($dados['arquivo']) && file_exists($dados['path'].$dados['arquivo'])) {
             // faz o teste se a variavel não esta vazia e se o arquivo realmente existe
             switch (strtolower(substr(strrchr(basename($dados['arquivo']), "."), 1))) {
                 // verifica a extensão do arquivo para pegar o tipo
@@ -179,14 +179,13 @@ class Upload2mb {
         header("Pragma: public");
         header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
         header('Content-Length: ' . filesize($dados['arquivo'])); //Remove
-        ob_clean();
-        flush();
-        readfile($dados['arquivo']);
-                     
+        readfile($dados['path'].$dados['arquivo']);
+        print "-";         
         }else {
             print "erro";
         }
+        
     }
 
     
-            }?>
+}?>

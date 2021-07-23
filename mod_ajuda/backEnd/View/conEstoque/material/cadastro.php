@@ -168,7 +168,7 @@ $(document).ready(function(){
 				
 			$.ajax({
 				type: 'POST',
-				url: 'mod_ajuda/backEnd/View/conEstoque/material/valida.php',
+				url: 'mod_ajuda/backEnd/View/conEstoque/material/valida.php?v=<?=md5(VERSAO)?>',
 				cache: false,
 				contentType: false,
 				processData: false,

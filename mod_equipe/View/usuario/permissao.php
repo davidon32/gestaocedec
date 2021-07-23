@@ -138,7 +138,7 @@ $permissaoFunc = $usuario->dadosUsuarioIdFunc($id_funcionario);
 			};
 		$.ajax({
 	        type: 'POST',
-	        url: 'mod_equipe/app/usuario/usuario.php',
+	        url: 'mod_equipe/app/usuario/usuario.php?v=<?=md5(VERSAO)?>',
 	        data: dados,
 	        success: function(response) {
 	            console.log(response);
@@ -162,7 +162,7 @@ $permissaoFunc = $usuario->dadosUsuarioIdFunc($id_funcionario);
 			};
 		$.ajax({
 	        type: 'POST',
-	        url: 'mod_equipe/app/usuario/usuario.php',
+	        url: 'mod_equipe/app/usuario/usuario.php?v=<?=md5(VERSAO)?>',
 	        data: dados,
 	        success: function(response) {
 	            console.log(response);
@@ -186,7 +186,7 @@ $permissaoFunc = $usuario->dadosUsuarioIdFunc($id_funcionario);
 			};
 		$.ajax({
 	        type: 'POST',
-	        url: 'mod_equipe/app/usuario/usuario.php',
+	        url: 'mod_equipe/app/usuario/usuario.php?v=<?=md5(VERSAO)?>',
 	        data: dados,
 	        success: function(response) {
 	            console.log(response);
@@ -210,7 +210,7 @@ $permissaoFunc = $usuario->dadosUsuarioIdFunc($id_funcionario);
 			};
 		$.ajax({
 	        type: 'POST',
-	        url: 'mod_equipe/app/usuario/usuario.php',
+	        url: 'mod_equipe/app/usuario/usuario.php?v=<?=md5(VERSAO)?>',
 	        data: dados,
 	        success: function(response) {
 	            console.log(response);
@@ -234,7 +234,7 @@ $permissaoFunc = $usuario->dadosUsuarioIdFunc($id_funcionario);
 			};
 		$.ajax({
 	        type: 'POST',
-	        url: 'mod_equipe/app/usuario/usuario.php',
+	        url: 'mod_equipe/app/usuario/usuario.php?v=<?=md5(VERSAO)?>',
 	        data: dados,
 	        success: function(response) {
 	            console.log(response);
@@ -258,7 +258,7 @@ $permissaoFunc = $usuario->dadosUsuarioIdFunc($id_funcionario);
 			};
 		$.ajax({
 	        type: 'POST',
-	        url: 'mod_equipe/app/usuario/usuario.php',
+	        url: 'mod_equipe/app/usuario/usuario.php?v=<?=md5(VERSAO)?>',
 	        data: dados,
 	        success: function(response) {
 	            console.log(response);
@@ -282,7 +282,7 @@ $permissaoFunc = $usuario->dadosUsuarioIdFunc($id_funcionario);
 			};
 		$.ajax({
 	        type: 'POST',
-	        url: 'mod_equipe/app/usuario/usuario.php',
+	        url: 'mod_equipe/app/usuario/usuario.php?v=<?=md5(VERSAO)?>',
 	        data: dados,
 	        success: function(response) {
 	            console.log(response);
@@ -307,7 +307,7 @@ $permissaoFunc = $usuario->dadosUsuarioIdFunc($id_funcionario);
 			};
 		$.ajax({
 	        type: 'POST',
-	        url: 'mod_equipe/app/usuario/usuario.php',
+	        url: 'mod_equipe/app/usuario/usuario.php?v=<?=md5(VERSAO)?>',
 	        data: dados,
 	        success: function(response) {
 	            console.log(response);

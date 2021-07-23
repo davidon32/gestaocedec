@@ -141,7 +141,7 @@ $(document).ready(function(){
 
 					$.ajax({
 						type: 'POST',
-						url: 'mod_ajuda/backEnd/View/conEstoque/liberacao/valida.php',
+						url: 'mod_ajuda/backEnd/View/conEstoque/liberacao/valida.php?v=<?=md5(VERSAO)?>',
 						data: dados,
 						success: function(response) {
 								console.log(response.length);

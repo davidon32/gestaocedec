@@ -350,7 +350,7 @@ $(document).ready(function(){
 			
 						$.ajax({
 							type: 'POST',
-							url: 'mod_pipa/View/pmda/mensagemView.php',
+							url: 'mod_pipa/View/pmda/mensagemView.php?v=<?=md5(VERSAO)?>',
 							data: dados,
 							//dataType: 'json',
 							success: function(response) {
@@ -380,7 +380,7 @@ $(document).ready(function(){
 	
 			$.ajax({
 				type: 'POST',
-				url: 'mod_pipa/View/pmda/funcAdm.php',
+				url: 'mod_pipa/View/pmda/funcAdm.php?v=<?=md5(VERSAO)?>',
 				data: dados,
 				success: function(response) {
 					//console.log(dados);
@@ -433,7 +433,7 @@ $("#btnCadMensagem").click(function(){
 
 		$.ajax({
 			type: 'POST',
-			url: 'mod_pipa/View/pmda/funcAdm.php',
+			url: 'mod_pipa/View/pmda/funcAdm.php?v=<?=md5(VERSAO)?>',
 			data: dados,
 			//dataType 'jason',
 			success: function(response) {
@@ -469,7 +469,7 @@ function alterarStatus(id_pmda){
 
 $.ajax({
 	type: 'POST',
-	url: 'mod_pipa/View/pmda/funcAdm.php',
+	url: 'mod_pipa/View/pmda/funcAdm.php?v=<?=md5(VERSAO)?>',
 	data: dados,
 	success: function(response) {
 		console.log(dados);

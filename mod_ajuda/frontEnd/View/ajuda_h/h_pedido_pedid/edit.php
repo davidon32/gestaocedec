@@ -1,5 +1,3 @@
-
-
 <?php include_once PATH . '/core/include.php'; ?>
 <?php include_once "core/Model/indexModel.php"; ?>
 <?php include_once "mod_ajuda/Model/indexModel.php"; ?>
@@ -255,7 +253,7 @@ foreach ($materiais as $key => $material) {
                         print "<tr>";
                         print "<td>".($key+1)."</td>";
                         print "<td>". DataMysql::dataCompletaVisual($arquivo['data_envio'])."</td>";
-                        print "<td><a name='lk_visualiza'>".$arquivo['nome_arquivo']."</a></td>";
+                        print "<td><span class='btn btn-link' name='lk_visualiza' data-id='".$arquivo['id']."' data-arquivo='".$arquivo['nome_arquivo']."'>".$arquivo['nome_arquivo']."</span></td>";
                         print "<td>".$arquivo['descricao']."</td>";
                         print "<td><a name='deletar_anexo' data-nome_arquivo='".$arquivo['nome_arquivo']."' data-id='".$arquivo['id']."' title='Apagar Arquivo'><img src='/core/imagem/delete.png'></a></td>";
                         print "</tr>";
@@ -374,9 +372,21 @@ foreach ($materiais as $key => $material) {
 
                     $(document).ready(function () {
                         
-                        $("a[name='lk_visualiza']").click(function(){
-                            $.post('<?=FuncaoBase::geraLink("ajuda", "h_pedido_anexo", "visualizafile", array('file'=>$arquivo['nome_arquivo'], 'id'=>$arquivo['id']))?>', 
-                            { arquivo: '<?=PATH.'/anexo/pedido_ajuda_h/'.$arquivo['nome_arquivo']?>', id: <?=$arquivo['id']?>, 'path': '/anexo/pedido_ajuda_h' });
+                        
+                        
+                        $("span[name='lk_visualiza']").click(function(){
+                            
+                            var arquivo = $(this).data('arquivo');
+                            var id = $(this).data('id');
+
+                            
+                            $.post('/mod_ajuda/frontEnd/View/ajuda_h/h_pedido_anexo/ajax.php', 
+                                { opcao  :'visualizafile',
+                                  arquivo: arquivo,
+                                  id     : id,
+                                  path   : '<?=PATH?>/anexo/pedido_ajuda_h' 
+                                }
+                            );
                             
                         });
                         

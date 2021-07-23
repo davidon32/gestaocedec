@@ -121,7 +121,7 @@
 		if(confirm("Deseja Começar o preenchimento de um novo Plano de Contingência ?")){
 
 			$.ajax({
-			url: 'mod_compdec/View/plano/process.php',
+			url: 'mod_compdec/View/plano/process.php?v=<?=md5(VERSAO)?>',
 			type: 'POST',
 			data: {
 					identificador : "novoPlano",
@@ -176,7 +176,7 @@
 		form_data.append('versao', versao);
 		//alert(form_data);                             
 		$.ajax({
-			url: 'mod_compdec/View/plano/process.php', // point to server-side PHP script 
+			url: 'mod_compdec/View/plano/process.php?v=<?=md5(VERSAO)?>', // point to server-side PHP script 
 			dataType: 'text',  // what to expect back from the PHP script, if anything
 			cache: false,
 			contentType: false,
@@ -203,7 +203,7 @@
 		if(confirm("Deseja realmente deletar este Plano de Contingencia ?\nProcesso sem volta !")){
 
 			$.ajax({
-			url: 'mod_compdec/View/plano/process.php',
+			url: 'mod_compdec/View/plano/process.php?v=<?=md5(VERSAO)?>',
 			type: 'POST',
 			data: {
 					identificador : "removerPlano",

@@ -111,7 +111,7 @@ $id_municipio = isset($_GET['mun'])? $_GET['mun'] :"";
 		
 		$.ajax({
 	        type: 'POST',
-	        url: 'mod_pipa/app/pmda/funcAdm.php',
+	        url: 'mod_pipa/app/pmda/funcAdm.php?v=<?=md5(VERSAO)?>',
 	        data: dados,
 	        success: function(response) {
 		        //console.log(dados);

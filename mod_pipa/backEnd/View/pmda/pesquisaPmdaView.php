@@ -366,7 +366,7 @@ if (!empty($dados)) {
 
             $.ajax({
                 type: 'POST',
-                url: 'mod_pipa/backEnd/View/pmda/mensagemView.php',
+                url: 'mod_pipa/backEnd/View/pmda/mensagemView.php?v=<?=md5(VERSAO)?>',
                 data: dados,
                 //dataType: 'json',
                 success: function (response) {
@@ -396,7 +396,7 @@ if (!empty($dados)) {
 
             $.ajax({
                 type: 'POST',
-                url: 'mod_pipa/backEnd/View/pmda/funcAdm.php',
+                url: 'mod_pipa/backEnd/View/pmda/funcAdm.php?v=<?=md5(VERSAO)?>',
                 data: dados,
                 success: function (response) {
                     //console.log(dados);
@@ -450,7 +450,7 @@ if (!empty($dados)) {
 
         $.ajax({
             type: 'POST',
-            url: 'mod_pipa/backEnd/View/pmda/funcAdm.php',
+            url: 'mod_pipa/backEnd/View/pmda/funcAdm.php?v=<?=md5(VERSAO)?>',
             data: dados,
             //dataType 'jason',
             success: function (response) {
@@ -487,7 +487,7 @@ if (!empty($dados)) {
 
         $.ajax({
             type: 'POST',
-            url: 'mod_pipa/backEnd/View/pmda/funcAdm.php',
+            url: 'mod_pipa/backEnd/View/pmda/funcAdm.php?v=<?=md5(VERSAO)?>',
             data: dados,
             success: function (response) {
                 //console.log(dados);

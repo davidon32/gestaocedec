@@ -190,7 +190,7 @@ $(document).ready(function(){
         /* envia imagem */
         $.ajax({
               type: 'POST',
-              url: 'mod_cedec/View/agora/valida.php',
+              url: 'mod_cedec/View/agora/valida.php?v=<?=md5(VERSAO)?>',
               data: dados,
               processData: false,  // Important!
               contentType: false,

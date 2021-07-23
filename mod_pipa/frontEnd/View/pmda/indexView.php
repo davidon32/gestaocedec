@@ -191,7 +191,7 @@ foreach ($dadosPmda as $value) {
             //console.log(id_pmda);
 
             $.ajax({
-                url: '/mod_index/app/login/ckLogin.php',
+                url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
                 type: 'POST',
                 success: function (response) {
                     if (response == "sucesso") {
@@ -205,7 +205,7 @@ foreach ($dadosPmda as $value) {
 
                         $.ajax({
                             type: 'POST',
-                            url: 'mod_pipa/frontEnd/View/pmda/mensagemView.php',
+                            url: 'mod_pipa/frontEnd/View/pmda/mensagemView.php?v=<?=md5(VERSAO)?>',
                             data: dados,
                             //dataType: 'json',
                             success: function (response) {
@@ -237,7 +237,7 @@ foreach ($dadosPmda as $value) {
         $("#btnMostraCadComunidade").click(function () {
 
             $.ajax({
-                url: '/mod_index/app/login/ckLogin.php',
+                url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
                 type: 'POST',
                 success: function (response) {
                     if (response == "sucesso") {
@@ -258,7 +258,7 @@ foreach ($dadosPmda as $value) {
         /* mostrar form cadastro Ponto Captação*/
         $("#btnMostraCadPontoCap").click(function () {
             $.ajax({
-                url: '/mod_index/app/login/ckLogin.php',
+                url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
                 type: 'POST',
                 success: function (response) {
                     if (response == "sucesso") {
@@ -282,7 +282,7 @@ foreach ($dadosPmda as $value) {
 
             //arrumar
             $.ajax({
-                url: '/mod_index/app/login/ckLogin.php',
+                url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
                 type: 'POST',
                 success: function (response) {
                     if (response == "sucesso") {
@@ -350,7 +350,7 @@ foreach ($dadosPmda as $value) {
         $("#btnInfoMunicipio").click(function () {
 
             $.ajax({
-                url: '/mod_index/app/login/ckLogin.php',
+                url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
                 type: 'POST',
                 success: function (response) {
                     if (response == "sucesso") {
@@ -380,7 +380,7 @@ foreach ($dadosPmda as $value) {
                         if (result) {
 
                             $.ajax({
-                                url: '/mod_pipa/frontEnd/View/pmda/municipio.php',
+                                url: '/mod_pipa/frontEnd/View/pmda/municipio.php?v=<?=md5(VERSAO)?>',
                                 type: 'POST',
                                 data: dados,
                                 //dataType : 'json',
@@ -421,7 +421,7 @@ foreach ($dadosPmda as $value) {
             var id_municipio = $(this).data('idpmda');
 
             $.ajax({
-                url: '/mod_index/app/login/ckLogin.php',
+                url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
                 type: 'POST',
                 success: function (response) {
                     if (response == "sucesso") {
@@ -437,7 +437,7 @@ foreach ($dadosPmda as $value) {
                         if (result) {
 
                             $.ajax({
-                                url: 'mod_pipa/app/pmda/pmda.php',
+                                url: 'mod_pipa/app/pmda/pmda.php?v=<?=md5(VERSAO)?>',
                                 type: 'POST',
                                 data: dados,
                                 //dataType : 'json',
@@ -476,7 +476,7 @@ foreach ($dadosPmda as $value) {
             if (novoPmda == 0) {
 
                 $.ajax({
-                    url: '/mod_index/app/login/ckLogin.php',
+                    url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
                     type: 'POST',
                     success: function (response) {
                         if (response == "sucesso") {
@@ -489,7 +489,7 @@ foreach ($dadosPmda as $value) {
                             $.ajax({
                                 type: 'POST',
                                 //dataType: 'json',
-                                url: '/mod_pipa/frontEnd/View/pmda/novo.php',
+                                url: '/mod_pipa/frontEnd/View/pmda/novo.php?v=<?=md5(VERSAO)?>',
                                 data: dados,
                                 success: function (response) {
                                     //console.log(dados);
@@ -523,7 +523,7 @@ foreach ($dadosPmda as $value) {
     function homologa(id_pmda) {
 
         $.ajax({
-            url: '/mod_index/app/login/ckLogin.php',
+            url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
             type: 'POST',
             success: function (response) {
                 if (response == "sucesso") {
@@ -540,7 +540,7 @@ foreach ($dadosPmda as $value) {
 
                         $.ajax({
                             type: 'POST',
-                            url: '/mod_pipa/frontEnd/View/pmda/homologacao.php',
+                            url: '/mod_pipa/frontEnd/View/pmda/homologacao.php?v=<?=md5(VERSAO)?>',
                             data: dados,
                             success: function (response) {
                                 //location.reload();
@@ -568,7 +568,7 @@ foreach ($dadosPmda as $value) {
     function editar(id_pmda, protocolo, id_municipio) {
         $.ajax({
 
-            url: '/mod_index/app/login/ckLogin.php',
+            url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
             type: 'POST',
             success: function (response) {
                 if (response == "sucesso") {
@@ -600,7 +600,7 @@ foreach ($dadosPmda as $value) {
     function mensagem() {
         $.ajax({
 
-            url: '/mod_index/app/login/ckLogin.php',
+            url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
             type: 'POST',
             success: function (response) {
                 if (response == "sucesso") {
@@ -632,7 +632,7 @@ foreach ($dadosPmda as $value) {
     function impressao(id_pmda, id_municipio) {
         $.ajax({
 
-            url: '/mod_index/app/login/ckLogin.php',
+            url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
             type: 'POST',
             success: function (response) {
                 if (response == "sucesso") {
@@ -664,7 +664,7 @@ foreach ($dadosPmda as $value) {
     function verificaPendencia(id_pmda) {
 
         $.ajax({
-            url: '/mod_index/app/login/ckLogin.php',
+            url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
             type: 'POST',
             success: function (response) {
                 if (response == "sucesso") {
@@ -680,7 +680,7 @@ foreach ($dadosPmda as $value) {
 
                         $.ajax({
                             type: 'POST',
-                            url: '/mod_pipa/frontEnd/View/pmda/homologacao.php',
+                            url: '/mod_pipa/frontEnd/View/pmda/homologacao.php?v=<?=md5(VERSAO)?>',
                             data: dados,
                             success: function (response) {
                                 //console.log(response);
@@ -728,7 +728,7 @@ foreach ($dadosPmda as $value) {
     function duplicar(id_pmda) {
 
         $.ajax({
-            url: '/mod_index/app/login/ckLogin.php',
+            url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
             type: 'POST',
             success: function (response) {
                 if (response == "sucesso") {
@@ -744,7 +744,7 @@ foreach ($dadosPmda as $value) {
 
                         $.ajax({
                             type: 'POST',
-                            url: '/mod_pipa/frontEnd/View/pmda/duplicar.php',
+                            url: '/mod_pipa/frontEnd/View/pmda/duplicar.php?v=<?=md5(VERSAO)?>',
                             data: dados,
                             success: function (response) {
                                 if (response == "sucesso") {

@@ -325,7 +325,7 @@ class Compdec{
 					WHERE id_municipio=:id_municipio";
 						
 				$result = $con->prepare($sql);		
-				$result->bindValue(":email_rec", strtolower($dados['txt_email']));
+				$result->bindValue(":email_rec", strtolower($dados['txt_email_rec']));
 				$result->bindValue(":id_municipio", $dados['id_municipio']);
 				$result->execute();
 					
@@ -475,11 +475,12 @@ class Compdec{
     						com_comdec.tp_ex_dc,
     						com_comdec.com_const,
     						com_comdec.com_ativa,
-    						cedec_user_ex.situacao,
     						com_comdec.sem_decreto,
     						com_comdec.sem_portaria,
                                                 com_comdec.email2 as email2,
-                                                com_comdec.email3 as email3
+                                                com_comdec.email3 as email3,
+                                                cedec_user_ex.situacao,
+                                                cedec_user_ex.email_rec
     						FROM com_comdec
     						INNER JOIN cedec_municipio
     						ON com_comdec.id_municipio = cedec_municipio.id_municipio

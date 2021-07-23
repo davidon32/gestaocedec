@@ -25,6 +25,9 @@ $id_municipio = $_COOKIE['seguranca']['id_municipio'];
 
 $dados = Municipio::dadosMunicipio($id_municipio);
 
+var_dump($id_municipio);
+
+
 ?>
 
 <legend>Cadastro de H_pedido_pedid</legend>

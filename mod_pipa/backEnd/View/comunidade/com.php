@@ -98,7 +98,7 @@
 			if(result){
 				$.ajax({
                     type: 'POST',
-                    url: 'mod_pipa/app/comunidade/func.php',
+                    url: 'mod_pipa/app/comunidade/func.php?v=<?=md5(VERSAO)?>',
                     data: dados,
                     success: function(response) {
                         $("#btnCadastar").val("");
@@ -138,7 +138,7 @@
 
 				$.ajax({
                     type: 'POST',
-                    url: 'mod_pipa/app/comunidade/func.php',
+                    url: 'mod_pipa/app/comunidade/func.php?v=<?=md5(VERSAO)?>',
                     data: dados,
                     success: function(response) {
                         //alert("Comunidade Cadastrar com Sucesso !");

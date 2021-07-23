@@ -100,7 +100,7 @@
 		
 		$.ajax({
 				type: 'POST',
-				url: 'mod_ajuda/backEnd/View/conEstoque/pagamento/item_pgto_visualizar.php',
+				url: 'mod_ajuda/backEnd/View/conEstoque/pagamento/item_pgto_visualizar.php?v=<?=md5(VERSAO)?>',
 				data: dados,
 				success: function(response) {
 					$("#material_liberado").html(response);

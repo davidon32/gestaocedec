@@ -117,7 +117,7 @@ $(document).ready(function(){
             /* ajax buscar saldo*/
             $.ajax({
                 type: 'POST',
-                url: 'mod_ajuda/backEnd/View/conEstoque/estoque/buscaSaldoDeposito.php',
+                url: 'mod_ajuda/backEnd/View/conEstoque/estoque/buscaSaldoDeposito.php?v=<?=md5(VERSAO)?>',
                 data: dados,
                 success: function(response) {
                     $("#saldoAtual").text(response);
@@ -157,7 +157,7 @@ $(document).ready(function(){
             /* ajax grava saldo*/
             $.ajax({
                 type: 'POST',
-                url: 'mod_ajuda/backEnd/View/conEstoque/estoque/buscaSaldoDeposito.php',
+                url: 'mod_ajuda/backEnd/View/conEstoque/estoque/buscaSaldoDeposito.php?v=<?=md5(VERSAO)?>',
                 data: dados,
                 success: function(response) {
                     if(response == "sucesso"){

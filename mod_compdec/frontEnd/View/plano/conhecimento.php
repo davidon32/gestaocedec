@@ -784,7 +784,7 @@ $(document).ready(function(){
 		var dadAjax = JSON.stringify($dados);;
 
 		$.ajax({
-        url: 'mod_compdec/app/plano/process.php',
+        url: 'mod_compdec/app/plano/process.php?v=<?=md5(VERSAO)?>',
         type: 'POST',
 		data: {
 				dadAjax: dadAjax,

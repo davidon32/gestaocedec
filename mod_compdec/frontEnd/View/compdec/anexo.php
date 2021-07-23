@@ -40,7 +40,7 @@ if($opcao == 'gravarleis'){
 
 $dados = $anexo->listaAnexo($id_municipio);
 
-	print '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default" title="Clique para Anexar Leis e Decretos">Upload</button>';
+	print '<button type="button" id="btn_anexo" class="btn btn-primary" data-toggle="modal" data-target="#modal-default" title="Clique para Anexar Leis e Decretos">Upload</button>';
 
 					
 	 print '<table class="table table-bordered table-striped table-condensed tbl">

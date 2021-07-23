@@ -225,7 +225,7 @@ if($opcao == "nv"){
 		function mensagemLida(id_msg, opcao){
 
 			$.ajax({
-				url : '/mod_index/app/login/ckLogin.php',
+				url : '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 			    type : 'POST',
 			    success : function(response) {
 			      	if(response == "sucesso"){
@@ -238,7 +238,7 @@ if($opcao == "nv"){
 			    
 			                $.ajax({
 			                    type: 'POST',
-			                    url: '/mod_pipa/View/pmda/funcAdm.php',
+			                    url: '/mod_pipa/View/pmda/funcAdm.php?v=<?=md5(VERSAO)?>',
 			                    data: dados,
 			                    success: function(response) {
 			                    	alert("Mensagem Lida")	;

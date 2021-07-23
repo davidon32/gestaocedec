@@ -95,7 +95,7 @@ function deletar(id, arquivo){
 				if(confirmacao == true){
 			            $.ajax({
 			                type: 'POST',
-			                url: 'mod_cce/backEnd/View/boletim/valida.php',
+			                url: 'mod_cce/backEnd/View/boletim/valida.php?v=<?=md5(VERSAO)?>',
 			                data: dados,
 			                success: function(response) {
 			                	alert("Registro apagado com sucesso !");

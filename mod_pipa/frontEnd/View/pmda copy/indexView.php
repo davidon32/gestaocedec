@@ -1008,7 +1008,7 @@ $(document).ready(function(){
 		//console.log(id_pmda);
 		
 		$.ajax({
-			url : '/mod_index/app/login/ckLogin.php',
+			url : '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 		    type : 'POST',
 		    success : function(response) {
 		      	if(response == "sucesso"){
@@ -1022,7 +1022,7 @@ $(document).ready(function(){
 		    
 		                $.ajax({
 		                    type: 'POST',
-		                    url: 'mod_pipa/View/pmda/mensagemView.php',
+		                    url: 'mod_pipa/View/pmda/mensagemView.php?v=<?=md5(VERSAO)?>',
 		                    data: dados,
 		                    //dataType: 'json',
 		                    success: function(response) {
@@ -1054,7 +1054,7 @@ $(document).ready(function(){
 	$("#btnMostraCadComunidade").click(function(){
 
 		$.ajax({
-			url : '/mod_index/app/login/ckLogin.php',
+			url : '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 		    type : 'POST',
 		    success : function(response) {
 		      	if(response == "sucesso"){
@@ -1075,7 +1075,7 @@ $(document).ready(function(){
 	/* mostrar form cadastro Ponto Captação*/
 	$("#btnMostraCadPontoCap").click(function(){
 		$.ajax({
-			url : '/mod_index/app/login/ckLogin.php',
+			url : '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 		    type : 'POST',
 		    success : function(response) {
 		      	if(response == "sucesso"){
@@ -1099,7 +1099,7 @@ $(document).ready(function(){
 
 		//arrumar
 		$.ajax({
-			url : '/mod_index/app/login/ckLogin.php',
+			url : '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 		    type : 'POST',
 		    success : function(response) {
 		      	if(response == "sucesso"){
@@ -1395,7 +1395,7 @@ $(document).ready(function(){
 		$("#btnInfoMunicipio").click(function(){
 
 			$.ajax({
-				url : '/mod_index/app/login/ckLogin.php',
+				url : '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 			    type : 'POST',
 			    success : function(response) {
 			      	if(response == "sucesso"){
@@ -1466,7 +1466,7 @@ $(document).ready(function(){
 				var id_municipio = $(this).data('idpmda');
 
 				$.ajax({
-					url : '/mod_index/app/login/ckLogin.php',
+					url : '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 				    type : 'POST',
 				    success : function(response) {
 				      	if(response == "sucesso"){
@@ -1522,7 +1522,7 @@ $(document).ready(function(){
 	$("#btnAcoesSalvar").click(function(){
 
 		$.ajax({
-			url : '/mod_index/app/login/ckLogin.php',
+			url : '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 		    type : 'POST',
 		    success : function(response) {
 
@@ -1578,7 +1578,7 @@ $(document).ready(function(){
 		$("#btnAddAnexo").click(function(){
 
 			$.ajax({
-				url : '/mod_index/app/login/ckLogin.php',
+				url : '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 			    type : 'POST',
 			    success : function(response) {
 
@@ -1639,7 +1639,7 @@ $(document).ready(function(){
 	/*********** Adcionar pmda novo ***********/
 	$("#addPmda").click(function(){
 		$.ajax({
-			url : '/mod_index/app/login/ckLogin.php',
+			url : '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 		    type : 'POST',
 		    success : function(response) {
 		      	if(response == "sucesso"){
@@ -1652,7 +1652,7 @@ $(document).ready(function(){
 			            $.ajax({
 			                type: 'POST',
 			                //dataType: 'json',
-			                url: '/mod_pipa/View/pmda/novo.php',
+			                url: '/mod_pipa/View/pmda/novo.php?v=<?=md5(VERSAO)?>',
 			                data: dados,
 			                success: function(response) {
 				                console.log(dados);
@@ -1677,7 +1677,7 @@ $(document).ready(function(){
 	$("#addPontoCap").click(function(){
 
 		$.ajax({
-			url : '/mod_index/app/login/ckLogin.php',
+			url : '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 		    type : 'POST',
 		    success : function(response) {
 		      	if(response == "sucesso"){
@@ -1711,7 +1711,7 @@ $(document).ready(function(){
 		                        	};
 		                $.ajax({
 		                    type: 'POST',
-		                    url: '/mod_pipa/View/pmda/ponto.php',
+		                    url: '/mod_pipa/View/pmda/ponto.php?v=<?=md5(VERSAO)?>',
 		                    data: dados,
 		                    success: function(response) {
 		                        $("#tblPontoCap").html(response);
@@ -1747,7 +1747,7 @@ $(document).ready(function(){
 	$("#btnAlterarPontoCap").click(function(){
 
 		$.ajax({
-			url : '/mod_index/app/login/ckLogin.php',
+			url : '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 		    type : 'POST',
 		    success : function(response) {
 		      	if(response == "sucesso"){
@@ -1779,7 +1779,7 @@ $(document).ready(function(){
 					        
 					                $.ajax({
 					                    type: 'POST',
-					                    url: '/mod_pipa/View/pmda/ponto.php',
+					                    url: '/mod_pipa/View/pmda/ponto.php?v=<?=md5(VERSAO)?>',
 					                    data: dados,
 					                    success: function(response) {
 					                        $("#tblPontoCap").html(response);
@@ -1819,7 +1819,7 @@ $(document).ready(function(){
 	$("#btnAddMembroEquipe").click(function(){
 
 		$.ajax({
-			url : '/mod_index/app/login/ckLogin.php',
+			url : '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 		    type : 'POST',
 		    success : function(response) {
 		      	if(response == "sucesso"){
@@ -1851,7 +1851,7 @@ $(document).ready(function(){
 		    
 		                $.ajax({
 		                    type: 'POST',
-		                    url: '/mod_pipa/View/pmda/membroEquipe.php',
+		                    url: '/mod_pipa/View/pmda/membroEquipe.php?v=<?=md5(VERSAO)?>',
 		                    data: dados,
 		                    //dataType: 'json',
 		                    success: function(response) {
@@ -1905,7 +1905,7 @@ $(document).ready(function(){
             	};
                 $.ajax({
                     type: 'POST',
-                    url: '/mod_pipa/View/pmda/membroEquipe.php',
+                    url: '/mod_pipa/View/pmda/membroEquipe.php?v=<?=md5(VERSAO)?>',
                     data: dados,
                     success: function(response) {
                         alert("Registro alterado com sucesso !");
@@ -1935,7 +1935,7 @@ $(document).ready(function(){
 	$("#btnAlterarComunidade").click(function(){
 
 		$.ajax({
-			url : '/mod_index/app/login/ckLogin.php',
+			url : '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 		    type : 'POST',
 		    success : function(response) {
 		      	if(response == "sucesso"){
@@ -1974,7 +1974,7 @@ $(document).ready(function(){
 						
 					                $.ajax({
 					                    type: 'POST',
-					                    url: '/mod_pipa/View/pmda/comunidade.php',
+					                    url: '/mod_pipa/View/pmda/comunidade.php?v=<?=md5(VERSAO)?>',
 					                    data: dados,
 					                    //dataType : 'json',
 					                    success: function(response) {
@@ -2027,7 +2027,7 @@ $(document).ready(function(){
 		id_pmda = getUrlVars()['param'];
 
 		$.ajax({
-			url : '/mod_index/app/login/ckLogin.php',
+			url : '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 		    type : 'POST',
 		    success : function(response) {
 		      	if(response == "sucesso"){
@@ -2068,7 +2068,7 @@ $(document).ready(function(){
 	    
 	    	            $.ajax({
 	    	                type: 'POST',
-	    	                url: '/mod_pipa/View/pmda/comunidade.php',
+	    	                url: '/mod_pipa/View/pmda/comunidade.php?v=<?=md5(VERSAO)?>',
 	    	                data: dados,
 	    	                success: function(response) {
 	    		                alert("Registro adicionado com sucesso !");
@@ -2120,7 +2120,7 @@ $(document).ready(function(){
 	$('#btnAddRep').click(function() {
 
 		$.ajax({
-			url : '/mod_index/app/login/ckLogin.php',
+			url : '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 		    type : 'POST',
 		    success : function(response) {
 		      	if(response == "sucesso"){
@@ -2159,7 +2159,7 @@ $(document).ready(function(){
 		    	    	            
 		    	            $.ajax({
 		    	                type: 'POST',
-		    	                url: '/mod_pipa/View/pmda/representante.php',
+		    	                url: '/mod_pipa/View/pmda/representante.php?v=<?=md5(VERSAO)?>',
 		    	                data: dados,
 		    	                success: function(response) {
 		    	                	$("#tblRep").html(response);
@@ -2201,7 +2201,7 @@ $(document).ready(function(){
 	$('#btnAlterarRep').click(function() {
 
 		$.ajax({
-			url : '/mod_index/app/login/ckLogin.php',
+			url : '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 		    type : 'POST',
 		    success : function(response) {
 		      	if(response == "sucesso"){
@@ -2225,7 +2225,7 @@ $(document).ready(function(){
 		   	            
 			            $.ajax({
 			                type: 'POST',
-			                url: '/mod_pipa/View/pmda/representante.php',
+			                url: '/mod_pipa/View/pmda/representante.php?v=<?=md5(VERSAO)?>',
 			                data: dados,
 			                success: function(response) {
 			                	alert("Registro alterado com sucesso !");
@@ -2300,7 +2300,7 @@ $(document).ready(function(){
 		//console.log($(this).attr('name'));
 		
 		$.ajax({
-			url : '/mod_index/app/login/ckLogin.php',
+			url : '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 		    type : 'POST',
 		    success : function(response) {
 		      	if(response == "sucesso"){
@@ -2318,7 +2318,7 @@ $(document).ready(function(){
     
             $.ajax({
                 type: 'POST',
-                url: '/mod_pipa/View/pmda/ponto.php',
+                url: '/mod_pipa/View/pmda/ponto.php?v=<?=md5(VERSAO)?>',
                 data: dados,
                 success: function(response) {
                 	alert("Registro apagado com sucesso !");
@@ -2357,7 +2357,7 @@ $(document).ready(function(){
 		//console.log($(this).attr('name'));
 		
 		$.ajax({
-			url : '/mod_index/app/login/ckLogin.php',
+			url : '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 		    type : 'POST',
 		    success : function(response) {
 		      	if(response == "sucesso"){
@@ -2377,7 +2377,7 @@ $(document).ready(function(){
 			    
 			            $.ajax({
 			                type: 'POST',
-			                url: '/mod_pipa/View/pmda/comunidade.php',
+			                url: '/mod_pipa/View/pmda/comunidade.php?v=<?=md5(VERSAO)?>',
 			                data: dados,
 			                success: function(response) {
 			                	alert("Registro apagado com sucesso !");
@@ -2413,7 +2413,7 @@ $(document).ready(function(){
 	function deletarMembro(id){
 
 			$.ajax({
-				url : '/mod_index/app/login/ckLogin.php',
+				url : '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 			    type : 'POST',
 			    success : function(response) {
 			      	if(response == "sucesso"){
@@ -2431,7 +2431,7 @@ $(document).ready(function(){
 				    
 				            $.ajax({
 				                type: 'POST',
-				                url: '/mod_pipa/View/pmda/membroEquipe.php',
+				                url: '/mod_pipa/View/pmda/membroEquipe.php?v=<?=md5(VERSAO)?>',
 				                data: dados,
 				                success: function(response) {
 				                	alert("Registro apagado com sucesso !");
@@ -2456,7 +2456,7 @@ $(document).ready(function(){
 	function deletarRep(id, id_comunidade, id_pmda){
 
 		$.ajax({
-			url : '/mod_index/app/login/ckLogin.php',
+			url : '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 		    type : 'POST',
 		    success : function(response) {
 		      	if(response == "sucesso"){
@@ -2485,7 +2485,7 @@ $(document).ready(function(){
 						    
 						            $.ajax({
 						                type: 'POST',
-						                url: '/mod_pipa/View/pmda/representante.php',
+						                url: '/mod_pipa/View/pmda/representante.php?v=<?=md5(VERSAO)?>',
 						                data: dados,
 						                success: function(response) {
 						                	alert("Registro apagado com sucesso !");
@@ -2512,7 +2512,7 @@ $(document).ready(function(){
 	function deletarAnexo(id, id_pmda, arquivo){
 
 		$.ajax({
-			url : '/mod_index/app/login/ckLogin.php',
+			url : '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 		    type : 'POST',
 		    success : function(response) {
 		      	if(response == "sucesso"){
@@ -2533,7 +2533,7 @@ $(document).ready(function(){
 			    
 			            $.ajax({
 			                type: 'POST',
-			                url: '/mod_pipa/View/pmda/anexo.php',
+			                url: '/mod_pipa/View/pmda/anexo.php?v=<?=md5(VERSAO)?>',
 			                data: dados,
 			                success: function(response) {
 			                    $("#tblAnexo").html(response);
@@ -2566,7 +2566,7 @@ $(document).ready(function(){
 	function alterarPonto(id, nome, tipo, lat, longitude, cap, id_municipio){
 
 		$.ajax({
-			url : '/mod_index/app/login/ckLogin.php',
+			url : '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 		    type : 'POST',
 		    success : function(response) {
 		      	if(response == "sucesso"){
@@ -2619,7 +2619,7 @@ function alterarMembro(id, nome, funcao, telefone, celular, email){
 function alterarComunidade(id, comunidade, latitude, longitude, id_ponto, trecho_pav, trecho_n_pav, pop_atendida, id_pmda){
 
 	$.ajax({
-		url : '/mod_index/app/login/ckLogin.php',
+		url : '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 	    type : 'POST',
 	    success : function(response) {
 	      	if(response == "sucesso"){
@@ -2660,7 +2660,7 @@ function alterarComunidade(id, comunidade, latitude, longitude, id_ponto, trecho
 function alterarRep(id, nome, endereco, bairro, email, tel, cpf, watsapp){
 
 	$.ajax({
-		url : '/mod_index/app/login/ckLogin.php',
+		url : '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 	    type : 'POST',
 	    success : function(response) {
 		    
@@ -2699,7 +2699,7 @@ function alterarRep(id, nome, endereco, bairro, email, tel, cpf, watsapp){
 function homologa(id_pmda){
 
 	$.ajax({
-		url : '/mod_index/app/login/ckLogin.php',
+		url : '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 	    type : 'POST',
 	    success : function(response) {
 	      	if(response == "sucesso"){
@@ -2715,7 +2715,7 @@ function homologa(id_pmda){
 				
 					$.ajax({
 				        type: 'POST',
-				        url: '/mod_pipa/View/pmda/homologacao.php',
+				        url: '/mod_pipa/View/pmda/homologacao.php?v=<?=md5(VERSAO)?>',
 				        data: dados,
 				        success: function(response) {
 					        //console.log(response);
@@ -2743,7 +2743,7 @@ function homologa(id_pmda){
 function editar(id_pmda, protocolo, id_municipio){
 $.ajax({
 
-	url : '/mod_index/app/login/ckLogin.php',
+	url : '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 	type : 'POST',
 	success : function(response) {
 		  if(response == "sucesso"){
@@ -2775,7 +2775,7 @@ $.ajax({
 function mensagem(){
 $.ajax({
 
-	url : '/mod_index/app/login/ckLogin.php',
+	url : '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 	type : 'POST',
 	success : function(response) {
 		  if(response == "sucesso"){
@@ -2807,7 +2807,7 @@ $.ajax({
 function impressao(id_pmda, id_municipio){
 $.ajax({
 
-	url : '/mod_index/app/login/ckLogin.php',
+	url : '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 	type : 'POST',
 	success : function(response) {
 		  if(response == "sucesso"){
@@ -2839,7 +2839,7 @@ $.ajax({
 function verificaPendencia(id_pmda){
 
 	$.ajax({
-		url : '/mod_index/app/login/ckLogin.php',
+		url : '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 	    type : 'POST',
 	    success : function(response) {
 	      	if(response == "sucesso"){
@@ -2855,7 +2855,7 @@ function verificaPendencia(id_pmda){
 				
 					$.ajax({
 				        type: 'POST',
-				        url: '/mod_pipa/View/pmda/homologacao.php',
+				        url: '/mod_pipa/View/pmda/homologacao.php?v=<?=md5(VERSAO)?>',
 				        data: dados,
 				        success: function(response) {
 					        console.log(response);
@@ -2911,7 +2911,7 @@ function addIdCom(id_comunidade, nome, id_pmda){
 			};
 	$.ajax({
         type: 'POST',
-        url: '/mod_pipa/View/pmda/representante.php',
+        url: '/mod_pipa/View/pmda/representante.php?v=<?=md5(VERSAO)?>',
         data: dados,
         success: function(response) {
             $("#tblRep").html(response);

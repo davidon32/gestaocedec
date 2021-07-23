@@ -938,7 +938,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
             //console.log(id_pmda);
 
             $.ajax({
-                url: '/mod_index/app/login/ckLogin.php',
+                url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
                 type: 'POST',
                 success: function (response) {
                     if (response == "sucesso") {
@@ -952,7 +952,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
 
                         $.ajax({
                             type: 'POST',
-                            url: 'mod_pipa/frontEnd/View/pmda/mensagemView.php',
+                            url: 'mod_pipa/frontEnd/View/pmda/mensagemView.php?v=<?=md5(VERSAO)?>',
                             data: dados,
                             //dataType: 'json',
                             success: function (response) {
@@ -984,7 +984,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
         $("#btnMostraCadComunidade").click(function () {
 
             $.ajax({
-                url: '/mod_index/app/login/ckLogin.php',
+                url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
                 type: 'POST',
                 success: function (response) {
                     if (response == "sucesso") {
@@ -1005,7 +1005,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
         /* mostrar form cadastro Ponto Captação*/
         $("#btnMostraCadPontoCap").click(function () {
             $.ajax({
-                url: '/mod_index/app/login/ckLogin.php',
+                url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
                 type: 'POST',
                 success: function (response) {
                     if (response == "sucesso") {
@@ -1029,7 +1029,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
 
             //arrumar
             $.ajax({
-                url: '/mod_index/app/login/ckLogin.php',
+                url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
                 type: 'POST',
                 success: function (response) {
                     if (response == "sucesso") {
@@ -1207,7 +1207,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
             $("#tblComunidadePmda").load("/mod_pipa/frontEnd/View/pmda/comunidade.php?param=" + id_pmda);
 
             $.ajax({
-                url: 'mod_pipa/frontEnd/View/pmda/selPonto.php',
+                url: 'mod_pipa/frontEnd/View/pmda/selPonto.php?v=<?=md5(VERSAO)?>',
                 type: 'POST',
                 data: dados,
                 success: function (response) {
@@ -1348,7 +1348,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
         $("#btnInfoMunicipio").click(function () {
 
             $.ajax({
-                url: '/mod_index/app/login/ckLogin.php',
+                url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
                 type: 'POST',
                 success: function (response) {
                     if (response == "sucesso") {
@@ -1378,7 +1378,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
                         if (result) {
 
                             $.ajax({
-                                url: '/mod_pipa/frontEnd/View/pmda/municipio.php',
+                                url: '/mod_pipa/frontEnd/View/pmda/municipio.php?v=<?=md5(VERSAO)?>',
                                 type: 'POST',
                                 data: dados,
                                 //dataType : 'json',
@@ -1419,7 +1419,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
             var id_municipio = $(this).data('idpmda');
 
             $.ajax({
-                url: '/mod_index/app/login/ckLogin.php',
+                url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
                 type: 'POST',
                 success: function (response) {
                     if (response == "sucesso") {
@@ -1435,7 +1435,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
                         if (result) {
 
                             $.ajax({
-                                url: 'mod_pipa/app/pmda/pmda.php',
+                                url: 'mod_pipa/app/pmda/pmda.php?v=<?=md5(VERSAO)?>',
                                 type: 'POST',
                                 data: dados,
                                 //dataType : 'json',
@@ -1475,7 +1475,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
         $("#btnAcoesSalvar").click(function () {
 
             $.ajax({
-                url: '/mod_index/app/login/ckLogin.php',
+                url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
                 type: 'POST',
                 success: function (response) {
 
@@ -1501,7 +1501,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
                             };
 
                             $.ajax({
-                                url: '/mod_pipa/frontEnd/View/pmda/acoes.php',
+                                url: '/mod_pipa/frontEnd/View/pmda/acoes.php?v=<?=md5(VERSAO)?>',
                                 type: 'POST',
                                 data: dados,
                                 success: function (response) {
@@ -1531,7 +1531,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
         $("#btnAddAnexo").click(function () {
 
             $.ajax({
-                url: '/mod_index/app/login/ckLogin.php',
+                url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
                 type: 'POST',
                 success: function (response) {
 
@@ -1557,7 +1557,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
                                     extensao.toLowerCase() == 'png') {
 
                                 $.ajax({
-                                    url: '/mod_pipa/frontEnd/View/pmda/valida_anexo.php',
+                                    url: '/mod_pipa/frontEnd/View/pmda/valida_anexo.php?v=<?=md5(VERSAO)?>',
                                     type: 'POST',
                                     data: formData,
                                     processData: false, // tell jQuery not to process the data
@@ -1610,7 +1610,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
         $("#addPontoCap").click(function () {
 
             $.ajax({
-                url: '/mod_index/app/login/ckLogin.php',
+                url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
                 type: 'POST',
                 success: function (response) {
                     if (response == "sucesso") {
@@ -1644,7 +1644,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
                             };
                             $.ajax({
                                 type: 'POST',
-                                url: '/mod_pipa/frontEnd/View/pmda/ponto.php',
+                                url: '/mod_pipa/frontEnd/View/pmda/ponto.php?v=<?=md5(VERSAO)?>',
                                 data: dados,
                                 success: function (response) {
                                     $("#tblPontoCap").html(response);
@@ -1680,7 +1680,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
         $("#btnAlterarPontoCap").click(function () {
 
             $.ajax({
-                url: '/mod_index/app/login/ckLogin.php',
+                url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
                 type: 'POST',
                 success: function (response) {
                     if (response == "sucesso") {
@@ -1712,7 +1712,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
 
                             $.ajax({
                                 type: 'POST',
-                                url: '/mod_pipa/frontEnd/View/pmda/ponto.php',
+                                url: '/mod_pipa/frontEnd/View/pmda/ponto.php?v=<?=md5(VERSAO)?>',
                                 data: dados,
                                 success: function (response) {
                                     $("#tblPontoCap").html(response);
@@ -1752,7 +1752,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
         $("#btnAddMembroEquipe").click(function () {
 
             $.ajax({
-                url: '/mod_index/app/login/ckLogin.php',
+                url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
                 type: 'POST',
                 success: function (response) {
                     if (response == "sucesso") {
@@ -1784,7 +1784,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
 
                             $.ajax({
                                 type: 'POST',
-                                url: '/mod_pipa/frontEnd/View/pmda/membroEquipe.php',
+                                url: '/mod_pipa/frontEnd/View/pmda/membroEquipe.php?v=<?=md5(VERSAO)?>',
                                 data: dados,
                                 //dataType: 'json',
                                 success: function (response) {
@@ -1838,7 +1838,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
             };
             $.ajax({
                 type: 'POST',
-                url: '/mod_pipa/frontEnd/View/pmda/membroEquipe.php',
+                url: '/mod_pipa/frontEnd/View/pmda/membroEquipe.php?v=<?=md5(VERSAO)?>',
                 data: dados,
                 success: function (response) {
                     alert("Registro alterado com sucesso !");
@@ -1868,7 +1868,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
         $("#btnAlterarComunidade").click(function () {
 
             $.ajax({
-                url: '/mod_index/app/login/ckLogin.php',
+                url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
                 type: 'POST',
                 success: function (response) {
                     if (response == "sucesso") {
@@ -1907,7 +1907,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
 
                                 $.ajax({
                                     type: 'POST',
-                                    url: '/mod_pipa/frontEnd/View/pmda/comunidade.php',
+                                    url: '/mod_pipa/frontEnd/View/pmda/comunidade.php?v=<?=md5(VERSAO)?>',
                                     data: dados,
                                     //dataType : 'json',
                                     success: function (response) {
@@ -1960,7 +1960,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
             id_pmda = getUrlVars()['param'];
 
             $.ajax({
-                url: '/mod_index/app/login/ckLogin.php',
+                url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
                 type: 'POST',
                 success: function (response) {
                     if (response == "sucesso") {
@@ -2000,7 +2000,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
 
                             $.ajax({
                                 type: 'POST',
-                                url: '/mod_pipa/frontEnd/View/pmda/comunidade.php',
+                                url: '/mod_pipa/frontEnd/View/pmda/comunidade.php?v=<?=md5(VERSAO)?>',
                                 data: dados,
                                 success: function (response) {
                                     
@@ -2059,7 +2059,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
         $('#btnAddRep').click(function () {
 
             $.ajax({
-                url: '/mod_index/app/login/ckLogin.php',
+                url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
                 type: 'POST',
                 success: function (response) {
                     if (response == "sucesso") {
@@ -2098,7 +2098,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
 
                             $.ajax({
                                 type: 'POST',
-                                url: '/mod_pipa/frontEnd/View/pmda/representante.php',
+                                url: '/mod_pipa/frontEnd/View/pmda/representante.php?v=<?=md5(VERSAO)?>',
                                 data: dados,
                                 success: function (response) {
                                     $("#tblRep").html(response);
@@ -2140,7 +2140,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
         $('#btnAlterarRep').click(function () {
 
             $.ajax({
-                url: '/mod_index/app/login/ckLogin.php',
+                url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
                 type: 'POST',
                 success: function (response) {
                     if (response == "sucesso") {
@@ -2164,7 +2164,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
 
                         $.ajax({
                             type: 'POST',
-                            url: '/mod_pipa/frontEnd/View/pmda/representante.php',
+                            url: '/mod_pipa/frontEnd/View/pmda/representante.php?v=<?=md5(VERSAO)?>',
                             data: dados,
                             success: function (response) {
                                 alert("Registro alterado com sucesso !");
@@ -2239,7 +2239,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
         //console.log($(this).attr('name'));
 
         $.ajax({
-            url: '/mod_index/app/login/ckLogin.php',
+            url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
             type: 'POST',
             success: function (response) {
                 if (response == "sucesso") {
@@ -2257,7 +2257,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
 
                         $.ajax({
                             type: 'POST',
-                            url: '/mod_pipa/frontEnd/View/pmda/ponto.php',
+                            url: '/mod_pipa/frontEnd/View/pmda/ponto.php?v=<?=md5(VERSAO)?>',
                             data: dados,
                             success: function (response) {
                                 alert("Registro apagado com sucesso !");
@@ -2292,7 +2292,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
         //console.log($(this).attr('name'));
 
         $.ajax({
-            url: '/mod_index/app/login/ckLogin.php',
+            url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
             type: 'POST',
             success: function (response) {
                 if (response == "sucesso") {
@@ -2312,7 +2312,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
 
                         $.ajax({
                             type: 'POST',
-                            url: '/mod_pipa/frontEnd/View/pmda/comunidade.php',
+                            url: '/mod_pipa/frontEnd/View/pmda/comunidade.php?v=<?=md5(VERSAO)?>',
                             data: dados,
                             success: function (response) {
                                 alert("Registro apagado com sucesso !");
@@ -2348,7 +2348,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
     function deletarMembro(id) {
 
         $.ajax({
-            url: '/mod_index/app/login/ckLogin.php',
+            url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
             type: 'POST',
             success: function (response) {
                 if (response == "sucesso") {
@@ -2366,7 +2366,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
 
                         $.ajax({
                             type: 'POST',
-                            url: '/mod_pipa/frontEnd/View/pmda/membroEquipe.php',
+                            url: '/mod_pipa/frontEnd/View/pmda/membroEquipe.php?v=<?=md5(VERSAO)?>',
                             data: dados,
                             success: function (response) {
                                 alert("Registro apagado com sucesso !");
@@ -2391,7 +2391,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
     function deletarRep(id, id_comunidade, id_pmda) {
 
         $.ajax({
-            url: '/mod_index/app/login/ckLogin.php',
+            url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
             type: 'POST',
             success: function (response) {
                 if (response == "sucesso") {
@@ -2420,7 +2420,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
 
                             $.ajax({
                                 type: 'POST',
-                                url: '/mod_pipa/frontEnd/View/pmda/representante.php',
+                                url: '/mod_pipa/frontEnd/View/pmda/representante.php?v=<?=md5(VERSAO)?>',
                                 data: dados,
                                 success: function (response) {
                                     alert("Registro apagado com sucesso !");
@@ -2447,7 +2447,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
     function deletarAnexo(id, id_pmda, arquivo) {
 
         $.ajax({
-            url: '/mod_index/app/login/ckLogin.php',
+            url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
             type: 'POST',
             success: function (response) {
                 if (response == "sucesso") {
@@ -2468,7 +2468,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
 
                         $.ajax({
                             type: 'POST',
-                            url: '/mod_pipa/frontEnd/View/pmda/valida_anexo.php',
+                            url: '/mod_pipa/frontEnd/View/pmda/valida_anexo.php?v=<?=md5(VERSAO)?>',
                             data: dados,
                             success: function (response) {
                                 alert("Registro apagado com sucesso !");
@@ -2501,7 +2501,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
     function alterarPonto(id, nome, tipo, lat, longitude, cap, id_municipio) {
 
         $.ajax({
-            url: '/mod_index/app/login/ckLogin.php',
+            url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
             type: 'POST',
             success: function (response) {
                 if (response == "sucesso") {
@@ -2554,7 +2554,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
     function alterarComunidade(id, comunidade, latitude, longitude, id_ponto, trecho_pav, trecho_n_pav, pop_atendida, id_pmda) {
 
         $.ajax({
-            url: '/mod_index/app/login/ckLogin.php',
+            url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
             type: 'POST',
             success: function (response) {
                 if (response == "sucesso") {
@@ -2595,7 +2595,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
     function alterarRep(id, nome, endereco, bairro, email, tel, cpf, watsapp) {
 
         $.ajax({
-            url: '/mod_index/app/login/ckLogin.php',
+            url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
             type: 'POST',
             success: function (response) {
 
@@ -2634,7 +2634,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
     function homologa(id_pmda) {
 
         $.ajax({
-            url: '/mod_index/app/login/ckLogin.php',
+            url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
             type: 'POST',
             success: function (response) {
                 if (response == "sucesso") {
@@ -2650,7 +2650,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
 
                         $.ajax({
                             type: 'POST',
-                            url: '/mod_pipa/frontEnd/View/pmda/homologacao.php',
+                            url: '/mod_pipa/frontEnd/View/pmda/homologacao.php?v=<?=md5(VERSAO)?>',
                             data: dados,
                             success: function (response) {
                                 //console.log(response);
@@ -2678,7 +2678,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
     function editar(id_pmda, protocolo, id_municipio) {
         $.ajax({
 
-            url: '/mod_index/app/login/ckLogin.php',
+            url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
             type: 'POST',
             success: function (response) {
                 if (response == "sucesso") {
@@ -2714,7 +2714,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
 
         $.ajax({
 
-            url: '/mod_index/app/login/ckLogin.php',
+            url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
             type: 'POST',
             success: function (response) {
                 if (response == "sucesso") {
@@ -2746,7 +2746,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
     function impressao(id_pmda, id_municipio) {
         $.ajax({
 
-            url: '/mod_index/app/login/ckLogin.php',
+            url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
             type: 'POST',
             success: function (response) {
                 if (response == "sucesso") {
@@ -2778,7 +2778,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
     function verificaPendencia(id_pmda) {
 
         $.ajax({
-            url: '/mod_index/app/login/ckLogin.php',
+            url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
             type: 'POST',
             success: function (response) {
                 if (response == "sucesso") {
@@ -2794,7 +2794,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
 
                         $.ajax({
                             type: 'POST',
-                            url: '/mod_pipa/frontEnd/View/pmda/homologacao.php',
+                            url: '/mod_pipa/frontEnd/View/pmda/homologacao.php?v=<?=md5(VERSAO)?>',
                             data: dados,
                             success: function (response) {
                                 console.log(response);
@@ -2850,7 +2850,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
         };
         $.ajax({
             type: 'POST',
-            url: '/mod_pipa/frontEnd/View/pmda/representante.php',
+            url: '/mod_pipa/frontEnd/View/pmda/representante.php?v=<?=md5(VERSAO)?>',
             data: dados,
             success: function (response) {
                 $("#tblRep").html(response);

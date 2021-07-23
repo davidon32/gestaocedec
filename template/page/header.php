@@ -1,3 +1,10 @@
+<?php
+if ( isset($pageSession['session']['seguranca']['nome_usuario']) ) {
+    
+} else {
+    header('Location:index.php');
+}
+?>
 <script type="text/javascript">
     function start_countdown()
     {
@@ -23,7 +30,7 @@
                 $.ajax
                         ({
                             type: 'post',
-                            url: 'mod_equipe/View/usuario/func.php',
+                            url: 'mod_equipe/View/usuario/func.php?v=<?=md5(VERSAO)?>',
                             data: {
                                 logout: "logout"
                             },
@@ -37,6 +44,9 @@
         }, 1000)
     }
 </script>
+<?php
+
+?>
 <!-- BARRA SUPERIOR USUARIO  -->
 <header class="main-header print">
     <!-- Logo -->
@@ -65,7 +75,7 @@
                 <li class="dropdown messages-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-envelope-o"></i>
-                        <span class="label label-success">1</span>
+                        <span class="label label-success">0</span>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="header">Você tem 1 Mensagens</li>
@@ -82,7 +92,7 @@
                 <li class="dropdown notifications-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-bell-o"></i>
-                        <span class="label label-warning">1</span>
+                        <span class="label label-warning">0</span>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="header">Voçê tem 1 notificação</li>
@@ -103,7 +113,7 @@
                 <li class="dropdown tasks-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-flag-o"></i>
-                        <span class="label label-danger">1</span>
+                        <span class="label label-danger">0</span>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="header">Você tem 1 Tarefa pendente</li>

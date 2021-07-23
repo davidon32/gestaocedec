@@ -113,7 +113,7 @@
 		
 		$.ajax({
 				type: 'POST',
-				url: 'mod_ajuda/backEnd/View/conEstoque/transferencia/visual_mat_transf.php',
+				url: 'mod_ajuda/backEnd/View/conEstoque/transferencia/visual_mat_transf.php?v=<?=md5(VERSAO)?>',
 				data: dados,
 				success: function(response) {
 					$("#material_liberado").html(response);

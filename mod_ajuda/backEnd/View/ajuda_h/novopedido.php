@@ -113,7 +113,7 @@ var_dump($dados);
     <div class="row">
         <div class="col-md-12">
             <label>Esforços (descrever)</label>
-            <textarea class="form-control" cols="5" rows="10" name="txt_num" id="id_num"></textarea>
+            <textarea class="form-control" cols="5" rows="10" name="txt_num" id="id_num" maxlength="255"></textarea>
         </div>
     </div>
 

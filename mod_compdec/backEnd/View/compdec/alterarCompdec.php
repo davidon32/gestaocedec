@@ -653,7 +653,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 
 				$.ajax({
 					type: 'POST',
-					url: 'mod_pipa/backEnd/View/pmda/membroEquipe.php',
+					url: 'mod_pipa/backEnd/View/pmda/membroEquipe.php?v=<?=md5(VERSAO)?>',
 					data: dados,
 					//dataType: 'json',
 					success: function(response) {
@@ -719,7 +719,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 	    
 	                $.ajax({
 	                    type: 'POST',
-	                    url: 'mod_compdec/backEnd/View/compdec/valida.php',
+	                    url: 'mod_compdec/backEnd/View/compdec/valida.php?v=<?=md5(VERSAO)?>',
 	                    data: dados,
 	                    //dataType: 'json',
 	                    success: function(response) {
@@ -775,7 +775,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 
 					$.ajax({
 						type: 'POST',
-						url: 'mod_compdec/backEnd/View/compdec/valida.php',
+						url: 'mod_compdec/backEnd/View/compdec/valida.php?v=<?=md5(VERSAO)?>',
 						data: dados,
 						//dataType: 'json',
 						success: function(response) {
@@ -817,7 +817,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 
 				$.ajax({
 					type: 'POST',
-					url: 'mod_compdec/backEnd/View/compdec/valida.php',
+					url: 'mod_compdec/backEnd/View/compdec/valida.php?v=<?=md5(VERSAO)?>',
 					data: dados,
 					//dataType: 'json',
 					success: function(response) {
@@ -858,7 +858,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 
 				$.ajax({
 					type: 'POST',
-					url: 'mod_compdec/backEnd/View/compdec/valida.php',
+					url: 'mod_compdec/backEnd/View/compdec/valida.php?v=<?=md5(VERSAO)?>',
 					data: dados,
 					//dataType: 'json',
 					success: function(response) {
@@ -890,7 +890,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 	               	};
 	                   $.ajax({
 	                       type: 'POST',
-	                       url: 'mod_pipa/backEnd/View/pmda/membroEquipe.php',
+	                       url: 'mod_pipa/backEnd/View/pmda/membroEquipe.php?v=<?=md5(VERSAO)?>',
 	                       data: dados,
 	                       success: function(response) {
 	                           alert("Registro alterado com sucesso !");
@@ -932,7 +932,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 			$("#btnGravarFoto").click(function(){
 	
 				$.ajax({
-					url : '/mod_index/app/login/ckLogin.php',
+					url : '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 				    type : 'POST',
 				    success : function(response) {
 	
@@ -999,7 +999,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 		$("#btnGravarFotoPref").click(function(){
 
 			$.ajax({
-				url : '/mod_index/app/login/ckLogin.php',
+				url : '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 			    type : 'POST',
 			    success : function(response) {
 
@@ -1065,7 +1065,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 		$("#btnGravarLeis").click(function(){
 
 			$.ajax({
-				url : '/mod_index/app/login/ckLogin.php',
+				url : '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
 			    type : 'POST',
 			    success : function(response) {
 
@@ -1164,7 +1164,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
     
             $.ajax({
                 type: 'POST',
-                url: 'mod_compdec/backEnd/View/compdec/anexo.php',
+                url: 'mod_compdec/backEnd/View/compdec/anexo.php?v=<?=md5(VERSAO)?>',
                 data: dados,
                 success: function(response) {
 						//$("#tblAnexoLeis").html(response);
@@ -1202,7 +1202,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 
 	            $.ajax({
 	                type: 'POST',
-	                url: 'mod_pipa/backEnd/View/pmda/membroEquipe.php',
+	                url: 'mod_pipa/backEnd/View/pmda/membroEquipe.php?v=<?=md5(VERSAO)?>',
 	                data: dados,
 	                success: function(response) {
 	                	alert("Registro apagado com sucesso !");
