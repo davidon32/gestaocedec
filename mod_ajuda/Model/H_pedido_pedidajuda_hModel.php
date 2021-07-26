@@ -514,7 +514,8 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
                 aju_h_pedido_itens.codigo,
                 aju_h_pedido_itens.descricao_item,
                 aju_h_pedido_itens.qtd,
-                aju_h_pedido_itens.qtd_familia_atendida
+                aju_h_pedido_itens.qtd_familia_atendida,
+                aju_h_pedido_itens.id_pedido
                 from 
                 aju_h_pedido_itens
                 where aju_h_pedido_itens.id_pedido = ".$id_pedido;
@@ -1272,8 +1273,9 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
 
         try{
             # lanca materiais perestaçao de contas
-            foreach ($dados as $key => $value) {      
-                $h_pedido_pedid->lancaMaterialPrest($value); 
+            foreach ($dados as $key => $value) {  
+                var_dump($value);
+                var_dump($h_pedido_pedid->lancaMaterialPrest($value)); 
             }
         } catch (Exception $e) {
             $e->getMessage();
@@ -1303,7 +1305,7 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
 
         try {
             $result = $con->prepare($sql);
-            $result->bindValue(":id_pedido", $dados['id']);
+            $result->bindValue(":id_pedido", $dados['id_pedido']);
             $result->bindValue(":cod_material", $dados['codigo']);
             $result->bindValue(":nome_material", $dados['descricao_item']);
             $result->bindValue(":total_familia_at", $dados['qtd_familia_atendida']);
@@ -1383,7 +1385,6 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
         $config = Config::getConfig();
         
         $prazo_prest_conta = '+'.$config['aju_prazo_prest_conta'].' day';
-        
         
         $data_aprovacao = date("d/m/Y", strtotime($prazo_prest_conta, strtotime($dt_aprovacao)));
 

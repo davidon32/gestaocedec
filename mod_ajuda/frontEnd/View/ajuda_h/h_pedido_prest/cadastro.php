@@ -48,7 +48,14 @@
 
     <div class="col-md-12 text-center">
         <br>
-        <a class="btn btn-success" href="<?=FuncaoBase::geraLink("ajuda", "h_pedido_prest", "index")?>">Voltar</a>
+        
+        <?php 
+            if(isset($_GET['id_pedido'])) {
+                print "<a class='btn btn-success' href='".FuncaoBase::geraLink("ajuda", "h_pedido_prest", "index", array('id'=>$view[0]['id_pedido']))."'>Voltar</a>";
+            }else {
+                print "<a class='btn btn-success' href='".FuncaoBase::geraLink("ajuda", "h_pedido_prest", "index")."'>Voltar</a>";
+            }
+        ?>
         <input type="submit" class="btn btn-info" name="btnGravar" id="btnGravar" value="Gravar">
     </div>
 </form>

@@ -100,7 +100,7 @@ class h_pedido_benefController extends Controller {
     # gravar registro
 
     public function gravar() {
-        
+              
         $h_pedido_benef = new H_pedido_benefajuda_hModel;
 
         # quantidade restante de lancamento

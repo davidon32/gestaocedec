@@ -60,7 +60,7 @@ if ($secao != 'analise_coord') {
 }
 
 if ($secao == 'analise_coord') {
-    print "<option value=\"aprovacao\" data-status=\"5\">Aprovação</option>";
+    print "<option value=\"atendido\" data-status=\"5\">Aprovação</option>";
 }
 ?>
             
@@ -206,7 +206,7 @@ foreach ($analises_tecnica as $key => $an_drd) {
 
                 var result = confirm('Deseja enviar para o despachante da '+$("#sel_despacho").val()+' ? ');
                 
-                var data_aprovacao = $("#sel_despacho").val() == 'aprovacao' ? '<?=date('Y-m-d')?>' : ""
+                var data_aprovacao = $("#sel_despacho").val() == 'atendido' ? '<?=date('Y-m-d')?>' : ""
 
                 if (result) {
 
@@ -224,10 +224,10 @@ foreach ($analises_tecnica as $key => $an_drd) {
                         processData: false, // tell jQuery not to process the data
                         contentType: false, // tell jQuery not to set contentType
                         success: function (response) {
-                            //console.log(response);
-                            Swal.fire('Documento Transmitido para <?= $sigla_despacho ?>  !').then(function () {
-                                window.location.href = '<?= FuncaoBase::geralink("ajuda", "h_pedido_index", "index"); ?>';
-                            });
+                            console.log(response);
+                            //Swal.fire('Documento Transmitido para <?= $sigla_despacho ?>  !').then(function () {
+                                //window.location.href = '<?= FuncaoBase::geralink("ajuda", "h_pedido_index", "index"); ?>';
+                            //});
                         },
                         error: function (e) {
                             //console.log(JSON.stringify(e));

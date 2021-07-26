@@ -141,8 +141,6 @@ private $data_entrega = null;
 
     public static function gravar(array $dados) {
 
-
-        var_dump(self::$model);
         $sql = "INSERT INTO aju_h_pedido_benef (nome_beneficiario,
 rg,
 comunidade,
@@ -166,7 +164,7 @@ $result->bindValue(":rg", $dados['rg']);
 $result->bindValue(":comunidade", $dados['comunidade']);
 $result->bindValue(":qtd", $dados['qtd']);
 $result->bindValue(":data_entrega", DataMysql::dataForm($dados['data_entrega']));
-$result->bindValue(":id_prest_conta", DataMysql::dataForm($dados['id_prest_conta']));
+$result->bindValue(":id_prest_conta", $dados['id_prest_conta']);
 
  
             $result->execute();
@@ -175,7 +173,7 @@ $result->bindValue(":id_prest_conta", DataMysql::dataForm($dados['id_prest_conta
 
             return true;
         } catch (Exception $e) {
-            return $e->getMessage() . "Erro ao inserir marca";
+            return $e->getMessage() . "Erro ao inserir beneficiario";
         }
     }
 

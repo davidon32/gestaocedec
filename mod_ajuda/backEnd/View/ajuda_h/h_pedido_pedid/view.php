@@ -10,9 +10,23 @@
 <?php //include_once "template/page/menu.php";?>
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php"; ?>
+<style>
+    
+    @media print {
+        .print {
+            display:none;
+        }
+    }
+    
+    
+</style>
 
-<legend><?= $view[1]['tabela']->TABLE_COMMENT ?></legend>
+
+<button class="btn btn-primary print" id='btn_print' type="button">Impressão</button>
+
+<div class='col-md-12' id='view'>
 <div class='col-md-12 text-center'>
+<legend><?= $view[1]['tabela']->TABLE_COMMENT ?></legend>
 <?php    
 if ($_GET['voltar'] == 'idx_recente') {
     print "<a class=\"btn btn-success\" href=\"" . FuncaoBase::geraLink("ajuda", "h_pedido_index", "index") . "\">Voltar</a>";
@@ -123,7 +137,7 @@ if ($_GET['voltar'] == 'idx_recente') {
 <br>
 <br>
 <!- tabela de materiais do Originais  -->
-<legend>Materiais Enviados Originalmente</legend>
+<legend>Materiais Enviados na Geração do Pedido</legend>
 <span>Este é um registro dos materiais enviados que não sofrerão alterações por parte dos Analistas</span>
 <div class='row table-responsive' >
     <div class='col-md-1'>
@@ -315,7 +329,14 @@ if (count($analise_coord) > 0) {
 }
 
 ?>
-
+</div>
+<div id='print_pedido'>
+    <?php
+        include('view_pedido.php');
+    ?>
+    
+    
+</div>
 
 <!--<a class="btn btn-info" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit", array('id' => $view[0]['id'])) ?>">Editar</a>-->
 <br>
@@ -332,6 +353,15 @@ if (count($analise_coord) > 0) {
 <script>
 
     $(document).ready(function () {
+        
+        $('#print_pedido').show();
+        $("#view").hide();  //
+        $("#btn_print").click(function(){
+            $("#view").hide();  
+            $('#print_pedido').show();
+            //window.print();
+            $("#btn_print").hide(); 
+        });
 
     });
 </script>

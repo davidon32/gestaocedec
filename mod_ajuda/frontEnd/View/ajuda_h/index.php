@@ -25,7 +25,10 @@ if(empty($id_municipio)){
 }
 
 $dados = H_pedido_pedidajuda_hModel::lista();
+
 $pedido_h = new H_pedido_pedidajuda_hModel();
+
+$pedido_h_item = new H_pedido_itensajuda_hModel();
 
 
 ?>	
@@ -63,7 +66,6 @@ $pedido_h = new H_pedido_pedidajuda_hModel();
             </tr>
 <?php
 foreach ($dados as $key => $value) {
-
     $cor = $pedido_h->getCorStatus($value['status']);
     print "<tr style='background-color:" . $cor['fdo'] . "'>
             <td>" . $value['numero'] . "-" . substr($value['data_entrada_sistema'], 0, 4) . "</td>
@@ -81,10 +83,14 @@ foreach ($dados as $key => $value) {
     
     # envio para homologação status 0=edicao
     # envio para analise se nao existir processos em analise e pendente prestacao de contas
-            if( ( $pedido_h::compdecVerificaPedido($value['id_municipio'] ) ) &&
-                ( $value['status'] == "0" ) ){
-        print " <a name='envia_analise' data-id_pedido='".$value['id']."'><img src='/core/imagem/envio_pedido.png' title='Envio para Analise'></a>|";
-    }
+            if( $value['status'] == "0" ){
+                if(( $pedido_h::compdecVerificaPedido($value['id_municipio'] ) ) && ( count($pedido_h_item::busca_item_pedido($value['id'])) >0 ) ){
+                    print " <a name='envia_analise' data-id_pedido='".$value['id']."'><img src='/core/imagem/envio_pedido.png' title='Envio para Analise'></a>|";
+                }else {
+                    print "<img class='imgCinza' src='/core/imagem/envio_pedido.png' title='Este pedido não tem nenhum material, assim, não é possível envia-lo !'>";
+                }
+            }
+
     
     # Visualizar 
     print " <a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "view", array('id' => $value['id'], 'voltar'=> 'idx_recente')) . "' title='Visualiação e Impressa do Pedido'><img src='/core/imagem/view.png'></a> | ";

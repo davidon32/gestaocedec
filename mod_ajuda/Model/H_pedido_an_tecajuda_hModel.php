@@ -494,6 +494,9 @@ aju_h_pedido_an_tec.tramit_parecer
      * tramitar pedido
      */
     public static function tramitar(array $dados) {
+        
+        //var_dump($dados);
+        //die();
 
         $con = Conexao::getInstance();
         $sql = "update aju_h_pedido_pedid set tramit = :tramit,

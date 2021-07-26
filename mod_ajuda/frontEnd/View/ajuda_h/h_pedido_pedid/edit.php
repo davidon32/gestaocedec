@@ -188,16 +188,17 @@ $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
                 </div>
             </div>
                 
-            <div class="col-md-12 text-center">
+            <div class="col-md-12">
                 <legend>Materiais Pedidos</legend>
                 <table class="table table-bordered table-condensed">
 
                     <tr><!-- comment -->
-                        <th>Código</th>
-                        <th>Material</th>
-                        <th>Qtd</th>
-                        <th>Qtd Familias Atend.</th>
-                        <th>Opção</th>
+                        <th class='col-md-1'>Cod. Item</th>
+                        <th class='col-md-1'>Código</th>
+                        <th class='col-md-7 '>Material</th>
+                        <th class='col-md-1'>Qtd</th>
+                        <th class='col-md-1'>Qtd Familias Atend.</th>
+                        <th class='col-md-1'>Opção</th>
                     </tr>
 
 <?php
@@ -206,12 +207,13 @@ $materiais = H_pedido_pedidajuda_hModel::item_pedido($view[0]['id']);
 foreach ($materiais as $key => $material) {
 
     print "<tr>";
+    print "<td>" . $material['id'] . "</td>";
     print "<td>" . $material['codigo'] . "</td>";
     print "<td>" . $material['descricao_item'] . "</td>";
     print "<td>" . $material['qtd'] . "</td>";
     print "<td>" . $material['qtd_familia_atendida'] . "</td>";
     print "<td>";
-    print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'add_itens', array('id'=>$view[0]['id'], 'id_material'=>$material['id'], 'voltar'=>'idx_recente')) . "'><img src='/core/imagem/editar.png'></a>";
+    print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'add_itens', array('id_pedido'=>$view[0]['id'], 'id_material'=>$material['id'], 'voltar'=>'idx_recente')) . "'><img src='/core/imagem/editar.png'></a>";
     print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_itens', 'delete', array('id'=>$material['id'], 'action1'=>'edit', 'id_pedido'=>$view[0]['id'], 'voltar'=>'edit_ped')) . "'><img src='/core/imagem/delete.png'></a>";
 
     print "</td>";
@@ -373,7 +375,7 @@ foreach ($materiais as $key => $material) {
                     $(document).ready(function () {
                                              
                         $("#add_material").click(function(){
-                            window.location.href = '<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "add_itens", array('id'=>$view[0]['id'], 'voltar'=>'idx_recente'))?>';
+                            window.location.href = '<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "add_itens", array('id_pedido'=>$view[0]['id'], 'voltar'=>'idx_recente'))?>';
                         });
                         
                         $("#upload_arquivos").hover(function(){

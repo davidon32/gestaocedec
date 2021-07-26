@@ -488,7 +488,7 @@ aju_h_pedido_prest.total_familia_at
 
     
     /**
-     *  qtd benefiarios prestação de contas
+     *  qtd benefiarios prestação de contas 
      * @param id do item da prestacao de contas (material para prestar contas)
      */
     public static function percBenef($id_prest_conta){
@@ -543,4 +543,66 @@ aju_h_pedido_prest.total_familia_at
         }
         
     }
+    
+    
+    /**
+     *  Total de materiais para prestação de contas 
+     * @param id_pedido
+     */
+    public static function totalMaterialPrestConta($id_pedido){
+        
+        $con = Conexao::getInstance();
+
+        $dados = "";
+
+        
+        $sql = "SELECT SUM(aju_h_pedido_prest.qtd) as qtd_prest_cont
+                            FROM aju_h_pedido_prest
+                            WHERE aju_h_pedido_prest.id_pedido = ".$id_pedido;
+         try {
+
+            $result = $con->query($sql);
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dados = $linha;
+            }
+
+            return $dados['qtd_prest_cont'];
+        } catch (Exception $e) {
+            
+            return $e->getMessage() . "Erro qtd itens para prestacão de contas";
+        }
+        
+    }
+    /**
+     *  Total de materiais para prestação de contas 
+     * @param id_pedido
+     */
+    public static function totalMaterialBeneficiarios($id_pedido){
+        
+        $con = Conexao::getInstance();
+
+        $dados = "";
+
+        
+        $sql = "select SUM(aju_h_pedido_benef.qtd) as qtd_benef
+                            FROM aju_h_pedido_benef
+                            where aju_h_pedido_benef.id_pedido = ".$id_pedido;
+         try {
+
+            $result = $con->query($sql);
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dados = $linha;
+            }
+
+            return $dados['qtd_benef'];
+            
+        } catch (Exception $e) {
+            return $e->getMessage() . "Erro qtd materiais dos beneficiarios";
+        }
+        
+    }
+    
+    
 }

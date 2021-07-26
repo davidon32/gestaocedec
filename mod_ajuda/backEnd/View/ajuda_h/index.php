@@ -103,8 +103,7 @@ $total_reg = 0;
 
 foreach ($listaPedido as $key => $pedid) {
     # get permissao
-
-
+    
     $prazo = $pedido_h->prazo_presta_conta($pedid['data_aprovacao']);
     if (strtotime(date('Y-m-d')) > strtotime($prazo)) {
         print 'vencido';
@@ -128,7 +127,7 @@ foreach ($listaPedido as $key => $pedid) {
                 <td>";
 
         # EDITAR
-        if ($pedid['status'] == 2) {
+        if ($pedid['status'] < 5) {
             print "<a href='" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit', array('id' => $pedid['id'], 'voltar'=>'idx_recente')) . "' title='Editar Pedido'><img src='/core/imagem/editar.png'></a> |";
         }
 
@@ -137,7 +136,9 @@ foreach ($listaPedido as $key => $pedid) {
 
         #prestação de contas
         if ($pedid['status'] == 5) {
-            print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'pedido_itens', 'pcont') . "' title='Presatação de contas'><img width='25' src='/core/imagem/relatorio.png'></a>";
+            $percent = (H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedid['id']) * 100) /H_pedido_prestajuda_hModel::totalMaterialPrestConta($pedid['id']) ;
+            print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'pedido_itens', 'pcont') . "' title='Presatação de contas'><img width='25' src='/core/imagem/relatorio.png'></a>|";
+            print "&nbsp;&nbsp;<a href='' style='color:".$cor['fonte']."; font-size:14pt;' title='Percentual de Conclusão da Prestação de Contas do Pedido'>".$percent."%</a> |";
         }
 
         # analise DRD
