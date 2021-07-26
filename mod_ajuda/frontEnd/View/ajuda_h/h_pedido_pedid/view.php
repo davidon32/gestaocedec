@@ -129,7 +129,7 @@ $h_pedido_pedido_model = new H_pedido_pedidajuda_hModel();?>
                     <td>Descrição</td>
                     <td>Qtd</td>
                     <td>Qtd Familias At.</td>
-                    <td>Opções</td>
+                    <!--<td>Opções</td>-->
                 </tr>
 <?php
 $materiais = H_pedido_pedidajuda_hModel::item_pedido($view[0]['id']);
@@ -142,10 +142,10 @@ foreach ($materiais as $key => $material) {
     print "<td class='col-md-5'>" . $material['descricao_item'] . "</td>";
     print "<td class='col-md-1'>" . $material['qtd'] . "</td>";
     print "<td class='col-md-2'>" . $material['qtd_familia_atendida'] . "</td>";
-    print "<td class='col-md-1'>";
-    print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_itens', 'edit', array('id' => $material['id'])) . "'><img src='/core/imagem/editar.png'></a>";
-    print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_itens', 'delete', array('id' => $material['id'], 'id_pedido' => $view[0]['id'])) . "'><img src='/core/imagem/delete.png'></a>";
-    print "</td>";
+    /*print "<td class='col-md-1'>";
+    print "<!--<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_itens', 'edit', array('id' => $material['id'])) . "'><img src='/core/imagem/editar.png'></a>-->";
+    print "<!--<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_itens', 'delete', array('id' => $material['id'], 'id_pedido' => $view[0]['id'])) . "'><img src='/core/imagem/delete.png'></a>-->";
+    print "</td>";*/
     print "</tr>";
 }
 ?>
@@ -170,7 +170,7 @@ foreach ($materiais as $key => $material) {
                         <th>Data Envio</th>
                         <th>Nome arquivo</th>
                         <th>Descrição</th>
-                        <th>Ações</th>
+<!--                        <th>Ações</th>-->
                     </tr>
                     
                     <?php
@@ -185,7 +185,7 @@ foreach ($materiais as $key => $material) {
                         print "<td>". DataMysql::dataCompletaVisual($arquivo['data_envio'])."</td>";
                         print "<td>".$arquivo['nome_arquivo']."</td>";
                         print "<td>".$arquivo['descricao']."</td>";
-                        print "<td><a name='deletar_anexo' data-nome_arquivo='".$arquivo['nome_arquivo']."' data-id='".$arquivo['id']."' title='Apagar Arquivo'><img src='/core/imagem/delete.png'></a></td>";
+//                        print "<td><a name='deletar_anexo' data-nome_arquivo='".$arquivo['nome_arquivo']."' data-id='".$arquivo['id']."' title='Apagar Arquivo'><img src='/core/imagem/delete.png'></a></td>";
                         print "</tr>";
                     }
                     ?>

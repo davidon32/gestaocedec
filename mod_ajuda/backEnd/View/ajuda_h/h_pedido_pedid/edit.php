@@ -24,7 +24,7 @@ $dec_cobrade = new H_pedido_pedidajuda_hModel();
 $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
 ?>
 <div class='col-md-12'>
-    <legend>Editar Cadastro H_pedido_pedid</legend>
+    <legend>Editar Pedido Ajuda Humanitaria nº: <?= $view[0]['numero']."-". substr($view[0]['data_entrada_sistema'], 0, 4) ?></legend>
 
 
     <form action="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit"); ?>" method="post" accept-charset="utf-8" name="frmH_pedido_pedid" id="frmH_pedido_pedid">
@@ -227,6 +227,46 @@ foreach ($materiais as $key => $material) {
 
 
                 </table>
+                
+<br>
+    <div class="row">
+    <div class="col-md-12 text-left">
+        <br>
+        <button type="button" class="btn btn-warning glyphicon glyphicon-upload" name="upload_arquivos" id="upload_arquivos" title="Fazer upload de arquivos"> Upload Arquivos</button>
+    </div>
+    </div>
+    <div class="col-md-12 text-center">
+                <legend>Lista de Arquivos Anexados</legend>
+
+                <table class="table table-bordered table-condensed table-striped">
+                    
+                    <tr>
+                        <th>#</th>
+                        <th>Data Envio</th>
+                        <th>Nome arquivo</th>
+                        <th>Descrição</th>
+                        <th>Ações</th>
+                    </tr>
+                    
+                    <?php
+                    
+                    $arquivos = H_pedido_anexoajuda_hModel::ListaAnexo($view[0]['id']);
+                    
+                    foreach ($arquivos as $key => $arquivo) {
+                        
+                    
+                        print "<tr>";
+                        print "<td>".($key+1)."</td>";
+                        print "<td>". DataMysql::dataCompletaVisual($arquivo['data_envio'])."</td>";
+                        print "<td><a href='".FuncaoBase::geraLink("cedec", "app", "visualiza", array('file'=>$arquivo['nome_arquivo'], 'fl'=>'pedido_h'))."'>".$arquivo['nome_arquivo']."</a></td>";
+                        print "<td>".$arquivo['descricao']."</td>";
+                        print "<td><a name='deletar_anexo' data-nome_arquivo='".$arquivo['nome_arquivo']."' data-id='".$arquivo['id']."' title='Apagar Arquivo'><img src='/core/imagem/delete.png'></a></td>";
+                        print "</tr>";
+                    }
+                    ?>
+                    
+                </table>
+    </div>
 
                 <div class="col-md-6 text-left">
                     <br>
@@ -236,7 +276,7 @@ foreach ($materiais as $key => $material) {
                 <div class="col-md-6 text-right">
                     <br>
                     <?php 
-                        if($_GET['voltar'] == 'idx_recente'){
+                        if(isset($_GET['voltar']) and $_GET['voltar'] == 'idx_recente'){
                             print "<a class=\"btn btn-success\" href=\"".FuncaoBase::geraLink("ajuda", "h_pedido_index", "index")."\">Voltar</a>";
                         }else{
                             print "<a class=\"btn btn-success\" href=\"".FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "index")."\">Voltar</a>";
@@ -341,6 +381,27 @@ foreach ($materiais as $key => $material) {
                         
                         $("#add_material").click(function(){
                             window.location.href = '<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "add_itens", array('id'=>$view[0]['id']))?>';
+                        });
+                        
+                        $("#upload_arquivos").hover(function(){
+                                                setInterval(
+                                [].forEach.bind($("#btnGravar"),
+                                function(a){
+                                  a.style.outline="5px solid #"+(~~(Math.random()*(1<<24))).toString(16)
+                                },
+                                5),
+                              1000);
+                        });
+                        
+                        $("#upload_arquivos").click(function(){
+                            //$("#btnGravar").addClass("animacao");
+                            
+                                var result = confirm('Atenção \n Antes de Fazer o upload de arquivos salve as alterações nos dados do pedido\n deseja continuar mesmo assim ?')
+                                
+                                
+                            if(result){
+                                window.location.href = '<?= FuncaoBase::geraLink("ajuda", "h_pedido_anexo", "cadastro", array('id'=>$view[0]['id'], 'voltar'=>$_GET['voltar']))?>';
+                            }
                         });
                         
                         /* conta os caracteres */

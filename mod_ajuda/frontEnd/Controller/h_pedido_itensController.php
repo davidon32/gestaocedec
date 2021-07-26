@@ -144,7 +144,7 @@ class h_pedido_itensController extends Controller {
 
                 FuncaoBase::alert("Registro Atualizado com Sucesso !");
                 $view = $h_pedido_itensModel->view($_POST['id']);
-                $param = array('id'=> $_POST['id_pedido']);
+                $param = array('id'=> $_POST['id_pedido'], 'voltar'=>'idx_recente');
                 $this->redirect("ajuda", "h_pedido_itens", "cadastro", $param);
                 
             

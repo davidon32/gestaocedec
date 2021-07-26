@@ -286,33 +286,24 @@ aju_h_pedido_itens.qtd_familia_atendida
         }
     }
             
-     
-
-
-     
-     
-
-
 
     /**
-     * Lista h_pedido_itens
+     * busca itens do pedido
      */
-    public function listah_pedido_itenss() {
+    public static function busca_item_pedido($id_pedido) {
 
         $con = Conexao::getInstance();
 
         $dados = array();
 
-        $sql = "SELECT pip_fornecedor.id,
-                        pip_fornecedor.nome, 
-                        pip_fornecedor.tel, 
-                        pip_fornecedor.cel,
-                         count(pip_dispositivo.id) as qtd
-                              FROM pip_fornecedor
-                              left JOIN pip_dispositivo
-                              ON pip_fornecedor.id = pip_dispositivo.fornecedor_id
-                              group BY pip_fornecedor.nome
-                              ORDER BY pip_fornecedor.nome";
+        $sql = "SELECT id,
+                        codigo,
+                        descricao_item,
+                        qtd,
+                        qtd_familia_atendida,
+                        id_pedido
+                        FROM aju_h_pedido_itens
+                        WHERE id_pedido = ".$id_pedido;
 
         try {
 
@@ -324,128 +315,105 @@ aju_h_pedido_itens.qtd_familia_atendida
 
             return $dados;
         } catch (Exception $e) {
-            return $e->getMessage() . "Erro ao inserir Fornecedor";
+            return $e->getMessage() . "Erro listando pedido";
         }
     }
-
-    /**
-     * Lista Fornecedoress
-     */
-    public static function listaFornecedor($id) {
-
-        $con = Conexao::getInstance();
-
-        $dados = array();
-
-        $sql = "SELECT pip_fornecedor.id,
-                        pip_fornecedor.nome,
-                        pip_fornecedor.cpfcnpj,
-                        pip_fornecedor.tel, 
-                        pip_fornecedor.cel
-                              FROM pip_fornecedor
-                              WHERE id =" . $id;
-
-        try {
-
-            $result = $con->query($sql);
-
-            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-                $dados = $linha;
-            }
-
-            return $dados;
-        } catch (Exception $e) {
-            return $e->getMessage() . "Erro ao inserir Fornecedor";
-        }
-    }
-
     
-
+    
+    
     /**
-     * Cadastro Dispositivos
+     * # Grava itens inseridos pelo compdec
      */
-    public static function cDispositivo(array $dados) {
 
+    public static function gravarItensOriginal(array $dados) {
 
         $con = Conexao::getInstance();
-        $sql = "INSERT INTO pip_dispositivo (cel,
-                                                fornecedor_id)
-                                    		      VALUES (:cel,
-                                                    	  :fornecedor_id)";
+        $sql = "INSERT INTO aju_h_pedido_itens_original (codigo,
+                                                descricao_item,
+                                                qtd,
+                                                qtd_familia_atendida,
+                                                id_pedido,
+                                                id_item) VALUES (:codigo,
+                                                :descricao_item,
+                                                :qtd,
+                                                :qtd_familia_atendida,
+                                                :id_pedido,
+                                                :id_item)";
 
         try {
 
             $result = $con->prepare($sql);
-            $result->bindValue(":cel", $dados['cel']);
-            $result->bindValue(":fornecedor_id", $dados['fornecedor_id']);
+
+            $result->bindValue(":codigo", $dados['codigo']);
+            $result->bindValue(":descricao_item", $dados['descricao_item']);
+            $result->bindValue(":qtd", $dados['qtd']);
+            $result->bindValue(":qtd_familia_atendida", $dados['qtd_familia_atendida']);
+            $result->bindValue(":id_pedido", $dados['id_pedido']);
+            $result->bindValue(":id_item", $dados['id']);
+
+ 
             $result->execute();
 
-            Log::GravaLog("Cadastro de Dispositivo: " . $dados['cel'] . " " . $_COOKIE['seguranca']['login'], "aju_log");
+            #Log::GravaLog("Cadastro de marca : " . $dados['nome'] . " " . $_COOKIE['seguranca']['login'], "aju_log");
 
             return true;
         } catch (Exception $e) {
-            return $e->getMessage() . "Erro ao inserir Fornecedor";
+            return $e->getMessage() . "Erro ao inserir marca";
         }
     }
 
-    /**
-     * Cadastro Dispositivos
+     /**
+     * # Busca itens originais para remover 
      */
-    public static function qrCode(array $dados) {
 
-
-        $con = Conexao::getInstance();
-        $sql = "INSERT INTO pip_dispositivo (telefone,
-                                                fornecedor_id,
-                                                hash,
-                                                dt_leitura)
-                                    		      VALUES (:telefone,
-                                                    	  :fornecedor_id,
-                                                    	  :hash,
-                                                          :dt_leitura)";
-
-        try {
-
-            $result = $con->prepare($sql);
-            $result->bindValue(":telefone", $dados['telefone']);
-            $result->bindValue(":fornecedor_id", $dados['fornecedor']);
-            $result->bindValue(":hash", $dados['hash']);
-            $result->bindValue(":dt_leitura", $dados['dt_leitura']);
-            $result->execute();
-
-            Log::GravaLog("Cadastro de Dispositivo: " . $dados['telefone'] . " " . $_COOKIE['seguranca']['login'], "aju_log");
-
-            return true;
-        } catch (Exception $e) {
-            return $e->getMessage() . "Erro ao inserir Fornecedor";
-        }
-    }
-
-    /**
-     * Get nome fornecedor
-     */
-    public static function getFornecedorNome($id) {
-
-        $con = Conexao::getInstance();
+    public static function buscaItensOriginais($id_item) {
 
         $dados = array();
-
-        $sql = "SELECT nome"
-                . " FROM pip_fornecedor"
-                . " WHERE id = " . $id;
+        $con = Conexao::getInstance();
+        $sql = "select id
+                 from aju_h_pedido_itens_original
+                 WHERE id_item = ".$id_item;
 
         try {
 
             $result = $con->query($sql);
 
-            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-                $dados = $linha['nome'];
+             while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dados[] = $linha;
             }
 
-            return $dados;
+            return (count($dados) > 0) ? true : false;
+
+            #Log::GravaLog("Cadastro de marca : " . $dados['nome'] . " " . $_COOKIE['seguranca']['login'], "aju_log");
+
         } catch (Exception $e) {
-            return $e->getMessage() . "Erro ao inserir Fornecedor";
+            return $e->getMessage() . "Erro ao inserir marca";
         }
     }
+    
+    /**
+     * # Busca itens originais para remover 
+     */
 
+    public static function deletaItensOriginal($id_item) {
+
+        $dados = array();
+        $con = Conexao::getInstance();
+        $sql = "delete from aju_h_pedido_itens_original
+                 WHERE id_item = ".$id_item;
+
+        try {
+
+            $result = $con->query($sql);
+
+            return true;
+
+            #Log::GravaLog("Cadastro de marca : " . $dados['nome'] . " " . $_COOKIE['seguranca']['login'], "aju_log");
+
+        } catch (Exception $e) {
+            return $e->getMessage() . "Erro ao inserir marca";
+        }
+    }
+    
+    
 }

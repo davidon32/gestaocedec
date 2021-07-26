@@ -42,7 +42,8 @@ if ((isset($caminho[1]) && ($caminho[1] === 'mapa')) && ( (isset($caminho[2]) &&
             ($action === 'recsenha_cedec') || 
             ($action === 'trsenha') || 
             ($action === 'trsenha_compdec') || 
-            ($modulo === 'index') ) {
+            ($modulo === 'index') || 
+            ($action === 'visualiza')) {
 
     include_once "mod_" . $modulo . "/Controller/" . $controller . ".php";
 } else if ((isset($caminho[1]) && $caminho[1] == "tdap")) { # TDAP

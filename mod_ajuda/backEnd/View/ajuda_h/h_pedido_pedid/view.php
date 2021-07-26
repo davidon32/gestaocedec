@@ -121,6 +121,43 @@ if ($_GET['voltar'] == 'idx_recente') {
 
 </table>
 <br>
+<br>
+<!- tabela de materiais do Originais  -->
+<legend>Materiais Enviados Originalmente</legend>
+<span>Este é um registro dos materiais enviados que não sofrerão alterações por parte dos Analistas</span>
+<div class='row table-responsive' >
+    <div class='col-md-1'>
+    </div>
+    <div class='col-md-10'><br>
+
+        <table style='background: #cbc7bd' class="table table-bordered table-striped">
+            <tr>
+                <th>Cod. Item</th>
+                <th>Cod. Material</th>
+                <th>Descrição</th>
+                <th>Qtd</th>
+                <th>Qtd Familias At.</th>
+            </tr>
+            <?php
+            $materiais_original = H_pedido_pedidajuda_hModel::item_pedido_original($view[0]['id']);
+
+            foreach ($materiais_original as $key => $material) {
+
+                print "<tr>";
+                print "<td class='col-md-1'>" . $material['id'] . "</td>";
+                print "<td class='col-md-2'>" . $material['codigo'] . "</td>";
+                print "<td class='col-md-5'>" . $material['descricao_item'] . "</td>";
+                print "<td class='col-md-1'>" . $material['qtd'] . "</td>";
+                print "<td class='col-md-2'>" . $material['qtd_familia_atendida'] . "</td>";
+            }
+            ?>
+
+        </table>
+    </div>
+    <div class='col-md-1'>
+        &nbsp;
+    </div>
+</div>
 
 <br>
 <!- tabela de materiais do pedido -->

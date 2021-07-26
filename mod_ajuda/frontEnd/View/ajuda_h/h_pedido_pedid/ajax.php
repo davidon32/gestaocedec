@@ -6,6 +6,8 @@ $opcao = isset($_POST['opcao']) ? $_POST['opcao'] :"";
 
 $h_pedido_pedid = new H_pedido_pedidajuda_hModel();
 
+$h_pedido_itens = new H_pedido_itensajuda_hModel();
+
 if($opcao == 'dados_compdec') {
 
     $dados = $h_pedido_pedid->buscaDadosPedido($id_municipio);
@@ -20,7 +22,25 @@ if($opcao == 'dados_compdec') {
   
 }elseif($opcao == 'envia_pedido'){
     
-    if($h_pedido_pedid->envia_pedido($_POST)){
+    # busca itens pedido
+    $itens = H_pedido_itensajuda_hModel::busca_item_pedido($_POST['id_pedido']);
+    
+    
+    # grava itens tabela itens_orginais
+    foreach ($itens as $key => $item) {
+        # busca item, se existir apaga e grava os novos
+        # sempre o itens originais são os itens que no momento e envio estão gravados no pedido
+        
+        if($h_pedido_itens::buscaItensOriginais($item['id'])){
+            $h_pedido_itens::deletaItensOriginal($item['id']);
+            $h_pedido_itens::gravarItensOriginal($item);
+        }else {
+            $h_pedido_itens::gravarItensOriginal($item);
+        }
+    }
+    
+    
+    if($h_pedido_pedid->envia_pedido($_POST) ){
         print 'sucesso';
     }
 }

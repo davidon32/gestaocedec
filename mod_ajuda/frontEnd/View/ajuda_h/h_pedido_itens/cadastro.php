@@ -69,7 +69,13 @@ if (isset($_GET['id'])) {
     </div>
     <div class="col-md-6 text-right">
         <br>
-        <a class="btn btn-success" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "index") ?>">Voltar</a>
+        <?php
+        if(isset($_GET['voltar']) and $_GET['voltar'] == 'idx_recente'){
+            print "<a class='btn btn-success' href='".FuncaoBase::geraLink("ajuda", "h_pedido_index", "index")."'>Voltar</a>";
+        }else {
+            print "<a class='btn btn-success' href='".FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "index")."'>Voltar</a>";
+        }
+        ?>
     </div>
 </div>
 </form>

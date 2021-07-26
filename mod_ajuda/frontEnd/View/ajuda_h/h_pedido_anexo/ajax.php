@@ -7,7 +7,10 @@ $opcao = isset($_POST['opcao']) ? $_POST['opcao'] :"";
 
 if($opcao == 'visualizafile') {
     
+        
+    
     $dados = $_POST;
+     
     
         if (isset($dados['arquivo']) && file_exists($dados['path']."/".$dados['arquivo'])) {
             // faz o teste se a variavel não esta vazia e se o arquivo realmente existe
@@ -41,7 +44,7 @@ if($opcao == 'visualizafile') {
           
         header('Content-Description: File Transfer');
         header("Content-Type: ".$tipo."");
-        header("Content-Disposition: attachment; filename=\"" . basename($dados['arquivo']) . "\"");
+        header("Content-Disposition: attachment; filename=\"" . basename($dados['path']."/".$dados['arquivo']) . "\"");
         header("Content-Transfer-Encoding: binary");
         header("Expires: 0");
         header("Pragma: public");
@@ -49,7 +52,7 @@ if($opcao == 'visualizafile') {
         header('Content-Length: ' . filesize($dados['path']."/".$dados['arquivo'])); //Remove
         ob_flush(); 
         flush(); 
-        print readfile($dados['path']."/".$dados['arquivo']);
+        readfile($dados['path']."/".$dados['arquivo']);
     
         }else {
             print "erro";

@@ -533,6 +533,41 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
         }    
         
 }
+   
+    /**
+     * 
+     * Lista dos materiais originais do pedido
+     */
+    public static function item_pedido_original($id_pedido) {
+
+        
+        $con = Conexao::getInstance();
+
+        $dados = array();
+
+        $sql = "select aju_h_pedido_itens_original.id,
+                aju_h_pedido_itens_original.codigo,
+                aju_h_pedido_itens_original.descricao_item,
+                aju_h_pedido_itens_original.qtd,
+                aju_h_pedido_itens_original.qtd_familia_atendida
+                from 
+                aju_h_pedido_itens_original
+                where aju_h_pedido_itens_original.id_pedido = ".$id_pedido;
+
+        try {
+
+            $result = $con->query($sql);
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dados[] = $linha;
+            }
+
+            return $dados;
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }    
+        
+}
      
 
 

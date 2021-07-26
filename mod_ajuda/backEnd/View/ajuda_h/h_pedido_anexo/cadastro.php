@@ -12,36 +12,49 @@
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php"; ?>
 
+
 <?php
 
+$id = isset($_GET['id']) ? $_GET['id'] : "";
+$voltar = isset($_GET['voltar']) ? $_GET['voltar'] : "";
 
+if(empty($id)){
+    print "Ocorreu um Erro de acesso ao sistema !<br>";
+    print "<a class='btn btn-success' href='index.php?".FuncaoBase::geraLink("ajuda", "h_pedido_index", "index")."'>voltar</a>";
+    die();
+}
 
 ?>
 
-<legend>Cadastro de H_pedido_anexo</legend>
-<form action="<?=FuncaoBase::geraLink("ajuda", "h_pedido_anexo", "gravar");?>" method="post" accept-charset="utf-8" name="frmH_pedido_anexo" id="frmH_pedido_anexo">
+<legend>Upload de Arquivos</legend>
+<form action="<?=FuncaoBase::geraLink("ajuda", "h_pedido_anexo", "gravar", array('id'=>$id, 'voltar'=>'idx_recente'));?>" method="post" accept-charset="utf-8" name="frmH_pedido_anexo" id="frmH_pedido_anexo" enctype="multipart/form-data">
     
     <div class='row'>
 <div class='col-md-2'>
-<label>Identificador do Pedido</label>
-<input type="text" class='form form-control' name='id_pedido' id='id_pedido' maxlength='' required >
+    <input type="hidden" class='form form-control' name='id_pedido' id='id_pedido' maxlength='' required value="<?=$id?>">
+    <input type="hidden" class='form form-control' name='voltar' id='voltar' maxlength='' required value="<?=$voltar?>">
 </div>
 </div>
 <div class='row'>
 <div class='col-md-6'>
 <label>Nome do Arquivo</label>
-<input type="text" class='form form-control' name='nome_arquivo' id='nome_arquivo' maxlength='44' required >
+<input type="file" class='form form-control' name='nome_arquivo' id='nome_arquivo' maxlength='44' required >
+</div>
+</div>
+    
+<div class='row'>
+<div class='col-md-6'>
+    <label>Descrição </label><span class='labelInfo'> ( Este campo será usado para informar o conteudo do seu arquivo ex: "Lei 4444 parte 1 de 3")</span>
+<input type="text" class='form form-control' name='descricao' id='descricao' maxlength='44' required >
 </div>
 </div>
 
     <div class="col-md-12 text-center">
         <br>
-        <a class="btn btn-success" href="<?=FuncaoBase::geraLink("ajuda", "h_pedido_anexo", "index")?>">Voltar</a>
+        <a class="btn btn-success" href="<?=FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit", array('id'=>$id, 'voltar'=>'idx_recente'))?>">Voltar</a>
         <input type="submit" class="btn btn-info" name="btnGravar" id="btnGravar" value="Gravar">
     </div>
 </form>
-    
-    
     
 
 <br>

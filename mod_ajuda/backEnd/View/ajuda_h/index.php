@@ -129,7 +129,7 @@ foreach ($listaPedido as $key => $pedid) {
 
         # EDITAR
         if ($pedid['status'] == 2) {
-            print "<a href='" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit', array('id' => $pedid['id'])) . "' title='Editar Pedido'><img src='/core/imagem/editar.png'></a> |";
+            print "<a href='" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit', array('id' => $pedid['id'], 'voltar'=>'idx_recente')) . "' title='Editar Pedido'><img src='/core/imagem/editar.png'></a> |";
         }
 
         # visualizar 

@@ -24,7 +24,7 @@ $dec_cobrade = new H_pedido_pedidajuda_hModel();
 $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
 ?>
 <div class='col-md-12'>
-    <legend>Editar Pedido de Ajuda Humanitária nº : <?=$view[0]['id']?></legend>
+    <legend>Editar Pedido de Ajuda Humanitária nº : <?= $view[0]['numero']."-". substr($view[0]['data_entrada_sistema'], 0, 4) ?></legend>
 
 
     <form action="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit", array('voltar'=>'index')); ?>" method="post" accept-charset="utf-8" name="frmH_pedido_pedid" id="frmH_pedido_pedid">
@@ -211,7 +211,7 @@ foreach ($materiais as $key => $material) {
     print "<td>" . $material['qtd'] . "</td>";
     print "<td>" . $material['qtd_familia_atendida'] . "</td>";
     print "<td>";
-    print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'add_itens', array('id'=>$view[0]['id'], 'id_material'=>$material['id'], 'volta'=>'idx_recente')) . "'><img src='/core/imagem/editar.png'></a>";
+    print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'add_itens', array('id'=>$view[0]['id'], 'id_material'=>$material['id'], 'voltar'=>'idx_recente')) . "'><img src='/core/imagem/editar.png'></a>";
     print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_itens', 'delete', array('id'=>$material['id'], 'action1'=>'edit', 'id_pedido'=>$view[0]['id'], 'voltar'=>'edit_ped')) . "'><img src='/core/imagem/delete.png'></a>";
 
     print "</td>";
@@ -253,7 +253,7 @@ foreach ($materiais as $key => $material) {
                         print "<tr>";
                         print "<td>".($key+1)."</td>";
                         print "<td>". DataMysql::dataCompletaVisual($arquivo['data_envio'])."</td>";
-                        print "<td><span class='btn btn-link' name='lk_visualiza' data-id='".$arquivo['id']."' data-arquivo='".$arquivo['nome_arquivo']."'>".$arquivo['nome_arquivo']."</span></td>";
+                        print "<td><a href='".FuncaoBase::geraLink("cedec", "app", "visualiza", array('file'=>$arquivo['nome_arquivo'], 'fl'=>'pedido_h'))."'>".$arquivo['nome_arquivo']."</a></td>";
                         print "<td>".$arquivo['descricao']."</td>";
                         print "<td><a name='deletar_anexo' data-nome_arquivo='".$arquivo['nome_arquivo']."' data-id='".$arquivo['id']."' title='Apagar Arquivo'><img src='/core/imagem/delete.png'></a></td>";
                         print "</tr>";
@@ -371,25 +371,7 @@ foreach ($materiais as $key => $material) {
                 <script>
 
                     $(document).ready(function () {
-                        
-                        
-                        
-                        $("span[name='lk_visualiza']").click(function(){
-                            
-                            var arquivo = $(this).data('arquivo');
-                            var id = $(this).data('id');
-
-                            
-                            $.post('/mod_ajuda/frontEnd/View/ajuda_h/h_pedido_anexo/ajax.php', 
-                                { opcao  :'visualizafile',
-                                  arquivo: arquivo,
-                                  id     : id,
-                                  path   : '<?=PATH?>/anexo/pedido_ajuda_h' 
-                                }
-                            );
-                            
-                        });
-                        
+                                             
                         $("#add_material").click(function(){
                             window.location.href = '<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "add_itens", array('id'=>$view[0]['id'], 'voltar'=>'idx_recente'))?>';
                         });

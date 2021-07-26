@@ -137,15 +137,17 @@ $aprovacao = 'nao';
             </thead>
 <?php
 foreach ($analises_tecnica as $key => $an_drd) {
+    
+
 
     if ($an_drd['tramit_parecer'] == $secao) {
-        $aprovacao = (count($an_drd['tramit_parecer'])) > 0 ? 'sim' : 'nao';
+        //$aprovacao = (count($an_drd['tramit_parecer'])) > 0 ? 'sim' : 'nao';
 
         print "<tr>";
-        print "<td>" . DataMysql::dataVisual($an_drd['data_parecer']) . "</td>";
-        print "<td>" . Usuario::getNomeId($an_drd['id_usuario']) . "</td>";
-        print "<td style='text-align: justify'>" . $an_drd['parecer'] . "</td>";
-        print "<td>";
+        print "<td class='col-md-1'>" . DataMysql::dataVisual($an_drd['data_parecer']) . "</td>";
+        print "<td class='col-md-1'>" . Usuario::getNomeId($an_drd['id_usuario']) . "</td>";
+        print "<td class='col-md-9' style='text-align: justify'>" . $an_drd['parecer'] . "</td>";
+        print "<td class='col-md-1'>";
         if ($an_drd['id_usuario'] == $_COOKIE['seguranca']['idUser']) {
             print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_an_tec", 'edit', array('id' => $an_drd['id_analise'], 'id_pedido' => $id_pedido, 'an' => $_GET['an'])) . "'><img src='/core/imagem/editar.png' title='Editar Perecer'></a>";
             print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_an_tec", 'delete', array('id' => $an_drd['id_analise'], 'id_pedido' => $id_pedido, 'an' => $_GET['an'])) . "'><img src='/core/imagem/delete.png' title='Deletar Parecer'></a>";

@@ -15,9 +15,11 @@ $materiais = H_pedido_pedidajuda_hModel::MaterialPedido();
 $id = isset($_GET['id']) ? $_GET['id'] : "";
 
 $dados_editar = array();
+$id_material = false;
 
 if(isset($_GET['id_material'])){
     $dados_editar = H_pedido_itensajuda_hModel::view($_GET['id_material']);
+    $id_material = true;
 }
 
 
@@ -36,17 +38,17 @@ if (isset($id)) {
             <div class="col-md-6">
                 <label>Material de Ajuda Humanitária</label>
                 <select class="form form-control" name="descricao_item" id="descricao_item">
-                    <option <?=isset($dados_editar[0]['id']) ? "id='".$dados_editar[0]['id']."'> ".$dados_editar[0]['descricao_item']  : "Selecione o Material";?> </option>
+                    <option <?=isset($dados_editar[0]['codigo']) ? "id='".$dados_editar[0]['codigo']."'> ".$dados_editar[0]['descricao_item']  : "Selecione o Material";?> </option>
 <?php
 foreach ($materiais as $material) {
     print "<option id='" . $material['id_unidade'] . "'>" . $material['nome'] . $material['descricao'] . "</option>";
 }
 ?>
-                    <input type="hidden" name="codigo" id="codigo">
+                    <input type="hidden" name="codigo" id="codigo" value="<?= $dados_editar[0]['codigo']; ?>">
                     <input type="hidden" name="id_pedido" id="id_pedido" value="<?= $id_pedido; ?>">
                     
                     <!-- id itens_pedido -->
-                    <input type="hidden" name="id" id="id" value="<?= $id_pedido; ?>">
+                    <input type="hidden" name="id" id="id" value="<?= $dados_editar[0]['id']; ?>">
 
                     <input type="hidden" name="add_pedido" id="add_pedido" value='1'>
 
@@ -58,14 +60,14 @@ foreach ($materiais as $material) {
         <div class='row'>
             <div class="col-md-4">
                 <label>Quantidade de Material</label>
-                <input class="form form-control" type="number" name="qtd" id="qtd" min="1" max="999" >
+                <input class="form form-control" type="number" name="qtd" id="qtd" min="1" max="999" value="<?= $dados_editar[0]['qtd']; ?>" >
             </div>
         </div>
         <!-- Familias atendidas -->
         <div class='row'>
             <div class="col-md-4">
                 <label>Qtd Familias Atentidas</label>
-                <input class="form form-control" type="number" name="qtd_familia_atendida" id="qtd_familia_atendida" min="1" max="500" >    
+                <input class="form form-control" type="number" name="qtd_familia_atendida" id="qtd_familia_atendida" min="1" max="500" value="<?= $dados_editar[0]['qtd_familia_atendida']; ?>">    
             </div>
         </div>
 
@@ -135,8 +137,12 @@ foreach ($materiais as $key => $material) {
 
     $(document).ready(function () {
 
-
-        $('#btn_update').hide();
+        if(<?=$id_material?>){
+            $('#btn_update').show();
+            $("#btn_add").hide();
+            var id = $("#id").val();
+            $('#frmAdd').attr('action', 'index.php?modulo=ajuda&controller=h_pedido_itens&action=edit&id=' + id + '"');
+        }
 
         $("#descricao_item").change(function () {
             var selected = $(this).children(":selected").attr("id");
