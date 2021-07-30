@@ -55,7 +55,6 @@
         icon: 'error',
         title: 'Atualização de Email necessária...',
         width: 500,
-        height: 400,
         text: 'Favor atualiar seu email para um email institucional',
         footer: '<a href=\'<?=FuncaoBase::geraLink('compdec', 'compdec', 'index')?>\'>Clique aqui acessar os dados cadatrais</a>'
       });

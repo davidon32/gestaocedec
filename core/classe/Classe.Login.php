@@ -97,58 +97,6 @@ function logar($_login, $_senha, $redireciona = true) {
 				 // abre sessão login
 				 return (self::SetCookieAdm($linha)) ? true : false;
                                  
-                                 
-				 //if ($redireciona) {
- 
-				 
-					 //$_id_session = session_id();
-				 
-					// Log::GravaLog("Acesso ao Portal cedec", "cedec_log");
-					 
-					// Login::atualizaAcesso($linha['id_usuario'], "1");
-					
-					 /* intervalo para atualizacao de dados */
-					 /* quantidade de acessos */
-					 // if( (MODOACESSO == 0) && (!strpos($linha['login'], "D")) ){
-							 
-						 //var_dump(strpos($linha['login'], "D"));
-						 //$qtd_acesso = Login::pegaQtdAcesso($linha['id_usuario']);
-												 
-						 //if((int)$qtd_acesso[0] == 3){
-						  
-							 /* abrir janela atualizacao */
-							 #@ se redirecionar for necessario
-							// print "<script style='text/javascript'>";
-					 
-							// print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=equipe&secao=funcionario&acao=alterar&id=".$linha['id_funcionario']."&up=u'";
- 
-							 //print "</script>";
-							 
-							// Login::atualizaAcesso($linha['id_usuario'], "0");
-							 
-						// }else {
- 
-						   
-						   #@ se redirecionar for necessario
-						   //return true;
-						  // print "<script style='text/javascript'>";
-					 
-						  // print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=index&controller=index&action=menu'";
- 
-						  // print "</script>";
-						   
-						   
-						// }
-						 
-						 /* intervalo de acesso em dias */    
-					 //}else {
-						 
-							 //print "<script style='text/javascript'>";
-					 
-							 //print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=index&controller=index&action=menu'";
- 
-							 //print "</script>";
-					// }
 			 }	
 		}else{
 			return false;
@@ -183,7 +131,7 @@ static function SetCookieAdm($dados = ""){
 			setcookie("seguranca[id_funcionario]",$_COOKIE['seguranca']['id_funcionario'], time()+SESSAOADM);
 			setcookie("seguranca[adm]",			  $_COOKIE['seguranca']['adm'], time()+SESSAOADM);
 			setcookie("seguranca[tipo]",		  $_COOKIE['seguranca']['tipo'], time()+SESSAOADM); //4 horas
-			setcookie("seguranca[sessao]",		  $_COOKIE['seguranca']['sessao'], time()+SESSAOADM); //4 horas tempo sessao
+			setcookie("seguranca[sessao]",		  $_COOKIE['seguranca']['sess'], time()+SESSAOADM); //4 horas tempo sessao
 			setcookie("seguranca[matricula]",$_COOKIE['seguranca']['matricula'], time()+SESSAOADM);
 			ob_end_clean();
 

@@ -37,13 +37,15 @@ define('PATH', $_SERVER['DOCUMENT_ROOT']);
 define('TESTE', false);
 
 #@ versao
-define('VERSAO', 'versão - 3.4.1.3-3 - 23.07.2021');
+define('VERSAO', 'versão - 3.4.1.3-3 - 30.07.2021');
 
 #@ tempo sessao Adm
 define('SESSAOADM', '14400');
+// define('SESSAOADM', '15'); //teste debug
 
 #@ tempo sessao Externo
 define('SESSAOEX', '1800');
+//define('SESSAOEX', '25'); // teste debug
 
 #@ titulo página
 define('TITULO', 'Coordenadoria Estadual de Defesa Civil de Minas Gerais');

@@ -10,10 +10,18 @@ if($dados['btnInfoMunicipio'] == "gravar"){
 
 	$erro = false;
 
-	foreach ($dados as $value) {
-		if($value == ""){
+	if($dados['txtAliquota'] == '') {
+            $dados['txtAliquota'] = '0.00';
+            
+        }
+
+	foreach ($dados as $key=>$value) {
+		if($key != 'txtNumLei' && $key != 'txtAliquota'){
+                    if($value == ""){ 
+                        var_dump($key);
 			$erro = true;
 			continue;
+                    }
 		}
 	}
 	
@@ -23,13 +31,9 @@ if($dados['btnInfoMunicipio'] == "gravar"){
 		}else {
 			print 'erro';
 		}
-	//}else {
-	//	return false;
 	}
 	
 }else {
 	print "erro";
-}
-
-				 
+}				 
 ?>

@@ -1154,8 +1154,8 @@ $(document).ready(function(){
 				}
 
 		};
-
-	// campos dados iss
+                
+        // set campos dados iss inicial
 	if($("#selCobraIss").val() == "Não"){
 		$("#txtAliquota").prop('readonly', true);
 		$("#selResp").attr('readonly', true);
@@ -1167,21 +1167,27 @@ $(document).ready(function(){
 
 	}
 
+	
 	// desabilita campos de dados iss
-	$("#selCobraIss").change(function(){
+        $("#selCobraIss").change(function () {
 
-		if($("#selCobraIss").val() == "Não"){
-			$("#txtAliquota").prop('readonly', true);
-			$("#selResp").attr('readonly', true);
-			$("#txtNumLei").prop('readonly', true);
-			
-		}else{
-			$("#txtAliquota").prop('readonly', false);
-			$("#selResp").attr('readonly', false);
-			$("#txtNumLei").prop('readonly', false);
-		}
+            if ($("#selCobraIss").val() == "Não") {
+                $("#txtAliquota").prop('readonly', true);
+                $("#selResp").attr('readonly', true);
+                $("#txtNumLei").prop('readonly', true);
+                
+                /* Limpa campos */
+                $("#txtAliquota").val("");
+                $("#selResp").val("-").change();
+                $("#txtNumLei").val("");
 
-	});
+            } else {
+                $("#txtAliquota").prop('readonly', false);
+                $("#selResp").attr('readonly', false);
+                $("#txtNumLei").prop('readonly', false);
+            }
+
+        });
 
 	/*********** autocomplete ***********/
 	$("#txtComunidade").easyAutocomplete(itens);

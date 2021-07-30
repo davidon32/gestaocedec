@@ -1,5 +1,5 @@
 <?php
-if ( isset($pageSession['session']['seguranca']['nome_usuario']) ) {
+if (isset($pageSession['session']['seguranca']['nome_usuario'])) {
     
 } else {
     header('Location:index.php');
@@ -9,44 +9,62 @@ if ( isset($pageSession['session']['seguranca']['nome_usuario']) ) {
     function start_countdown()
     {
 
-        var sessao = <?= ($_COOKIE['seguranca']['tipo'] == "i") ? "14400" : "1800"; ?>;
+        var sessao_expira = new Date(<?= isset($_COOKIE['seguranca']['sessao']) ? $_COOKIE['seguranca']['sessao'] : "0"; ?> * 1000);
 
         myVar = setInterval(function ()
         {
-            if (sessao >= 0)
-            {
-                var hours = Math.floor(sessao / 3600);
-                var minutes = Math.floor((sessao % 3600) / 60);
-                var seconds = sessao % 60;
+            var tempo_sessao = (sessao_expira - new Date(Date.now()));
 
-                minutes = minutes < 10 ? '0' + minutes : minutes;
-                seconds = seconds < 10 ? '0' + seconds : seconds;
-
-                var result = hours + ":" + minutes + ":" + seconds;  // 2:41:30
-                document.getElementById("countdown").innerHTML = "Sessão: " + result;
-            }
-            if (sessao == 0)
+            if (tempo_sessao > 1000)
             {
+
+                var result = new Date(tempo_sessao);
+
+                var duration = sessao_expira - new Date(Date.now());
+
+                var milliseconds = parseInt((duration % 1000) / 100);
+                var seconds = parseInt((duration / 1000) % 60);
+                var minutes = parseInt((duration / (1000 * 60)) % 60);
+                var hours = parseInt((duration / (1000 * 60 * 60)) % 24);
+
+                hours = (hours < 10) ? "0" + hours : hours;
+                minutes = (minutes < 10) ? "0" + minutes : minutes;
+                seconds = (seconds < 10) ? "0" + seconds : seconds;
+                if (hours == 0 & minutes == 0 & seconds == 20) {
+                    setInterval(function() {
+                        $("#countdown").fadeTo(250, 0).fadeTo(250,1).fadeTo(250,0).fadeTo(250,1);
+                        $("#countdown").attr('title', 'Tempo de Sessão expirando será necessário refazer o login')
+                    },1000);
+                }
+
+            } else {
+
+                hours = "00";
+                minutes = "00";
+                seconds = "00";
+
                 $.ajax
                         ({
                             type: 'post',
-                            url: 'mod_equipe/View/usuario/func.php?v=<?=md5(VERSAO)?>',
+                            url: 'mod_equipe/View/usuario/func.php?v=<?= md5(VERSAO) ?>',
                             data: {
                                 logout: "logout"
                             },
                             success: function (response)
                             {
                                 window.location = "index.php";
+
+                            },
+                            error: function (response) {
+                                console.log(response);
                             }
                         });
             }
-            sessao--;
+            document.getElementById("countdown").innerHTML = "Sessão: " + hours + ":" + minutes + ":" + seconds;
         }, 1000)
     }
 </script>
-<?php
-
-?>
+<?php ?>
 <!-- BARRA SUPERIOR USUARIO  -->
 <header class="main-header print">
     <!-- Logo -->
@@ -156,8 +174,8 @@ if ( isset($pageSession['session']['seguranca']['nome_usuario']) ) {
                         ?>
                         <script>start_countdown();</script>
                     </a>
-                    <a href="<?=FuncaoBase::geraLink("index", "index", "logout")?>" class="btn btn-default" style="padding:0; width: 40%; float: left; color: #ABABAB;" title="Sair com Segurança do Sistema">Logout</a>
-                        <p id="countdown" style="margin:0; font-size:14px; color: #ffffff; float: right"></p>
+                    <a href="<?= FuncaoBase::geraLink("index", "index", "logout") ?>" class="btn btn-default" style="padding:0; width: 40%; float: left; color: #ABABAB;" title="Sair com Segurança do Sistema">Logout</a>
+                    <p id="countdown" style="margin:0; font-size:14px; color: #ffffff; float: right"></p>
 
                     <ul class="dropdown-menu">
                         <!-- User image -->

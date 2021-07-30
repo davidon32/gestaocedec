@@ -1,9 +1,8 @@
 <?php include_once $_SERVER['DOCUMENT_ROOT']."/core/include.php";
 
-$post = isset($_POST['logout']) ? $_POST['logout'] : "";
+$post = isset($_POST) ? $_POST : "";
 
 $tipo = isset($_COOKIE['seguranca']['tipo']) ? $_COOKIE['seguranca']['tipo'] : "";
-
 
 if($post['logout'] == "logout"){
 
@@ -11,9 +10,9 @@ if($post['logout'] == "logout"){
         Login::UnsetCookieAdm();
     }else if($tipo == "e"){
         LoginExterno::UnsetCookieExterno();
-    }else {
-
     }
+    
+    return 'sucesso';
 }
 
 ?>

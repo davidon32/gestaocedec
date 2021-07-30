@@ -32,7 +32,7 @@
 <script src="/js/knockout-min.js"></script>
 <script src="/plugins/jqueryValidation/jquery.validate.min.js"></script>
 <script src="/plugins/jqueryValidation/additional-methods.min.js"></script>
-<script src="/js/script.js"></script>
+<script src="/js/script.js?v=<?=md5(VERSAO);?>"></script>
 
 <?php
     include_once('ajuda_php.php');
@@ -151,10 +151,11 @@
         }
 
         if ((largura <= 800) && (altura <= 600) && (os.indexOf("Android") == -1)) {
-            Swal.fire(
-                    'Resolução mínima recomendada é : 1024 x768 ',
-                    'seu computador não está com a resolução de vídeo correta, é Aconselhado mudar a resolução do seu computador',
-                    'error');
+            Swal.fire({
+            icon: 'error',
+            title: 'Resolução mínima recomendada é : 1024 x768 ',
+            text: 'seu computador não está com a resolução de vídeo correta, é Aconselhado mudar a resolução do seu computador',
+            });
         }
 
 

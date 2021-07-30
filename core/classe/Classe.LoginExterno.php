@@ -144,7 +144,7 @@ static function SetCookieExterno($dados){
 				setcookie("seguranca[id_municipio]",$_COOKIE['seguranca']['id_municipio'],  time()+SESSAOEX, "/");
 				setcookie("seguranca[externo]",     $_COOKIE['seguranca']['externo'],       time()+SESSAOEX, "/");
 				setcookie("seguranca[tipo]",	    $_COOKIE['seguranca']['tipo'],          time()+SESSAOEX, "/"); //4 horas
-				setcookie("seguranca[sessao]",	    $_COOKIE['seguranca']['sesao'],          time()+SESSAOEX, "/"); //4 horas
+				setcookie("seguranca[sessao]",	    $_COOKIE['seguranca']['sessao'],          time()+SESSAOEX, "/"); //4 horas
 			ob_end_clean();
 
 		}catch (Exception $e){

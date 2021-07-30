@@ -9,23 +9,31 @@ $dados = isset($_POST) ? $_POST : "";
 if($dados['btnInfoMunicipio'] == "gravar"){
 
 	$erro = false;
+        
+        if($dados['txtAliquota'] == '') {
+            $dados['txtAliquota'] = '0.00';
+            
+        }
 
-	foreach ($dados as $value) {
-		if($value == ""){
+	foreach ($dados as $key=>$value) {
+		if($key != 'txtNumLei' && $key != 'txtAliquota'){
+                    if($value == ""){ 
+                        var_dump($key);
 			$erro = true;
 			continue;
+                    }
 		}
 	}
-	
+       
 	if(!$erro) {
+            
 		if($muncipio->alterarMunPmda($dados)){
                     #log alteração
                     print 'sucesso';
 		}else {
-			print 'erro';
+                    print 'erro';
 		}
-	//}else {
-	//	return false;
+	
 	}
 	
 }else {
