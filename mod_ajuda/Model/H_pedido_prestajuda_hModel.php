@@ -567,7 +567,7 @@ aju_h_pedido_prest.total_familia_at
                 $dados = $linha;
             }
 
-            return $dados['qtd_prest_cont'];
+            return is_null($dados['qtd_prest_cont']) ? 0 : $dados['qtd_prest_cont'];
         } catch (Exception $e) {
             
             return $e->getMessage() . "Erro qtd itens para prestacão de contas";
@@ -596,7 +596,7 @@ aju_h_pedido_prest.total_familia_at
                 $dados = $linha;
             }
 
-            return $dados['qtd_benef'];
+            return is_null($dados['qtd_benef']) ? 0 : $dados['qtd_benef'];
             
         } catch (Exception $e) {
             return $e->getMessage() . "Erro qtd materiais dos beneficiarios";

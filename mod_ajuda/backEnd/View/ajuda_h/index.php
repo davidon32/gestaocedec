@@ -136,7 +136,7 @@ foreach ($listaPedido as $key => $pedid) {
 
         #prestação de contas
         if ($pedid['status'] == 5) {
-            $percent = (H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedid['id']) * 100) /H_pedido_prestajuda_hModel::totalMaterialPrestConta($pedid['id']) ;
+            $percent = (H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedid['id']) * 100) / H_pedido_prestajuda_hModel::totalMaterialPrestConta($pedid['id']) ;
             print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'pedido_itens', 'pcont') . "' title='Presatação de contas'><img width='25' src='/core/imagem/relatorio.png'></a>|";
             print "&nbsp;&nbsp;<a href='' style='color:".$cor['fonte']."; font-size:14pt;' title='Percentual de Conclusão da Prestação de Contas do Pedido'>".$percent."%</a> |";
         }
