@@ -181,6 +181,17 @@ class h_pedido_pedidController extends Controller {
         
     }
     
+    /**
+     * 
+     */
+    public function view_pedido(){
+        
+        $view = $this->h_pedido_pedid->view($_GET['id']);
+        
+        include_once 'mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/view_pedido.php';
+        
+    }
+    
     
 
 }

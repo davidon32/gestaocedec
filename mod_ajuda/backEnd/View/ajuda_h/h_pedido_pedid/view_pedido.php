@@ -126,7 +126,7 @@ var_dump($view[0]);
                 <b><?=$view[0]['pop_atendida']?></b>
             </td>
             <td colspan="3" width="152">
-                <b><?=($view[0]['decreto_se_ecp_vig'] == 1) ? "Sim" : Não ?></b>
+                <b><?=($view[0]['decreto_se_ecp_vig'] == 1) ? "Sim" : "Não" ?></b>
             </td>
         </tr>
         <tr>
@@ -198,7 +198,7 @@ var_dump($view[0]);
         <tr>
             <td colspan="11" width="705">
                 <p>ESFOR&Ccedil;OS J&Aacute; REALIZADOS PELO MUNIC&Iacute;PIO : </p>
-                <?=$view[0]['esforcos_realizados']?>
+                <b><?=$view[0]['esforcos_realizados']?></b>
             </td>
         </tr>
         <tr>
@@ -218,15 +218,15 @@ var_dump($view[0]);
         </tr>
         <tr>
             <td colspan="11" width="705">
-                <p>Local_______________________, Data ____ de _____________ de ___________.</p>
+                <p>Local <?=$view[0]['nome_cedec_municipio']?>, Data <?= DataMysql::dataExtensoDocumento(DataMysql::dataCompletaVisual($view[0]['data_entrada_sistema']))?>.</p>
             </td>
         </tr>
         <tr>
-            <td colspan="11" width="705">
+            <!--<td colspan="11" width="705">
                 <p>&nbsp;</p>
                 <p>_____________________________________________________________</p>
                 <p>Assinatura do Prefeito ou substituto legal</p>
-            </td>
+            </td>-->
         </tr>
         <tr>
             <td width="83">&nbsp;</td>
@@ -285,11 +285,11 @@ var_dump($view[0]);
             </td>
         </tr>
         <tr>
-            <td colspan="6" width="705">
+<!--            <td colspan="6" width="705">
                 <p>&nbsp;</p>
                 <p>Data: ____/____/____&nbsp;&nbsp; Ass. do Diretor com Carimbo: ________________________________________</p>
                 <p>&nbsp;</p>
-            </td>
+            </td>-->
         </tr>
         <tr>
             <td colspan="6" width="705">
@@ -309,11 +309,11 @@ var_dump($view[0]);
             </td>
         </tr>
         <tr>
-            <td colspan="6" width="705">
+<!--            <td colspan="6" width="705">
                 <p>&nbsp;</p>
                 <p>Data: ____/____/____&nbsp;&nbsp; Ass. do Diretor com Carimbo: ________________________________________</p>
                 <p>&nbsp;</p>
-            </td>
+            </td>-->
         </tr>
         <tr>
             <td colspan="6" width="705">
@@ -330,11 +330,11 @@ var_dump($view[0]);
             </td>
         </tr>
         <tr>
-            <td colspan="6" width="705">
+<!--            <td colspan="6" width="705">
                 <p>&nbsp;</p>
                 <p>Data: ____/____/____ Ass. do Coordenador Adjunto de Defesa Civil com Carimbo: ______________________________</p>
                 <p>&nbsp;</p>
-            </td>
+            </td>-->
         </tr>
         <tr>
             <td colspan="6" width="705">
@@ -358,133 +358,32 @@ var_dump($view[0]);
                 <p>Respons&aacute;vel pela Entrega (CEDEC)</p>
             </td>
         </tr>
-        <tr>
-            <td width="83">
-                <p>CB</p>
-            </td>
-            <td colspan="2" width="251">
-                <p>Cesta B&aacute;sica</p>
-            </td>
-            <td width="113">
-                <p>&nbsp;</p>
-            </td>
-            <td width="76">
-                <p>&nbsp;</p>
-            </td>
-            <td width="183">
-                <p>&nbsp;</p>
-            </td>
-        </tr>
-        <tr>
-            <td width="83">
-                <p>KH</p>
-            </td>
-            <td colspan="2" width="251">
-                <p>Kit de higiene</p>
-            </td>
-            <td width="113">
-                <p>&nbsp;</p>
-            </td>
-            <td width="76">
-                <p>&nbsp;</p>
-            </td>
-            <td width="183">
-                <p>&nbsp;</p>
-            </td>
-        </tr>
-        <tr>
-            <td width="83">
-                <p>KL</p>
-            </td>
-            <td colspan="2" width="251">
-                <p>Kit de Limpeza</p>
-            </td>
-            <td width="113">
-                <p>&nbsp;</p>
-            </td>
-            <td width="76">
-                <p>&nbsp;</p>
-            </td>
-            <td width="183">
-                <p>&nbsp;</p>
-            </td>
-        </tr>
-        <tr>
-            <td width="83">
-                <p>LN</p>
-            </td>
-            <td colspan="2" width="251">
-                <p>Lona</p>
-            </td>
-            <td width="113">
-                <p>&nbsp;</p>
-            </td>
-            <td width="76">
-                <p>&nbsp;</p>
-            </td>
-            <td width="183">
-                <p>&nbsp;</p>
-            </td>
-        </tr>
-        <tr>
-            <td width="83">
-                <p>CH</p>
-            </td>
-            <td colspan="2" width="251">
-                <p>Colch&atilde;o</p>
-            </td>
-            <td width="113">
-                <p>&nbsp;</p>
-            </td>
-            <td width="76">
-                <p>&nbsp;</p>
-            </td>
-            <td width="183">
-                <p>&nbsp;</p>
-            </td>
-        </tr>
-        <tr>
-            <td width="83">
-                <p>KD</p>
-            </td>
-            <td colspan="2" width="251">
-                <p>Kit dormit&oacute;rio</p>
-            </td>
-            <td width="113">
-                <p>&nbsp;</p>
-            </td>
-            <td width="76">
-                <p>&nbsp;</p>
-            </td>
-            <td width="183">
-                <p>&nbsp;</p>
-            </td>
-        </tr>
-        <tr>
-            <td width="83">
-                <p>OUT</p>
-            </td>
-            <td colspan="2" width="251">
-                <p>Outros</p>
-            </td>
-            <td width="113">
-                <p>&nbsp;</p>
-            </td>
-            <td width="76">
-                <p>&nbsp;</p>
-            </td>
-            <td width="183">
-                <p>&nbsp;</p>
-            </td>
-        </tr>
-        <tr>
-            <td width="83">&nbsp;</td>
-            <td width="72">&nbsp;</td>
-            <td width="179">&nbsp;</td>
-            <td width="113">&nbsp;</td>
-            <td width="76">&nbsp;</td>
-            <td width="183">&nbsp;</td>
-        </tr>
+               
+        <?php
+        
+        foreach ($materiais as $key => $material) {
+            
+            print "<tr>
+                    <td width='83'>
+                        <p>".$material['codigo']."</p>
+                    </td>
+                    <td colspan='2' width='251'>
+                        <p>".$material['descricao_item']."</p>
+                    </td>
+                    <td width='113'>
+                        
+                    </td>
+                    <td width='76'>
+                        <p>".$material['qtd']."</p>
+                    </td>
+                    <td width='76'>
+                       
+                    </td>
+                    
+                </tr>";
+            }
+        ?>
+        
     </tbody>
 </table>
 <p>&nbsp;</p>

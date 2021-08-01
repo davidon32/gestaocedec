@@ -31,7 +31,7 @@ class h_pedido_prestController extends Controller {
 
     public function index() {
         $h_pedido_prestModel = $this->h_pedido_prest;
-        include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_prest/index.php';
+        include_once 'mod_ajuda/backEnd/View/ajuda_h/h_pedido_prest/index.php';
     }
 
     /* paginacao */
@@ -93,7 +93,7 @@ class h_pedido_prestController extends Controller {
 
     # formulario cadastro
     public function cadastro() {
-        include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_prest/cadastro.php';
+        include_once 'mod_ajuda/backEnd/View/ajuda_h/h_pedido_prest/cadastro.php';
     }
 
     ################  GRAVAR ##################    
@@ -113,7 +113,7 @@ class h_pedido_prestController extends Controller {
 
     public function pesquisa() {
 
-            include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_prest/pesquisa.php';
+            include_once 'mod_ajuda/backEnd/View/ajuda_h/h_pedido_prest/pesquisa.php';
     }
     
 
@@ -122,7 +122,7 @@ class h_pedido_prestController extends Controller {
     public function view() {
          $h_pedido_prestModel = $this->h_pedido_prest;
         $view = $this->h_pedido_prest->view($_GET['id']);
-        include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_prest/view.php';
+        include_once 'mod_ajuda/backEnd/View/ajuda_h/h_pedido_prest/view.php';
     }
 
     # editar registro
@@ -145,7 +145,7 @@ class h_pedido_prestController extends Controller {
         } else {
 
             $view = $h_pedido_prestModel->view($_GET['id']);
-            include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_prest/edit.php';
+            include_once 'mod_ajuda/backEnd/View/ajuda_h/h_pedido_prest/edit.php';
         }
     }
     

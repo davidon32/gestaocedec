@@ -927,6 +927,9 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
                 return 'Atendido';
                 break;
             case 6:
+                return 'Arquivado';
+                break;
+            case 7:
                 return 'Cancelado';
                 break;
             default:

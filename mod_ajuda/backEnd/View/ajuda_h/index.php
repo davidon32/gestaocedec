@@ -104,26 +104,34 @@ $total_reg = 0;
 foreach ($listaPedido as $key => $pedid) {
     # get permissao
     
+    $cor = $pedido_h->getCorStatus($pedid['status']);
+
+    $percent = ( ( H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedid['id']) * 100 ) != 0 ) ? (H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedid['id']) * 100) /  H_pedido_prestajuda_hModel::totalMaterialPrestConta($pedid['id']) : 0 ;
+    
     $prazo = $pedido_h->prazo_presta_conta($pedid['data_aprovacao']);
-    if (strtotime(date('Y-m-d')) > strtotime($prazo)) {
-        print 'vencido';
+    if (strtotime(date('Y-m-d')) > strtotime($prazo) && $pedid['status'] != 6) {
+        $cor = array('fonte'=> '#FFFFFF',
+                     'fdo'=>'#FF0000',
+                     'title'=> 'Prestação de Contas Vencido');
+        //print $prazo;
     }
+    
     if (($pedid['tramit'] == 'analise_drd' && $permissao[0]['analista_drd'] == '1') ||
             ($pedid['tramit'] == 'analise_dlog' && $permissao[0]['analista_dlog'] == '1') ||
             ($pedid['tramit'] == 'analise_coord' && $permissao[0]['analista_coord'] == '1') ||
             ($pedid['tramit'] == 'atendido')) {
 
         $total_reg++;
-        $cor = $pedido_h->getCorStatus($pedid['status']);
+        
 
         print "<tr style='color:" . $cor['fonte'] . "; background-color:" . $cor['fdo'] . "'>
-                <td>" . $pedid['numero'] . "-" . substr($pedid['data_entrada_sistema'], 0, 4) . "</td>
-                <td>" . Municipio::PegaNomeMunicipio($pedid['id_municipio']) . "</td>
-                <td>" . DataMysql::dataCompletaVisual($pedid['data_entrada_sistema']) . "</td>
-                <td>" . Decreto::getNomeCobrade($pedid['id_cobrade']) . "</td>
-                <td>" . $pedido_h->enumStatus($pedid['status']) . "</td>
-                <td>" . $pedido_h->enumFase($pedid['tramit']) . ( ($pedid['status'] == 5) ? " <br>Prazo : " . ($prazo) : "") . "</td>
-                <td>" . DataMysql::dataCompletaVisual($pedid['data_hora_envio']) . "</td>
+                <td title='".$cor['title']."'>" . $pedid['numero'] . "-" . substr($pedid['data_entrada_sistema'], 0, 4) . "</td>
+                <td title='".$cor['title']."'>" . Municipio::PegaNomeMunicipio($pedid['id_municipio']) . "</td>
+                <td title='".$cor['title']."'>" . DataMysql::dataCompletaVisual($pedid['data_entrada_sistema']) . "</td>
+                <td title='".$cor['title']."'>" . Decreto::getNomeCobrade($pedid['id_cobrade']) . "</td>
+                <td title='".$cor['title']."'>" . $pedido_h->enumStatus($pedid['status']) . "</td>
+                <td title='".$cor['title']."'>" . $pedido_h->enumFase($pedid['tramit']) . ( ($pedid['status'] == 5) ? " <br>Prazo : " . ($prazo) : "") . "</td>
+                <td title='".$cor['title']."'>" . DataMysql::dataCompletaVisual($pedid['data_hora_envio']) . "</td>
                 <td>";
 
         # EDITAR
@@ -136,8 +144,8 @@ foreach ($listaPedido as $key => $pedid) {
 
         #prestação de contas
         if ($pedid['status'] == 5) {
-            $percent = (H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedid['id']) * 100) / H_pedido_prestajuda_hModel::totalMaterialPrestConta($pedid['id']) ;
-            print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'pedido_itens', 'pcont') . "' title='Presatação de contas'><img width='25' src='/core/imagem/relatorio.png'></a>|";
+            
+            print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_prest', 'index',array('id' => $pedid['id'])) . "' title='Presatação de contas'><img width='25' src='/core/imagem/relatorio.png'></a>|";
             print "&nbsp;&nbsp;<a href='' style='color:".$cor['fonte']."; font-size:14pt;' title='Percentual de Conclusão da Prestação de Contas do Pedido'>".$percent."%</a> |";
         }
 
