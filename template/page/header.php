@@ -220,7 +220,7 @@ if (isset($pageSession['session']['seguranca']['nome_usuario'])) {
                             }
                             ?>
                             <div class="pull-right">
-                                <a href="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')); ?>&ac=itn&modulo=index&controller=index&action=logout" class="btn btn-default btn-flat">Logout</a>
+<!--                                <a href="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')); ?>&ac=itn&modulo=index&controller=index&action=logout" class="btn btn-default btn-flat">Logout</a>-->
                             </div>
                         </li>
                     </ul>

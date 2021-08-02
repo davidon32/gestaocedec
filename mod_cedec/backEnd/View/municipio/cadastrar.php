@@ -17,7 +17,8 @@
     
     $municipio = new Municipio();
     
-    $dados = $municipio->dadosMunicipio($id_municipio);
+    $dados = $municipio::dadosMunicipio($id_municipio);
+    
  
     $_MACRORREGIAO = array('1'=>'SUL DE MINAS',
             '2'=>'ALTO PARANAIBA',

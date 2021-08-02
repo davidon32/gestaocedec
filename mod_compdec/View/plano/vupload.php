@@ -34,8 +34,9 @@ $id = isset($_GET['id']) ? $_GET['id'] : "";
 			}  else {
 				print "<p style='text-align:center'><a href='#' onclick='history.back();' class='btn btn-primary'>Voltar</a></p>";
 			}
-		  	if($anexo->getExtensao($_GET['id']) == "pdf"){
-				  print "<iframe name=\"myiframe\" id=\"myiframe\" style=\"width:100%; height:750px;\" src=\"/anexo/planoCont/".$plano->visualizarDoc($_GET['id'])."\"></iframe>";
+                        
+		  	if($anexo->getExtensao($plano->visualizarDoc($_GET['id']))){
+				  print "<embed style='width:900px;' src=\"/anexo/planoCont/".$plano->visualizarDoc($_GET['id'])."\">";
 			}else {
 				print "<br><br><span class=\"alert alert-success\"><b>Fazendo download do Documento Aguarde...</b></span><br><br>";
 				print "<span class=\"glyphicon glyphicon-arrow-down\" aria-hidden=\"true\"></span>";

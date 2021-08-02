@@ -37,7 +37,7 @@ define('PATH', $_SERVER['DOCUMENT_ROOT']);
 define('TESTE', false);
 
 #@ versao
-define('VERSAO', 'versão - 3.4.1.3-3 - 30.07.2021');
+define('VERSAO', 'versão - 3.4.1.4-5 - 02.08.2021');
 
 #@ tempo sessao Adm
 define('SESSAOADM', '14400');

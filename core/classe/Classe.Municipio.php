@@ -156,7 +156,7 @@ class Municipio extends DataMysql {
     function dadosSelectMunicipio() {
 
         $con = Conexao::getInstance();
-
+        
         $_dados = array();
 
         $sql = "SELECT id_municipio, nome  FROM cedec_municipio ORDER BY nome";
@@ -223,12 +223,16 @@ class Municipio extends DataMysql {
         $result->bindParam(':id_municipio', $id);
         $result->execute();
 
-        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+        try{
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
 
-            $dados = $linha;
+                $dados = $linha;
+            }
+            return $dados;
+        } catch (Exception $e){
+            print "error".$e;
         }
 
-        return $dados;
     }
 
     /**

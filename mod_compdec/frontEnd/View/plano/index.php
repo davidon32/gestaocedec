@@ -42,7 +42,7 @@
 
 						foreach ($lista as $key => $value) {
 							print "<i class=\"glyphicon glyphicon-asterisk\"></i>";
-							print "<a href=\"?modulo=compdec&controller=app&action=vupload&id=".$value['id']."\">Plano Versao ".$value['versao']." -  Data: ".$value['dt_upload']."</a>";
+							print "<a href=\"".FuncaoBase::geraLink('compdec', 'app', 'vupload', array('id'=>$value['id']))."\">Plano Versao ".$value['versao']." -  Data: ".$value['dt_upload']."</a>";
 							print "&nbsp;&nbsp;<a href=\"#\" title=\"Deletar Plano\" onclick=\"removerPlano(".$value['id'].")\"><img width=\"20px;\" src=\"core/imagem/delete.png\"></a>";
 							print "<br>";
 

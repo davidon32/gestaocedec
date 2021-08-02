@@ -1,3 +1,6 @@
+php_value post_max_size 35M
+php_value upload_max_filesize 40M
+php_value max_execution_time 1800
 <IfModule mod_rewrite.c>
     RewriteEngine On
 	# Handle Front Controller... 

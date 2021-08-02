@@ -16,23 +16,23 @@
       <!-- sidebar menu: : style can be found in sidebar.less 
       <ul class="sidebar-menu" data-widget="tree">
         <li class="">
-        <?php
-            /* Acesso Compdec 
+        
+            Acesso Compdec 
           if(isset($pageSession['session']['seguranca']['externo'])) {
             print "<a href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=etn&modulo=index&controller=index&action=index1e\"><i class=\"fa fa-home\"></i>&nbsp;&nbsp;&nbsp;<span>Início</span></a>";
             print '</li>';
 
-            print "<!-- Central de Ajuda -->
+            print "<!-- Central de Ajuda
               <li class=\"header\">CENTRAL DE AJUDA</li>
               <li><a href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&modulo=doc&controller=doc&action=index\" title=\"\"><i class=\"fa fa-book\"></i><span>Ajuda do Sistema</span></a></li>
             </ul>";
 
-          /* acesso cedec 
+           acesso cedec 
           }else {
             print "<a href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=index&controller=index&action=index1\"><i class=\"fa fa-home\"></i>&nbsp;&nbsp;&nbsp;<span>Início</span></a>";
             print '</li>';
     
-            print "<!-- Central de Ajuda -->
+            print "<!-- Central de Ajuda 
               <li class=\"header\">CENTRAL DE AJUDA</li>
               <li><a href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&modulo=doc&controller=doc&action=index\" title=\"\"><i class=\"fa fa-book\"></i><span>Ajuda Sistema(Uso Interno)</span></a></li>
               <li><a href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&modulo=doc&controller=doc&action=infra\" title=\"\"><i class=\"fa fa-book\"></i><span>Infraestrutura CA</span></a></li>
@@ -40,7 +40,7 @@
               <li><a href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&modulo=doc&controller=doc&action=dicas\" title=\"\"><i class=\"fa fa-book\"></i><span>Dicas/Boas Práticas</span></a></li>
             </ul>";
 
-            print "<!-- DOCUMENTAÇÃO EXTERNA -->
+            print "<!-- DOCUMENTAÇÃO EXTERNA
             <ul class=\"sidebar-menu\" data-widget=\"tree\">
 
               <li class=\"header\"><i class=\"fa fa-home\">DOC /PARA COMPDEC</i></li>
@@ -49,5 +49,5 @@
           }
         ?>
     </section>
-    <!-- /.sidebar -->
-  </aside>
+    <!-- /.sidebar 
+  </aside>-->

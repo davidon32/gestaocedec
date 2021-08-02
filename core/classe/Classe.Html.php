@@ -44,7 +44,7 @@ class Html {
         if($htmlOpcao != false) {
             foreach ($htmlOpcao as $key => $value) {
     
-                $html_op .= $key . "=\"" . $value . "\" ";
+                $html_op .= " ".$key . "=\"" . $value . "\" ";
     
             }
         }
@@ -59,7 +59,7 @@ class Html {
 
             print "<div class='span6' style='margin-left:5px; margin-right:5px;'>
                     <label id='lb".ucwords($nome)."'>".(!empty($label) ? $label : ucwords($nome))."</label>".$span_print."
-                    <input class='form-control' type=\"" . $tipo . "\" name=\"txt".ucwords($nome)."\" id=\"txt".ucwords($nome)."\"" . $html_op . "/>    
+                    <input class='form-control' type=\"" . $tipo . "\" name=\"txt".ucwords($nome)."\" id=\"txt".ucwords($nome)."\" " . $html_op . "/>    
                    </div>";
         
         # SELECT
