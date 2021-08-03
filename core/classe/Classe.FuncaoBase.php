@@ -43,7 +43,7 @@ class FuncaoBase extends Exception{
 		}else {
 			$strParam = "";
 		}
-		return "?token=".hash('sha256', md5(VERSAO)."-".time())."&modulo=".$modulo."&controller=".$controller."&action=".$action.$strParam;
+		return "?token=".hash('sha256', md5(VERSAO))."&modulo=".$modulo."&controller=".$controller."&action=".$action.$strParam;
 	}
 ######################################################################################
 

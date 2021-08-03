@@ -2,7 +2,7 @@
 if (isset($pageSession['session']['seguranca']['nome_usuario'])) {
     
 } else {
-    header('Location:index.php');
+header('Location:index.php');
 }
 ?>
 <script type="text/javascript">

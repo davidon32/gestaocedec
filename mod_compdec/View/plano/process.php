@@ -81,8 +81,8 @@
 
     }elseif ($identificador = "removerPlano") {
        
-        chdir(PATH.'/anexo/planoCont');
-		$dirAnexo = getcwd();
+                chdir(PATH.'/anexo/planoCont');
+                $dirAnexo = getcwd();
 		unlink($dirAnexo.'/'.$plano->visualizarDoc($_POST['id_plano']));
         $plano->removerPlano($_POST['id_plano']);
         print "sucesso";

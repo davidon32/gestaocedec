@@ -37,8 +37,8 @@ if($opcao == 'gravarleis'){
 	$anexo->deletar($post['id_anexo']);
 	chdir(PATH.'/anexo/anexo_leis');
 	$dirAnexo = getcwd();
-	if(unlink($dirAnexo.'/'.$post['arquivo'])) {
-
+	if(file_exists($dirAnexo.'/'.$post['arquivo'])){
+            unlink($dirAnexo.'/'.$post['arquivo']);
 	}
 }
 

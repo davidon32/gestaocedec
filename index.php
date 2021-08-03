@@ -1,12 +1,9 @@
-<?php
-
-if (!isset($_SESSION)) {
-    session_start();
-    $id = session_id();
+<?php if (!isset($_SESSION)) {
+session_start();
+$id = session_id();
 }
 include_once 'core/system/config/config.inc.php';
 include_once 'core/include.php';
-
 
 $caminho = $_SERVER['REQUEST_URI'];
 $caminho = rtrim($caminho, '/');
@@ -25,6 +22,7 @@ $param = isset($_GET['param']) ? "&param=" . $_GET['param'] : "";
 $modulo = isset($_GET['modulo']) ? $_GET['modulo'] : "index";
 
 $acesso = isset($_COOKIE['seguranca']['tipo']) ? $_COOKIE['seguranca']['tipo'] : null;
+
 
 # Acesso Externo
 # Acesso Interno

@@ -10,11 +10,11 @@
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php";?>
 <a href="<?=FuncaoBase::geraLink("doc", "doc", "ajuda")?>" class="alert" style="text-decoration:none">
-    <img src='core/imagem/help.png' width="25"> &nbsp;&nbsp;&nbsp;&nbsp;Módulo Ajuda Humanitária
+    <img src='core/imagem/help.png' width="25"> &nbsp;&nbsp;&nbsp;&nbsp;Módulo Ajuda Humanitária ( PMDA )
 </a>
 <br><br>
 <a href="<?=FuncaoBase::geraLink("doc", "doc", "compdec")?>" class="alert" style="text-decoration:none">
-    <img src='core/imagem/help.png' width="25"> &nbsp;&nbsp;&nbsp;&nbsp;Módulo Compdec
+    <img src='core/imagem/help.png' width="25"> &nbsp;&nbsp;&nbsp;&nbsp;Módulo Compdec ( Cadastro Compdec )
 </a>
 <br><br>
 <a href="<?=FuncaoBase::geraLink("doc", "doc", "plano")?>" class="alert" style="text-decoration:none">

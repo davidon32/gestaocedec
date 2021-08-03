@@ -21,8 +21,7 @@
 
 <div class="col-md-12">
   <br><br>
-	<a class='btn btn-primary btn-lg' href='?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=pipa&controller=pipa&action=caduser' title='Cadastro de Usuários COMPDEC'>Cadastro de Usuários (COMPDEC)</a><br>	<br>					
-        <a class='btn btn-primary' href='<?= FuncaoBase::geraLink("pipa", "pipa", "pesquisaUsuario", array('volta'=>'compdec'))?>' title='Alterar dados do Usuário COMPDEC'>Alteração de Usuários (COMPDEC)</a>						     
+<!--	<a class='btn btn-primary btn-lg' href='<?=FuncaoBase::geraLink("pipa", "pipa", "caduser")?>' title='Cadastro de Usuários COMPDEC'>Cadastro de Usuários (COMPDEC)</a><br>					-->
         <a class='btn btn-primary' href='<?= FuncaoBase::geraLink("pipa", "pipa", "pesquisaUsuario", array('volta'=>'compdec'))?>' title='Alterar dados do Usuário COMPDEC'>Alteração de Usuários (COMPDEC)</a>						     
       
 </div> 

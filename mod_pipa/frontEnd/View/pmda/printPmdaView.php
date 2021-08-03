@@ -350,13 +350,15 @@
   		foreach ($listAnexo as $value) {
   			
   			$arquivo = $pmda->previewAnexo($value['id']);
-  			$extensao = substr($arquivo, -3);
+  			$extensao = substr($arquivo['file'], -3);
   			if($extensao != "pdf" || $extensao != "PDF"){
-  			
-  			print "<div class='col-md-12 text-center'><img style='width:900px;' src='anexo/".$pmda->previewAnexo($value['id'])."'><br></div>";
-  			
-  			}
-  			//print "<iframe src=\"".$pmda->previewAnexo($value['id'])."\"&embedded=true\" width=\"700\" height=\"780\" style=\"border: none;\"></iframe>";
+                            print "<div class='col-md-12 text-center'>
+                                        <embed type='application/pdf' src='/anexo/pmda/".$arquivo['file']."'>
+                                   </div>";
+  			}else {
+                            print "<div class='col-md-12 text-center'><img style='width:900px;' src='/anexo/pmda/".$arquivo['file']."'><br></div>";
+                            
+                        }
   		} 
   		?>
   		<div class="col-md-12 text-center">

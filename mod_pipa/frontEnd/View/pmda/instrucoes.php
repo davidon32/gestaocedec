@@ -3,7 +3,7 @@
 									<div class="col-md-10">
 										<div class="col-md-12 text-center">
 											<a class="btn btn-primary" onclick="passoapasso();">Guia Passo a Passo <span style='font-size: 8pt; color:#FFFAFA;'>(Formato PDF)</span></a>
-											<a onclick="ajudacoordenada();" data-toggle="tooltip" title="Converter Coordenadas GEOGRÁFICAS do formato GRAUS, MINUTOS, SEGUNDOS para DECIMAL">Converter Coordenadas Geográficas</a>
+											<a onclick="ajudacoordenada();"  title="Converter Coordenadas GEOGRÁFICAS do formato GRAUS, MINUTOS, SEGUNDOS para DECIMAL">Converter Coordenadas Geográficas</a>
 										</div>
 									</div>
 									<div class="col-md-1"></div>

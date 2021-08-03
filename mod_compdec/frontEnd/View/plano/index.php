@@ -113,9 +113,14 @@
 <!-- =============== HEADER HTML PAGE ================= -->
 <?php include_once "template/page/rodapePage.php";?>
 <script>
+    
 
 /* Criar novo plano de contingencia */
 (function($) {
+    
+    /*$('#filePlano').change(function(){
+        alert(); 
+    });*/
 
 	novoPlano = function() {
 

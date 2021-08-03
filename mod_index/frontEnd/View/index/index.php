@@ -49,7 +49,7 @@
 <script>
 
   $(document).ready(function(){
-    var email = '<?=$_COOKIE['seguranca']['email_rec']?>';
+    /* var email = '<?=$_COOKIE['seguranca']['email_rec']?>';
     if((email.length > 0) && (email.match(/.com/))){
       Swal.fire({
         icon: 'error',
@@ -58,8 +58,26 @@
         text: 'Favor atualiar seu email para um email institucional',
         footer: '<a href=\'<?=FuncaoBase::geraLink('compdec', 'compdec', 'index')?>\'>Clique aqui acessar os dados cadatrais</a>'
       });
-    }
+    }*/
  
+ 
+ Swal.fire({
+  title: '<strong>UPLOAD arquivos SDC</u></strong>',
+  icon: 'info',
+  html:
+    'Antes de salvar seu documento WORD no formato PDF, faça a Compressão da Imagens, ' +
+    '<br>' +
+    '<a href="<?=FuncaoBase::geraLink('doc', 'doc', 'compdec')?>">Clique aqui e Consulte o Manual</a>',
+  showCloseButton: true,
+  showCancelButton: true,
+  focusConfirm: false,
+  confirmButtonText:
+    '',
+  confirmButtonAriaLabel: 'Thumbs up, great!',
+  cancelButtonText:
+    '',
+  cancelButtonAriaLabel: 'Thumbs down'
+});
 
-  });
+});
   </script>

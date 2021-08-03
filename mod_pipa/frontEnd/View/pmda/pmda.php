@@ -240,7 +240,7 @@ if (!empty($id_pmda)) {
                             <div class="col-xs-12 form-group">
                                 <div class="row">
                                     <div class="col-xs-12">
-                                        <label data-toggle="tooltip" title="<?= $informacao['endereco_compdec']; ?>">Endereço&nbsp;<span
+                                        <label  title="<?= $informacao['endereco_compdec']; ?>">Endereço&nbsp;<span
                                                 class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label> <input
                                             class="form-control" type="text" name="txtEndCompdec" readonly="readonly"
                                             value="<?= empty($endCompdec) ? "" : $endCompdec['endereco']; ?>" />
@@ -261,7 +261,7 @@ if (!empty($id_pmda)) {
                             <div class="col-md-12" id="frmCadMembroCompdec">
                                 <hr>
                                 <div class="col-xs-3 form-group">
-                                    <label data-toggle="tooltip" title="<?= $informacao['nome_eq_compdec']; ?>">Nome
+                                    <label  title="<?= $informacao['nome_eq_compdec']; ?>">Nome
                                         Membro&nbsp;<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                                     </label> <input class="form-control" type="text" name="txtNomeMembro" id="txtNomeMembro"
                                                     placeholder="Campo Obrigatório" /> <input class="form-control" type="hidden"
@@ -269,7 +269,7 @@ if (!empty($id_pmda)) {
 
                                 </div>
                                 <div class="col-xs-2 form-group">
-                                    <label data-toggle="tooltip" title="<?= $informacao['funcao_eq_compdec']; ?>">Função&nbsp;<span
+                                    <label  title="<?= $informacao['funcao_eq_compdec']; ?>">Função&nbsp;<span
                                             class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label> <select
                                         class="form-control" id="selFuncaoMembro">
                                         <option>Selecione a Função</option>
@@ -279,19 +279,19 @@ if (!empty($id_pmda)) {
                                     </select>
                                 </div>
                                 <div class="col-xs-2 form-group">
-                                    <label data-toggle="tooltip" title="<?= $informacao['telefone_eq_compdec']; ?>">Telefone&nbsp;<span
+                                    <label  title="<?= $informacao['telefone_eq_compdec']; ?>">Telefone&nbsp;<span
                                             class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label> <input
                                         class="form-control" type="text" name="txtTelMembro" id="txtTelMembro"
                                         data-mask="(99)9999-9999" placeholder="Campo Obrigatório" />
                                 </div>
                                 <div class="col-xs-2 form-group">
-                                    <label data-toggle="tooltip" title="<?= $informacao['celular_eq_compdec']; ?>">Celular&nbsp;<span
+                                    <label  title="<?= $informacao['celular_eq_compdec']; ?>">Celular&nbsp;<span
                                             class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label> <input
                                         class="form-control" type="text" name="txtCelMembro" id="txtCelMembro"
                                         data-mask="(99)9999-9999" placeholder="Campo Obrigatório" />
                                 </div>
                                 <div class="col-xs-2 form-group">
-                                    <label data-toggle="tooltip" title="<?= $informacao['email_eq_compdec']; ?>">Email&nbsp;<span
+                                    <label  title="<?= $informacao['email_eq_compdec']; ?>">Email&nbsp;<span
                                             class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label> <input
                                         class="form-control" type="email" name="txtEmailMembro" id="txtEmailMembro"
                                         placeholder="Campo Obrigatório" />
@@ -299,7 +299,7 @@ if (!empty($id_pmda)) {
 
                                 <!-- DIV ADICIONAR -->
                                 <div class="col-xs-1 form-group" id="divAddMembroEquipe">
-                                    <label data-toggle="tooltip" title="<?= $informacao['acao_cad_compdec']; ?>">Ação&nbsp;<span
+                                    <label  title="<?= $informacao['acao_cad_compdec']; ?>">Ação&nbsp;<span
                                             class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label>
                                     <button class="btn btn-primary" id="btnAddMembroEquipe"
                                             title="Adicionar Membro do Compdec">Adicionar</button>
@@ -307,7 +307,7 @@ if (!empty($id_pmda)) {
 
                                 <!-- DIV ALTERAR -->
                                 <div class="col-xs-1 form-group" id="divAlterarMembroEquipe">
-                                    <label data-toggle="tooltip" title="<?= $informacao['acao_cad_compdec']; ?>">Ação&nbsp;<span
+                                    <label  title="<?= $informacao['acao_cad_compdec']; ?>">Ação&nbsp;<span
                                             class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label>
                                     <button class="btn btn-primary" id="btnAlterarMembroEquipe"
                                             title="Alterar dados Membro Compdec">Alterar</button>
@@ -385,7 +385,7 @@ if (!empty($id_pmda)) {
                                 <div class="col-xs-3">
                                     <div class="row">
                                         <div class="col-xs-12" id="pesquisaCom1">
-                                            <label data-toggle="tooltip" title="<?= $informacao['nome_comunidade']; ?>">
+                                            <label  title="<?= $informacao['nome_comunidade']; ?>">
                                                 Nome&nbsp;
                                                 <span	class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                                             </label>
@@ -401,14 +401,14 @@ if (!empty($id_pmda)) {
                                     </div>
                                 </div>
                                 <div class="col-xs-3 form-group">
-                                    <label data-toggle="tooltip" title="<?= $informacao['latitude_comunidade']; ?>">Latitude&nbsp;<span
+                                    <label  title="<?= $informacao['latitude_comunidade']; ?>">Latitude&nbsp;<span
                                             class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label>
                                     <!--  data-mask="S99º99’99,99’’" -->
                                     <input class="form-control" type="text" name="txtLatComunidade" id="txtLatComunidade"
                                            data-mask="-99.999999" placeholder="Campo Obrigatório" />
                                 </div>
                                 <div class="col-xs-3 form-group">
-                                    <label data-toggle="tooltip" title="<?= $informacao['longitude_comunidade']; ?>">Longitude&nbsp;<span
+                                    <label  title="<?= $informacao['longitude_comunidade']; ?>">Longitude&nbsp;<span
                                             class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label>
                                     <!-- data-mask="W99º99’99,99’’"  -->
                                     <input class="form-control" type="text" name="txtLongComunidade" id="txtLongComunidade"
@@ -433,26 +433,26 @@ if (!empty($id_pmda)) {
                             </div>
                             <div class="row">
                                 <div class="col-xs-3 form-group">
-                                    <label data-toggle="tooltip" title="<?= $informacao['trecho_pavimentado']; ?>">Trecho
+                                    <label  title="<?= $informacao['trecho_pavimentado']; ?>">Trecho
                                         Pavimentado (Km)&nbsp;<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                                     </label> <input class="form-control" type="text" name="txtTrecPavComunidade"
                                                     id="txtTrecPavComunidade" placeholder="Campo Obrigatório" />
                                 </div>
                                 <div class="col-xs-3 form-group">
-                                    <label data-toggle="tooltip" title="<?= $informacao['trecho_n_pavimentado']; ?>">Trecho não
+                                    <label  title="<?= $informacao['trecho_n_pavimentado']; ?>">Trecho não
                                         Pavimentado (Km)&nbsp;<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                                     </label> <input class="form-control" type="text" name="txtTrecNPavComunidade"
                                                     id="txtTrecNPavComunidade" placeholder="Campo Obrigatório" />
                                 </div>
                                 <div class="col-xs-3 form-group">
-                                    <label data-toggle="tooltip" title="<?= $informacao['distancia_total']; ?>">Distância Total
+                                    <label  title="<?= $informacao['distancia_total']; ?>">Distância Total
                                         (Km)&nbsp;<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                                     </label> <input class="form-control" type="text" name="txtDistTotComunidade"
                                                     id="txtDistTotComunidade" readonly="readonly" />
                                 </div>
                                 <div class="col-xs-3 form-group">
                                     &nbsp;<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> <label
-                                        data-toggle="tooltip" title="<?= $informacao['populacao_atendida']; ?>">População Atendida<input
+                                         title="<?= $informacao['populacao_atendida']; ?>">População Atendida<input
                                             class="form-control" type="text" name="txtPopAtComunidade" id="txtPopAtComunidade"
                                             placeholder="Campo Obrigatório" /></label>
                                 </div>
@@ -505,7 +505,7 @@ if (!empty($id_pmda)) {
                             </div>
                             <div class="12" id="frmCadPontoCap">
                                 <div class="col-xs-3 form-group">
-                                    <label data-toggle="tooltip" title="<?= $informacao['nome_ponto']; ?>">Nome&nbsp;<span
+                                    <label  title="<?= $informacao['nome_ponto']; ?>">Nome&nbsp;<span
                                             class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label> <input
                                         class="form-control" type="text" name="txtPontoCapNome" id="txtNomePontoCap"
                                         placeholder="Campo Obrigatório" /> <input type="hidden" name="txtIdPontoCap"
@@ -515,7 +515,7 @@ if (!empty($id_pmda)) {
 
                                 </div>
                                 <div class="col-xs-2 form-group">
-                                    <label data-toggle="tooltip" title="<?= $informacao['tipo']; ?>">Tipo&nbsp;<span
+                                    <label  title="<?= $informacao['tipo']; ?>">Tipo&nbsp;<span
                                             class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label> <select
                                         class="form-control" id="selTipoPontoCap">
                                         <option value="0">Selecione o Tipo</option>
@@ -528,7 +528,7 @@ if (!empty($id_pmda)) {
                                     </select>
                                 </div>
                                 <div class="col-xs-2 form-group">
-                                    <label data-toggle="tooltip" title="<?= $informacao['latitude_ponto']; ?>">Latitude&nbsp;<span
+                                    <label  title="<?= $informacao['latitude_ponto']; ?>">Latitude&nbsp;<span
                                             class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label>
                                     <!-- data-mask="S99º99’99,99’’" -->
                                     <input class="form-control" type="text" name="txtLatPontoCap" id="txtLatPontoCap"
@@ -536,14 +536,14 @@ if (!empty($id_pmda)) {
                                     <input type="hidden" name="txtIdMunicipio" id="txtIdMunicipio" value="<?= $id_municipio; ?>" />
                                 </div>
                                 <div class="col-xs-2 form-group">
-                                    <label data-toggle="tooltip" title="<?= $informacao['longitude_ponto']; ?>">Longitude&nbsp;<span
+                                    <label  title="<?= $informacao['longitude_ponto']; ?>">Longitude&nbsp;<span
                                             class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label>
                                     <!-- data-mask="W99º99’99,99’’" -->
                                     <input class="form-control" type="text" name="txtLongPontoCap" id="txtLongPontoCap"
                                            data-mask="-99.999999" placeholder="Campo Obrigatório" />
                                 </div>
                                 <div class="col-xs-2 form-group">
-                                    <label data-toggle="tooltip" title="<?= $informacao['capacidade_ponto']; ?>">Capacidade M³&nbsp;<span
+                                    <label  title="<?= $informacao['capacidade_ponto']; ?>">Capacidade M³&nbsp;<span
                                             class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label> <input
                                         class="form-control" type="text" name="txtCapacidadePontoCap" id="txtCapacidadePontoCap"
                                         placeholder="Opcional" value="0" />
@@ -551,14 +551,14 @@ if (!empty($id_pmda)) {
 
                                 <!-- div botao Adicionar -->
                                 <div class="col-xs-1 form-group" id="divAddPontoCap">
-                                    <label data-toggle="tooltip" title="<?= $informacao['acao_ponto']; ?>">Ação&nbsp;<span
+                                    <label  title="<?= $informacao['acao_ponto']; ?>">Ação&nbsp;<span
                                             class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label>
                                     <button class="btn btn-primary" id="addPontoCap" title="Adicionar Ponto Captação">Adicionar</button>
                                 </div>
 
                                 <!-- div botao Alterar -->
                                 <div class="col-xs-1 form-group" id="divAlterarPontoCap">
-                                    <label data-toggle="tooltip" title="<?= $informacao['acao_ponto']; ?>">Ação&nbsp;<span
+                                    <label  title="<?= $informacao['acao_ponto']; ?>">Ação&nbsp;<span
                                             class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label>
                                     <button class="btn btn-primary" id="btnAlterarPontoCap" title="Alterar dados Ponto Captação">Alterar</button>
                                 </div>
@@ -609,7 +609,7 @@ if (!empty($id_pmda)) {
                                 <div class="col-xs-12 form-group">
                                     <div class="row">
                                         <div class="col-xs-5">
-                                            <label data-toggle="tooltip" title="<?= $informacao['nome_rep']; ?>">Representante&nbsp;<span
+                                            <label  title="<?= $informacao['nome_rep']; ?>">Representante&nbsp;<span
                                                     class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label> <input
                                                 class="form-control" type="text" name="txtNomeRep" id="txtNomeRep"
                                                 placeholder="Campo Obrigatório" /> <input class="form-control" type="hidden" name="idCom"
@@ -617,19 +617,19 @@ if (!empty($id_pmda)) {
 
                                         </div>
                                         <div class="col-xs-2">
-                                            <label data-toggle="tooltip" title="<?= $informacao['cpf_rep']; ?>">CPF&nbsp;<span
+                                            <label  title="<?= $informacao['cpf_rep']; ?>">CPF&nbsp;<span
                                                     class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label> <input
                                                 class="form-control" type="text" name="txtCpfRep" id="txtCpfRep" data-mask="999.999.999-99"
                                                 placeholder="Campo Obrigatório" />
                                         </div>
                                         <div class="col-xs-2">
-                                            <label data-toggle="tooltip" title="<?= $informacao['tel_rep']; ?>">Telefone&nbsp;<span
+                                            <label  title="<?= $informacao['tel_rep']; ?>">Telefone&nbsp;<span
                                                     class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label> <input
                                                 class="form-control" type="text" name="txtTelRep" id="txtTelRep" data-mask="(99)99999-9999"
                                                 placeholder="Campo Obrigatório" />
                                         </div>
                                         <div class="col-xs-3">
-                                            <label data-toggle="tooltip" title="<?= $informacao['watsapp_rep']; ?>">Esse Tel. Possui
+                                            <label  title="<?= $informacao['watsapp_rep']; ?>">Esse Tel. Possui
                                                 Watsapp ?&nbsp;<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                                             </label><br> <select class="form-control" name="selWatsapp" id="selWatsapp">
                                                 <option>Não</option>
@@ -641,19 +641,19 @@ if (!empty($id_pmda)) {
                                 <div class="col-xs-12 form-group">
                                     <div class="row">
                                         <div class="col-xs-6">
-                                            <label data-toggle="tooltip" title="<?= $informacao['endereco_rep']; ?>">Endereço&nbsp;<span
+                                            <label  title="<?= $informacao['endereco_rep']; ?>">Endereço&nbsp;<span
                                                     class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label> <input
                                                 class="form-control" type="text" name="txtEnderecoRep" id="txtEnderecoRep"
                                                 placeholder="Opcional" />
                                         </div>
                                         <div class="col-xs-2">
-                                            <label data-toggle="tooltip" title="<?= $informacao['bairro_rep']; ?>">Bairro&nbsp;<span
+                                            <label  title="<?= $informacao['bairro_rep']; ?>">Bairro&nbsp;<span
                                                     class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label> <input
                                                 class="form-control" type="text" name="txtBairroRep" id="txtBairroRep"
                                                 placeholder="Opcional" />
                                         </div>
                                         <div class="col-xs-4">
-                                            <label data-toggle="tooltip" title="<?= $informacao['email_rep']; ?>">Email&nbsp;<span
+                                            <label  title="<?= $informacao['email_rep']; ?>">Email&nbsp;<span
                                                     class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label> <input
                                                 class="form-control" type="email" name="txtEmailRep" id="txtEmailRep" placeholder="Opcional" />
                                         </div>
@@ -700,7 +700,7 @@ if (!empty($id_pmda)) {
 
                     <div class="row">
                         <div class="col-xs-12 form-group">
-                            <label data-toggle="tooltip" title="<?= $informacao['descricao_acoes']; ?>">Descreva as ações de
+                            <label title="<?= $informacao['descricao_acoes']; ?>">Descreva as ações de
                                 respostas ja adotadas tais como: Contratação de caminhão pipa, Distribuição de Ajuda
                                 Humanitária etc.</label>&nbsp;<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                             <textarea class="form-control" col="10" rows="7" name="txtDescrAcoes" id="txtDescrAcoes"
@@ -710,7 +710,7 @@ if (!empty($id_pmda)) {
 
                     <div class="row">
                         <div class="col-xs-6 form-group">
-                            <label data-toggle="tooltip" title="<?= $informacao['qtd_caminhao_acoes']; ?>">Quantidade
+                            <label  title="<?= $informacao['qtd_caminhao_acoes']; ?>">Quantidade
                                 caminhões pipa pertencentes e ou contratados pelo município</label>&nbsp;<span
                                 class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> <input class="form-control"
                                 type="number" name="txtQtdContratado" id="txtQtdContratado"
@@ -719,7 +719,7 @@ if (!empty($id_pmda)) {
                     </div>
                     <div class="row">
                         <div class="col-xs-6 form-group">
-                            <label data-toggle="tooltip" title="<?= $informacao['pop_atend_municipio']; ?>">População atendida
+                            <label  title="<?= $informacao['pop_atend_municipio']; ?>">População atendida
                                 pelo próprio Município</label>&nbsp;<span class="glyphicon glyphicon-info-sign"
                                                                       aria-hidden="true"></span> <input class="form-control" type="number" name="txtPopAtMunicipio"
                                                                       id="txtPopAtMunicipio"
@@ -753,7 +753,7 @@ if (!empty($id_pmda)) {
                     <form name="frmAnexo" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-xs-8">
-                                <label data-toggle="tooltip" title="<?= $informacao['descricao']; ?>">Descrição</label>&nbsp;<span
+                                <label  title="<?= $informacao['descricao']; ?>">Descrição</label>&nbsp;<span
                                     class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                                 <textarea class="form-control" name="txtAnexoDesc" id="txtAnexoDesc" rows="4"
                                           placeholder="Campo Opcional"></textarea>
@@ -771,7 +771,7 @@ if (!empty($id_pmda)) {
                         </div>
                         <div class="row">
                             <div class="col-xs-12">
-                                <br> <label data-toggle="tooltip" title="<?= $informacao['anexo']; ?>">Anexar Documento (Arquivos
+                                <br> <label  title="<?= $informacao['anexo']; ?>">Anexar Documento (Arquivos
                                     nos formatos PDF, JPG, JPEG, PNG) Tamanho Máximo <span style="color: red">2Mb</span>(megaBytes)
                                 </label>&nbsp;<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> <input
                                     class="btn btn-primary" type="file" id="fileAnexo" name="fileAnexo"
@@ -912,7 +912,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
             NovaJanela('?ac=etn&modulo=pipa&controller=pipa&action=precadcom', '600', '500');
         });
 
-        $('[data-toggle="tooltip"]').tooltip();
+        $('[]').tooltip();
 
         /* ocultar campos add comunidade */
         $("#frmCadComunidade").hide();

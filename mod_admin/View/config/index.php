@@ -13,7 +13,7 @@
   
     <!-- configuracoes do sistema -->
     <div class="col-md-2">
-        <a href='?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=&modulo=admin&controller=adm&action=usuario' class="btn btn-primary">Cadastro Usuario</a>
+        <a href='<?=FuncaoBase::geraLink("admin", "adm", "usuario")?>' class="btn btn-primary">Cadastro Usuario</a>
     </div>
     <div class="col-md-2">
         <a href='#' class="btn btn-primary">Configurações Gerais</a>

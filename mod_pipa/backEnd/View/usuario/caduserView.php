@@ -1,13 +1,13 @@
-<?php include_once "core/Model/indexModel.php"?>
-<?php include_once "mod_pipa/Model/indexModel.php";?>
+<?php include_once PATH."/core/Model/indexModel.php"?>
+<?php include_once PATH."/mod_pipa/Model/indexModel.php";?>
 <!-- =============== HEADER HTML PAGE ================= -->
-<?php include_once "template/page/headerPage.php";?>
+<?php include_once PATH."/template/page/headerPage.php";?>
 <!-- =================== HEADER ============================ -->
-<?php include_once "template/page/header.php";?>
+<?php include_once PATH."/template/page/header.php";?>
 <!-- =================== MENU  ============================ -->
 <?php //include_once "template/page/menu.php";?>
 <!-- =================== CORPO  ============================ -->
-<?php include_once "template/page/corpoHeader.php";?>
+<?php include_once PATH."/template/page/corpoHeader.php";?>
 <div class="container">
     <!-- PAGINA -->
     <div class="container">

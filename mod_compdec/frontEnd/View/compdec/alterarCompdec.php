@@ -33,7 +33,6 @@ $_dados = $_compdec->buscaCompdec($id_municipio);
 
 $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 
-
 ?>
 
 <div class="col-md-12 text-center">

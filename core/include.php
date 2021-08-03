@@ -1,5 +1,4 @@
-<?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/core/system/config/config.inc.php';
+<?php include_once $_SERVER['DOCUMENT_ROOT'] . '/core/system/config/config.inc.php';
 //include_once PATH . '/core/classe/Classe.Login.php';
 
 # plugins

@@ -62,8 +62,10 @@
         footer: '<a href=\'<?=FuncaoBase::geraLink("admin", "adm", "caduser", array("id"=>$_COOKIE['seguranca']['idUser']))?>\'>Clique aqui acessar os dados cadatrais</a>'
       });
     }
- 
-
   });
+  
+  
+  
+  
 
 </script>
