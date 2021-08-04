@@ -2,7 +2,9 @@
 if (isset($pageSession['session']['seguranca']['nome_usuario'])) {
     
 } else {
-header('Location:index.php');
+print "<script>";
+print "window.location.href='index.php'";
+print "</script>";
 }
 ?>
 <script type="text/javascript">

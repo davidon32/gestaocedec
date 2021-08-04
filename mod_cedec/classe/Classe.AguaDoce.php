@@ -116,7 +116,10 @@
                            
                 chdir(PATH.'/anexo/def_civil_agora');
 		        $dirAnexo = getcwd();
-		        unlink($dirAnexo.'/'.$id['imagem1']);
+		
+                    if(file_exists($dirAnexo.'/'.$id['imagem1'])){
+                        unlink($dirAnexo.'/'.$id['imagem1']);
+                    }
         
                 return true;
         

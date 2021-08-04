@@ -75,7 +75,7 @@ class usuarioController extends Controller {
 MSG;
 
 
-                            $resultado = $enviaEmail->emailIndividual($email_rec[0]['email_rec'], utf8_decode("SGECEDEC - Recuperação de Senha"), $mensagem, "defesacivil@defesacivil.mg.gov.br");
+                            $resultado = $enviaEmail->emailIndividual($email_rec[0]['email_rec'], utf8_decode("SGECEDEC - Recuperação de Senha"), htmlentities($mensagem), "defesacivil@defesacivil.mg.gov.br");
 
                             if ($resultado) {
 
@@ -146,7 +146,7 @@ MSG;
 <p style='font-size:15pt'> Att.</p>
 <p style='font-size:15pt'> Equipe de Suporte ADS.</p>
 MSG;
-                            $resultado = $enviaEmail->emailIndividual($email_rec[0]['email_rec'], utf8_decode("SGECEDEC - Recuperação de Senha"), $mensagem, "defesacivil@defesacivil.mg.gov.br");
+                            $resultado = $enviaEmail->emailIndividual($email_rec[0]['email_rec'], utf8_decode("SGECEDEC - Recuperação de Senha"), htmlentities($mensagem), "defesacivil@defesacivil.mg.gov.br");
                             if ($resultado) {
                                 #@ redirecionar em case de erro de senha e usuario
                                 $msgReset = '<p>Senha Resetada com Sucesso !</p> <p>Foi enviado um email para : ' . $quebraEmail . '.<p> consulte sua sua caixa de entrada e siga as instruçoes ! </p>';

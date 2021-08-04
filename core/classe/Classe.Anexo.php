@@ -141,7 +141,9 @@ class Anexo extends FuncaoBase  {
 
 		chdir(PATH.'/'.$caminho);
 		$dirAnexo = getcwd();
-		unlink($dirAnexo.'/'.$nomeArquivo);
+                if(file_exists($dirAnexo.'/'.$nomeArquivo)){
+                    unlink($dirAnexo.'/'.$nomeArquivo);
+                }
 		
 	}
 	

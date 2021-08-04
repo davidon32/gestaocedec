@@ -79,11 +79,14 @@
         
        
 
-    }elseif ($identificador = "removerPlano") {
+    }elseif ($identificador == "removerPlano") {
        
-                chdir(PATH.'/anexo/planoCont');
-                $dirAnexo = getcwd();
-		unlink($dirAnexo.'/'.$plano->visualizarDoc($_POST['id_plano']));
+        chdir(PATH.'/anexo/planoCont');
+        $dirAnexo = getcwd();
+        
+        if(file_exists($dirAnexo.'/'.$plano->visualizarDoc($_POST['id_plano']))){
+            unlink($dirAnexo.'/'.$plano->visualizarDoc($_POST['id_plano']));
+        }
         $plano->removerPlano($_POST['id_plano']);
         print "sucesso";
     }

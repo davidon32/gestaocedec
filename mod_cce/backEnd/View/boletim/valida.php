@@ -12,6 +12,8 @@ if($opcao == "delete"){
 		$boletim->deletar($post['id']);
 		chdir(PATH.'/anexo/boletim');
 		$dirAnexo = getcwd();
-		unlink($dirAnexo.'/'.$post['arquivo']);
+                if(file_exists($dirAnexo.'/'.$post['arquivo'])){
+                    unlink($dirAnexo.'/'.$post['arquivo']);
+                }
 
 }?>

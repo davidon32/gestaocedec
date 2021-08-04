@@ -880,7 +880,7 @@ function lembreteLiberacao($_id_dep_destino = false){
                 $diasRestantePgto = ($diasRestantePgto <= 5) ? "<span style='color:red;'>".$diasRestantePgto."</span>" : $diasRestantePgto;
                 
     
-    			print "<a style=\"text-decoration:none;\" href=\"javascript:NovaJanela('index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=itn&modulo=ajuda&controller=conEstoque&action=lembrete_liberacao&id=".$linha['id_liberacao']."', 600, 400)\">
+    			print "<a style=\"text-decoration:none;\" href=\"javascript:NovaJanela('index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=itn&modulo=ajuda&controller=conestoque&action=lembrete_liberacao&id=".$linha['id_liberacao']."', 600, 400)\">
     			             &nbsp;&nbsp;<img style=\"vertical-align:middle\" src=\"/mod_ajuda/imagem/".$_imagem."\">
     			             &nbsp;&nbsp;<span style='font-size:10px;'>
     			                             Libera&ccedil;&atilde;o Nº: ".$linha['id_liberacao']." - ".DataMysql::dataVisual($linha['dataLibera'])." - ".$diasRestantePgto." dia(s) restante(s)</a>

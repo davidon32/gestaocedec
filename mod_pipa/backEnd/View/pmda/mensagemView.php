@@ -7,7 +7,7 @@
 <!-- =================== MENU  ============================ -->
 <?php //include_once "template/page/menu.php";?>
 <!-- =================== CORPO  ============================ -->
-<?php include_once "template/page/corpoHeader.php";
+<?php include_once PATH."/template/page/corpoHeader.php";
 
 
 # id pmda

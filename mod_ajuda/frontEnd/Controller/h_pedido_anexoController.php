@@ -164,7 +164,8 @@ class h_pedido_anexoController extends Controller {
        if($this->h_pedido_anexo->delete($_POST['id'])){
            chdir(PATH.'\anexo\pedido_ajuda_h');
             $dirAnexo = getcwd();
-            if(unlink($dirAnexo.'\\'.$_POST['nome_arquivo'])) {
+            if(file_exists($dirAnexo.'\\'.$_POST['nome_arquivo'])) {
+                unlink($dirAnexo.'\\'.$_POST['nome_arquivo']);
             }
         print 'sucesso';
         }

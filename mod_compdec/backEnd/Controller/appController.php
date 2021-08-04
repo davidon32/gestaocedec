@@ -17,7 +17,9 @@ include_once "core/Controller/Controller.php";
             chdir(PATH.'/anexo/anexo_leis');
             $dirAnexo = getcwd();
             try{
-                unlink($dirAnexo.'/'.$_POST['arquivo']);
+                if(file_exists($dirAnexo.'/'.$_POST['arquivo'])){
+                    unlink($dirAnexo.'/'.$_POST['arquivo']);
+                }
             }catch (Exception $e){
 
             }

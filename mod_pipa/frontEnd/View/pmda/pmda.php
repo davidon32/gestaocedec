@@ -985,7 +985,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
                 url: '/mod_index/app/login/ckLogin.php?v=<?= md5(VERSAO) ?>',
                 type: 'POST',
                 success: function (response) {
-                    if (response == "sucesso") {
+                    if (response.trim() == "sucesso") {
                         $("#frmCadComunidade").show();
                         $("#btnMostraCadComunidade").hide();
                     } else {
