@@ -912,8 +912,6 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
             NovaJanela('?ac=etn&modulo=pipa&controller=pipa&action=precadcom', '600', '500');
         });
 
-        $('[]').tooltip();
-
         /* ocultar campos add comunidade */
         $("#frmCadComunidade").hide();
 
@@ -1919,10 +1917,17 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
                                     data: dados,
                                     //dataType : 'json',
                                     success: function (response) {
-                                        alert("Registro alterado com sucesso !");
-                                        //console.log(dados);
-                                        // console.log(JSON.stringify(response));
-                                        $("#tblComunidadePmda").html(response);
+                                        /* ja existe comunidade em algum pmda*/
+                                        if(response.substr(0, 7) == 'existe_'){
+                                            alert("Esta comunidade ja faz parte de algum pmda em Edição !");
+                                            $("#txtIdComunidadeSearch").val("");
+                                        }else if (response.substr(0, 7) == 'sucesso') {
+                                            alert("Registro adicionado com sucesso !");
+                                            $("#tblComunidadePmda").html(response);
+                                            $("#txtIdComunidadeSearch").val("");
+                                            //location.reload();
+                                        }
+                                        
                                     },
                                     error: function (response) {
                                         console.log(JSON.stringify(response));

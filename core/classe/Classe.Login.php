@@ -533,24 +533,6 @@ static function logado($id) {
 		$tipoAcesso = $_COOKIE['seguranca']['tipo'];
 
 		
-		//var_dump(session_id());
-		//die();
-
-		// /* verifica se esta logado */
-		// if(!$_acesso && !$_modulo) {
-	
-	    //     /* verifica se o usuario está logado */
-		// 	Login::verificaLog();
-	    
-	    // /* verifica se esta logado e acesso */
-	    // }else if($_acesso && $_modulo) {    
-	    
-	    //     /* verifica se o usuario está logado */
-	    //     Login::verificaLog();
-	        
-	    //     /* verifica o acesso ao modulo */
-	    //     Login::verificaAcesso($_acesso, $_modulo);
-	    // }
 }
 
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -570,8 +552,6 @@ static function verificaAcesso($_acesso, $_modulo){
                    :acesso
                    FROM :modulo
                    WHERE login = :login";
-    //print $sql;
-
     try {
         $result = Conexao::getInstance()->prepare($sql);
         $result->bindValue(":acesso", $_acesso);

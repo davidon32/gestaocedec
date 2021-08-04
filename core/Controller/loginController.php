@@ -45,15 +45,15 @@ if($action == "logar") {
 				</div>
 				<!-- /.modal-dialog -->
 		</div>";
-		die();
-		//print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=index&secao=cedec&acao=index'";
+		//die();
+		//print "window.location = '".FuncaoBase::geraLink("index", "cedec", "index")."'";
 		print "</script>";
 
 		
 	}elseif($_loginExterno->logarExterno($_usuario, md5($_senha))){
 		
 		print "<script style='text/javascript'>";
-		print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO)."-".date("dmY"))."&ac=&modulo=index&secao=cedec&acao=index'";
+		print "window.location = '".FuncaoBase::geraLink("index", "cedec", "index")."'";
 		print "</script>";
 		
 	}else {

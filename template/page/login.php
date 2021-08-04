@@ -42,8 +42,9 @@
 
     <form action="index.php?modulo=index&controller=index&action=logar" method="POST">
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="Email" name="login"id="login" value="">
+        <input type="text" class="form-control" placeholder="Email" name="login" id="login" value="">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        <span id='municipio'></span>
       </div>
       <div class="form-group has-feedback">
           <input type="password" class="form-control" placeholder="Password" name="senha"id="senha" value="" title="O sistema diferencia letras maiúsculas de minúsculas !">
@@ -96,6 +97,18 @@
 <!-- iCheck -->
 <script src="template/plugins/iCheck/icheck.min.js"></script>
 <script>
+    
+    $(document).ready(function(){
+       
+      /* $("#login").blur(function(){
+           
+           $.post( "<?=FuncaoBase::geraLink("index", "index", "buscalogin")?>", { municipio: $("#login").val()});
+           $("#municipio").text('opa'); 
+       });*/
+        
+    });
+    
+    
   $(function () {
     $('input').iCheck({
       checkboxClass: 'icheckbox_square-blue',

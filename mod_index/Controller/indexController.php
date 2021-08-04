@@ -130,6 +130,12 @@ class indexController extends Controller
             </script>';
     }
     
+    
+    public function buscalogin(){
+        
+       include_once 'mod_index/View/busca_login.php';
+    }
+    
 }
 
 

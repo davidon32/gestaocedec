@@ -39,6 +39,9 @@ define('TESTE', false);
 #@ versao
 define('VERSAO', 'versão - 3.4.1.4-7 - 03.08.2021');
 
+# manutencao
+define('MANUTENCAO', false);
+
 #@ tempo sessao Adm
 define('SESSAOADM', '14400');
 // define('SESSAOADM', '15'); //teste debug
