@@ -1,4 +1,4 @@
-<?php include_once $_SERVER['DOCUMENT_ROOT'].'/core/include.php';?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/core/include.php';?>
 <?php
 	
 	$_compdec = new Compdec();

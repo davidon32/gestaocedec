@@ -2221,4 +2221,28 @@ and cedec_usuario.nome not in('SUPORTE') ".$filtro."
 
     }
     
+    
+    /*
+     *
+     */
+    public static function gravarLogin($dados){
+      
+        
+        $con = Conexao::getInstance();
+        
+        $sql = "insert into com_log (login,
+                                     dt_user,
+                                     acao,
+                                     ip) values ( '". $dados['login']."',
+                                                  '". date("Y-m-d H:i:s")."',
+                                                  '".$dados['acao']."',
+                                                  '".$_SERVER['REMOTE_ADDR']."')" ;
+                
+        $result = $con->query($sql);
+        $result->execute();
+        
+        
+    }
+    
+    
 }?>

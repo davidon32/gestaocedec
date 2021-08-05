@@ -377,7 +377,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 
 				<input class="" type="checkbox" name="ck_exp_dc" id="ck_exp_dc" value="1" <?php print ($_dados[0]['exp_dc'] == 1) ? 'checked="checked"' : ''; ?> />&nbsp;&nbsp;Possui experiencia na área<br>
 
-				Tempo <input class="form-control" type="text" name="tp_ex_dc" id="tp_ex_dc" value="<?php print $_dados[0]['tp_ex_dc']; ?>">
+                                Tempo ( Anos ) <input class="form-control" type="text" name="tp_ex_dc" id="tp_ex_dc" value="<?php print $_dados[0]['tp_ex_dc']; ?>" maxlength="2">
 
 				<br>
 			</div>
@@ -474,7 +474,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 			print '<h4><p style="text-align:center;">EQUIPE COMPDEC</p></h4>';
 			$pageSession['session']['seguranca']['id_municipio'] = $_dados[0]['id_municipio'];
 
-			include_once PATH . '/mod_pipa/frontEnd/View/pmda/membroEquipe.php';
+			include PATH . '/mod_pipa/frontEnd/View/pmda/membroEquipe.php';
 			?>
 
 		</div>
@@ -548,7 +548,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 		</div>
 		<div class="span11" id="tblAnexoLeis">
 
-			<?php include_once PATH . '/mod_compdec/frontEnd/View/compdec/anexo.php'; ?>
+			<?php include PATH . '/mod_compdec/frontEnd/View/compdec/anexo.php'; ?>
 		</div>
 		<!-- Modal Adicionar Anexo Leis  -->
 		<div class="modal fade" id="modal-default">
@@ -598,6 +598,8 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 <?php include_once "template/page/rodapePage.php"; ?>
 <script type="text/javascript">
 	$(document).ready(function() {
+            
+           
             
             $("#btn_anexo").click(function(){
                $("#btnDados2").trigger('click', [false]);
@@ -998,7 +1000,6 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 				error: function(e) {
 					console.log(JSON.stringify(e));
 				}
-
 			});
 
 		});

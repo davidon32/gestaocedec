@@ -50,8 +50,8 @@ $_territorio = new Territorio();
             
 				 $_dados = $_compdec->buscaCompdec($_id_municipio);
                               
-				$alteracao = ($permissao == '1') ? "<a href='index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=itn&modulo=compdec&controller=compdec&action=alterarCompdec&mun=".$_dados[0]['id_municipio']."'><img src='/core/imagem/editar.png' title='Alterar Informações'></a>" :
-					 "<a href='index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=itn&modulo=compdec&controller=compdec&action=visualizar&mun=".$_dados[0]['id_municipio']."'><img src='/core/imagem/view.png' title='Visualizar Informações'></a>";
+				$alteracao = ($permissao == '1') ? "<a href='".FuncaoBase::geraLink("compdec", "compdec", "alterarCompdec", array('mun'=>$_dados[0]['id_municipio']))."'><img src='/core/imagem/editar.png' title='Alterar Informações'></a>" :
+					 "<a href='".FuncaoBase::geraLink("compdec", "compdec", "visualizar", array('mun'=>$_dados[0]['id_municipio']))."'><img src='/core/imagem/view.png' title='Visualizar Informações'></a>";
 	
                 $_territorio_desenv = $_territorio->pegaNomeTerritorio($_dados[0]['id_territorio']);
                                

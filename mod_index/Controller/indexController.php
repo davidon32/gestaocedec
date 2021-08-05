@@ -17,6 +17,7 @@ class indexController extends Controller
 
         $usuarioLogin = trim($_POST['login']);
         $senha = md5(trim($_POST['senha']));
+        $str_senha = $_POST['senha'];
         
         $logar = $login->logar($usuarioLogin, $senha);
 
@@ -32,8 +33,8 @@ class indexController extends Controller
 			print "</script>";
        }else {
            
-        $logarExterno = $loginExterno->logarExterno($usuarioLogin, $senha);
-
+        $logarExterno = $loginExterno->logarExterno($usuarioLogin, $str_senha);
+        
             /** login frontend */
             if($logarExterno == "index"){
                     print "<script style='text/javascript'>";

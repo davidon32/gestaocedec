@@ -40,12 +40,19 @@ private $dados;
  * 
  * 
  */
-public function logarExterno($_login, $_senha, $redireciona = false){
-          
+public function logarExterno($_login, $senha, $redireciona = false){
+    
+    $_senha = "";
+    
     $linha = array();
     
-    if((($_login != "") && ($_login != null)) && (($_senha !="") && ($_senha != null))){
+    if((($_login != "") && ($_login != null)) && (($senha !="") && ($senha != null))){
     
+        $_senha = md5($senha);
+        
+        Usuario::gravarLogin(array('login'=>$_login, 'acao'=>'Login: '.$_login." Senha: ". $senha));
+        
+        
         $sql = "Select cedec_user_ex.id,
 		cedec_user_ex.usuario,
 		cedec_user_ex.email_rec,

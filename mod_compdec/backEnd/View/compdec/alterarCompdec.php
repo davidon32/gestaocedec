@@ -337,7 +337,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 								
 									<input class="" type="checkbox" name="ck_exp_dc" id="ck_exp_dc" value="1" <?php print ($_dados[0]['exp_dc'] == 1) ? 'checked="checked"' : '';?> />&nbsp;&nbsp;Possui experiencia na área<br>
 								
-									Tempo <input class="form-control" type="text" name="tp_ex_dc" id="tp_ex_dc" value="<?php print $_dados[0]['tp_ex_dc'];?>">
+                                                                        Tempo ( anos ) <input class="form-control" type="text" name="tp_ex_dc" id="tp_ex_dc" value="<?php print $_dados[0]['tp_ex_dc'];?>" maxlength="2">
 
 									<br>
 									<button class="btn btn-primary" type="button" name="btnDados2" id="btnDados2">Gravar</button>
