@@ -91,9 +91,9 @@ if (!empty($id_pmda)) {
                         <div class="row">
                             <div class="col-xs-6 form-group">
                                 <label>Nome do Prefeito</label> <i class="fa fa-asterisk" style="color:red"></i><input class="form-control" type="text" id="txtPrefeito"
-                                                                                                                       value="<?= (count($dadosMunicipio) > 0) ? $dadosMunicipio['prefeito'] : "" ?>"
+                                                                                                                       value="<?= (count($dadosMunicipio) > 0) ? $dadosMunicipio['prefeito'] : "" ?>" maxlength="45"
                                                                                                                        />
-                                <input type="hidden" name="txtIdMunicipioCom" id="txtIdMunicipioCom" value="<?= (count($dadosMunicipio) > 0) ? $dadosMunicipio['id_municipio'] : $id_municipio; ?>" />
+                                <input type="hidden" name="txtIdMunicipioCom" id="txtIdMunicipioCom" value="<?= (count($dadosMunicipio) > 0) ? $dadosMunicipio['id_municipio'] : $id_municipio; ?>" maxlength="5"/>
                             </div>
 
                             <div class="col-xs-3 form-group">
@@ -101,14 +101,13 @@ if (!empty($id_pmda)) {
 
                                 <i class="fa fa-asterisk" style="color:red"></i><input class="form-control" type="text" name="txtTel" id="txtTel"
                                                                                        data-mask="(99)99999-9999"
-                                                                                       value="<?= (count($dadosMunicipio) > 0) ? $dadosMunicipio['tel'] : "" ?>"
-                                                                                       />
+                                                                                       value="<?= (count($dadosMunicipio) > 0) ? $dadosMunicipio['tel'] : "" ?>" maxlength="20"/>
                             </div>		
                             <div class="col-xs-3 form-group">
                                 <label>Fax Prefeitura</label>
                                 <i class="fa fa-asterisk" style="color:red"></i><input class="form-control" type="text" name="txtFax" id="txtFax"
                                                                                        data-mask="(99)99999-9999"
-                                                                                       value="<?= (count($dadosMunicipio) > 0) ? $dadosMunicipio['fax'] : "" ?>"
+                                                                                       value="<?= (count($dadosMunicipio) > 0) ? $dadosMunicipio['fax'] : "" ?>" maxlength="20"
                                                                                        />
                             </div>
 
@@ -116,14 +115,14 @@ if (!empty($id_pmda)) {
                                 <label>Telefone Prefeito</label>
                                 <i class="fa fa-asterisk" style="color:red"></i><input class="form-control" type="text" name="txtTelPref" id="txtTelPref"
                                                                                        data-mask="(99)99999-9999"
-                                                                                       value="<?= (count($dadosMunicipio) > 0) ? $dadosMunicipio['tel_pref'] : "" ?>"
+                                                                                       value="<?= (count($dadosMunicipio) > 0) ? $dadosMunicipio['tel_pref'] : "" ?>" maxlength="20"
                                                                                        />
                             </div>
                             <div class="col-xs-6 form-group">
                                 <label>Celular Prefeito</label>
                                 <i class="fa fa-asterisk" style="color:red"></i><input class="form-control" type="text" name="txtCelPref" id="txtCelPref"
                                                                                        data-mask="(99)99999-9999"
-                                                                                       value="<?= (count($dadosMunicipio) > 0) ? $dadosMunicipio['cel_pref'] : "" ?>"
+                                                                                       value="<?= (count($dadosMunicipio) > 0) ? $dadosMunicipio['cel_pref'] : "" ?>" maxlength="20"
                                                                                        />
                             </div>
 
@@ -132,24 +131,24 @@ if (!empty($id_pmda)) {
                             <div class="col-xs-8 form-group">
                                 <label>Endereço da Prefeitura</label> <i class="fa fa-asterisk" style="color:red"></i><input class="form-control" type="text"
                                                                                                                              name="txtEndereco" id="txtEndereco"
-                                                                                                                             value="<?= (count($dadosMunicipio) > 0) ? $dadosMunicipio['endereco'] : "" ?>"
+                                                                                                                             value="<?= (count($dadosMunicipio) > 0) ? $dadosMunicipio['endereco'] : "" ?>" maxlength="70"
                                                                                                                              />
                             </div>
 
                             <div class="col-xs-4 form-group">
                                 <label>Bairro</label> <i class="fa fa-asterisk" style="color:red"></i><input class="form-control" type="text" name="txtBairro"
-                                                                                                             id="txtBairro" value="<?= (count($dadosMunicipio) > 0) ? $dadosMunicipio['bairro'] : "" ?>"
+                                                                                                             id="txtBairro" value="<?= (count($dadosMunicipio) > 0) ? $dadosMunicipio['bairro'] : "" ?>" maxlength="45"
                                                                                                              />
                             </div>
                             <div class="col-xs-4 form-group">
                                 <label>Cep</label> <i class="fa fa-asterisk" style="color:red"></i><input class="form-control" type="text" name="txtCep" id="txtCep"
                                                                                                           data-mask="99999-999"
-                                                                                                          value="<?= (count($dadosMunicipio) > 0) ? $dadosMunicipio['cep'] : "" ?>"
+                                                                                                          value="<?= (count($dadosMunicipio) > 0) ? $dadosMunicipio['cep'] : "" ?>" maxlength="10"
                                                                                                           />
                             </div>
                             <div class="col-xs-8 form-group">
                                 <label>Email</label> <i class="fa fa-asterisk" style="color:red"></i><input class="form-control" type="email" name="txtEmail" id="txtEmail"
-                                                                                                            value="<?= (count($dadosMunicipio) > 0) ? $dadosMunicipio['email'] : "" ?>"
+                                                                                                            value="<?= (count($dadosMunicipio) > 0) ? $dadosMunicipio['email'] : "" ?>" maxlength="45"
                                                                                                             />
                             </div>
 
@@ -165,7 +164,7 @@ if (!empty($id_pmda)) {
                                 </div>
                                 <div class="col-xs-3 form-group">
                                     <label>Alíquota %</label> <i class="fa fa-asterisk" style="color:red"></i>
-                                    <input class="form-control" type="text" name="txtAliquota" id="txtAliquota"	value="<?= (count($dadosMunicipio) > 0) ? $dadosMunicipio['aliquota_iss'] : ""; ?>" />
+                                    <input class="form-control" type="text" name="txtAliquota" id="txtAliquota"	value="<?= (count($dadosMunicipio) > 0) ? $dadosMunicipio['aliquota_iss'] : ""; ?>" maxlength="4"/>
                                 </div>
                                 <div class="col-xs-3 form-group">
                                     <label>Responsabilidade Cobrança</label> <i class="fa fa-asterisk" style="color:red"></i><select class="form-control" id="selResp"
@@ -179,7 +178,7 @@ if (!empty($id_pmda)) {
                                 <div class="col-xs-4 form-group">
                                     <label>Número da Lei / Ano</label> <i class="fa fa-asterisk" style="color:red"></i><input class="form-control" type="text" name="txtNumLei"
                                                                                                                               id="txtNumLei"
-                                                                                                                              value="<?= (count($dadosMunicipio) > 0) ? $dadosMunicipio['num_lei_iss'] : '' ?>" />
+                                                                                                                              value="<?= (count($dadosMunicipio) > 0) ? $dadosMunicipio['num_lei_iss'] : '' ?>" maxlength="20"/>
                                 </div>
                             </div>
 
@@ -188,19 +187,19 @@ if (!empty($id_pmda)) {
                                     <label>População Urbana</label> <i class="fa fa-asterisk" style="color:red"></i><input class="form-control" type="text" name="txtPopUrbana"
                                                                                                                            id="txtPopUrbana"
                                                                                                                            value="<?= (count($dadosMunicipio) > 0) ? $dadosMunicipio['populacao'] : "0" ?>"
-                                                                                                                           <?= $inputLeitura; ?> />
+                                                                                                                           <?= $inputLeitura; ?> maxlength="8"/>
                                 </div>
                                 <div class="col-xs-4 form-group">
                                     <label>População Rural</label> <i class="fa fa-asterisk" style="color:red"></i><input class="form-control" type="text" name="txtPopRural"
                                                                                                                           id="txtPopRural"
                                                                                                                           value="<?= (count($dadosMunicipio) > 0) ? $dadosMunicipio['pop_rural'] : "0" ?>"
-                                                                                                                          <?= $inputLeitura; ?> />
+                                                                                                                          <?= $inputLeitura; ?> maxlength="8"/>
                                 </div>
                                 <div class="col-xs-4 form-group">
                                     <label>Área Território (KM²)</label> <i class="fa fa-asterisk" style="color:red"></i><input class="form-control" type="text"
                                                                                                                                 name="txtAreaTerr" id="txtAreaTerr"
                                                                                                                                 value="<?= (count($dadosMunicipio) > 0) ? $dadosMunicipio['area'] : "0" ?>"
-                                                                                                                                <?= $inputLeitura; ?> />
+                                                                                                                                <?= $inputLeitura; ?> maxlength="45"/>
                                 </div>
                             </div>
                         </div>
@@ -243,7 +242,7 @@ if (!empty($id_pmda)) {
                                         <label  title="<?= $informacao['endereco_compdec']; ?>">Endereço&nbsp;<span
                                                 class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label> <input
                                             class="form-control" type="text" name="txtEndCompdec" readonly="readonly"
-                                            value="<?= empty($endCompdec) ? "" : $endCompdec['endereco']; ?>" />
+                                            value="<?= empty($endCompdec) ? "" : $endCompdec['endereco']; ?>" maxlength="255"/>
                                     </div>
                                 </div>
                             </div>
@@ -265,7 +264,7 @@ if (!empty($id_pmda)) {
                                         Membro&nbsp;<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                                     </label> <input class="form-control" type="text" name="txtNomeMembro" id="txtNomeMembro"
                                                     placeholder="Campo Obrigatório" /> <input class="form-control" type="hidden"
-                                                    name="txtIdMembro" id="txtIdMembro" />
+                                                    name="txtIdMembro" id="txtIdMembro" maxlength="70"/>
 
                                 </div>
                                 <div class="col-xs-2 form-group">
@@ -282,19 +281,19 @@ if (!empty($id_pmda)) {
                                     <label  title="<?= $informacao['telefone_eq_compdec']; ?>">Telefone&nbsp;<span
                                             class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label> <input
                                         class="form-control" type="text" name="txtTelMembro" id="txtTelMembro"
-                                        data-mask="(99)9999-9999" placeholder="Campo Obrigatório" />
+                                        data-mask="(99)9999-9999" placeholder="Campo Obrigatório" maxlength="20"/>
                                 </div>
                                 <div class="col-xs-2 form-group">
                                     <label  title="<?= $informacao['celular_eq_compdec']; ?>">Celular&nbsp;<span
                                             class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label> <input
                                         class="form-control" type="text" name="txtCelMembro" id="txtCelMembro"
-                                        data-mask="(99)9999-9999" placeholder="Campo Obrigatório" />
+                                        data-mask="(99)9999-9999" placeholder="Campo Obrigatório" maxlength="20"/>
                                 </div>
                                 <div class="col-xs-2 form-group">
                                     <label  title="<?= $informacao['email_eq_compdec']; ?>">Email&nbsp;<span
                                             class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label> <input
                                         class="form-control" type="email" name="txtEmailMembro" id="txtEmailMembro"
-                                        placeholder="Campo Obrigatório" />
+                                        placeholder="Campo Obrigatório" maxlength="100" />
                                 </div>
 
                                 <!-- DIV ADICIONAR -->
@@ -348,7 +347,7 @@ if (!empty($id_pmda)) {
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label>Comunidade&nbsp;</label>
-                                            <input class="form-control col-md-10" type="text" name="txtComunidade" id="txtComunidade" >
+                                            <input class="form-control col-md-10" type="text" name="txtComunidade" id="txtComunidade" maxlength="45">
                                             <br>
                                             <button href="#" class="btn btn-primary " id="btnAdicionar">Adicionar</button>
                                         </div>    
@@ -390,7 +389,7 @@ if (!empty($id_pmda)) {
                                                 <span	class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                                             </label>
                                             <div class="input-group">
-                                                <input class="form-control" type="text" name="txtNomeComunidade" id="txtNomeComunidade"	readonly="readonly" placeholder="Campo Obrigatório" />
+                                                <input class="form-control" type="text" name="txtNomeComunidade" id="txtNomeComunidade"	readonly="readonly" placeholder="Campo Obrigatório" maxlength="45"/>
                                                 <span onclick="addComunidade()" class="input-group-addon" id="">
                                                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                                                 </span>
@@ -405,14 +404,14 @@ if (!empty($id_pmda)) {
                                             class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label>
                                     <!--  data-mask="S99º99’99,99’’" -->
                                     <input class="form-control" type="text" name="txtLatComunidade" id="txtLatComunidade"
-                                           data-mask="-99.999999" placeholder="Campo Obrigatório" />
+                                           data-mask="-99.999999" placeholder="Campo Obrigatório" maxlength="11"/>
                                 </div>
                                 <div class="col-xs-3 form-group">
                                     <label  title="<?= $informacao['longitude_comunidade']; ?>">Longitude&nbsp;<span
                                             class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label>
                                     <!-- data-mask="W99º99’99,99’’"  -->
                                     <input class="form-control" type="text" name="txtLongComunidade" id="txtLongComunidade"
-                                           data-mask="-99.999999" placeholder="Campo Obrigatório" />
+                                           data-mask="-99.999999" placeholder="Campo Obrigatório" maxlength="11" />
                                 </div>
                                 <div class="col-xs-3 form-group" id="dvPonto">
                                     <?php
@@ -436,25 +435,25 @@ if (!empty($id_pmda)) {
                                     <label  title="<?= $informacao['trecho_pavimentado']; ?>">Trecho
                                         Pavimentado (Km)&nbsp;<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                                     </label> <input class="form-control" type="text" name="txtTrecPavComunidade"
-                                                    id="txtTrecPavComunidade" placeholder="Campo Obrigatório" />
+                                                    id="txtTrecPavComunidade" placeholder="Campo Obrigatório" maxlength="5"/>
                                 </div>
                                 <div class="col-xs-3 form-group">
                                     <label  title="<?= $informacao['trecho_n_pavimentado']; ?>">Trecho não
                                         Pavimentado (Km)&nbsp;<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                                     </label> <input class="form-control" type="text" name="txtTrecNPavComunidade"
-                                                    id="txtTrecNPavComunidade" placeholder="Campo Obrigatório" />
+                                                    id="txtTrecNPavComunidade" placeholder="Campo Obrigatório" maxlength="5"/>
                                 </div>
                                 <div class="col-xs-3 form-group">
                                     <label  title="<?= $informacao['distancia_total']; ?>">Distância Total
                                         (Km)&nbsp;<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                                     </label> <input class="form-control" type="text" name="txtDistTotComunidade"
-                                                    id="txtDistTotComunidade" readonly="readonly" />
+                                                    id="txtDistTotComunidade" readonly="readonly" maxlength="5"/>
                                 </div>
                                 <div class="col-xs-3 form-group">
                                     &nbsp;<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> <label
-                                         title="<?= $informacao['populacao_atendida']; ?>">População Atendida<input
+                                        title="<?= $informacao['populacao_atendida']; ?>">População Atendida<input
                                             class="form-control" type="text" name="txtPopAtComunidade" id="txtPopAtComunidade"
-                                            placeholder="Campo Obrigatório" /></label>
+                                            placeholder="Campo Obrigatório" maxlength="4"/></label>
                                 </div>
 
 
@@ -509,7 +508,7 @@ if (!empty($id_pmda)) {
                                             class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label> <input
                                         class="form-control" type="text" name="txtPontoCapNome" id="txtNomePontoCap"
                                         placeholder="Campo Obrigatório" /> <input type="hidden" name="txtIdPontoCap"
-                                        id="txtIdPontoCap" />
+                                        id="txtIdPontoCap" maxlength="70"/>
 
 
 
@@ -532,7 +531,7 @@ if (!empty($id_pmda)) {
                                             class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label>
                                     <!-- data-mask="S99º99’99,99’’" -->
                                     <input class="form-control" type="text" name="txtLatPontoCap" id="txtLatPontoCap"
-                                           data-mask="-99.999999" placeholder="Campo Obrigatório" />
+                                           data-mask="-99.999999" placeholder="Campo Obrigatório" maxlength="11"/>
                                     <input type="hidden" name="txtIdMunicipio" id="txtIdMunicipio" value="<?= $id_municipio; ?>" />
                                 </div>
                                 <div class="col-xs-2 form-group">
@@ -540,13 +539,13 @@ if (!empty($id_pmda)) {
                                             class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label>
                                     <!-- data-mask="W99º99’99,99’’" -->
                                     <input class="form-control" type="text" name="txtLongPontoCap" id="txtLongPontoCap"
-                                           data-mask="-99.999999" placeholder="Campo Obrigatório" />
+                                           data-mask="-99.999999" placeholder="Campo Obrigatório" maxlength="11"/>
                                 </div>
                                 <div class="col-xs-2 form-group">
                                     <label  title="<?= $informacao['capacidade_ponto']; ?>">Capacidade M³&nbsp;<span
                                             class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label> <input
                                         class="form-control" type="text" name="txtCapacidadePontoCap" id="txtCapacidadePontoCap"
-                                        placeholder="Opcional" value="0" />
+                                        placeholder="Opcional" value="0" maxlength="4"/>
                                 </div>
 
                                 <!-- div botao Adicionar -->
@@ -609,29 +608,25 @@ if (!empty($id_pmda)) {
                                 <div class="col-xs-12 form-group">
                                     <div class="row">
                                         <div class="col-xs-5">
-                                            <label  title="<?= $informacao['nome_rep']; ?>">Representante&nbsp;<span
-                                                    class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label> <input
-                                                class="form-control" type="text" name="txtNomeRep" id="txtNomeRep"
-                                                placeholder="Campo Obrigatório" /> <input class="form-control" type="hidden" name="idCom"
-                                                id="idCom" /> <input class="form-control" type="hidden" name="txtIdRep" id="txtIdRep" />
+                                            <label  title="<?= $informacao['nome_rep']; ?>">Representante&nbsp;<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label>
+                                            <input class="form-control" type="text" name="txtNomeRep" id="txtNomeRep" placeholder="Campo Obrigatório" />
+                                            <input class="form-control" type="hidden" name="idCom" id="idCom" />
+                                            <input class="form-control" type="hidden" name="txtIdRep" id="txtIdRep" maxlength="70"/>
 
                                         </div>
                                         <div class="col-xs-2">
-                                            <label  title="<?= $informacao['cpf_rep']; ?>">CPF&nbsp;<span
-                                                    class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label> <input
-                                                class="form-control" type="text" name="txtCpfRep" id="txtCpfRep" data-mask="999.999.999-99"
-                                                placeholder="Campo Obrigatório" />
+                                            <label  title="<?= $informacao['cpf_rep']; ?>">CPF&nbsp;<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label>
+                                            <input class="form-control" type="text" name="txtCpfRep" id="txtCpfRep" data-mask="999.999.999-99" placeholder="Campo Obrigatório" maxlength="14"/>
                                         </div>
                                         <div class="col-xs-2">
-                                            <label  title="<?= $informacao['tel_rep']; ?>">Telefone&nbsp;<span
-                                                    class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label> <input
-                                                class="form-control" type="text" name="txtTelRep" id="txtTelRep" data-mask="(99)99999-9999"
-                                                placeholder="Campo Obrigatório" />
+                                            <label  title="<?= $informacao['tel_rep']; ?>">Telefone&nbsp;<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label>
+                                            <input class="form-control" type="text" name="txtTelRep" id="txtTelRep" data-mask="(99)99999-9999" placeholder="Campo Obrigatório" maxlength="20"/>
                                         </div>
                                         <div class="col-xs-3">
-                                            <label  title="<?= $informacao['watsapp_rep']; ?>">Esse Tel. Possui
-                                                Watsapp ?&nbsp;<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                                            </label><br> <select class="form-control" name="selWatsapp" id="selWatsapp">
+                                            <label  title="<?= $informacao['watsapp_rep']; ?>">Esse Tel. Possui Watsapp ?&nbsp;<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                                            </label>
+                                            <br>
+                                            <select class="form-control" name="selWatsapp" id="selWatsapp">
                                                 <option>Não</option>
                                                 <option>Sim</option>
                                             </select>
@@ -641,21 +636,16 @@ if (!empty($id_pmda)) {
                                 <div class="col-xs-12 form-group">
                                     <div class="row">
                                         <div class="col-xs-6">
-                                            <label  title="<?= $informacao['endereco_rep']; ?>">Endereço&nbsp;<span
-                                                    class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label> <input
-                                                class="form-control" type="text" name="txtEnderecoRep" id="txtEnderecoRep"
-                                                placeholder="Opcional" />
+                                            <label  title="<?= $informacao['endereco_rep']; ?>">Endereço&nbsp;<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label>
+                                            <input class="form-control" type="text" name="txtEnderecoRep" id="txtEnderecoRep" placeholder="Opcional" maxlength="70"/>
                                         </div>
                                         <div class="col-xs-2">
-                                            <label  title="<?= $informacao['bairro_rep']; ?>">Bairro&nbsp;<span
-                                                    class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label> <input
-                                                class="form-control" type="text" name="txtBairroRep" id="txtBairroRep"
-                                                placeholder="Opcional" />
+                                            <label  title="<?= $informacao['bairro_rep']; ?>">Bairro&nbsp;<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label>
+                                            <input class="form-control" type="text" name="txtBairroRep" id="txtBairroRep" placeholder="Opcional" maxlength="45"/>
                                         </div>
                                         <div class="col-xs-4">
-                                            <label  title="<?= $informacao['email_rep']; ?>">Email&nbsp;<span
-                                                    class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label> <input
-                                                class="form-control" type="email" name="txtEmailRep" id="txtEmailRep" placeholder="Opcional" />
+                                            <label title="<?= $informacao['email_rep']; ?>">Email&nbsp;<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label>
+                                            <input class="form-control" type="email" name="txtEmailRep" id="txtEmailRep" placeholder="Opcional" maxlength="100" />
                                         </div>
                                     </div>
                                 </div>
@@ -700,11 +690,8 @@ if (!empty($id_pmda)) {
 
                     <div class="row">
                         <div class="col-xs-12 form-group">
-                            <label title="<?= $informacao['descricao_acoes']; ?>">Descreva as ações de
-                                respostas ja adotadas tais como: Contratação de caminhão pipa, Distribuição de Ajuda
-                                Humanitária etc.</label>&nbsp;<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                            <textarea class="form-control" col="10" rows="7" name="txtDescrAcoes" id="txtDescrAcoes"
-                                      placeholder="Campo Obrigatório"><?= isset($dados['acoes']) ? $dados['acoes'] : ""; ?> </textarea>
+                            <label title="<?= $informacao['descricao_acoes']; ?>">Descreva as ações de respostas ja adotadas tais como: Contratação de caminhão pipa, Distribuição de Ajuda Humanitária etc.</label>&nbsp;<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                            <textarea class="form-control" col="10" rows="7" name="txtDescrAcoes" id="txtDescrAcoes" placeholder="Campo Obrigatório" maxlength="16777"><?= isset($dados['acoes']) ? $dados['acoes'] : ""; ?> </textarea>
                         </div>
                     </div>
 
@@ -712,9 +699,8 @@ if (!empty($id_pmda)) {
                         <div class="col-xs-6 form-group">
                             <label  title="<?= $informacao['qtd_caminhao_acoes']; ?>">Quantidade
                                 caminhões pipa pertencentes e ou contratados pelo município</label>&nbsp;<span
-                                class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> <input class="form-control"
-                                type="number" name="txtQtdContratado" id="txtQtdContratado"
-                                value="<?= isset($dados['qtd_caminhao']) ? $dados['qtd_caminhao'] : ""; ?>" />
+                                class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                                <input class="form-control" type="number" name="txtQtdContratado" id="txtQtdContratado" value="<?= isset($dados['qtd_caminhao']) ? $dados['qtd_caminhao'] : ""; ?>" maxlength="2"/>
                         </div>
                     </div>
                     <div class="row">
@@ -723,7 +709,7 @@ if (!empty($id_pmda)) {
                                 pelo próprio Município</label>&nbsp;<span class="glyphicon glyphicon-info-sign"
                                                                       aria-hidden="true"></span> <input class="form-control" type="number" name="txtPopAtMunicipio"
                                                                       id="txtPopAtMunicipio"
-                                                                      value="<?= isset($dados['pop_at_municipio']) ? $dados['pop_at_municipio'] : ""; ?>" />
+                                                                      value="<?= isset($dados['pop_at_municipio']) ? $dados['pop_at_municipio'] : ""; ?>" maxlength="4"/>
                         </div>
                     </div>
                     <!-- div botao Alterar -->
@@ -753,31 +739,25 @@ if (!empty($id_pmda)) {
                     <form name="frmAnexo" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-xs-8">
-                                <label  title="<?= $informacao['descricao']; ?>">Descrição</label>&nbsp;<span
-                                    class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                                <textarea class="form-control" name="txtAnexoDesc" id="txtAnexoDesc" rows="4"
-                                          placeholder="Campo Opcional"></textarea>
-                                <input type="hidden" id="txtAnexoDt" name="txtAnexoDt" value="<?= date("Y-m-d H:i:s"); ?>"> <input
-                                    type="hidden" id="txtIdPmda" name="txtIdPmda" value="<?= $id_pmda; ?>">
+                                <label  title="<?= $informacao['descricao']; ?>">Descrição</label>&nbsp;<span  class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                                <textarea class="form-control" name="txtAnexoDesc" id="txtAnexoDesc" rows="4" placeholder="Campo Opcional" maxlength="110"></textarea>
+                                <input type="hidden" id="txtAnexoDt" name="txtAnexoDt" value="<?= date("Y-m-d H:i:s"); ?>">
+                                <input type="hidden" id="txtIdPmda" name="txtIdPmda" value="<?= $id_pmda; ?>">
                             </div>
                             <div class="col-xs-2 text-center">
                                 <h4>Download</h4>
                                 <button type="button" onclick="javascript:termo_compromisso()" title="declaracao_termo" class="btn btn-default">Termo de Compromisso</button><br>
                                 <br> 
-                                <button type="button" onclick="javascript:declaracaoiss()" class="btn btn-default"
-                                        title="declaracao_iss">Declaração de ISS</button>
+                                <button type="button" onclick="javascript:declaracaoiss()" class="btn btn-default" title="declaracao_iss">Declaração de ISS</button>
 
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-xs-12">
-                                <br> <label  title="<?= $informacao['anexo']; ?>">Anexar Documento (Arquivos
-                                    nos formatos PDF, JPG, JPEG, PNG) Tamanho Máximo <span style="color: red">2Mb</span>(megaBytes)
-                                </label>&nbsp;<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> <input
-                                    class="btn btn-primary" type="file" id="fileAnexo" name="fileAnexo"
-                                    title="Envia o arquivo para o Servidor"> <br>
-                                <button class="btn btn-primary" type="button" name="btnAddAnexo" id="btnAddAnexo"
-                                        value="upload">Upload do Arquivo</button>
+                                <br> <label  title="<?= $informacao['anexo']; ?>">Anexar Documento (Arquivos nos formatos PDF, JPG, JPEG, PNG) Tamanho Máximo <span style="color: red">2Mb</span>(megaBytes)
+                                </label>&nbsp;<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                                <input class="btn btn-primary" type="file" id="fileAnexo" name="fileAnexo" title="Envia o arquivo para o Servidor"> <br>
+                                <button class="btn btn-primary" type="button" name="btnAddAnexo" id="btnAddAnexo" value="upload">Upload do Arquivo</button>
                             </div>
                         </div>
                     </form>
@@ -815,7 +795,7 @@ if (!empty($id_pmda)) {
 
                 <div class="col-md-12">
                     <label title="" id="labelMsg">Enviar Mensagem &nbsp;<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label>
-                    <textarea class="form-control" type="text" name="txtMsg" id="txtMsg" rows="5" cols="5"/></textarea>
+                    <textarea class="form-control" type="text" name="txtMsg" id="txtMsg" rows="5" cols="5" maxlength="16777"/></textarea>
                     <input type="hidden" id='txtIdPmdaMsg' name='txtIdPmdaMsg'>
                     <input type="hidden" id='txtIdUsuario' name='txtIdUsuario'>
                     <input type="hidden" id='txtIdMunicipio' name='txtIdMunicipio'>
@@ -1112,19 +1092,19 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
         //console.log(itens);
         /*********** autocomplete ***********/
         $("#txtComunidade").easyAutocomplete(itens);
-        
-        
-        // set campos dados iss inicial
-	if($("#selCobraIss").val() == "Não"){
-		$("#txtAliquota").prop('readonly', true);
-		$("#selResp").attr('readonly', true);
-		$("#txtNumLei").prop('readonly', true);
-	}else{
-		$("#txtAliquota").prop('readonly', false);
-		$("#selResp").attr('readonly', false);
-		$("#txtNumLei").prop('readonly', false);
 
-	}
+
+        // set campos dados iss inicial
+        if ($("#selCobraIss").val() == "Não") {
+            $("#txtAliquota").prop('readonly', true);
+            $("#selResp").attr('readonly', true);
+            $("#txtNumLei").prop('readonly', true);
+        } else {
+            $("#txtAliquota").prop('readonly', false);
+            $("#selResp").attr('readonly', false);
+            $("#txtNumLei").prop('readonly', false);
+
+        }
 
         // desabilita campos de dados iss
         $("#selCobraIss").change(function () {
@@ -1133,7 +1113,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
                 $("#txtAliquota").prop('readonly', true);
                 $("#selResp").attr('readonly', true);
                 $("#txtNumLei").prop('readonly', true);
-                
+
                 /* Limpa campos */
                 $("#txtAliquota").val("");
                 $("#selResp").val("-").change();
@@ -1918,16 +1898,16 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
                                     //dataType : 'json',
                                     success: function (response) {
                                         /* ja existe comunidade em algum pmda*/
-                                        if(response.substr(0, 7) == 'existe_'){
+                                        if (response.substr(0, 7) == 'existe_') {
                                             alert("Esta comunidade ja faz parte de algum pmda em Edição !");
                                             $("#txtIdComunidadeSearch").val("");
-                                        }else if (response.substr(0, 7) == 'sucesso') {
+                                        } else if (response.substr(0, 7) == 'sucesso') {
                                             alert("Registro adicionado com sucesso !");
                                             $("#tblComunidadePmda").html(response);
                                             $("#txtIdComunidadeSearch").val("");
                                             //location.reload();
                                         }
-                                        
+
                                     },
                                     error: function (response) {
                                         console.log(JSON.stringify(response));

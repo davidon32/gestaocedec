@@ -99,7 +99,7 @@
                             if(x < max_fields){ //max input box allowed
                                 x++; //text box increment
                                 console.log(val_com);
-                                $(wrapper).append('<div><br><input class="form-control col-md-6" type="text" name="listCom[]" value="'+val_com+'"/><a href="#" class="remove_field"><img alt="Adicionar Comunidade" src="/core/imagem/remove.png" width="25px;"></a></div>'); //add input box
+                                $(wrapper).append('<div><br><input class="form-control col-md-6" type="text" name="listCom[]" value="'+val_com+'" maxlength="45"/><a href="#" class="remove_field"><img alt="Adicionar Comunidade" src="/core/imagem/remove.png" width="25px;"></a></div>'); //add input box
                             }
                         }
 		    });

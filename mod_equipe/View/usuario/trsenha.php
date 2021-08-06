@@ -79,10 +79,10 @@
         <form action="#" method="POST" name="frm_trocasenha">
 
             <label>Senha Nova (Criar Nova Senha)</label>
-            <input type="password" name="senha_nova" id="senha_nova" placeholder="Máximo de 8 caracteres"  class="form-control">
+            <input type="password" name="senha_nova" id="senha_nova" placeholder="Máximo de 15 caracteres"  class="form-control" maxlength="15">
             <br>
             <label>Confirmar Nova Senha</label>
-            <input type="password" name="conf_senha_nova" id="conf_senha_nova" placeholder="Máximo de 8 caracteres"  class="form-control">
+            <input type="password" name="conf_senha_nova" id="conf_senha_nova" placeholder="Máximo de 15 caracteres"  class="form-control" maxlength="15">
             <input type="hidden" name="txtExterno" id="txtExterno" value="<?= isset($_GET['p']) ? $_GET['p'] : ""; ?>" >
             <br />
             <button type="submit" class="btn btn-primary" name="btn_trocasenha" id="btn_trocasenha" value="trocar">Trocar Senha</button>

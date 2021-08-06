@@ -60,13 +60,13 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 				<td>
                                     <table class="table">
                                         <tr>
-                                            <td>Prefeito:</td><td><input class="form-control" type="text" value="<?= $dadosMunicipio['prefeito']; ?>" name="txtPrefeito" id="txtPrefeito"></td>
+                                            <td>Prefeito:</td><td><input class="form-control" type="text" value="<?= $dadosMunicipio['prefeito']; ?>" name="txtPrefeito" id="txtPrefeito" maxlength="29"></td>
                                             </tr>
                                             <tr>
-                                            <td>Endereço:</td><td><input class="form-control" type="text" value="<?= $dadosMunicipio['endereco']; ?>" name="txtEndPref" id="txtEndPref"></td>
+                                                <td>Endereço:</td><td><input class="form-control" type="text" value="<?= $dadosMunicipio['endereco']; ?>" name="txtEndPref" id="txtEndPref" maxlength="69"></td>
                                             </tr>
                                             <tr>
-                                            <td>Bairro:</td><td><input class="form-control" type="text" value="<?= $dadosMunicipio['bairro']; ?>" name="txtBairroPref" id="txtBairroPref"></td>
+                                                <td>Bairro:</td><td><input class="form-control" type="text" value="<?= $dadosMunicipio['bairro']; ?>" name="txtBairroPref" id="txtBairroPref" maxlength="44"></td>
                                             </tr>
                                             <tr>
                                                 <td>Cep:</td><td><input class="form-control" type="text" value="<?= $dadosMunicipio['cep']; ?>" name="txtCepPref" id="txtCepPref" maxlength="9"></td>
@@ -140,40 +140,40 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 		<br>
 		<div class="row">
 			<div class="col-md-6">
-				Número Lei :<input class="form-control" type="text" name="txt_num_lei" id="txt_num_lei" value="<?php print $_dados[0]['num_lei']; ?>">&nbsp;&nbsp;
+                            Número Lei :<input class="form-control" type="text" name="txt_num_lei" id="txt_num_lei" value="<?php print $_dados[0]['num_lei']; ?>" maxlength="10">&nbsp;&nbsp;
 			</div>
 			<div class="col-md-6">
-				Data Lei:<input class="form-control" type="text" name="txt_dt_lei" id="txt_dt_lei" value="<?php print DataMysql::dataVisual($_dados[0]['dt_lei']); ?>">
+				Data Lei:<input class="form-control" type="text" name="txt_dt_lei" id="txt_dt_lei" value="<?php print DataMysql::dataVisual($_dados[0]['dt_lei']); ?>" maxlength="10">
 			</div>
 		</div>
 
 		<div class="row">
 			<div class="col-md-6">
-				Número Decreto:<input class="form-control" type="text" name="txt_num_decreto" id="txt_num_decreto" value="<?php print $_dados[0]['num_decreto']; ?>">&nbsp;&nbsp;
+				Número Decreto:<input class="form-control" type="text" name="txt_num_decreto" id="txt_num_decreto" value="<?php print $_dados[0]['num_decreto']; ?>" maxlength="10">&nbsp;&nbsp;
 			</div>
 			<div class="col-md-6">
-				Data Decreto :<input class="form-control" type="text" name="txt_dt_decreto" id="txt_dt_decreto" value="<?php print DataMysql::dataVisual($_dados[0]['dt_decreto']); ?>">
+				Data Decreto :<input class="form-control" type="text" name="txt_dt_decreto" id="txt_dt_decreto" value="<?php print DataMysql::dataVisual($_dados[0]['dt_decreto']); ?>" maxlength="10" >
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-6">
-				Número Portaria:<input class="form-control" type="text" name="txt_num_portaria" id="txt_num_portaria" value="<?php print $_dados[0]['num_portaria']; ?>"> &nbsp;&nbsp;
+				Número Portaria:<input class="form-control" type="text" name="txt_num_portaria" id="txt_num_portaria" value="<?php print $_dados[0]['num_portaria']; ?>" maxlength="10"> &nbsp;&nbsp;
 			</div>
 			<div class="col-md-6">
-				Data Portaria:<input class="form-control" type="text" name="txt_dt_portaria" id="txt_dt_portaria" value="<?php print DataMysql::dataVisual($_dados[0]['dt_portaria']); ?>" />
+				Data Portaria:<input class="form-control" type="text" name="txt_dt_portaria" id="txt_dt_portaria" value="<?php print DataMysql::dataVisual($_dados[0]['dt_portaria']); ?>" maxlength="10"/>
 			</div>
 		</div>
 		<label>Endereço (Compdec):</label>
-		<input class="form-control" type="text" name="txt_endereco" id="txt_endereco" value="<?php print $_dados[0]['endereco']; ?>">
+		<input class="form-control" type="text" name="txt_endereco" id="txt_endereco" value="<?php print $_dados[0]['endereco']; ?>" maxlength="100">
 
 		<div class="row">
 			<div class="col-md-6">
 				<label>Telefone (Compdec)</label>
-				<input class="form-control" type="text" name="txt_comp_fone1" id="txt_comp_fone1" value="<?php print $_dados[0]['fone_com1']; ?>">
+				<input class="form-control" type="text" name="txt_comp_fone1" id="txt_comp_fone1" value="<?php print $_dados[0]['fone_com1']; ?>" maxlength="20">
 			</div>
 			<div class="col-md-6">
 				<label>Telefone2 (Compdec)</label>
-				<input class="form-control" type="text" name="txt_comp_fone2" id="txt_comp_fone2" value="<?php print $_dados[0]['fone_com2']; ?>">
+				<input class="form-control" type="text" name="txt_comp_fone2" id="txt_comp_fone2" value="<?php print $_dados[0]['fone_com2']; ?>" maxlength="20">
 			</div>
 		</div>
 		<br>
@@ -188,20 +188,20 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 			</div>
 			<div class="col-md-4">
 				<label>Quantos nupdec's ?</label>
-				<input class="form-control" type="text" name="txt_qtd_nudec" id="txt_qtd_nudec" value="<?php print $_dados[0]['qtd_nudec']; ?>">
+				<input class="form-control" type="text" name="txt_qtd_nudec" id="txt_qtd_nudec" value="<?php print $_dados[0]['qtd_nudec']; ?>" maxlength="1">
 			</div>
 			<div class="col-md-4">
 				<label>Quantos integrantes ?</label>
-				<input class="form-control" type="text" name="txt_qtd_efetivo" id="txt_qtd_efetivo" value="<?php print $_dados[0]['qtd_efetivo']; ?>">
+				<input class="form-control" type="text" name="txt_qtd_efetivo" id="txt_qtd_efetivo" value="<?php print $_dados[0]['qtd_efetivo']; ?>" maxlength="2">
 			</div>
 
 
 		</div>
 
 		<label>Qual a capacitação dos Membros ?</label>
-		<textarea class="form-control" name='txt_cap_nupdec' id='txt_cap_nupdec'><?php print $_dados[0]['capacitacao_nupdec'] ?></textarea>
-		<br>
-		<button class="btn btn-primary" type="button" name="btnDados" id="btnDados"></button>
+		<input class="form-control" name='txt_cap_nupdec' id='txt_cap_nupdec' value="<?php print $_dados[0]['capacitacao_nupdec'] ?>" maxlength="70">
+                    <br><br>
+		<button class="" type="button" name="btnDados" id="btnDados">-</button>
 	</div>
 
 	<!-- ABA DADOS PARTE 2 -->
@@ -237,18 +237,18 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 			<label style="">Email da Prefeitura </label>
 			<?php //Compdec::getEmailRec();
 			?>
-			<input class="form-control" type="text" name="email_prefeitura" id="email_prefeitura" value="<?= $dadosMunicipio['email'] ?>">
+			<input class="form-control" type="text" name="email_prefeitura" id="email_prefeitura" value="<?= $dadosMunicipio['email'] ?>" maxlength="45">
 		</div>
 		<br>
 		<!-- # telefone prefeiura e prefeito -->
 		<div class='col-md-6'>
                     <br>
 			<label style="">Telefone Prefeito </label>
-			<input class="form-control" type="text" name="tel_pref" id="tel_pref" value="<?= $dadosMunicipio['tel_pref'] ?>">
+			<input class="form-control" type="text" name="tel_pref" id="tel_pref" value="<?= $dadosMunicipio['tel_pref'] ?>" maxlength="20">
 		</div>
 		<div class='col-md-6'>
 			<label style="">Celuar Prefeito </label>
-			<input class="form-control" type="text" name="cel_pref" id="cel_pref" value="<?= $dadosMunicipio['cel_pref'] ?>">
+			<input class="form-control" type="text" name="cel_pref" id="cel_pref" value="<?= $dadosMunicipio['cel_pref'] ?>" maxlength="20">
 		</div>
 
 		<br>
@@ -285,7 +285,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 					</label>
 				</div>
 			</div>
-			<label>Data do Curso :</label> <input class="form-control nretira" type="text" name="txt_dt_curso" id="txt_dt_curso" value="<?php print DataMysql::dataVisual($_dados[0]['dt_curso_capac']); ?>">
+                        <label>Data do Curso :</label> <input class="form-control nretira" type="text" name="txt_dt_curso" id="txt_dt_curso" value="<?php print DataMysql::dataVisual($_dados[0]['dt_curso_capac']); ?>" maxlength="10">
 		</div>
 		<br>
 		<div class='col-md-6'>
@@ -363,17 +363,17 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 				<br>
 				<input class="" type="checkbox" name="ck_curso_gestao" id="ck_curso_gestao" value="1" <?php print ($_dados[0]['curso_gestao'] == 1) ? 'checked="checked"' : ''; ?> />&nbsp;&nbsp;Possui Curso de Gestão em Proteção e Defesa Civil e Mudanças Climáticas<br><br>
 
-				Data Curso <input class="form-control" type="text" name="dt_curso_gestao" id="dt_curso_gestao" value="<?php print DataMysql::dataVisual($_dados[0]['dt_curso_gestao']) ?>"><br>
+                                Data Curso <input class="form-control" type="text" name="dt_curso_gestao" id="dt_curso_gestao" value="<?php print DataMysql::dataVisual($_dados[0]['dt_curso_gestao']) ?>" maxlength="10"><br>
 
-				<input class="" type="checkbox" name="ck_curso_sco" id="ck_curso_sco" value="1" <?php print ($_dados[0]['curso_sco'] == 1) ? 'checked="checked"' : ''; ?> />&nbsp;&nbsp;Possui Curso de SCO.<br>
+				<input class="" type="checkbox" name="ck_curso_sco" id="ck_curso_sco" value="1" <?php print ($_dados[0]['curso_sco'] == 1) ? 'checked="checked"' : ''; ?> />&nbsp;&nbsp;Possui Curso de SCO ( Sistema de Comandos e Operações).<br>
 
-				Data Curso <input class="form-control nretira" type="text" name="dt_curso_sco" id="dt_curso_sco" value="<?php print DataMysql::dataVisual($_dados[0]['dt_curso_sco']); ?>"><br>
+                                Data Curso <input class="form-control nretira" type="text" name="dt_curso_sco" id="dt_curso_sco" value="<?php print DataMysql::dataVisual($_dados[0]['dt_curso_sco']); ?>" maxlength="10"><br>
 
 			</div>
 			<div class='col-md-6'>
 				<input class="" type="checkbox" name="ck_particip_workshop" id="ck_particip_workshop" value="1" <?php print ($_dados[0]['particip_workshop'] == 1) ? 'checked="checked"' : ''; ?> />&nbsp;&nbsp;Participou de WorkShop<br>
 
-				Data <input class="form-control nretira" type="text" name="dt_partic_workshop" id="dt_partic_workshop" value="<?php print DataMysql::dataVisual($_dados[0]['dt_partic_workshop']); ?>">
+                                Data <input class="form-control nretira" type="text" name="dt_partic_workshop" id="dt_partic_workshop" value="<?php print DataMysql::dataVisual($_dados[0]['dt_partic_workshop']); ?>" maxlength="10">
 
 				<input class="" type="checkbox" name="ck_exp_dc" id="ck_exp_dc" value="1" <?php print ($_dados[0]['exp_dc'] == 1) ? 'checked="checked"' : ''; ?> />&nbsp;&nbsp;Possui experiencia na área<br>
 
@@ -383,16 +383,20 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 			</div>
 		</div>
 	</div>
-	<div class="col-md-12">
-		<button class="btn btn-success" type="button" name="btnDados2" id="btnDados2">Gravar</button>
+	<div class="col-md-12 text-center">
+            <button class="btn btn-success" type="button" name="btnDados2" id="btnDados2">Gravar</button>
+            <br>
+            <br>
 	</div>
 	<br>
 
 
 	<!-- ABA COMPDEC -->
 	<div role="tabpanel" class="tab-pane1" id="panel-compdec">
+            <br>
 		<!-- Formulario cadastro membro equipe -->
 		<p style="text-align:center">
+                    
 			<legend>EQUIPE COMPDEC</legend>
 		</p>
 		<br>
@@ -428,7 +432,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 				<div class="row">
 					<div class="col-md-6">
 						<label>Nome</label>
-						<input class="form-control" type="text" name="txtNomeMembro" id="txtNomeMembro">&nbsp;<span style="color: red; font-size: 13pt;" required>*</span>
+                                                <input class="form-control" type="text" name="txtNomeMembro" id="txtNomeMembro" required maxlength="70">&nbsp;<span style="color: red; font-size: 13pt;" >*</span>
 					</div>
 					<div class="col-md-6">
 						<label>Função</label>
@@ -445,21 +449,21 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 				<div class="row">
 					<div class="col-md-6">
 						<label>Telefone</label>
-						<input class="form-control" type="text" name="txtTelMembro" id="txtTelMembro">
+                                                <input class="form-control" type="text" name="txtTelMembro" id="txtTelMembro" maxlength="20">
 					</div>
 					<div class="col-md-6">
 						<label>Celular</label>
-						<input class="form-control" type="text" name="txtCelMembro" id="txtCelMembro">
+                                                <input class="form-control" type="text" name="txtCelMembro" id="txtCelMembro" maxlength="20">
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-6">
 						<label>Email</label>
-						<input class="form-control" type="email" name="txtEmailMembro" id="txtEmailMembro"><span style="color: red; font-size: 13pt;">*</span>
+                                                <input class="form-control" type="email" name="txtEmailMembro" id="txtEmailMembro" maxlength="100" ><span style="color: red; font-size: 13pt;">*</span>
 					</div>
 					<div class="col-md-6">
-						<input class="form-control" type="hidden" name="txtIdMembro" id="txtIdMembro">
-						<input class="form-control" type="hidden" name="txtIdMunicipio" id="txtIdMunicipio" value="<?php print $_dados[0]['id_municipio']; ?>">
+                                            <input class="form-control" type="hidden" name="txtIdMembro" id="txtIdMembro" maxlength="5">
+                                            <input class="form-control" type="hidden" name="txtIdMunicipio" id="txtIdMunicipio" value="<?php print $_dados[0]['id_municipio']; ?>" maxlength="5">
 					</div>
 					<div class="col-md-12 text-center">
 						<button class="btn btn-info" id="btnGravarMembro" type="button" title="Grava o Membro do Compdec Preenchido no Formulário.">Gravar Membro Equipe</button>
@@ -563,7 +567,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 						<form name="frmAnexoLeis" enctype="multipart/form-data">
 							<input class="form-control" type="file" name="fileAnexoLeis" id="fileAnexoLeis" /><span class="obs"> (Formato PDF ou JPEG)</span><br><span class="obs">Tamanho máximo Arquivo: 2Mb (mega bytes) ou 2.000 KB (kilo bytes) </span> <br>
 							<label>Descrição</label>
-							<input class="form-control" type='text' name='txtDescricao' id='txtDescricao'>
+                                                        <input class="form-control" type='text' name='txtDescricao' id='txtDescricao' maxlength="40">
 							<label>Tipo Doc</label>
 							<select class="form-control" name="selTipo" id="selTipo">
 								<option value="0">Decreto</option>
@@ -571,8 +575,8 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 								<option value="2">Portaria Nomeação</option>
 							</select>
 							<br>
-							<input type='hidden' name='txtDtAnexo' id='txtDtAnexo' value='<?= date('Y/m/d H:i:s'); ?>'>
-							<input type='hidden' name='txtIdMunicipio' id='txtIdMunicipio' value='<?= $_dados[0]['id_municipio']; ?>'>
+							<input type='hidden' name='txtDtAnexo' id='txtDtAnexo' value='<?= date('Y/m/d H:i:s'); ?>' >
+                                                        <input type='hidden' name='txtIdMunicipio' id='txtIdMunicipio' value='<?= $_dados[0]['id_municipio']; ?>' maxlength="5">
 						</form>
 					</div>
 					<div class="modal-footer">

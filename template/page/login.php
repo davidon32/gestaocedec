@@ -42,12 +42,12 @@
 
     <form action="index.php?modulo=index&controller=index&action=logar" method="POST">
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="Email" name="login" id="login" value="">
+          <input type="text" class="form-control" placeholder="Email" name="login" id="login" value="" maxlength="70">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
         <span id='municipio'></span>
       </div>
       <div class="form-group has-feedback">
-          <input type="password" class="form-control" placeholder="Password" name="senha"id="senha" value="" title="O sistema diferencia letras maiúsculas de minúsculas !">
+          <input type="password" class="form-control" placeholder="Password" name="senha"id="senha" value="" title="O sistema diferencia letras maiúsculas de minúsculas !" maxlength="70">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
