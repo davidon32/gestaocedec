@@ -1,8 +1,8 @@
-<?php include_once PATH . '/core/include.php'; ?>
-<?php include_once "core/Model/indexModel.php"; ?>
-<?php include_once "mod_ajuda/Model/indexModel.php"; ?>
+<?php include_once $_SERVER['DOCUMENT_ROOT'] .'/core/include.php'; ?>
+<?php include_once $_SERVER['DOCUMENT_ROOT'] ."/core/Model/indexModel.php"; ?>
+<?php include_once $_SERVER['DOCUMENT_ROOT'] ."/mod_ajuda/Model/indexModel.php"; ?>
 <!-- =============== HEADER HTML PAGE ================= -->
-<?php include_once "template/page/headerPagePrint.php"; ?>
+<?php include_once $_SERVER['DOCUMENT_ROOT'] ."/template/page/headerPagePrint.php"; ?>
 
 
 <?php
@@ -113,4 +113,4 @@ if(strlen($view[0]['nome_aju_destinatario_final']) > 0) {
 </section>
 
 <!-- =================== RODAPE  ======================== -->
-<?php include_once "template/page/rodape.php" ?>
+<?php include_once $_SERVER['DOCUMENT_ROOT'] ."/template/page/rodape.php" ?>

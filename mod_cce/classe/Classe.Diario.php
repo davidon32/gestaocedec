@@ -135,7 +135,7 @@ class Diario  {
      * 
      * 
      */
-        function getDiario(){
+        public static function getDiario(){
             
             $con = Conexao::getInstance();
             

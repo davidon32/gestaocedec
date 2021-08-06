@@ -159,7 +159,7 @@ $_id_usuario = $pageSession['session']['seguranca']['idUser'];
                        }
 
 				        // busca diario
-				        $lista = $_diario->getDiario();
+				        $lista = $_diario::getDiario();
                         
                             print "<table class=\"table table-bordered\">
                                     <tr>

@@ -4,7 +4,7 @@ $post = isset($_POST) ? $_POST : "";
 
 $id_msg = isset($_POST['id_msg']) ? $_POST['id_msg']:"";
 
-var_dump($post);
+//var_dump($post);
 $pmda = new Pmda();
 
 $opcao = $post['opcao'];

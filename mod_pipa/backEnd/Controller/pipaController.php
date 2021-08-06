@@ -143,12 +143,9 @@ class pipaController extends Controller {
 
                 print "<script>
 	 			alert('Usuario atualizado com Sucesso !');
+                                window.location.href = '".FuncaoBase::geraLink("pipa", "pipa", "pesquisaUsuario", array("volta"=>"compdec"))."';
                                 
 	 		</script>";
-                        #print "Usuario : ".$_POST['email_rec']."<br>
-                         #       Senha   :  defesa199<br>";
-
-                        print "<a href='".FuncaoBase::geraLink("pipa", "pipa", "pesquisaUsuario", array("volta"=>"compdec"))." class='btn'>Voltar</a>";
             } else {
 
                 print "oi";

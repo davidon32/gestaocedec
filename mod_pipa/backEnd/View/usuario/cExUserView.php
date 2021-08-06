@@ -17,7 +17,7 @@ $dados = Usuario::buscaUsuarioId($_GET['id']);
     <fieldset>
 
         <!-- Form Name -->
-        <legend>Cadastro Senha</legend>
+        <legend>Alteração / Ativação Senha de Acesso - <i style="color:blue; font-weight: bolder"><?=$dados['usuario']?></i>  </legend>
         <div class="row">
             <div class="col-md-6">
                 <label class="" for="textinput">Usuário</label>
@@ -25,27 +25,70 @@ $dados = Usuario::buscaUsuarioId($_GET['id']);
                 <input id="textUsuario" name="textUsuario" type="text" value="<?= $dados['usuario'] ?>" class="form-control " readonly="readonly">
                 <input id="id_usuario" name="id_usuario" type="hidden" value="<?= $dados['id'] ?>" >
                 <input id="reset" name="reset" type="hidden" value="">
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
+                
                 <label class="" for="textinput">Email</label> <small>(email institucional ex. nomemunicipio@municipio.mg.gov.br)</small>
                 <input id="email_rec" name="email_rec" type="email" value="<?= $dados['email_rec']; ?>" class="form-control">
                 <br>
                 <span class="alert alert-danger" id="email_branco" style="font-size:12px;">* Email não pode ficar em branco, pois o mesmo é usado para a recuperação de senha </span>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
+                
                 <label class="" for="passwordinput">Ativar Cadastro</label>
                 <select name="txtSituacao" id="txtSituacao" class="form-control">
                     <option><?= $dados['situacao']; ?></option>
                     <option>ATIVADO</option>
                     <option>DESATIVADO</option>
                     <option>CADASTRO_RECUSADO</option>
-                </select>    
+                </select>  
+                
+                <input id="senha" name="senha" type="hidden" value="<?= $dados['senha'] ?>" class="form-control" readonly="readonly">
+                <input id="trSenha" name="trSenha" type="hidden" value="0">
+
+                <br>
+                <input type="checkbox" id="ckReset" name="ckReset" >
+
+                <label>Resetar Senha</label>
+            </div>
+            <div class="col-md-6">
+                <legend>Log Tentativa Acesso</legend>
+                <div class='table table-responsive' style="height: 200px;overflow: auto;">
+                <table class="table table-bordered">
+                        <tr>
+                            <th>Login Digitado</th>
+                            <th>Senha</th>
+                            <th>Data/Hora</th>
+                        </tr>
+                        <?php
+                        
+                            $tentativa_acesso = Usuario::listaTentativaAcesso();
+                            
+                            foreach ($tentativa_acesso as $key => $value) {
+                                
+                                $erro = (strtoupper($dados['usuario']) != strtoupper($value['login'])) ? "style='color:red;' title='Usuario Digitou Login errado !'":"";
+                                
+                                if(substr($value['acao'], 0, 5) == "Login"){
+                                
+                                print "<tr>
+                                    <td ".$erro.">".strtoupper($value['login'])."</td>
+                                    <td>".substr($value['acao'], (strpos($value['acao'], "Senha:")+6))."</td>
+                                    <td>". DataMysql::dataCompletaVisual($value['dt_user'])."</td>
+                                </tr>";
+                                }
+                            }
+                        ?>
+                    </table>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                
             </div>
         </div>
 
@@ -53,12 +96,7 @@ $dados = Usuario::buscaUsuarioId($_GET['id']);
             <div class="col-md-6">
                 <!-- Password input-->
                 <br>
-                <input id="senha" name="senha" type="hidden" value="<?= $dados['senha'] ?>" class="form-control" readonly="readonly">
-                <input id="trSenha" name="trSenha" type="hidden" value="0">
-
-                <input type="checkbox" id="ckReset" name="ckReset" >
-
-                <label>Resetar Senha</label>
+                
             </div>
         </div>
                 <br>

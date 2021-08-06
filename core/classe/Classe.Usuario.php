@@ -2239,9 +2239,33 @@ and cedec_usuario.nome not in('SUPORTE') ".$filtro."
                                                   '".$_SERVER['REMOTE_ADDR']."')" ;
                 
         $result = $con->query($sql);
-        $result->execute();
         
         
+    }
+    
+    
+    /**
+     * lista tentativa usuarios
+     * 
+     */
+    public static function listaTentativaAcesso($limite = 20) {
+        
+        $con = Conexao::getInstance();
+
+        $dados = array();
+
+        $sql = "SELECT * from com_log
+            order by id_log desc limit ".$limite;
+       
+        $result = $con->query($sql);
+
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            $dados[] = $linha;
+        }
+
+        return $dados;
+        
+
     }
     
     

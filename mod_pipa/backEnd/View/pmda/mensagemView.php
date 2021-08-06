@@ -1,14 +1,14 @@
-<?php include_once "core/Model/indexModel.php";?>
-<?php include_once "mod_pipa/Model/IndexModel.php";?>
+<?php include_once $_SERVER['DOCUMENT_ROOT'] .'/core/include.php'; ?>
+<?php include_once PATH."/core/Model/indexModel.php";?>
+<?php include_once PATH."/mod_pipa/Model/IndexModel.php";?>
 <!-- =============== HEADER HTML PAGE ================= -->
-<?php include_once "template/page/headerPage.php";?>
+<?php include_once PATH."/template/page/headerPage.php";?>
 <!-- =================== HEADER ============================ -->
-<?php include_once "template/page/header.php";?>
+<?php include_once PATH."/template/page/header.php";?>
 <!-- =================== MENU  ============================ -->
 <?php //include_once "template/page/menu.php";?>
 <!-- =================== CORPO  ============================ -->
-<?php include_once PATH."/template/page/corpoHeader.php";
-
+<?php //include_once PATH."/template/page/corpoHeader.php";
 
 # id pmda
 $id = "";
@@ -209,12 +209,12 @@ if($opcao == "nv"){
  }
 ?>
 <!-- =================== RODAPE CORPO ==================== -->
-<?php include_once "template/page/corpoRodape.php";?>
+<?php include_once PATH."/template/page/corpoRodape.php";?>
 <!-- =================== RODAPE  ============================ -->
-<?php include_once "template/page/rodape.php";?>
-<?php include_once "template/page/barra_config_template.php";?>
+<?php include_once PATH."/template/page/rodape.php";?>
+<?php include_once PATH."/template/page/barra_config_template.php";?>
 <!-- =============== HEADER HTML PAGE ================= -->
-<?php include_once "template/page/rodapePage.php";?>
+<?php include_once PATH."/template/page/rodapePage.php";?>
 <script type="text/javascript">
 
 /* Marca Mensagem lida */

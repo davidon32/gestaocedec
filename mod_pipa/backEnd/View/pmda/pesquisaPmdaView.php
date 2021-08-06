@@ -7,7 +7,9 @@
 <!-- =================== MENU  ============================ -->
 <?php //include_once "template/page/menu.php";?>
 <!-- =================== CORPO  ============================ -->
-<?php include_once "template/page/corpoHeader.php"; ?>
+<?php include_once "template/page/corpoHeader.php"; 
+
+?>
 
 <p style="text-align:center;" id="titulo"><h4>Listagem Posição PMDA</h4></p>
 

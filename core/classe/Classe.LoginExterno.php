@@ -50,9 +50,6 @@ public function logarExterno($_login, $senha, $redireciona = false){
     
         $_senha = md5($senha);
         
-        Usuario::gravarLogin(array('login'=>$_login, 'acao'=>'Login: '.$_login." Senha: ". $senha));
-        
-        
         $sql = "Select cedec_user_ex.id,
 		cedec_user_ex.usuario,
 		cedec_user_ex.email_rec,
@@ -85,7 +82,9 @@ public function logarExterno($_login, $senha, $redireciona = false){
             $linha = $dados;
 		}
         if(!$linha){
-			return false;
+            
+            Usuario::gravarLogin(array('login'=>$_login, 'acao'=>'Login: '.$_login." Senha: ". $senha));
+            return false;
 
         }else if($linha && ($linha['situacao'] == "DESATIVADO")){
 			
@@ -110,6 +109,7 @@ public function logarExterno($_login, $senha, $redireciona = false){
 			
 			//var_dump($linha);
 			self::SetCookieExterno($linha);
+                        
 
             /* troca de senha */
             if($linha['trsenha'] == 1) {

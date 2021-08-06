@@ -136,7 +136,7 @@ class AnexoPref extends Anexo {
 		/* remove foto */	
 		if($foto !=""){
 			/* remover arquivo */
-			chdir(PATH.'/anexo/prefeito');
+			chdir(PATH.'/anexo/prefeito/');
 			$dirAnexo = getcwd();
                         if(file_exists($dirAnexo.'/'.$foto)){
                             unlink($dirAnexo.'/'.$foto);

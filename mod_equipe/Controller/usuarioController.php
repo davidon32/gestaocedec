@@ -78,7 +78,7 @@ MSG;
 
                             if ($resultado) {
 
-                                print FuncaoBase::mensagem(FuncaoBase::geraLink("index", "index", "index"), "alert alert-success", "Senha Resetada com Sucesso !<br><br> Foi enviado um email para : <span style='font-weight:bolder; font-size:18pt;'>" . $quebraEmail . "</span>, consulte sua sua caixa de entrada e siga as instruçoes para alterar a senha !"
+                                print FuncaoBase::mensagem(FuncaoBase::geraLink("index", "index", "index"), "alert alert-success", "Senha Resetada com Sucesso !<br><br> Foi enviado um email para : <span style='font-weight:bolder; font-size:18pt;'>" . $quebraEmail . "</span>, <b>Aguarde Alguns Minutos </b> e consulte sua sua caixa de entrada e siga as instruçoes para alterar a senha !"
                                 );
                             }else {
                         print FuncaoBase::mensagem(FuncaoBase::geraLink("index", "index", "index"), "alert alert-error", "Ocorreu um erro ao enviar o email, gentileza tente mais tarde !");
