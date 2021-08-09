@@ -160,8 +160,6 @@ class Diario  {
             while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
                 $dados[] = $linha;
             }
-            
-            
             return $dados;
    
         }

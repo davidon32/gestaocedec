@@ -80,7 +80,7 @@
 						<div class="alert alert-danger">
 								OBS:
 								<li>
-									Os planos deverão estar no formato, Arquivos com Extensão PDF e DOC, DOCX até 2MB
+                                                                    Os planos deverão estar no formato, Arquivos com Extensão PDF e DOC, DOCX até <b>2 MB</b>
 								</li>
 						</div>
 						<div class="alert alert-warning">
@@ -113,6 +113,26 @@
 <!-- =============== HEADER HTML PAGE ================= -->
 <?php include_once "template/page/rodapePage.php";?>
 <script>
+    
+     Swal.fire({
+  title: '<strong>UPLOAD arquivos SDC</u></strong>',
+  width: 600,
+  icon: 'info',
+  html:
+    'Antes de salvar seu documento WORD no formato PDF, faça a Compressão da Imagens, ' +
+    '<br>' +
+    '<a href="<?=FuncaoBase::geraLink('doc', 'doc', 'compdec')?>">Clique aqui e Consulte o Manual</a>',
+    
+  showCloseButton: true,
+  showCancelButton: true,
+  focusConfirm: false,
+  confirmButtonText:
+    '',
+  confirmButtonAriaLabel: 'Thumbs up, great!',
+  cancelButtonText:
+    '',
+  cancelButtonAriaLabel: 'Thumbs down'
+});
     
 
 /* Criar novo plano de contingencia */

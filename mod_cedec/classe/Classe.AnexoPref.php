@@ -33,13 +33,11 @@ class AnexoPref extends Anexo {
 
 				if(Anexo::upload($caminho, $arquivo, "fileAnexoPref", $dados['txtIdMunicipio'])){
 						
-					return true;
+					return 'sucesso';
 				}
 			}else {
 
-				print "<script>";
-				print "alert('Tamanho do arquivo máximo permitido 2Mb !');";
-				print "</script>";
+				return 'mais17mb';
 
 			}
 				
@@ -118,7 +116,6 @@ class AnexoPref extends Anexo {
 	/* busca arquivo foto */
 	public static function deletarFoto($id_municipio, $caminho){
 
-		
 		chdir(PATH.$caminho);
 
 		$dirAnexo = getcwd();
@@ -126,13 +123,15 @@ class AnexoPref extends Anexo {
 		/* lista de arquivos do diretorio */
 		$arquivos = scandir($dirAnexo);
 		$foto = '';
+                
 		foreach ($arquivos as $value){
 			
 			if(substr($value, 0, strpos($value, "_")) == $id_municipio){
 			$foto = $value;
+                        continue;
+
 			}
 		}
-
 		/* remove foto */	
 		if($foto !=""){
 			/* remover arquivo */
@@ -140,6 +139,7 @@ class AnexoPref extends Anexo {
 			$dirAnexo = getcwd();
                         if(file_exists($dirAnexo.'/'.$foto)){
                             unlink($dirAnexo.'/'.$foto);
+                            return true;
                         }
 		}
 
