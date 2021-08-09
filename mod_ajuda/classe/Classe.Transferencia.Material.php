@@ -200,7 +200,7 @@
 			$sql = "SELECT i.id_produto as id_produto,
 							i.descricao as descricao,
 							i.quantidade as quantidade,
-							u.nome as =
+							u.nome as nome
 							FROM aju_item_transf i
 							INNER JOIN aju_unidade u
 							ON i.id_produto = u.id_unidade

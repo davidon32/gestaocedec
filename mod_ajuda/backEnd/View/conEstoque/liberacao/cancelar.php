@@ -30,7 +30,7 @@ $_readOnly = "";
 		
 	<div class="col-md-4">
 		<label>Nº Liberacao </label>
-		<input class="form-control" type="text" name="txt_id_libera" id="txt_id_libera" value="<?=$id_liberacao;?>" <?=$_readOnly;?> required/>
+                <input class="form-control" type="text" name="txt_id_libera" id="txt_id_libera" value="<?=$id_liberacao;?>" <?=$_readOnly;?> required maxlength="255"/>
 	</div>
 		<br />
 		<input class="btn btn-success" type="submit" name="btn_cancela" value="Buscar" />
@@ -92,7 +92,7 @@ $_readOnly = "";
 					print "<tr>
 							<td colspan=6>
 							<label>Justificativa</label>
-							<textarea rows='5' class=\"form-control\" name=\"txt_motivo\" id=\"txt_motivo\" required/></textarea>
+							<textarea rows='5' class=\"form-control\" name=\"txt_motivo\" id=\"txt_motivo\" required maxlength=\"255\"/></textarea>
 							<input type='hidden' name='id_liberacao' id='id_liberacao' value='".$dados['id_liberacao']."'>
 							</td>
 							</tr>";

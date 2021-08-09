@@ -33,52 +33,52 @@ $email_rec = Usuario::getDadoUsuario($_COOKIE['seguranca']['idUser']);
         <input class="form form-control" type="text" title="Número de Polícia ou Masp" name="txt_masp" placeholder="Nº Polícia/ Masp" value="<?php print $dados['num_masp']; ?>" readonly="readonly">  
 
         <label>Nome</label>
-        <input class="form form-control" type="text" title="Nome do Funcionario" name="txt_nome" placeholder="Nome" value="<?php print utf8_encode($dados['nome']); ?>" required>
+        <input class="form form-control" type="text" title="Nome do Funcionario" name="txt_nome" placeholder="Nome" value="<?php print utf8_encode($dados['nome']); ?>" required maxlength="70">
         
         <label>CPF</label>
-        <input class="form form-control" type="text" title="CPF do Funcionário" name="txt_cpf" placeholder="CPF" data-mask="999.999.999-99" value="<?php print $dados['cpf']; ?>" required>    
+        <input class="form form-control" type="text" title="CPF do Funcionário" name="txt_cpf" placeholder="CPF" data-mask="999.999.999-99" value="<?php print $dados['cpf']; ?>" required maxlength="14">    
    
         <label>C.I.</label>
-        <input class="form form-control" type="text" title="Carteira de Identidade" name="txt_ci" placeholder="Carteira de Identidade" value="<?php print $dados['ci']; ?>" required>
+        <input class="form form-control" type="text" title="Carteira de Identidade" name="txt_ci" placeholder="Carteira de Identidade" value="<?php print $dados['ci']; ?>" required maxlength="20">
         
         <label>Data Nascimento</label>
-        <input class="form form-control" type="text" title="Data de Nascimento" name="txt_dt_nascimento" data-mask="99/99/9999" placeholder="Data de Nascimento" value="<?php print DataMysql::dataVisual($dados['dt_nasc']); ?>" required>
+        <input class="form form-control" type="text" title="Data de Nascimento" name="txt_dt_nascimento" data-mask="99/99/9999" placeholder="Data de Nascimento" value="<?php print DataMysql::dataVisual($dados['dt_nasc']); ?>" required maxlength="10">
         
         <label>Endereço</label>
-        <input class="form form-control" type="text" title="Endereço do Funcionário" name="txt_endereco" placeholder="Endereço" value="<?php print utf8_encode($dados['endereco']); ?>" required> 
+        <input class="form form-control" type="text" title="Endereço do Funcionário" name="txt_endereco" placeholder="Endereço" value="<?php print utf8_encode($dados['endereco']); ?>" required maxlength="70"> 
    
         <label>Bairro</label>
-        <input class="form form-control" type="text" title="Bairro do Funcionário" name="txt_bairro" placeholder="Bairro" value="<?php print $dados['bairro']; ?>" required>
+        <input class="form form-control" type="text" title="Bairro do Funcionário" name="txt_bairro" placeholder="Bairro" value="<?php print $dados['bairro']; ?>" required maxlength="40">
    
         <label>Municipio</label>
         &nbsp;<?php Municipio::PegaMunicipio($dados['cidade']); ?>
     
         <label>Telefone</label>
-        <input class="form form-control" type="text" title="" name="txt_tel" data-mask="(99)9999-9999" placeholder="Telefone" value="<?php print $dados['telefone']; ?>" required>
+        <input class="form form-control" type="text" title="" name="txt_tel" data-mask="(99)9999-9999" placeholder="Telefone" value="<?php print $dados['telefone']; ?>" required maxlength="20">
     
         <label>Celular</label>
-        <input class="form form-control" type="text" title="" name="txt_cel" data-mask="(99)99999-9999" placeholder="Celular" value="<?php print $dados['celular']; ?>" required>
+        <input class="form form-control" type="text" title="" name="txt_cel" data-mask="(99)99999-9999" placeholder="Celular" value="<?php print $dados['celular']; ?>" required maxlength="20">
         
         <label>Email</label>
-        <input class="form form-control" type="email" title="Email do Funcionário" name="txt_email" placeholder="Email" value="<?php print $dados['email']; ?>" required>
+        <input class="form form-control" type="email" title="Email do Funcionário" name="txt_email" placeholder="Email" value="<?php print $dados['email']; ?>" required maxlength="140">
     
         <label>Email2</label>
-        <input class="form form-control" type="email" title="Email do Funcionário" name="txt_email2" placeholder="Email2" value="<?php print $dados['email2']; ?>">
+        <input class="form form-control" type="email" title="Email do Funcionário" name="txt_email2" placeholder="Email2" value="<?php print $dados['email2']; ?>" maxlength="140">
         
         <hr>
         <legend>Dados Cidade Adm </legend>
         <label>Telefone da Mesa</label>
-        <input class="form form-control" type="text" title="Telefone da Mesa" name="txtTel_mesa" placeholder="Telefone da Mesa" value="<?php print utf8_encode($dados['ramal']); ?>" required>
+        <input class="form form-control" type="text" title="Telefone da Mesa" name="txtTel_mesa" placeholder="Telefone da Mesa" value="<?php print utf8_encode($dados['ramal']); ?>" required maxlength="20">
  
         <label>Numero da Mesa</label>
-        <input class="form form-control" type="text" title="Número da Mesa" name="txtNum_mesa" placeholder="Número Mesa" value="<?php print utf8_encode($dados['num_mesa']); ?>" required>
+        <input class="form form-control" type="text" title="Número da Mesa" name="txtNum_mesa" placeholder="Número Mesa" value="<?php print utf8_encode($dados['num_mesa']); ?>" required maxlength="20">
 
         <label>Ponto de Rede</label>
-        <input class="form form-control" type="text" title="Ponto de Rede" name="txtPonto" placeholder="Ponto de Rede" value="<?php print utf8_encode($dados['ponto_rede']); ?>" required>
+        <input class="form form-control" type="text" title="Ponto de Rede" name="txtPonto" placeholder="Ponto de Rede" value="<?php print utf8_encode($dados['ponto_rede']); ?>" required maxlength="20">
   
         
         <label>Email Recuperação de Senha</label>
-        <input class="form form-control" type="email" title="Email recuperação de senha" name="txtEmailRec" placeholder="Email Recuperação de Senha" value="<?= $email_rec['email_rec'] ;?>" required>
+        <input class="form form-control" type="email" title="Email recuperação de senha" name="txtEmailRec" placeholder="Email Recuperação de Senha" value="<?= $email_rec['email_rec'] ;?>" required maxlength="70">
 
         <?= EquipeFuncionario::postoGraduacao($dados['posto']); ?>
 
@@ -120,7 +120,7 @@ $email_rec = Usuario::getDadoUsuario($_COOKIE['seguranca']['idUser']);
         
     
         <label>Cursos Realizados na Cedec</label>
-        <textarea class="form form-control" type="text" title="Curso" name="txt_curso" placeholder="Curso"><?php print $dados['curso']; ?></textarea>
+        <input class="form form-control" type="text" title="Curso" name="txt_curso" placeholder="Curso" value="<?php print $dados['curso']; ?>" maxlength="40"/>
     
         <!--<label>Situação</label>
         <select class="form form-control" title="Situação" name="selSituacao">

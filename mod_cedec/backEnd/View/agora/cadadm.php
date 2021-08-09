@@ -20,7 +20,7 @@
         <form action="#" method="POST" name="frmCadastro" id="frmCadastro">
 
             <label>Autor / Nome :</label>
-            <input type="text" class="form-control" name="txtAutor" id="txtAutor">
+            <input type="text" class="form-control" name="txtAutor" id="txtAutor" maxlength="70">
             <br>
             <br>
             <label>Texto : (Caracteres : <span id="num_carac"></span>/254)</label>

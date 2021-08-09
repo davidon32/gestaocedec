@@ -42,17 +42,17 @@
 				</div>
 				<div class="col-md-4">
 					<label>Data Entrada</label>
-					<input class="form-control" name="txtDtEntrada" id="txtDtEntrada" type="text" data-mask="99/99/9999" value="<?php echo date('d/m/Y'); ?>" />
+                                        <input class="form-control" name="txtDtEntrada" id="txtDtEntrada" type="text" data-mask="99/99/9999" value="<?php echo date('d/m/Y'); ?>" maxlength="10" />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-4">
 					<label>Validade</label>
-					<input class="form-control" name="txtValidade" type="text" id="txtValidade" data-mask="99/99/9999"/>
+                                        <input class="form-control" name="txtValidade" type="text" id="txtValidade" data-mask="99/99/9999" maxlength="10"/>
 				</div>
 				<div class="col-md-4">
 					<label>Quantidade</label>
-					<input type="text" name="txtQtd" id="txtQtd" class="form-control" required/>
+                                        <input type="text" name="txtQtd" id="txtQtd" class="form-control" required maxlength="4"/>
 				</div>
 				<div class="col-md-4">		
 					<label>Dep&oacute;sito Avan&ccedil;ado:</label>
@@ -62,7 +62,7 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label>Observa&ccedil;&otilde;es:</label>
-					<textarea class="form-control" name="txObs" id="txObs" cols="30" rows="4"></textarea>
+                                        <textarea class="form-control" name="txObs" id="txObs" cols="30" rows="4" maxlength="255"></textarea>
 				</div>
 				<div class="col-md-6">
 				

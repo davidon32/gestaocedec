@@ -42,36 +42,36 @@
 
 		<div class="col-md-6">
 			<label>Data</label>
-			<input class="form-control" name="txt_dt_transferencia" type="text" id="txt_dt_transferencia" data-mask="99/99/9999" value="<?php print date('d/m/Y');?>" />
+                        <input class="form-control" name="txt_dt_transferencia" type="text" id="txt_dt_transferencia" data-mask="99/99/9999" value="<?php print date('d/m/Y');?>" maxlength="10"/>
 			<input type="hidden" name="opcao" value="transferir">
 		</div>
 		<div class="col-md-6">	
 			<label>Motorista</label>
-			<input class="form-control" type="text" name="txt_motorista" />
+                        <input class="form-control" type="text" name="txt_motorista" maxlength="70"/>
 		</div>
 		<div class="col-md-6">	
 			<label>Ve&iacute;culo</label>
-			<input class="form-control" type="text" name="txt_veiculo" />
+                        <input class="form-control" type="text" name="txt_veiculo" maxlength="45"/>
 		</div>
 		<div class="col-md-6">
 			<label>Placa</label>
-			<input class="form-control" type="text" name="txt_placa" data-mask="AAA-9999" />
+                        <input class="form-control" type="text" name="txt_placa" maxlength="10"/>
 		</div>
 		<div class="col-md-6">
 			<label>Data Saida</label>
-			<input class="form-control" type="text" name="txt_saida" id="txt_saida" data-mask="99/99/9999" value="<?php print date('d/m/Y');?>"/>
+                        <input class="form-control" type="text" name="txt_saida" id="txt_saida" data-mask="99/99/9999" value="<?php print date('d/m/Y');?>" maxlength="10"/>
 		</div>
 		<div class="col-md-6">
 			<label>Hora Saída</label>
-			<input class="form-control" type="text" name="txt_hora_saida" data-mask="99:99" />
+                        <input class="form-control" type="text" name="txt_hora_saida" data-mask="99:99" maxlength="6"/>
 		</div>
 		<div class="col-md-6">
 			<label>Previs&atilde;o Chegada Data</label>
-			<input class="form-control" type="text" name="txt_chegada" id="txt_chegada" data-mask="99/99/9999" />
+                        <input class="form-control" type="text" name="txt_chegada" id="txt_chegada" data-mask="99/99/9999" maxlength="10"/>
 		</div>
 		<div class="col-md-6">
 			<label>Previs&atilde;o Chegada Hora</label>
-			<input class="form-control" type="text" name="txt_hora_chegada" data-mask="99:99" />
+                        <input class="form-control" type="text" name="txt_hora_chegada" data-mask="99:99" maxlength="6"/>
 		</div>
 		<div class="col-md-12">
 			<label>Transferir para Deposito :</label>

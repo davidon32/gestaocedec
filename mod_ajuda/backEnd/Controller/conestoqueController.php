@@ -59,7 +59,7 @@
             include_once 'mod_ajuda/backEnd/View/conEstoque/material/ajuste_saldo.php';
         }
 
-        /* Ajuste saldo Material */
+        /* saldo resumo  */
         public function saldoResumo(){
             include_once 'mod_ajuda/backEnd/View/conEstoque/estoque/saldo_resumo.php';
         }

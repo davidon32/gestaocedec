@@ -34,11 +34,11 @@
 				</div>
 				<div class="col-md-3">
 					<label>Nome</label>
-					<input class="form-control" name="txtNome" id="txtNome" type="text" required />
+                                        <input class="form-control" name="txtNome" id="txtNome" type="text" required maxlength="45"/>
 				</div>
 				<div class="col-md-3">
 					<label>Descrição</label>
-					<input class="form-control" name="txtDescricao" id="txtDescricao" type="text" maxlength="20" />
+					<input class="form-control" name="txtDescricao" id="txtDescricao" type="text" maxlength="70" />
 				</div>
 				<div class="col-md-3">
 					</div>

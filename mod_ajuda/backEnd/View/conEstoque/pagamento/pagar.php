@@ -60,13 +60,13 @@ if((int)$id_libera){
 			</div>
 			<div class="col-md-4">	
 				<label>Data Libera&ccedil;&atilde;o:</label>
-				<input class="form-control" name="dtLibera" type="text" id="dtLibera" value="<?php print DataMysql::dataVisual($dado['datalibera'])?>" readonly="readonly" />
+                                <input class="form-control" name="dtLibera" type="text" id="dtLibera" value="<?php print DataMysql::dataVisual($dado['datalibera'])?>" readonly="readonly" maxlength="10"/>
 			</div>
 		
 			<div class="col-md-4">
 				<label>Data Pagamento:</label>
 				<span class="info">*</span>
-				<input class="form-control" name="dtPgto" type="text" id="dtPgto" data-mask="99/99/9999" required/>
+                                <input class="form-control" name="dtPgto" type="text" id="dtPgto" data-mask="99/99/9999" required maxlength="10"/>
 			</div>
 		</div>
 		<div class="col-md-12"><hr></div>
@@ -87,7 +87,7 @@ if((int)$id_libera){
 			</div>
 			<div class="col-md-4">
 				<label>Destino:</label>
-				<input class="form-control" name="beneficiario" type="text" id="beneficiario" value="<?php print $dado['beneficiario'];?>" readonly="readonly" maxlength="250"/>
+				<input class="form-control" name="beneficiario" type="text" id="beneficiario" value="<?php print $dado['beneficiario'];?>" readonly="readonly" maxlength="45"/>
 			</div>
 			<div class="col-md-4">
 				<label>CNPJ/CPF:</label>
@@ -166,7 +166,7 @@ if((int)$id_libera){
 			<div class="col-md-6">	
 				<label>Placa:</label>
 				<span class="info">*</span>
-				<input class="form-control" name="placa" id="placa" type="text" size="40" data-mask="AAA-9999" required>
+                                <input class="form-control" name="placa" id="placa" type="text" size="40" required maxlength="10">
 			</div>
 		</div>
 				

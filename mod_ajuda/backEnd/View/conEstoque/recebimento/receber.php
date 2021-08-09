@@ -77,23 +77,23 @@ $_dados = $_transferencia->MaterialReceber($_id_transferencia);
 		</div>                                
 		<div class="col-md-6">
 			<label>Responsável:</label>
-			<input class="form-control" type="text" name="txt_responsavel" size="40">
+                        <input class="form-control" type="text" name="txt_responsavel" size="40" maxlength="45">
 		</div>
 		<div class="col-md-6">
 			<label>Chegada:</label>
-			<input class="form-control" type="text" name="txt_dtChegada" id="txt_dtChegada" data-mask="99/99/9999" >
+                        <input class="form-control" type="text" name="txt_dtChegada" id="txt_dtChegada" data-mask="99/99/9999" maxlength="10">
 		</div>
 		<div class="col-md-6">
 			<label>Horário:</label>
-			<input class="form-control" type="text" name="txt_hrChegada" id="mask-hora" data-mask="99:99">
+                        <input class="form-control" type="text" name="txt_hrChegada" id="mask-hora" data-mask="99:99" maxlength="6">
 		</div>
 		<div class="col-md-6">	
 			<label>Nº Polícia/Identificação:</label>
-			<input class="form-control" type="text" name="txt_doc_resp" size="20">
+                        <input class="form-control" type="text" name="txt_doc_resp" size="20" maxlength="45">
 		</div>
 		<div class="col-md-6">
 			<label>&nbsp;</label>
-			<input class="form-control" type="text"  size="20" readonly>
+                        <input class="form-control" type="text"  size="20" readonly maxlength="0">
 		</div>
 		<div class="col-md-6">
 			<label>Perda de Material no Transporte ?</label><br>
@@ -102,28 +102,29 @@ $_dados = $_transferencia->MaterialReceber($_id_transferencia);
 		</div>
 		<div class="col-md-6">
 			<label>Motivo:</label>
-			<textarea class="form-control" name="txt_motivo" id="" row="4" value="" class="" title="Motivo Perda ex. estrada ruim"></textarea>
+                        <textarea class="form-control" name="txt_motivo" id="" row="4" value="" class="" title="Motivo Perda ex. estrada ruim" maxlength="155"></textarea>
 		</div>
 		<div class="col-md-12">
 			<label>Observação:</label>
-			<textarea class="form-control" rows="4" name="txt_obs"></textarea>
+                        <textarea class="form-control" rows="4" name="txt_obs" maxlength="155"></textarea>
 		</div>
 	</div>
 	<div class="col-md-6">
-
-				<table class="table">
+            <legend>Materiais da Transferência</legend>
+				<table class="table table-bordered">
 							<tr>
+								<td>Cod</td>
 								<td>Material</td>
 								<td>Descrição</td>
 								<td>Quantidade</td>
 							</tr>
 				<?php
 	
-
 					for($i=0; $i < count($_lista_material) ; $i++) { 
 						
 
 						print "<tr>
+									<td>".$_lista_material[$i]['id_produto']."</td>
 									<td>".$_produto->PegaNomeProduto($_lista_material[$i]['id_produto'])."</td>
 									<td>".$_lista_material[$i]['descricao']."</td>
 									<td>".$_lista_material[$i]['quantidade']."</td>

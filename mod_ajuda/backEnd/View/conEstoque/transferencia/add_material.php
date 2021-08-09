@@ -74,7 +74,7 @@ $nProd = new Produto();
 							</div>
 							<div class="col-md-4">
 								<label>Descrição :</label>
-								<input class="form-control" type="text" name="descricao" size="25" value="-">
+                                                                <input class="form-control" type="text" name="descricao" size="25" value="-" maxlength="45">
 							</div>	
 							<div class="col-md-4">
 								<label>Quantidade :</label>

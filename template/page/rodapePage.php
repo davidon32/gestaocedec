@@ -91,10 +91,13 @@
                 onKeyPress: function(placa, e, field, options) {
                   var masks = ['AAA 0000', 'AAA 0A00'];
                   var mask = (typeof placa.substr(3,1) == 'string') ? masks[1] : masks[0];
-                  $("input[name^='pl_'").mask(mask, options);
+                  $("input[name^='pl_']").mask(mask, options);
+                  $("input[name^='placa']").mask(mask, options);
               }};
 
-              $("input[name^='pl_'").mask('AAA-0000', pl_mask);
+              $("input[name^='pl_']").mask('AAA-0000', pl_mask);
+              $("input[name^='placa']").mask('AAA-0000', pl_mask);
+              
               
               
         /* cpf/ CNPJ */

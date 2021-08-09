@@ -72,7 +72,7 @@ $nProd = new Produto();
 						<input type="hidden" name="la" value="0">
 								
 						<label>Descrição do Produto : (CX, UN, etc)</label>
-						<input type="text" name="descricao" size="25" value="-" class="form-control" required>
+                                                <input type="text" name="descricao" size="25" value="-" class="form-control" required maxlength="255">
 					</div>
 
 					<div class="col-md-12">

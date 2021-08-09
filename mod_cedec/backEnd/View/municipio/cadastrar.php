@@ -56,19 +56,19 @@
                     $helper->form("#", "POST", "cadastro", "Alterar dados Município");
                     $helper->input("text", "txtNome", 'Nome Município', array('value'=>$dados['nome'], 'readonly'=>'readonly'));
                     print "<input type='hidden' id='id_municipio' name='id_municipio' value='".$dados['id_municipio']."'>";
-                    $helper->input("text", "prefeito" , "Nome Prefeito" , array('value'=>$dados['prefeito'])) ;
-                    $helper->input("text", "endereco" , "Endereço Prefeitura" , array('value'=>$dados['endereco'])) ;
-                    $helper->input("text", "bairro"	  , "Bairro Prefeitura"   , array('value'=>$dados['bairro'])) ;
-                    $helper->input("text", "cep"	  , "Cep Prefeitura"      , array('value'=>$dados['cep'], 'data-mask'=>'99999-999')) ;
+                    $helper->input("text", "prefeito" , "Nome Prefeito" , array('value'=>$dados['prefeito'], 'maxlength'=>'45')) ;
+                    $helper->input("text", "endereco" , "Endereço Prefeitura" , array('value'=>$dados['endereco'], 'maxlength'=>'70')) ;
+                    $helper->input("text", "bairro"	  , "Bairro Prefeitura"   , array('value'=>$dados['bairro'], 'maxlength'=>'45')) ;
+                    $helper->input("text", "cep"	  , "Cep Prefeitura"      , array('value'=>$dados['cep'], 'data-mask'=>'99999-999', 'maxlength'=>'10')) ;
                     //'data-mask'=>'99° 99\' 99,99\'\''
-                    $helper->input("text", "latitude", "Latitude", array('data-mask'=>'-99.999999', 'value'=>$dados['latitude']));
-                    $helper->input("text", "distanciaBh", "Distância BH (km)", ( (array('value'=>$dados['distancia_bh']) =="") ? 0: array('value'=>$dados['distancia_bh'])) ) ;
-                    $helper->input("text", "longitude", "Longitude", array('data-mask'=>'-99.999999', 'value'=>$dados['longitude']));
-                    $helper->input("text", "email"    , "Email Prefeitura"    , array('value'=>$dados['email'])) ;
-                    $helper->input("text", "tel_pref" , "Telefone Prefeito" , array('value'=>$dados['tel_pref'], 'data-mask'=>'(99)99999-9999')) ;
-                    $helper->input("text", "cel_pref" , "Celular Prefeito" , array('value'=>$dados['cel_pref'], 'data-mask'=>'(99)99999-9999')) ;
-                    $helper->input("text", "tel" , "Telefone Prefeitura" , array('value'=>$dados['tel'], 'data-mask'=>'(99)99999-9999')) ;
-                    $helper->input("text", "fax" , "Fax Prefeitura" , array('value'=>$dados['fax'], 'data-mask'=>'(99)99999-9999')) ;
+                    $helper->input("text", "latitude", "Latitude", array('data-mask'=>'-99.999999', 'value'=>$dados['latitude'], 'maxlength'=>'13'));
+                    $helper->input("text", "distanciaBh", "Distância BH (km)", ( (array('value'=>$dados['distancia_bh']) =="") ? 0: array('value'=>$dados['distancia_bh'], 'maxlength'=>'4')) ) ;
+                    $helper->input("text", "longitude", "Longitude", array('data-mask'=>'-99.999999', 'value'=>$dados['longitude'], 'maxlength'=>'13'));
+                    $helper->input("text", "email"    , "Email Prefeitura"    , array('value'=>$dados['email'], 'maxlength'=>'45')) ;
+                    $helper->input("text", "tel_pref" , "Telefone Prefeito" , array('value'=>$dados['tel_pref'], 'data-mask'=>'(99)99999-9999', 'maxlength'=>'20')) ;
+                    $helper->input("text", "cel_pref" , "Celular Prefeito" , array('value'=>$dados['cel_pref'], 'data-mask'=>'(99)99999-9999', 'maxlength'=>'20')) ;
+                    $helper->input("text", "tel" , "Telefone Prefeitura" , array('value'=>$dados['tel'], 'data-mask'=>'(99)99999-9999', 'maxlength'=>'20')) ;
+                    $helper->input("text", "fax" , "Fax Prefeitura" , array('value'=>$dados['fax'], 'data-mask'=>'(99)99999-9999', 'maxlength'=>'20')) ;
                     
                     print "<div class='span6' style='margin-left:5px; margin-right:5px;'>";
                     print "<label>Macroregiao</label>";
@@ -80,7 +80,7 @@
                     	}
                     print '</select>';
                     print "</div>";
-                    $helper->input("text", "populacao", "População Urbana", ( (array('value'=>$dados['populacao'])=="") ? 0 : array('value'=>$dados['populacao'])) );
+                    $helper->input("text", "populacao", "População Urbana", ( (array('value'=>$dados['populacao'])=="") ? 0 : array('value'=>$dados['populacao'], 'maxlength'=>'4')) );
                     
                     print "<div class='span6' style='margin-left:5px; margin-right:5px;'>";
                     print "<label>Território Desenvolvimento</label>";
@@ -93,8 +93,8 @@
                     }
                     print '</select>';
                     print "</div>";
-                    $helper->input("text", "pop_rural", "População Rural", ( (array('value'=>$dados['pop_rural']) == "") ? 0 : array('value'=>$dados['pop_rural'])) ) ;
-                    $helper->input("text", "area"     , "area"     , array('value'=>$dados['area'])) ;
+                    $helper->input("text", "pop_rural", "População Rural", ( (array('value'=>$dados['pop_rural']) == "") ? 0 : array('value'=>$dados['pop_rural'], 'maxlength'=>'4')) ) ;
+                    $helper->input("text", "area"     , "area"     , array('value'=>$dados['area'], 'maxlength'=>'45')) ;
                     print "<br>";
                     $helper->formEnd("Salvar");
                     

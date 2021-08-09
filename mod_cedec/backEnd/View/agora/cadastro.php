@@ -51,10 +51,10 @@
             <form action="#" method="POST" name="frmCadastro" id="frmCadastro">
 
               <label>Autor / Nome</label>
-              <input type="text" class="form-control" name="txtAutor" id="txtAutor" placeholder="Coloque o autor ou nome para o registro">
+              <input type="text" class="form-control" name="txtAutor" id="txtAutor" placeholder="Coloque o autor ou nome para o registro" maxlength="70">
               <br>
               <label>Órgão</label>&nbsp;&nbsp;<span>Opcional</span>
-              <input type="text" class="form-control" name="txtOrgao" id="txtOrgao" placeholder="Nome do órgão envolvido.">
+              <input type="text" class="form-control" name="txtOrgao" id="txtOrgao" placeholder="Nome do órgão envolvido." maxlength="70">
               <br>
               <label>Texto </label> <span id="caracter"></span>
               <textarea rows="5" class="form-control" name="txtTexto" id="txtTexto" placeholder="Texto que será publicado" maxlength="254">

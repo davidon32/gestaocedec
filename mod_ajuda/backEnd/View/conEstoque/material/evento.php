@@ -16,7 +16,7 @@
 	<div class="row">
 		<div class="col-md-4">
 			<label>Nome</label>
-			<input class="form-control" name="txtEvento" id="txtEvento" type="text" />
+                        <input class="form-control" name="txtEvento" id="txtEvento" type="text" maxlength="50"/>
 		</div>
 
 	<div class="row">

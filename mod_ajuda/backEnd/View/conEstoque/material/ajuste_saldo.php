@@ -32,11 +32,11 @@
     </div>
     <div class="col-md-4">
         <label>Valor Correção</label>
-        <input id="txtSaldoCorrecao" class="form-control" type="spin" value="">
+        <input id="txtSaldoCorrecao" class="form-control" type="spin" value="" maxlength="4">
     </div>
     <div class="col-md-12">
         <label>Obs (Nº de Liberacao ou Transferencia / origem de algum evento)</label>
-        <textarea id="txtObs" class="form-control" rows="4"></textarea>
+        <textarea id="txtObs" class="form-control" rows="4" maxlength="255" ></textarea>
     </div>
 
     <div class="col-md-12" id="correcaoSaldo"> 

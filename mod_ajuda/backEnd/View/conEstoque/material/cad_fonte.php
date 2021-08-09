@@ -26,7 +26,7 @@
 				</div>
 				<div class="col-md-6">
 					<label>Nome da Fonte / Origem</label>
-					<input class="form-control" name="txtNome" id="txtNome" type="text" />
+                                        <input class="form-control" name="txtNome" id="txtNome" type="text" maxlength="70"/>
 					<input name="txtCadPeloMat" id="txtCadPeloMat" type="hidden" value="<?=(isset($_GET['cad']) ? "true" :"");?>" />
 				</div>
 				<div class="col-md-3">

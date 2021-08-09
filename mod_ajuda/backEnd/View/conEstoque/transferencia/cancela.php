@@ -43,12 +43,12 @@ $nProd = new Produto();
 	<form method="POST" action="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=vtransfcancela" name="frm_cancela">
 	<div class="col-md-4">	
 		<label>Nº Transferência</label>
-			<input class="form-control" <?=$bl_input;?> value="<?=$id_transf;?>" type="text" name="txt_id_transferencia" id="txt_id_transferencia" title="Número da Transferencia" placeholder="Código Transferência">
+                <input class="form-control" <?=$bl_input;?> value="<?=$id_transf;?>" type="text" name="txt_id_transferencia" id="txt_id_transferencia" title="Número da Transferencia" placeholder="Código Transferência" maxlength="4">
 			<input type="hidden" name="opcao" value="cancela">
 	</div>
 	<div class="col-md-12">	
 		<label>Observação</label>
-		<textarea class="form-control" name="txt_observacao" id="txt_observacao" placeholder="Observação"></textarea>
+                <textarea class="form-control" name="txt_observacao" id="txt_observacao" placeholder="Observação" maxlength="155"></textarea>
 		<br />
 	</div>
 	<div class="col-md-12 text-center">		

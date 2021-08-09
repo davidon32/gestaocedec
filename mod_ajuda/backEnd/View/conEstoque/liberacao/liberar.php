@@ -48,7 +48,7 @@
 </div>
 
 
-	<div class="col-md-6">
+	
 		<form method="POST" action="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=fechar_liberacao" name="flibera" style="background: #F2F2F2;"/>
 
 			<legend>Liberação de Materiais</legend>
@@ -103,12 +103,12 @@
 								
 			<div class="col-md-6">	
 				<label>Data</label>
-				<input type="text" name="dt_libera" id="dt_libera" size="15" class="mask-data form-control" value="<?php print date('d/m/Y');?>"  />
+                                <input type="text" name="dt_libera" id="dt_libera" size="15" class="mask-data form-control" value="<?php print date('d/m/Y');?>"  maxlength="10"/>
 			</div>
 				
 			<div class="col-md-12">
 				<label title="Observações gerais">Observação:</label>
-				<textarea class="col-md-5 form-control" name="obs" id="obs" rows="6">-</textarea>
+                                <textarea class="col-md-5 form-control" name="obs" id="obs" rows="6" maxlength=255">-</textarea>
 			</div>
 				
 			<div class="col-md-6">
@@ -123,7 +123,7 @@
 
 		
 	</form>
-</div>
+
 <div class="col-md-12 text-center">
 	<br>
 		<a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=idxliberacao">Voltar</a>

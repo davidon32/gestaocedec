@@ -62,13 +62,15 @@ class RelatorioConEstoqueModel extends Model {
                         on aju_cunidade.id_unidade_med = aju_cunidade_med.id_unidade_med
                         inner join aju_cmarca
                         on aju_cunidade.id_marca = aju_cmarca.id_marca
-                        and aju_ccc.id_unidade > 0 " . $id_unidade . " " . $id_tp_pedido . "
                         inner join aju_calmoxarifado
                         on aju_ccc.id_almoxarifado = aju_calmoxarifado.id_almoxarifado
                         inner join aju_ctp_pedido
                         on aju_ccc.id_tp_pedido = aju_ctp_pedido.id_tp_pedido
+                        where aju_ccc.id_unidade > 0 " . $id_unidade . " " . $id_tp_pedido . "
                         group by aju_ccc.id_unidade, aju_ccc.val_unit, aju_ccc.id_nota
                         order by aju_cunidade.nome";
+        
+        var_dump($sql);
 
         $result = $con->prepare($sql);
         $result->execute();
