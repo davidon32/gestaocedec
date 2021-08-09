@@ -1208,7 +1208,7 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
                                         if (response == "sucesso") {
                                             alert('Foto Anexada com Sucesso !');
                                         } else if (response == "mais17mb") {
-                                            alert('Tamanho do arquivo máximo permitido 2Mb !');
+                                            alert('Tamanho do arquivo máximo permitido 1Mb !');
                                         }
                                         //console.log(response);
                                         location.reload();
