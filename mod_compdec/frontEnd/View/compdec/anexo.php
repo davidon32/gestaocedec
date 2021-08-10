@@ -40,7 +40,9 @@ if($opcao == 'gravarleis'){
 
 $dados = $anexo->listaAnexo($id_municipio);
 
-	print '<button type="button" id="btn_anexo" class="btn btn-primary" data-toggle="modal" data-target="#modal-default" title="Clique para Anexar Leis e Decretos">Upload</button>';
+	#print '<button type="button" id="btn_anexo" class="btn btn-primary" data-toggle="modal" data-target="#modal-default" title="Clique para Anexar Leis e Decretos">Upload</button>';
+	print '<button type="button" id="" class="btn btn-primary imgCinza" title="Prazo Expirado as 16:00 do dia 10/08/2021 para Envio de Documentos sobre os Edital Chamamento 01 ">Upload</button>'
+. '     <br><span style="color:red">O prazo para envio de documentos para o Chamamento 01/2021 - Kit de Defesa Civil acabou as 16:00 do dia 10/08/2021</span>';
 
 					
 	 print '<table class="table table-bordered table-striped table-condensed tbl">

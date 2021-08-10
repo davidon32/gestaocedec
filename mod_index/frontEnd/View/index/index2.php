@@ -42,18 +42,24 @@ $_loginEx = new LoginExterno();
                         '<td align="center">
 	  							<a class="" href="?token=' . hash("sha256", md5(VERSAO)."-".time()) . '&ac=etn&modulo=ajuda&controller=h_pedido_index&action=index" title="Ajuda Humanitária"><img width="128" alt="core/imagem/ajuda.png" src="core/imagem/pedido_cesta.png"><br><b>Ajuda Humanitária</b></a>
 								</td>' : '';
-        # plano de contingencia			
-        print ($acessoModulo['mod_plano'] == '1') ?
-                        '<td align="center">
-	  							<a class="" href="?token=' . hash("sha256", md5(VERSAO)."-".time()) . '&ac=etn&modulo=compdec&controller=plano&action=index" title="Confecção do Plano de Contingencia"><img alt="core/imagem/plano.png" src="core/imagem/plano.png"><br><b>Plano de Contingencia</b></a>
-	  						</td>' : '';
+        # plano de contingencia	
+        if($acessoModulo['mod_plano'] == '1'){
+            print '<td align="center">
+                    <a class="" href="?token=' . hash("sha256", md5(VERSAO)."-".time()) . '&ac=etn&modulo=compdec&controller=plano&action=index" title="Confecção do Plano de Contingencia"><img alt="core/imagem/plano.png" src="core/imagem/plano.png"><br><b>Plano de Contingencia</b></a>
+                </td>';
+        }else {
+             print '<td align="center">
+                    <a class="" href="" title="Prazo Terminou as 16:00 do dia 10/08/2021 para Envio de plano de Contingencia"><img class="imgCinza" alt="core/imagem/plano.png" src="core/imagem/plano.png"><br></a>
+                </td>';
+        }
+        
         ?>
     </tr>
 </table>
 <br>
 <div>
 
-    <h3><p style="text-align:center;">Importante !</p></h3><br>
+    <h3><p style="text-align:center;" >Importante !</p></h3><br>
     <h4>Você COMPDEC, já acessou os tutoriais e manuais que se encontram no link ao lado "Ajuda de Sistema" ?</h4>
 
 
