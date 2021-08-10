@@ -10,16 +10,14 @@
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php";?>
 <?php
-//$_conexao = new ConexaoMysql();
-
 $_login = new Login();
-
-//$_login -> logado();
 
 $_usuario = new Usuario();
 
 $_diario = new Diario();
 
+$lista = $_diario->getDiario();
+                       
 $_id_usuario = $pageSession['session']['seguranca']['idUser'];
 ?>
 
@@ -151,18 +149,15 @@ $_id_usuario = $pageSession['session']['seguranca']['idUser'];
                                         
                                     print "alert('Plantão já Aberto !');";
                                
-                                    print "window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=cce&controller=cadastro&action=diario';";
+                                    //print "window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=cce&controller=cadastro&action=diario';";
+                                    print "window.location.reload()";
                                
                                print "</script>"; 
                                
+                               
                            }
                        }
-
-				        // busca diario
-				        $lista = $_diario::getDiario();
-                                        
-                                        
-                        
+                       
                             print "<table class=\"table table-bordered\">
                                     <tr>
                                         <td style=\"text-align:center;\">Data</td>
@@ -239,7 +234,3 @@ $_id_usuario = $pageSession['session']['seguranca']['idUser'];
     </script>
 </body>
 </html> 
-
-<?php
-
-?>

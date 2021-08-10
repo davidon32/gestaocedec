@@ -154,9 +154,6 @@ class Diario  {
             $result = $con->query($sql);
             $result->execute();
             
-                           
-            //print $sql;
-            
             while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
                 $dados[] = $linha;
             }

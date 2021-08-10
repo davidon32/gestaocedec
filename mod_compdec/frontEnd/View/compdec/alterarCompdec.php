@@ -1211,7 +1211,7 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
                                             alert('Tamanho do arquivo máximo permitido 1Mb !');
                                         }
                                         //console.log(response);
-                                        location.reload();
+                                        //location.reload();
                                         //$("#tblAnexo").html(response);
                                     },
                                     error: function (e) {
