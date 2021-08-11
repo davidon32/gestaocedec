@@ -51,7 +51,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
         <table class="table table-bordered">
             <tr>
                 <td width="20%">
-                    &nbsp;&nbsp;<img class="img-circle" src="/anexo/prefeito/<?= AnexoPref::Foto($_dados[0]['id_municipio']); ?>" width="115px;"><br><br>
+                    &nbsp;&nbsp;<img class="img-rounded" src="/anexo/prefeito/<?= AnexoPref::Foto($_dados[0]['id_municipio']); ?>" width="115px;"><br><br>
                     &nbsp;&nbsp;
                     <a class="btn btn-primary glyphicon glyphicon-user" onClick="uploadModal('prefeito')" title="Anexar Foto Prefeito" id="btnAlterarFotoPrefeito" name="btnAlterarFotoPrefeito">Alterar</a>
                 </td>
@@ -402,7 +402,7 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
         <div id="spanSemEfetivo" class="alert alert-danger">Este compdec não tem Efetivo ( Revise o cadastro de compdec na guia "Dados Gerais -> Possiu Efetivo ?" )</div>
         <div class='row'>
             <div class="col-md-3 text-center" id="tblMembroEquipe">
-                <img class="img-polaroid" src="/anexo/compdec/<?= AnexoCompdec::Foto($_dados[0]['id_municipio']); ?>" width="115px;">
+                <img class="img-rounded" src="/anexo/compdec/<?= AnexoCompdec::Foto($_dados[0]['id_municipio']); ?>" width="115px;">
                 <br><br>
                 <a class="btn btn-info" onClick="uploadModal('compdec')" title="Alterar Foto Compdec" id="btnAlterarFoto" name="btnAlterarFoto">Alterar Foto</a>
             </div>

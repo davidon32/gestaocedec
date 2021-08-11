@@ -34,9 +34,7 @@ if ($anexo->getExtensao($_GET['id']) == "pdf") {
     print "<iframe name=\"myiframe\" id=\"myiframe\" style=\"width:100%; height:750px;\" src=\"/anexo/planoCont/" . $plano->visualizarDoc($_GET['id']) . "\"></iframe>";
 } else {
     
-    print "<br><br><span class=\"alert alert-success\"><b>Fazendo download do Documento Aguarde...</b></span><br><br>";
-    print "<span class=\"glyphicon glyphicon-arrow-down\" aria-hidden=\"true\"></span>";
-    print "<object name=\"myiframe\" id=\"myiframe\" style=\"width:100%; height:750px;\" data=\"/anexo/planoCont/" . $plano->visualizarDoc($_GET['id']) . "\"></object>";
+    print "<object name=\"myiframe\" id=\"myiframe\" style=\"width:100%; height:150px;\" data=\"/anexo/planoCont/" . $plano->visualizarDoc($_GET['id']) . "\"></object>";
 }
 ?>
 </div>
