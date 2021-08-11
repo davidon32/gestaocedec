@@ -35,12 +35,10 @@
             print "sucesso";
             
         };
-    }elseif($identificador == 'upload'){
+    }elseif($identificador == 'upload'){      
 
         if(!isset($_FILES['file'])){
             print "Favor Carregar o arquivo !";
-        }elseif($_POST['versao'] == '0') {
-            print "Escolha a Versão do Plano de Contigencia !";
         }else {
             
 
@@ -50,29 +48,31 @@
             
             $versao = isset($_POST['versao']) ? $_POST['versao'] : "";
                     
-            $arquivo = "Plano_".date('d-m-Y_h-i-s')."_V.".$_POST['versao'];
+            $arquivo = "placon_".$_COOKIE['seguranca']['nome_usuario'].date('d-m-Y_h-i-s')."_".$_POST['versao'];
 
             $id_municipio = isset($_POST['id']) ? $_POST['id'] :"";
+            
+            $tamanho_size = isset($_POST['tamanho_size']) ? $_POST['tamanho_size'] :"";
  
             # dados para gravar registro upload
             $dados = array('id_municipio'=>$id_municipio,
                             'id_plano'=> "0",
                             'filePlano'=> $arquivo.".".$extensao,
                             'versao' => $versao,
-                            'dt_upload' => $data_upload           
+                            'dt_upload' => $data_upload,
+                            'tamanho_size' => $tamanho_size
             );
 
+            
 
-            if($extensao == 'pdf' || $extensao == 'doc' || $extensao == 'docx'){
-                if($anexo->uploadSimple('file', '/anexo/planoCont', $dados['filePlano']) &&
-                $plano->gravaUpload($dados)){
+            $result = Upload2mb::upload("/anexo/planoCont", $arquivo, array("pdf", "doc", "docx"));
+            
+            if($result){
+                if($plano->gravaUpload($dados)) {
                     print "sucesso";
                 }
-                
-
-
             }else {
-                print $extensao.'Extensao Inválida !';
+                print $result['msg'];
             }
         }
 

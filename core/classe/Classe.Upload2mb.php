@@ -37,10 +37,13 @@ class Upload2mb {
     /**
      * normalização nome do arquivo
      */
-    public static function normalizacao($nome_arquivo) {
+    public static function normalizacao($nome_arquivo, $limite = 0) {
 
         $result = self::removerAcentoEspaco($nome_arquivo);
-        $result = substr($result, 0, 15);
+        if($limite > 0){
+            $result = substr($result, 0, $limite);
+        }
+        
 
         return $result;
     }
@@ -86,7 +89,7 @@ class Upload2mb {
                     # sem passar o nome do arquivo, nome do arquivo conterá "_Upload_file_dia mes ano segundo"
                     if (is_null($nome)) {
 
-                        $nome_arquivo = self::normalizacao($_FILES[$input]['name']);
+                        $nome_arquivo = self::normalizacao($_FILES[$input]['name'], 15);
 
                         # remomeando, , nome do arquivo conterá "_Upload_file_dia mes ano segundo"
                     } else {
