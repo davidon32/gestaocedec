@@ -1,20 +1,14 @@
 <?php include_once $_SERVER['DOCUMENT_ROOT'].'/core/include.php';
     
+    $dados = $_POST;
     $plano = new Plano();
     $anexo = new Anexo();
-
-    $dados = $_POST;
-
-   
-
     $identificador = isset($_POST['identificador']) ? $_POST['identificador'] : "";
 
     # grava vias de acesso
     if($identificador == "viasAcesso") {
     
         $dados = json_decode(stripslashes($_POST['dadAjax']));
-
-        
         
         foreach ($dados as $key => $value) {
            
@@ -35,20 +29,21 @@
             print "sucesso";
             
         };
+        
+    /*   UPLOAD DO PLANO */
     }elseif($identificador == 'upload'){      
 
         if(!isset($_FILES['file'])){
             print "Favor Carregar o arquivo !";
         }else {
             
-
             $extensao = $anexo->getExtensao($_FILES['file']['name']);
 
-            $data_upload = isset($_POST['dt_upload']) ? $_POST['dt_upload'] :"";
+            $data_upload = isset($_POST['dt_upload']) ? $_POST['dt_upload'] :""; # DATA HORA
             
-            $versao = isset($_POST['versao']) ? $_POST['versao'] : "";
+            $descricao = isset($_POST['descricao']) ? $_POST['descricao'] : "";
                     
-            $arquivo = "placon_".$_COOKIE['seguranca']['nome_usuario'].date('d-m-Y_h-i-s')."_".$_POST['versao'];
+            $arquivo = "placon_".$_COOKIE['seguranca']['nome_usuario']."_".$descricao."_".$data_upload;
 
             $id_municipio = isset($_POST['id']) ? $_POST['id'] :"";
             

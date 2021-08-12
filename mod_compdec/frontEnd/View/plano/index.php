@@ -178,15 +178,15 @@ foreach ($lista as $key => $value) {
 
     })(jQuery);
 
-    /* upload de plano de contingencia */
+    /* MODAL de plano de contingencia */
     (function ($) {
-
         uploadModal = function () {
             $("#myModal").modal('show');
         }
-
     })(jQuery);
     
+    
+    /* tamanho arquivo */
     $("#filePlano").change(function(){
         var size = this.files[0].size;
         var tamanho, bytes, limite = "";
@@ -204,8 +204,8 @@ foreach ($lista as $key => $value) {
             $("#tamanho").css("color", "red");
         }
         $("#tamanho").text(tamanho.toFixed(2) + bytes + limite);
-        
     });
+
 
     /* Upload arquivo  */
     $('#btnUpload').on('click', function () {
@@ -217,7 +217,7 @@ foreach ($lista as $key => $value) {
         }else {
 
             var file_data = $('#filePlano').prop('files')[0];
-            var versao = $('#descricao').val();
+            var descricao = $('#descricao').val();
             var dt = $('#txtData').val();
             var id = $('#txtIdMunicipio').val();
             var tamanho_size = $('#tamanho_size').val();
@@ -228,7 +228,7 @@ foreach ($lista as $key => $value) {
             form_data.append('identificador', 'upload')
             form_data.append('id', id);
             form_data.append('dt_upload', dt);
-            form_data.append('versao', versao);
+            form_data.append('descricao', descricao);
             form_data.append('tamanho', file_data.size);
             //alert(form_data);                             
             $.ajax({

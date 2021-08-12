@@ -371,7 +371,33 @@ class Compdec{
 		}
 	}
 
-	#@ aba anexo opcao nao possui decreto e portaria
+	#@ aba anexo opcao nao possui lei de criacao
+	function GravaSemLei($dados){
+		try {
+
+			$con = Conexao::getInstance();
+			
+			$sql = "UPDATE com_comdec 
+						SET sem_lei       =:ckSemLei
+						WHERE id_municipio	  =:id_municipio";
+						
+						$result = $con->prepare($sql);
+						
+				$result->bindValue(":ckSemLei"      , $dados['ckSemLei']);
+				$result->bindValue(":id_municipio"      , $dados['id_municipio']);
+
+				$result->execute();
+					
+				return true;
+				
+		}catch (Exception $e){
+				
+				print FuncaoBase::getError($e->getMessage(), 'Mensagem');
+
+		}
+	}
+        
+        #@ aba anexo opcao nao possui decreto
 	function GravaSemDecreto($dados){
 		try {
 
@@ -477,6 +503,7 @@ class Compdec{
     						com_comdec.com_ativa,
     						com_comdec.sem_decreto,
     						com_comdec.sem_portaria,
+                                                com_comdec.sem_lei,
                                                 com_comdec.email2 as email2,
                                                 com_comdec.email3 as email3,
                                                 cedec_user_ex.situacao,
