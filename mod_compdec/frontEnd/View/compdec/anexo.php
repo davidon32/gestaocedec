@@ -48,12 +48,12 @@ $dados = $anexo->listaAnexo($id_municipio);
 	 print '<table class="table table-bordered table-striped table-condensed tbl">
 		
 			<tr>
-				<th>#</th>
-				<th>Data</th>
-	 			<th>Tipo</th>
-				<th>Arquivo</th>
-				<th>Descrição</th>
-				<th>Ação</th>
+				<th class="col-md-1">#</th>
+				<th class="col-md-1">Data</th>
+	 			<th class="col-md-1">Tipo</th>
+				<th class="col-md-4">Arquivo</th>
+				<th class="col-md-4">Descrição</th>
+				<th class="col-md-2">Ação</th>
 			</tr>';
 	
 	foreach ($dados as $key => $value) {
@@ -64,7 +64,7 @@ $dados = $anexo->listaAnexo($id_municipio);
 				<td>'.DataMysql::dataCompletaVisual($value['dt_anexo']).'</td>
 				<td>'.$anexo->enumTipo($value['tipo']).'</td>
 				<td>'.$value['arquivo'].'</td>
-				<td>'.$value['descricao'].'</td><td>';
+				<td style="">'.$value['descricao'].'</td><td>';
 
 				print (($anexoResult['existe']) ? '<a onclick="javascript:anexoView(\'anexo/anexo_leis/'.$anexoResult['arquivo'].'\')"><img width="30px" src="/core/imagem/impressao.png" title="Visualizar"></a>'
 						: '<img src=\'/core/imagem/cancela.png\' width=\'30px\' title=\'Arquivo nao disponível favor apagar este registro e adicionar outro arquivo\'>');

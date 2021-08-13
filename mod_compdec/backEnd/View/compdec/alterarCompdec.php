@@ -469,6 +469,8 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
 
             <div class="col-md-12">
                 <h4><p style="text-align:center;">LEIS E DECRETOS</p></h4>
+                <span style='color:red'>OBS: Quando as três opções abaixo estiverem marcadas não será possível anexar os documentos</span><br>
+                <span style='color:red'>OBS: Favor Apagar documentos que não estejam em conformidade com conteúdo desejado nesta seção !</span>
                 <table class="table table-bordered table-striped table-condensed tbl">
                     <tr>
                         <td>
@@ -479,8 +481,37 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
                     </tr>
                 </table>
             </div>
-            <div class="span11" id="tblAnexoLeis">
-<?php include_once PATH . '/mod_compdec/backEnd/View/compdec/anexo.php'; ?>
+            <div class="col-md-12 table-responsive" id="tblAnexoLeis">
+                
+                <?php if(
+                            ($_dados[0]['sem_lei'] == 1) &&
+                            ($_dados[0]['sem_decreto'] == 1) &&
+                            ($_dados[0]['sem_portaria'] == 1) 
+                        ){
+                    print "<table class='table table-bordered'>";
+                    # linha informando q nao tem lei de criacao
+                    if ($_dados[0]['sem_lei'] == 1) {
+                        print "<tr>
+                                    <td style='background-color:#00FF80;text-align:center' title='' colspan='7'>Não possui Lei de Criação da COMPDEC</td>";
+                    }
+
+                    # linha informando q nao tem decreto 
+                    if ($_dados[0]['sem_decreto'] == 1) {
+                        print "<tr>
+                                    <td style='background-color:#00FF80;text-align:center' title='' colspan='7'>Não possui Decreto de Regulamentação da Lei de Criação do Compdec</td>";
+                    }
+
+                    # linha informando q nao tem Portaria de nomeação compdec 
+                    if ($_dados[0]['sem_portaria'] == 1) {
+                        print "<tr>
+                                    <td style='background-color:#00FF80;text-align:center' title='' colspan='7'>Não possui Portaria de Nomeação do Coordenador Municipal de Defesa Civil </td>";
+                    }
+                }else {
+                    include_once PATH . '/mod_compdec/backEnd/View/compdec/anexo.php'; 
+                    print '</table>';
+                }
+
+?>
             </div>
             <!-- Modal Adicionar Anexo Leis  -->
             <div class="modal fade" id="modal-default">
@@ -489,7 +520,7 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">Default Modal</h4>
+                            <h4 class="modal-title">Anexar Documentos Necessários </h4>
                         </div>
                         <div class="modal-body">
                             <form name="frmAnexoLeis" enctype="multipart/form-data">
@@ -498,9 +529,11 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
                                 <input class="form-control" type='text' name='txtDescricao' id='txtDescricao' maxlength="40">
                                 <label>Tipo Doc</label>
                                 <select class="form-control" name="selTipo" id="selTipo">
-                                    <option value="0">Decreto</option>
-                                    <option value="1">Lei Criação</option>
-                                    <option value="2">Portaria Nomeação</option>
+                                    <?php 
+                                        print ($_dados[0]['sem_lei'] == 0) ? "<option value=\"1\">Lei Criação do Compdec</option>" :"";
+                                        print ($_dados[0]['sem_decreto'] == 0) ? "<option value=\"0\">Decreto de Regulamentação da Lei de Criação do COMPDEC</option>" : "";
+                                        print ($_dados[0]['sem_portaria'] == 0) ? "<option value=\"2\">Portaria Nomeação do Coordenado da COMPDEC</option>" : "" ;
+                                    ?>
                                 </select>
                                 <br>
                                 <input type='hidden' name='txtDtAnexo' id='txtDtAnexo' value='<?= date('Y/m/d H:i:s'); ?>' >

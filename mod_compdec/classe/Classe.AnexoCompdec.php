@@ -272,25 +272,28 @@ class AnexoCompdec extends Anexo {
         }
     }
 
-    public static function validaAnexo($id_anexo) {
+    public static function validaAnexo($id_anexo, $id_municipio) {
         try {
 
             $con = Conexao::getInstance();
             $data_validade = date("Y/m/d", strtotime("1 Year"));
             $sql = "update com_anexo
                     set validade = :validade
-                    where id = :id_anexo";
+                    where id_municipio = :id_municipio
+                    and id = :id_anexo
+                    or validade is not null";
 
             $result = $con->prepare($sql);
 
             $result->bindParam(":id_anexo", $id_anexo);
+            $result->bindParam(":id_municipio", $id_municipio);
             $result->bindParam(":validade", $data_validade);
             $result->execute();
 
             return true;
         } catch (Exception $e) {
 
-            $e . " Erro ao deletar arquivo";
+            print $e . " ";
         }
     }
 
