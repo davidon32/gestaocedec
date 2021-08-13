@@ -481,13 +481,30 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
                     </tr>
                 </table>
             </div>
+            
+<div class="col-md-6"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default" title="Clique para Anexar Leis e Decretos">Upload</button></div>
+<div class="col-md-6 text-right">
+    <label title="Aprovação Documentos Compdec">
+        <input type="radio" name="rb_aprova" id="rb_aprova_1" value="1" <?=($_dados[0]['doc_aprov'] == 1) ? "checked": ""?> >
+        Aprovação Documentação Compdec
+    </label>
+    <br>
+    <label title="Libera para o Compdec Incluir Documentação">
+        <input type="radio" name="rb_aprova" id="rb_aprova_0" value="0" <?=($_dados[0]['doc_aprov'] == 0) ? "checked": ""?>>
+        Liberar Edição Compdec
+    </label>
+</div>
             <div class="col-md-12 table-responsive" id="tblAnexoLeis">
                 
                 <?php if(
-                            ($_dados[0]['sem_lei'] == 1) &&
-                            ($_dados[0]['sem_decreto'] == 1) &&
-                            ($_dados[0]['sem_portaria'] == 1) 
+                            ($_dados[0]['sem_lei'] == 0) or
+                            ($_dados[0]['sem_decreto'] == 0) or
+                            ($_dados[0]['sem_portaria'] == 0) 
                         ){
+                        include_once PATH . '/mod_compdec/backEnd/View/compdec/anexo.php'; 
+                        
+                    }
+                    
                     print "<table class='table table-bordered'>";
                     # linha informando q nao tem lei de criacao
                     if ($_dados[0]['sem_lei'] == 1) {
@@ -506,10 +523,7 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
                         print "<tr>
                                     <td style='background-color:#00FF80;text-align:center' title='' colspan='7'>Não possui Portaria de Nomeação do Coordenador Municipal de Defesa Civil </td>";
                     }
-                }else {
-                    include_once PATH . '/mod_compdec/backEnd/View/compdec/anexo.php'; 
-                    print '</table>';
-                }
+                print '</table>';
 
 ?>
             </div>
@@ -591,21 +605,50 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
                     "opcao": "valida_anexo",
                     "id_anexo": id_anexo,
             };
-           $.ajax({
-                    type: 'POST',
-                    url: 'mod_compdec/backEnd/View/compdec/anexo.php?v=<?= md5(VERSAO) ?>&mun=<?=$_GET['mun']?>',
-                    data: dados,
-                    //dataType: 'json',
-                    success: function (response) {
-                        alert("Documento Validado com Sucesso");
-                        //location.reload();
-                        console.log(response);
-                    },
-                    error: function (e) {
-                        console.log(JSON.stringify(e));
-                    }
+            if(confirm('Deseja Homologar este documento ?')){
+                $.ajax({
+                         type: 'POST',
+                         url: 'mod_compdec/backEnd/View/compdec/anexo.php?v=<?= md5(VERSAO) ?>&mun=<?=$_GET['mun']?>',
+                         data: dados,
+                         //dataType: 'json',
+                         success: function (response) {
+                             alert("Documento Validado com Sucesso");
+                             location.reload();
+                             console.log(response);
+                         },
+                         error: function (e) {
+                             console.log(JSON.stringify(e));
+                         }
+                     });
+            }
+           
+        });
+        
+        /* aprovar documentação */
+        $("input[name=rb_aprova").click(function(){
+           var id_municipio = '<?=$id_municipio?>';
+           var valor = $(this).val();
+           var dados = {
+                    "opcao": "aprovar_compdec",
+                    "id_municipio": id_municipio,
+                    "valor" : valor,
+            };
+            if(confirm('Deseja Confirmar a Aprovação da Documentação ?')){
+                $.ajax({
+                         type: 'POST',
+                         url: 'mod_compdec/backEnd/View/compdec/anexo.php?v=<?= md5(VERSAO) ?>&mun=<?=$_GET['mun']?>',
+                         data: dados,
+                         //dataType: 'json',
+                         success: function (response) {
+                             alert("Procedimento Realizado com Sucesso !");
+                             //location.reload();
+                         },
+                         error: function (e) {
+                             console.log(JSON.stringify(e));
+                         }
 
-                });
+                     });
+            }
            
         });
 

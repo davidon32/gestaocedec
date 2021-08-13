@@ -296,6 +296,29 @@ class AnexoCompdec extends Anexo {
             print $e . " ";
         }
     }
+    
+    /* validar documentação homologar */
+    public static function homologar_document($id_municipio, $valor) {
+        try {
+
+            $con = Conexao::getInstance();
+            
+            $sql = "update com_comdec
+                    set doc_aprov = :valor
+                    where id_municipio = :id_municipio";
+
+            $result = $con->prepare($sql);
+
+            $result->bindParam(":id_municipio", $id_municipio);
+            $result->bindParam(":valor", $valor);
+            $result->execute();
+
+            return true;
+        } catch (Exception $e) {
+
+            print $e . " ";
+        }
+    }
 
 }
 

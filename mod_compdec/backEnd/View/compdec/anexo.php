@@ -40,16 +40,20 @@ if ($opcao == 'gravarleis') {
         unlink($dirAnexo . '/' . $post['arquivo']);
     }
     
+/* validar anexo */
 } elseif ($opcao == 'valida_anexo') {
-    var_dump($anexo->validaAnexo($_POST['id_anexo'], $id_municipio));
-    die();
+    $anexo->validaAnexo($_POST['id_anexo'], $id_municipio);
+    
+/* homologar documentação */
+}elseif ($opcao == 'aprovar_compdec'){
+    $anexo->homologar_document($id_municipio, $_POST['valor']);
+    
 }
 
 $dados = $anexo->listaAnexo($id_municipio);
 
-print '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default" title="Clique para Anexar Leis e Decretos">Upload</button>';
 
-print '<table class="table table-condensed tbl">
+print '<br><br><table class="table table-condensed tbl">
 		
 			<tr>
 				<th class="col-md-1">#</th>
@@ -79,7 +83,7 @@ foreach ($dados as $key => $value) {
 
     if (empty($value['validade'])) {
         # aprovar documento
-        print "<button class='btn btn-link' type=\"button\" name='valida_doc' data-id_anexo=\"" . $value['id'] . "\"><img src='/core/imagem/ok.jpg' title='Aprovar Documento' confirm='Deseja validar o Documento ?'></button>";
+        print "<button class='btn btn-link' type=\"button\" name='valida_doc' data-id_anexo=\"" . $value['id'] . "\"><img src='/core/imagem/ok.jpg' title='Aprovar Documento' ></button>";
     }
     print "</td>";
 
