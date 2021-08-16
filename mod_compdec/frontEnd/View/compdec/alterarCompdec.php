@@ -538,20 +538,43 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
         <legend>ANEXO LEIS E DECRETOS</legend>
         </p>
 
-        <div class="span11">
-            <h4>
-                <p style="text-align:center;"></p>
-            </h4>
-            <table class="table table-bordered table-striped table-condensed tbl">
-                <tr>
-                    <td><input type="checkbox" name="ckSemDecreto" id="ckSemDecreto" value="1" <?= ($_dados[0]['sem_decreto']) == "1" ? "checked='ckecked'" : ""; ?>> Não possui Decreto </td>
-                    <td><input type="checkbox" name="ckSemPortaria" id="ckSemPortaria" value="1" <?= ($_dados[0]['sem_portaria']) == "1" ? "checked='ckecked'" : ""; ?>> Não possui Portaria</td>
-                </tr>
-            </table>
-        </div>
-        <div class="span11" id="tblAnexoLeis">
+        <div class="col-md-12">
+                <h4><p style="text-align:center;">LEIS E DECRETOS</p></h4>
+                <span style='color:red'>OBS: Quando as três opções abaixo estiverem marcadas não será possível anexar os documentos</span><br>
+                <span style='color:red'>OBS: Favor Apagar documentos que não estejam em conformidade com conteúdo desejado nesta seção !</span>
+                <table class="table table-bordered table-striped table-condensed tbl">
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="ckSemDecreto" id="ckSemDecreto" value="1" <?= ($_dados[0]['sem_decreto']) == "1" ? "checked='ckecked'" : ""; ?>> Não possui Decreto de Regulamentação da Lei de Criação do COMPDEC <br><br>
+                            <input type="checkbox" name="ckSemPortaria" id="ckSemPortaria" value="1" <?= ($_dados[0]['sem_portaria']) == "1" ? "checked='ckecked'" : ""; ?>> Não possui Portaria de Nomeação do Coordenado Municipal de Defesa Civil<br><br>
+                            <input type="checkbox" name="ckSemLei" id="ckSemLei" value="1" <?= ($_dados[0]['sem_lei']) == "1" ? "checked='ckecked'" : ""; ?>> Não possui Lei de Criação do COMPDEC
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        <div class="col-md-12" id="tblAnexoLeis">
 
-            <?php include PATH . '/mod_compdec/frontEnd/View/compdec/anexo.php'; ?>
+            <?php include PATH . '/mod_compdec/frontEnd/View/compdec/anexo.php'; 
+            print "<table class='table table-bordered'>";
+                    # linha informando q nao tem lei de criacao
+                    if ($_dados[0]['sem_lei'] == 1) {
+                        print "<tr>
+                                    <td style='background-color:#00FF80;text-align:center' title='' colspan='7'>Não possui Lei de Criação da COMPDEC</td>";
+                    }
+
+                    # linha informando q nao tem decreto 
+                    if ($_dados[0]['sem_decreto'] == 1) {
+                        print "<tr>
+                                    <td style='background-color:#00FF80;text-align:center' title='' colspan='7'>Não possui Decreto de Regulamentação da Lei de Criação do Compdec</td>";
+                    }
+
+                    # linha informando q nao tem Portaria de nomeação compdec 
+                    if ($_dados[0]['sem_portaria'] == 1) {
+                        print "<tr>
+                                    <td style='background-color:#00FF80;text-align:center' title='' colspan='7'>Não possui Portaria de Nomeação do Coordenador Municipal de Defesa Civil </td>";
+                    }
+                print '</table>';
+                ?>
         </div>
         <!-- Modal Adicionar Anexo Leis  -->
         <div class="modal fade" id="modal-default">

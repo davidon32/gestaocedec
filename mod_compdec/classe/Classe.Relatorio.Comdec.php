@@ -247,32 +247,63 @@ Class RelatorioComdec {
     }
 
     /**
-     *  Relatorios lista municipio com plano cont
+     *  Relatorios count plano
      * 
      */
-    function relComPlano() {
+    function countPlanoPorMunicipio() {
 
         $con = Conexao::getInstance();
         $_dados = array();
 
-        $sql = "select distinct cedec_municipio.nome,
-                    com_plano_upload.file_plano,
-                    com_plano_upload.dt_upload
-                        from cedec_municipio
-                            inner join com_plano_upload
-                            on cedec_municipio.id_municipio = com_plano_upload.id_municipio
-                            where cedec_municipio.nome <> \"MUNICIPIO TESTE\"
-                            order by cedec_municipio.nome;";
+        $sql = "select cedec_municipio.nome,
+                com_plano_upload.id_municipio, 
+                count(com_plano_upload.file_plano) as qtd
+                from com_plano_upload
+                inner join cedec_municipio
+                on com_plano_upload.id_municipio = cedec_municipio.id_municipio
+                where com_plano_upload.id_municipio <> '7221'
+                group by id_municipio
+                order by cedec_municipio.nome";
 
         $result = $con->query($sql);
 
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-
+            
             $_dados[] = $linha;
         }
 
         return $_dados;
     }
+    
+    /**
+     *  Lista o plano do municipio
+     * 
+     */
+    function listPlano() {
+
+        $con = Conexao::getInstance();
+        $_dados = array();
+
+        $sql = "select cedec_municipio.nome,
+                    com_plano_upload.id_municipio,
+                    com_plano_upload.file_plano,
+                    com_plano_upload.dt_upload
+                        from com_plano_upload
+                        inner join cedec_municipio
+                        on com_plano_upload.id_municipio = cedec_municipio.id_municipio
+                        where com_plano_upload.id_municipio <> 7221
+                            order by cedec_municipio.nome";
+
+        $result = $con->query($sql);
+
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            
+            $_dados[] = $linha;
+        }
+
+        return $_dados;
+    }
+    
 
     /**
      *  Relatorios lista municipio sem plano

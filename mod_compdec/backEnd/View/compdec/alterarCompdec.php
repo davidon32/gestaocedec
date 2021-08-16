@@ -481,7 +481,7 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
                     </tr>
                 </table>
             </div>
-            
+/* upload documento */
 <div class="col-md-6"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default" title="Clique para Anexar Leis e Decretos">Upload</button></div>
 <div class="col-md-6 text-right">
     <label title="Aprovação Documentos Compdec">
@@ -496,15 +496,9 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
 </div>
             <div class="col-md-12 table-responsive" id="tblAnexoLeis">
                 
-                <?php if(
-                            ($_dados[0]['sem_lei'] == 0) or
-                            ($_dados[0]['sem_decreto'] == 0) or
-                            ($_dados[0]['sem_portaria'] == 0) 
-                        ){
+                <?php 
                         include_once PATH . '/mod_compdec/backEnd/View/compdec/anexo.php'; 
-                        
-                    }
-                    
+                  
                     print "<table class='table table-bordered'>";
                     # linha informando q nao tem lei de criacao
                     if ($_dados[0]['sem_lei'] == 1) {
@@ -544,9 +538,11 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
                                 <label>Tipo Doc</label>
                                 <select class="form-control" name="selTipo" id="selTipo">
                                     <?php 
+                                        
                                         print ($_dados[0]['sem_lei'] == 0) ? "<option value=\"1\">Lei Criação do Compdec</option>" :"";
                                         print ($_dados[0]['sem_decreto'] == 0) ? "<option value=\"0\">Decreto de Regulamentação da Lei de Criação do COMPDEC</option>" : "";
                                         print ($_dados[0]['sem_portaria'] == 0) ? "<option value=\"2\">Portaria Nomeação do Coordenado da COMPDEC</option>" : "" ;
+                                        
                                     ?>
                                 </select>
                                 <br>

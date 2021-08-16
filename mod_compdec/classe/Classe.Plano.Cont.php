@@ -153,7 +153,8 @@ class Plano {
         $con = Conexao::getInstance();
 
         $sql = "select file_plano, versao, dt_upload, id, tamanho
-                    from com_plano_upload where id_municipio = :id_municipio";
+                    from com_plano_upload where id_municipio = :id_municipio
+                    order by dt_upload desc";
 
         $result = $con->prepare($sql);
         $result->bindValue(":id_municipio", $id_municipio);

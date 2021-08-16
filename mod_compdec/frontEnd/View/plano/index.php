@@ -26,7 +26,7 @@ $plano = new Plano();
     <br>
     Obs: O plano de Contingencia deverá estar nos formados PDF, DOC e DOCX.<br><br>
 
-    <a class="btn btn-primary" href="#" onClick="uploadModal()" title="Envio de Plano de Contingência"><img src="core/imagem/upload1.png"  width="35px;" alt="Upload de Plano de Contingência"> Upload de Plano de Contigencia</a><br>
+    <!--<a class="btn btn-primary" href="#" onClick="uploadModal()" title="Envio de Plano de Contingência"><img src="core/imagem/upload1.png"  width="35px;" alt="Upload de Plano de Contingência"> Upload de Plano de Contigencia</a>--><br>
 
 </div>
 
@@ -48,13 +48,21 @@ $plano = new Plano();
 $lista = $plano->listaPlano($id_municipio);
 
 foreach ($lista as $key => $value) {
+    //if($id_municipio == 7221) {
+    //$kits = ($value['dt_upload'] > "2021-08-10") ? "style='color:blue' title='Plano enviado para o Edital Chamamento 01/2021'" :"";
     
     print "<tr>";
-    print "<td>".$value['dt_upload']."</td>";
-    print "<td><a href=\"" . FuncaoBase::geraLink('compdec', 'app', 'vupload', array('id' => $value['id'])) . "\">Plano Versao " . $value['versao'] . " -  Data: " . $value['dt_upload'] . "</a></td>";
-    print "<td>".$value['tamanho']."</td>";
-    print "<td><a href=\"#\" title=\"Deletar Plano\" onclick=\"removerPlano(" . $value['id'] . ")\"><img width=\"20px;\" src=\"core/imagem/delete.png\"></a></td>";
+    print "<td ".$kits.">".$value['dt_upload']."</td>";
+    print "<td ".$kits."><a href=\"" . FuncaoBase::geraLink('compdec', 'app', 'vupload', array('id' => $value['id'])) . "\">Plano Versao " . $value['versao'] . " -  Data: " . $value['dt_upload'] . "</a></td>";
+    print "<td ".$kits.">".$value['tamanho']."</td>";
+    print "<td ".$kits.">";
+    
+    if($value['dt_upload'] > "2021-08-11"){
+        print "<a href=\"#\" title=\"Deletar Plano\" onclick=\"removerPlano(" . $value['id'] . ")\"><img width=\"20px;\" src=\"core/imagem/delete.png\"></a>";
+    }        
+    print "</td>";
     print "</tr>";
+    //}
 }
 ?>
 </table>

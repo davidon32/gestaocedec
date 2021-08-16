@@ -40,37 +40,42 @@ if($opcao == 'gravarleis'){
 
 $dados = $anexo->listaAnexo($id_municipio);
 
-	#print '<button type="button" id="btn_anexo" class="btn btn-primary" data-toggle="modal" data-target="#modal-default" title="Clique para Anexar Leis e Decretos">Upload</button>';
-	print '<button type="button" id="" class="btn btn-primary imgCinza" title="Prazo Expirado as 16:00 do dia 10/08/2021 para Envio de Documentos sobre os Edital Chamamento 01 ">Upload</button>'
-. '     <br><span style="color:red">O prazo para envio de documentos para o Chamamento 01/2021 - Kit de Defesa Civil acabou as 16:00 do dia 10/08/2021</span>';
+	print '<button type="button" id="btn_anexo" class="btn btn-primary" data-toggle="modal" data-target="#modal-default" title="Clique para Anexar Leis e Decretos">Upload</button>';
 
 					
-	 print '<table class="table table-bordered table-striped table-condensed tbl">
+	 print '<table class="table table-condensed tbl">
 		
 			<tr>
 				<th class="col-md-1">#</th>
-				<th class="col-md-1">Data</th>
-	 			<th class="col-md-1">Tipo</th>
-				<th class="col-md-4">Arquivo</th>
-				<th class="col-md-4">Descrição</th>
+				<th class="col-md-1">Data Envio</th>
+	 			<th class="col-md-1">Tipo Doc.</th>
+				<th class="col-md-3">Nome Arquivo</th>
+				<th class="col-md-3">Descrição</th>
+				<th class="col-md-1">Validade</th>
 				<th class="col-md-2">Ação</th>
 			</tr>';
+$valido = '';
 	
 	foreach ($dados as $key => $value) {
 		$anexoResult = $anexo->previewAnexo($value['id']);
+                
+                $valido = (!empty($value['validade'])) ? "style='background-color:#00FF80;' title='Documento validado pela CEDEC'" : "style='background-color:#FA5858;' title='Documento validado pela CEDEC'";
 		
 		print '<tr>
-				<td>'.($key+1).'</td>
-				<td>'.DataMysql::dataCompletaVisual($value['dt_anexo']).'</td>
-				<td>'.$anexo->enumTipo($value['tipo']).'</td>
-				<td>'.$value['arquivo'].'</td>
-				<td style="">'.$value['descricao'].'</td><td>';
+				<td ' . $valido . '>'.($key+1).'</td>
+				<td ' . $valido . '>'.DataMysql::dataCompletaVisual($value['dt_anexo']).'</td>
+				<td ' . $valido . '>'.$anexo->enumTipo($value['tipo']).'</td>
+				<td ' . $valido . '>'.$value['arquivo'].'</td>
+				<td ' . $valido . '>'.$value['descricao'].'</td>
+				<td ' . $valido . '>'. DataMysql::dataVisual($value['validade']).'</td>
+                                <td ' . $valido . '>';
 
 				print (($anexoResult['existe']) ? '<a onclick="javascript:anexoView(\'anexo/anexo_leis/'.$anexoResult['arquivo'].'\')"><img width="30px" src="/core/imagem/impressao.png" title="Visualizar"></a>'
 						: '<img src=\'/core/imagem/cancela.png\' width=\'30px\' title=\'Arquivo nao disponível favor apagar este registro e adicionar outro arquivo\'>');
-				print '	&nbsp;&nbsp;<img width="30px" src="/core/imagem/delete.png" title="Deletar" onclick="javascript:deletarAnexoLei('.$value['id'].', \''.$value['arquivo'].'\', \''.$value['id_municipio'].'\');"></a>
-						</td>
-					</tr>';
+				if(empty($value['validade'])){
+                                    print '	&nbsp;&nbsp;<img width="30px" src="/core/imagem/delete.png" title="Deletar" onclick="javascript:deletarAnexoLei('.$value['id'].', \''.$value['arquivo'].'\', \''.$value['id_municipio'].'\');"></a>';
+                                }
+                                print '</td></tr>';
 	} 
 		
 	print '</table>'; 
