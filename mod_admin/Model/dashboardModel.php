@@ -4,7 +4,7 @@ include_once PATH."/core/Model/Model.php";
 class dashboardModel {
     
     /* compdec atualizados */
-    public function atualizados() {
+    public static function CompdecAtualizados() {
         
         $con = Conexao::getInstance();
         
@@ -25,7 +25,7 @@ class dashboardModel {
     }
     
     /* compdec desatualizados */
-    public function desatualizados() {
+    public function CompdecDesatualizados() {
         
         $con = Conexao::getInstance();
         
@@ -44,7 +44,7 @@ class dashboardModel {
     }
     
     /* possui compdec */
-    public function possuicompdec() {
+    public function Possuicompdec() {
         
         $con = Conexao::getInstance();
         

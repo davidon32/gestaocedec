@@ -4,7 +4,7 @@ include_once "core/Controller/Controller.php";
     class dashboardController extends Controller{
 
         /* Cadastrar Usuario */
-        public function dashboard(){
+        public static function dashboard(){
             $dashboard = new dashboardModel();
             
             $dados['atualizado'] = $dashboard->atualizados();

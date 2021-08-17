@@ -5,7 +5,7 @@ if(isset($pageSession)){
           $ses_email = $_COOKIE['seguranca']['email_rec'];
           $email = trim($ses_email);
           $email = strtolower( $email );
-          $gravataremail =  "https://www.gravatar.com/avatar/".md5( $email );
+            $gravataremail =  "https://www.gravatar.com/avatar/".md5( $email );
           
         }else {
           $gravataremail =  "/core/imagem/padrao.png";
@@ -47,7 +47,7 @@ if(isset($pageSession)){
 
 <script src="js/sweetalert2.all.min.js"></script>
    <!-- Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">-->
 
   <style type="text/css">
 

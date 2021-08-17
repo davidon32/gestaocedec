@@ -1,29 +1,29 @@
-<?php 
+<?php
 
-class Compdec{
-	
-	function Cadastrar($_id_municipio,
-						$_regiao,
-						$_associacao,
-						$_num_lei,
-						$_dt_lei,
-						$_num_decreto,
-						$_dt_decreto,
-						$_num_portaria,
-						$_dt_portaria,
-						$_endereco,
-						$_comp_fone1,
-						$_comp_fone2,
-						$_efetivo, 
-						$_email,    
-						$_nudec,
-                        $_sel_territorio_desenv,
-						$_sel_CompdecExist,
-						$_sel_Ativo){
+class Compdec {
 
-	   $con = Conexao::getInstance();
-                            
-		$sql = "INSERT INTO com_comdec (id_municipio,
+    function Cadastrar($_id_municipio,
+            $_regiao,
+            $_associacao,
+            $_num_lei,
+            $_dt_lei,
+            $_num_decreto,
+            $_dt_decreto,
+            $_num_portaria,
+            $_dt_portaria,
+            $_endereco,
+            $_comp_fone1,
+            $_comp_fone2,
+            $_efetivo,
+            $_email,
+            $_nudec,
+            $_sel_territorio_desenv,
+            $_sel_CompdecExist,
+            $_sel_Ativo) {
+
+        $con = Conexao::getInstance();
+
+        $sql = "INSERT INTO com_comdec (id_municipio,
 										regiao,
 										associacao,
 										num_lei,
@@ -41,48 +41,47 @@ class Compdec{
 										id_territorio,
 										com_const,
 										com_ativa)
-										VALUES ('".$_id_municipio."',
-												'".$_associacao."',
-												'".$_regiao."',
-												'".$_num_lei."',
-												'".$_dt_lei."',
-												'".$_num_decreto."',
-												'".$_dt_decreto."',
-												'".$_num_portaria."',
-												'".$_dt_portaria."',
-												'".$_endereco."',
-												'".$_comp_fone1."',
-												'".$_comp_fone2."',
-												'".$_efetivo."', 
-												'".$_email."',
-												'".$_nudec."',
-                                                '".$_sel_territorio_desenv."',
-                                                '".$_sel_CompdecExist."',
-                                                '".$_sel_Ativo."')";
-		
-		try {
+										VALUES ('" . $_id_municipio . "',
+												'" . $_associacao . "',
+												'" . $_regiao . "',
+												'" . $_num_lei . "',
+												'" . $_dt_lei . "',
+												'" . $_num_decreto . "',
+												'" . $_dt_decreto . "',
+												'" . $_num_portaria . "',
+												'" . $_dt_portaria . "',
+												'" . $_endereco . "',
+												'" . $_comp_fone1 . "',
+												'" . $_comp_fone2 . "',
+												'" . $_efetivo . "', 
+												'" . $_email . "',
+												'" . $_nudec . "',
+                                                '" . $_sel_territorio_desenv . "',
+                                                '" . $_sel_CompdecExist . "',
+                                                '" . $_sel_Ativo . "')";
 
-		  $result = $con->query($sql);
+        try {
 
-		  $result->execute();
-		  
-		  return true;
-		    
-		}catch (Exception $e){
-		
-		    print FuncaoBase::getError($e->getMessage());
-    
-		}
-	}
+            $result = $con->query($sql);
 
-	#@ Alterar Cadastro Compdec
-	function Alterar($dados){
+            $result->execute();
 
-		try {
+            return true;
+        } catch (Exception $e) {
 
-		$con = Conexao::getInstance();
-		
-		$sql = "UPDATE com_comdec 
+            print FuncaoBase::getError($e->getMessage());
+        }
+    }
+
+    #@ Alterar Cadastro Compdec
+
+    function Alterar($dados) {
+
+        try {
+
+            $con = Conexao::getInstance();
+
+            $sql = "UPDATE com_comdec 
                     SET regiao            =:regiao,
 						associacao        =:associacao,
 						num_lei           =:num_lei,
@@ -126,72 +125,71 @@ class Compdec{
                                                 email2            =:email2,
                                                 email3            =:email3
                         WHERE id_municipio=:id_municipio";
-	
-		$result = $con->prepare($sql);
-		
-		$result->bindValue(":regiao"            , $dados['sel_regiao']);
-		$result->bindValue(":associacao"        , $dados['sel_associacao']);
-		$result->bindValue(":num_lei"           , $dados['txt_num_lei']);
-		$result->bindValue(":dt_lei"            , DataMysql::dataForm($dados['txt_dt_lei']));
-		$result->bindValue(":num_decreto"       , $dados['txt_num_decreto']);
-		$result->bindValue(":dt_decreto"        , DataMysql::dataForm($dados['txt_dt_decreto']));
-		$result->bindValue(":num_portaria"      , $dados['txt_num_portaria']);
-		$result->bindValue(":dt_portaria"       , DataMysql::dataForm($dados['txt_dt_portaria']));
-		$result->bindValue(":endereco"          , $dados['txt_endereco']);
-		$result->bindValue(":fone_com1"         , $dados['txt_comp_fone1']);
-		$result->bindValue(":fone_com2"         , $dados['txt_comp_fone2']);
-		$result->bindValue(":efetivo"           , $dados['rdb_efetivo']);
-		$result->bindValue(":qtd_efetivo"       , $dados['txt_qtd_efetivo'], PDO::PARAM_INT);
-		$result->bindValue(":capacitacao_nupdec", $dados['txt_cap_nupdec']);
-		$result->bindValue(":email"             , $dados['txt_email']);
-		$result->bindValue(":nudec"             , $dados['rdb_nudec']);
-		$result->bindValue(":qtd_nudec"         , $dados['txt_efetivo_nupdec'], PDO::PARAM_INT);
-		$result->bindValue(":org_rep"           , $dados['txt_org_rep']);
-		$result->bindValue(":id_territorio"     , $dados['selTerritorioDesenv']);
-		$result->bindValue(":plano_cont"        , $dados['rdb_plano']);
-		$result->bindValue(":capacitacao"       , $dados['rdb_capacitacao']);
-		$result->bindValue(":dt_curso_capac"    , DataMysql::dataForm($dados['txt_dt_curso']));
-		$result->bindValue(":cartao_pdc"        , $dados['rdb_cartao']);
-		$result->bindValue(":sede_propria"      , $dados['ck_sede'], PDO::PARAM_INT);
-		$result->bindValue(":viatura"           , $dados['ck_viatura'], PDO::PARAM_INT);
-		$result->bindValue(":simulado"          , $dados['rdb_simulado'], PDO::PARAM_INT);
-		$result->bindValue(":mapeamento"        , $dados['rdb_mapeamento']);
-		$result->bindValue(":curso_gestao"      , $dados['ck_curso_gestao']);
-		$result->bindValue(":dt_curso_gestao"   , DataMysql::dataForm($dados['dt_curso_gestao']));
-		$result->bindValue(":curso_sco"         , $dados['ck_curso_sco']);
-		$result->bindValue(":dt_curso_sco"      , DataMysql::dataForm($dados['dt_curso_sco']));
-		$result->bindValue(":exp_dc"            , $dados['ck_exp_dc']);
-		$result->bindValue(":tp_ex_dc"          , $dados['tp_ex_dc']);
-		$result->bindValue(":computador"        , $dados['ck_computador']);
-		$result->bindValue(":particip_workshop" , $dados['ck_particip_workshop']);
-		$result->bindValue(":dt_partic_workshop", DataMysql::dataForm($dados['dt_partic_workshop']));
-		$result->bindValue(":com_const"			, $dados['selCompdec']);
-		$result->bindValue(":com_ativa"		    , $dados['selAtivo']);
-		$result->bindValue(":id_municipio"      , $dados['id_municipio']);
-		$result->bindValue(":ckSemDecreto"      , $dados['ckSemDecreto']);
-		$result->bindValue(":ckSemPortaria"      , $dados['ckSemPortaria']);
-                $result->bindValue(":email2",            $dados['txt_email2']);
-                $result->bindValue(":email3",            $dados['txt_email3']);
 
-		$result->execute();
-			  
-		  return true;
-			  
-		}catch (Exception $e){
-		    
-		    print FuncaoBase::getError($e->getMessage(), 'Mensagem');
+            $result = $con->prepare($sql);
 
-		}
-	}
+            $result->bindValue(":regiao", $dados['sel_regiao']);
+            $result->bindValue(":associacao", $dados['sel_associacao']);
+            $result->bindValue(":num_lei", $dados['txt_num_lei']);
+            $result->bindValue(":dt_lei", DataMysql::dataForm($dados['txt_dt_lei']));
+            $result->bindValue(":num_decreto", $dados['txt_num_decreto']);
+            $result->bindValue(":dt_decreto", DataMysql::dataForm($dados['txt_dt_decreto']));
+            $result->bindValue(":num_portaria", $dados['txt_num_portaria']);
+            $result->bindValue(":dt_portaria", DataMysql::dataForm($dados['txt_dt_portaria']));
+            $result->bindValue(":endereco", $dados['txt_endereco']);
+            $result->bindValue(":fone_com1", $dados['txt_comp_fone1']);
+            $result->bindValue(":fone_com2", $dados['txt_comp_fone2']);
+            $result->bindValue(":efetivo", $dados['rdb_efetivo']);
+            $result->bindValue(":qtd_efetivo", $dados['txt_qtd_efetivo'], PDO::PARAM_INT);
+            $result->bindValue(":capacitacao_nupdec", $dados['txt_cap_nupdec']);
+            $result->bindValue(":email", $dados['txt_email']);
+            $result->bindValue(":nudec", $dados['rdb_nudec']);
+            $result->bindValue(":qtd_nudec", $dados['txt_efetivo_nupdec'], PDO::PARAM_INT);
+            $result->bindValue(":org_rep", $dados['txt_org_rep']);
+            $result->bindValue(":id_territorio", $dados['selTerritorioDesenv']);
+            $result->bindValue(":plano_cont", $dados['rdb_plano']);
+            $result->bindValue(":capacitacao", $dados['rdb_capacitacao']);
+            $result->bindValue(":dt_curso_capac", DataMysql::dataForm($dados['txt_dt_curso']));
+            $result->bindValue(":cartao_pdc", $dados['rdb_cartao']);
+            $result->bindValue(":sede_propria", $dados['ck_sede'], PDO::PARAM_INT);
+            $result->bindValue(":viatura", $dados['ck_viatura'], PDO::PARAM_INT);
+            $result->bindValue(":simulado", $dados['rdb_simulado'], PDO::PARAM_INT);
+            $result->bindValue(":mapeamento", $dados['rdb_mapeamento']);
+            $result->bindValue(":curso_gestao", $dados['ck_curso_gestao']);
+            $result->bindValue(":dt_curso_gestao", DataMysql::dataForm($dados['dt_curso_gestao']));
+            $result->bindValue(":curso_sco", $dados['ck_curso_sco']);
+            $result->bindValue(":dt_curso_sco", DataMysql::dataForm($dados['dt_curso_sco']));
+            $result->bindValue(":exp_dc", $dados['ck_exp_dc']);
+            $result->bindValue(":tp_ex_dc", $dados['tp_ex_dc']);
+            $result->bindValue(":computador", $dados['ck_computador']);
+            $result->bindValue(":particip_workshop", $dados['ck_particip_workshop']);
+            $result->bindValue(":dt_partic_workshop", DataMysql::dataForm($dados['dt_partic_workshop']));
+            $result->bindValue(":com_const", $dados['selCompdec']);
+            $result->bindValue(":com_ativa", $dados['selAtivo']);
+            $result->bindValue(":id_municipio", $dados['id_municipio']);
+            $result->bindValue(":ckSemDecreto", $dados['ckSemDecreto']);
+            $result->bindValue(":ckSemPortaria", $dados['ckSemPortaria']);
+            $result->bindValue(":email2", $dados['txt_email2']);
+            $result->bindValue(":email3", $dados['txt_email3']);
 
-	#@ Alterar Cadastro Compdec parte 1
-	function AtualizacaoParte1($dados){
+            $result->execute();
 
-		try {
+            return true;
+        } catch (Exception $e) {
 
-			$con = Conexao::getInstance();
-			
-			$sql = "UPDATE com_comdec 
+            print FuncaoBase::getError($e->getMessage(), 'Mensagem');
+        }
+    }
+
+    #@ Alterar Cadastro Compdec parte 1
+
+    function AtualizacaoParte1($dados) {
+
+        try {
+
+            $con = Conexao::getInstance();
+
+            $sql = "UPDATE com_comdec 
 						SET com_const		  =:com_const,
 							com_ativa         =:com_ativa,
 							regiao            =:regiao,
@@ -212,51 +210,47 @@ class Compdec{
 							qtd_nudec		  =:qtd_nudec,
 							capacitacao_nupdec=:capacitacao_nupdec
 						WHERE id_municipio=:id_municipio";
-						
-						$result = $con->prepare($sql);
-						
-						$result->bindValue(":com_const"			, $dados['selCompdec']);
-						$result->bindValue(":com_ativa"		    , $dados['selAtivo']);
-						$result->bindValue(":regiao"            , $dados['sel_regiao']);
-						$result->bindValue(":id_territorio"     , $dados['selTerritorioDesenv']);
-						$result->bindValue(":associacao"        , $dados['sel_associacao']);
-						$result->bindValue(":num_lei"           , $dados['txt_num_lei']);
-						$result->bindValue(":dt_lei"            , DataMysql::dataForm($dados['txt_dt_lei']));
-						$result->bindValue(":num_decreto"       , $dados['txt_num_decreto']);
-						$result->bindValue(":dt_decreto"        , DataMysql::dataForm($dados['txt_dt_decreto']));
-						$result->bindValue(":num_portaria"      , $dados['txt_num_portaria']);
-						$result->bindValue(":dt_portaria"       , DataMysql::dataForm($dados['txt_dt_portaria']));
-						$result->bindValue(":endereco"          , $dados['txt_endereco']);
-						$result->bindValue(":fone_com1"         , $dados['txt_comp_fone1']);
-						$result->bindValue(":fone_com2"         , $dados['txt_comp_fone2']);
-						$result->bindValue(":efetivo"           , $dados['selEfetivo']);
-						$result->bindValue(":qtd_efetivo"       , $dados['txt_qtd_efetivo'], PDO::PARAM_INT);
-						$result->bindValue(":nudec"             , $dados['selNudec']);
-						$result->bindValue(":qtd_nudec"         , $dados['txt_qtd_nudec'], PDO::PARAM_INT);
-						$result->bindValue(":capacitacao_nupdec", $dados['txt_cap_nupdec']);
-						$result->bindValue(":id_municipio"      , $dados['id_municipio']);
 
-			$result->execute();
-			return true;
-					
-		}catch (Exception $e){
-					
-					print FuncaoBase::getError($e->getMessage(), 'Mensagem');
+            $result = $con->prepare($sql);
 
-				}
+            $result->bindValue(":com_const", $dados['selCompdec']);
+            $result->bindValue(":com_ativa", $dados['selAtivo']);
+            $result->bindValue(":regiao", $dados['sel_regiao']);
+            $result->bindValue(":id_territorio", $dados['selTerritorioDesenv']);
+            $result->bindValue(":associacao", $dados['sel_associacao']);
+            $result->bindValue(":num_lei", $dados['txt_num_lei']);
+            $result->bindValue(":dt_lei", DataMysql::dataForm($dados['txt_dt_lei']));
+            $result->bindValue(":num_decreto", $dados['txt_num_decreto']);
+            $result->bindValue(":dt_decreto", DataMysql::dataForm($dados['txt_dt_decreto']));
+            $result->bindValue(":num_portaria", $dados['txt_num_portaria']);
+            $result->bindValue(":dt_portaria", DataMysql::dataForm($dados['txt_dt_portaria']));
+            $result->bindValue(":endereco", $dados['txt_endereco']);
+            $result->bindValue(":fone_com1", $dados['txt_comp_fone1']);
+            $result->bindValue(":fone_com2", $dados['txt_comp_fone2']);
+            $result->bindValue(":efetivo", $dados['selEfetivo']);
+            $result->bindValue(":qtd_efetivo", $dados['txt_qtd_efetivo'], PDO::PARAM_INT);
+            $result->bindValue(":nudec", $dados['selNudec']);
+            $result->bindValue(":qtd_nudec", $dados['txt_qtd_nudec'], PDO::PARAM_INT);
+            $result->bindValue(":capacitacao_nupdec", $dados['txt_cap_nupdec']);
+            $result->bindValue(":id_municipio", $dados['id_municipio']);
 
-	}
-	
-	#@ Alterar Cadastro Compdec parte 2
-	function AtualizacaoParte2($dados){
+            $result->execute();
+            return true;
+        } catch (Exception $e) {
 
-		
-		try {
+            print FuncaoBase::getError($e->getMessage(), 'Mensagem');
+        }
+    }
 
-			$con = Conexao::getInstance();
-			
-			$sql = "UPDATE com_comdec 
-						SET email             =:email,
+    #@ Alterar Cadastro Compdec parte 2
+
+    function AtualizacaoParte2($dados) {
+
+        try {
+
+            $con = Conexao::getInstance();
+
+            $sql = "UPDATE  com_comdec SET email             =:email,
 							plano_cont        =:plano_cont,
 							capacitacao       =:capacitacao,
 							dt_curso_capac    =:dt_curso_capac,
@@ -275,75 +269,75 @@ class Compdec{
 							exp_dc            =:exp_dc,
 							tp_ex_dc          =:tp_ex_dc,
                                                         email2            =:email2,
-                                                        email3            =:email3
+                                                        email3            =:email3,
+                                                        ultimo_atualiza   =:ultimo_atualiza
 						WHERE id_municipio=:id_municipio";
-						
-						$result = $con->prepare($sql);
-						
-			
-				$result->bindValue(":email"             , strtolower($dados['txt_email']));
-				$result->bindValue(":plano_cont"        , $dados['rdb_plano']);
-				$result->bindValue(":capacitacao"       , $dados['rdb_capacitacao']);
-				$result->bindValue(":dt_curso_capac"    , DataMysql::dataForm($dados['txt_dt_curso']));
-				$result->bindValue(":cartao_pdc"        , $dados['rdb_cartao']);
-				$result->bindValue(":sede_propria"      , $dados['ck_sede'], PDO::PARAM_INT);
-				$result->bindValue(":viatura"           , $dados['ck_viatura'], PDO::PARAM_INT);
-				$result->bindValue(":computador"        , $dados['ck_computador']);
-				$result->bindValue(":simulado"          , $dados['rdb_simulado'], PDO::PARAM_INT);
-				$result->bindValue(":mapeamento"        , $dados['rdb_mapeamento']);
-				$result->bindValue(":curso_gestao"      , $dados['ck_curso_gestao']);
-				$result->bindValue(":dt_curso_gestao"   , DataMysql::dataForm($dados['dt_curso_gestao']));
-				$result->bindValue(":curso_sco"         , $dados['ck_curso_sco']);
-				$result->bindValue(":dt_curso_sco"      , DataMysql::dataForm($dados['dt_curso_sco']));
-				$result->bindValue(":exp_dc"            , $dados['ck_exp_dc']);
-				$result->bindValue(":tp_ex_dc"          , $dados['tp_ex_dc']);
-				$result->bindValue(":particip_workshop" , $dados['ck_particip_workshop']);
-				$result->bindValue(":dt_partic_workshop", DataMysql::dataForm($dados['dt_partic_workshop']));
-				$result->bindValue(":id_municipio"      , $dados['id_municipio']);
-                                $result->bindValue(":email2",            $dados['txt_email2']);
-                                $result->bindValue(":email3",            $dados['txt_email3']);
 
-				$result->execute();
-					
-				return true;
-				
-		}catch (Exception $e){
-				
-				print FuncaoBase::getError($e->getMessage(), 'Mensagem');
-
-		}
-	}
+            $result = $con->prepare($sql);
 
 
-	#@ atualizar email rec senha
-	function AtualizEmailRec($dados){
+            $result->bindValue(":email", strtolower($dados['txt_email']));
+            $result->bindValue(":plano_cont", $dados['rdb_plano']);
+            $result->bindValue(":capacitacao", $dados['rdb_capacitacao']);
+            $result->bindValue(":dt_curso_capac", DataMysql::dataForm($dados['txt_dt_curso']));
+            $result->bindValue(":cartao_pdc", $dados['rdb_cartao']);
+            $result->bindValue(":sede_propria", $dados['ck_sede'], PDO::PARAM_INT);
+            $result->bindValue(":viatura", $dados['ck_viatura'], PDO::PARAM_INT);
+            $result->bindValue(":computador", $dados['ck_computador']);
+            $result->bindValue(":simulado", $dados['rdb_simulado'], PDO::PARAM_INT);
+            $result->bindValue(":mapeamento", $dados['rdb_mapeamento']);
+            $result->bindValue(":curso_gestao", $dados['ck_curso_gestao']);
+            $result->bindValue(":dt_curso_gestao", DataMysql::dataForm($dados['dt_curso_gestao']));
+            $result->bindValue(":curso_sco", $dados['ck_curso_sco']);
+            $result->bindValue(":dt_curso_sco", DataMysql::dataForm($dados['dt_curso_sco']));
+            $result->bindValue(":exp_dc", $dados['ck_exp_dc']);
+            $result->bindValue(":tp_ex_dc", $dados['tp_ex_dc']);
+            $result->bindValue(":particip_workshop", $dados['ck_particip_workshop']);
+            $result->bindValue(":dt_partic_workshop", DataMysql::dataForm($dados['dt_partic_workshop']));
+            $result->bindValue(":id_municipio", $dados['id_municipio']);
+            $result->bindValue(":email2", $dados['txt_email2']);
+            $result->bindValue(":email3", $dados['txt_email3']);
+            $result->bindValue(":ultimo_atualiza", date('Y-m-d H:i:s'));
 
-		try {
-			$con = Conexao::getInstance();
-			
-			$sql = "UPDATE cedec_user_ex SET email_rec =:email_rec
+            $result->execute();
+
+            return true;
+        } catch (Exception $e) {
+
+            print FuncaoBase::getError($e->getMessage(), 'Mensagem');
+        }
+    }
+
+    #@ atualizar email rec senha
+
+    function AtualizEmailRec($dados) {
+
+        try {
+            $con = Conexao::getInstance();
+
+            $sql = "UPDATE cedec_user_ex SET email_rec =:email_rec
 					WHERE id_municipio=:id_municipio";
-						
-				$result = $con->prepare($sql);		
-				$result->bindValue(":email_rec", strtolower($dados['txt_email_rec']));
-				$result->bindValue(":id_municipio", $dados['id_municipio']);
-				$result->execute();
-					
-				return true;
-				
-		}catch (Exception $e){
-				print FuncaoBase::getError($e->getMessage(), 'Mensagem');
-		}
-	}
 
-	#@ atualizar email telefone Prefeitura
-	function AtualizPreDadPref($dados){
-            
- 
-		try {
-			$con = Conexao::getInstance();
-			
-			$sql = "UPDATE cedec_municipio 
+            $result = $con->prepare($sql);
+            $result->bindValue(":email_rec", strtolower($dados['txt_email_rec']));
+            $result->bindValue(":id_municipio", $dados['id_municipio']);
+            $result->execute();
+
+            return true;
+        } catch (Exception $e) {
+            print FuncaoBase::getError($e->getMessage(), 'Mensagem');
+        }
+    }
+
+    #@ atualizar email telefone Prefeitura
+
+    function AtualizPreDadPref($dados) {
+
+
+        try {
+            $con = Conexao::getInstance();
+
+            $sql = "UPDATE cedec_municipio 
 					SET email =:email,
 					tel_pref =:tel_pref,
 					cel_pref =:cel_pref,
@@ -352,117 +346,112 @@ class Compdec{
                                         bairro =:bairro,
                                         cep =:cep
 					WHERE id_municipio=:id_municipio";
-						
-				$result = $con->prepare($sql);		
-				$result->bindValue(":email", strtolower($dados['email_pref']));
-				$result->bindValue(":tel_pref", $dados['tel_pref']);
-				$result->bindValue(":cel_pref", $dados['cel_pref']);
-				$result->bindValue(":id_municipio", $dados['id_municipio']);
-                                $result->bindValue(":prefeito", $dados['prefeito']);
-                                $result->bindValue(":endereco", $dados['pref_endereco']);
-                                $result->bindValue(":bairro", $dados['pref_bairro']);
-                                $result->bindValue(":cep", $dados['pref_cep']);
-				$result->execute();
-					
-				return true;
-				
-		}catch (Exception $e){
-				print FuncaoBase::getError($e->getMessage(), 'Mensagem');
-		}
-	}
 
-	#@ aba anexo opcao nao possui lei de criacao
-	function GravaSemLei($dados){
-		try {
+            $result = $con->prepare($sql);
+            $result->bindValue(":email", strtolower($dados['email_pref']));
+            $result->bindValue(":tel_pref", $dados['tel_pref']);
+            $result->bindValue(":cel_pref", $dados['cel_pref']);
+            $result->bindValue(":id_municipio", $dados['id_municipio']);
+            $result->bindValue(":prefeito", $dados['prefeito']);
+            $result->bindValue(":endereco", $dados['pref_endereco']);
+            $result->bindValue(":bairro", $dados['pref_bairro']);
+            $result->bindValue(":cep", $dados['pref_cep']);
+            $result->execute();
 
-			$con = Conexao::getInstance();
-			
-			$sql = "UPDATE com_comdec 
+            return true;
+        } catch (Exception $e) {
+            print FuncaoBase::getError($e->getMessage(), 'Mensagem');
+        }
+    }
+
+    #@ aba anexo opcao nao possui lei de criacao
+
+    function GravaSemLei($dados) {
+        try {
+
+            $con = Conexao::getInstance();
+
+            $sql = "UPDATE com_comdec 
 						SET sem_lei       =:ckSemLei
 						WHERE id_municipio	  =:id_municipio";
-						
-						$result = $con->prepare($sql);
-						
-				$result->bindValue(":ckSemLei"      , $dados['ckSemLei']);
-				$result->bindValue(":id_municipio"      , $dados['id_municipio']);
 
-				$result->execute();
-					
-				return true;
-				
-		}catch (Exception $e){
-				
-				print FuncaoBase::getError($e->getMessage(), 'Mensagem');
+            $result = $con->prepare($sql);
 
-		}
-	}
-        
-        #@ aba anexo opcao nao possui decreto
-	function GravaSemDecreto($dados){
-		try {
+            $result->bindValue(":ckSemLei", $dados['ckSemLei']);
+            $result->bindValue(":id_municipio", $dados['id_municipio']);
 
-			$con = Conexao::getInstance();
-			
-			$sql = "UPDATE com_comdec 
+            $result->execute();
+
+            return true;
+        } catch (Exception $e) {
+
+            print FuncaoBase::getError($e->getMessage(), 'Mensagem');
+        }
+    }
+
+    #@ aba anexo opcao nao possui decreto
+
+    function GravaSemDecreto($dados) {
+        try {
+
+            $con = Conexao::getInstance();
+
+            $sql = "UPDATE com_comdec 
 						SET sem_decreto       =:ckSemDecreto
 						WHERE id_municipio	  =:id_municipio";
-						
-						$result = $con->prepare($sql);
-						
-				$result->bindValue(":ckSemDecreto"      , $dados['ckSemDecreto']);
-				$result->bindValue(":id_municipio"      , $dados['id_municipio']);
 
-				$result->execute();
-					
-				return true;
-				
-		}catch (Exception $e){
-				
-				print FuncaoBase::getError($e->getMessage(), 'Mensagem');
+            $result = $con->prepare($sql);
 
-		}
-	}
+            $result->bindValue(":ckSemDecreto", $dados['ckSemDecreto']);
+            $result->bindValue(":id_municipio", $dados['id_municipio']);
 
-	#@ aba anexo opcao nao possui decreto e portaria
-	function GravaSemPortaria($dados){
-		try {
+            $result->execute();
 
-			$con = Conexao::getInstance();
-			
-			$sql = "UPDATE com_comdec 
+            return true;
+        } catch (Exception $e) {
+
+            print FuncaoBase::getError($e->getMessage(), 'Mensagem');
+        }
+    }
+
+    #@ aba anexo opcao nao possui decreto e portaria
+
+    function GravaSemPortaria($dados) {
+        try {
+
+            $con = Conexao::getInstance();
+
+            $sql = "UPDATE com_comdec 
 						SET sem_portaria      =:ckSemPortaria
 						WHERE id_municipio	  =:id_municipio";
-						
-						$result = $con->prepare($sql);
-						
-				$result->bindValue(":ckSemPortaria"      , $dados['ckSemPortaria']);
-				$result->bindValue(":id_municipio"      , $dados['id_municipio']);
 
-				$result->execute();
-					
-				return true;
-				
-		}catch (Exception $e){
-				
-				print FuncaoBase::getError($e->getMessage(), 'Mensagem');
+            $result = $con->prepare($sql);
 
-		}
-	}
+            $result->bindValue(":ckSemPortaria", $dados['ckSemPortaria']);
+            $result->bindValue(":id_municipio", $dados['id_municipio']);
 
+            $result->execute();
 
-	/**
-	 *  #@ busca Compdec todos dados 
-	 *  @param id_municipio 
-	 */
-	static function  buscaCompdec($_id_municipio = false){
+            return true;
+        } catch (Exception $e) {
 
-	    $con = Conexao::getInstance();
-	    
-		$dados = array();
-		
-		try{
+            print FuncaoBase::getError($e->getMessage(), 'Mensagem');
+        }
+    }
 
-    		$sql = "SELECT com_comdec.id_comdec,
+    /**
+     *  #@ busca Compdec todos dados 
+     *  @param id_municipio 
+     */
+    static function buscaCompdec($_id_municipio = false) {
+
+        $con = Conexao::getInstance();
+
+        $dados = array();
+
+        try {
+
+            $sql = "SELECT com_comdec.id_comdec,
     						com_comdec.id_municipio,
     						com_comdec.regiao,
     						com_comdec.associacao,
@@ -508,90 +497,85 @@ class Compdec{
                                                 com_comdec.email3 as email3,
                                                 cedec_user_ex.situacao,
                                                 cedec_user_ex.email_rec,
-                                                com_comdec.doc_aprov
+                                                com_comdec.doc_aprov,
+                                                cedec_user_ex.mod_pipa,
+                                                cedec_user_ex.mod_ajuda
     						FROM com_comdec
     						INNER JOIN cedec_municipio
     						ON com_comdec.id_municipio = cedec_municipio.id_municipio
     						INNER JOIN cedec_user_ex
     						ON com_comdec.id_municipio = cedec_user_ex.id_municipio";
-    						
-			if($_id_municipio) {
-				
-				$sql .= " WHERE com_comdec.id_municipio =:id_municipio";
-			}
-			
-				$sql .= " ORDER BY cedec_municipio.nome";
 
-    		$result = $con->prepare($sql);
+            if ($_id_municipio) {
 
-    		$result->bindValue(':id_municipio', $_id_municipio);
-    		
-    		$result->execute();
-    		
-  
-    		while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-    
-    			$dados[] = $linha;
-    			
-    		}
-    
-    		return $dados;
-    		
-		}catch (Exception $e) {
-		    
-		    print FuncaoBase::getError($e->getMessage(), 'Erro ao buscar Registro');
-		    
-		}
+                $sql .= " WHERE com_comdec.id_municipio =:id_municipio";
+            }
 
-	}
+            $sql .= " ORDER BY cedec_municipio.nome";
 
-	/**
-	 *  #@ busca Plano de contingencia
-	 *  @param id_municipio 
-	 */
-	function buscaPlano($_id_municipio){
+            $result = $con->prepare($sql);
 
-	    $con = Conexao::getInstance();
-	    
-		$dados = array();
-		
-		try{
+            $result->bindValue(':id_municipio', $_id_municipio);
 
-    		$sql = "select *from com_plano where id_municipio = :id_municipio";			
-			
-    		$result = $con->prepare($sql);
+            $result->execute();
 
-    		$result->bindValue(':id_municipio', $_id_municipio);
-    		
-    		$result->execute();
-    		
-  
-    		while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-    
-    			$dados[] = $linha;
-    			
-    		}
-    
-    		return $dados;
-    		
-		}catch (Exception $e) {
-		    
-		    print FuncaoBase::getError($e->getMessage(), 'Erro ao buscar Registro');
-		    
-		}
 
-	}
-	
-	#@  
-	function buscaDadosCompdec($_id_municipio = false){
-	
-		$con = Conexao::getInstance();
-		 
-		$dados = array();
-	
-		try{
-	
-			$sql = "SELECT com_comdec.id_comdec,
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+
+                $dados[] = $linha;
+            }
+
+            return $dados;
+        } catch (Exception $e) {
+
+            print FuncaoBase::getError($e->getMessage(), 'Erro ao buscar Registro');
+        }
+    }
+
+    /**
+     *  #@ busca Plano de contingencia
+     *  @param id_municipio 
+     */
+    function buscaPlano($_id_municipio) {
+
+        $con = Conexao::getInstance();
+
+        $dados = array();
+
+        try {
+
+            $sql = "select *from com_plano where id_municipio = :id_municipio";
+
+            $result = $con->prepare($sql);
+
+            $result->bindValue(':id_municipio', $_id_municipio);
+
+            $result->execute();
+
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+
+                $dados[] = $linha;
+            }
+
+            return $dados;
+        } catch (Exception $e) {
+
+            print FuncaoBase::getError($e->getMessage(), 'Erro ao buscar Registro');
+        }
+    }
+
+    #@  
+
+    function buscaDadosCompdec($_id_municipio = false) {
+
+        $con = Conexao::getInstance();
+
+        $dados = array();
+
+        try {
+
+            $sql = "SELECT com_comdec.id_comdec,
     						com_comdec.id_municipio,
     						com_comdec.regiao,
     						com_comdec.associacao,
@@ -633,81 +617,74 @@ class Compdec{
     						FROM com_comdec
     						INNER JOIN cedec_municipio
     						ON com_comdec.id_municipio = cedec_municipio.id_municipio";
-	
-			if($_id_municipio) {
-	
-				$sql .= " WHERE com_comdec.id_municipio =:id_municipio";
-			}
-				
-			$sql .= " ORDER BY cedec_municipio.nome";
-	
-			$result = $con->prepare($sql);
-	
-			$result->bindValue(':id_municipio', $_id_municipio);
-	
-			$result->execute();
-	
-	
-			while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-	
-				$dados[] = $linha;
-				 
-			}
-	
-			return $dados;
-	
-		}catch (Exception $e) {
-	
-			print FuncaoBase::getError($e->getMessage(), 'Erro ao buscar Registro');
-	
-		}
-	
-	}
-	
-	
-	/**
+
+            if ($_id_municipio) {
+
+                $sql .= " WHERE com_comdec.id_municipio =:id_municipio";
+            }
+
+            $sql .= " ORDER BY cedec_municipio.nome";
+
+            $result = $con->prepare($sql);
+
+            $result->bindValue(':id_municipio', $_id_municipio);
+
+            $result->execute();
+
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+
+                $dados[] = $linha;
+            }
+
+            return $dados;
+        } catch (Exception $e) {
+
+            print FuncaoBase::getError($e->getMessage(), 'Erro ao buscar Registro');
+        }
+    }
+
+    /**
      * Resumo compdec existentes true para existente e false para não existentes
      * @param true
      * @param false
      * @return lista total compdec existente
      */
-     function qtdCompdecExitente($_situacao = true){
-     	
-     	$con = Conexao::getInstance();
-     	
-     	$dados = array();
-         
-         $_filtro = ($_situacao) ? "=1" : "= 0";
-             
-         $sql = "SELECT count(id_comdec) as id_comdec
+    function qtdCompdecExitente($_situacao = true) {
+
+        $con = Conexao::getInstance();
+
+        $dados = array();
+
+        $_filtro = ($_situacao) ? "=1" : "= 0";
+
+        $sql = "SELECT count(id_comdec) as id_comdec
                 FROM com_comdec
-                WHERE com_const ".$_filtro." 
-                AND id_comdec <> '854'"; 
+                WHERE com_const " . $_filtro . " 
+                AND id_comdec <> '854'";
 
-         $result = $con->query($sql);
+        $result = $con->query($sql);
 
-         while ($linha = $result->fetch(PDO::FETCH_ASSOC)){ 
-         
-         	$dados = $linha;	
-         
-         }
-         
-         return $dados['id_comdec'];
-     }
-     
-     
-     /**
-      * Listagem de Compdec para hospedagem Site
-      * @author Demetrio Silva Passos
-      * @return void
-      * 
-      * 
-      */
-        function listaCompdecSite(){
-            
-            $dados = array();
-            
-            $sql = "SELECT cedec_municipio.nome as Municipio,
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+
+            $dados = $linha;
+        }
+
+        return $dados['id_comdec'];
+    }
+
+    /**
+     * Listagem de Compdec para hospedagem Site
+     * @author Demetrio Silva Passos
+     * @return void
+     * 
+     * 
+     */
+    function listaCompdecSite() {
+
+        $dados = array();
+
+        $sql = "SELECT cedec_municipio.nome as Municipio,
                            com_regiao.nome as Regiao,
                            com_comdec.fone_com1 as Telefone1,
                            com_comdec.fone_com2 as Telefone2
@@ -718,28 +695,27 @@ class Compdec{
                            ON com_comdec.regiao = com_regiao.id_regiao
                            WHERE num_lei <> 0
                            ORDER BY cedec_municipio.nome";
-                           
-             $result = mysql_query($sql) or die(mysql_error);
-             
-             while ($linha = mysql_fetch_array($result)) {
-                 
-                 $dados[] = $linha;
-                 
-             }
-             
-             return $dados;
-		}
-		
 
-	/* lista compdec ativa */
-	public function listaCompdecAtiva(){
+        $result = mysql_query($sql) or die(mysql_error);
 
-		$dados = array();
-    	
-			$con = Conexao::getInstance();
-			
-	    	try {
-					$sql = "select cedec_municipio.nome,
+        while ($linha = mysql_fetch_array($result)) {
+
+            $dados[] = $linha;
+        }
+
+        return $dados;
+    }
+
+    /* lista compdec ativa */
+
+    public function listaCompdecAtiva() {
+
+        $dados = array();
+
+        $con = Conexao::getInstance();
+
+        try {
+            $sql = "select cedec_municipio.nome,
 							cedec_municipio.id_municipio,
 							cedec_municipio.tel as tel_prefeitura,
                                                         cedec_prefeitura.tel1 as tel_prefeitura1,
@@ -756,190 +732,190 @@ class Compdec{
 							where com_comdec.com_const = 1
 							and cedec_municipio.id_municipio <> 7221
 							order by cedec_municipio.nome";
-			    	
-			    	$result = $con->query($sql);
-			    	
-			    	$result->execute();
-			    	    	
-			    	while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-			    		
-			    		$dados[] = $linha;
-			    		
-			    	}
-			    	
-			    	return $dados;
-			    	
-		    }catch (Exception $e) {
-		    	print FuncaoBase::getError($e->getMessage(), 'Erro ao buscar Registro');	
-		    }
-	}
 
-	/** Pega os telefones dos coordenadores */
-	public function getTelCoordenador($id_municipio){
+            $result = $con->query($sql);
 
-		$dados = array();
-		$con = Conexao::getInstance();
-			
-	    	try {
-				$sql = "select telefone, celular, funcao
+            $result->execute();
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+
+                $dados[] = $linha;
+            }
+
+            return $dados;
+        } catch (Exception $e) {
+            print FuncaoBase::getError($e->getMessage(), 'Erro ao buscar Registro');
+        }
+    }
+
+    /** Pega os telefones dos coordenadores */
+    public function getTelCoordenador($id_municipio) {
+
+        $dados = array();
+        $con = Conexao::getInstance();
+
+        try {
+            $sql = "select telefone, celular, funcao
 						from com_eq_comdec
 						where id_municipio = :id_municipio";
-						
-				$result = $con->prepare($sql);
-				$result->bindValue(':id_municipio', $id_municipio);
-				$result->execute();			
 
-				while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-					if(isset($linha['funcao']) && strtolower($linha['funcao']) == "coordenador") {
-						$dados = $linha['telefone']."/".$linha['celular'];
-						return $dados;
-					}
-				}
+            $result = $con->prepare($sql);
+            $result->bindValue(':id_municipio', $id_municipio);
+            $result->execute();
 
-				
-
-			}catch (Exception $e) {
-				print FuncaoBase::getError($e->getMessage(), 'Erro ao buscar Registro');	
-			}
-
-	}
-
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                if (isset($linha['funcao']) && strtolower($linha['funcao']) == "coordenador") {
+                    $dados = $linha['telefone'] . "/" . $linha['celular'];
+                    return $dados;
+                }
+            }
+        } catch (Exception $e) {
+            print FuncaoBase::getError($e->getMessage(), 'Erro ao buscar Registro');
+        }
+    }
 
     public static function listaCompdecWebService() {
-            
-        /*select id_comdec,
-                cedec_municipio.nome,
-                com_comdec.endereco,
-                com_comdec.fone_com1,
-                com_comdec.fone_com2
-                from com_comdec
-                inner join cedec_municipio
-                on com_comdec.id_municipio = cedec_municipio.id_municipio
-                where com_comdec.num_lei <> 0
-                order by cedec_municipio.nome        */
-    
-    return "relatorio Gerado !";
-    
+
+        /* select id_comdec,
+          cedec_municipio.nome,
+          com_comdec.endereco,
+          com_comdec.fone_com1,
+          com_comdec.fone_com2
+          from com_comdec
+          inner join cedec_municipio
+          on com_comdec.id_municipio = cedec_municipio.id_municipio
+          where com_comdec.num_lei <> 0
+          order by cedec_municipio.nome */
+
+        return "relatorio Gerado !";
     }
-    
-    
+
     /**
      * 
      * 
      * 
      */
-    public static function dadosCompdec($id_municipio){
-    	
-    	
-    	$dados = array();
-    	
-    	
-	    	$con = Conexao::getInstance();
-	    	
-	    	try {
-	    	
-			    	$sql = "SELECT com_comdec.id_comdec,
+    public static function dadosCompdec($id_municipio) {
+
+
+        $dados = array();
+
+
+        $con = Conexao::getInstance();
+
+        try {
+
+            $sql = "SELECT com_comdec.id_comdec,
 								com_comdec.endereco
 									FROM com_comdec
 										INNER JOIN pip_pmda
 											ON pip_pmda.id_municipio = com_comdec.id_municipio
 												WHERE pip_pmda.id_municipio = :id_municipio limit 1";
-			    	
-			    	$result = $con->prepare($sql);
-			    	$result->bindValue(":id_municipio", $id_municipio);
-			    	$result->execute();
-			    	
-			    	    	
-			    	while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-			    		
-			    		$dados = $linha;
-			    		
-			    	}
-			    	
-			    	return $dados;
-			    	
-		    }catch (Exception $e) {
-    	
-		    	print FuncaoBase::getError($e->getMessage(), 'Erro ao buscar Registro');
-		    	
-		    }
-		    
+
+            $result = $con->prepare($sql);
+            $result->bindValue(":id_municipio", $id_municipio);
+            $result->execute();
+
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+
+                $dados = $linha;
+            }
+
+            return $dados;
+        } catch (Exception $e) {
+
+            print FuncaoBase::getError($e->getMessage(), 'Erro ao buscar Registro');
+        }
     }
-    
-    
+
     /**
      * Altera existencia e compdec
      */
-    public function existeCompdec($existente, $id_municipio){
-    	 
-    	$dados = array();
- 
-    	$con = Conexao::getInstance();
-    
-    	try {
-    
-    		$sql = "update com_comdec set com_const = :existente
-    					where id_municipio = :id_municipio";
-    
-    		$result = $con->prepare($sql);
-    		$result->bindValue(":existente", $existente);
-    		$result->bindValue(":id_municipio", $id_municipio);
-    		$result->execute();
-   
-    		print true;
-    
-    	}catch (Exception $e) {
-    		 
-    		print FuncaoBase::getError($e->getMessage(), 'Erro Mudar situacao compdec');
-    		 
-    	}
-    
-	}
-	
+    public function existeCompdec($existente, $id_municipio) {
 
-	# busca quem esta com compdec ativo
-	
-/*	select cedec_municipio.nome, com_comdec.com_const, com_comdec.sem_portaria, com_comdec.sem_decreto
-from com_comdec
-inner join cedec_municipio 
-on cedec_municipio.id_municipio = com_comdec.id_municipio
-where com_comdec.com_const = 1
-or com_comdec.sem_decreto = 0
-or com_comdec.sem_portaria = 0*/
-    
-    
+        $dados = array();
+
+        $con = Conexao::getInstance();
+
+        try {
+
+            $sql = "update com_comdec set com_const = :existente
+    					where id_municipio = :id_municipio";
+
+            $result = $con->prepare($sql);
+            $result->bindValue(":existente", $existente);
+            $result->bindValue(":id_municipio", $id_municipio);
+            $result->execute();
+
+            print true;
+        } catch (Exception $e) {
+
+            print FuncaoBase::getError($e->getMessage(), 'Erro Mudar situacao compdec');
+        }
+    }
+
+    # busca quem esta com compdec ativo
+
+    /* 	select cedec_municipio.nome, com_comdec.com_const, com_comdec.sem_portaria, com_comdec.sem_decreto
+      from com_comdec
+      inner join cedec_municipio
+      on cedec_municipio.id_municipio = com_comdec.id_municipio
+      where com_comdec.com_const = 1
+      or com_comdec.sem_decreto = 0
+      or com_comdec.sem_portaria = 0 */
+
     /**
      * 
      * 
      * 
      */
-    public static function DadosResumoCompdec(){
-    
-    	$dados = array();
-    	
-    	$con = Conexao::getInstance();
-    	
-    	try {
-    	
-    		$sql = "select com_const, com_ativa, nudec, cartao_pdc, plano_cont, mapeamento, capacitacao from com_comdec where id_municipio <> '7221'";
-    		
-    		$result = $con->query($sql);
-   	
-    		 
-    		while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-    			 
-    			$dados[] = $linha;
-    			 
-    		}
-    	
-    		return $dados;
-    	
-    	}catch (Exception $e) {
-    		 
-    		print FuncaoBase::getError($e->getMessage(), 'Erro ao buscar Registro');
-    		 
-    	}
+    public static function DadosResumoCompdec() {
 
+        $dados = array();
+
+        $con = Conexao::getInstance();
+
+        try {
+
+            $sql = "select com_const, com_ativa, nudec, cartao_pdc, plano_cont, mapeamento, capacitacao from com_comdec where id_municipio <> '7221'";
+
+            $result = $con->query($sql);
+
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+
+                $dados[] = $linha;
+            }
+
+            return $dados;
+        } catch (Exception $e) {
+
+            print FuncaoBase::getError($e->getMessage(), 'Erro ao buscar Registro');
+        }
     }
     
-}?>
+    
+    /**
+     * Altera permissao acesso modulos
+     */
+    public function permissao(array $dados) {
+        $con = Conexao::getInstance();
+
+        try {
+            $sql = "update cedec_user_ex set ".$dados['modulo']." = '".$dados['acesso']."'
+                     where id_municipio = ".$dados['id_municipio'];
+
+            $result = $con->query($sql);
+
+            print true;
+        } catch (Exception $e) {
+
+            print FuncaoBase::getError($e->getMessage(), 'Erro Mudar permissao compdec');
+        }
+    }
+
+    
+}
+
+?>

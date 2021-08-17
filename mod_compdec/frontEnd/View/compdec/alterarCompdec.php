@@ -967,7 +967,6 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
                         url: 'mod_compdec/frontEnd/View/compdec/valida.php?v=<?= md5(VERSAO) ?>',
                         data: dados,
                         success: function (response) {
-
                             if (typeof param === 'undefined') {
                                 alert("Registro Atualizado com sucesso !");
                                 location.reload();

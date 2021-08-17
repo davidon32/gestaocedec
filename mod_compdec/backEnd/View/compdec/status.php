@@ -7,14 +7,14 @@
 	$status = isset($_POST['status']) ? $_POST['status']: "";
 	$id_municipio = isset($_POST['id_municipio']) ? $_POST['id_municipio']: "";
 	
-	//var_dump($_POST);
 	
+	$compdec = new Compdec();
 	if($envia == "gravar") {
-		
-		$compdec = new Compdec();
-		
-		return $compdec->existeCompdec($status, $id_municipio);
-
-	}
+		$compdec->existeCompdec($status, $id_municipio);
+	}else if($envia == 'pmda'){
+            $compdec->permissao($_POST);
+        }else if($envia == 'ajuda'){
+            $compdec->permissao($_POST);
+        }
 
 ?>
