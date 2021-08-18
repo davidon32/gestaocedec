@@ -5,6 +5,7 @@
 
 
         public function index() {
+            
             include_once "mod_compdec/frontEnd/View/compdec/alterarCompdec.php";
         }
 

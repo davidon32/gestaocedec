@@ -545,9 +545,9 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
                 <table class="table table-bordered table-striped table-condensed tbl">
                     <tr>
                         <td>
-                            <input type="checkbox" name="ckSemDecreto" id="ckSemDecreto" value="1" <?= ($_dados[0]['sem_decreto']) == "1" ? "checked='ckecked'" : ""; ?>> Não possui Decreto de Regulamentação da Lei de Criação do COMPDEC <br><br>
-                            <input type="checkbox" name="ckSemPortaria" id="ckSemPortaria" value="1" <?= ($_dados[0]['sem_portaria']) == "1" ? "checked='ckecked'" : ""; ?>> Não possui Portaria de Nomeação do Coordenado Municipal de Defesa Civil<br><br>
-                            <input type="checkbox" name="ckSemLei" id="ckSemLei" value="1" <?= ($_dados[0]['sem_lei']) == "1" ? "checked='ckecked'" : ""; ?>> Não possui Lei de Criação do COMPDEC
+                            <input type="checkbox" name="ckSemDoc" id="sem_decreto" value="1" <?= ($_dados[0]['sem_decreto']) == "1" ? "checked='ckecked'" : ""; ?>> Não possui Decreto de Regulamentação da Lei de Criação do COMPDEC <br><br>
+                            <input type="checkbox" name="ckSemDoc" id="sem_portaria" value="1" <?= ($_dados[0]['sem_portaria']) == "1" ? "checked='ckecked'" : ""; ?>> Não possui Portaria de Nomeação do Coordenado Municipal de Defesa Civil<br><br>
+                            <input type="checkbox" name="ckSemDoc" id="sem_lei" value="1" <?= ($_dados[0]['sem_lei']) == "1" ? "checked='ckecked'" : ""; ?>> Não possui Lei de Criação do COMPDEC
                         </td>
                     </tr>
                 </table>
@@ -625,7 +625,10 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
 <script type="text/javascript">
     $(document).ready(function () {
 
-
+    Swal.fire({
+        icon: 'error',
+            title: 'Mudanças para Atualização de Anexos de Leis',
+            text: 'Apartir do dia 18/08/2021, foi mudado a maneira de hospedagem de documentos, será necessária a aprovação dos Anexos de Lei de Criação pelo Analista da CEDEC. \n O processo será feito Gradualmente.'});
 
         $("#btn_anexo").click(function () {
             $("#btnDados2").trigger('click', [false]);
@@ -990,25 +993,15 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
         });
 
         /* grava checkebox sem DEcreto */
-        /**
-         *
-         */
-        $("#ckSemDecreto").click(function () {
+        $("input[name=ckSemDoc]").click(function () {
 
-            var checado = "";
-            var semDecreto = "";
-
-            if ($(this).is(":checked")) {
-                checado = true;
-                semDecreto = 1;
-            } else {
-                checado = false;
-                semDecreto = 0;
-            }
+            var valor = ($(this).is(":checked")) ? 1:0; 
+            var campo = $(this).attr('id');
 
             var dados = {
-                "opcao": "semDecreto",
-                "ckSemDecreto": semDecreto,
+                "opcao": "GravaSemDoc",
+                "campo": campo,
+                "valor": valor,
                 "id_municipio": $("#txtIdMunicipio").val(),
             };
 
@@ -1029,50 +1022,7 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
 
         });
 
-        /* grava checkebox sem DEcreto */
-        /**
-         *
-         */
-        $("#ckSemPortaria").click(function () {
-
-            var checado = "";
-            var semPortaria = "";
-
-            if ($(this).is(":checked")) {
-                checado = true;
-                semPortaria = 1;
-            } else {
-                checado = false;
-                semPortaria = 0;
-            }
-
-            var dados = {
-                "opcao": "semPortaria",
-                "ckSemPortaria": semPortaria,
-                "id_municipio": $("#txtIdMunicipio").val(),
-            };
-
-            $.ajax({
-                type: 'POST',
-                url: 'mod_compdec/frontEnd/View/compdec/valida.php?v=<?= md5(VERSAO) ?>',
-                data: dados,
-                //dataType: 'json',
-                success: function (response) {
-                    //alert($("#ckSemDecreto").val());
-                    //console.log(JSON.stringify(response));
-
-                },
-                error: function (e) {
-                    console.log(JSON.stringify(e));
-                }
-
-            });
-
-        });
-
-
-
-        /*********** Alterar dados Membro Equipe ***********/
+         /*********** Alterar dados Membro Equipe ***********/
         $("#btnAlterarMembro").click(function () {
             var dados = {
                 "opcao": "alterar",

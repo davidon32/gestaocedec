@@ -1,8 +1,7 @@
-{
-    "require":
- {
-        "intervention/image": "^2.5",
-        "kartik-v/bootstrap-fileinput": "@dev",
-        "mk-j/php_xlsxwriter": "^0.38.0"
+{   
+    "require":{
+        "mk-j/php_xlsxwriter": "~0.38",
+        "phpmailer/phpmailer": "~5.2"
     }
+
 }

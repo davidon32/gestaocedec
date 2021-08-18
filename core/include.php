@@ -1,40 +1,18 @@
 <?php include_once $_SERVER['DOCUMENT_ROOT'] . '/core/system/config/config.inc.php';
-//include_once PATH . '/core/classe/Classe.Login.php';
 
 # plugins
-include_once PATH . '/plugins/phplot-6.1.0/phplot.php';
+//include_once PATH . '/plugins/phplot-6.1.0/phplot.php';
 include_once PATH . '/vendor/mk-j/php_xlsxwriter/xlsxwriter.class.php';
 
 include_once PATH . '/vendor/mimemessage/email_message.php';
 include_once PATH . '/vendor/mimemessage/sendmail_message.php';
 
-
-include PATH.'/vendor/autoload.php';
+//include PATH.'/vendor/autoload.php';
 
 # core/classe 
 spl_autoload_register(function ($class_name) {
     include PATH.'/core/classe/Classe.'.$class_name . '.php';
 });
-
-
-/*
-include_once PATH . '/core/classe/Classe.Conexao.php';
-include_once PATH . '/core/classe/Classe.Data.php';
-include_once PATH . '/core/classe/Classe.Municipio.php';
-include_once PATH . '/core/classe/Classe.Log.php';
-include_once PATH . '/core/classe/Classe.Usuario.php';
-include_once PATH . '/core/classe/Classe.FuncaoBase.php';
-include_once PATH . '/core/classe/Classe.SqlGenerics.php';
-include_once PATH . '/core/classe/Classe.Estado.php';
-include_once PATH . '/core/classe/Classe.Seguranca.Acesso.php';
-include_once PATH . '/core/classe/Classe.Html.php';
-include_once PATH . '/core/classe/Classe.Menu.php';
-include_once PATH . '/core/classe/Classe.Gravatar.php';
-include_once PATH . '/core/classe/Classe.Anexo.php';
-include_once PATH . '/core/classe/Classe.Config.php';
-include_once PATH . '/core/classe/Classe.ImageResize.php';
-include_once PATH . '/core/classe/Classe.Banco.php';
-include_once PATH . '/core/classe/Classe.Decreto.php';*/
 
 
 #model
@@ -67,8 +45,6 @@ include_once PATH . '/mod_pipa/classe/Classe.PontoCap.php';
 include_once PATH . '/mod_pipa/classe/Classe.EquipeCompdec.php';
 include_once PATH . '/mod_pipa/classe/Classe.RepPmda.php';
 include_once PATH . '/mod_pipa/classe/Classe.AnexoPmda.php';
-
-
 
 
 #@ modulo decreatacao

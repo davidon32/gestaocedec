@@ -4,7 +4,7 @@ include_once "template/page/headerPageSimples.php";
 
 $comunidade = new Comunidade();
 
-$id_comunidade = (int) isset($_GET['id']) ? $_GET['id'] : 0;
+//$id_comunidade = (int) isset($_GET['id']) ? $_GET['id'] : 0;
 $id_rota = (int) isset($_GET['r']) ? $_GET['r'] : 0;
 
 $id_municipio = isset($_GET['id']) ? $_GET['id'] : "";

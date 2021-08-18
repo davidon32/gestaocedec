@@ -88,7 +88,7 @@ define("MODOACESSO", 0);
     $_path = $_SERVER['DOCUMENT_ROOT'];
 
 
-    if($_path == 'C:/Users/m1296844/workspace/gestaocedec'){
+    if($_path == 'C:/wamp64/www/gestaocedec'){
           
         $_sistema = '';
         

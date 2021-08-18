@@ -65,18 +65,12 @@
 		}
 
 	 /*grava opcao sem decreto em anexo */
-	}elseif($opcao == "semDecreto"){
+	}elseif($opcao == "GravaSemDoc"){
 
-		if($_compdec->GravaSemDecreto($post)){
-			print "sucesso";
-		}
-	/*grava opcao sem portaria */
-	}elseif($opcao == "semPortaria"){
-
-		if($_compdec->GravaSemPortaria($post)){
-			print "sucesso";
-		}
-
+            if($_compdec->GravaSemDoc($post)){
+		print "sucesso";
+            }
+	
 	/* gravar leis */
 	}elseif($opcao == 'gravarleis'){
 	

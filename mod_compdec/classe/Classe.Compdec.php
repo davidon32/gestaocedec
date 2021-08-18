@@ -366,71 +366,17 @@ class Compdec {
 
     #@ aba anexo opcao nao possui lei de criacao
 
-    function GravaSemLei($dados) {
+    function GravaSemDoc(array $dados) {
         try {
 
             $con = Conexao::getInstance();
 
             $sql = "UPDATE com_comdec 
-						SET sem_lei       =:ckSemLei
-						WHERE id_municipio	  =:id_municipio";
+			SET ".$dados['campo']." =".$dados['valor']." 
+			WHERE id_municipio = ".$dados['id_municipio'];
 
-            $result = $con->prepare($sql);
+            $result = $con->query($sql);
 
-            $result->bindValue(":ckSemLei", $dados['ckSemLei']);
-            $result->bindValue(":id_municipio", $dados['id_municipio']);
-
-            $result->execute();
-
-            return true;
-        } catch (Exception $e) {
-
-            print FuncaoBase::getError($e->getMessage(), 'Mensagem');
-        }
-    }
-
-    #@ aba anexo opcao nao possui decreto
-
-    function GravaSemDecreto($dados) {
-        try {
-
-            $con = Conexao::getInstance();
-
-            $sql = "UPDATE com_comdec 
-						SET sem_decreto       =:ckSemDecreto
-						WHERE id_municipio	  =:id_municipio";
-
-            $result = $con->prepare($sql);
-
-            $result->bindValue(":ckSemDecreto", $dados['ckSemDecreto']);
-            $result->bindValue(":id_municipio", $dados['id_municipio']);
-
-            $result->execute();
-
-            return true;
-        } catch (Exception $e) {
-
-            print FuncaoBase::getError($e->getMessage(), 'Mensagem');
-        }
-    }
-
-    #@ aba anexo opcao nao possui decreto e portaria
-
-    function GravaSemPortaria($dados) {
-        try {
-
-            $con = Conexao::getInstance();
-
-            $sql = "UPDATE com_comdec 
-						SET sem_portaria      =:ckSemPortaria
-						WHERE id_municipio	  =:id_municipio";
-
-            $result = $con->prepare($sql);
-
-            $result->bindValue(":ckSemPortaria", $dados['ckSemPortaria']);
-            $result->bindValue(":id_municipio", $dados['id_municipio']);
-
-            $result->execute();
 
             return true;
         } catch (Exception $e) {
@@ -894,8 +840,7 @@ class Compdec {
             print FuncaoBase::getError($e->getMessage(), 'Erro ao buscar Registro');
         }
     }
-    
-    
+
     /**
      * Altera permissao acesso modulos
      */
@@ -903,8 +848,8 @@ class Compdec {
         $con = Conexao::getInstance();
 
         try {
-            $sql = "update cedec_user_ex set ".$dados['modulo']." = '".$dados['acesso']."'
-                     where id_municipio = ".$dados['id_municipio'];
+            $sql = "update cedec_user_ex set " . $dados['modulo'] . " = '" . $dados['acesso'] . "'
+                     where id_municipio = " . $dados['id_municipio'];
 
             $result = $con->query($sql);
 
@@ -915,7 +860,6 @@ class Compdec {
         }
     }
 
-    
 }
 
 ?>

@@ -15,19 +15,23 @@
 <div class="col-md-12">
     <br>
     <p class="text-center"><legend>Notificações do Sistema</legend></p>
-    <div class="col-md-6 text-center"> 
-        <?php
-        $login = new Login();
-        $login->acessoLembrete($_COOKIE['seguranca']['login'], $_COOKIE['seguranca']['id_deposito']);
-        $login->acessoLembreteTransito($_COOKIE['seguranca']['login'], $_COOKIE['seguranca']['id_deposito'])
-        ?>
-    </div>
-    <div class="col-md-6 text-center"> 
+<div class="col-md-4 text-center"> 
     <?php
-            var_dump($dash = dashboardModel::CompdecAtualizados());
+    $login = new Login();
+    $login->acessoLembrete($_COOKIE['seguranca']['login'], $_COOKIE['seguranca']['id_deposito']);
+    $login->acessoLembreteTransito($_COOKIE['seguranca']['login'], $_COOKIE['seguranca']['id_deposito'])
+    ?>
+</div>
+<div class="col-md-12 text-center"> 
+    <?php
+    $dash = new Dashboard();
+    $dash->atualizado();
+    $dash->ajudaHumanitaria();
+    $dash->pmda();
+    $dash->decreto();
     ?>        
-    </div>
-    
+</div>
+
 </div>
 
 <!-- =================== RODAPE CORPO ==================== -->
@@ -53,8 +57,47 @@
         }
     });
 
+    
+    var lineChartData = {
+        labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Agos", "Set", "Out", "Nov", "Dez"],
+        datasets: [
+            {
+                label: "Cesta",
+                fillColor: "rgba(220,220,220,0.2)",
+                strokeColor: "rgba(220,220,220,1)",
+                pointColor: "rgba(220,220,220,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(220,220,220,1)",
+                data: [1,
+                    5,
+                    7,
+                    10,
+                    0,
+                    15,
+                    7]
+            },
+            {
+                label: "Kit Higiene",
+                fillColor: "rgba(220,220,220,0.2)",
+                strokeColor: "rgba(220,220,220,1)",
+                pointColor: "rgba(220,220,220,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(220,220,220,1)",
+                data: [1,10,7,40,25,17,2]
+            },
 
+        ]
 
+    }
+
+    window.onload = function () {
+        var ctx = document.getElementById("canvas").getContext("2d");
+        window.myLine = new Chart(ctx, {type: 'line',
+            data: lineChartData,
+            responsive: true});
+    }
 
 
 </script>

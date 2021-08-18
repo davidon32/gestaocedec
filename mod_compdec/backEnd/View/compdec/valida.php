@@ -58,27 +58,14 @@ if ($opcao == "parte1") {
     }
 
 /* sem lei de criacao */
-} elseif ($opcao == "semLei") {
+} elseif ($opcao == "GravaSemLei") {
+    var_dump($_POST);
 
     if ($_compdec->GravaSemLei($post)) {
         print "sucesso";
     }
-
-    /* grava opcao sem decreto em anexo */
-} elseif ($opcao == "semDecreto") {
-
-    if ($_compdec->GravaSemDecreto($post)) {
-        print "sucesso";
-    }
-    /* grava opcao sem portaria */
-} elseif ($opcao == "semPortaria") {
-
-    if ($_compdec->GravaSemPortaria($post)) {
-        print "sucesso";
-    }
-
-
-    /* Alterar Imagem compdec */
+  
+/* Alterar Imagem compdec */
 } elseif ($opcao == 'alterarImagem') {
 
     $files = isset($_FILES) ? $_FILES : "";

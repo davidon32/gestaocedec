@@ -17,6 +17,7 @@
 <script src="template/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="template/dist/js/demo.js"></script>
+<script src="template/bower_components/fastclick/lib/fastclick.js"></script>
 
 <!-- plugins pmda -->
 <!--<script src="js/jquery-ui.js"></script>-->
@@ -152,6 +153,7 @@
             $(".box-header").css('padding', '0');
             $(".content").css('padding', '0');
         }
+        
 
         if ((largura <= 800) && (altura <= 600) && (os.indexOf("Android") == -1)) {
             Swal.fire({
