@@ -1,0 +1,6 @@
+
+# abrir docker
+docker-compose up
+
+# docker em segundo plano
+docker-compose up -d

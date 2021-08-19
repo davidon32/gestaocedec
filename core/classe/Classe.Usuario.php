@@ -1058,7 +1058,7 @@ class Usuario extends UsuarioModel {
      */
     static function getEmailFuncEmail($email) {
 
-        $dados = "";
+        $dados = array();
         
         $email_low = strtolower($email);
 
@@ -1131,7 +1131,7 @@ class Usuario extends UsuarioModel {
         $senhaTemp = "";
         
         # busca pelo email 
-        if ( (!empty($email)) && (empty($idFuncionario)) ) {
+        if ( (!empty($email)) && (empty($idFuncionario)) ) {  
 
             // busca usuario interno
             if ($emailCad = Usuario::getEmailFuncEmail($email)) {

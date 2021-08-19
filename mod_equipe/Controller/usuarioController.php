@@ -118,7 +118,8 @@ MSG;
 
                     //var_dump(count($email_rec) > 0);
 
-                    $_resultado = $usuario->resetaSenha(false, $email_rec[0]['email_rec']);
+                    var_dump($_resultado = $usuario->resetaSenha(false, $email_rec[0]['email_rec']));
+                    die();
 
                     if (!is_null($_resultado)) {
 
