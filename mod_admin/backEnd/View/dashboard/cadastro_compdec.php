@@ -79,4 +79,5 @@ $possuicompdec = $dados['possuiCompdec'];
 
     </div>
 </div>
+<hr>
 

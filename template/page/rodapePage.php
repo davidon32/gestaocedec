@@ -55,7 +55,7 @@
         
         /* barra debug */
         var url = window.location.host;
-        var host = url.indexOf('desenvolvimento.projetos');
+        var host = url.indexOf('desenvolvimento.gestaocedec');
         if (host === 0) {
             $("#posiciona").show();
         } else {

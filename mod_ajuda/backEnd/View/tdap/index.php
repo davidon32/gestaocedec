@@ -20,19 +20,15 @@ if ($_COOKIE['seguranca']['id_deposito'] == 1) {
     <a href="?token=<?= hash('sha256', md5(VERSAO).date('dmY')) ?>&ac=itn&modulo=ajuda&controller=tdap&action=cadfornec" class="btn btn-info">Cadastro Fornecedor</a>
     <br>
     <br>
-    <a href="#" class="btn btn-info">Recebimento QRCode</a>
+    <a href="<?= FuncaoBase::geraLink("ajuda", "tdap", "listreceb")?>" class="btn btn-info">Recebimento QRCode</a>
     <br>
     <br>
     
     <a href="<?=FuncaoBase::geraLink("ajuda", "tdap", "processar")?>" class="btn btn-info">Processar Arquivo SMS</a>
 
 
-<<<<<<< HEAD
-<a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=ajuda&controller=tdap&action=cadfornec" class="btn btn-info">Cadastro Fornecedor</a>
-<a href="<?= FuncaoBase::geraLink("ajuda", "tdap", "listreceb")?>" class="btn btn-info">Recebimento QRCode</a>
-=======
        <?php } ?>
->>>>>>> bill_click
+
 
 
        <br>

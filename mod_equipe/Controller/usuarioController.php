@@ -78,8 +78,13 @@ MSG;
 
                             if ($resultado) {
 
-                                print FuncaoBase::mensagem(FuncaoBase::geraLink("index", "index", "index"), "alert alert-success", "Senha Resetada com Sucesso !<br><br> Foi enviado um email para : <span style='font-weight:bolder; font-size:18pt;'>" . $quebraEmail . "</span>, <b>Aguarde Alguns Minutos </b> e consulte sua sua caixa de entrada e siga as instruçoes para alterar a senha !"
-                                );
+                                print FuncaoBase::mensagem(FuncaoBase::geraLink("index", "index", "index"), "alert alert-success", "Senha Resetada com Sucesso !<br><br> Foi enviado um email para : <span style='font-weight:bolder; font-size:18pt;'>" . $quebraEmail . " 
+                                        <p>Por questões de segurança parte do seu email de recuperação de senha foi <u><b>ocultado</b></u>.<p>
+                                        Se voçê reconhece o inicio e o final do email mostrado acima :
+                                        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Aguarde alguns minutos</li>
+                                        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Consulte sua sua caixa de entrada e siga as instruçoes para alterar a senha !</li>
+                                        <br>Caso não reconheça, envie um email para:<br><br> 
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sdc@defesacivil.mg.gov.br");
                             }else {
                         print FuncaoBase::mensagem(FuncaoBase::geraLink("index", "index", "index"), "alert alert-error", "Ocorreu um erro ao enviar o email, gentileza tente mais tarde !");
                     }

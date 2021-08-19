@@ -32,12 +32,12 @@ foreach ($alertaPreCadCom as $value) {
         <br><br>
         </div>
     <div class="col-md-4 text-center">
-        <a href="<?= FuncaoBase::geraLink("pipa","pipa", "usuario")?>"><img width="80" src='/core/imagem/avatar.png' title='Administração Usuarios Externos'></a><br>Cadastro Usuario Externo
+        <a href="<?= FuncaoBase::geraLink("pipa","pipa", "usuario")?>"><img width="90" height="100" src='/core/imagem/avatar.png' title='Administração Usuarios Externos'></a><br>Cadastro Usuario Externo
     </div>
     <div class="col-md-4 text-center">
-        <a class="btn btn-primary" href="<?= FuncaoBase::geraLink("pipa", "pipa", "pmdaCom", array('a'=>'adm'))?>">Validação Comunidade   
+        <a href="<?= FuncaoBase::geraLink("pipa", "pipa", "pmdaCom", array('a'=>'adm'))?>"><img src='/core/imagem/checar_comunidade.png' width='90' height="100">
             <?= (count($alertaPreCadCom) > 0) ? "<img src='core/imagem/aviso.png' width='30px;' title='Existem Solicitações de Ativação de Comunidades !\nMunicipios:\n\n{$listCom}'>" : ""; ?>
-        </a>
+        </a><br> Validação Comunidade   
     </div>
 <br>
     <br>

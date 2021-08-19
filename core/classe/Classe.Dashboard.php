@@ -24,9 +24,11 @@ include_once "core/Controller/Controller.php";
         }
 
         /* Pmda */
-        public function pmda(){
-            $dashboard = new dashboardModel();      
-            //$dados['possuiCompdec'] = $dashboard->CompdecAtualizados();
+        public static function pmda(){
+            $dashboard = new dashboardModel();
+            
+            $pmdaPorAno = $dashboard->PmdaPorAno();
+            $pmdaPorStatus = $dashboard->PmdaPorStatus();
             include_once('mod_admin/backEnd/View/dashboard/pmda.php');
         }
         

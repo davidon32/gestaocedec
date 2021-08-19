@@ -14,7 +14,6 @@
 </div> 
 <div class="col-md-12">
     <br>
-    <p class="text-center"><legend>Notificações do Sistema</legend></p>
 <div class="col-md-4 text-center"> 
     <?php
     $login = new Login();
@@ -26,9 +25,9 @@
     <?php
     $dash = new Dashboard();
     $dash->atualizado();
-    $dash->ajudaHumanitaria();
+    //$dash->ajudaHumanitaria();
     $dash->pmda();
-    $dash->decreto();
+    //$dash->decreto();
     ?>        
 </div>
 
@@ -98,6 +97,7 @@
             data: lineChartData,
             responsive: true});
     }
-
+    
+    
 
 </script>

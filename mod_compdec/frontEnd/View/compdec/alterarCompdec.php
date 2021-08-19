@@ -628,7 +628,7 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
     Swal.fire({
         icon: 'error',
             title: 'Mudanças para Atualização de Anexos de Leis',
-            text: 'Apartir do dia 18/08/2021, foi mudado a maneira de hospedagem de documentos, será necessária a aprovação dos Anexos de Lei de Criação pelo Analista da CEDEC. \n O processo será feito Gradualmente.'});
+            text: 'Apartir do dia 18/08/2021, foi mudado a forma de hospedagem de documentos, será necessária a aprovação dos Anexos de Lei de Criação, Decreto de Regulamentação da Lei e Portaria de Nomeação do Coordenador por um Analista da CEDEC. \n O processo será feito Gradualmente'});
 
         $("#btn_anexo").click(function () {
             $("#btnDados2").trigger('click', [false]);
