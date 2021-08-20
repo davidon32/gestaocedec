@@ -28,6 +28,7 @@ if($opcao == 'gravarleis'){
 	
 }elseif($opcao == "delete"){
 
+    
 	$id_municipio = $post['txtIdMunicipio'];
 	//deletar
 	$anexo->deletar($post['id_anexo']);
@@ -38,11 +39,14 @@ if($opcao == 'gravarleis'){
 	}
 }
 
+$doc_aprova = Compdec::getDocAprov($id_municipio);
+
 $dados = $anexo->listaAnexo($id_municipio);
+        if($doc_aprova == 0){
+            print '<button type="button" id="btn_anexo" class="btn btn-primary" data-toggle="modal" data-target="#modal-default" title="Clique para Anexar Leis e Decretos">Upload</button>';
 
-	print '<button type="button" id="btn_anexo" class="btn btn-primary" data-toggle="modal" data-target="#modal-default" title="Clique para Anexar Leis e Decretos">Upload</button>';
-
-					
+	}
+        #print "<br><br><span class='alert alert-success'> Seus documentos estão atualizados, em caso de mudança entre em contato com a CEDEC </span><br><br>";
 	 print '<table class="table table-condensed tbl">
 		
 			<tr>
@@ -59,7 +63,8 @@ $valido = '';
 	foreach ($dados as $key => $value) {
 		$anexoResult = $anexo->previewAnexo($value['id']);
                 
-                $valido = (!empty($value['validade'])) ? "style='background-color:#00FF80;' title='Documento validado pela CEDEC'" : "style='background-color:#FA5858;' title='Documento validado pela CEDEC'";
+                //$valido = (!empty($value['validade'])) ? "style='background-color:#00FF80;' title='Documento validado pela CEDEC'" : "style='background-color:#FA5858;' title='Documento validado pela CEDEC'";
+                $valido = "";
 		
 		print '<tr>
 				<td ' . $valido . '>'.($key+1).'</td>
@@ -79,4 +84,5 @@ $valido = '';
 	} 
 		
 	print '</table>'; 
+        
 ?>

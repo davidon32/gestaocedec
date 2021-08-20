@@ -13,7 +13,7 @@
     <div class="container">
             <!-- CORPO -->
         <div class="row-fluid">
-            <div class="span10">
+            <div class="col-md-6">
             <a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=compdec&controller=compdec&action=buscarAlterar">Cadastro Compdec</a><br> <br>  
             <a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=compdec&controller=compdec&action=filtroRelatorio">Relatórios</a><br> <br>  
             
@@ -23,10 +23,26 @@
             <a class="btn btn-primary" href="<?= FuncaoBase::geraLink('pipa','pipa', 'usuario', array('volta'=>'compdec'));?>">Ativar/Editar Usuario</a><br><br>   
             <!--<a class="btn btn-primary" href="?modulo=compdec&controller=pipa&action=pmdaCom&a=adm">Lista Usuarios</a>   -->
             <a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=compdec&controller=plano&action=indexplano">Plano de Contingência</a>
-                                               
+            
+            <br><br>
+            <p class="text-center"><a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&&modulo=index&controller=index&action=menu">Voltar</a></p><br> <br>  
+            </div>
+            <div class="col-md-6">
+                <legend>Lista</legend>  
+                <?php
+                
+                $compdecs = Compdec::listaCompdecAtualiza(0);
+                
+                //var_dump($compdecs);
+                foreach ($compdecs as $key=>$compdec) {
+                    print "<div class='col-md-1'>".($key+1)."</div>";
+                    print "<div class='col-md-11'><a href='".FuncaoBase::geraLink("compdec", "compdec", "alterarCompdec", array('mun'=>$compdec['id_municipio']))."'>".Municipio::PegaNomeMunicipio($compdec['id_municipio'])."</a></div>";
+                    
+                }
+
+                ?>
             </div>
             <div class='col-md-12 text-center'>
-                <a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&&modulo=index&controller=index&action=menu">Voltar</a><br> <br>  
             </div>         
         </div> 
 <!-- =================== RODAPE CORPO ==================== -->

@@ -540,8 +540,9 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
 
         <div class="col-md-12">
                 <h4><p style="text-align:center;">LEIS E DECRETOS</p></h4>
-                <span style='color:red'>OBS: Quando as três opções abaixo estiverem marcadas não será possível anexar os documentos</span><br>
-                <span style='color:red'>OBS: Favor Apagar documentos que não estejam em conformidade com conteúdo desejado nesta seção !</span>
+                <br>
+                <!--<span class="alert alert-danger">OBS: Quando as três opções abaixo estiverem marcadas não será possível anexar os documentos</span></br> </br> </br> -->
+                
                 <table class="table table-bordered table-striped table-condensed tbl">
                     <tr>
                         <td>
@@ -553,6 +554,8 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
                 </table>
             </div>
         <div class="col-md-12" id="tblAnexoLeis">
+            <span class="alert alert-danger">Favor Apagar documentos que não estejam em conformidade com conteúdo desejado nesta seção !</span></br></br>
+            
 
             <?php include PATH . '/mod_compdec/frontEnd/View/compdec/anexo.php'; 
             print "<table class='table table-bordered'>";
@@ -625,10 +628,11 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
 <script type="text/javascript">
     $(document).ready(function () {
 
-    Swal.fire({
+    /*Swal.fire({
         icon: 'error',
             title: 'Mudanças para Atualização de Anexos de Leis',
-            text: 'Apartir do dia 18/08/2021, foi mudado a forma de hospedagem de documentos, será necessária a aprovação dos Anexos de Lei de Criação, Decreto de Regulamentação da Lei e Portaria de Nomeação do Coordenador por um Analista da CEDEC. \n O processo será feito Gradualmente'});
+            text: 'Apartir do dia 18/08/2021, foi mudado a forma de hospedagem de documentos, será necessária a aprovação dos Anexos de Lei de Criação, Decreto de Regulamentação da Lei e Portaria de Nomeação do Coordenador por um Analista da CEDEC. \n O processo será feito Gradualmente'
+            });*/
 
         $("#btn_anexo").click(function () {
             $("#btnDados2").trigger('click', [false]);

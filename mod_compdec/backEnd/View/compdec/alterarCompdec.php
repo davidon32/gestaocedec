@@ -481,7 +481,7 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
                     </tr>
                 </table>
             </div>
-/* upload documento */
+<!--upload documento -->
 <div class="col-md-6">
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default" title="Clique para Anexar Leis e Decretos">Upload</button>
 </div>
@@ -945,6 +945,7 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
                 url: 'mod_compdec/backEnd/View/compdec/valida.php?v=<?= md5(VERSAO) ?>',
                 data: dados,
                 success: function (response) {
+                    console.log(response);
                 },
                 error: function (e) {
                     console.log(JSON.stringify(e));

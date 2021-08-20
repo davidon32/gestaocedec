@@ -693,6 +693,35 @@ class Compdec {
             print FuncaoBase::getError($e->getMessage(), 'Erro ao buscar Registro');
         }
     }
+    
+    /* lista compdec ativa */
+
+    public static function listaCompdecAtualiza($situacao) {
+
+        $dados = array();
+
+        $con = Conexao::getInstance();
+
+        try {
+            $sql = "select id_municipio, doc_aprov from com_comdec  
+                            where doc_aprov = ".$situacao." 
+                            and id_municipio != 7221
+                            ";
+
+            $result = $con->query($sql);
+
+            $result->execute();
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+
+                $dados[] = $linha;
+            }
+
+            return $dados;
+        } catch (Exception $e) {
+            print FuncaoBase::getError($e->getMessage(), 'Erro ao buscar Registro');
+        }
+    }
 
     /** Pega os telefones dos coordenadores */
     public function getTelCoordenador($id_municipio) {
@@ -859,7 +888,29 @@ class Compdec {
             print FuncaoBase::getError($e->getMessage(), 'Erro Mudar permissao compdec');
         }
     }
+    
+    /**
+     * Get Doc aprova
+     * @param type $param
+     * @return type     
+     */
+    public static function getDocAprov($id_municipio) {
+        
+        $con = Conexao::getInstance();
+        $dados = "";
+        
+        $sql = "select doc_aprov from com_comdec
+                where id_municipio = ".$id_municipio;
+        
+        $result = $con->query($sql);
+        
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            $dados = $linha['doc_aprov'];
+        }
 
-}
+        return $dados;
+    }
+    
+    
 
-?>
+}?>

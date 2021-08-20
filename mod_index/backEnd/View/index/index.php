@@ -23,10 +23,10 @@
 </div>
 <div class="col-md-12 text-center"> 
     <?php
-    $dash = new Dashboard();
-    $dash->atualizado();
+    //$dash = new Dashboard();
+    //$dash->atualizado();
     //$dash->ajudaHumanitaria();
-    $dash->pmda();
+    //$dash->pmda();
     //$dash->decreto();
     ?>        
 </div>
