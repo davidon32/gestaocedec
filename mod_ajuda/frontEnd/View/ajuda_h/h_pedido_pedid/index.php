@@ -32,7 +32,7 @@ $pedido_pedid = new H_pedido_pedidajuda_hModel();
 
 print "<legend>Pedidos de Ajuda Humanitária</legend>";
 
-print "<div class=\"table-responsive\"><table class=\"table table-bordered table-striped\">
+print "<div class=\"table-responsive\"><table class=\"table table-striped\">
     <thead>
 <tr>
 <th>Código</th>

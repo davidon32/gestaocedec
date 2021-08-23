@@ -100,6 +100,8 @@ if (isset($_GET['id'])) {
 <?php
 $materiais = H_pedido_pedidajuda_hModel::item_pedido($id_pedido);
 
+if(count($materiais) > 0){
+
 foreach ($materiais as $key => $material) {
 
     print "<tr>";
@@ -113,6 +115,7 @@ foreach ($materiais as $key => $material) {
     print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_itens', 'delete', array('id' => $material['id'], 'id_pedido' => $id_pedido)) . "'><img src='/core/imagem/delete.png'></a>";
     print "</td>";
     print "</tr>";
+}
 }
 ?>
 

@@ -27,7 +27,7 @@ $dados = Municipio::dadosMunicipio($id_municipio);
 
 ?>
 
-<legend>Cadastro de H_pedido_pedid</legend>
+<legend>Pedido de Ajuda Humanitária</legend>
 <form action="<?=FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "gravar");?>" method="post" accept-charset="utf-8" name="frmH_pedido_pedid" id="frmH_pedido_pedid">
     
 <div class='col-md-12'>

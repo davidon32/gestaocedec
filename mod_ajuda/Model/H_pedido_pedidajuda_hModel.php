@@ -521,13 +521,13 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
                 where aju_h_pedido_itens.id_pedido = ".$id_pedido;
 
         try {
-
+/*
             $result = $con->query($sql);
 
             while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
                 $dados[] = $linha;
             }
-
+*/
             return $dados;
         } catch (Exception $e) {
             return $e->getMessage();

@@ -36,7 +36,8 @@ $pedido_h_item = new H_pedido_itensajuda_hModel();
     <a class="btn btn-success" href="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')) ?>&ac=etn&modulo=index&controller=index&action=menue">Voltar</a>
 </div>
 <div class="col-md-12">
-    <br>
+    
+    <div class='col-md-6'>
     
     <?php
         if( !$pedido_h->buscaStatus($id_municipio) ) {
@@ -48,8 +49,33 @@ $pedido_h_item = new H_pedido_itensajuda_hModel();
             
     ?>
     <a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "index") ?>">Pesquisa</a>
+    </div>
+    <div class="col-md-6">
+        <div class='col-md-5'></div>
+             
+        <div class="col-md-7 text-left"><br>
+                <span style="background-color: #F3E2A9;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+                &nbsp; Em edição COMPDEC.<br>
+                
+                <span style="background-color: #D8D8D8;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+                &nbsp; Análise DRD.<br>
+                
+                <span style="background-color: #2E64FE;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+                &nbsp; Análise DLOG.<br>
+                
+                <span style="background-color: #FE642E">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+                &nbsp; Coord. Adjunto(a).<br>
+                
+                <span style="background-color: #4B8A08;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+                &nbsp; Atendido ( Aguardando Prestação de Contas ).<br>
+                
+                <span style="background-color: #B40404;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+                &nbsp; Cancelado / Nulo.<br>
+                <br>
+            </div>
+    </div>
     <br><br>
-    <table class="table table-bordered">
+    <table class="table ">
         <tr>
             <th colspan="7">Pedidos Recentes</th>
         </tr>

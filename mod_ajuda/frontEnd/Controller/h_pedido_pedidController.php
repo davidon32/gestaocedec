@@ -107,7 +107,11 @@ class h_pedido_pedidController extends Controller {
         $_POST['despachante_analista'] = "";
         $_POST['despachante_dlog'] = "";
 
-        if($h_pedido_pedid->gravar($_POST) == 'erro'){
+        var_dump($h_pedido_pedid->gravar($_POST));
+        if($h_pedido_pedid->gravar($_POST)){
+            FuncaoBase::alert("Registro Gravado com Sucesso !");
+            //$this->redirect("ajuda", "h_pedido_index", "index");
+        }else {
             FuncaoBase::alert("Ocorreu um erro ao gravar o Pedido !");
             $this->redirect("ajuda", "h_pedido_index", "index");
         }
