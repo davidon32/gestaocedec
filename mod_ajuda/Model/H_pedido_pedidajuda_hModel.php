@@ -255,7 +255,7 @@ ano) VALUES (:numero,
             $result = self::$con->prepare($sql);
 
             $result->bindValue(":numero", $dados['numero']);
-$result->bindValue(":data_entrada_sistema", DataMysql::dataForm($dados['data_entrada_sistema']));
+$result->bindValue(":data_entrada_sistema", DataMysql::dataForm($dados['data_entrada_sistema'])." ".date('H:i:s'));
 $result->bindValue(":despachante_analista", $dados['despachante_analista']);
 $result->bindValue(":despachante_dlog", $dados['despachante_dlog']);
 $result->bindValue(":id_municipio", $dados['id_municipio']);
@@ -516,18 +516,17 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
                 aju_h_pedido_itens.qtd,
                 aju_h_pedido_itens.qtd_familia_atendida,
                 aju_h_pedido_itens.id_pedido
-                from 
-                aju_h_pedido_itens
+                from aju_h_pedido_itens
                 where aju_h_pedido_itens.id_pedido = ".$id_pedido;
 
         try {
-/*
+
             $result = $con->query($sql);
 
             while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
                 $dados[] = $linha;
             }
-*/
+
             return $dados;
         } catch (Exception $e) {
             return $e->getMessage();

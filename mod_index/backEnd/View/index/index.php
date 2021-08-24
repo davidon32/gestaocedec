@@ -23,10 +23,11 @@
 </div>
 <div class="col-md-12 text-center"> 
     <?php
-    //$dash = new Dashboard();
+    $dash = new Dashboard();
     //$dash->atualizado();
     //$dash->ajudaHumanitaria();
-    //$dash->pmda();
+    $dash->pmdaAno("");
+    $dash->pmdaAnoMes("2017");
     //$dash->decreto();
     ?>        
 </div>
@@ -90,14 +91,7 @@
         ]
 
     }
-
-    window.onload = function () {
-        var ctx = document.getElementById("canvas").getContext("2d");
-        window.myLine = new Chart(ctx, {type: 'line',
-            data: lineChartData,
-            responsive: true});
-    }
-    
+  
     
 
 </script>

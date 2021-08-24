@@ -23,15 +23,20 @@ include_once "core/Controller/Controller.php";
             include_once('mod_admin/backEnd/View/dashboard/ajuda_humanitaria.php');
         }
 
-        /* Pmda */
-        public static function pmda(){
+        /* Pmda Ano */
+        public static function pmdaAno($ano){
             $dashboard = new dashboardModel();
-            
-            $pmdaPorAno = $dashboard->PmdaPorAno();
-            $pmdaPorStatus = $dashboard->PmdaPorStatus();
-            include_once('mod_admin/backEnd/View/dashboard/pmda.php');
+            $pmdaPorAno = $dashboard->PmdaPorAno($ano);
+            include_once('mod_admin/backEnd/View/dashboard/ano.php');
         }
         
+        public static function pmdaAnoMes($ano){
+            $dashboard = new dashboardModel();
+            $pmdaPorAnoMes = $dashboard->PmdaPorAnoMes($ano);
+            include_once('mod_admin/backEnd/View/dashboard/anomes.php');
+        }
+        
+            //$pmdaPorAnoMes = $dashboard->PmdaPorAnoMes();
         /* Decretação */
         public function decreto(){
             $dashboard = new dashboardModel();      

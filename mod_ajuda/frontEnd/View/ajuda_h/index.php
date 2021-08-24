@@ -95,9 +95,9 @@ foreach ($dados as $key => $value) {
     $cor = $pedido_h->getCorStatus($value['status']);
     print "<tr style='background-color:" . $cor['fdo'] . "'>
             <td>" . $value['numero'] . "-" . substr($value['data_entrada_sistema'], 0, 4) . "</td>
-            <td>" . $value['data_entrada_sistema'] . "</td>
+            <td>" . DataMysql::dataCompletaVisual($value['data_entrada_sistema']) . "</td>
             <td>" . Decreto::getNomeCobrade($value['id_cobrade']) . "</td>
-            <td>" . (($value['despachante_analista'] == "") ? "enviando   " : $value['despachante_analista']) . "</td>
+            <td>" . (($value['despachante_analista'] == "") ? "-   " : $value['despachante_analista']) . "</td>
             <td>" . $pedido_h->enumStatus($value['status']) . "</td>
             <td>" . $value['data_hora_envio'] . "</td>
             <td>";

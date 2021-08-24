@@ -37,6 +37,10 @@
             <label>Prazo Prestação de Contas ( Padrão X Dias )</label>
             <input type="number" class='form form-control col-md-2' name="prazo_prest_cont" id="prazo_prest_cont" value='<?=$configuracao['aju_prazo_prest_conta']?>'>
         </div>
+        <div class="col-md-6">
+            <legend>Permissao de Materiais Pedidos</legend>
+            <label></label>
+        </div>
     </div>
         <br>
     <div class="row">

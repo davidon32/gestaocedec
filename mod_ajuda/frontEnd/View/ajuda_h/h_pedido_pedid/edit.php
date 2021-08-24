@@ -43,7 +43,7 @@ $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
             <div class='row'>
                 <div class='col-md-2'>
                     <label>Data Entrada Sistema</label>
-                    <input type="text" class='form form-control' name='data_entrada_sistema' id='data_entrada_sistema' value='<?= DataMysql::dataVisual($view[0]['data_entrada_sistema']) ?>'  maxlength='-1' readonly=readonly>
+                    <input type="text" class='form form-control' name='data_entrada_sistema' id='data_entrada_sistema' value='<?= DataMysql::dataCompletaVisual($view[0]['data_entrada_sistema']) ?>'  maxlength='-1' readonly=readonly>
                 </div>
             </div>
             <div class='row'>
@@ -373,6 +373,8 @@ foreach ($materiais as $key => $material) {
                 <script>
 
                     $(document).ready(function () {
+                        
+                        $("#data_entrada_sistema").datepicker("destroy");
                                              
                         $("#add_material").click(function(){
                             window.location.href = '<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "add_itens", array('id_pedido'=>$view[0]['id'], 'voltar'=>'idx_recente'))?>';

@@ -65,15 +65,17 @@ class dashboardModel {
     
     
     /* PMDA por Ano*/
-    public function PmdaPorAno() {
+    public function PmdaPorAno($ano = "") {
+        
+        $filtro = empty($ano) ? "" : " and year(pip_pmda.data) = '".$ano."'";
         
         $con = Conexao::getInstance();
         
         $dados = array();
         
-        $sql = "select year(pip_pmda.data) as data,
+        $sql = "select year(pip_pmda.data) as ano,
                         count(pip_pmda.id_pmda) as id_pmda from pip_pmda
-                        where status = 7
+                        where status = 7 ".$filtro."
                         group by year(pip_pmda.data)";
         
         $result = $con->query($sql);
@@ -83,6 +85,32 @@ class dashboardModel {
             }
             return $dados;
     }
+    
+    /* PMDA por Ano/ por mEs*/
+    public function PmdaPorAnoMes($ano) {
+        
+        $filtro = empty($ano) ? "" : " and year(pip_pmda.data) = '".$ano."'";
+        
+        $con = Conexao::getInstance();
+        
+        $dados = array();
+        
+        $sql = "select year(pip_pmda.data) as ano,
+                    month(pip_pmda.data) as mes,
+                        count(pip_pmda.id_pmda) as qtd from pip_pmda
+                        where status = 7  ".$filtro."
+                        group by year(pip_pmda.data), month(pip_pmda.data)
+                        order by year(pip_pmda.data), month(pip_pmda.data)";
+        
+        $result = $con->query($sql);
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dados[] = $linha;
+            }
+            return $dados;
+    }
+    
+    
     
     
     /* Pmda Status */
