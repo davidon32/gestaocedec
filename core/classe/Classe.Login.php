@@ -343,7 +343,6 @@ function TrocaSenha($login, $senha_nova) {
                               trsenha = :trsenha,
                               reset = :reset
 		              WHERE login = :login";
-		
 		try {
 		    
     		$result = Conexao::getInstance()->prepare($sql);

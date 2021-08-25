@@ -26,7 +26,7 @@ $plano = new Plano();
     <br>
     Obs: O plano de Contingencia deverá estar nos formados PDF, DOC e DOCX.<br><br>
 
-    <!--<a class="btn btn-primary" href="#" onClick="uploadModal()" title="Envio de Plano de Contingência"><img src="core/imagem/upload1.png"  width="35px;" alt="Upload de Plano de Contingência"> Upload de Plano de Contigencia</a>--><br>
+    <a class="btn btn-primary" href="#" onClick="uploadModal()" title="Envio de Plano de Contingência"><img src="core/imagem/upload1.png"  width="35px;" alt="Upload de Plano de Contingência"> Upload de Plano de Contigencia</a><br>
 
 </div>
 
@@ -34,7 +34,7 @@ $plano = new Plano();
 <div class="col-md-2">&nbsp;</div>
 <div class="col-md-8">
     <legend>Plano de Contingencia </legend>
-    
+
     <table class="table table-bordered table-condensed table-striped" >
         <tr>
             <th class="col-md-2">Data</th>
@@ -42,30 +42,30 @@ $plano = new Plano();
             <th class="col-md-9">Tamanho MB</th>
             <th class="col-md-1">Ações</th>
         </tr>
-    
 
-<?php
-$lista = $plano->listaPlano($id_municipio);
 
-foreach ($lista as $key => $value) {
-    //if($id_municipio == 7221) {
-    //$kits = ($value['dt_upload'] > "2021-08-10") ? "style='color:blue' title='Plano enviado para o Edital Chamamento 01/2021'" :"";
-    
-    print "<tr>";
-    print "<td ".$kits.">".$value['dt_upload']."</td>";
-    print "<td ".$kits."><a href=\"" . FuncaoBase::geraLink('compdec', 'app', 'vupload', array('id' => $value['id'])) . "\">Plano Versao " . $value['versao'] . " -  Data: " . $value['dt_upload'] . "</a></td>";
-    print "<td ".$kits.">".$value['tamanho']."</td>";
-    print "<td ".$kits.">";
-    
-    if($value['dt_upload'] > "2021-08-11"){
-        print "<a href=\"#\" title=\"Deletar Plano\" onclick=\"removerPlano(" . $value['id'] . ")\"><img width=\"20px;\" src=\"core/imagem/delete.png\"></a>";
-    }        
-    print "</td>";
-    print "</tr>";
-    //}
-}
-?>
-</table>
+        <?php
+        $lista = $plano->listaPlano($id_municipio);
+
+        foreach ($lista as $key => $value) {
+            if ($id_municipio == 7221) {
+                $kits = ($value['dt_upload'] > "2021-08-10") ? "style='color:blue' title='Plano enviado para o Edital Chamamento 01/2021'" : "";
+
+                print "<tr>";
+                print "<td " . $kits . ">" . $value['dt_upload'] . "</td>";
+                print "<td " . $kits . "><a href=\"" . FuncaoBase::geraLink('compdec', 'app', 'vupload', array('id' => $value['id'])) . "\">Plano Versao " . $value['versao'] . " -  Data: " . $value['dt_upload'] . "</a></td>";
+                print "<td " . $kits . ">" . $value['tamanho'] . "</td>";
+                print "<td " . $kits . ">";
+
+                if ($value['dt_upload'] > "2021-08-11") {
+                    print "<a href=\"#\" title=\"Deletar Plano\" onclick=\"removerPlano(" . $value['id'] . ")\"><img width=\"20px;\" src=\"core/imagem/delete.png\"></a>";
+                }
+                print "</td>";
+                print "</tr>";
+            }
+        }
+        ?>
+    </table>
 
 </div>
 <div class="col-md-2"></div>
@@ -192,20 +192,20 @@ foreach ($lista as $key => $value) {
             $("#myModal").modal('show');
         }
     })(jQuery);
-    
-    
+
+
     /* tamanho arquivo */
-    $("#filePlano").change(function(){
+    $("#filePlano").change(function () {
         var size = this.files[0].size;
         var tamanho, bytes, limite = "";
         $("#tamanho").css("color", "blue");
-        if(size < 1048576) {
+        if (size < 1048576) {
             bytes = " Kb";
             tamanho = size / 1024;
-        }else if(size > 2097152) {
+        } else if (size > 2097152) {
             bytes = " MB";
             tamanho = (size / 1024 / 1024);
-        }else if(size > 20971520){
+        } else if (size > 20971520) {
             bytes = " MB";
             tamanho = (size / 1024 / 1024);
             limite = "Tamanho de Arquivo Excedido !, favor reduzi-lo ou dividi-lo !";
@@ -217,12 +217,12 @@ foreach ($lista as $key => $value) {
 
     /* Upload arquivo  */
     $('#btnUpload').on('click', function () {
-        
-        if( $("#descricao").val() == "" ) {
+
+        if ($("#descricao").val() == "") {
             alert('O campo descrição não pode ficar em branco !');
-        }else if ( $('#filePlano').val() == "" ) {
+        } else if ($('#filePlano').val() == "") {
             alert('Favor Escolher um arquivo !');
-        }else {
+        } else {
 
             var file_data = $('#filePlano').prop('files')[0];
             var descricao = $('#descricao').val();

@@ -47,8 +47,7 @@ if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
     } else if (
             ($action === 'recsenha') ||
             ($action === 'recsenha_compdec') ||
-            ($action === 'recsenha_cedec') ||
-            ($action === 'trsenha') ||
+            ($action === 'trsenha_cedec') ||
             ($action === 'trsenha_compdec') ||
             ($modulo === 'index') ||
             ($action === 'visualiza')) {

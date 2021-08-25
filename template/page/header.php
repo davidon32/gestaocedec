@@ -217,7 +217,7 @@ print "</script>";
                                 
                             } else {
                                 print "<div class=\"pull-left\">";
-                                print "<a href='" . FuncaoBase::geraLink("equipe", "usuario", "perfil", array('id' => $pageSession['session']['seguranca']['idUser'])) . "' class=\"btn btn-default btn-flat\">Perfil</a>
+                                print "<a href='" . FuncaoBase::geraLink("admin", "adm", "perfil", array('id' => $pageSession['session']['seguranca']['idUser'])) . "' class=\"btn btn-default btn-flat\">Perfil</a>
                       </div>";
                             }
                             ?>

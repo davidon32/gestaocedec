@@ -1142,7 +1142,8 @@ class Usuario extends UsuarioModel {
 
                     try {
 
-                        $reset = strtotime(date('Y-d-m H:i:s'));
+                        $reset = strtotime(date('Y-m-d H:i:s'));
+
                         $sql = "UPDATE cedec_usuario
 		                     SET reset = '".$reset."'
 		                     WHERE id_usuario = '" . $emailCad[0]['id_usuario'] . "'";
@@ -1700,13 +1701,13 @@ class Usuario extends UsuarioModel {
      * 
      * 
      */
-    public function AtualizarUsuario($dados) {
+    public static function AtualizarUsuario($dados) {
 
         $con = Conexao::getInstance();
 
         $sql = "UPDATE cedec_usuario SET nome = :nome,
 					senha = :senha,
-					email = :email,
+					email_rec = :email,
 					nivel = :nivel
 					WHERE id_usuario = :id";
 
@@ -1798,8 +1799,6 @@ class Usuario extends UsuarioModel {
 
         $sql = "Select * from cedec_usuario 
 			where nome like '%" . $nome . "%'";
-
-        var_dump($sql);
         
         $result = $con->query($sql);
 
@@ -2266,6 +2265,28 @@ and cedec_usuario.nome not in('SUPORTE') ".$filtro."
         return $dados;
         
 
+    }
+    
+    /*
+       Pega o login do usuario usando o hash de reset senha 
+     */
+    public static function getUsuarioHash($hash){
+        
+        $con = Conexao::getInstance();
+
+        $dados = array();
+
+        $sql = "SELECT login from cedec_usuario
+            where reset = '".$hash."'";
+       
+        $result = $con->query($sql);
+
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            $dados = $linha;
+        }
+
+        return $dados['login'];
+        
     }
     
     

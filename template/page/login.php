@@ -48,7 +48,8 @@
       </div>
       <div class="form-group has-feedback">
           <input type="password" class="form-control" placeholder="Password" name="senha"id="senha" value="" title="O sistema diferencia letras maiúsculas de minúsculas !" maxlength="70">
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+          <span class="glyphicon glyphicon-lock form-control-feedback">-</span><br>
+        <p>O sistema diferencia letras <i style='color:red'>MAIÚSCULAS</i> e <i style='color:red'>minúsculas</i>.</p>
       </div>
       <div class="row">
         <div class="col-xs-8">
