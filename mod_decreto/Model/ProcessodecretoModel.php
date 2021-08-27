@@ -788,19 +788,19 @@ ON dec_processo.id_cobrade = dec_cobrade.id_cobrade
 
             $stmt = $con->prepare("SELECT dec_processo.id_processo,
 dec_processo.ano,
-dec_processo.data_entrada,
+dec_processo.dt_entrada,
 dec_processo.num_processo,
 dec_processo.id_municipio,
 dec_processo.num_dec_mun,
-dec_processo.data_dec_mun,
+dec_processo.dt_dec_mun,
 dec_processo.dec_vigencia,
-dec_processo.id_cobrade,
+dec_processo.desastre,
 dec_cobrade.nome as nome_dec_cobrade,
-dec_processo.data_vencimento,
+dec_processo.dt_vencimento,
 dec_processo.status,
 dec_processo.id_funcionario,
 dec_processo.num_dec_homo,
-dec_processo.data_pub_dec_homo,
+dec_processo.dt_pub_dec_homo,
 dec_processo.num_dt_port_dec_rec,
 dec_processo.num_dt_dou,
 dec_processo.populacao,
@@ -858,13 +858,13 @@ dec_processo.val_eco_priv_pecuaria,
 dec_processo.val_eco_priv_industria,
 dec_processo.val_eco_priv_servico,
 dec_processo.val_eco_priv,
-dec_processo.ck_stat_reconhecido,
-dec_processo.ck_stat_arquivo,
-dec_processo.ck_stat_homologa,
-dec_processo.ck_stat_analise
+dec_processo.stat_reconhecido,
+dec_processo.stat_arquivo,
+dec_processo.stat_homologa,
+dec_processo.stat_analise
                                 FROM dec_processo
                                 LEFT JOIN dec_cobrade
-ON dec_processo.id_cobrade = dec_cobrade.id_cobrade
+ON dec_processo.desastre = dec_cobrade.id_cobrade
 
                                 ORDER By id_processo DESC LIMIT $start, $regPorPagina");
             $stmt->execute();

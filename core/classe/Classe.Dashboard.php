@@ -23,16 +23,23 @@ include_once "core/Controller/Controller.php";
             include_once('mod_admin/backEnd/View/dashboard/ajuda_humanitaria.php');
         }
 
-        /* Pmda Ano */
-        public static function pmdaAno($ano){
+        /* Qtd PMDA */
+        public static function qtdPmda($ano = ''){
             $dashboard = new dashboardModel();
-            $pmdaPorAno = $dashboard->PmdaPorAno($ano);
+            $pmdaQtdPorAno = $dashboard->QtdPmdaAno($ano);
             include_once('mod_admin/backEnd/View/dashboard/ano.php');
         }
         
-        public static function pmdaAnoMes($ano){
+        /* Pmda Ano */
+        public static function pmdaAno($ano = ""){
             $dashboard = new dashboardModel();
-            $pmdaPorAnoMes = $dashboard->PmdaPorAnoMes($ano);
+            $pmdaPorAno = $dashboard->PmdaPorAno($ano);
+            //include_once('mod_admin/backEnd/View/dashboard/ano.php');
+        }
+        
+        public static function qtdPmdaPorMes($ano){
+            $dashboard = new dashboardModel();
+            $pmdaPorAnoMes = $dashboard->qtdPmdaMes($ano);
             include_once('mod_admin/backEnd/View/dashboard/anomes.php');
         }
         
@@ -43,4 +50,6 @@ include_once "core/Controller/Controller.php";
             //$dados['possuiCompdec'] = $dashboard->CompdecAtualizados();
             include_once('mod_admin/backEnd/View/dashboard/decretacao.php');
         }
+        
+        
 }

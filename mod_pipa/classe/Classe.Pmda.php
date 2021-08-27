@@ -93,7 +93,9 @@ class Pmda extends Comunidade {
                                data,
                                status,
                                id_municipio,
-                				resp_homolog
+                				resp_homolog,
+                                                dt_analise,
+                                                data_aprov
                                FROM pip_pmda
 							   WHERE id_municipio = :id_municipio
                                                            
@@ -650,7 +652,8 @@ class Pmda extends Comunidade {
         				pop_at_municipio,
         				pedido_altera,
         				em_analise,
-        				resp_homolog
+        				resp_homolog,
+                                        dt_analise
         				FROM pip_pmda
         					WHERE id_pmda = :id_pmda";
 
@@ -768,21 +771,27 @@ class Pmda extends Comunidade {
      */
     public static function atualizaStatus($array) {
 
-        $data = isset($array['data']) ? $array['data'] : null;
+        if($array['status'] == 4){
+            $data = isset($array['data']) ? $array['data'] : null;
+        }else {
+            $array['data'] = null;
+        }
 
         $con = Conexao::getInstance();
 
         $sql = "UPDATE pip_pmda
 	    				SET status = :status,
     						resp_homolog = :resp_homolog,
-							dt_analise = :dt_analise
+						dt_analise = :dt_analise,
+                                                data_aprov = :data_aprov
 		                        WHERE id_pmda = :id_pmda";
 
         $result = $con->prepare($sql);
         $result->bindParam(":id_pmda", $array['id_pmda']);
         $result->bindParam(":resp_homolog", $array['resp']);
         $result->bindParam(":status", $array['status']);
-        $result->bindParam(":dt_analise", $data);
+        $result->bindParam(":dt_analise", date('Y-m-d H:i:s'));
+        $result->bindParam(":data_aprov", $array['data']);
         $result->execute();
 
         return true;
@@ -1561,7 +1570,18 @@ class Pmda extends Comunidade {
             
             return true;
         }
+        
+        public static function AprovaPMDA(){
+            
+            $con = Conexao::getInstance();
+            
+            $sql = "update pip_pmda set status = 7
+                    where pip_pmda.data_aprov <= DATE_SUB(curdate(), INTERVAL 10 DAY)";
+            
+            $result = $con->query($sql);
+            print "ok";
+            
+        }
+        
 
-}
-
-?>
+}?>

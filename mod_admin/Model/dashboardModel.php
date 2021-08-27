@@ -144,9 +144,66 @@ class dashboardModel {
             return $dados;
     }
     
+    /* qtd pmda provados por ano  */
+    public static function QtdPmdaAno($ano = "") {
+        
+        $con = Conexao::getInstance();
+        
+        $filtro = (!empty($ano)) ? "  and year(pip_pmda.data) = '".$ano."' " : "";
+        
+        $dados = array();
+        
+        $sql = "select year(pip_pmda.data) as ano,
+                        count(pip_pmda.id_pmda) as qtd from pip_pmda
+                        where status = 7
+                        group by year(pip_pmda.data);";
+        
+        $result = $con->query($sql);
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dados[] = $linha;
+            }
+            return $dados;
+    }
     
-    
-    
+    /* qtd pmda provados por mes  */
+    public static function qtdPmdaMes($ano ="", $mes = "") {
+               
+        $con = Conexao::getInstance();
+        $filtroAno = (!empty($ano)) ? "  and year(pip_pmda.data) = '".$ano."' " : "";
+        $filtroMes = (!empty($mes)) ? "  and month(pip_pmda.data) = '".$mes."' " : "";
+        
+        $dados = array();
+        
+        
+        $sql = "select month(pip_pmda.data) as numMes, count(pip_pmda.id_pmda) as qtd,
+                    CASE
+                        WHEN month(pip_pmda.data) = '1' THEN 'Janeiro'
+                        WHEN month(pip_pmda.data) = '2' THEN 'Fevereiro'
+                        WHEN month(pip_pmda.data) = '3' THEN 'Março'
+                        WHEN month(pip_pmda.data) = '4' THEN 'Abril'
+                        WHEN month(pip_pmda.data) = '5' THEN 'Maio'
+                        WHEN month(pip_pmda.data) = '6' THEN 'Junho'
+                        WHEN month(pip_pmda.data) = '7' THEN 'Julho'
+                        WHEN month(pip_pmda.data) = '8' THEN 'Agosto'
+                        WHEN month(pip_pmda.data) = '9' THEN 'Setembro'
+                        WHEN month(pip_pmda.data) = '10' THEN 'Outubro'
+                        WHEN month(pip_pmda.data) = '11' THEN 'Novembro'
+                        WHEN month(pip_pmda.data) = '12' THEN 'Dezembro'
+                        ELSE 'Mes Inválido'
+                    END as mes
+                     from pip_pmda
+                        where status = 7 ".$filtroAno." ".$filtroMes."
+                            group by month(pip_pmda.data);";
+        $result = $con->query($sql);
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dados[] = $linha;
+            }
+            return $dados;
+    }
+      
+
     
 }
 

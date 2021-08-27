@@ -34,5 +34,21 @@ class Decreto  {
 
         return $dados['descricao'];
     }
+    
+    
+    /* traduz status do processo */
+    public static function getStatus($status){
+        
+        switch ($status) {
+            case 0:
+                return 'Em Analise';
+                
+                break;
+
+            default:
+                break;
+        }
+        
+    }
 
 }?>

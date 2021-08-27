@@ -1,17 +1,17 @@
 <!-- Ajuda Humanitaria -->
 <?php
 
-/* PMDA por ano*/
-foreach ($pmdaPorAno as $ano){
+/* PMDA qtd por ano*/
+foreach ($pmdaQtdPorAno as $ano){
     $anoPmda[] = $ano['ano'];
-    $qtdPmda[] = $ano['id_pmda'];
+    $qtdPmda[] = $ano['qtd'];
 }
 
 ?>
 <br>
-<div class="col-md-6">
-    <legend>PMDA Por Ano</legend>
-    <canvas id="pmdaPorAno" height="150" width="500"></canvas>
+<div class="col-md-12">
+    <p style='text-align:center'><legend>PMDA POR ANO</legend></p>
+    <canvas id="pmdaQtdPorAno" height="180" width="500"></canvas>
 </div>
 
 <script src='/js/jquery-1.8.3.js'></script>
@@ -36,15 +36,13 @@ foreach ($pmdaPorAno as $ano){
     }
     
     window.onload = function () {
-        var pmdaAno = document.getElementById("pmdaPorAno").getContext("2d");
-        window.myLine = new Chart(pmdaAno, {type: 'line',
+        var pmdaQtdPorAno = document.getElementById("pmdaQtdPorAno").getContext("2d");
+        window.myLine = new Chart(pmdaQtdPorAno, {type: 'line',
             data: pmdaPorAno,
             responsive: true});
     }
     
-    
-          
-        
+   
         
     });
     

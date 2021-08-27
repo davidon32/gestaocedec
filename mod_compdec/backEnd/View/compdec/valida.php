@@ -58,10 +58,9 @@ if ($opcao == "parte1") {
     }
 
 /* sem lei de criacao */
-} elseif ($opcao == "GravaSemLei") {
-    var_dump($_POST);
+} elseif ($opcao == "GravaSemDoc") {
 
-    if ($_compdec->GravaSemLei($post)) {
+    if ($_compdec->GravaSemDoc($post)) {
         print "sucesso";
     }
   

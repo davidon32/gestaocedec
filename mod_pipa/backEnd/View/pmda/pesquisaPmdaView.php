@@ -7,8 +7,7 @@
 <!-- =================== MENU  ============================ -->
 <?php //include_once "template/page/menu.php";?>
 <!-- =================== CORPO  ============================ -->
-<?php include_once "template/page/corpoHeader.php"; 
-
+<?php include_once "template/page/corpoHeader.php";
 ?>
 
 <p style="text-align:center;" id="titulo"><h4>Listagem Posição PMDA</h4></p>
@@ -84,20 +83,20 @@ if ($btn == 'Pesquisar') {
 
         print "<br><br><table class='table' style='width:70%;'>";
         print "<tr>
-						<th style='text-align:center;background-color:#BDBDBD;'>MUNICÍPIO</th>
-						<th style='text-align:center;background-color:#BDBDBD;'>Quantidades de PMDA's</th>
-						<tr>";
+		<th style='text-align:center;background-color:#BDBDBD;'>MUNICÍPIO</th>
+		<th style='text-align:center;background-color:#BDBDBD;'>Quantidades de PMDA's</th>
+		<tr>";
 
         foreach ($dadosMun as $value) {
             $existePmda = $pmda->listaPmda($value['id_municipio']);
             if (count($existePmda) > 0) {
                 print "<tr>
-						<td style='background-color:#01DF3A;text-align:center; color:#000000; font-size:15pt;'><a class='btn btn-primary' style='text-decoration:none;' href='?token=" . hash('sha256', md5(VERSAO).date('dmY')) . "&ac=itn&modulo=pipa&controller=pipa&action=pesquisaPmda&idmun=" . $value['id_municipio'] . "'>" . $value['nome'] . "</a></td>
-						<td style='background-color:#01DF3A;text-align:center; color:#000000; font-size:15pt;'>" . count($existePmda) . "</td>
-						</tr>";
+			<td style='background-color:#01DF3A;text-align:center; color:#000000; font-size:15pt;'><a class='btn btn-primary' style='text-decoration:none;' href='?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=pipa&controller=pipa&action=pesquisaPmda&idmun=" . $value['id_municipio'] . "'>" . $value['nome'] . "</a></td>
+			<td style='background-color:#01DF3A;text-align:center; color:#000000; font-size:15pt;'>" . count($existePmda) . "</td>
+			</tr>";
             } else {
                 print "<tr><td style='background-color:#FA5858;text-align:center; color:#ffffff;'>" . $value['nome'] . "</td>
-								<td style='background-color:#FA5858;text-align:center; color:#ffffff;'> Não existe pmda para este município !</td>";
+			<td style='background-color:#FA5858;text-align:center; color:#ffffff;'> Não existe pmda para este município !</td>";
             }
         }
         print "</table>";
@@ -124,9 +123,9 @@ if (!empty($dados)) {
 
     foreach ($dados as $value) {
         if ($value['status'] == '4') {
-            $homolog ++;
+            $homolog++;
         } elseif ($value['status'] == '0') {
-            $edicao ++;
+            $edicao++;
         } elseif ($value['status'] == '5') {
             $anulado++;
         }
@@ -143,24 +142,28 @@ if (!empty($dados)) {
 									<th colspan='2'>Protocolo</th>
 									<th>Data Criação</th>
 									<th>Municipio</th>
-									<th>Status</th>";
+									<th width='150'>Status</th>";
 
     print "<th>Opções</th>";
     print "<th>Último Acesso</th>";
+    print "<th>Data Aprovação</th>";
     print "<th>Homologado Por</th>";
+    print "<th>Dt Analise</th>";
 
 
     if ($opcao == "geral") {
         
     }
+    
+    /* lista de registros */
     foreach ($dados as $key => $value) {
-        
+
         $dataCriacao = date('Y/m/d', strtotime($value['data']));
-        
+
         $dataLimite = date('Y/m/d', strtotime(date('2021/03/04')));
-        
+
         $pmdaLegado = ($dataCriacao > $dataLimite ? true : false);
-       
+
 
         $val = Log::buscaultimoAcesso($value['id_municipio']);
 
@@ -192,21 +195,25 @@ if (!empty($dados)) {
             print "<td  " . $homologado . ">" . $pmda->status($value['status']) . "</td>";
             $alteraStatus = "";
         } else {
-            if(!$pmdaLegado){
+            if (!$pmdaLegado) {
                 print "<td  " . $homologado . ">" . $pmda->status($value['status']) . "</td>";
                 $alteraStatus = "";
             
+            /* PMDA - atendido */    
+            } elseif($value['status'] == 7) {
+                print "<td  " . $homologado . ">" . $pmda->status($value['status']) . "</td>";
+                $alteraStatus = "";
             }else {
                 $alteraStatus = "|<a href='javascript:alterarStatus(" . $value['id_pmda'] . ")' title='Alterar Status deste PMDA'><img src='core/imagem/status.png'></a>";
                 print "<td " . $homologado . "><select class='form-control' id='selStatus" . $value['id_pmda'] . "' data-id_pmda='" . $value['id_pmda'] . "' name='selStatus'>
                                                                                                                             <option value='" . $value['status'] . "'>" . $pmda->status($value['status']) . "</option>";
                 print "<option value='0'>Em Edição</option>";
-                print "<option value='1'>Completo</option>";
+                //print "<option value='1'>Completo</option>";
                 print "<option value='2'>Em Análise</option>";
-                print "<option value='3'>Arquivado</option>";
+                //print "<option value='3'>Arquivado</option>";
                 print "<option value='4'>Aprovado</option>";
-                print "<option value='5'>Anulado</option>";
-                print "<option value='9'>Encerrado</option>";
+                //print "<option value='5'>Anulado</option>";
+                //print "<option value='9'>Encerrado</option>";
                 if ($pmda->status($value['status']) != 'Arquivado') {
                     print "<option value='1'>Liberar Alterações</option>";
                 }
@@ -214,14 +221,18 @@ if (!empty($dados)) {
             }
         }
         print "<td " . $homologado . " id='print'>";
-        print $pmdaLegado ? ("<a href='?token=" . hash('sha256', md5(VERSAO).date('dmY')) . "&ac=itn&modulo=pipa&controller=pipa&action=pmda&param=" . $value['id_pmda'] . "&a=9978&p=" . $busca . "&mun=" . $value['id_municipio'] . "' title='Alterar PMDA'><img src='core/imagem/editar.png' width='30px'></a>" . $alteraStatus) : "";
-        print "|<a href='?token=" . hash('sha256', md5(VERSAO).date('dmY')) . "&ac=itn&modulo=pipa&controller=pipa&action=printView&param=" . $value['id_pmda'] . "&mun=" . $value['id_municipio'] . "' title='Impressão PMDA'><img src='core/imagem/printer.png'></a>";
-        print $pmdaLegado ? ("|<a data-toggle='modal' data-target='#modalMensagem' id='btnMsg' name='TrocaMensagem' data-idpmda='" . $value['id_pmda'] . "' data-idusuario='" . $pageSession['session']['seguranca']['idUser'] . "' data-idmunicipio='" . $value['id_municipio'] . "' data-protocolo='" . $protocolo . "' ><img src='core/imagem/msg_tr.png' title='Troca de mensagens PMDA'></a>") :"";
+        if($pmdaLegado && $value['status'] !=7){
+            print "<a href='?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=pipa&controller=pipa&action=pmda&param=" . $value['id_pmda'] . "&a=9978&p=" . $busca . "&mun=" . $value['id_municipio'] . "' title='Alterar PMDA'><img src='core/imagem/editar.png' width='30px'></a>" . $alteraStatus;
+        }
+        print "|<a href='?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=pipa&controller=pipa&action=printView&param=" . $value['id_pmda'] . "&mun=" . $value['id_municipio'] . "' title='Impressão PMDA'><img src='core/imagem/printer.png'></a>";
+        print $pmdaLegado ? ("|<a data-toggle='modal' data-target='#modalMensagem' id='btnMsg' name='TrocaMensagem' data-idpmda='" . $value['id_pmda'] . "' data-idusuario='" . $pageSession['session']['seguranca']['idUser'] . "' data-idmunicipio='" . $value['id_municipio'] . "' data-protocolo='" . $protocolo . "' ><img src='core/imagem/msg_tr.png' title='Troca de mensagens PMDA'></a>") : "";
         print "|<a data-toggle='modal' data-target='#modalComentario' id='btnComentario' name='Comentario' data-pmda='" . $value['id_pmda'] . "' title='Lançar Notas / Comentários neste PMDA'><img src='core/imagem/comment.png'></a>";
         print "|<a href='?ac=itn&modulo=pipa&controller=pipa&action=historicoMsg&id_pmda=" . $value['id_pmda'] . "' id='list_msg' name='list_msg' title='Historico de Mensagens do PMDA nº " . $protocolo . "'><img src='core/imagem/notas.png'></a></td>";
 
         print "<td " . $homologado . ">" . $ultimoAcesso . "</td>";
+        print "<td " . $homologado . ">".$value['data_aprov']."</td>";
         print "<td " . $homologado . ">" . (!isset($value['resp_homolog']) ? "-" : Usuario::getNomeId($value['resp_homolog']) ) . "</td>";
+        print "<td " . $homologado . ">".$value['dt_analise']."</td>";
     }
 }
 ?>
@@ -368,7 +379,7 @@ if (!empty($dados)) {
 
             $.ajax({
                 type: 'POST',
-                url: 'mod_pipa/backEnd/View/pmda/mensagemView.php?v=<?=md5(VERSAO)?>',
+                url: 'mod_pipa/backEnd/View/pmda/mensagemView.php?v=<?= md5(VERSAO) ?>',
                 data: dados,
                 //dataType: 'json',
                 success: function (response) {
@@ -398,7 +409,7 @@ if (!empty($dados)) {
 
             $.ajax({
                 type: 'POST',
-                url: 'mod_pipa/backEnd/View/pmda/funcAdm.php?v=<?=md5(VERSAO)?>',
+                url: 'mod_pipa/backEnd/View/pmda/funcAdm.php?v=<?= md5(VERSAO) ?>',
                 data: dados,
                 success: function (response) {
                     //console.log(dados);
@@ -452,7 +463,7 @@ if (!empty($dados)) {
 
         $.ajax({
             type: 'POST',
-            url: 'mod_pipa/backEnd/View/pmda/funcAdm.php?v=<?=md5(VERSAO)?>',
+            url: 'mod_pipa/backEnd/View/pmda/funcAdm.php?v=<?= md5(VERSAO) ?>',
             data: dados,
             //dataType 'jason',
             success: function (response) {
@@ -485,16 +496,17 @@ if (!empty($dados)) {
             "status": $(id_sel).val(),
             "resp": $("#txtId_user").val(),
             "opcao": "gravar",
+            "data": '<?=date('Y-m-d H:i:s')?>',
         }
 
         $.ajax({
             type: 'POST',
-            url: 'mod_pipa/backEnd/View/pmda/funcAdm.php?v=<?=md5(VERSAO)?>',
+            url: 'mod_pipa/backEnd/View/pmda/funcAdm.php?v=<?= md5(VERSAO) ?>',
             data: dados,
             success: function (response) {
-                //console.log(dados);
+                console.log(response);
                 alert('Status Alterado com Sucesso !!')
-                location.reload();
+                //location.reload();
                 // console.log(response);
             },
             error: function (response) {

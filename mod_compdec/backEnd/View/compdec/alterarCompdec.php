@@ -474,9 +474,9 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
                 <table class="table table-bordered table-striped table-condensed tbl">
                     <tr>
                         <td>
-                            <input type="checkbox" name="ckSemDecreto" id="ckSemDecreto" value="1" <?= ($_dados[0]['sem_decreto']) == "1" ? "checked='ckecked'" : ""; ?>> Não possui Decreto de Regulamentação da Lei de Criação do COMPDEC <br><br>
-                            <input type="checkbox" name="ckSemPortaria" id="ckSemPortaria" value="1" <?= ($_dados[0]['sem_portaria']) == "1" ? "checked='ckecked'" : ""; ?>> Não possui Portaria de Nomeação do Coordenado Municipal de Defesa Civil<br><br>
-                            <input type="checkbox" name="ckSemLei" id="ckSemLei" value="1" <?= ($_dados[0]['sem_lei']) == "1" ? "checked='ckecked'" : ""; ?>> Não possui Lei de Criação do COMPDEC
+                            <input type="checkbox" name="ckSemDoc" id="sem_decreto" value="1" <?= ($_dados[0]['sem_decreto']) == "1" ? "checked='ckecked'" : ""; ?>> Não possui Decreto de Regulamentação da Lei de Criação do COMPDEC <br><br>
+                            <input type="checkbox" name="ckSemDoc" id="sem_portaria" value="1" <?= ($_dados[0]['sem_portaria']) == "1" ? "checked='ckecked'" : ""; ?>> Não possui Portaria de Nomeação do Coordenado Municipal de Defesa Civil<br><br>
+                            <input type="checkbox" name="ckSemDoc" id="sem_lei" value="1" <?= ($_dados[0]['sem_lei']) == "1" ? "checked='ckecked'" : ""; ?>> Não possui Lei de Criação do COMPDEC
                         </td>
                     </tr>
                 </table>
@@ -894,20 +894,16 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
             }
         });
 
-        /* grava checkebox sem lei de criacao do compdec */
-        /**
-         */
-        $("#ckSemLei").click(function () {
-            var semLei = "";
-            if ($(this).is(":checked")) {
-                semLei = 1;
-            } else {
-                semLei = 0;
-            }
+       /* grava checkebox sem DEcreto */
+        $("input[name=ckSemDoc]").click(function () {
+
+            var valor = ($(this).is(":checked")) ? 1:0; 
+            var campo = $(this).attr('id');
 
             var dados = {
-                "opcao": "semLei",
-                "ckSemLei": semLei,
+                "opcao": "GravaSemDoc",
+                "campo": campo,
+                "valor": valor,
                 "id_municipio": $("#txtIdMunicipio").val(),
             };
 
@@ -915,74 +911,18 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
                 type: 'POST',
                 url: 'mod_compdec/backEnd/View/compdec/valida.php?v=<?= md5(VERSAO) ?>',
                 data: dados,
+                //dataType: 'json',
                 success: function (response) {
+                    //alert(semDecreto);
+                    //console.log(JSON.stringify(response));
+
                 },
                 error: function (e) {
                     console.log(JSON.stringify(e));
                 }
             });
+
         });
-        
-        /* grava checkebox sem DEcreto */
-        /**
-         */
-        $("#ckSemDecreto").click(function () {
-            var semDecreto = "";
-            if ($(this).is(":checked")) {
-                semDecreto = 1;
-            } else {
-                semDecreto = 0;
-            }
-
-            var dados = {
-                "opcao": "semDecreto",
-                "ckSemDecreto": semDecreto,
-                "id_municipio": $("#txtIdMunicipio").val(),
-            };
-
-            $.ajax({
-                type: 'POST',
-                url: 'mod_compdec/backEnd/View/compdec/valida.php?v=<?= md5(VERSAO) ?>',
-                data: dados,
-                success: function (response) {
-                    console.log(response);
-                },
-                error: function (e) {
-                    console.log(JSON.stringify(e));
-                }
-            });
-        });
-
-        /* grava checkebox sem portaria de nomeacao do coordenador */
-        /**
-         *
-         */
-        $("#ckSemPortaria").click(function () {
-            var semPortaria = "";
-            if ($(this).is(":checked")) {
-                semPortaria = 1;
-            } else {
-                semPortaria = 0;
-            }
-
-            var dados = {
-                "opcao": "semPortaria",
-                "ckSemPortaria": semPortaria,
-                "id_municipio": $("#txtIdMunicipio").val(),
-            };
-
-            $.ajax({
-                type: 'POST',
-                url: 'mod_compdec/backEnd/View/compdec/valida.php?v=<?= md5(VERSAO) ?>',
-                data: dados,
-                success: function (response) {
-                },
-                error: function (e) {
-                    console.log(JSON.stringify(e));
-                }
-            });
-        });
-
 
         /*********** Alterar dados Membro Equipe ***********/
         $("#btnAlterarMembro").click(function () {

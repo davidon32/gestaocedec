@@ -319,7 +319,10 @@ class Municipio extends DataMysql {
        							cobra_iss    = :selCobraIss,
        							aliquota_iss = :txtAliquota,
        							resp_cob_iss = :selResp,
-       							num_lei_iss  = :txtNumLei
+       							num_lei_iss  = :txtNumLei,
+                                                        populacao    = :txtPopUrbana,
+                                                        pop_rural    = :txtPopRural,
+                                                        area         = :txtAreaTerr
 	           				WHERE id_municipio = :id_municipio";
 
             $result = $con->prepare($sql);
@@ -337,6 +340,9 @@ class Municipio extends DataMysql {
             $result->bindParam(":selResp", $dados['selResp']);
             $result->bindParam(":txtNumLei", $dados['txtNumLei']);
             $result->bindParam(":id_municipio", $dados['id_municipio']);
+            $result->bindParam(":txtPopUrbana", $dados['txtPopUrbana']);
+            $result->bindParam(":txtPopRural", $dados['txtPopRural']);
+            $result->bindParam(":txtAreaTerr", $dados['txtAreaTerr']);
             $result->execute();
 
             return true;

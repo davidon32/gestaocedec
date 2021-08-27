@@ -14,23 +14,79 @@
 </div> 
 <div class="col-md-12">
     <br>
-<div class="col-md-4 text-center"> 
-    <?php
-    $login = new Login();
-    $login->acessoLembrete($_COOKIE['seguranca']['login'], $_COOKIE['seguranca']['id_deposito']);
-    $login->acessoLembreteTransito($_COOKIE['seguranca']['login'], $_COOKIE['seguranca']['id_deposito'])
-    ?>
-</div>
-<div class="col-md-12 text-center"> 
-    <?php
-    $dash = new Dashboard();
-    //$dash->atualizado();
-    //$dash->ajudaHumanitaria();
-    $dash->pmdaAno("");
-    $dash->pmdaAnoMes("2017");
-    //$dash->decreto();
-    ?>        
-</div>
+    <div class="col-md-4 text-center"> 
+        <?php
+        $login = new Login();
+        $login->acessoLembrete($_COOKIE['seguranca']['login'], $_COOKIE['seguranca']['id_deposito']);
+        $login->acessoLembreteTransito($_COOKIE['seguranca']['login'], $_COOKIE['seguranca']['id_deposito']);
+        $dash = new Dashboard();
+        ?>
+    </div>
+    <div class="col-md-12"> 
+        <hr>
+        <p style="text-align:center"><legend>RESUMO PROCESSOS PMDA</legend></p>
+        <!-- quantidade por mes ano atual -->
+        <div class='col-md-3'>
+            <legend>PMDA <?=date('Y')?></legend>
+            <?php
+                $totalPmdaPorMes = dashboardModel::qtdPmdaMes(date('Y'));
+
+                print "<table class='table table-bordered'>";
+                print "<tr><th colspan='2' style='text-align:center'>PMDA ATENDIDO</th></tr>";
+                print "<tr><td style='text-align:center'>Mês</td><td>QTD</td></tr>";
+                foreach ($totalPmdaPorMes as $key => $value) {
+                    print "<tr>";
+                    print "<td>" . $value['mes'] . "</td>";
+                    print "<td>" . $value['qtd'] . "</td>";
+                    print "</tr>";
+                }
+                print "</table>";
+
+            ?>
+            
+        </div>
+        <!-- grafico por mes ano atual -->
+        <div class='col-md-3'>
+                <legend>PMDA Por Ano Mes</legend>
+            <?php
+            $dash->qtdPmdaPorMes("2021");
+            ?>
+        </div>
+        
+        <!-- quantidade pmda todos anos -->
+        <div class='col-md-3'>
+            <legend>PMDA ANOS ANTERIORES</legend>
+            <?php
+            $totalPmda = dashboardModel::QtdPmdaAno();
+            print "<table class='table table-bordered'>";
+            print "<tr><th colspan='2' style='text-align:center'>PMDA ATENDIDO</th></tr>";
+            print "<tr><td style='text-align:center'>ANO</td><td>QTD</td></tr>";
+            foreach ($totalPmda as $key => $value) {
+                print "<tr>";
+                print "<td>" . $value['ano'] . "</td>";
+                print "<td>" . $value['qtd'] . "</td>";
+                print "</tr>";
+            }
+            print "</table>";
+            ?>
+        </div>
+        <!-- grafico pmDA-->
+        <div class='col-md-3'>
+            <?php
+            $dash->qtdPmda();
+            ?>
+        </div>
+    </div>
+
+    <div class="col-md-12 text-center"> 
+        <?php
+        $dash->pmdaAno(date("Y"));
+        //$dash->atualizado();
+        //$dash->ajudaHumanitaria();
+        //$dash->pmdaAnoMes("2017");
+        //$dash->decreto();
+        ?>        
+    </div>
 
 </div>
 
@@ -57,7 +113,7 @@
         }
     });
 
-    
+
     var lineChartData = {
         labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Agos", "Set", "Out", "Nov", "Dez"],
         datasets: [
@@ -85,13 +141,12 @@
                 pointStrokeColor: "#fff",
                 pointHighlightFill: "#fff",
                 pointHighlightStroke: "rgba(220,220,220,1)",
-                data: [1,10,7,40,25,17,2]
+                data: [1, 10, 7, 40, 25, 17, 2]
             },
-
         ]
 
     }
-  
-    
+
+
 
 </script>

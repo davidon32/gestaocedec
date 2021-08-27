@@ -42,14 +42,14 @@ $decreto = new Decretacao();
 
 		foreach ($dados as $value) {
 
-			$situacao = ($value['ck_stat_reconhecido'] == 1) ? "Rec. União" : "Não Rec.";
+			$situacao = ($value['stat_reconhecido'] == 1) ? "Rec. União" : "Não Rec.";
 
 			print "<tr>";
 			print "<td>" . $num . "</td>";
 			print "<td>" . $value['id_processo'] . "</td>";
 			print "<td>" . $value['ano'] . "</td>";
 			print "<td>" . $value['id_municipio'] . "</td>";
-			print "<td>" . DataMysql::dataVisual($value['data_vencimento']) . "</td>";
+			print "<td>" . DataMysql::dataVisual($value['dt_vencimento']) . "</td>";
 			print "<td>" . $situacao . "</td>";
 			print "</tr>";
 			$num++;
@@ -67,9 +67,9 @@ $decreto = new Decretacao();
 
 		foreach ($dadosResumo as $value) {
 			print "<tr>
-										<td>" . substr($decreto->getCobradeId($value['id_cobrade']), 10) . "</td>
-										<td>" . $value['totDesastre'] . "</td>
-									</tr>";
+				<td>" . substr($decreto->getCobradeId($value['desastre']), 10) . "</td>
+				<td>" . $value['totDesastre'] . "</td>
+			</tr>";
 		}
 		?>
 

@@ -66,6 +66,8 @@
 
 	 /*grava opcao sem decreto em anexo */
 	}elseif($opcao == "GravaSemDoc"){
+            
+            var_dump($_POST);
 
             if($_compdec->GravaSemDoc($post)){
 		print "sucesso";

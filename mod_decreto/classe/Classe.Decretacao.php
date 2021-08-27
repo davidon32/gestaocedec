@@ -235,23 +235,23 @@ class Decretacao {
 			
 			$sql ="SELECT ano,
 						id_processo,
-						data_entrada,
+						dt_entrada,
 						num_processo,
 						id_municipio,
 						num_dec_mun,
-						data_dec_mun,
+						dt_dec_mun,
 						dec_vigencia,
-						id_cobrade,
-						data_vencimento,
+						desastre,
+						dt_vencimento,
 						id_funcionario,
 						num_dec_homo,
-						data_pub_dec_homo,
+						dt_pub_dec_homo,
 						num_dt_port_dec_rec,
 						num_dt_dou,
-						ck_stat_reconhecido,
-						ck_stat_arquivo,	
-						ck_stat_homologa,
-						ck_stat_analise
+						stat_reconhecido,
+						stat_arquivo,	
+						stat_homologa,
+						stat_analise
 							FROM dec_processo ".$filtro;
 			
 			$result = $con->query($sql);
@@ -282,10 +282,10 @@ class Decretacao {
 		
 			$con = conexao::getInstance();
 			
-			$sql = "select count(id_cobrade) as totDesastre, id_cobrade from dec_processo
+			$sql = "select count(desastre) as totDesastre, desastre from dec_processo
 						where ano = '".$ano."'
-						group by id_cobrade
-						order by count(id_cobrade) desc";
+						group by desastre
+						order by count(desastre) desc";
 			
 			$result = $con->query($sql);
 				

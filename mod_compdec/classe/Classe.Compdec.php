@@ -366,7 +366,7 @@ class Compdec {
 
     #@ aba anexo opcao nao possui lei de criacao
 
-    function GravaSemDoc(array $dados) {
+    public static function GravaSemDoc(array $dados) {
         try {
 
             $con = Conexao::getInstance();
