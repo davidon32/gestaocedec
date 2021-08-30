@@ -71,8 +71,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/core/include.php';
       
                 if($("#selUser").val() == 'recsenha_cedec'){
                     
-                    action = 'recsenha_cedec';
-                    url = '/index.php?modulo=equipe&controller=usuario&action='+action;
+                    url = '/index.php?<?=FuncaoBase::geraLink("admin", "admin", "recSenhaEsqueci", array('externo'=>md5('externo')))?>';
  
                 }else if($("#selUser").val() == 'recsenha_compdec'){
                      

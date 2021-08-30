@@ -412,7 +412,7 @@ $maspNumPol = Usuario::dadosFuncionario($usuario['id_funcionario']);
 
                 $.ajax({
                     type: 'POST',
-                    url: '<?= FuncaoBase::geraLink("admin", "adm", "recsenha_cedec") ?>',
+                    url: '<?= FuncaoBase::geraLink("admin", "adm", "resetar_user_cedec") ?>',
                     data: dados,
                     success: function (response) {
                         if(response.trim() == 'sucesso'){

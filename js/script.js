@@ -80,13 +80,15 @@ function dataForm(data){
 }
 
 
-function dataVisual(data){
-    
+function dataVisual(data){ 
     var ano = data.substring(0, 4);
     var mes = data.substring(5, 7);
     var dia = data.substring(8, 10);
     
-    return dia+"/"+mes+"/"+ano;
+    return dia+"/"+mes+"/"+ano;  
+}
+
+function geraLink(){
     
 }
 

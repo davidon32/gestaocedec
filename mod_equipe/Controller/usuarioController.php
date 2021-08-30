@@ -7,11 +7,6 @@ include_once PATH . '/core/Model/UsuarioModel.php';
 class usuarioController extends Controller {
 
 
-    # recuperar senha separa usuario
-
-    public function recsenha() {
-        include_once 'mod_equipe/View/usuario/recsenha_user.php';
-    }
 
     # recuperar senha compdec
 
@@ -90,10 +85,6 @@ MSG;
             include_once 'mod_equipe/View/usuario/recsenha_compdec.php';
         }
     }
-
-    
-
-    
 
     # trocar senha interno
 

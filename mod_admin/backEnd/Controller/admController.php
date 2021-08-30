@@ -251,9 +251,8 @@
     }
     
     
-    # recuperar senha
-
-    public function recsenha_cedec() {
+    # resetar senha usuario cedec, envio de email para mudança
+    public function resetar_user_cedec() {
 
         $usuario = new Usuario();
 

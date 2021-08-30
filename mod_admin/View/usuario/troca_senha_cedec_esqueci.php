@@ -33,18 +33,18 @@
     $param = isset($_GET[md5('use70')]) ? $_GET[md5('use70')] : "";
 
     $usuario = new Usuario();
-
+    
     if (isset($param[md5('use70')])) {
         $dados = $usuario->getResetUsuario($param);
         $dataBanco = new DateTime();
-        $dataBanco->setTimestamp($data);
-        //echo "Data Banco ".$dataBanco->format('d/m/Y H:i:s')."<br>";
+        $dataBanco->setTimestamp($dados['reset']);
+        echo "Data Banco ".$dataBanco->format('d/m/Y H:i:s')."<br>";
 
         $expira = new DateTime();
-        $expira->setTimestamp($data);
+        $expira->setTimestamp($dados['reset']);
         $expira->modify('+4 hours');
         $expira->getTimestamp();
-        //print "Data Prazo Expira " .$expira->format('d/m/Y H:i:s')."<br>";
+        print "Data Prazo Expira " .$expira->format('d/m/Y H:i:s')."<br>";
 
         $agora = new DateTime();
         $agora->getTimestamp();
@@ -52,7 +52,8 @@
 
         print "<br>";
     }
-
+    
+    /* MUDANCA DE SENHA VIA email com link  */
     if (isset($param[md5('use70')]) && (isset($dados))) {
 
         if (isset($dados['reset'])) {
@@ -65,6 +66,7 @@
                 print "</script>";
             }
         }
+    /*  */
     } else {
         ?>
         <br>

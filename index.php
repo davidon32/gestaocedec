@@ -33,6 +33,7 @@ if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
     $modulo = isset($_GET['modulo']) ? $_GET['modulo'] : "index";
 
     $acesso = isset($_COOKIE['seguranca']['tipo']) ? $_COOKIE['seguranca']['tipo'] : null;
+    
 
     # Acesso Externo
     # Acesso Interno
@@ -40,11 +41,17 @@ if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
     # Acesso Comun (raiz modulo)
     # acesso externo
 
+$acesso1 = isset($_GET['externo']) ? $_GET['externo'] :"";
+
     if ((isset($caminho[1]) && ($caminho[1] === 'mapa')) && ( (isset($caminho[2]) && $caminho[2] === 'site'))) { # mapas
         include_once "mod_ajuda/backEnd/Controller/relatorioController.php";
         $app = new relatorioController();
         $app->mapa();
-    } else if (
+    
+    /* acesso externo sem login */
+    }else if($acesso1 == md5('externo')){
+        include_once "mod_" . $modulo . "/Controller/" . $controller . ".php";
+    } else if (  
             ($action === 'recsenha') ||
             ($action === 'recsenha_compdec') ||
             ($action === 'trsenha_cedec') ||
@@ -80,6 +87,7 @@ if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
                 ($controller == 'agoraController' && $action == 'cadpost') ||
                 ($controller == 'agoraController' && $action == 'postagem')
         ) {
+            
 
             $ac = 'backEnd/';
 

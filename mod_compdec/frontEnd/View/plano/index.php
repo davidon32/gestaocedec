@@ -48,7 +48,7 @@ $plano = new Plano();
         $lista = $plano->listaPlano($id_municipio);
 
         foreach ($lista as $key => $value) {
-            if ($id_municipio == 7221) {
+            
                 $kits = ($value['dt_upload'] > "2021-08-10") ? "style='color:blue' title='Plano enviado para o Edital Chamamento 01/2021'" : "";
 
                 print "<tr>";
@@ -62,7 +62,7 @@ $plano = new Plano();
                 }
                 print "</td>";
                 print "</tr>";
-            }
+            
         }
         ?>
     </table>
