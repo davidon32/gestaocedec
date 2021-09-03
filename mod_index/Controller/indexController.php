@@ -137,6 +137,24 @@ class indexController extends Controller
        include_once 'mod_index/View/busca_login.php';
     }
     
+    
+    /* informações gerais */
+    public function info() {
+       include_once 'mod_index/backEnd/View/info/info.php';
+    }
+    
+    
+    /* informações Usuarios */
+    public function usuarioCedec() {
+
+       if(isset($param['tipo'])){
+        $dados = Usuario::listaUsuario($param['tipo']); 
+       } else {
+        $dados = Usuario::listaUsuario(); 
+       }
+       include_once 'mod_index/backEnd/View/info/lista_usuario.php';
+    }
+    
 }
 
 

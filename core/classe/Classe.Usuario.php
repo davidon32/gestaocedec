@@ -2290,4 +2290,53 @@ and cedec_usuario.nome not in('SUPORTE') ".$filtro."
     }
     
     
+    /**
+     * Lista de informações de usuarios 
+     */
+    public static function listaUsuario($param = false) {
+        
+        $con = Conexao::getInstance();
+
+        $dados = array();
+        
+        $filtro = (!empty($_GET['tipo'])) ? " and desc_funcao = 'Agente Regional de DC' " :"";
+ 
+        $sql = "select 
+cedec_usuario.id_usuario,
+cedec_usuario.nome,
+cedec_usuario.email_rec,
+cedec_usuario.login,
+cedec_usuario.it_m_deposito as estoque,
+cedec_usuario.it_m_pipa as pmda,
+cedec_usuario.it_m_cce as plantao,
+cedec_usuario.it_m_decretacao as decretacao,
+cedec_usuario.it_m_comdec as compdec,
+cedec_usuario.it_m_poco as prefeitura,
+cedec_usuario.it_m_escola as escola,
+cedec_usuario.ultimo_acesso,
+cedec_funcionario.orgao,
+cedec_funcionario.desc_funcao,
+cedec_funcionario.telefone,
+cedec_funcionario.celular,
+cedec_rpm.nome as rpm
+from cedec_usuario
+inner join cedec_funcionario
+on cedec_usuario.id_funcionario = cedec_funcionario.id_funcionario
+inner join cedec_rpm
+on cedec_funcionario.id_rpm = cedec_rpm.id
+where cedec_usuario.situacao = 1
+and cedec_usuario.id_usuario != 79
+".$filtro."
+order by cedec_rpm.id";
+       
+        $result = $con->query($sql);
+
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            $dados[] = $linha;
+        }
+
+        return $dados;
+        
+    }
+    
 }?>

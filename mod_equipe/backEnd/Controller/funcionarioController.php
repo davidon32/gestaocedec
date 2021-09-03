@@ -7,6 +7,7 @@ class FuncionarioController extends Controller {
         $funcionario = new FuncionarioEquipeModel();
         $usuario = new Usuario();
         $dados = $funcionario->lista($_COOKIE['seguranca']['id_funcionario']);
+        $dados_rpm = $funcionario->rpm();
 
         if($this->isPost()){
             $post = $_POST;

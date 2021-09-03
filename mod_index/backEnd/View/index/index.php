@@ -9,8 +9,11 @@
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php"; ?>
 
-<div class="col-md-12">
+<div class="col-md-6">
     <a class="btn btn-success btn-lg" href='index.php?token=<?= hash('sha256', md5(VERSAO) . "-" . time()) ?>&modulo=index&controller=index&action=menu'> Continuar a usar o Sistema !</a>  
+</div> 
+<div class="col-md-6 text-right">
+    <a class="btn btn-success" title='Informações Rápidas' href='<?= FuncaoBase::geraLink("index", "index", "info")?>'> Informações Rápidas</a>  
 </div> 
 <div class="col-md-12">
     <br>

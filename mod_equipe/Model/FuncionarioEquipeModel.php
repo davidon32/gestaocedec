@@ -22,35 +22,39 @@ class FuncionarioEquipeModel extends Model {
         
         $dados = "";
         
-        $sql = "SELECT id_funcionario,
-                num_masp,
-                nome,
-                endereco,
-                bairro,
-                cidade,
-                telefone,
-                celular,
-                posto,
-                secao,
-                funcao,
-                desc_funcao,
-                quinquenio,
-                dt_nasc,
-                curso,
-                email,
-                libera,
-                email2,
-                situacao,
-                cpf,
-                orgao,
-                cargo,
-                ci,
-                tipo_abono,
-                ramal,
-                num_mesa,
-                ponto_rede
+        $sql = "SELECT cedec_funcionario.id_funcionario,
+                cedec_funcionario.num_masp,
+                cedec_funcionario.nome,
+                cedec_funcionario.endereco,
+                cedec_funcionario.bairro,
+                cedec_funcionario.cidade,
+                cedec_funcionario.telefone,
+                cedec_funcionario.celular,
+                cedec_funcionario.posto,
+                cedec_funcionario.secao,
+                cedec_funcionario.funcao,
+                cedec_funcionario.desc_funcao,
+                cedec_funcionario.quinquenio,
+                cedec_funcionario.dt_nasc,
+                cedec_funcionario.curso,
+                cedec_funcionario.email,
+                cedec_funcionario.libera,
+                cedec_funcionario.email2,
+                cedec_funcionario.situacao,
+                cedec_funcionario.cpf,
+                cedec_funcionario.orgao,
+                cedec_funcionario.cargo,
+                cedec_funcionario.ci,
+                cedec_funcionario.tipo_abono,
+                cedec_funcionario.ramal,
+                cedec_funcionario.num_mesa,
+                cedec_funcionario.ponto_rede,
+                cedec_rpm.id as id_rpm,
+                cedec_rpm.nome as rpm
                     FROM cedec_funcionario
-                    WHERE id_funcionario =".$id_funcionario;
+                    inner join cedec_rpm
+                    on cedec_funcionario.id_rpm = cedec_rpm.id
+                    WHERE cedec_funcionario.id_funcionario =".$id_funcionario;
         
         $result = $con->query($sql);
         
@@ -93,7 +97,8 @@ class FuncionarioEquipeModel extends Model {
                         ci = :ci,
                         ramal = :ramal,
                         num_mesa = :num_mesa,
-                        ponto_rede = :ponto_rede
+                        ponto_rede = :ponto_rede,
+                        id_rpm = :id_rpm
                         WHERE id_funcionario = :id_funcionario";
 
         try {
@@ -122,6 +127,7 @@ class FuncionarioEquipeModel extends Model {
             $result->bindValue(":ramal",         $dados['txtTel_mesa']);
             $result->bindValue(":num_mesa",      $dados['txtNum_mesa']);
             $result->bindValue(":ponto_rede",    $dados['txtPonto']);
+            $result->bindValue(":id_rpm",    $dados['sel_rpm']);
 
             
             $result->execute();
@@ -132,6 +138,26 @@ class FuncionarioEquipeModel extends Model {
         } catch (Exception $e) {
             return $e->getMessage() . "Erro ao Atualizar dados Funcionario !";
         }
+    }
+    
+    
+    /**
+     * Lista RPM
+     */
+    public static function rpm(){
+        
+        $con = Conexao::getInstance();
+        
+        $dados = array();
+        
+        $sql = "select id, nome from cedec_rpm order by nome;";
+        
+        $result = $con->query($sql);
+        
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)){
+            $dados[]= $linha;
+        }
+        return $dados;
     }
     
 }

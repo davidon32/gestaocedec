@@ -34,7 +34,7 @@
             print "
                     <div class='col-md-3 mt-4 mb-4 text-center img-thumbnail'>
                         <a href='".$path."/".$value."'><img class='mt-4 mb-4 mx-auto' width='150' src='".$path."/".$value."' alt='".substr(str_replace(array(",", "-"), " ", $value), 0, -4)."'></a>
-                    </div>  ";
+                    <span style='font-size:9pt;vertical-align: bottom;'>$value</span><br></div>  ";
             if((($key+1) % 4) === 0){
                 print "<div class=\"row col-md-12\">
    

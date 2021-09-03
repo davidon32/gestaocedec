@@ -19,7 +19,6 @@
   +*********************************************************************************** */
 
 $email_rec = Usuario::getDadoUsuario($_COOKIE['seguranca']['idUser']);
-//var_dump($dados);
 ?>
 
 <!-- CORPO PAGINA  -->
@@ -116,6 +115,19 @@ $email_rec = Usuario::getDadoUsuario($_COOKIE['seguranca']['idUser']);
             <option>GMG/SIS</option>
             <option>GMG/SPGF</option>
         </select>
+        <label>RPM</label>
+        <select class="form form-control" name="sel_rpm" title="Regional de PM">
+            <option value='<?php print $dados['id_rpm'];?>'><?php print $dados['rpm']; ?></option>
+            <?php
+            
+            
+            foreach ($dados_rpm as $key => $rpm) {
+                print "<option value='".$rpm['id']."'>".$rpm['nome']."</option>";
+                
+            }
+            
+            ?>
+        </select>
     
         
     
@@ -126,8 +138,6 @@ $email_rec = Usuario::getDadoUsuario($_COOKIE['seguranca']['idUser']);
         <select class="form form-control" title="Situação" name="selSituacao">
             <option value="<?php print $dados['situacao']; ?>"><?php print ($dados['situacao'] == "1") ? "Ativo" : "Inativo"; ?></option>
         </select>-->
-  
-        
         <br>
 
         <button class="btn btn-primary" type="submit" title="Alterar Dados de Funcionario" name="btn_envia">Continuar</button>    

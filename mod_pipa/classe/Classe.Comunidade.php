@@ -649,7 +649,7 @@ class Comunidade extends Log {
 									inner join cedec_municipio
 										on pip_comunidade.id_municipio = cedec_municipio.id_municipio
 											" . $filtro . "
-												order by cedec_municipio.nome, pip_comunidade.comunidade desc";
+												order by pip_comunidade.comunidade";
 
             $result = $con->query($sql);
 
