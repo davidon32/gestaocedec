@@ -445,13 +445,15 @@ class Compdec {
                                                 cedec_user_ex.email_rec,
                                                 com_comdec.doc_aprov,
                                                 cedec_user_ex.mod_pipa,
-                                                cedec_user_ex.mod_ajuda
+                                                cedec_user_ex.mod_ajuda,
+                                                cedec_rpm_mun.id_rpm
     						FROM com_comdec
     						INNER JOIN cedec_municipio
     						ON com_comdec.id_municipio = cedec_municipio.id_municipio
     						INNER JOIN cedec_user_ex
-    						ON com_comdec.id_municipio = cedec_user_ex.id_municipio";
-
+    						ON com_comdec.id_municipio = cedec_user_ex.id_municipio
+                                                inner join cedec_rpm_mun
+                                                on com_comdec.id_municipio = cedec_rpm_mun.id_municipio";
             if ($_id_municipio) {
 
                 $sql .= " WHERE com_comdec.id_municipio =:id_municipio";
@@ -909,6 +911,26 @@ class Compdec {
         }
 
         return $dados;
+    }
+    
+    
+    /**
+     * Altera permissao acesso modulos
+     */
+    public function alteraRPM(array $dados) {
+        $con = Conexao::getInstance();
+
+        try {
+            $sql = "update cedec_rpm_mun set id_rpm = '". $dados['rpm'] ."'
+                     where id_municipio = '" . $dados['id_municipio']."'";
+
+            $result = $con->query($sql);
+
+            print true;
+        } catch (Exception $e) {
+
+            print FuncaoBase::getError($e->getMessage(), 'Erro Mudar permissao compdec');
+        }
     }
     
     

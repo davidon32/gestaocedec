@@ -134,5 +134,15 @@ class Log {
         fclose($arquivo);
         
     }
+    
+    
+    /* gravar log txt */
+    public static function LogTxt(){
+        $file = 'log/'.date('d-m-Y h-i-s')."txt";
+        $arquivo = fopen($file,'w');
+        if ($arquivo == false)
+            die('Não foi possível criar o arquivo.');
+    }
+    
 
 }?>

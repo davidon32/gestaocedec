@@ -26,10 +26,9 @@
         ?>
     </div>
     <div class="col-md-12"> 
-        <hr>
         <p style="text-align:center"><legend>RESUMO PROCESSOS PMDA</legend></p>
         <!-- quantidade por mes ano atual -->
-        <div class='col-md-3'>
+        <div class='col-md-6'>
             <legend>PMDA <?=date('Y')?></legend>
             <?php
                 $totalPmdaPorMes = dashboardModel::qtdPmdaMes(date('Y'));
@@ -48,16 +47,19 @@
             ?>
             
         </div>
+        
         <!-- grafico por mes ano atual -->
-        <div class='col-md-3'>
-                <legend>PMDA Por Ano Mes</legend>
+        <div class='col-md-6'>
+                <legend>PMDA <?=date('Y')?> Mês</legend>
             <?php
-            $dash->qtdPmdaPorMes("2021");
+                $dash->qtdPmdaPorMes("2021");
             ?>
         </div>
-        
-        <!-- quantidade pmda todos anos -->
-        <div class='col-md-3'>
+    </div>
+    <br>
+    <div class='col-md-12'>
+        <!-- linha 2 quantidade pmda todos anos -->
+        <div class='col-md-6'>
             <legend>PMDA ANOS ANTERIORES</legend>
             <?php
             $totalPmda = dashboardModel::QtdPmdaAno();
@@ -73,10 +75,12 @@
             print "</table>";
             ?>
         </div>
+        
         <!-- grafico pmDA-->
-        <div class='col-md-3'>
+        <div class='col-md-6'>
+            <legend>PMDA Últimos Anos</legend>
             <?php
-            $dash->qtdPmda();
+                $dash->qtdPmda();
             ?>
         </div>
     </div>

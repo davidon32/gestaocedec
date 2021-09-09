@@ -39,9 +39,8 @@ foreach ($dados as $key => $value) {
 
 
 ?>
-<br>
 <div class="col-md-12">
-    <canvas id="Ct_pmdaPorMes" height="150" width="500"></canvas>
+    <canvas id="Ct_pmdaPorMes" height="50" width="150"></canvas>
 </div>
 
 <script src='/js/jquery-1.8.3.js'></script>
@@ -49,9 +48,8 @@ foreach ($dados as $key => $value) {
     $(document).ready(function () {
         
     /* pmda do ano Mes */
-    var pmdadoAnoMes = {
-        /*labels: <?=json_encode($mes);?>,*/
-        labels: ["0", "1"],
+    var pmdadoAnoMes1 = {
+        labels: <?=json_encode($mes);?>,
         datasets: [
             {
                 label: "Processos PMDA ",
@@ -65,14 +63,12 @@ foreach ($dados as $key => $value) {
             },
         ]
     }
-    
-    window.onload = function () {
+
         var Ct_pmdaPorMes = document.getElementById("Ct_pmdaPorMes").getContext("2d");
         window.myLine = new Chart(Ct_pmdaPorMes, {type: 'line',
-            data: pmdadoAnoMes,
+            data: pmdadoAnoMes1,
             responsive: true});
-    }
-  
+
     });
     
 </script>

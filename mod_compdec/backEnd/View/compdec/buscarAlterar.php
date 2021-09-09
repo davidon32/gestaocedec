@@ -24,7 +24,10 @@ $_associacao = new Associacao();
 
 $_territorio = new Territorio();
 
-$municipios = $_municipio->dadosSelectMunicipio();
+$municipios = $_municipio->dadosSelectMunicipio($_COOKIE['seguranca']['rpm']);
+
+$rpms = Municipio::listaRDC();
+
 ?>
 <form action="index.php?token=<?= hash('sha256', md5(VERSAO) . date('dmY')); ?>&ac=itn&modulo=compdec&controller=compdec&action=buscarAlterar" method="POST" accept-charset="utf-8">
 
@@ -46,7 +49,7 @@ $permissao = $_login->verificaPermissao("alt_comdec", "com_permissao", $pageSess
 if ($_btn_enviar && !empty($_id_municipio)) {
 
     $_dados = $_compdec->buscaCompdec($_id_municipio);
-
+    
     $alteracao = ($permissao == '1') ? "<a href='" . FuncaoBase::geraLink("compdec", "compdec", "alterarCompdec", array('mun' => $_dados[0]['id_municipio'])) . "'><img src='/core/imagem/editar.png' title='Alterar Informações'></a>" :
             "<a href='" . FuncaoBase::geraLink("compdec", "compdec", "visualizar", array('mun' => $_dados[0]['id_municipio'])) . "'><img src='/core/imagem/view.png' title='Visualizar Informações'></a>";
 
@@ -58,6 +61,7 @@ if ($_btn_enviar && !empty($_id_municipio)) {
 							<th width=''>Sit.Usuario</th>
 							<th width=''>Possui Compdec</th>
 							<th width=''>Cadastro COMPDEC</th>
+							<th width='' title='Regional de Defesa Civil'>Região DC</th>
 							<th width='' title='Acesso ao Módulo PMDA'>Módulo PMDA</th>
 							<th width='' title='Acesso ao Módulo Ajuda Humanitária'>Módulo Ajuda Humanitária</th>
 							<th width='' title='Plano Contingencia'>Plano de Contingëncia</th>
@@ -76,13 +80,20 @@ if ($_btn_enviar && !empty($_id_municipio)) {
     print Html::inputSelect("compdec", "compdec", null, Config::$SIMNAO, $opcao, "class='pull-left'");
     print "</td>
 							<td>" . $alteracao . "</td>
+							<td><select name='sel_rdc' class='form form-control'>
+                                                            <option value='".$_dados[0]['id_rpm']."'>".$_dados[0]['id_rpm']." RPM</option>";
+    foreach ($rpms as $key => $rpm) {
+        print "<option value='".$rpm['id']."'>".$rpm['nome']."</option>";
+    }
+
+                                                        print "</td>
 							<td><input type='checkbox' name='ck_PMDA' id='ck_PMDA' " . ( ($_dados[0]['mod_pipa'] == 1) ? 'checked' : '') . "></td>
 							<td><input type='checkbox' name='ck_AJUDA' id='ck_AJUDA' " . ( ($_dados[0]['mod_ajuda'] == 1) ? 'checked' : '') . "></td>
 							<td><a href='" . FuncaoBase::geraLink("compdec", "compdec", "plano", array("id" => $_dados[0]['id_municipio'])) . "'>Visualizar</a></td>
 
 						</tr>
 						<tr>
-							<td colspan='7'>
+							<td colspan='8'>
 								<table class='table'>
 									<tr>
 										<th>
@@ -154,6 +165,30 @@ if ($_btn_enviar && !empty($_id_municipio)) {
     };
 
     $("#txtMunicipio").easyAutocomplete(itens);
+    
+    $('[name="sel_rdc"]').change(function () {
+
+        var dados = {
+            "btnEnviar": "rpm",
+            "rpm": $(this).val(),
+            "id_municipio": $("#txtId_municipio").val(),
+
+        };
+
+        $.ajax({
+            url: 'mod_compdec/backEnd/View/compdec/status.php',
+            type: 'POST',
+            data: dados,
+            success: function (response) {
+                //console.log(response);
+                if (response == true) {
+                    //console.log(dados);	
+                    alert("Procedimento realizado com Sucesso !");
+                }
+            }
+        });
+
+    });
 
     $("#selCompdec").change(function () {
 

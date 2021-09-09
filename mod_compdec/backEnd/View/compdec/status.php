@@ -15,6 +15,8 @@
             $compdec->permissao($_POST);
         }else if($envia == 'ajuda'){
             $compdec->permissao($_POST);
+        }else if($envia == 'rpm'){
+            $compdec->alteraRPM($_POST);
         }
 
 ?>

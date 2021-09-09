@@ -11,7 +11,11 @@ include_once PATH . '/vendor/mimemessage/sendmail_message.php';
 
 # core/classe 
 spl_autoload_register(function ($class_name) {
+    try{
     include PATH.'/core/classe/Classe.'.$class_name . '.php';
+    } catch (Exception $e){
+       Log::LogTxt();
+    }
 });
 
 

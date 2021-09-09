@@ -2318,6 +2318,7 @@ cedec_funcionario.orgao,
 cedec_funcionario.desc_funcao,
 cedec_funcionario.telefone,
 cedec_funcionario.celular,
+cedec_funcionario.id_rpm,
 cedec_rpm.nome as rpm
 from cedec_usuario
 inner join cedec_funcionario

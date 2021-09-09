@@ -155,7 +155,12 @@ class indexController extends Controller
        include_once 'mod_index/backEnd/View/info/lista_usuario.php';
     }
     
+    
+    public function lista_munic_reg() {
+        
+        $dados = Municipio::listaMunicipioRegional($_GET['id_rpm']);
+        
+        include_once 'mod_index/backEnd/View/info/lista_municipio_reg.php';
+    }
+    
 }
-
-
-

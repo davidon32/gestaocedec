@@ -36,7 +36,7 @@
                 foreach ($dados as $key => $value) {
                     print "<tr>";
                     print "<td>".$value['id_usuario']."</td>";
-                    print "<td>".$value['nome']."</td>";
+                    print "<td>".($value['desc_funcao'] == 'Agente Regional de DC' ? "<a href='".FuncaoBase::geraLink('index', 'index', 'lista_munic_reg', array('id_rpm'=>$value['id_rpm'], 'nome'=>$value['nome']))."' title='Municipios Relativos ao Agente Regional'>".$value['nome'] : $value['nome'])."</td>";
                     print "<td>".$value['telefone']."<br>".$value['celular']."</td>";
                     print "<td>".$value['email_rec']."</td>";
                     print "<td>".($value['desc_funcao'] == 'Agente Regional de DC' ? 'Regional' : '')."</td>";

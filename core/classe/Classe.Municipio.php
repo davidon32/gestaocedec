@@ -153,13 +153,23 @@ class Municipio extends DataMysql {
     }
 
     # dados para select nome de municipios
-    function dadosSelectMunicipio() {
+    function dadosSelectMunicipio($rpm = "") {
+        
+        if(!empty($rpm) && ($rpm != 1)) {
+            $sql = "select cedec_municipio.id_municipio, 
+                    cedec_municipio.nome
+                    from cedec_municipio
+                    inner join cedec_rpm_mun
+                    on cedec_municipio.id_municipio = cedec_rpm_mun.id_municipio
+                    where cedec_rpm_mun.id_rpm = ".$rpm;
+        }else {
+            $sql = "SELECT id_municipio, nome  FROM cedec_municipio ORDER BY nome";
+        }
 
         $con = Conexao::getInstance();
         
         $_dados = array();
 
-        $sql = "SELECT id_municipio, nome  FROM cedec_municipio ORDER BY nome";
 
         $result = $con->query($sql);
         $result->execute();
@@ -376,6 +386,58 @@ class Municipio extends DataMysql {
 
         return $dados;
     }
+    
+    public static function listaMunicipioRegional($id_rpm){
+        
+        $con = Conexao::getInstance();
+        
+        $dados = array();
+        
+        $sql = "select cedec_rpm_mun.id_municipio, cedec_municipio.nome,
+                com_comdec.com_const,
+                cedec_user_ex.situacao
+                from cedec_rpm_mun
+                inner join cedec_municipio
+                on cedec_rpm_mun.id_municipio = cedec_municipio.id_municipio
+                inner join com_comdec
+                on cedec_municipio.id_municipio = com_comdec.id_municipio 
+                inner join cedec_user_ex
+                on cedec_municipio.id_municipio = cedec_user_ex.id_municipio
+                where cedec_rpm_mun.id_rpm = ".$id_rpm;
+
+        $result = $con->query($sql);
+        
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            $dados[] = $linha;            
+        }
+
+        return $dados;
+        
+    }
+    
+    
+    public static function listaRDC(){
+        
+        $con = Conexao::getInstance();
+        
+        $dados = array();
+        
+        $sql = "select id, nome
+                from cedec_rpm";
+
+        $result = $con->query($sql);
+        
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            $dados[] = $linha;            
+        }
+
+        return $dados;
+        
+    }
+    
+    
+    
+    
     
     
 }?>
