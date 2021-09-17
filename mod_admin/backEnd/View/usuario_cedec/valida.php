@@ -36,7 +36,13 @@ $id = isset($_POST['id_usuario']) ? $_POST['id_usuario'] : "";
 
 if (($_COOKIE['seguranca']['adm']) && (!empty($id))) {
 
-    if (Usuario::AtualizarUsuario($_POST)) {
+    $post = array('nome'=>$_nome,
+                  'senha'=>$_senha,
+                  'email_rec'=>$_email,
+                  'nivel' => $_nivel,
+                  'id_usuario' =>$id );
+   
+    if (Usuario::AtualizarUsuario($post)) {
         print "<script type=\"text/javascript\">";
         print "alert('Dados atualizados com Sucesso !');";
         print "history.back();";

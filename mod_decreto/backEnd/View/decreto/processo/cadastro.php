@@ -25,19 +25,20 @@ $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
     <div class='row'>
         <div class='col-md-4'>
             <label>Ano Processo</label>
-            <input type="text" class='form form-control' name='ano' id='ano' maxlength='' required >
+            <input type="text" class='form form-control' name='ano' id='ano' maxlength='4' required >
         </div>
     </div>
     <div class='row'>
         <div class='col-md-4'>
             <label>Data de Entrada do Registro</label>
-            <input type="text" class='form form-control' name='data_entrada' id='data_entrada' maxlength='' required >
+            <input type="text" class='form form-control' name='data_entrada' id='data_entrada' maxlength='10' required >
         </div>
     </div>
     <div class='row'>
         <div class='col-md-4'>
-            <label>Identificador do Municipio</label>
-            <input type="text" class='form form-control' name='id_municipio' id='id_municipio' maxlength='' required >
+            <label>Municipio</label>
+            <input type="text" class='form form-control' name='municipio' id='municipio' maxlength='70' >
+            <input type="hidden" class='form form-control' name='id_municipio' id='id_municipio' maxlength='4' required >
         </div>
     </div>
     <div class='row'>
@@ -545,68 +546,67 @@ $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
     $("#ck_stat_reconhecido).attr("checked",false);
             if ($("#ck_stat_reconhecido).is(":checked")){
                     $("#ck_stat_reconhecido).val(1);
-                            }
+            }
+    $("#ck_stat_arquivo).attr("checked",false);
+        if ($("#ck_stat_arquivo).is(":checked")){
+            $("#ck_stat_arquivo).val(1);
+        }
 
 
-                    $("#ck_stat_arquivo).attr("checked",false);
-                            if ($("#ck_stat_arquivo).is(":checked")){
-                                    $("#ck_stat_arquivo).val(1);
-                                            }
+    $("#ck_stat_homologa).attr("checked",false);
+        if ($("#ck_stat_homologa).is(":checked")){
+            $("#ck_stat_homologa).val(1);
+        }
 
 
-                                    $("#ck_stat_homologa).attr("checked",false);
-                                            if ($("#ck_stat_homologa).is(":checked")){
-                                                    $("#ck_stat_homologa).val(1);
-                                                            }
-
-
-                                                    $("#ck_stat_analise).attr("checked",false);
-                                                            if ($("#ck_stat_analise).is(":checked")){
-                                                                    $("#ck_stat_analise).val(1);
-                                                                            }
+    $("#ck_stat_analise).attr("checked",false);
+        if ($("#ck_stat_analise).is(":checked")){
+            $("#ck_stat_analise).val(1);
+        }
 
 
 
-                                                                    /* radio button padrao */
+        /* radio button padrao */
+
+    /* close focus pesquisa */
+    /* clic form campo FK fornecedor */
+    $("#nomeCobrade").click(function(){
+        $("#modal_id_cobrade").modal({backdrop: 'static', keyboard: false});
+    });
+    /* focus no campo pesquisa fornecedor */
+    $('#modal_id_cobrade').on('shown.bs.modal', function (e) {
+        $("#searcid_cobrade").focus();
+    });
+    $("#frmProcesso").trigger("reset");
+    
+    /* ###################  fk_dec_cobrade ####################*/
+    $('#btnBuscaid_cobrade').click(function () {
+        $('#modal_id_cobrade').modal({backdrop: 'static', keyboard: false});
+    });
+    
+    var itens = {
+        data: <?=json_encode($dadosCobrade); ?>, // array com os dados
+            getValue: "nome", /* alterar com nome do item BD */
+            list: {
+                match: {
+                enabled: true
+                },
+                onSelectItemEvent: function () {
+                    var id = $("#searcid_cobrade").getSelectedItemData().id_cobrade;
+                    var nome = $("#searcid_cobrade").getSelectedItemData().nome;
+                    $("#nomeCobrade_fk").val(nome); // Mudar
+                    $("#id_cobrade").val(id);
+                },
+                onClickEvent:function(){
+                    $('#modal_id_cobrade').modal('hide');
+                }
+            }
+    };
+    
+    /*********** autocomplete ***********/
+        $("#searcid_cobrade").easyAutocomplete(itens);
+        /*###########################  final dec_cobrade #####################*/
 
 
-                                                                    /* close focus pesquisa */
-                                                                    /* clic form campo FK fornecedor */
-                                                                    $("#nomeCobrade").click(function(){
-                                                                    $("#modal_id_cobrade").modal({backdrop: 'static', keyboard: false});
-                                                                    });
-                                                                    /* focus no campo pesquisa fornecedor */
-                                                                    $('#modal_id_cobrade').on('shown.bs.modal', function (e) {
-                                                                    $("#searcid_cobrade").focus();
-                                                                    });
-                                                                    $("#frmProcesso").trigger("reset");
-                                                                    /* ###################  fk_dec_cobrade ####################*/
-                                                                    $('#btnBuscaid_cobrade').click(function () {
-                                                                    $('#modal_id_cobrade').modal({backdrop: 'static', keyboard: false});
-                                                                    });
-                                                                    var itens = {
-                                                                    data:
-<?php print json_encode($dadosCobrade); ?>, // array com os dados
-                                                                            getValue: "nome", /* alterar com nome do item BD */
-                                                                            list: {
-                                                                            match: {
-                                                                            enabled: true
-                                                                            },
-                                                                                    onSelectItemEvent: function () {
-                                                                                    var id = $("#searcid_cobrade").getSelectedItemData().id_cobrade;
-                                                                                    var nome = $("#searcid_cobrade").getSelectedItemData().nome;
-                                                                                    $("#nomeCobrade_fk").val(nome); // Mudar
-                                                                                    $("#id_cobrade").val(id);
-                                                                                    },
-                                                                                    onClickEvent:function(){
-                                                                                    $('#modal_id_cobrade').modal('hide');
-                                                                                    }
-                                                                            }
-                                                                    };
-                                                                    /*********** autocomplete ***********/
-                                                                    $("#searcid_cobrade").easyAutocomplete(itens);
-                                                                    /*###########################  final dec_cobrade #####################*/
-
-
-                                                                    });
+    });
 </script>

@@ -558,7 +558,7 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
             
 
             <?php include PATH . '/mod_compdec/frontEnd/View/compdec/anexo.php'; 
-            print "<table class='table table-bordered'>";
+            /*print "<table class='table table-bordered'>";
                     # linha informando q nao tem lei de criacao
                     if ($_dados[0]['sem_lei'] == 1) {
                         print "<tr>
@@ -576,7 +576,7 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
                         print "<tr>
                                     <td style='background-color:#00FF80;text-align:center' title='' colspan='7'>Não possui Portaria de Nomeação do Coordenador Municipal de Defesa Civil </td>";
                     }
-                print '</table>';
+                print '</table>';*/
                 ?>
         </div>
         <!-- Modal Adicionar Anexo Leis  -->

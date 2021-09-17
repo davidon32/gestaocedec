@@ -21,40 +21,50 @@
         margin: auto;
     }
 </style>
+<div class='col-md-12 text-center'>
 <?php
     if (Usuario::getPermissao('aju_cpermissao', 'entrada_nota')) {
 ?>
-    <div class="col-md-3">
-    <a class="btn btn-primary btn-lg  col-md-12" href="<?=FuncaoBase::geraLink("ajuda", "entrada_nota", "index")?>">Entrada de Notas</a>
+    <div class="col-md-2">
+        <a class="btn btn-primary btn-lg  col-md-12" href="<?=FuncaoBase::geraLink("ajuda", "entrada_nota", "index")?>">Entrada de Notas</a>
     </div>
+<?php
+    }
+    if (Usuario::getPermissao('aju_cpermissao', 'transferencia')) {
+?>
+<div class="col-md-2">
+    <a class="btn btn-primary btn-lg  col-md-12" title='Transferencia de Materiais entre Armazém' href="<?=FuncaoBase::geraLink("ajuda", "transferencia", "index")?>">Transf. Mat Armazém</a>
+</div>
 <?php
     }
     if (Usuario::getPermissao('aju_cpermissao', 'pedido')) {
 ?>
-    <div class="col-md-3">
+    <div class="col-md-2">
     <a class="btn btn-primary btn-lg col-md-12" href="<?=FuncaoBase::geraLink("ajuda", "pedido", "index")?>">Pedido</a>
     </div>
 <?php
     }
     if (Usuario::getPermissao('aju_cpermissao', 'separar')) {
 ?>
-    <div class="col-md-3">
+    <div class="col-md-2">
     <a class="btn btn-primary btn-lg  col-md-12" href="<?=FuncaoBase::geraLink("ajuda", "pedido", "separacao")?>">Separação Mercadoria</a>
     </div>
 <?php
     }
     if (Usuario::getPermissao('aju_cpermissao', 'montagem_carga')) {
 ?>
-    <div class="col-md-3">
+    <div class="col-md-2">
     <a class="btn btn-primary btn-lg  col-md-12" href="<?=FuncaoBase::geraLink("ajuda", "montagem", "index")?>">Montagem de Carga</a>
     </div>
 <?php
     } 
 ?>
+</div>
 <div class="col-md-12 text-center">
 <br>
     <a class="btn btn-success" href="<?=FuncaoBase::geraLink("ajuda", "conestoque", "indexn")?>">Voltar</a>
 </div>
+    
  <br>
     <!-- =================== RODAPE CORPO ==================== -->
     <?php include_once "template/page/corpoRodape.php"; ?>

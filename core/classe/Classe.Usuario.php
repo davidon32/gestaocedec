@@ -2011,7 +2011,8 @@ class Usuario extends UsuarioModel {
                 cad_principal,
                 movimentacao,
                 relatorios,
-                separar
+                separar,
+                transferencia
                 FROM aju_cpermissao
 		WHERE login = '" . $login . "'";
 

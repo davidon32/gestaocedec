@@ -51,11 +51,11 @@ $dados = $anexo->listaAnexo($id_municipio);
 		
 			<tr>
 				<th class="col-md-1">#</th>
-				<th class="col-md-1">Data Envio</th>
+				<th class="col-md-1">Data </th>
 	 			<th class="col-md-1">Tipo Doc.</th>
 				<th class="col-md-3">Nome Arquivo</th>
 				<th class="col-md-3">Descrição</th>
-				<th class="col-md-1">Validade</th>
+				<!--<th class="col-md-1">Validade</th>-->
 				<th class="col-md-2">Ação</th>
 			</tr>';
 $valido = '';
@@ -72,7 +72,7 @@ $valido = '';
 				<td ' . $valido . '>'.$anexo->enumTipo($value['tipo']).'</td>
 				<td ' . $valido . '>'.$value['arquivo'].'</td>
 				<td ' . $valido . '>'.$value['descricao'].'</td>
-				<td ' . $valido . '>'. DataMysql::dataVisual($value['validade']).'</td>
+				<!--<td ' . $valido . '>'. DataMysql::dataVisual($value['validade']).'</td>-->
                                 <td ' . $valido . '>';
 
 				print (($anexoResult['existe']) ? '<a onclick="javascript:anexoView(\'anexo/anexo_leis/'.$anexoResult['arquivo'].'\')"><img width="30px" src="/core/imagem/impressao.png" title="Visualizar"></a>'

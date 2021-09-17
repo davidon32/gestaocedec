@@ -340,7 +340,7 @@ MSG;
     # salvar dados usuario
 
     public function salvar() {
-        include_once 'mod_admin/backend/View/usuario_cedec/valida.php';
+        include_once 'mod_admin/backEnd/View/usuario_cedec/valida.php';
     }
     
     

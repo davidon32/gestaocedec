@@ -198,6 +198,8 @@ $maspNumPol = Usuario::dadosFuncionario($usuario['id_funcionario']);
                             <label>Montagem de Carga</label><br>
                             <input type="checkbox" id="cancela_mont_carga" data-tabela="aju_cpermissao" data-chave="id_permissao" <?= ($permissaoEstoque['cancela_mont_carga']) ? " checked='checked'" : ""; ?>>
                             <label>Cancelar Montagem de Carga</label><br>
+                            <input type="checkbox" id="transferencia" data-tabela="aju_cpermissao" data-chave="id_permissao" <?= ($permissaoEstoque['transferencia']) ? " checked='checked'" : ""; ?>>
+                            <label>Transferencia Materiais entre Armazens</label><br>
                         </div>
                         
                         <input type="checkbox" id="relatorios" data-tabela="aju_cpermissao" data-chave="id_permissao" <?= ($permissaoEstoque['relatorios']) ? " checked='checked'" : ""; ?>>

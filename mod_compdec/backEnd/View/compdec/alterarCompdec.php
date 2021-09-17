@@ -486,7 +486,7 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default" title="Clique para Anexar Leis e Decretos">Upload</button>
 </div>
 <div class="col-md-6 text-right">
-    <label title="Aprovação Documentos Compdec">
+    <!--<label title="Aprovação Documentos Compdec">
         <input type="radio" name="rb_aprova" id="rb_aprova_1" value="1" <?=($_dados[0]['doc_aprov'] == 1) ? "checked": ""?> >
         Aprovação Documentação Compdec
     </label>
@@ -494,14 +494,14 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
     <label title="Libera para o Compdec Incluir Documentação">
         <input type="radio" name="rb_aprova" id="rb_aprova_0" value="0" <?=($_dados[0]['doc_aprov'] == 0) ? "checked": ""?>>
         Liberar Edição Compdec
-    </label>
+    </label>-->
 </div>
             <div class="col-md-12 table-responsive" id="tblAnexoLeis">
                 
                 <?php 
                         include_once PATH . '/mod_compdec/backEnd/View/compdec/anexo.php'; 
                   
-                    print "<table class='table table-bordered'>";
+                    /*print "<table class='table table-bordered'>";
                     # linha informando q nao tem lei de criacao
                     if ($_dados[0]['sem_lei'] == 1) {
                         print "<tr>
@@ -520,6 +520,8 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
                                     <td style='background-color:#00FF80;text-align:center' title='' colspan='7'>Não possui Portaria de Nomeação do Coordenador Municipal de Defesa Civil </td>";
                     }
                 print '</table>';
+                     * 
+                     */
 
 ?>
             </div>

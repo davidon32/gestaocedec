@@ -45,7 +45,7 @@ $dados = Usuario::buscaUsuarioId($_GET['id']);
                 <br>
                 <input type="checkbox" id="ckReset" name="ckReset" >
 
-                <label>Resetar Senha</label>
+                <label>Resetar Senha</label>( <b style='color:red'>defesa199</b> )
             </div>
             <div class="col-md-6">
                 <legend>Log Tentativa Acesso</legend>
@@ -58,7 +58,7 @@ $dados = Usuario::buscaUsuarioId($_GET['id']);
                         </tr>
                         <?php
                         
-                            $tentativa_acesso = Usuario::listaTentativaAcesso();
+                           /* $tentativa_acesso = Usuario::listaTentativaAcesso();
                             
                             foreach ($tentativa_acesso as $key => $value) {
                                 
@@ -72,7 +72,7 @@ $dados = Usuario::buscaUsuarioId($_GET['id']);
                                     <td>". DataMysql::dataCompletaVisual($value['dt_user'])."</td>
                                 </tr>";
                                 }
-                            }
+                            }*/
                         ?>
                     </table>
                 </div>
@@ -229,7 +229,7 @@ $dados = Usuario::buscaUsuarioId($_GET['id']);
         $("#ckReset").click(function () {
 
             if ($("#ckReset").is(":checked")) {
-                $("#senha").val("<?= md5('portal199'); ?>");
+                $("#senha").val("<?= md5('defesa199'); ?>");
                 $("#trSenha").val("1");
             } else {
                 $("#senha").val("");

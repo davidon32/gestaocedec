@@ -17,7 +17,9 @@ $decreto = new Decretacao();
 
 <div class="col-md-6">
     
-    <a href="??token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=decreto&controller=processo&action=index" class="btn btn-primary">Gerenciamento Processos</a></br>
+    <a href="??token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=decreto&controller=processo&action=index" class="btn btn-primary">Gerenciamento Processos</a>
+    </br>
+    </br>
 <a href="??token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=decreto&controller=decreto&action=busca" class="btn btn-primary">Relatórios</a>
 </div>
 <div class="col-md-6">
@@ -48,7 +50,7 @@ $decreto = new Decretacao();
 			print "<td>" . $num . "</td>";
 			print "<td>" . $value['id_processo'] . "</td>";
 			print "<td>" . $value['ano'] . "</td>";
-			print "<td>" . $value['id_municipio'] . "</td>";
+			print "<td>" . Municipio::PegaNomeMunicipio($value['id_municipio']) . "</td>";
 			print "<td>" . DataMysql::dataVisual($value['dt_vencimento']) . "</td>";
 			print "<td>" . $situacao . "</td>";
 			print "</tr>";
@@ -63,7 +65,7 @@ $decreto = new Decretacao();
 		</tr>
 		<?php
 
-		$dadosResumo = $decreto->resumoDecreto("2018");
+		$dadosResumo = $decreto->resumoDecreto("2014");
 
 		foreach ($dadosResumo as $value) {
 			print "<tr>

@@ -274,7 +274,9 @@ class Decretacao {
 	 * resumo processo
 	 * 
 	 */
-	function resumoDecreto($ano){
+	function resumoDecreto(){
+            
+            $ano = date("Y");
 		
 		$dados = array();
 		
@@ -283,7 +285,7 @@ class Decretacao {
 			$con = conexao::getInstance();
 			
 			$sql = "select count(desastre) as totDesastre, desastre from dec_processo
-						where ano = '".$ano."'
+						where ano <= '".$ano."'
 						group by desastre
 						order by count(desastre) desc";
 			

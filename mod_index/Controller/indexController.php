@@ -29,7 +29,7 @@ class indexController extends Controller
        }else if($logar == "trsenha"){
 
             print "<script type='text/javascript'>";
-		    print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=itn&ac=&modulo=equipe&controller=usuario&action=trsenha_cedec';";
+		    print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=itn&ac=&modulo=admin&controller=admin&action=troca_senha_cedec_esqueci';";
 			print "</script>";
        }else {
            

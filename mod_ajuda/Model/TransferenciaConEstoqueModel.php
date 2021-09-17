@@ -1,13 +1,12 @@
-<?php include_once("AjudaModel.php");
-
+<?php 
     /**
      * 
      */
-class TransferenciaConMaterialModel extends AjudaModel {
+class TransferenciaConEstoqueModel extends Model {
  
-    public static function existeTransferencia($id_pedido){
+    //public static function existeTransferencia($id_pedido){
         
-        return false;
-    }
+        //return false;
+    //}
     
 }

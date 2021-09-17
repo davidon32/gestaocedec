@@ -46,10 +46,11 @@ $_id_municipio = isset($_POST['txtIdMunicipio']) ? $_POST['txtIdMunicipio'] : ""
 
 $permissao = $_login->verificaPermissao("alt_comdec", "com_permissao", $pageSession['session']['seguranca']['login']);
 
+
 if ($_btn_enviar && !empty($_id_municipio)) {
 
     $_dados = $_compdec->buscaCompdec($_id_municipio);
-    
+
     $alteracao = ($permissao == '1') ? "<a href='" . FuncaoBase::geraLink("compdec", "compdec", "alterarCompdec", array('mun' => $_dados[0]['id_municipio'])) . "'><img src='/core/imagem/editar.png' title='Alterar Informações'></a>" :
             "<a href='" . FuncaoBase::geraLink("compdec", "compdec", "visualizar", array('mun' => $_dados[0]['id_municipio'])) . "'><img src='/core/imagem/view.png' title='Visualizar Informações'></a>";
 
