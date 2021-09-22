@@ -1098,11 +1098,11 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
         if ($("#selCobraIss").val() == "Não") {
             $("#txtAliquota").prop('readonly', true);
             $("#selResp").attr('readonly', true);
-            $("#txtNumLei").prop('readonly', true);
+//            $("#txtNumLei").prop('readonly', true);
         } else {
             $("#txtAliquota").prop('readonly', false);
             $("#selResp").attr('readonly', false);
-            $("#txtNumLei").prop('readonly', false);
+//            $("#txtNumLei").prop('readonly', false);
 
         }
 
@@ -1112,17 +1112,17 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
             if ($("#selCobraIss").val() == "Não") {
                 $("#txtAliquota").prop('readonly', true);
                 $("#selResp").attr('readonly', true);
-                $("#txtNumLei").prop('readonly', true);
+//                $("#txtNumLei").prop('readonly', true);
 
                 /* Limpa campos */
                 $("#txtAliquota").val("");
                 $("#selResp").val("-").change();
-                $("#txtNumLei").val("");
+//                $("#txtNumLei").val("");
 
             } else {
                 $("#txtAliquota").prop('readonly', false);
                 $("#selResp").attr('readonly', false);
-                $("#txtNumLei").prop('readonly', false);
+//                $("#txtNumLei").prop('readonly', false);
             }
 
         });
