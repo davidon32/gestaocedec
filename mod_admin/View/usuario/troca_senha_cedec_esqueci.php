@@ -27,14 +27,14 @@
         <![endif]-->
 
         <!-- Google Font -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+        <!--removido Google Fontes-->
     </head>
     <?php
     $param = isset($_GET[md5('use70')]) ? $_GET[md5('use70')] : "";
 
     $usuario = new Usuario();
     
-    if (isset($param[md5('use70')])) {
+    /*if (isset($param[md5('use70')])) {
         $dados = $usuario->getResetUsuario($param);
         $dataBanco = new DateTime();
         $dataBanco->setTimestamp($dados['reset']);
@@ -51,7 +51,7 @@
         echo "Data agora " . $agora->format('d/m/Y H:i:s') . "<br>";
 
         print "<br>";
-    }
+    }*/
     
     /* MUDANCA DE SENHA VIA email com link  */
     if (isset($param[md5('use70')]) && (isset($dados))) {

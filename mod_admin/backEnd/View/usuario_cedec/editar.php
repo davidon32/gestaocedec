@@ -102,7 +102,8 @@ $dados = $usuario->getDadoUsuario($id_usuario);
 <br />
 <div class="center">
     <input class="btn btn-primary" type="submit" name="enviar" id="enviar" value="Salvar"/>
-    <a class="btn btn-primary" href="?modulo=equipe&controller=usuario&action=perfil">Voltar</a>
+    <a class="btn btn-primary" href="<?= FuncaoBase::geraLink("admin", "adm", "perfil", array('id'=>$_GET['id']))?>">Voltar</a>
+    <!--?modulo=admin&controller=adm&action=perfil-->
 </div>
 
 

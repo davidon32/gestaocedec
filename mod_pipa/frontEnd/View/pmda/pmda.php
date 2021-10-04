@@ -434,14 +434,14 @@ if (!empty($id_pmda)) {
                                 <div class="col-xs-3 form-group">
                                     <label  title="<?= $informacao['trecho_pavimentado']; ?>">Trecho
                                         Pavimentado (Km)&nbsp;<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                                    </label> <input class="form-control" type="text" name="txtTrecPavComunidade"
-                                                    id="txtTrecPavComunidade" placeholder="Campo Obrigatório" maxlength="5"/>
+                                    </label> <input class="form-control" type="number" name="txtTrecPavComunidade"
+                                                    id="txtTrecPavComunidade" placeholder="Campo Obrigatório" max="500" maxlength="5" />
                                 </div>
                                 <div class="col-xs-3 form-group">
                                     <label  title="<?= $informacao['trecho_n_pavimentado']; ?>">Trecho não
                                         Pavimentado (Km)&nbsp;<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                                    </label> <input class="form-control" type="text" name="txtTrecNPavComunidade"
-                                                    id="txtTrecNPavComunidade" placeholder="Campo Obrigatório" maxlength="5"/>
+                                    </label> <input class="form-control" type="number" name="txtTrecNPavComunidade"
+                                                    id="txtTrecNPavComunidade" placeholder="Campo Obrigatório" max="500" maxlength="5"/>
                                 </div>
                                 <div class="col-xs-3 form-group">
                                     <label  title="<?= $informacao['distancia_total']; ?>">Distância Total
@@ -452,8 +452,8 @@ if (!empty($id_pmda)) {
                                 <div class="col-xs-3 form-group">
                                     &nbsp;<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> <label
                                         title="<?= $informacao['populacao_atendida']; ?>">População Atendida<input
-                                            class="form-control" type="text" name="txtPopAtComunidade" id="txtPopAtComunidade"
-                                            placeholder="Campo Obrigatório" maxlength="4"/></label>
+                                            class="form-control" type="number" name="txtPopAtComunidade" id="txtPopAtComunidade"
+                                            placeholder="Campo Obrigatório" max="3000" maxlength="4"/></label>
                                 </div>
 
 

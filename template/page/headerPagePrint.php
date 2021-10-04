@@ -44,7 +44,7 @@ if(isset($pageSession)){
 
 <script src="js/sweetalert2.all.min.js"></script>
    <!-- Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <!--removido Google Fontes-->
 
   <style type="text/css">
 

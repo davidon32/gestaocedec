@@ -57,7 +57,9 @@ $acesso1 = isset($_GET['externo']) ? $_GET['externo'] :"";
             ($action === 'trsenha_cedec') ||
             ($action === 'trsenha_compdec') ||
             ($modulo === 'index') ||
-            ($action === 'visualiza')) {
+            ($action === 'visualiza') ||
+            ($action === 'troca_senha_cedec_esqueci')
+    ) {
 
         include_once "mod_" . $modulo . "/Controller/" . $controller . ".php";
     } else if ((isset($caminho[1]) && $caminho[1] == "tdap")) { # TDAP

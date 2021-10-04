@@ -37,7 +37,10 @@ $dados =$usuario->getDadoUsuario($pageSession['session']['seguranca']['idUser'])
         <td><?=$dados['email_rec'];?></td>
     </tr>
 </table>
+
+<div class="col-md-6 p-sm-3">
 <a class="btn btn-primary" href="<?=FuncaoBase::geraLink("admin", "adm", "editar", array("id"=>$dados['id_usuario']))?>">Editar</a>
+</div>
 
 
       
