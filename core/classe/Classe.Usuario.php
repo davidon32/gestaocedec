@@ -1702,7 +1702,7 @@ class Usuario extends UsuarioModel {
      * 
      */
     public static function AtualizarUsuario($dados) {
-
+        
         $con = Conexao::getInstance();
 
         $sql = "UPDATE cedec_usuario SET nome = :nome,
@@ -1714,7 +1714,7 @@ class Usuario extends UsuarioModel {
         $result = $con->prepare($sql);
         $result->bindValue(":nome", $dados['nome']);
         $result->bindValue(":senha", $dados['senha']);
-        $result->bindValue(":email", $dados['email']);
+        $result->bindValue(":email", $dados['email_rec']);
         $result->bindValue(":nivel", $dados['nivel']);
         $result->bindValue(":id", $dados['id_usuario']);
 

@@ -30,6 +30,8 @@
         <!--removido Google Fontes-->
     </head>
     <?php
+    
+    var_dump($_REQUEST);
     $param = isset($_GET[md5('use70')]) ? $_GET[md5('use70')] : "";
 
     $usuario = new Usuario();
@@ -93,6 +95,7 @@
         $envia_troca = isset($_POST['btn_trocasenha']) ? $_POST['btn_trocasenha'] : "";
         $externo = isset($_POST['txtExterno']) ? $_POST['txtExterno'] : "";
         //$hashReset = isset($param) ? $_POST['hashReset'] :"";
+
 
         $login = Usuario::getUsuarioHash($param);
         

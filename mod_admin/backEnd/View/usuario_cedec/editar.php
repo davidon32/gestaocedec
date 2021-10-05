@@ -38,40 +38,45 @@ $dados = $usuario->getDadoUsuario($id_usuario);
     </tr>
     <tr>
         <td>email:</td>
-        <td><input type="text" name="email" class="form-control" size="40" value="<?php print $dados['email_rec']; ?>"></td>
+        <td><input type="email" name="email" class="form-control" size="40" value="<?php print $dados['email_rec']; ?>"></td>
     </tr>
-    <tr>
+    
+    <?php
+    if(false){
+
+    /*print "<tr>
         <td>Depósito:</td>
-        <td><?php //print Deposito::pegaDepositoSelected($dados['id_deposito']);  ?></td>
-    </tr>
-    <tr>
+        //<td> print Deposito::pegaDepositoSelected($dados['id_deposito']);  </td>
+    </tr>";*/
+    print "<tr>
         <td>Nível:</td>
-        <td><select name="nivel" class="form-control">
-                <option value="1">Usuário</option>
-                <option value="3">Administrador</option>
-                <option value="2">Gerente</option>
-                <option value="1">Usuário</option>
-                <option value="0">Dep.Avançado</option>
+        <td><select name='nivel' class='form-control'>
+                <option value='1'>Usuário</option>
+                <option value='3'>Administrador</option>
+                <option value='2'>Gerente</option>
+                <option value='1'>Usuário</option>
+                <option value='0'>Dep.Avançado</option>
             </select>
         </td>
     </tr>
     <tr>
         <td>Situação:</td>
-        <td><select name="situacao" class="form-control">
-                <option value="1">Ativo</option>
-                <option value="1">Ativo</option>
-                <option value="0">Inativo</option>
+        <td><select name='situacao' class='form-control'>
+                <option value='1'>Ativo</option>
+                <option value='1'>Ativo</option>
+                <option value='0'>Inativo</option>
             </select></td>
-    </tr>
+    </tr>";
+    
 
-</table>
+/*</table>
 <br />
 <fieldset>
     <legend>Módulos</legend>
     <table align="center" border="0">
         <tr>
             <td align="left">Ajuda Humanitária</td>
-            <td><input type="checkbox" name="ajuda" id="ajuda" value="1" <?= ($dados['it_m_deposito'] == 1) ? "checked" : ""; ?> ></td>
+            <td><input type="checkbox" name="ajuda" id="ajuda" value="1" {$dados['it_m_deposito'] == 1) ? "checked" : ""}; ></td>
             <td align="left">Pipa</td>
             <td><input type="checkbox" name="pipa" id="pipa" value="1" <?= ($dados['it_m_pipa'] == 1) ? "checked" : ""; ?>></td>
         </tr>
@@ -94,9 +99,10 @@ $dados = $usuario->getDadoUsuario($id_usuario);
             <td><input type="checkbox" name="cce" id="cce" value="1" <?= ($dados['it_m_cce'] == 1) ? "checked" : ""; ?>></td>
         </tr>
 
-    </table>
+    </table>*/
 
-
+}
+?>
 
 </fieldset>
 <br />
