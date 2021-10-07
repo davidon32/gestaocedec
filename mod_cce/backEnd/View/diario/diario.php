@@ -127,7 +127,7 @@ $_id_usuario = $pageSession['session']['seguranca']['idUser'];
                                         
                                     print "alert('Adicione as Informações do Diário !');";
                                         
-                                    print "window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=itn&modulo=cce&controller=cce&action=diario';";
+                                    print "window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=cce&controller=cce&action=diario';";
                                         
                                     print "window.open(\"index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=cce&controller=historico&action=cadastro&idd=".$_diario['id_diario']."&p=".$_turno."\", \"Pagina2\" , \"left=300, top=200, height = 500 , width = 600\");";
                                                                     
@@ -176,7 +176,7 @@ $_id_usuario = $pageSession['session']['seguranca']['idUser'];
                                       <td style=\"text-align:center;\">".$_dataLista."</td>
                                       <td style=\"text-align:center;\">".$value['periodo']."</td>
                                       <td style=\"text-align:center;\">
-                                                                        <a href=\"javascript:window.open('index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=itn&modulo=cce&controller=cce&action=historicoView&id=".$value['id_diario']."',
+                                                                        <a href=\"javascript:window.open('index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=cce&controller=cce&action=historicoView&id=".$value['id_diario']."',
                                                                                                          'Pagina2',
                                                                                                          'left=300, top=100, height = 600 , width = 900'
                                                                                                          ) \" title='Consulta e Lancamento de Histórico'>
@@ -185,7 +185,7 @@ $_id_usuario = $pageSession['session']['seguranca']['idUser'];
                                        </td>
                                       
                                       <td style=\"text-align:center;\">
-                                                                        <a href=\"javascript:window.open('index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=itn&modulo=cce&controller=cce&action=lancDiario&idd=".$value['id_diario']."&p=".$turno."',
+                                                                        <a href=\"javascript:window.open('index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=cce&controller=cce&action=lancDiario&idd=".$value['id_diario']."&p=".$turno."',
                                                                                                          'Pagina2',
                                                                                                          'left=300, top=100, height = 600 , width = 900' 
                                                                                                          ) \" title='Adicionar Histórico'>

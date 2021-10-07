@@ -89,7 +89,7 @@
                 print "alert('Recebimento de materiais Realizada com Sucesso');";
                 
                 //print "window.location = '../secao.php?secao=receb&acao=recibo&id=".$_txt_id_transferencia."';";
-                print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=ajuda&secao=recebimento&acao=recebimento';";
+                print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=ajuda&secao=recebimento&acao=recebimento';";
                 
                 print "</script>";
                 

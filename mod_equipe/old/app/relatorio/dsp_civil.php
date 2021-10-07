@@ -30,7 +30,7 @@ if($_membrosCivil == "") {
                         
     print "alert('Funcionário não possui Conta Bancária Cadastrada no Sistema !!');";
     
-    print "window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=equipe&secao=dsp&acao=buscar';";
+    print "window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=equipe&secao=dsp&acao=buscar';";
                         
     print "</script>";
 
@@ -73,7 +73,7 @@ $_chefeDireto = $_funcionario->pegaDadosFuncionario($_dados[0]['id_chefe']);
                     }else {
 
                         
-                        print "<a class='btn' href='index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=modulo&secao=dsp&acao=buscar'>Voltar</a>&nbsp;&nbsp;";
+                        print "<a class='btn' href='index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=modulo&secao=dsp&acao=buscar'>Voltar</a>&nbsp;&nbsp;";
                         
                         print FuncaoBase::vifs('imprimir');  
                     }

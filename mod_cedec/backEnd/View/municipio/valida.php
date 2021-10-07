@@ -63,7 +63,7 @@ if($_id == "") {
 
   		print "alert('Cadastro Realizado com Sucesso !');";
 
-  		print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=cedec&secao=municipio&acao=cadastro'";
+  		print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=cedec&secao=municipio&acao=cadastro'";
 
   		print "</script>";
 
@@ -138,7 +138,7 @@ if($_id == "") {
 
 	  		print "alert('Cadastro Alterado com Sucesso !');";
 
-	  		print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=compdec&secao=compdec&acao=buscarAlterar'";
+	  		print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=compdec&secao=compdec&acao=buscarAlterar'";
 
 	  		print "</script>";
 	  	}

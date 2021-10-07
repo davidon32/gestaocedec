@@ -494,8 +494,11 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
                         <h4 class="modal-title">Upload</h4>
                     </div>
                     <div class="modal-body">
-                        <input class="form-control btn" type="file" name="fileAnexo" id="fileAnexo" /> <br> <br>
-                        <br>
+                        <input class="form-control btn" type="file" name="fileAnexo" accept=".jpg,.png" id="fileAnexo" /> <br> <br>
+                        <p style='color:red; font-size:15pt' id='sp_size_comp'>&nbsp;</p>
+                            <p>Tipos de Imagem válidas  <b style="color:red">"JPG", "PNG"</b></p>
+                            <p>Tamanho máximo da imágem :  <b style="color:red">400kb</b></p>
+                        
 
                     </div>
                     <div class="modal-footer">
@@ -515,8 +518,10 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
                             <h4 class="modal-title">Upload Foto Prefeito</h4>
                         </div>
                         <div class="modal-body">
-                            <input class="form-control btn" type="file" name="fileAnexoPref" id="fileAnexoPref" /> <br> <br>
-                            <br>
+                            <input class="form-control btn" type="file" accept=".jpg,.png" name="fileAnexoPref" id="fileAnexoPref" /> <br> <br>
+                            <p style='color:red; font-size:15pt' id='sp_size_pref'>&nbsp;</p>
+                            <p>Tipos de Imagem válidas  <b style="color:red">"JPG", "PNG"</b></p>
+                            <p>Tamanho máximo da imágem :  <b style="color:red">400kb</b></p>
 
                         </div>
                         <div class="modal-footer">
@@ -586,11 +591,15 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Upload de Arquivo ( arquivos até 2mb )</h4>
+                        <h4 class="modal-title">Upload de Arquivo</h4>
                     </div>
                     <div class="modal-body">
                         <form name="frmAnexoLeis" enctype="multipart/form-data">
-                            <input class="form-control" type="file" name="fileAnexoLeis" id="fileAnexoLeis" /><span class="obs"> (Formato PDF ou JPEG)</span><br><span class="obs">Tamanho máximo Arquivo: 2Mb (mega bytes) ou 2.000 KB (kilo bytes) </span> <br>
+                            <input class="form-control" type="file" accept=".jpg,.pdf,.png" name="fileAnexoLeis" id="fileAnexoLeis" >
+                            <br>
+                            <p style='color:red' id='sp_size_lei'>&nbsp;</p>
+                            <p>Tipos de Imagem válidas : <b style="color:red">"JPG", "PDF", "PNG"</b></p>
+                            <span>Tamanho máximo da imágem :  <b style="color:red">2 MB</b></span><br>
                             <label>Descrição</label>
                             <input class="form-control" type='text' name='txtDescricao' id='txtDescricao' maxlength="40">
                             <label>Tipo Doc</label>
@@ -638,6 +647,28 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
             $("#btnDados2").trigger('click', [false]);
 
         });
+        
+        $("#fileAnexoPref").change(function(){
+            var size = $("#fileAnexoPref")[0].files[0].size;
+            if(size > 419430){
+                alert('Seu arquivo é maior que 400Kb')
+                $("#sp_size_pref").text('Seu arquivo é maior que o recomendado !\n Gentileza verificá-lo !' );
+                $("#btnGravarFotoPref").hide();   
+            }else {
+                $("#btnGravarFotoPref").show();   
+            }
+        });
+        
+        $("#fileAnexo").change(function(){
+            var size = $("#fileAnexo")[0].files[0].size;
+            if(size > 419430){
+                alert('Seu arquivo é maior que 400Kb')
+                $("#sp_size_comp").text('Seu arquivo é maior que o recomendado !\n Gentileza verificá-lo !' );
+                $("#btnGravarFoto").hide();   
+            }else {
+                $("#btnGravarFoto").show();   
+            }
+        });
 
 
         /* $("#txt_email").blur(function(){
@@ -655,6 +686,8 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
 
         $("#fileAnexoLeis").change(function () {
             tamanho = this.files;
+            console.log(tamanho);
+            $('#sp_size_lei').text('Tamanho : '+ Math.round(tamanho[0].size /1024)+' Mb');
             if (tamanho[0]['size'] > 1999353) {
                 $("#btnGravarLeis").attr("disabled", true);
                 $("#btnGravarLeis").attr("title", "Seu arquivo é maior que 2mb tente reescanear com a opção compactar !");
@@ -1389,4 +1422,5 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
         var regex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
         return regex.test(email);
     }
+    
 </script>

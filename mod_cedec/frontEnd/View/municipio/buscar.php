@@ -63,7 +63,7 @@
                         
                         print "<script type='text/javascript'>
                         
-                            //window.location = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=cedec&secao=relatorio&acao=info_municipio&id=".$_municipio."';
+                            //window.location = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=cedec&secao=relatorio&acao=info_municipio&id=".$_municipio."';
                         
                         </script>";
                         

@@ -66,7 +66,7 @@ table th {
     
     ?>
         <br>
-        <div class='text-center'><a href='index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=ajuda&secao=transferencia&acao=busca_rel_mat_transferido' class="btn">Voltar</a></div>
+        <div class='text-center'><a href='index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=ajuda&secao=transferencia&acao=busca_rel_mat_transferido' class="btn">Voltar</a></div>
     </br>
 
     <legend> Relatório de Materiais Transferidos entre Depósitos</legend>

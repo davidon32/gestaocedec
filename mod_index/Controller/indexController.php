@@ -24,12 +24,12 @@ class indexController extends Controller
        if($logar == "indexAdm"){
             
             print "<script style='text/javascript'>";
-			print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO)."-".date('dmY'))."&ac=itn&ac=&modulo=index&controller=index&action=index1'";
+			print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&ac=&modulo=index&controller=index&action=index1'";
             print "</script>";
        }else if($logar == "trsenha"){
 
             print "<script type='text/javascript'>";
-		    print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=itn&ac=&modulo=admin&controller=admin&action=troca_senha_cedec_esqueci';";
+		    print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY') )."&ac=itn&ac=&modulo=admin&controller=admin&action=troca_senha_cedec_esqueci';";
 			print "</script>";
        }else {
            
@@ -38,7 +38,7 @@ class indexController extends Controller
             /** login frontend */
             if($logarExterno == "index"){
                     print "<script style='text/javascript'>";
-                    print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=etn&modulo=index&controller=index&action=index1e'";
+                    print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=etn&modulo=index&controller=index&action=index1e'";
                     print "</script>";
             
             # troca de senha externo
@@ -49,19 +49,19 @@ class indexController extends Controller
                 
                 if(empty($logarExterno['reset'])){
                     print "<script type='text/javascript'>";
-                            print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&modulo=equipe&controller=usuario&action=trsenha_compdec&has=".$param."';";
+                            print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&modulo=equipe&controller=usuario&action=trsenha_compdec&has=".$param."';";
                                 print "</script>";
                     
                 }else { # 
                     $usuario->getResetUsuarioEx($logarExterno['reset']);
                     print "<script type='text/javascript'>";
-                            print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&modulo=equipe&controller=usuario&action=trsenha_compdec&has=".$param."&res=".$logarExterno['reset']."';";
+                            print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&modulo=equipe&controller=usuario&action=trsenha_compdec&has=".$param."&res=".$logarExterno['reset']."';";
                                 print "</script>";
                 }
             /*alterar dados usuario */
             }else if($logarExterno == "perfil"){
                 print "<script style='text/javascript'>";
-                print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=etn&modulo=equipe&controller=usuario&action=editar'";
+                print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=etn&modulo=equipe&controller=usuario&action=editar'";
                 print "</script>";
            }else if($logarExterno == "mozila") {
                     print "<script type='text/javascript'>";

@@ -89,7 +89,7 @@ $_conexao = new ConexaoMysql();
                                     <td>".(($dados[$i]['tipo'] == '1') ? 'C/C' : "")."</td>
                                     <td>".(($dados[$i]['principal']) == "0" ? "-" : "Sim")."</td>
                                     
-                                    <td><a class='btn' href='index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=equipe&secao=banco&acao=alterar&id=".$dados[$i]['id_banco']."'>Alterar</a></td>
+                                    <td><a class='btn' href='index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=equipe&secao=banco&acao=alterar&id=".$dados[$i]['id_banco']."'>Alterar</a></td>
                                     </tr>";
                         }
                         print "</table>";

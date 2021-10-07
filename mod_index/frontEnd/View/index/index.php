@@ -11,7 +11,7 @@
 
 <!-- painel inicial sitema notificacoes -->
             <div class="col-md-4 text-left"> 
-              <a class="btn btn-success" href='index.php?token=<?=hash('sha256', md5(VERSAO)."-".time())?>&ac=etn&modulo=index&controller=index&action=menue'>Acessar Módulos</a>  
+              <a class="btn btn-success" href='index.php?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=etn&modulo=index&controller=index&action=menue'>Acessar Módulos</a>  
                
                 <?php 
   

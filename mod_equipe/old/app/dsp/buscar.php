@@ -120,7 +120,7 @@ $_dsp = new EquipeDSP();
                                $situacao = $dados[$i]['situacao'];
                                
                                $dspAberta = ($situacao == 2) ? "style='color:red'" : "";
-                               $btnAlterar = ($situacao == 1) ? "Fechada" : "<a class='btn' title='Alterar DSP' href='index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=equipe&secao=dsp&acao=alterar&id=".$dados[$i]['id_dsp']."'>Alterar</a>";
+                               $btnAlterar = ($situacao == 1) ? "Fechada" : "<a class='btn' title='Alterar DSP' href='index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=equipe&secao=dsp&acao=alterar&id=".$dados[$i]['id_dsp']."'>Alterar</a>";
 
                                $cmdDSP = $_dsp->BuscaCmd($dados[$i]['id_dsp']);
                                
@@ -130,7 +130,7 @@ $_dsp = new EquipeDSP();
                                         <td ".$dspAberta.">".$dados[$i]['num_dsp']."</td>
                                         <td ".$dspAberta.">".DataMysql::dataVisual($dados[$i]['dt_dsp'])."</td>
                                         <td ".$dspAberta.">".utf8_encode($cmdDSP['nome'])."</td>
-                                        <td><a title='Visualizar DSP' class='btn' href='index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=equipe&secao=dsp&acao=impressao&id=".$dados[$i]['id_dsp']."&tp=".$dados[$i]['tipo']."&mod=vs'>Visualizar</a></td>
+                                        <td><a title='Visualizar DSP' class='btn' href='index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=equipe&secao=dsp&acao=impressao&id=".$dados[$i]['id_dsp']."&tp=".$dados[$i]['tipo']."&mod=vs'>Visualizar</a></td>
                                         <td ".$dspAberta.">".($btnAlterar)."</td>
                                     </tr>";
                                 # <a class='btn' href='secao.php/dsp/alterar'>Alterar</a>

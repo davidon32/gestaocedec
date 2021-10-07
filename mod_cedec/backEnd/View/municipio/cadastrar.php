@@ -80,7 +80,7 @@
                     	}
                     print '</select>';
                     print "</div>";
-                    $helper->input("text", "populacao", "População Urbana", ( (array('value'=>$dados['populacao'])=="") ? 0 : array('value'=>$dados['populacao'], 'maxlength'=>'4')) );
+                    $helper->input("text", "populacao", "População Urbana", ( (array('value'=>$dados['populacao'])=="") ? 0 : array('value'=>$dados['populacao'], 'maxlength'=>'5')) );
                     
                     print "<div class='span6' style='margin-left:5px; margin-right:5px;'>";
                     print "<label>Território Desenvolvimento</label>";
@@ -93,7 +93,7 @@
                     }
                     print '</select>';
                     print "</div>";
-                    $helper->input("text", "pop_rural", "População Rural", ( (array('value'=>$dados['pop_rural']) == "") ? 0 : array('value'=>$dados['pop_rural'], 'maxlength'=>'4')) ) ;
+                    $helper->input("text", "pop_rural", "População Rural", ( (array('value'=>$dados['pop_rural']) == "") ? 0 : array('value'=>$dados['pop_rural'], 'maxlength'=>'5')) ) ;
                     $helper->input("text", "area"     , "area"     , array('value'=>$dados['area'], 'maxlength'=>'45')) ;
                     print "<br>";
                     $helper->formEnd("Salvar");

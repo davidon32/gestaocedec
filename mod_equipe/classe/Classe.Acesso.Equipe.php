@@ -41,8 +41,8 @@ class AcessoEquipe {
                         					<li class='dropdown-submenu'>
                         						<a href='#'>Funcionario</a>
                         					    <ul class='dropdown-menu'>
-                        					    	<li><a href='index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=equipe&secao=funcionario&acao=cadastro'>Cadastrar Funcionario</a></li>
-                        					        <li><a href='index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=equipe&secao=funcionario&acao=buscar'>Alterar</a></li>
+                        					    	<li><a href='index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=equipe&secao=funcionario&acao=cadastro'>Cadastrar Funcionario</a></li>
+                        					        <li><a href='index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=equipe&secao=funcionario&acao=buscar'>Alterar</a></li>
                         					    </ul>
                         				    </li>";
                                             if($linha['cad_banco'] == 1){
@@ -50,8 +50,8 @@ class AcessoEquipe {
                                                 print "<li class='dropdown-submenu'>
                                                             <a href='#'>Cadastro Banco</a>
                                                             <ul class='dropdown-menu'>
-                                                            <li><a href='index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=equipe&secao=banco&acao=cadastro'>Cadastrar</a></li>
-                                                            <li><a href='index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=equipe&secao=banco&acao=buscar'>Alterar</a></li>
+                                                            <li><a href='index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=equipe&secao=banco&acao=cadastro'>Cadastrar</a></li>
+                                                            <li><a href='index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=equipe&secao=banco&acao=buscar'>Alterar</a></li>
                                                         </ul>
                                                         </li>";
                         				    }				
@@ -63,8 +63,8 @@ class AcessoEquipe {
                         	print "<li class='dropdown-submenu'>
                         	<a href='#'>DSP</a>
                         	<ul class='dropdown-menu'>
-                        	<li><a href='index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=equipe&secao=dsp&acao=cadastro' title='Lançamento de DSP'>Cadastro DSP</a></li>
-                        	<li><a href='index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=equipe&secao=dsp&acao=buscar' title='Consulta / Alteração de DSP'>Consulta / Alteração DSP</a></li>
+                        	<li><a href='index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=equipe&secao=dsp&acao=cadastro' title='Lançamento de DSP'>Cadastro DSP</a></li>
+                        	<li><a href='index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=equipe&secao=dsp&acao=buscar' title='Consulta / Alteração de DSP'>Consulta / Alteração DSP</a></li>
                         	</ul>
                         	</li> ";
                         
@@ -79,17 +79,17 @@ class AcessoEquipe {
                         				
                         	if((isset($_GET['up'])) && ($_GET['up'] == "u") && (isset($_GET['id']))) {
                         	        
-                        	    print "<li><a href='index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=equipe&secao=relatorio&acao=cadastro&id={$_GET['id']}' title='Visualizar Dados de Funcionario    '>Dados do Funcionario </a></li>";
+                        	    print "<li><a href='index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=equipe&secao=relatorio&acao=cadastro&id={$_GET['id']}' title='Visualizar Dados de Funcionario    '>Dados do Funcionario </a></li>";
                         	    
                         	}else {
                         	        
-                        	    print "<li><a href='index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=equipe&secao=relatorio&acao=cadastro' title='Relatorio de Cadastro Geral de Funcionarios    '>Relatorio Geral Funcionários</a></li>";
+                        	    print "<li><a href='index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=equipe&secao=relatorio&acao=cadastro' title='Relatorio de Cadastro Geral de Funcionarios    '>Relatorio Geral Funcionários</a></li>";
                         	        
                         	    
                         	}
                             print "
-                        					<li><a href='index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=equipe&secao=relatorio&acao=email' title='Gera um listagem para Enviar email'>Gerar Lista Email (enviar)</a></li>
-                        					<li><a href='index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=equipe&secao=relatorio&acao=listaemail' title='Listagem de Email para Impressão'>Listagem Email (impressão)</a></li>
+                        					<li><a href='index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=equipe&secao=relatorio&acao=email' title='Gera um listagem para Enviar email'>Gerar Lista Email (enviar)</a></li>
+                        					<li><a href='index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=equipe&secao=relatorio&acao=listaemail' title='Listagem de Email para Impressão'>Listagem Email (impressão)</a></li>
                         				</ul>
                         			</li> ";
                         						

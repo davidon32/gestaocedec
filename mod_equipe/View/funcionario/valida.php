@@ -172,7 +172,7 @@ if($_btn_envia){
 	
 						print "alert('Cadastro Realizado com Sucesso !');";
 						
-						print "window.location.href ='index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=equipe&secao=funcionario&acao=cadastro';";
+						print "window.location.href ='index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=equipe&secao=funcionario&acao=cadastro';";
 	
 						print "</script>";
 	
@@ -263,7 +263,7 @@ if($_btn_envia){
 	
 	                print "alert('Cadastro Atualizado com Sucesso !');";
 	                    
-	                print "window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=equipe&secao=funcionario&acao=buscar';";  
+	                print "window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=equipe&secao=funcionario&acao=buscar';";  
 	                
 	                print "</script>";
 	                

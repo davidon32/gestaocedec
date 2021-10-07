@@ -80,7 +80,7 @@
         
                         print "alert('Pagamento Realizado com Sucesso !');";
                                 
-                        print "window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=itn&modulo=ajuda&controller=conestoque&action=recibopg&id=".$_nLibera."';";
+                        print "window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=recibopg&id=".$_nLibera."';";
         
                         print "</script>";
         

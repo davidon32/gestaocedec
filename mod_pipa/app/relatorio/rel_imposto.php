@@ -139,49 +139,49 @@ include_once PATH.'/include.php';
         //var_dump($_POST);
 
 		print "<script type='text/javascript'>";
-		print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=pipa&secao=relatorio&acao=rel_acerto&ano=".$_ano."&mes=".$_mes."&dt=".$_dt_acerto."&lote=".$lote."';";
+		print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=pipa&secao=relatorio&acao=rel_acerto&ano=".$_ano."&mes=".$_mes."&dt=".$_dt_acerto."&lote=".$lote."';";
 		print "</script>";
 		
 	#@ tipo do relatorio para contabilidade (manoel e vinicius)
 	}elseif ($_tipo_rel == "1"){
 
 		print "<script type='text/javascript'>";
-		print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=pipa&secao=relatorio&acao=rel_contabilidade&ano=".$_ano."&mes=".$_mes."';";
+		print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=pipa&secao=relatorio&acao=rel_contabilidade&ano=".$_ano."&mes=".$_mes."';";
 		print "</script>";
 
 	#@ relatorio para dpca (cap Andre)
 	}elseif ($_tipo_rel == '2'){
 		
 		print "<script type='text/javascript'>";
-		print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=pipa&secao=relatorio&acao=rel_imposto_dirf&ano=".$_ano."';";
+		print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=pipa&secao=relatorio&acao=rel_imposto_dirf&ano=".$_ano."';";
 		print "</script>";
 	
 	#@ relatorio paca dpca modelo 2 
 	}elseif ($_tipo_rel == '3'){
 
 		print "<script type='text/javascript'>";
-		print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=pipa&secao=relatorio&acao=rel_dpca2&mes=".$_mes."';";
+		print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=pipa&secao=relatorio&acao=rel_dpca2&mes=".$_mes."';";
         print "</script>";
 			
 	#@ relatorio DADM Sub nilton
 	}elseif ($_tipo_rel == '4'){
 
 		print "<script type='text/javascript'>";
-		print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=pipa&secao=relatorio&acao=rel_modelo_dadm&mes=".$_mes."&ano=".$_ano."';";
+		print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=pipa&secao=relatorio&acao=rel_modelo_dadm&mes=".$_mes."&ano=".$_ano."';";
 		print "</script>";
 		
 	#@ relatorio DADM PRESTAÇâo DE CONTAS
 	}elseif ($_tipo_rel == '5'){
 
 		print "<script type='text/javascript'>";
-        print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=pipa&secao=relatorio&acao=rel_dadm_prestacao_conta&ano=".$_ano."';";
+        print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=pipa&secao=relatorio&acao=rel_dadm_prestacao_conta&ano=".$_ano."';";
         print "</script>";
     
       
      /* relatorio para montar a pasta para a dpca 3 */
 	}elseif ($_tipo_rel == '6') {
 	    print "<script type='text/javascript'>";
-        print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=pipa&secao=relatorio&acao=rel_dpca3&ano=".$_ano."&mes=".$_mes."&dt=".$_dt_acerto."&lote=".$lote."';";
+        print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=pipa&secao=relatorio&acao=rel_dpca3&ano=".$_ano."&mes=".$_mes."&dt=".$_dt_acerto."&lote=".$lote."';";
         print "</script>";
 	    
 	
@@ -191,11 +191,11 @@ include_once PATH.'/include.php';
         if($_individual == '1') {
             
             print "<script type='text/javascript'>";
-            print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=pipa&secao=relatorio&acao=rel_acerto_pj&ano=".$_ano."&mes=".$_mes."&dt=".$_dt_acerto."&lote=".$lote."&tp=i';";
+            print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=pipa&secao=relatorio&acao=rel_acerto_pj&ano=".$_ano."&mes=".$_mes."&dt=".$_dt_acerto."&lote=".$lote."&tp=i';";
             print "</script>";
         }else {
             print "<script type='text/javascript'>";
-            print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=pipa&secao=relatorio&acao=rel_acerto_pj&ano=".$_ano."&mes=".$_mes."&dt=".$_dt_acerto."&lote=".$lote."';";
+            print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=pipa&secao=relatorio&acao=rel_acerto_pj&ano=".$_ano."&mes=".$_mes."&dt=".$_dt_acerto."&lote=".$lote."';";
             print "</script>";
         }
         

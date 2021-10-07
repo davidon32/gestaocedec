@@ -167,7 +167,7 @@
 				
 				print "alert('Cadastro Alterado com Sucesso !');";
 				
-				print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=compdec&controller=compdec&action=alterar'";
+				print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=compdec&controller=compdec&action=alterar'";
 				
 				print "</script>";
 				
@@ -178,7 +178,7 @@
 	
 		  		print "alert('Cadastro Alterado com Sucesso !');";
 
-		  		print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=compdec&controller=compdec&action=buscarAlterar'";
+		  		print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=compdec&controller=compdec&action=buscarAlterar'";
 	
 		  		print "</script>";
 	  		
@@ -219,7 +219,7 @@
 
   		print "alert('Cadastro Realizado com Sucesso !');";
 
-  		print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=compdec&secao=compdec&acao=cadastro'";
+  		print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=compdec&secao=compdec&acao=cadastro'";
 
   		print "</script>";
 

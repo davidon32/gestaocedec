@@ -69,7 +69,7 @@ if($btnEnviar){
 
             print "alert('Cadastro Realizado Com Sucesso !');";
             
-            print "window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=equipe&secao=banco&acao=cadastro';";
+            print "window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=equipe&secao=banco&acao=cadastro';";
             
             print "</script>"; 
             
@@ -114,7 +114,7 @@ if($btnEnviar){
 
             print "alert('Cadastro Realizado Com Sucesso !');";
             
-            print "window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=equipe&secao=banco&acao=buscar';";
+            print "window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=equipe&secao=banco&acao=buscar';";
             
             print "</script>"; 
             

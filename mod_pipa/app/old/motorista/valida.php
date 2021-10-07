@@ -112,7 +112,7 @@ if($_id == "") {
                         
                         print "alert('Cadastro Realizado com Sucesso !');";
                         
-                        print "window.location.href='index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=pipa&secao=motorista&acao=cadastro';";
+                        print "window.location.href='index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=pipa&secao=motorista&acao=cadastro';";
                         
                         print "</script>";
                         
@@ -127,7 +127,7 @@ if($_id == "") {
                         
                 print "alert('Motorista já Cadastrado !');";
                         
-                print "window.location.href='index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=pipa&secao=motorista&acao=cadastro';";
+                print "window.location.href='index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=pipa&secao=motorista&acao=cadastro';";
                         
                 print "</script>";
             

@@ -6,6 +6,20 @@ if (!isset($_SESSION)) {
 }
     include_once 'core/system/config/config.inc.php';
     include_once 'core/include.php';
+    
+    /* valida link versao
+     * $valida_link = false;
+    
+    if( isset($_GET['token']) ){
+        if( $_GET['token'] == hash('sha256', md5(VERSAO)) || $_GET['token'] == hash('sha256', md5(VERSAO). date('dmY')) ){
+            $valida_link = true;
+        }
+    }
+
+//var_dump($valida_link, hash('sha256', md5(VERSAO)), hash('sha256', md5(VERSAO).date('dmY')) );
+     * 
+     */
+    
 
 if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
     include('index_manutencao.php');

@@ -46,7 +46,7 @@ if((int)$id_libera){
 		
 		<legend>Pagamento de Material : <?php print Municipio::PegaNomeMunicipio($dado['id_municipio']);?></legend>
 		
-	<form method="post" name="efetPag" id="frmPagamento" action="?token='<?=hash('sha256', md5(VERSAO)."-".time())?>&ac=itn&modulo=ajuda&controller=conestoque&action=valida&id=<?php print $dado['id_liberacao']; ?>">
+	<form method="post" name="efetPag" id="frmPagamento" action="?token='<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=ajuda&controller=conestoque&action=valida&id=<?php print $dado['id_liberacao']; ?>">
 		
 		<div class="col-md-12">
 			<!--   dados da liberacao -->

@@ -46,7 +46,7 @@ include_once PATH.'/include.php';
 
 		print "<script type='text/javascript'>";
 
-		print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=ajuda&secao=liberacao&acao=add_material'";
+		print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=ajuda&secao=liberacao&acao=add_material'";
 
 		print "</script>";	
 		

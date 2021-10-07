@@ -882,7 +882,7 @@ function lembreteLiberacao($_id_dep_destino = false){
                 $diasRestantePgto = ($diasRestantePgto <= 5) ? "<span style='color:red;'>".$diasRestantePgto."</span>" : $diasRestantePgto;
                 
     
-    			print "<a style=\"text-decoration:none;\" href=\"javascript:NovaJanela('index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=itn&modulo=ajuda&controller=conestoque&action=lembrete_liberacao&id=".$linha['id_liberacao']."', 600, 400)\">
+    			print "<a style=\"text-decoration:none;\" href=\"javascript:NovaJanela('index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=lembrete_liberacao&id=".$linha['id_liberacao']."', 600, 400)\">
     			             &nbsp;&nbsp;<img style=\"vertical-align:middle\" src=\"/mod_ajuda/imagem/".$_imagem."\">
     			             &nbsp;&nbsp;<span style='font-size:10px;'>
     			                             Libera&ccedil;&atilde;o Nº: ".$linha['id_liberacao']." - ".DataMysql::dataVisual($linha['dataLibera'])." - ".$diasRestantePgto." dia(s) restante(s)</a>
@@ -981,7 +981,7 @@ function lembreteTransito($_id_dep_destino = false){
     	
     	while($linha = $result->fetch(PDO::FETCH_NUM)){
     
-    		print "&nbsp;&nbsp;<img style=\"vertical-align:middle\" src=\"/mod_ajuda/imagem/transito.png\">&nbsp;&nbsp;<a href=\"javascript:NovaJanela('index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=ajuda&secao=transferencia&acao=lembrete_transito&id=".$linha[0]."', 600, 600)\"><span style='font-size:10px;'>Transf. Nº ".$linha[0]." ".$linha[6]." - ".DataMysql::dataVisual(substr($linha[5], 0, 10))."</a></span></br />";
+    		print "&nbsp;&nbsp;<img style=\"vertical-align:middle\" src=\"/mod_ajuda/imagem/transito.png\">&nbsp;&nbsp;<a href=\"javascript:NovaJanela('index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=ajuda&secao=transferencia&acao=lembrete_transito&id=".$linha[0]."', 600, 600)\"><span style='font-size:10px;'>Transf. Nº ".$linha[0]." ".$linha[6]." - ".DataMysql::dataVisual(substr($linha[5], 0, 10))."</a></span></br />";
     	
     	}
 	    

@@ -69,7 +69,7 @@ Login::Logado();
 					
 					print "alert('Cadastro realizado com Sucesso !');";
 
-					print "window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=ajuda&secao=material&acao=cadastro';";
+					print "window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=ajuda&secao=material&acao=cadastro';";
 					
 					print "</script>";
 	

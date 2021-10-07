@@ -41,6 +41,9 @@ $dados =$usuario->getDadoUsuario($pageSession['session']['seguranca']['idUser'])
 <div class="col-md-6 p-sm-3">
     <br>
 <a class="btn btn-primary" href="<?=FuncaoBase::geraLink("admin", "adm", "editar", array("id"=>$dados['id_usuario']))?>">Editar</a>
+<?php
+   print "<a class=\"btn btn-success\" href=\"".FuncaoBase::geraLink('index', 'index', 'index1', array('id'=>$dados['id_usuario']))."\">Voltar</a>";
+?>
 </div>
 
 

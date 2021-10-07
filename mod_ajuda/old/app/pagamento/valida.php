@@ -108,7 +108,7 @@ print "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http:/
         
                         print "alert('Pagamento Realizado com Sucesso !');";
                                 
-                        print "window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=ajuda&secao=pagamento&acao=recibo_pgto&id=".$_nLibera."';";
+                        print "window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=ajuda&secao=pagamento&acao=recibo_pgto&id=".$_nLibera."';";
         
                         print "</script>";
         

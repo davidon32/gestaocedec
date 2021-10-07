@@ -28,7 +28,7 @@ $remove = isset($_GET['r']) ? $_GET['r']: null;
 
 		print "<script type='text/javascript'>";
 
-		print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=itn&modulo=ajuda&controller=conestoque&action=add_material'";
+		print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=add_material'";
 
 		print "</script>";	
 		

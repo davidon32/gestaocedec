@@ -162,7 +162,7 @@ if ($_btn_envia) {
                 print "<script type=\"text/javascript\">";
                         
                 print "alert('Dsp Lancada com Sucesso !');";
-                print "window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=equipe&secao=dsp&acao=impressao&id=".$_id_dsp."&tp=".$tpDSP."';";
+                print "window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=equipe&secao=dsp&acao=impressao&id=".$_id_dsp."&tp=".$tpDSP."';";
       
                 print "</script>";
                 
@@ -172,7 +172,7 @@ if ($_btn_envia) {
                         
                 print "alert('Ocorreu um erro Interno !');";
     
-                print "window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=equipe&secao=dsp&acao=cadastro';";
+                print "window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=equipe&secao=dsp&acao=cadastro';";
                         
                 print "</script>";
             }
@@ -265,7 +265,7 @@ $_campo = array("Data DSP" => $_txt_dt_dsp,
                                 
                         print "alert('Dsp Lancada com Sucesso !');";
                         
-                        print "window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=equipe&secao=dsp&acao=impressao&id=".$_id."&tp=".$tpDSP."';";
+                        print "window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=equipe&secao=dsp&acao=impressao&id=".$_id."&tp=".$tpDSP."';";
                                 
                         print "</script>";
                         
@@ -275,7 +275,7 @@ $_campo = array("Data DSP" => $_txt_dt_dsp,
                                 
                         print "alert('Ocorreu um erro Interno !');";
             
-                        print "window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=equipe&secao=dsp&acao=cadastro';";
+                        print "window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=equipe&secao=dsp&acao=cadastro';";
                                 
                         print "</script>";
                     }

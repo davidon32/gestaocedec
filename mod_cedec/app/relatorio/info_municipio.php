@@ -30,7 +30,7 @@ $dados
                     <!--implementa o metodo voltar -->
                     <?php 
                                                                 
-                        print "<a class='btn' href='index.php?token=".hash('sha256', md5(VERSAO)."-".time())."&ac=&modulo=cedec&secao=municipio&acao=filtro_info_municipio'>Voltar</a>&nbsp;&nbsp;";
+                        print "<a class='btn' href='index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=cedec&secao=municipio&acao=filtro_info_municipio'>Voltar</a>&nbsp;&nbsp;";
                         
                         print FuncaoBase::vifs('imprimir');  
                    
