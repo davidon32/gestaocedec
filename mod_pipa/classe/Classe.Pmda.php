@@ -1583,5 +1583,21 @@ class Pmda extends Comunidade {
             
         }
         
+        /* Deletar PMDA */
+        public static function deletePmda($id_pmda){
+            
+            $con = Conexao::getInstance();
+            
+        $sql ="delete from pip_pmda where id_pmda = ".$id_pmda.";
+                delete from pip_pmda_comun where id_pmda = ".$id_pmda." and id_com_pmda > 0;
+                delete from pip_anexo where id_pmda = ".$id_pmda." and id > 0;
+                delete from pip_pmda_alteracao where id_pmda = ".$id_pmda." and id_pmda_altera > 0;
+                delete from pip_pmda_coment where id_pmda = ".$id_pmda." and id_coment > 0;
+                delete from pip_pmda_msg where id_pmda = ".$id_pmda." and id > 0;";
+
+            $result = $con->query($sql);
+            return true;
+            
+        }   
 
 }?>

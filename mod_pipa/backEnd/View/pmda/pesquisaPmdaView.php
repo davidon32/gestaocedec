@@ -221,7 +221,11 @@ if (!empty($dados)) {
             }
         }
         print "<td " . $homologado . " id='print'>";
+        # pmda's que não estão atendidos 
         if($pmdaLegado && $value['status'] !=7){
+            if($value['status'] != 4){
+               print "|<a href='?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=pipa&controller=pipa&action=deletePmda&param=" . $value['id_pmda'] . "&idmun=".$value['id_municipio']."' title='Deletar PMDA'><img src='core/imagem/delete.png' name='del_pmda' data-id_pmda='".$value['id_pmda']."'></a>";
+            }
             print "<a href='?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=pipa&controller=pipa&action=pmda&param=" . $value['id_pmda'] . "&a=9978&p=" . $busca . "&mun=" . $value['id_municipio'] . "' title='Alterar PMDA'><img src='core/imagem/editar.png' width='30px'></a>" . $alteraStatus;
         }
         print "|<a href='?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=pipa&controller=pipa&action=printView&param=" . $value['id_pmda'] . "&mun=" . $value['id_municipio'] . "' title='Impressão PMDA'><img src='core/imagem/printer.png'></a>";
@@ -310,6 +314,19 @@ if (!empty($dados)) {
         $("[name=selStatus]").change(function () {
             alterarStatus($(this).data('id_pmda'));
         });
+        
+        $("[name=del_pmda]").click(function () {
+            var result = confirm('Deseja apagar este PMDA  ? \nOperação irreversível !'); 
+            var confirmResult = false;
+            if(result){
+                confirmResult = confirm('Deseja realmente apagar este registro PMDA ?');
+            }
+            if(!result || !confirmResult) {
+                event.preventDefault();
+            }
+        });
+        
+        
 
         $('table').click(function () {
             var id = $(this).attr("id");

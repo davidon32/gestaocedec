@@ -37,7 +37,7 @@ define('PATH', $_SERVER['DOCUMENT_ROOT']);
 define('TESTE', false);
 
 #@ versao
-define('VERSAO', 'versão - 3.4.1.4-16 -  07.10.2021');
+define('VERSAO', 'versão - 3.4.1.4-17 -  08.10.2021');
 
 # manutencao
 define('MANUTENCAO', false);

@@ -69,7 +69,7 @@
         <option>Reclamação/Denúncia</option>
         <option>Elogios/Sugestões</option>
         <option>Vistoria</option>
-        <option>Outros(descrever no texto)</option>
+        <!--<option>Outros(descrever no texto)</option>-->
       </select><br>
       <label>Imagem </label>&nbsp;&nbsp;<span>(Resolução Máxima 600x600)</span>
       <input type="file" class="form-control" name="txtImagem" id="txtImagem" accept="image/*" onchange="loadImageFile();">

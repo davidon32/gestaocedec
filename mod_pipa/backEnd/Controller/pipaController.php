@@ -152,5 +152,20 @@ class pipaController extends Controller {
             }
         }
     }
+    
+    
+    /* apagar pmda */
+    public function deletePmda(){
+
+        $id_pmda = $_GET['param'];
+        $id_municipio = $_GET['idmun'];
+        if(Pmda::deletePmda($id_pmda)){
+            
+            print "<script>
+	 		alert('Pmda deletado com Sucesso !');
+                        window.location.href = '".FuncaoBase::geraLink("pipa", "pipa", "pesquisaPmda", array("idmun"=>$id_municipio))."';
+                    </script>";
+       }
+    }
 
 }
