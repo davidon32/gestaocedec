@@ -559,7 +559,7 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
                 </table>
             </div>
         <div class="col-md-12" id="tblAnexoLeis">
-            <span class="alert alert-danger">Favor Apagar documentos que não estejam em conformidade com conteúdo desejado nesta seção !</span></br></br>
+            <span class="alert alert-danger">Favor NÃO anexar documento fora do conteúdo solicitado. !</span></br></br>
             
 
             <?php include PATH . '/mod_compdec/frontEnd/View/compdec/anexo.php'; 
@@ -636,8 +636,8 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
 <?php include_once "template/page/rodapePage.php"; ?>
 <script type="text/javascript">
     $(document).ready(function () {
-
-    /*Swal.fire({
+        
+        /*Swal.fire({
         icon: 'error',
             title: 'Mudanças para Atualização de Anexos de Leis',
             text: 'Apartir do dia 18/08/2021, foi mudado a forma de hospedagem de documentos, será necessária a aprovação dos Anexos de Lei de Criação, Decreto de Regulamentação da Lei e Portaria de Nomeação do Coordenador por um Analista da CEDEC. \n O processo será feito Gradualmente'
@@ -1041,6 +1041,14 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
                 "valor": valor,
                 "id_municipio": $("#txtIdMunicipio").val(),
             };
+            
+            /*if(valor == 1){ 
+                Swal.fire({
+                icon: 'error',
+                    title: 'Declaro que não possuo Lei de Criação da COMPDEC',
+                    text: 'Ao marcar esta opção você, usuario, \n não conseguirá enviar o documento marcando-o como Lei de Criação do COMPDEC'
+                    });
+                }*/
 
             $.ajax({
                 type: 'POST',

@@ -326,8 +326,6 @@ if (!empty($dados)) {
             }
         });
         
-        
-
         $('table').click(function () {
             var id = $(this).attr("id");
             //alert(id);

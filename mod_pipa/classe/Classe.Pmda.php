@@ -1396,9 +1396,10 @@ class Pmda extends Comunidade {
 								:dt_analise,
 								:dt_ultima_alteracao);";
         $result = $con->prepare($sql);
-        
-        $result->bindParam("data",               $dadosPmda[0]['data']);
-        $result->bindParam("status",             $dadosPmda[0]['status']);
+        $dataHoje = date("Y-m-d H:i:s");
+        $status = 0;
+        $result->bindParam("data",               $dataHoje);
+        $result->bindParam("status",             $status);
         $result->bindParam("id_municipio",       $dadosPmda[0]['id_municipio']);
         $result->bindParam("acoes",              $dadosPmda[0]['acoes']);
         $result->bindParam("qtd_caminhao",       $dadosPmda[0]['qtd_caminhao']);

@@ -46,33 +46,32 @@ $novoPmda = $pmda->verificaCriarPmda($id_municipio);
 print "<button type=\"button\" class=\"btn btn-primary\" title=\"Criar novo PMDA\" id=\"addPmda\">Novo PMDA</button>";
 ?>
         </p>
-        <br><br>					
+        <br><br>
+        <p style="text-align:right; font-weight:bold;">
+            <span style="background-color:#D6D6D6; width:40%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;PMDA que está em Edição &nbsp;
+            <span style="background-color:#A9F5A9; width:40%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;PMDA que Permite Edição
+        </p>
         <?php
         $dadosPmda = $pmda->listaPmda($id_municipio);
 
-        
         ?>
-        <table style="width:90%; margin: auto;" class="table table-bordered" id="tblListaPmda">
+        <table style="width:90%; margin: auto;" class="table table-bordered table-responsive" id="tblListaPmda">
             <tr>
-                <td colspan="5" style="text-align: center"><h4>Histórico dos PMDA</h4></td>
-                <td></td>
+                <th colspan="4" style="text-align: center"><h4>Histórico dos PMDA</h4></th>
             </tr>
             <tr>
-                <th class="col-md-1" style="width: 1%;"></th>
-                <th class="col-md-1" style="width: 15%;">Protocolo</th>
-                <th class="col-md-2" style="width: 15%;">Data Criação</th>
-                <th class="col-md-2" style="width: 10%;">Situação</th>
-                <th class="col-md-2" style="width: 30%;">Opção</th>
-                <td style="vertical-align:top" rowspan="<?= count($dadosPmda); ?>">
-
-                    <p style="text-align:center; font-weight:bold;">Legenda</p>
-                    <span style="background-color:#D6D6D6; width:40%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;PMDA que está em Edição<br><br>
-                    <span style="background-color:#A9F5A9; width:40%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;PMDA que Permite Edição
-                </td>
+                <th class="col-md-3 text-center" style="width: 30%;">Protocolo</th>
+                <th class="col-md-2 text-center" style="width: 20%;">Data Criação</th>
+                <th class="col-md-2 text-center" style="width: 20%;">Situação</th>
+                <th class="col-md-3 text-center" style="width: 30%;">Opção</th>
+                
             </tr>
 <?php
 foreach ($dadosPmda as $value) {
     
+    //var_dump($pmda->buscaStatus($value ['id_pmda']));
+    //die();
+
     $pmdaLegado = $pmda->pmdaLegado($value['data']);
     $protocolo = $value ['id_pmda'] . str_replace("-", "", substr($value ['data'], 0, 10));
 
@@ -91,12 +90,18 @@ foreach ($dadosPmda as $value) {
     }
 
     print "<tr>";
-    print "<td style='" . $fdo . "'>" . $novo . "</td>";
-    print "<td style='" . $fdo . "'>" . $value ['id_pmda'] . str_replace("-", "", substr($value ['data'], 0, 10)) . "</td>";
+    
+    print "<td style='" . $fdo . "'>" . $novo . " " . $value ['id_pmda'] . str_replace("-", "", substr($value ['data'], 0, 10)) . "</td>";
     print "<td style='" . $fdo . "'>" . DataMysql::dataVisual($value ['data']) . "</td>";
     print "<td  style='" . $fdo . "' id='statusPmda'>" . $pmda->status($value ['status']) . "</td>";
     print "<td style='" . $fdo . "'>";
 
+    # remover PMDA
+    if($pmdaLegado){
+        if($value['status'] <= 2){
+        print "|<a href='?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=pipa&controller=pipa&action=deletePmda&param=" . $value['id_pmda'] . "&idmun=".$value['id_municipio']."' title='Deletar PMDA'><img src='core/imagem/delete.png' name='del_pmda' data-id_pmda='".$value['id_pmda']."'></a>";
+        }
+    }
     print ($pmda->opcao($value ['id_pmda']) < "2") ? (($pmdaLegado) ? "<a name='lk_alterar' id='lk_alterarPmda' onclick='javascript:editar(" . $value['id_pmda'] . "," . $protocolo . ", " . $value['id_municipio'] . ")' title='Alterar PMDA'><img width='30px' src='core/imagem/editar.png'></button>" : "") : "-";
     print "<a name=lk_impressao onclick='javascript:impressao(" . $value['id_pmda'] . ", " . $id_municipio . ")'><img width='30px' src='core/imagem/impressao.png' title='Impressao do PMDA'></a>";
     print ($pmda->opcao($value ['id_pmda']) == "2") ? (($pmdaLegado) ? "<a href='#'><img width='30px' src='core/imagem/request.png' title='Solicitar Alteração' id='lk_alteracao'></a>" :"") : "-";
@@ -104,13 +109,16 @@ foreach ($dadosPmda as $value) {
     print ($pmda->buscaStatus($value ['id_pmda']) < '2') ? (($pmdaLegado) ? "&nbsp;<a id='btnVerificar' onclick='javascrip:verificaPendencia(" . $value ['id_pmda'] . ")' title='Verifica o Status do PMDA'><img width='30px' src='core/imagem/atualizar.png'></a>" :"") : "";
     
     # duplicar pmda
-    if ( ($pmda->buscaStatus($value ['id_pmda']) == '1') && 
-         ($pmda->buscaStatus($value ['id_pmda']) > '2')  &&
-         ($pmdaLegado))
-         {
-            print "&nbsp;<a id='btnVerificar' onclick='javascrip:duplicar(" . $value ['id_pmda'] . ")' title='Criar Cópia deste PMDA'><img width='30px' src='core/imagem/copia.png'></a>";
+    if ($novoPmda == 0 ) {
+            if( ($pmda->buscaStatus($value ['id_pmda']) == '1') || 
+         ($pmda->buscaStatus($value ['id_pmda']) == '7') ||
+         ($pmda->buscaStatus($value ['id_pmda']) == '4') ) {
+            if($pmdaLegado) 
+                {
+                   print "&nbsp;<a id='btnVerificar' onclick='javascrip:duplicar(" . $value ['id_pmda'] . ")' title='Criar Cópia deste PMDA'><img width='30px' src='core/imagem/copia.png'></a>";
+                }
          }
-
+    }
 
     # somente mensagem novas
     if (count($pmda->listaMensagem($value ['id_pmda'], '0')) > 0) {
@@ -176,6 +184,16 @@ foreach ($dadosPmda as $value) {
 
     $(document).ready(function () {
 
+        $("[name=del_pmda]").click(function () {
+                var result = confirm('Deseja apagar este PMDA  ? \nOperação irreversível !'); 
+                var confirmResult = false;
+                if(result){
+                    confirmResult = confirm('Deseja realmente apagar este registro PMDA ?');
+                }
+                if(!result || !confirmResult) {
+                    event.preventDefault();
+                }
+        });
 
         $("#idVoltarMenu").click(function () {
             window.location.href = 'index.php?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&modulo=index&controller=index&action=menue';

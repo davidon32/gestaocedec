@@ -19,6 +19,21 @@ $permissaoCompdec = Usuario::getPermissaoCompdec($usuario['login']);
 $permissaoCedec = Usuario::getPermissaoCedec($usuario['login']);
 
 $maspNumPol = Usuario::dadosFuncionario($usuario['id_funcionario']);
+
+$valSituacao = "";
+$strSituacao = "";
+
+if(!empty($usuario)){
+    if($usuario['situacao'] == 0){
+        $valSituacao = "0";
+        $strSituacao = "DESATIVADO";
+    }else {
+        $valSituacao = "1";
+        $strSituacao = "ATIVADO";
+    }
+    
+}
+
 ?>
 
 <div class="col-md-12">
@@ -39,17 +54,25 @@ $maspNumPol = Usuario::dadosFuncionario($usuario['id_funcionario']);
             <option>GMG</option>
         </select>
 
-        <label>email</label>
+        <label>Email</label>
         <input class="form-control" type="email" name="txtEmail" value="<?= !empty($usuario) ? $usuario['email_rec'] : ""; ?>" id="txtEmail">
         <input type="hidden" name="opcao" value="<?= !empty($usuario) ? "atualiza" : "caduser"; ?>" >
         <input type="hidden" name="id_usuario" value="<?= !empty($usuario) ? $usuario['id_usuario'] : ""; ?>" >
+        
+        
+        <label>Situação</label>
+        <select class="form-control" name="selSituacao" id="selSituacao">
+            <option value='<?=$valSituacao?>'><?=$strSituacao?></option>
+            <option value='1'>ATIVADO</option>
+            <option value='0'>DESATIVADO</option>
+        </select>
         <br>
 
 
 
         </div>
 
-        <!-- #############################   Ajuda humanitaria ######################-->
+        <!-- ############################# Ajuda humanitaria ######################-->
         <div class="col-md-12">
             <br>
             <div class="progress">

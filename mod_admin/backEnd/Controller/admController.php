@@ -40,6 +40,7 @@
             $setor      = isset($_POST['selSetor'])  ? $_POST['selSetor']   : false; 
             $email      = isset($_POST['txtEmail'])  ? $_POST['txtEmail']   : false;
             $id_usuario = isset($_POST['id_usuario'])? $_POST['id_usuario'] : false;
+            $situacao   = isset($_POST['selSituacao'])? $_POST['selSituacao'] : false;
 
             $opcao = isset($_POST['opcao'])  ? $_POST['opcao']   : false;
 
@@ -98,9 +99,13 @@
                         </script>";
                 }
             }elseif($opcao == "atualiza") {
-                    if($usuario->AtualizaEmail(array('txtEmail'=> $email, 'id_usuario'=>$id_usuario))){
+                var_dump($id_funcionario = $usuario->getIdFuncionario($username));
+                    if($situacao == 0) {
+                        $usuario->desabilitarFuncionario(array('situacao'=>$situacao, 'id_funcionario'=>$id_funcionario));
+                    }
+                    if($usuario->AtualizaEmail(array('txtEmail'=> $email, 'id_usuario'=>$id_usuario, 'situacao'=>$situacao))){
                         print "<script>
-                                    alert('Registro Atualizado com Sucesso');
+                                    alert('Registro Atualizado com Sucesso !');
                                     window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=admin&controller=adm&action=usuario';
                             </script>";
                     }

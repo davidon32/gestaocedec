@@ -239,6 +239,30 @@ class Usuario extends UsuarioModel {
             print FuncaoBase::getError($e->getMessage(), 'Mensagem');
         }
     }
+    
+       
+    /**
+     * desativa registro tabela funcionario 
+     *
+     */
+    public function desabilitarFuncionario($dados) {
+
+        try {
+
+            $con = Conexao::getInstance();
+
+            $sql = "UPDATE cedec_funcionario SET
+			situacao  = ".$dados['situacao']."
+                            WHERE id_funcionario = " . $dados['id_funcionario'];
+
+            $result = $con->query($sql);
+            //$result->execute();
+
+            return true;
+        } catch (Exception $e) {
+            print FuncaoBase::getError($e->getMessage(), 'Mensagem');
+        }
+    }
 
     /**
      * Cadastro de permissao módulo pipa
@@ -1730,11 +1754,13 @@ class Usuario extends UsuarioModel {
      */
     public function AtualizaEmail($dados) {
         $con = Conexao::getInstance();
-        $sql = "UPDATE cedec_usuario SET email_rec = :email
+        $sql = "UPDATE cedec_usuario SET email_rec = :email,
+                                        situacao = :situacao
 						WHERE id_usuario = :id";
 
         $result = $con->prepare($sql);
         $result->bindValue(":email", $dados['txtEmail']);
+        $result->bindValue(":situacao", $dados['situacao']);
         $result->bindValue(":id", $dados['id_usuario']);
         $result->execute();
 

@@ -69,6 +69,13 @@ class Log {
         }
     }
 
+    /**
+     * 
+     * @param type $_acao
+     * @param type $_modulo
+     * @param type $id_pmda
+     * @return boolean
+     */
     static function GravaLogUserEx($_acao, $_modulo, $id_pmda = false) {
 
         $con = Conexao::getInstance();
