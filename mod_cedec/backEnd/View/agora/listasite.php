@@ -41,21 +41,13 @@
 <div class="table-responsive">
     <table class="table table-bordered table-condensed">
         <tr>
-            <td class="col-md-3"><?= DefesaAgora::selCategoria(null, "Filtro");?></td>
-            <td class="col-md-9" style="vertical-align: middle">Total Registros : <span id="total"><?=$defesaAgora::totLista()?></span></td>
+            <td style="vertical-align: middle" class="col-md-10"><?= DefesaAgora::selCategoria(null, "");?></td>
+            <td style="vertical-align: middle; text-align: center" class="col-md-2"><b>Total Registros : </b> <span id="total"><?=$defesaAgora::totLista()?></span></td>
         </tr>
     </table>
     
     <table class="table" id="sitelista">
-        <tr>
-            <th style="background-color: #b9bdb6" class="text-center">Data/Hora</th>
-            <th style="background-color: #b9bdb6" class="text-center">Autor/Nome</th>
-            <th style="background-color: #b9bdb6" class="text-center">Órgão</th>
-            <th style="background-color: #b9bdb6" class="text-center">Categoria</th>
-            <th style="background-color: #b9bdb6" class="text-center">Texto</th>
-            <th style="background-color: #b9bdb6" class="text-center">Imagem</th>
-        </tr>
-
+        
         <?php
             foreach ($lista as $key => $value) {
                 $icone = ($value['categoria'] == 'CEDEC-MG') ? "<img src='/core/imagem/yellow.png' width='20px' height='20px'>" : "<img src='/core/imagem/blue.png' width='20px' height='20px'>";
@@ -65,15 +57,26 @@
                 }else {
                     $iconePostagem = "<img src='/core/imagem/impressao.png' width='50px' height='50px'>";
                 }
-                print "<tr position=\"".str_replace(" ", "_", $value['categoria'])."\">";
-                print "<!--<td onclick='view(\"".$value['id']."\")' style=\"vertical-align:middle;\">".$icone."</td>-->";
-                print "<td style='vertical-align:middle;background-image: url(\"/core/imagem/fdo_lista.png\");background-repeat: repeat-x;background-position:bottom'><a class='btn' onclick='view(\"".$value['id']."\")'>".substr(DataMysql::dataCompletaVisual($value['data_hora']), 0, 10)."<br>".substr(DataMysql::dataCompletaVisual($value['data_hora']), 10, 6)."</a></td>";
-                print "<td style='vertical-align:middle;white-space: initial;width:5%;background-image: url(\"/core/imagem/fdo_lista.png\");background-repeat: repeat-x;background-position:bottom'><a onclick='view(\"".$value['id']."\")'>".$value['autor']."</a></td>";
-                print "<td style='vertical-align:middle;background-image: url(\"/core/imagem/fdo_lista.png\");background-repeat: repeat-x;background-position:bottom'><a onclick='view(\"".$value['id']."\")'>".$value['orgao']."</a></td>";
-                print "<td style='vertical-align:middle;background-image: url(\"/core/imagem/fdo_lista.png\");background-repeat: repeat-x;background-position:bottom'>".$value['categoria']."</td>";
-                print "<td style='vertical-align:middle;text-align:justify;background-image: url(\"/core/imagem/fdo_lista.png\");background-repeat: repeat-x;background-position:bottom'' onclick='view(\"".$value['id']."\")'>".$value['texto']."</td>";
-                print "<td style='vertical-align:middle;background-image: url(\"/core/imagem/fdo_lista.png\");background-repeat: repeat-x;background-position:bottom'><a class='btn' onclick='view(\"".$value['id']."\")'>".$iconePostagem."</a></td><tr>";
-                print "<tr><td style=\"padding:0; margin:0\" colspan='5'><hr></td></tr>";
+                print "<tr>
+                            <th class='col-md-1'>Data/Hora</th>
+                            <td>: <a onclick='view(\"".$value['id']."\")'>".substr(DataMysql::dataCompletaVisual($value['data_hora']), 0, 10)." - ".substr(DataMysql::dataCompletaVisual($value['data_hora']), 10, 6)."</a></td>
+                        <td rowspan='4' onclick='view(\"".$value['id']."\")'>".$value['texto']."</td>
+                        <td rowspan='4' style='vertical-align:middle'><a class='btn' onclick='view(\"".$value['id']."\")'>".$iconePostagem."</a></td>
+                       </tr>";
+                print "<tr>
+                        <th>Autor/Nome</th>
+                        <td>: <a onclick='view(\"".$value['id']."\")'>".$value['autor']."</a></td>
+                       </tr>";
+                print "<tr>
+                        <th>Órgão</th>
+                        <td>: <a onclick='view(\"".$value['id']."\")'>".$value['orgao']."</a></td>
+                       </tr>";
+                print "<tr>
+                        <th>Categoria</th>
+                        <td>: ".$value['categoria']."</td>
+                       </tr>";
+               
+                print "<tr><td colspan='4' style='vertical-align:middle;background-image: url(\"/core/imagem/fdo_lista.png\");background-repeat: repeat-x;background-position:bottom'></td><tr>";
             }
 
         ?>

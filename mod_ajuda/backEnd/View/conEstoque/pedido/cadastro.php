@@ -187,7 +187,7 @@ $dadosDestinatario_final = $pedidoModel->listaid_destinatario_finalAutocomplete(
 <!--###################  FIM MODAL aju_itens_pedido ####################-->
 
 
-<!--######################  MODAL aju_tp_pedido ###################-->
+<!--######################  MODAL aju_tp_pedido ( ALMOXARIFADO )###################-->
 
 <div class="modal" tabindex="-1" role="dialog" id="modal_id_tp_pedido">
     <div class="modal-dialog" role="document">
@@ -201,10 +201,29 @@ $dadosDestinatario_final = $pedidoModel->listaid_destinatario_finalAutocomplete(
                 <input type="text" class="form form-control" name="searcid_tp_pedido" id="searcid_tp_pedido">
             </div>
             <div class="modal-footer">
-                <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
-                <div class="col-md-6 text-left">
-                    <a href="<?= FuncaoBase::geraLink("ajuda", "tp_pedido", "cadastro"); ?>" class="btn btn-success text-left" >Cadastrar Novo</a>
+                <div class="col-md-12 text-right">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" id='cad_almoxarifado'>Cadastrar Novo</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
                 </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- CADASTRO )-->
+
+<div class="modal" tabindex="-1" role="dialog" id="modal_cad_almoxarifado">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Novo Almoxarifado</h4>
+            </div>
+            <div class="modal-body">
+                <label>Nome</label>
+                <input type="text" class="form form-control" name="txtNomeAlmoxarifado" id="txtNomeAlmoxarifado">
+            </div>
+            <div class="modal-footer">
                 <div class="col-md-6 text-right">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
                 </div>
@@ -213,7 +232,9 @@ $dadosDestinatario_final = $pedidoModel->listaid_destinatario_finalAutocomplete(
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<!--###################  FIM MODAL aju_tp_pedido ####################-->
+<!--###################  FIM MODAL aju_tp_pedido ( ALMOXARIFADO ) ####################-->
+
+
 
 <!--######################  MODAL aju_almoxarifado ###################-->
 <!-- ARMAZEM -->
@@ -232,7 +253,7 @@ $dadosDestinatario_final = $pedidoModel->listaid_destinatario_finalAutocomplete(
             <div class="modal-footer">
                 <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
                 <div class="col-md-6 text-left">
-                    <a href="<?= FuncaoBase::geraLink("ajuda", "almoxarifado", "cadastro"); ?>" class="btn btn-success text-left" >Cadastrar Novo</a>
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Cadastrar Armazem</button>
                 </div>
                 <div class="col-md-6 text-right">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
@@ -243,6 +264,7 @@ $dadosDestinatario_final = $pedidoModel->listaid_destinatario_finalAutocomplete(
 </div><!-- /.modal -->
 
 <!--###################  FIM MODAL aju_almoxarifado ####################-->
+
 
 <!--######################  MODAL aju_transportadora ###################-->
 
@@ -340,8 +362,8 @@ $dadosDestinatario_final = $pedidoModel->listaid_destinatario_finalAutocomplete(
         $("#btnDisable").show();
 
 
-
-        /* clic form campo FK Almoxarifado*/
+        /* ##############################################
+         *  clic form campo FK Almoxarifado*/
         $("#nomeTp_pedido_fk").click(function () {
             $("#modal_id_tp_pedido").modal('show');
         });
@@ -349,8 +371,15 @@ $dadosDestinatario_final = $pedidoModel->listaid_destinatario_finalAutocomplete(
         $('#modal_id_tp_pedido').on('shown.bs.modal', function (e) {
             $("#searcid_tp_pedido").focus();
         });
+        
+        /* form cadastro almoxarifado */
+        $("#cad_almoxarifado").click(function () {
+            $("#modal_cad_almoxarifado").modal('show');
+        });
+        /*###############################################*/
 
 
+        /*###############################################*/
         /* clic form campo FK Transportadora*/
         $("#nomeTransportadora_fk").click(function () {
             $("#modal_id_transportadora").modal('show');
@@ -359,8 +388,9 @@ $dadosDestinatario_final = $pedidoModel->listaid_destinatario_finalAutocomplete(
         $('#modal_id_transportadora').on('shown.bs.modal', function (e) {
             $("#searcid_transportadora").focus();
         });
+        /*###############################################*/
 
-
+        /*###############################################*/
         /* clic form campo FK Armazem (almoxarifado) */
         $("#nomeAlmoxarifado_fk").click(function () {
             $("#modal_id_almoxarifado").modal('show');
@@ -369,8 +399,10 @@ $dadosDestinatario_final = $pedidoModel->listaid_destinatario_finalAutocomplete(
         $('#modal_id_almoxarifado').on('shown.bs.modal', function (e) {
             $("#searcid_almoxarifado").focus();
         });
+        /*###############################################*/
 
-
+        
+        /*###############################################*/
         /* clic form campo FK Destinataro */
         $("#nomeDestinatario_fk").click(function () {
             $("#modal_id_destinatario").modal('show');
@@ -379,8 +411,10 @@ $dadosDestinatario_final = $pedidoModel->listaid_destinatario_finalAutocomplete(
         $('#modal_id_destinatario').on('shown.bs.modal', function (e) {
             $("#searcid_destinatario").focus();
         });
+        /*###############################################*/
+        
 
-
+        /*###############################################*/
         /* clic form campo FK Destinataro Final */
         $("#nomeDestinatario_final_fk").click(function () {
             $("#modal_id_destinatario_final").modal('show');
@@ -389,6 +423,7 @@ $dadosDestinatario_final = $pedidoModel->listaid_destinatario_finalAutocomplete(
         $('#modal_id_destinatario_final').on('shown.bs.modal', function (e) {
             $("#searcid_destinatario_final").focus();
         });
+        /*###############################################*/
 
         $("#frmPedido").trigger("reset");
 
@@ -633,6 +668,8 @@ $dadosDestinatario_final = $pedidoModel->listaid_destinatario_finalAutocomplete(
                 $("#btnDisable").hide();
             }
         });
+        
+        
 
         $('#btnBuscaid_itens_pedido').click(function () {
             $('#modal_id_itens_pedido').modal('show');
@@ -641,7 +678,7 @@ $dadosDestinatario_final = $pedidoModel->listaid_destinatario_finalAutocomplete(
 
         var val_unid = 0.0;
         var itens = {
-            url: function (itens_pedido) {
+            url: function (almoxarifado) {
                 return 'index.php?modulo=ajuda&controller=pedido&action=listitens&format=json';
             },
             getValue: function (element) {
@@ -657,9 +694,11 @@ $dadosDestinatario_final = $pedidoModel->listaid_destinatario_finalAutocomplete(
 
             preparePostData: function (data) {
                 data.id_tp_pedido = $("#id_tp_pedido").val();
+                data.tp_pedido = $("#nomeTp_pedido_fk").val();
                 data.nomeUnidade_fk = $("#nomeUnidade_fk").val();
                 return data;
             },
+            
 
             /*data:
             /*<?php #print json_encode($dadosItens_pedido); ?>, // array com os dados 
@@ -668,7 +707,6 @@ $dadosDestinatario_final = $pedidoModel->listaid_destinatario_finalAutocomplete(
                 match: {
                     enabled: true
                 },
-
                 onSelectItemEvent: function () {
                     var id = $("#nomeUnidade_fk").getSelectedItemData().id_unidade;
                     val_unid = parseFloat($("#nomeUnidade_fk").getSelectedItemData().val_unit);
@@ -698,11 +736,12 @@ $dadosDestinatario_final = $pedidoModel->listaid_destinatario_finalAutocomplete(
             template: {
                 type: "custom",
                 method: function (value, item) {
-                        return "Nota: " + item.id_nota + " -" + value + "- " + item.descricao + " | " + item.unid_med_nome + " | Vr: R$ " + item.val_unit + " | saldo : " + item.qtd + " Armaz." + item.armazem + " Almox :" + item.almoxarifado;
+                        return "Nr.Nota: " + item.id_nota + " -" + value + "- " + item.descricao + " | " + item.unid_med_nome + " | Vr: R$ " + item.val_unit + " | saldo : " + item.qtd + " Armaz." + item.armazem + " Almox :" + item.almoxarifado;
                 }
             },
             requestDelay: 400
         };
+        
         /*********** autocomplete ***********/
         $("#nomeUnidade_fk").easyAutocomplete(itens);
 

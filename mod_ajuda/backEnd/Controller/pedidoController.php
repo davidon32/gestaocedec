@@ -111,7 +111,7 @@ class pedidoController extends Controller {
     public function listitens() {
 
         $post = $_POST;
-
+   
         $aju_item_pedido = new UnidadeConEstoqueModel();
         $dados = $aju_item_pedido->listaUnidadeSaldoAutocompletePorAlmoxarifado($post);
 

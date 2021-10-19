@@ -368,10 +368,11 @@
             
             $result = $con->query($sql);
             
-                       
-            print "<label>".$label." :</label>
+            if(!empty($label)){           
+                print "<label>".$label." </label>";
+            }
                 
-                    <select class='form-control' name='selCategoria' id='selCategoria'>";
+                print "<select class='form-control' name='selCategoria' id='selCategoria'>";
             
                     
                     print "<option>".$option."</option>";

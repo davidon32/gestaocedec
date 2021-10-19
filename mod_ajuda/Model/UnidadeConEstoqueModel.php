@@ -441,8 +441,6 @@ ON aju_cunidade.id_unidade_med = aju_cunidade_med.id_unidade_med
      */
     public function listaUnidadeSaldoAutocompletePorAlmoxarifado($post) {
 
-        //var_dump($id_tp_pedido);
-
         $con = Conexao::getInstance();
 
         $dados = array();
