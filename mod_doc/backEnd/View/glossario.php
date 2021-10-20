@@ -13,16 +13,27 @@
 $_funcaoBase = new FuncaoBase();
 
 ?>
-<div class="container">
-    <h2>Instrução de utilização do Modulo Equipe de Apoio</h2>
-    <br>
-    <br>
-                
-    <?php
-        $_funcaoBase->listaArquivoLink('/anexo/doc/interno/compdec');
-    ?>
-    
-</div>
+<div class="col-md-12 text-center"><a href='<?= FuncaoBase::geraLink("doc", "doc", "ajudahtml")?>' class='btn btn-success'>Voltar</a></div>
+    <legend>Glossário </legend>
+
+    <table class="table table-bordered table-responsive">
+        <tr>
+            <td>CEDEC</td><td>COORDENADORIA ESTADUAL DE PROTEÇÃO E DEFESA CIVIL</td>
+        </tr>
+        <tr>
+            <td>COMPDEC</td><td>COORDENADORIA MUNICIPAL DE PROTEÇÃO E DEFESA CIVIL</td>
+        </tr>
+        <tr>
+            <td>SIMPDEC</td><td>SISTEMA NACIONAL DE PROTEÇÃO E DEFESA CIVIL</td>
+        </tr>
+        <tr>
+            <td>SDC</td><td>SISTEMA DE DEFESA CIVIL ( MINAS GERAIS )</td>
+        </tr>
+        <tr>
+            <td>S2ID</td><td>SISTEMA INTEGRADO DE INFORMAÇÕES SOBRE DESASTRES ( GOVERNO FEDERAL )</td>
+        </tr>
+        
+    </table>
 <!-- =================== RODAPE CORPO ==================== -->
 <?php include_once "template/page/corpoRodape.php";?>
 <!-- =================== RODAPE  ======================== -->

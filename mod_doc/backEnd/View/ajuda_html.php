@@ -16,7 +16,7 @@
     }
     
     img {
-        width: 300;
+        max-width: 400px;
     }
     
     span.destaque1{
@@ -24,6 +24,18 @@
         color: red;
         font-weight: bold;
     }
+    
+    .zoom {
+  transition: transform .2s; /* Animation */
+  width: 200px;
+  height: 200px;
+
+}
+
+.zoom:hover {
+  transform: scale(2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+    
     
     
     
@@ -35,24 +47,27 @@
         <a href="<?=FuncaoBase::geraLink("doc", "doc", "index")?>" class="btn btn-success">Voltar</a>
         <nav class="bs-docs-sidebar hidden-print hidden-sm hidden-xs affix">
             <legend><p>Indice</p></legend>
-            <p><a href="#">Glossário</a> </p> 
+             
             <p><a href="#id_funcionalidade">Funcionalidades</a></p>
             
             <ul>
                 <li class="fa fa-yelp">&nbsp;&nbsp;&nbsp;<a href="">ACESSO EMAIL INSTITUCIONAL <span class="label label-default">Novo</span></a>
                     <ul>
                         <li class="fa fa-check">&nbsp;&nbsp;&nbsp;<a href="#acessowebmail">Acesso WEB email</a></li><br>
-                        <li class="fa fa-check">&nbsp;&nbsp;&nbsp;<a href="">Acesso caixa email diretoria </a></li><br>
-                        <li class="fa fa-check">&nbsp;&nbsp;&nbsp;<a href="">Redirecionar email </a></li>
+                        <li class="fa fa-check">&nbsp;&nbsp;&nbsp;<a href="#caixasecao">Acesso caixa email diretoria </a></li><br>
+                        <li class="fa fa-check">&nbsp;&nbsp;&nbsp;<a href="#trocasenha">Troca Senha acesso webmail </a></li><br>
+                        <li class="fa fa-check">&nbsp;&nbsp;&nbsp;<a href="#redirecionar">Redirecionar email ( backup, enviar<br> email para outro lugar) </a></li>
                     </ul>
                 </li>
                 <br>
-                <li class="fa fa-yelp">&nbsp;&nbsp;&nbsp;<a href="">INFORMAÇÕES COMPDEC <span class="label label-default">Novo</span></a></li><br>
-                <ul>
-                    <li class="fa fa-check">&nbsp;&nbsp;&nbsp;<a href="">Acesso WEB email</a></li><br>
-                    <li class="fa fa-check">&nbsp;&nbsp;&nbsp;<a href="">Acesso caixa email diretoria </a></li><br>
-                    <li class="fa fa-check">&nbsp;&nbsp;&nbsp;<a href="">Redirecionar email </a></li>
-                </ul>
+                
+                <li class="fa fa-yelp">&nbsp;&nbsp;&nbsp;<a href="">CIDADE ADMINISTRATIVA <span class="label label-default">Novo</span></a><br>
+                    <ul>
+                        <li class="fa fa-check">&nbsp;&nbsp;&nbsp;<a href="">Outlook 2016 ( CA )</a></li><br>
+                        <!--<li class="fa fa-check">&nbsp;&nbsp;&nbsp;<a href="">Acesso caixa email diretoria </a></li><br>
+                        <li class="fa fa-check">&nbsp;&nbsp;&nbsp;<a href="">Redirecionar email </a></li>-->
+                    </ul>
+                </li>
             </ul>
         </nav>
     </div>    
@@ -60,17 +75,32 @@
         <div class="panel panel-default">
             <div id="acessowebmail" class="panel-heading">Acesso WebMail</div>
             <div class="panel-body">
-                <p>Acesse : www.mail.ca.mg.gov.br </p>
-                <p>no campo usuário coloque o <span class="destaque1">mesmo que é usado para acessar os computadores da CA</span></p>
-                <p><img src="core/imagem/img_ajuda/webmail_01.png"></p>
-                <p>Abrir Caixa de Email da seção, ex: defesacivil@defesacivil.mg.gov.br</p>
-                <p>No canto superior direito</p>
+                <p>1) Acesse : www.mail.ca.mg.gov.br </p>
+                <p>2) no campo usuário coloque o <span class="destaque1">mesmo que é usado para acessar os computadores da CA</span><br>
+                    <small>Ex: S00987 </small></p>
+                <p class='zoom'><img src="anexo/doc/interno/infra/img_ajuda/webmail_01.png"></p><br><br>
                 
-                <p><img src="core/imagem/img_ajuda/webmail_02.png"></p>
+                <legend id="caixasecao">Abrir email de seção </legend>
+                <p>Após fazer o login, para Abrir uma caixa de Email da seção, ex: <span  class="destaque1">defesacivil@defesacivil.mg.gov.br</span>
+                      <br>1) Clique no canto superior direito, conforme figura abaixo :</p>
+                
+                <p class='zoom'><img src="anexo/doc/interno/infra/img_ajuda/webmail_03.png"></p>
+                <br><br>
+                <legend id="trocasenha">Fazer a Troca de Senha do email</legend>
+                Obs: A senha do email é integrada com o usuario dos Computadores da Cidade Administrativa, ou seja após a troca de senha, esta senha será usada para fazer login nos computadores da CA.
+                <br><br>
+                Sega os passos conforme figuras abaixo:
+                <p class='zoom'><img src="anexo/doc/interno/infra/img_ajuda/webmail_05.png"></p><br><br>    
+                <p class='zoom'><img src="anexo/doc/interno/infra/img_ajuda/webmail_04.png"></p><br><br>    
+                <br><br>
+                <legend id="redirecionar">Redirecionar email ( Backup para outro email )</legend>
+                <p>em construção</p>
+                <br><br>
+                
             </div>
             <!-- # inicio grupo -->
             <div id="id_grupo" class="panel-heading">
-                Titulo Grupo
+                Outlook 2016 ( Estação de Trabalho )
             </div>
             <div class="panel-body">
                 <p>informações</p>
@@ -79,13 +109,13 @@
              <!-- # fim grupo  -->
              
             <!-- # inicio funcionalidades -->
-            <div id="id_funcionalidade" class="panel-heading">
+            <!--<div id="id_funcionalidade" class="panel-heading">
                 Funcionalidades Disponíveis
             </div>
             <div class="panel-body">
                 <p>informações</p>
                 <p><img src="imagens"></p>
-            </div>
+            </div>-->
              <!-- # fim funcionalidades  -->
         </div<br><br><br>
         

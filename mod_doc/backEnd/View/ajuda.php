@@ -13,11 +13,16 @@
 $_funcaoBase = new FuncaoBase();
 
 ?>
-    <legend>Instrução de utilização do Modulo Equipe de Apoio</legend>
-                
+<div class="container">
+    <h2>Instrução de utilização do Modulo Ajuda Humanitária</h2>
+    <br>
+    <br>                
     <?php
         $_funcaoBase->listaArquivoLink('/anexo/doc/interno/ajuda');
     ?>
+    
+</div>
+    
 <!-- =================== RODAPE CORPO ==================== -->
 <?php include_once "template/page/corpoRodape.php";?>
 <!-- =================== RODAPE  ======================== -->

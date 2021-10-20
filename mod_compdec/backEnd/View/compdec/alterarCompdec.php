@@ -541,12 +541,15 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
                                 <input class="form-control" type='text' name='txtDescricao' id='txtDescricao' maxlength="40">
                                 <label>Tipo Doc</label>
                                 <select class="form-control" name="selTipo" id="selTipo">
+                                    <option value="0">Decreto de Regulamentação da Lei de Criação do COMPDEC</option>
+                                <option value="1">Lei Criação do Compdec</option>
+                                <option value="2">Portaria Nomeação do Coordenado da COMPDEC</option>
                                     <?php 
                                         
-                                        print ($_dados[0]['sem_lei'] == 0) ? "<option value=\"1\">Lei Criação do Compdec</option>" :"";
+                                        /*print ($_dados[0]['sem_lei'] == 0) ? "<option value=\"1\">Lei Criação do Compdec</option>" :"";
                                         print ($_dados[0]['sem_decreto'] == 0) ? "<option value=\"0\">Decreto de Regulamentação da Lei de Criação do COMPDEC</option>" : "";
                                         print ($_dados[0]['sem_portaria'] == 0) ? "<option value=\"2\">Portaria Nomeação do Coordenado da COMPDEC</option>" : "" ;
-                                        
+                                        */
                                     ?>
                                 </select>
                                 <br>

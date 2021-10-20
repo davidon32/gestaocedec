@@ -10,24 +10,30 @@
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php";?>
 
-
 <form action="#" method="POST" name="frmBusca" id="">
 </form>
+
+<h2><a href="<?=FuncaoBase::geraLink("doc", "doc", "glossario")?>" class="alert" style="text-decoration:none"> 
+    <img src='core/imagem/help.png' width="25">&nbsp;&nbsp;&nbsp;&nbsp; Glossário</a></h2>
+<br><br>
     
-<a href="<?=FuncaoBase::geraLink("doc", "doc", "ajudahtml")?>">Link de Ajuda Geral</a>&nbsp;&nbsp;&nbsp;&nbsp;(novo)<br><br>
+<h2><a href="<?=FuncaoBase::geraLink("doc", "doc", "ajudahtml")?>" class="alert" style="text-decoration:none"   >
+        <img src='core/imagem/help.png' width="25">&nbsp;&nbsp;&nbsp;&nbsp; Link de Ajuda Geral  <small> ( Email institucional )</small>
+    </a></h2>
+<br><br>
 
 
-<a href="<?=FuncaoBase::geraLink("doc", "doc", "ajuda")?>" class="alert" style="text-decoration:none">
-    <img src='core/imagem/help.png' width="25"> &nbsp;&nbsp;&nbsp;&nbsp;Módulo Ajuda Humanitária
-</a>
+<h2><a href="<?=FuncaoBase::geraLink("doc", "doc", "ajuda")?>" class="alert" style="text-decoration:none">
+        <img src='core/imagem/help.png' width="25">&nbsp;&nbsp;&nbsp;&nbsp;Ajuda Humanitária <small>( PMDA - Plano Municipal de Distribuição de Água Potável )</small>
+    </a></h2>
 <br><br>
-<a href="<?=FuncaoBase::geraLink("doc", "doc", "compdec")?>" class="alert" style="text-decoration:none">
-    <img src='core/imagem/help.png' width="25"> &nbsp;&nbsp;&nbsp;&nbsp;Módulo Compdec
-</a>
+<h2><a href="<?=FuncaoBase::geraLink("doc", "doc", "compdec")?>" class="alert" style="text-decoration:none">
+        <img src='core/imagem/help.png' width="25">&nbsp;&nbsp;&nbsp;&nbsp;Cadastro Compdec <small>( Coordenadoria Municipal de Proteção e Defesa Civil )</small>
+    </a></h2>
 <br><br>
-<a href="<?=FuncaoBase::geraLink("doc", "doc", "drd")?>" class="alert" style="text-decoration:none">
-    <img src='core/imagem/help.png' width="25"> &nbsp;&nbsp;&nbsp;&nbsp;DRD
-</a>
+<h2> <a href="<?=FuncaoBase::geraLink("doc", "doc", "drd")?>" class="alert" style="text-decoration:none">
+    <img src='core/imagem/help.png' width="25">&nbsp;&nbsp;&nbsp;&nbsp;DRD - Diretoria de Reduçao de Desastres <small>( Uso Plantão CEDEC   )</small>
+    </a></h2>
 <br><br>
 
 

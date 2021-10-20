@@ -781,6 +781,13 @@ static function vifs($_tipo = false, $_redireciona = false, $_msg = 'Procediment
        * $path - caminho do diretorio
        */
       function listaArquivoLink($path){
+          
+          $interno = "";
+          
+          if(true) {
+          }else {
+              $interno = "( <i>Documento Uso Interno</i> )";
+          }
       
       	$dir = opendir(PATH.$path);
       
@@ -799,7 +806,7 @@ static function vifs($_tipo = false, $_redireciona = false, $_msg = 'Procediment
       		if ($_form == "pdf") {
       
       			print ($old == "old") ? "<strike>" : "";
-      			print $_num++.") <a href='".$path."/" . utf8_encode($file) . "' title='".$title."'>" . utf8_encode($file) . "</a><br><br>";
+      			print $_num++." ) <a href='".$path."/" . utf8_encode($file) . "' title='".$title."'>" . utf8_encode($file) . "</a> ".$interno."<br><br>";
       			print ($old == "old") ? "</strike>" : "";
       		}
       	}

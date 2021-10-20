@@ -13,11 +13,14 @@ c:\Users\m1296844\workspace\gestaocedec\mod_doc\frontEnd\View\equipe.php<?php in
 $_funcaoBase = new FuncaoBase();
 
 ?>
-    <legend>Instrução de utilização do Modulo Equipe de Apoio</legend>
+<div class="container">
+    <h2>Instrução de utilização Plantão</h2>
                 
     <?php
         $_funcaoBase->listaArquivoLink('/anexo/doc/interno/equipe');
     ?>
+    
+</div>
 <!-- =================== RODAPE CORPO ==================== -->
 <?php include_once "template/page/corpoRodape.php";?>
 <!-- =================== RODAPE  ======================== -->

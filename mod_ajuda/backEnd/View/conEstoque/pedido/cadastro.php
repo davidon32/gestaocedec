@@ -189,11 +189,11 @@ $dadosDestinatario_final = $pedidoModel->listaid_destinatario_finalAutocomplete(
 
 <!--######################  MODAL aju_tp_pedido ( ALMOXARIFADO )###################-->
 
-<div class="modal" tabindex="-1" role="dialog" id="modal_id_tp_pedido">
+<div class="modal" id="modal_id_tp_pedido">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">x</button>
                 <h4 class="modal-title">Almoxarifado</h4>
             </div>
             <div class="modal-body">
@@ -203,7 +203,6 @@ $dadosDestinatario_final = $pedidoModel->listaid_destinatario_finalAutocomplete(
             <div class="modal-footer">
                 <div class="col-md-12 text-right">
                     <button type="button" class="btn btn-success" data-dismiss="modal" id='cad_almoxarifado'>Cadastrar Novo</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div><!-- /.modal-content -->
@@ -212,11 +211,11 @@ $dadosDestinatario_final = $pedidoModel->listaid_destinatario_finalAutocomplete(
 
 <!-- CADASTRO )-->
 
-<div class="modal" tabindex="-1" role="dialog" id="modal_cad_almoxarifado">
+<div class="modal" id="modal_cad_id_tp_pedido">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">x</button>
                 <h4 class="modal-title">Novo Almoxarifado</h4>
             </div>
             <div class="modal-body">
@@ -225,7 +224,7 @@ $dadosDestinatario_final = $pedidoModel->listaid_destinatario_finalAutocomplete(
             </div>
             <div class="modal-footer">
                 <div class="col-md-6 text-right">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Salvar</button>
                 </div>
             </div>
         </div><!-- /.modal-content -->
@@ -357,10 +356,7 @@ $dadosDestinatario_final = $pedidoModel->listaid_destinatario_finalAutocomplete(
 <script>
 
     $(document).ready(function () {
-
-        $("#btnBuscaid_itens_pedido").hide();
-        $("#btnDisable").show();
-
+  
 
         /* ##############################################
          *  clic form campo FK Almoxarifado*/
@@ -372,10 +368,13 @@ $dadosDestinatario_final = $pedidoModel->listaid_destinatario_finalAutocomplete(
             $("#searcid_tp_pedido").focus();
         });
         
+        
+        
         /* form cadastro almoxarifado */
         $("#cad_almoxarifado").click(function () {
-            $("#modal_cad_almoxarifado").modal('show');
+            $("#modal_cad_id_tp_pedido").modal('show');
         });
+
         /*###############################################*/
 
 

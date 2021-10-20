@@ -13,11 +13,13 @@
 $_funcaoBase = new FuncaoBase();
 
 ?>
-    <legend>Instrução de utilização do Modulo Equipe de Apoio</legend>
+<div class="container">
+    <h2>Instrução de utilização do Plantão CEDEC</h2>
                 
     <?php
         $_funcaoBase->listaArquivoLink('/anexo/doc/interno/dce');
     ?>
+</div>
 <!-- =================== RODAPE CORPO ==================== -->
 <?php include_once "template/page/corpoRodape.php";?>
 <!-- =================== RODAPE  ======================== -->

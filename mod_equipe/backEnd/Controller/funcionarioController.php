@@ -12,7 +12,9 @@ class FuncionarioController extends Controller {
         if($this->isPost()){
             $post = $_POST;
             
-            $dadosEmailRec = array('txtEmail'=>$post['txtEmailRec'], 'id_usuario'=>$_COOKIE['seguranca']['idUser']);
+            $dadosEmailRec = array('txtEmail'=>$post['txtEmailRec'],
+                                   'id_usuario'=>$_COOKIE['seguranca']['idUser'],
+                                   'situacao' =>$dados['situacao']);
 
             $funcionario->edit($post);
             $usuario->AtualizaEmail($dadosEmailRec);
