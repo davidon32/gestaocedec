@@ -37,8 +37,16 @@ $dados = $usuario->getDadoUsuario($id_usuario);
         <td><input type="password" name="senha" class="form-control" id="txtSenha" style="wi50px" value="<?php print $dados['senha'] ?>">
     </tr>
     <tr>
-        <td>email:</td>
-        <td><input type="email" name="email" class="form-control" size="40" value="<?php print $dados['email_rec']; ?>"></td>
+        <td style="color:red">Email Recuperação Senha:</td>
+        <td><input type="email" name="email_rec" class="form-control" size="40" value="<?php print $dados['email_rec']; ?>"></td>
+    </tr>
+    <tr>
+        <td>Email Informações 1:</td>
+        <td><input type="email" name="txtEmailInfo1" class="form-control" size="40" value="<?php print $dados['email_info1']; ?>"></td>
+    </tr>
+    <tr>
+        <td>Email Informações 2:</td>
+        <td><input type="email" name="txtEmailInfo2" class="form-control" size="40" value="<?php print $dados['email_info2']; ?>"></td>
     </tr>
     
     <?php

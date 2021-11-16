@@ -901,25 +901,30 @@ class Usuario extends UsuarioModel {
         $con = Conexao::getInstance();
 
 
-        $sql = 'SELECT id_usuario,
-						id_deposito,
-						nome,
-						senha,
-						email_rec,
-						nivel,
-						situacao,
-						login,
-						it_m_deposito,
-						it_m_pipa,
-						it_m_cce,
-						it_m_decretacao,
-						it_m_comdec,
-						it_m_apoio,
-						it_m_poco,
-						it_m_escola,
-                                                id_funcionario
-						FROM cedec_usuario
-						WHERE id_usuario = :id_func';
+        $sql = 'SELECT cedec_usuario.id_usuario,
+                    cedec_usuario.id_deposito,
+                    cedec_usuario.nome,
+                    cedec_usuario.senha,
+                    cedec_usuario.email_rec,
+                    cedec_usuario.nivel,
+                    cedec_usuario.situacao,
+                    cedec_usuario.login,
+                    cedec_usuario.it_m_deposito,
+                    cedec_usuario.it_m_pipa,
+                    cedec_usuario.it_m_cce,
+                    cedec_usuario.it_m_decretacao,
+                    cedec_usuario.it_m_comdec,
+                    cedec_usuario.it_m_apoio,
+                    cedec_usuario.it_m_poco,
+                    cedec_usuario.it_m_escola,
+                    cedec_usuario.id_funcionario,
+                    cedec_funcionario.email as email_info1,
+                    cedec_funcionario.email2 as email_info2,
+                    cedec_funcionario.num_masp
+                        FROM cedec_usuario
+                            inner join cedec_funcionario
+                            on cedec_usuario.id_funcionario = cedec_funcionario.id_funcionario
+                                WHERE cedec_usuario.id_usuario = :id_func';
 
         $result = $con->prepare($sql);
         $result->bindValue(":id_func", $id_usuario);
@@ -1767,6 +1772,30 @@ class Usuario extends UsuarioModel {
         return true;
     }
 
+    
+    /**
+     * Atualiza email1 informacao, email2 informação, situacao
+     * 
+     */
+    public static function AtualizaEmailInfo($dados) {
+
+        $con = Conexao::getInstance();
+        $sql = "UPDATE cedec_funcionario SET email = :email,
+                                            email2 = :email2,
+                                            situacao = :situacao
+						WHERE id_funcionario = :id";
+
+        $result = $con->prepare($sql);
+        $result->bindValue(":email", $dados['email_info1']);
+        $result->bindValue(":email2", $dados['email_info2']);
+        $result->bindValue(":situacao", $dados['situacao']);
+        $result->bindValue(":id", $dados['id_funcionario']);
+        $result->execute();
+
+        return true;
+    }
+
+    
     /**
      *  Mensagem do Suporte do menu usuario
      *  $dados
@@ -1794,18 +1823,20 @@ class Usuario extends UsuarioModel {
     }
 
     /** cadastro de funcionario */
-    function cadFuncionario($numPolicia, $nomeComp, $usuario, $setor, $email) {
+    function cadFuncionario($numPolicia, $nomeComp, $usuario, $setor, $email, $email2) {
 
         $con = Conexao::getInstance();
 
         $sql = 'INSERT INTO cedec_funcionario (num_masp,
-												nome,
-												orgao,
-												email)
-												VALUES("' . $numPolicia . '",
-														"' . $nomeComp . '",
-														"' . $setor . '",
-														"' . $email . '")';
+						nome,
+						orgao,
+						email,
+                                                email2)
+						VALUES("' . $numPolicia . '",
+							"' . $nomeComp . '",
+							"' . $setor . '",
+							"' . $email . '",
+							"' . $email2 . '")';
         try {
             $result = $con->query($sql);
             return true;

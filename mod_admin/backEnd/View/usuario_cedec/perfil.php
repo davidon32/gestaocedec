@@ -33,8 +33,16 @@ $dados =$usuario->getDadoUsuario($pageSession['session']['seguranca']['idUser'])
         <td><?=$dados['nome'];?></td>
     </tr>
     <tr>
-        <td><b>Email recuperação de Senha</b></td>
+        <td style='color:red'>Email recuperação de Senha</td>
         <td><?=$dados['email_rec'];?></td>
+    </tr>
+    <tr>
+        <td><b>Email Informação 1</b></td>
+        <td><?=$dados['email_info1'];?></td>
+    </tr>
+    <tr>
+        <td><b>Email Informação 2</b></td>
+        <td><?=$dados['email_info2'];?></td>
     </tr>
 </table>
 

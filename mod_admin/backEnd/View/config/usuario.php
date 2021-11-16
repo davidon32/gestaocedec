@@ -15,12 +15,12 @@
 
 <div class="col-md-12">
 
-    <div class="col-md-6">
+    <div class="col-md-4">
         <br>
         <a href='?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=&modulo=admin&controller=adm&action=caduser' class="btn btn-primary">Cadastro Usuario</a>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-8">
         <legend>Alterar Usuario</legend>
         <form action="#" method="post" name="frmPesquisa">
             <div class="col-md-12">
@@ -46,6 +46,7 @@
                         <tr>
                             <th>Código</th>
                             <th>Nome</th>
+                            <th>Email Rec</th>
                             <th>Situação</th>
                             <th>Ultimo Acesso</th>
                             <th>Ações</th>
@@ -55,6 +56,7 @@
                         print "<tr>
                                 <td>".$value['id_usuario']."</td>
                                 <td>".$value['nome']."</td>
+                                <td>".$value['email_rec']."</td>
                                 <td>".($value['situacao'] == 1 ? "Ativo" : "Inativo")."</td>
                                     <td>".$value['ultimo_acesso']."</td>
                                 <td><a href='".FuncaoBase::geraLink("admin", "adm", "caduser", array('id'=>$value['id_usuario']))."'><img src='core/imagem/view.png' width='25' title='Visualizar'></a>";
@@ -70,11 +72,12 @@
 
             ?>
     
-</div>  
 <div class="col-md-12 text-center">
     <br>
     <a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=&modulo=admin&controller=index&action=index">Voltar</a>
 </div>   
+</div> 
+</div>
 
 
 <!-- =================== RODAPE CORPO ==================== -->

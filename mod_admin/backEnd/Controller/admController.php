@@ -32,6 +32,7 @@
         /** valida cadatro usuario */
         public function cad_user_valida(){
             
+           
             $usuario = new Usuario();
 
             $numPolicia = isset($_POST['txtNumPol']) ? $_POST['txtNumPol']  : false;
@@ -41,13 +42,16 @@
             $email      = isset($_POST['txtEmail'])  ? $_POST['txtEmail']   : false;
             $id_usuario = isset($_POST['id_usuario'])? $_POST['id_usuario'] : false;
             $situacao   = isset($_POST['selSituacao'])? $_POST['selSituacao'] : false;
+            
+            $email_info1 = isset($_POST['txtEmailInfo1'])? $_POST['txtEmailInfo1'] : false;
+            $email_info2 = isset($_POST['txtEmailInfo2'])? $_POST['txtEmailInfo2'] : false;
 
             $opcao = isset($_POST['opcao'])  ? $_POST['opcao']   : false;
 
             if($opcao == "caduser"){
                 
                 # cadastro "cedec_funcionario"
-                if($usuario->cadFuncionario($numPolicia, $nomeComp, $username, $setor, $email)){
+                if($usuario->cadFuncionario($numPolicia, $nomeComp, $username, $setor, $email_info1, $email_info2)){
                     
                 /* inserir usuario "cedec_usuario" */
                 SqlGenerics::Inserir('cedec_usuario',
@@ -99,11 +103,18 @@
                         </script>";
                 }
             }elseif($opcao == "atualiza") {
-                var_dump($id_funcionario = $usuario->getIdFuncionario($username));
+                
+                $id_funcionario = $usuario->getIdFuncionario($username);
+                
                     if($situacao == 0) {
                         $usuario->desabilitarFuncionario(array('situacao'=>$situacao, 'id_funcionario'=>$id_funcionario));
                     }
                     if($usuario->AtualizaEmail(array('txtEmail'=> $email, 'id_usuario'=>$id_usuario, 'situacao'=>$situacao))){
+                        $usuario->AtualizaEmailInfo(array('email_info1' =>$email_info1,
+                                                          'email_info2'=>$email_info2,
+                                                          'situacao'=> $situacao,
+                                                          'id_funcionario' => $id_funcionario));
+
                         print "<script>
                                     alert('Registro Atualizado com Sucesso !');
                                     window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=admin&controller=adm&action=usuario';

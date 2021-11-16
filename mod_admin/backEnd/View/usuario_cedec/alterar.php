@@ -54,11 +54,6 @@ if(!empty($usuario)){
             <option>GMG</option>
         </select>
 
-        <label>Email</label>
-        <input class="form-control" type="email" name="txtEmail" value="<?= !empty($usuario) ? $usuario['email_rec'] : ""; ?>" id="txtEmail">
-        <input type="hidden" name="opcao" value="<?= !empty($usuario) ? "atualiza" : "caduser"; ?>" >
-        <input type="hidden" name="id_usuario" value="<?= !empty($usuario) ? $usuario['id_usuario'] : ""; ?>" >
-        
         
         <label>Situação</label>
         <select class="form-control" name="selSituacao" id="selSituacao">
@@ -67,6 +62,21 @@ if(!empty($usuario)){
             <option value='0'>DESATIVADO</option>
         </select>
         <br>
+        <label style='color: red'>Email Recuperar senha</label>
+        <input class="form-control" type="email" name="txtEmail" value="<?= !empty($usuario) ? $usuario['email_rec'] : ""; ?>" id="txtEmail">
+        <input type="hidden" name="opcao" value="<?= !empty($usuario) ? "atualiza" : "caduser"; ?>" >
+        <input type="hidden" name="id_usuario" value="<?= !empty($usuario) ? $usuario['id_usuario'] : ""; ?>" >
+        <br>
+        <label>Email informações 1</label>
+        <input class="form-control" type="email" name="txtEmailInfo1" value="<?= !empty($usuario) ? $usuario['email_info1'] : ""; ?>" id="txtEmailInfo1">
+        <input type="hidden" name="opcao" value="<?= !empty($usuario) ? "atualiza" : "caduser"; ?>" >
+        <input type="hidden" name="id_usuario" value="<?= !empty($usuario) ? $usuario['id_usuario'] : ""; ?>" >
+        <br>
+        <label>Email informações 2</label>
+        <input class="form-control" type="email" name="txtEmailInfo2" value="<?= !empty($usuario) ? $usuario['email_info2'] : ""; ?>" id="txtEmailInfo2">
+        <input type="hidden" name="opcao" value="<?= !empty($usuario) ? "atualiza" : "caduser"; ?>" >
+        <input type="hidden" name="id_usuario" value="<?= !empty($usuario) ? $usuario['id_usuario'] : ""; ?>" >
+        
 
 
 

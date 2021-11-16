@@ -2,6 +2,7 @@
 
 include_once 'core/include.php';
 
+
 #@ nome do usuario 
 $_nome = isset($_POST['nome']) ? $_POST['nome'] : null;
 
@@ -10,8 +11,14 @@ $_nome = isset($_POST['nome']) ? $_POST['nome'] : null;
 #@ senha 
 $_senha = isset($_POST['senha']) ? md5($_POST['senha']) : null;
 
-#@ email
+#@ email rec 
 $_email = isset($_POST['email']) ? $_POST['email'] : "";
+
+#@ email infor 1 
+$email_info1 = isset($_POST['txtEmailInfo1']) ? $_POST['txtEmailInfo1'] : "";
+
+#@ email info 2 
+$email_info2 = isset($_POST['txtEmailInfo2']) ? $_POST['txtEmailInfo2'] : "";
 
 #@ identificador do deposito
 $_id_deposito = isset($_POST['id_deposito']) ? $_POST['id_deposito'] : "";
@@ -34,6 +41,9 @@ $_m_escola = isset($_POST['escola']) ? $_POST['escola'] : 0;
 
 $id = isset($_POST['id_usuario']) ? $_POST['id_usuario'] : "";
 
+
+
+
 if (($_COOKIE['seguranca']['adm']) && (!empty($id))) {
 
     $post = array('nome'=>$_nome,
@@ -41,7 +51,18 @@ if (($_COOKIE['seguranca']['adm']) && (!empty($id))) {
                   'email_rec'=>$_email,
                   'nivel' => $_nivel,
                   'id_usuario' =>$id );
+    
+    $usuario = new Usuario();
+    
+    $id_funcionario = $usuario->getIdFuncionario($_nome);
+    
+    $usuario::AtualizaEmailInfo(array('email_info1' =>$email_info1,
+                                      'email_info2'=>$email_info2,
+                                      'situacao'=> $situacao,
+                                      'id_funcionario' => $id_funcionario));
    
+    die(print_r($_POST)."-". $id_funcionario);
+    
     if (Usuario::AtualizarUsuario($post)) {
         print "<script type=\"text/javascript\">";
         print "alert('Dados atualizados com Sucesso !');";
