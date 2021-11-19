@@ -6,13 +6,16 @@ include_once 'core/include.php';
 #@ nome do usuario 
 $_nome = isset($_POST['nome']) ? $_POST['nome'] : null;
 
+#@ login
+$_login = isset($_POST['login']) ? $_POST['login'] : null;
+
 #@ Geracao de login de usuario
 //$_login = Login::GeraLogin();
 #@ senha 
 $_senha = isset($_POST['senha']) ? md5($_POST['senha']) : null;
 
 #@ email rec 
-$_email = isset($_POST['email']) ? $_POST['email'] : "";
+$_email = isset($_POST['email_rec']) ? $_POST['email_rec'] : "";
 
 #@ email infor 1 
 $email_info1 = isset($_POST['txtEmailInfo1']) ? $_POST['txtEmailInfo1'] : "";
@@ -54,15 +57,15 @@ if (($_COOKIE['seguranca']['adm']) && (!empty($id))) {
     
     $usuario = new Usuario();
     
-    $id_funcionario = $usuario->getIdFuncionario($_nome);
+    
+    $id_funcionario = $usuario->getIdFuncionario($_login);
     
     $usuario::AtualizaEmailInfo(array('email_info1' =>$email_info1,
                                       'email_info2'=>$email_info2,
-                                      'situacao'=> $situacao,
+                                      'situacao'=> $_situacao,
                                       'id_funcionario' => $id_funcionario));
-   
-    die(print_r($_POST)."-". $id_funcionario);
-    
+          
+                                  
     if (Usuario::AtualizarUsuario($post)) {
         print "<script type=\"text/javascript\">";
         print "alert('Dados atualizados com Sucesso !');";

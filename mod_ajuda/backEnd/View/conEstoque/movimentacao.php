@@ -21,7 +21,7 @@
         margin: auto;
     }
 </style>
-<div class='col-md-12 text-center'>
+<div class='text-center'>
 <?php
     if (Usuario::getPermissao('aju_cpermissao', 'entrada_nota')) {
 ?>
@@ -33,7 +33,7 @@
     if (Usuario::getPermissao('aju_cpermissao', 'transferencia')) {
 ?>
 <div class="col-md-2">
-    <a class="btn btn-primary btn-lg  col-md-12" title='Transferencia de Materiais entre Armazém' href="<?=FuncaoBase::geraLink("ajuda", "transferencia", "index")?>">Transf. Mat Armazém</a>
+    <a class="btn btn-primary btn-lg  col-md-12" title='Transferencia de Materiais entre Armazém' href="<?=FuncaoBase::geraLink("ajuda", "pedido", "transferencia")?>">Transf. Mat Armazém</a>
 </div>
 <?php
     }
@@ -57,8 +57,9 @@
     <a class="btn btn-primary btn-lg  col-md-12" href="<?=FuncaoBase::geraLink("ajuda", "montagem", "index")?>">Montagem de Carga</a>
     </div>
 <?php
-    } 
+    }
 ?>
+    
 </div>
 <div class="col-md-12 text-center">
 <br>

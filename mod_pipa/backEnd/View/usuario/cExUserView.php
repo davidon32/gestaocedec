@@ -58,7 +58,7 @@ $dados = Usuario::buscaUsuarioId($_GET['id']);
                         </tr>
                         <?php
                         
-                           /* $tentativa_acesso = Usuario::listaTentativaAcesso();
+                           $tentativa_acesso = Usuario::listaTentativaAcesso();
                             
                             foreach ($tentativa_acesso as $key => $value) {
                                 
@@ -72,7 +72,7 @@ $dados = Usuario::buscaUsuarioId($_GET['id']);
                                     <td>". DataMysql::dataCompletaVisual($value['dt_user'])."</td>
                                 </tr>";
                                 }
-                            }*/
+                            }
                         ?>
                     </table>
                 </div>

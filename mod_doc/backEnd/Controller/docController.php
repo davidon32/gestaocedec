@@ -68,6 +68,11 @@ class docController extends Controller
     public function glossario(){
         include_once "mod_doc/backEnd/View/glossario.php";
     }
+    
+    # sdc
+    public function sdc(){
+        include_once "mod_doc/backEnd/View/sdc.php";
+    }
   
 
 

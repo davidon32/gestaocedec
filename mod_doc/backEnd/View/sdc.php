@@ -14,26 +14,18 @@ $_funcaoBase = new FuncaoBase();
 
 ?>
 <div class="col-md-12 text-center"><a href='<?= FuncaoBase::geraLink("doc", "doc", "index")?>' class='btn btn-success'>Voltar</a></div>
-    <legend>Glossário </legend>
+    
+<br><br>
 
-    <table class="table table-bordered table-responsive">
-        <tr>
-            <td>CEDEC</td><td>COORDENADORIA ESTADUAL DE PROTEÇÃO E DEFESA CIVIL</td>
-        </tr>
-        <tr>
-            <td>COMPDEC</td><td>COORDENADORIA MUNICIPAL DE PROTEÇÃO E DEFESA CIVIL</td>
-        </tr>
-        <tr>
-            <td>SIMPDEC</td><td>SISTEMA NACIONAL DE PROTEÇÃO E DEFESA CIVIL</td>
-        </tr>
-        <tr>
-            <td>SDC</td><td>SISTEMA DE DEFESA CIVIL ( MINAS GERAIS )</td>
-        </tr>
-        <tr>
-            <td>S2ID</td><td>SISTEMA INTEGRADO DE INFORMAÇÕES SOBRE DESASTRES ( GOVERNO FEDERAL )</td>
-        </tr>
-        
-    </table>
+<p>Troca de Senha</p>
+<p>Clique no nome do Usuario conforme figura abaixo, após clique em perfil :</p>
+    <p class=""><img src="anexo/doc/interno/ajuda/senha_perfil/perfil.png"></p>
+
+</li>
+
+    
+
+
 <!-- =================== RODAPE CORPO ==================== -->
 <?php include_once "template/page/corpoRodape.php";?>
 <!-- =================== RODAPE  ======================== -->

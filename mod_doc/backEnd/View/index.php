@@ -16,6 +16,10 @@
 <h2><a href="<?=FuncaoBase::geraLink("doc", "doc", "glossario")?>" class="alert" style="text-decoration:none"> 
     <img src='core/imagem/help.png' width="25">&nbsp;&nbsp;&nbsp;&nbsp; Glossário</a></h2>
 <br><br>
+
+<h2><a href="<?=FuncaoBase::geraLink("doc", "doc", "sdc")?>" class="alert" style="text-decoration:none"> 
+    <img src='core/imagem/help.png' width="25">&nbsp;&nbsp;&nbsp;&nbsp; SDC - Sistema de Defesa Civil</a></h2>
+<br><br>
     
 <h2><a href="<?=FuncaoBase::geraLink("doc", "doc", "ajudahtml")?>" class="alert" style="text-decoration:none"   >
         <img src='core/imagem/help.png' width="25">&nbsp;&nbsp;&nbsp;&nbsp; Link de Ajuda Geral  <small> ( Email institucional )</small>

@@ -78,7 +78,6 @@ include_once PATH . '/mod_ajuda/Controller/UnidadeController.php';
 include_once PATH . '/mod_ajuda/classe/Classe.Fornecedor.php';
 
 
-
 #@ modulo cce
 include_once PATH . '/mod_cce/classe/Classe.Evento.php';
 include_once PATH . '/mod_cce/classe/Classe.Acesso.Cce.php';
@@ -146,7 +145,6 @@ include_once PATH . '/mod_ajuda/Model/Destinatario_finalConEstoqueModel.php';
 include_once PATH . '/mod_ajuda/Model/MontagemConEstoqueModel.php';
 include_once PATH . '/mod_ajuda/Model/RelatorioConEstoqueModel.php';
 include_once PATH . '/mod_ajuda/Model/EventoConEstoqueModel.php';
-include_once PATH . '/mod_ajuda/Model/TransferenciaConEstoqueModel.php';
 include_once PATH . '/mod_ajuda/Model/H_pedido_an_tecajuda_hModel.php';
 include_once PATH . '/mod_ajuda/Model/H_pedido_prestajuda_hModel.php';
 include_once PATH . '/mod_ajuda/Model/H_pedido_benefajuda_hModel.php';

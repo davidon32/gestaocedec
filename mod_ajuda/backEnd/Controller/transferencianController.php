@@ -13,7 +13,7 @@ include_once('core/Controller/Controller.php');
  * 	Criacao : 15/10/2020															*
  * ********************************************************************************** */
 
-class transferenciaController extends Controller {
+class transferencianController extends Controller {
 
     private $transferencia;
     private $transferencias;
@@ -30,7 +30,7 @@ class transferenciaController extends Controller {
 
     public function index() {
         $transferenciaModel = $this->transferencia;
-        include_once 'mod_ajuda/backEnd/View/conEstoque/transferencia/index.php';
+        include_once 'mod_ajuda/backEnd/View/conEstoque/transferencian/index.php';
     }
 
     /* paginacao */
@@ -92,7 +92,7 @@ class transferenciaController extends Controller {
 
     # formulario cadastro
     public function cadastro() {
-        include_once 'mod_ajuda/backEnd/View/conEstoque/transferencia/cadastro.php';
+        include_once 'mod_ajuda/backEnd/View/conEstoque/transferencian/cadastro.php';
     }
     
     # formulario impressao
@@ -100,7 +100,7 @@ class transferenciaController extends Controller {
         $transferenciaModel = $this->$transferencia;
         $view = $this->$transferencia->view($_GET['id']);
         $pedidos = $transferenciaModel->lstpedidomont($_GET['id']);
-        include_once 'mod_ajuda/backEnd/View/conEstoque/transferencia/impressao.php';
+        include_once 'mod_ajuda/backEnd/View/conEstoque/transferencian/impressao.php';
     }
 
     ################  GRAVAR ##################    
@@ -114,7 +114,7 @@ class transferenciaController extends Controller {
 
         if ($transferencia->gravar($_POST)) {
             FuncaoBase::alert("Registro Gravado com Sucesso !");
-            $this->redirect("ajuda", "transferencia", "index");
+            $this->redirect("ajuda", "transferencian", "index");
         }
     }
             
@@ -122,7 +122,7 @@ class transferenciaController extends Controller {
 
     public function pesquisa() {
 
-            include_once 'mod_ajuda/backEnd/View/conEstoque/transferencia/pesquisa.php';
+            include_once 'mod_ajuda/backEnd/View/conEstoque/transferencian/pesquisa.php';
     }
     
 
@@ -133,7 +133,7 @@ class transferenciaController extends Controller {
          $transferencias = $transferenciaModel->lsttransf($_GET['id']);
          
         $view = $this->transferencia->view($_GET['id']);
-        include_once 'mod_ajuda/backEnd/View/conEstoque/transferencia/view.php';
+        include_once 'mod_ajuda/backEnd/View/conEstoque/transferencian/view.php';
     }
 
     # editar registro
@@ -151,12 +151,12 @@ class transferenciaController extends Controller {
                 FuncaoBase::alert("Registro Atualizado com Sucesso !");
                 $view = $transferenciaModel->view($_POST['id_transferencia']);
                 $param = array('id'=> $_POST['id_transferencia']);
-                $this->redirect("ajuda", "transferencia", "view", $param);
+                $this->redirect("ajuda", "transferencian", "view", $param);
             }
         } else {
 
             $view = $transferenciaModel->view($_GET['id']);
-            include_once 'mod_ajuda/backEnd/View/conEstoque/transferencia/edit.php';
+            include_once 'mod_ajuda/backEnd/View/conEstoque/transferencian/edit.php';
         }
     }
     

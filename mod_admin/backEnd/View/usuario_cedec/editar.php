@@ -27,6 +27,8 @@ $dados = $usuario->getDadoUsuario($id_usuario);
         <td>Nome:</td>
         <td><input type="text" name="nome" class="form-control" size="40" value="<?php print $dados['nome'] ?>">
             <input type="hidden" name="id_usuario" id="id_usuario" value="<?= $dados['id_usuario']; ?>"></td>
+            <input type="hidden" name="login" id="login" value="<?= $dados['login']; ?>"></td>
+            <input type="hidden" name="situacao" id="situacao" value="<?= $dados['situacao']; ?>"></td>
     </tr>
     <tr>
         <td>Senha:</td>

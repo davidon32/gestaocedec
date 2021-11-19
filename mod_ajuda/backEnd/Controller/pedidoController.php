@@ -32,6 +32,14 @@ class pedidoController extends Controller {
         $pedidoModel = $this->pedido;
         include_once 'mod_ajuda/backEnd/View/conEstoque/pedido/index.php';
     }
+    
+    
+    # transferencia
+
+    public function transferencia() {
+        $pedidoModel = $this->pedido;
+        include_once 'mod_ajuda/backEnd/View/conEstoque/transferencian/index.php';
+    }
 
     /* paginacao */
 
@@ -161,6 +169,12 @@ class pedidoController extends Controller {
     public function separar() {
         $id = $_GET['id'];
         include_once 'mod_ajuda/backEnd/View/conEstoque/pedido/separar.php';
+    }
+    
+    # TRANSFERENCIA MAT
+
+    public function transferencian() {
+        include_once 'mod_ajuda/backEnd/View/conEstoque/transferencian/index.php';
     }
 
     # gravar Separacao
