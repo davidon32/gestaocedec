@@ -11,89 +11,57 @@
 <?php include_once "template/page/corpoHeader.php"; ?>
 
 <?php
-$pedidoModel = new PedidoConEstoqueModel();
+$transferenciaModel = new TransferenciaConEstoqueModel();
 
-$dadosTp_pedido = $pedidoModel->listaid_tp_pedidoAutocomplete();
-
-$dadosAlmoxarifado = $pedidoModel->listaid_almoxarifadoAutocomplete();
-
-$dadosTransportadora = $pedidoModel->listaid_transportadoraAutocomplete();
-
-$dadosDestinatario = $pedidoModel->listaid_destinatarioAutocomplete();
-
-$dadosDestinatario_final = $pedidoModel->listaid_destinatario_finalAutocomplete();
+$dadosAlmoxarifado = $transferenciaModel->listaid_almoxarifadoAutocomplete();
 
 ?>
 
-<legend>Cadastro de Pedido</legend>
-<form method="post" accept-charset="utf-8" name="frmPedido" id="frmPedido">
+<legend>Transferencia de Material</legend>
+<form method="post" accept-charset="utf-8" name="frmTransf" id="frmTransf">
 
+    <div class='col-md-6'>
+        <label>Armazém Origem</label> <!--Armaem-->
+        <input type="text" class='form form-control' name='nomeTp_pedido_fk' id='nomeTp_pedido_fk' required readonly='readonly'>
+        <input type="hidden" name='id_tp_pedido' id='id_tp_pedido' required readonly='readonly'>
+    </div>
     <div class='col-md-6'>
         <label>Almoxarifado</label> <!--almoxarifado-->
-        <div class="input-group">
             <input type="text" class='form form-control' name='nomeTp_pedido_fk' id='nomeTp_pedido_fk' required readonly='readonly'>
-            <span onclick="" class="input-group-addon" id="btnBuscaid_tp_pedido">
-                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-            </span> </div><input type="hidden" name='id_tp_pedido' id='id_tp_pedido' required readonly='readonly'>
+            <input type="hidden" name='id_tp_pedido' id='id_tp_pedido' required readonly='readonly'>
     </div>
     <div class='col-md-6'>
-        <label>Transportadora</label>
-        <div class="input-group">
-            <input type="text" class='form form-control' name='nomeTransportadora_fk' id='nomeTransportadora_fk' required readonly='readonly'>
-            <span onclick="" class="input-group-addon" id="btnBuscaid_transportadora">
-                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-            </span> </div><input type="hidden" name='id_transportadora' id='id_transportadora' required readonly='readonly'>
-    </div>
-    <div class='col-md-6'>
-        <label>Armazém</label> <!--almoxarifado-->
-        <div class="input-group">
-            <input type="text" class='form form-control' name='nomeAlmoxarifado_fk' id='nomeAlmoxarifado_fk' required readonly='readonly'>
-            <span onclick="" class="input-group-addon" id="btnBuscaid_almoxarifado">
-                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-            </span> </div><input type="hidden" name='id_almoxarifado' id='id_almoxarifado' required readonly='readonly'>
-    </div>
-    <div class='col-md-6'>
-        <label>Data Emissão Pedido</label>
-        <input type="text" class='form form-control' name='data_emissao' id='data_emissao'required value="<?= date('d/m/Y') ?>">
-    </div>
-    <!--<div class='col-md-6'>
-        <label>Data Entrega Pedido</label>
-        <input type="text" class='form form-control' name='data_entrega' id='data_entrega' >
-    </div>-->
-
-
-    <div class='col-md-6'>
-        <label>Destinatário</label>
+        <label>Armazém Destino</label>
         <div class="input-group">
             <input type="text" class='form form-control' name='nomeDestinatario_fk' id='nomeDestinatario_fk' required readonly='readonly'>
             <span onclick="" class="input-group-addon" id="btnBuscaid_destinatario">
                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
             </span> </div><input type="hidden" name='id_destinatario' id='id_destinatario' required readonly='readonly'>
     </div>
+    
     <div class='col-md-6'>
-        <label>Destinatário Final</label>
-        <div class="input-group">
-            <input type="text" class='form form-control' name='nomeDestinatario_final_fk' id='nomeDestinatario_final_fk' readonly='readonly'>
-            <span onclick="" class="input-group-addon" id="btnBuscaid_destinatario_final">
-                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-            </span> </div><input type="hidden" name='id_destinatario_final' id='id_destinatario_final'>
+        <label>Motorista</label>
+        <input type="text" class='form form-control' name='txtMotorista' id='txtMotorista' required maxlength="70" >
     </div>
     <div class='col-md-6'>
-        <label>Nome Destinatario Final (Opcional)</label>
-        <input type="text" class='form form-control' name='nome_destinatario_final' id='nome_destinatario_final' maxlength='69' >
+        <label>Data Transferencia</label>
+        <input type="text" class='form form-control' name='data_emissao' id='data_emissao'required value="<?= date('d/m/Y') ?>">
+    </div>
+    
+    <div class='col-md-6'>
+        <label>Veículo</label>
+            <input type="text" class='form form-control' name='txtVeiculo' id='txtVeiculo' required maxlength="45">
     </div>
     <div class='col-md-6'>
         <label>Observação</label>
-        <textarea class='form form-control' name='obs' id='obs' maxlength='254' ></textarea>
+        <textarea class='form form-control' name='obs' id='obs' maxlength='200' ></textarea>
     </div>
-    <!-- add Produto -->
     <div class='col-md-6'>
-        <label>Itens Pedido</label>
-        <br>
-        <button type="button" class="btn btn-primary" name="btnBuscaid_itens_pedido" id="btnBuscaid_itens_pedido">Adicionar Produto</button> 
-        <button type="button" class="btn disable-button" id="btnDisable" title="Favor preencher as informações primeiro">Adicionar Produto</button>
+        <label>Placa Veículo</label>
+        <input type="text" class='form form-control' name='txtPlaca' id='txtPlaca' required maxlength="10">
     </div>
-
+    <br>
+    
     <div class="col-md-12 text-center">
         <br>
         <a class="btn btn-success" href="<?= FuncaoBase::geraLink("ajuda", "pedido", "index") ?>">Voltar</a>
@@ -101,138 +69,6 @@ $dadosDestinatario_final = $pedidoModel->listaid_destinatario_finalAutocomplete(
     </div>
 
 </form>
-
-<table class="table table-bordered" name="tbl_itens" id="tbl_itens">
-    <thead>
-        <tr>
-            <th>Código</th>
-            <th>Produto</th>
-            <th>Nr.Nota</th>
-            <th>Validade</th>
-            <th>Quantidade</th>
-            <th>Valor Unit.</th>
-            <th>Total</th>
-
-        </tr>
-    </thead>
-    <tbody>
-
-    </tbody>
-    <tfoot>
-        <tr>
-            <th colspan="5"></th>
-            <th>Total Nota</th>
-            <th><span id="total_nota">R$0,00</span></th>
-        </tr>
-    </tfoot>
-</table>
-
-<!--######################  MODAL aju_itens_pedido ###################-->
-
-<div class="modal" tabindex="-1" role="dialog" id="modal_id_itens_pedido">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Adicionar Materiais Pedido</h4>
-            </div>
-            <div class="modal-body">
-                <div class='col-md-12'>
-                    <label>Nome Produto</label>
-                    <input type="text" class='form form-control' name='nomeUnidade_fk' id='nomeUnidade_fk' required >
-                </div><input type="hidden" name='id_unidade' id='id_unidade'>
-
-
-                <div class='col-md-3'>
-                    <label>Nr. Nota:</label>
-                    <input type="number" class='form form-control' name='id_nota' id='id_nota' readonly="readonly" >
-                </div>
-
-                <div class='col-md-3'>
-                    <label>Quantidade Itens</label>
-                    <input type="number" class='form form-control' name='qtd' id='qtd' required >
-                </div>
-                <div class='col-md-3'>
-                    <label>Valor Unidade</label>
-                    <input type="text" class='form form-control' name='val_unid' id='val_unid' readonly="readonly" >
-                </div>
-                <div class='col-md-3'>
-                    <label>Em estoque:</label>
-                    <input type="text" class='form form-control' name='em_estoque' id='em_estoque'  readonly="readonly" >
-                </div>
-                <div class='col-md-6'>
-                    <label>Valor Total</label>
-                    <input type="text" class='form form-control' name='val_total' id='val_total'  readonly="readonly" >
-                </div>
-                <div class='col-md-6'>
-                    <label>Data Validade</label>
-                    <input type="text" class='form form-control' name='dat_validade' id='dat_validade' readonly="readonly" >
-                </div>
-            </div>
-            <div class="modal-footer">
-                <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
-                <div class="col-md-6 text-left">
-                    <br>
-                    <button type="button" class="btn btn-success text-left" name="btnAddItem" id="btnAddItem" >Adicionar</button>
-                </div>
-                <div class="col-md-6 text-right">
-                    <br>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
-                </div>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<!--###################  FIM MODAL aju_itens_pedido ####################-->
-
-
-<!--######################  MODAL aju_tp_pedido ( ALMOXARIFADO )###################-->
-
-<div class="modal" id="modal_id_tp_pedido">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">x</button>
-                <h4 class="modal-title">Almoxarifado</h4>
-            </div>
-            <div class="modal-body">
-                <label>Pesquisa</label>
-                <input type="text" class="form form-control" name="searcid_tp_pedido" id="searcid_tp_pedido">
-            </div>
-            <div class="modal-footer">
-                <div class="col-md-12 text-right">
-                    <button type="button" class="btn btn-success" data-dismiss="modal" id='cad_almoxarifado'>Cadastrar Novo</button>
-                </div>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<!-- CADASTRO )-->
-
-<div class="modal" id="modal_cad_id_tp_pedido">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">x</button>
-                <h4 class="modal-title">Novo Almoxarifado</h4>
-            </div>
-            <div class="modal-body">
-                <label>Nome</label>
-                <input type="text" class="form form-control" name="txtNomeAlmoxarifado" id="txtNomeAlmoxarifado">
-            </div>
-            <div class="modal-footer">
-                <div class="col-md-6 text-right">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Salvar</button>
-                </div>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<!--###################  FIM MODAL aju_tp_pedido ( ALMOXARIFADO ) ####################-->
-
 
 
 <!--######################  MODAL aju_almoxarifado ###################-->
@@ -264,87 +100,6 @@ $dadosDestinatario_final = $pedidoModel->listaid_destinatario_finalAutocomplete(
 
 <!--###################  FIM MODAL aju_almoxarifado ####################-->
 
-
-<!--######################  MODAL aju_transportadora ###################-->
-
-<div class="modal" tabindex="-1" role="dialog" id="modal_id_transportadora">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Transportadora</h4>
-            </div>
-            <div class="modal-body">
-                <label>Pesquisa</label>
-                <input type="text" class="form form-control" name="searcid_transportadora" id="searcid_transportadora">
-            </div>
-            <div class="modal-footer">
-                <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
-                <div class="col-md-6 text-left">
-                    <a href="<?= FuncaoBase::geraLink("ajuda", "transportadora", "cadastro"); ?>" class="btn btn-success text-left" >Cadastrar Novo</a>
-                </div>
-                <div class="col-md-6 text-right">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
-                </div>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<!--###################  FIM MODAL aju_transportadora ####################--><!--######################  MODAL aju_destinatario ###################-->
-
-<div class="modal" tabindex="-1" role="dialog" id="modal_id_destinatario">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Cadastro aju_destinatario</h4>
-            </div>
-            <div class="modal-body">
-                <label>Pesquisa</label>
-                <input type="text" class="form form-control" name="searcid_destinatario" id="searcid_destinatario">
-            </div>
-            <div class="modal-footer">
-                <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
-                <div class="col-md-6 text-left">
-                    <a href="<?= FuncaoBase::geraLink("ajuda", "destinatario", "cadastro"); ?>" class="btn btn-success text-left" >Cadastrar Novo</a>
-                </div>
-                <div class="col-md-6 text-right">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
-                </div>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<!--###################  FIM MODAL aju_destinatario ####################--><!--######################  MODAL aju_destinatario_final ###################-->
-
-<div class="modal" tabindex="-1" role="dialog" id="modal_id_destinatario_final">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Cadastro aju_destinatario_final</h4>
-            </div>
-            <div class="modal-body">
-                <label>Pesquisa</label>
-                <input type="text" class="form form-control" name="searcid_destinatario_final" id="searcid_destinatario_final">
-            </div>
-            <div class="modal-footer">
-                <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
-                <div class="col-md-6 text-left">
-                    <a href="<?= FuncaoBase::geraLink("ajuda", "destinatario_final", "cadastro"); ?>" class="btn btn-success text-left" >Cadastrar Novo</a>
-                </div>
-                <div class="col-md-6 text-right">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
-                </div>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<!--###################  FIM MODAL aju_destinatario_final ####################-->
-
 <br>
 <!-- =================== RODAPE CORPO ==================== -->
 <?php include_once "template/page/corpoRodape.php"; ?>
@@ -356,38 +111,8 @@ $dadosDestinatario_final = $pedidoModel->listaid_destinatario_finalAutocomplete(
 <script>
 
     $(document).ready(function () {
-  
-
-        /* ##############################################
-         *  clic form campo FK Almoxarifado*/
-        $("#nomeTp_pedido_fk").click(function () {
-            $("#modal_id_tp_pedido").modal('show');
-        });
-        /* focus no campo pesquisa Almoxarifado */
-        $('#modal_id_tp_pedido').on('shown.bs.modal', function (e) {
-            $("#searcid_tp_pedido").focus();
-        });
         
-        
-        
-        /* form cadastro almoxarifado */
-        $("#cad_almoxarifado").click(function () {
-            $("#modal_cad_id_tp_pedido").modal('show');
-        });
-
-        /*###############################################*/
-
-
-        /*###############################################*/
-        /* clic form campo FK Transportadora*/
-        $("#nomeTransportadora_fk").click(function () {
-            $("#modal_id_transportadora").modal('show');
-        });
-        /* focus no campo pesquisa Transportadora */
-        $('#modal_id_transportadora').on('shown.bs.modal', function (e) {
-            $("#searcid_transportadora").focus();
-        });
-        /*###############################################*/
+        $("#data_emissao").mask("99/99/9999");
 
         /*###############################################*/
         /* clic form campo FK Armazem (almoxarifado) */
@@ -401,134 +126,11 @@ $dadosDestinatario_final = $pedidoModel->listaid_destinatario_finalAutocomplete(
         /*###############################################*/
 
         
-        /*###############################################*/
-        /* clic form campo FK Destinataro */
-        $("#nomeDestinatario_fk").click(function () {
-            $("#modal_id_destinatario").modal('show');
-        });
-        /* focus no campo pesquisa  Destinatario */
-        $('#modal_id_destinatario').on('shown.bs.modal', function (e) {
-            $("#searcid_destinatario").focus();
-        });
-        /*###############################################*/
-        
-
-        /*###############################################*/
-        /* clic form campo FK Destinataro Final */
-        $("#nomeDestinatario_final_fk").click(function () {
-            $("#modal_id_destinatario_final").modal('show');
-        });
-        /* focus no campo pesquisa  Destinatario Final */
-        $('#modal_id_destinatario_final').on('shown.bs.modal', function (e) {
-            $("#searcid_destinatario_final").focus();
-        });
-        /*###############################################*/
-
-        $("#frmPedido").trigger("reset");
-
-        $("#tbl_itens").hide();
-
-        var itensPedido = [];
-
-        var total_nota = 0.0;
-        var total = 0.0;
-        var qtd = 0;
-        var val_unit = 0.0;
-
-        var data_validade = $("#dat_validade").val();
-
-
-        $("#qtd").blur(function () {
-
-            qtd = parseInt($("#qtd").val());
-            val_unit = parseFloat($("#val_unid").val().substring(3).replace(",", "."));
-
-            if (qtd > 0) {
-                total = val_unit * qtd;
-                /*formata moeda*/
-                $("#val_total").val(total./*formata moeda*/toLocaleString('pt-BR',
-                        {minimumFractionDigits: 2,
-                            style: 'currency',
-                            currency: 'BRL'})
-                        );
-            }
-
-        });
-
-
-        /*##################  ADICIONAR ITEM TABELA ###############*/
-        $("#btnAddItem").click(function () {
-
-            var saldo = $("#em_estoque").val();
-            var qtd = $("#qtd").val();
-            if (parseInt(qtd) <= parseInt(saldo)) {
-
-                $("#tbl_itens").show();
-
-                if (($("#id_unidade").val() != "") &&
-                        ($("#nomeUnidade_fk").val() != "") &&
-                        ($("#qtd").val() != "") &&
-                        ($("#val_unid").val() != "") &&
-                        ($("#val_total").val() != "")
-                        ) {
-
-                    var item = {'id_unidade': $("#id_unidade").val(),
-                        'nome': $("#nomeUnidade_fk").val(),
-                        'qtd': $("#qtd").val(),
-                        'val_unid': $("#val_unid").val(),
-                        'val_total': $("#val_total").val(),
-                        'data_validade': $("#dat_validade").val(),
-                        'id_nota': $("#id_nota").val(),
-                    };
-                   
-                    
-                var linha = "<tr><td>" + item['id_unidade'] + "</td>";
-                    linha += "<td>" + item['nome'] + "</td>";
-                    linha += "<td>" + item['id_nota'] + "</td>";
-                    linha += "<td>" + item['data_validade'] + "</td>";
-                    linha += "<td>" + item['qtd'] + "</td>";
-                    linha += "<td>" + item['val_unid'] + "</td>";
-                    linha += "<td>" + item['val_total'] + "</td></tr>";
-
-                    itensPedido.push(item);
-
-
-
-                    total_nota += total;
-
-                    $("#total_nota").text(total_nota.toLocaleString('pt-BR',
-                            {minimumFractionDigits: 2,
-                                style: 'currency',
-                                currency: 'BRL'})
-                            );
-
-
-                    $("#tbl_itens").append(linha);
-                    alert("Material Adicionar com Sucesso !");
-
-                    /* limpa dos comproles */
-                    $("#id_unidade").val("");
-                    $("#nomeUnidade_fk").val("");
-                    $("#qtd").val("");
-                    $("#val_unid").val("");
-                    $("#val_total").val("");
-                    $("#dat_validade").val("");
-                    $("#id_nota").val("");
-
-                } else {
-
-                    alert("Preencha o campo Obgrigatorio !");
-
-                }
-            } else {
-                alert("Produto sem Estoque !");
-            }
-
-        });
+        $("#frmTransf").trigger("reset");
 
         /*###################  ENVIO POST GRAVAR ################*/
 
-        $("#frmPedido").submit(function (e) {
+        $("#frmTransf").submit(function (e) {
             e.preventDefault();
         }).validate({
             rules: {

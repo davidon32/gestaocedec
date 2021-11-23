@@ -54,9 +54,11 @@ class RelatorioConEstoqueModel extends Model {
                         aju_cmarca.nome as marca_nome,
                         aju_cunidade.descricao,
                         aju_ctp_pedido.nome as almoxarifado,
+                        aju_ctp_pedido.id_tp_pedido,
                         sum(aju_ccc.qtd) as qtd,
                         aju_ccc.val_unit,
                         aju_calmoxarifado.nome as armazem,
+                        aju_calmoxarifado.id_almoxarifado,
                         aju_ccc.id_nota
                         from aju_ccc
                         inner join aju_cunidade

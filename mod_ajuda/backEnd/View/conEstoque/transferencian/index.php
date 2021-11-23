@@ -20,7 +20,18 @@
 
 <?php
 
-var_dump($transferencia);
+$page = (!isset($_GET['page'])) ? 1 : $_GET['page'];
+
+$numRegPorPagina = 10;
+$pag = new TransferencianController();
+$paginacao = $pag->paginacao($page, $numRegPorPagina);
+
+
+$no = ($page > 1) ? 1 : 1;
+
+$nr = 0;
+
+$transferencias = $transferenciaModel->lista();
 
 print "<legend>Últimas Transferências</legend>";
 
@@ -38,23 +49,23 @@ print "<div class=\"table-responsive\"><table class=\"table table-bordered table
 </thead>
 <tbody>";
 
-
+foreach ($transferencias as $transferencia) {
     print "<tr>
                     <td>" . $transferencia['id_pedido'] . "</td>
-<td>" . $transfereciaModel->getNomeIdFk('aju_ctp_pedido', 'id_tp_pedido', $transferencia['id_tp_pedido'])->nome . "</td>
+<td>" . $transferenciaModel->getNomeIdFk('aju_ctp_pedido', 'id_tp_pedido', $transferencia['id_tp_pedido'])->nome . "</td>
 <td>" . DataMysql::dataVisual($transferencia['data_emissao']) . "</td>
-<td>" . $transfereciaModel->getNomeIdFk('aju_calmoxarifado', 'id_almoxarifado', $transferencia['id_almoxarifado'])->nome . "</td>
-<td>" . $transfereciaModel->getNomeIdFk('aju_cdestinatario', 'id_destinatario', $transferencia['id_destinatario'])->nome . "</td>
-<td>". $transfereciaModel->getSituacao($transferencia['situacao'])."</td>";
+<td>" . $transferenciaModel->getNomeIdFk('aju_calmoxarifado', 'id_almoxarifado', $transferencia['id_almoxarifado'])->nome . "</td>
+<td>" . $transferenciaModel->getNomeIdFk('aju_cdestinatario', 'id_destinatario', $transferencia['id_destinatario'])->nome . "</td>
+<td>". $transferenciaModel->getSituacao($transferencia['situacao'])."</td>";
 
     print "<td>";
-    print "<a href='" . FuncaoBase::geraLink("ajuda", "pedido", "view", array('id' => $pedido['id_pedido'])) . "'><img src='/core/imagem/view.png' title='Visualizar Registro'></a>&nbsp;&nbsp;";
-    print ($pedido['situacao'] == 0) ? "<a href='" . FuncaoBase::geraLink("ajuda", "pedido", "edit", array('id' => $pedido['id_pedido'])) . "'><img src='/core/imagem/editar.png' title='Editar Registro'></a>&nbsp;&nbsp;" : "";
-    print ($pedido['situacao'] == 0) ? "<a href='" . FuncaoBase::geraLink("ajuda", "pedido", "delete", array('id' => $pedido['id_pedido'])) . "' onclick=\"return confirm('Deseja Deletar esse Registro ?')\"><img src='/core/imagem/delete.png' title='Deletar Registro'></a>&nbsp;&nbsp;" : "";
-    print ($pedido['situacao'] == 1) ? "<a href='" . FuncaoBase::geraLink("ajuda", "pedido", "notapedido", array('id' => $pedido['id_pedido'], 'volta' => 'index')) . "'>   <img src='/core/imagem/nota.png' title='Gerar Nota'></a>&nbsp;&nbsp;" : "";
+    print "<a href='" . FuncaoBase::geraLink("ajuda", "pedido", "view", array('id' => $transferencia['id_pedido'])) . "'><img src='/core/imagem/view.png' title='Visualizar Registro'></a>&nbsp;&nbsp;";
+    print ($transferencia['situacao'] == 0) ? "<a href='" . FuncaoBase::geraLink("ajuda", "pedido", "edit", array('id' => $transferencia['id_pedido'])) . "'><img src='/core/imagem/editar.png' title='Editar Registro'></a>&nbsp;&nbsp;" : "";
+    print ($transferencia['situacao'] == 0) ? "<a href='" . FuncaoBase::geraLink("ajuda", "pedido", "delete", array('id' => $transferencia['id_pedido'])) . "' onclick=\"return confirm('Deseja Deletar esse Registro ?')\"><img src='/core/imagem/delete.png' title='Deletar Registro'></a>&nbsp;&nbsp;" : "";
+    print ($transferencia['situacao'] == 1) ? "<a href='" . FuncaoBase::geraLink("ajuda", "pedido", "notapedido", array('id' => $transferencia['id_pedido'], 'volta' => 'index')) . "'>   <img src='/core/imagem/nota.png' title='Gerar Nota'></a>&nbsp;&nbsp;" : "";
     
     if(Usuario::getPermissao("aju_permissao", "cancela_pedido") == 1){ # permissao diretor
-        print ($pedido['situacao'] == 1) ? "<a href='" . FuncaoBase::geraLink("ajuda", "pedido", "cancela", array('id' => $pedido['id_pedido'])) . "'><img width='25' src='/core/imagem/cancela.png' title='Cancelar pedido'></a>&nbsp;&nbsp;" : "";
+        print ($transferencia['situacao'] == 1) ? "<a href='" . FuncaoBase::geraLink("ajuda", "pedido", "cancela", array('id' => $transferencia['id_pedido'])) . "'><img width='25' src='/core/imagem/cancela.png' title='Cancelar pedido'></a>&nbsp;&nbsp;" : "";
     }
     print
             "</td>";
@@ -62,7 +73,7 @@ print "<div class=\"table-responsive\"><table class=\"table table-bordered table
     print "</tr>";
     $nr += $no;
 
-
+}
 
 print " </tbody></table></div>";
 

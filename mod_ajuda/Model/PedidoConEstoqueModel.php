@@ -392,8 +392,9 @@ WHERE aju_cpedido.id_pedido = " . $id_pedido;
             return $e->getMessage() . "Erro lista registros";
         }
     }
-
-    #################  PEDIDOS EM ABERTO ##################
+    
+    
+       #################  PEDIDOS EM ABERTO ##################
 
     public static function separacaoLista($_dados = null) {
 

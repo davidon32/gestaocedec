@@ -98,6 +98,7 @@
     </table>
     <table align="center" width="700" class="table table-cell">
 		<tr>
+                    <th>OPÇÕES</th>
                     <th>CÓDIGO</th>
                     <th>NUM.NOTA</th>
                     <th>DESCRIÇÃO</th>
@@ -126,6 +127,14 @@
                         $total = $value['qtd']*$value['val_unit'];
                 
                         print "<tr>";
+                        print "<td class='sem_quebra'>
+                                <!--<a href='' title='Gerar Pedido para este material'><img src='/core/imagem/envio_pedido.png' width='20'></a> |-->
+                                <a href='#' name='lk_transferencia' 
+                                    data-id_material='".$value['id_unidade']."'
+                                    data-id_almoxarifado='".$value['id_almoxarifado']."' 
+                                    data-id_tp_pedido='".$value['id_tp_pedido']."' 
+                                    title='Transferencia de Materiais entre Depósitos !'><img src='/core/imagem/transferencia.png' width='20'></a>
+                            </td>";
                         print "<td>".$value['id_unidade']."</td>";
                         print "<td>".$value['id_nota']."</td>";
                         print "<td class='sem_quebra'>".$value['nome']." - ".$value['descricao']."</td>";
@@ -136,10 +145,39 @@
                         print "<td>".$value['qtd']."</td>";
                         print "<td class='sem_quebra'>R$ ". FuncaoBase::real($value['val_unit'])."</td>";
                         print "<td class='sem_quebra'>R$ ".FuncaoBase::real($total)."</td>";
-                    }
-                    
+                    } 
                 }
-
                 ?>
 		</table>
+
+
+<?php include_once "template/page/rodapePage.php"; ?>
+<script>
+
+$(document).ready(function(){
+    
+    $('a[name="lk_transferencia"]').click(function(){
+        
+        /* ajax envia para form transferencia */
+        
+        var formData = new FormData();
+	formData.append('id_material', $(this).data('id_material'));
+        formData.append('id_almoxarifado', $(this).data('id_almoxarifado'));
+        formData.append('id_tp_pedido', $(this).data('id_tp_pedido'));
+        $.ajax({
+		url : '/mod_ajuda/backEnd/View/conEstoque/transferencian/ajax.php',
+		type : 'POST',
+		data : formData,
+		processData: false,  // tell jQuery not to process the data
+		contentType: false,  // tell jQuery not to set contentType
+		success : function(response) {
+                    
+                },
+		error : function(e) {
+		}
+            });
+    });
+      
+});
+</script>
 					    

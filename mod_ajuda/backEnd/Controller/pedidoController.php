@@ -20,10 +20,14 @@ class pedidoController extends Controller {
     private $pedidos;
     private $campos;
     public $numPage;
+    
+    private $transferencia;
+    private $transferencias;
 
     public function __construct() {
         $this->pedido = new PedidoConEstoqueModel;
         $this->pedidos = $this->pedido->lista();
+        
     }
 
     # index pedido
@@ -171,13 +175,7 @@ class pedidoController extends Controller {
         include_once 'mod_ajuda/backEnd/View/conEstoque/pedido/separar.php';
     }
     
-    # TRANSFERENCIA MAT
-
-    public function transferencian() {
-        include_once 'mod_ajuda/backEnd/View/conEstoque/transferencian/index.php';
-    }
-
-    # gravar Separacao
+        # gravar Separacao
 
     public function gravseparar() {
 

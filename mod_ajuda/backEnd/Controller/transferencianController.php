@@ -22,7 +22,8 @@ class transferencianController extends Controller {
     
     public function __construct() {
         $this->transferencia = new TransferenciaConEstoqueModel;
-        $this->$transferencias = $this->transferencia->lista();
+        
+        $this->transferencias = $this->transferencia->lista();
 
     }
 
