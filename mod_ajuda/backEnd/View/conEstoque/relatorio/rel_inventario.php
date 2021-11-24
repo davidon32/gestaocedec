@@ -133,6 +133,7 @@
                                     data-id_material='".$value['id_unidade']."'
                                     data-id_almoxarifado='".$value['id_almoxarifado']."' 
                                     data-id_tp_pedido='".$value['id_tp_pedido']."' 
+                                    data-saldo='".$value['qtd']."' 
                                     title='Transferencia de Materiais entre Depósitos !'><img src='/core/imagem/transferencia.png' width='20'></a>
                             </td>";
                         print "<td>".$value['id_unidade']."</td>";
@@ -164,6 +165,7 @@ $(document).ready(function(){
 	formData.append('id_material', $(this).data('id_material'));
         formData.append('id_almoxarifado', $(this).data('id_almoxarifado'));
         formData.append('id_tp_pedido', $(this).data('id_tp_pedido'));
+        formData.append('saldo', $(this).data('saldo'));
         $.ajax({
 		url : '/mod_ajuda/backEnd/View/conEstoque/transferencian/ajax.php',
 		type : 'POST',
@@ -171,7 +173,7 @@ $(document).ready(function(){
 		processData: false,  // tell jQuery not to process the data
 		contentType: false,  // tell jQuery not to set contentType
 		success : function(response) {
-                    
+                    window.location.href = '<?=FuncaoBase::geraLink("ajuda", "transferencian", "cadastro");?>';
                 },
 		error : function(e) {
 		}

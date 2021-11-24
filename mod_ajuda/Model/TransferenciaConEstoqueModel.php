@@ -141,37 +141,60 @@ class TransferenciaConEstoqueModel extends Model {
 
 
         var_dump(self::$model);
-        $sql = "INSERT INTO aju_ctransportadora (nome,
-cnpj,
-tel 
-) VALUES (:nome,
-:cnpj,
-:tel 
-)";
+        $sql = "INSERT INTO aju_ctransferencia
+                    (data_transf,
+                        motorista,
+                        identificacao,
+                        veiculo,
+                        placa,
+                        id_almoxarifado_ori,
+                        id_almoxarifado,
+                        obs,
+                        id_tp_pedido,
+                        id_unidade,
+                        qtd) VALUES (:data_transf
+                                    :motorista
+                                    :identificacao
+                                    :veiculo
+                                    :placa
+                                    :id_almoxarifado_ori
+                                    :id_almoxarifado
+                                    :obs
+                                    :id_tp_pedido,
+                                    :id_unidade,
+                                    :qtd)";
 
         try {
 
             $result = self::$con->prepare($sql);
-
-            $result->bindValue(":nome", $dados['nome']);
-$result->bindValue(":cnpj", $dados['cnpj']);
-$result->bindValue(":tel", $dados['tel']);
-
- 
+            
+            $result->bindValue(":data_transf",  $dados['data_transferencia']);
+            $result->bindValue(":motorista",    $dados['motorista']);
+            $result->bindValue(":identificacao",$dados['identificacao']);
+            $result->bindValue(":veiculo",      $dados['veiculo']);
+            $result->bindValue(":placa",        $dados['placa']);
+            $result->bindValue(":id_almoxarifado_ori",$dados['id_almoxarifado_ori']);
+            $result->bindValue(":id_almoxarifado", $dados['id_almoxarifado']);
+            $result->bindValue(":obs",          $dados['obs']);
+            $result->bindValue(":id_tp_pedido", $dados['id_tp_pedido']);
+            $result->bindValue(":id_unidade", $dados['id_unidade']);
+            $result->bindValue(":qtd", $dados['qtd']);
+            
             $result->execute();
-
+                    return  true;
+            
             #Log::GravaLog("Cadastro de marca : " . $dados['nome'] . " " . $_COOKIE['seguranca']['login'], "aju_log");
 
-            return true;
         } catch (Exception $e) {
             return $e->getMessage() . "Erro ao inserir marca";
         }
     }
+     
 
     #################  EDIT ##################
             
             
-    ################  Atualizar dados transportadora  ###################
+    ################  editar transferencia  ###################
 
     public static function edit(array $dados) {
         
@@ -274,6 +297,46 @@ aju_ctransportadora.tel
             return true;
         } catch (Exception $e) {
             return $e->getMessage() . "Erro Deletar Transportadora !";
+        }
+    }
+    
+    #####################  Busca nome do ID do Fk  ######################
+
+    /** Busca nome do ID Fk 
+
+     * 
+
+     */
+    public function getNomeIdFk($nome_tabela, $id_tabela, $id) {
+
+
+
+        if (!is_null($id)) {
+
+            $con = Conexao::getInstance();
+
+            $dados = "";
+
+            $sql = "SELECT nome
+                                  FROM {$nome_tabela}
+                                  WHERE {$id_tabela} = $id";
+
+            try {
+
+                $result = $con->query($sql);
+
+                while ($linha = $result->fetch(PDO::FETCH_OBJ)) {
+                    $dados = $linha;
+                }
+
+                return $dados;
+            } catch (Exception $e) {
+                return $e->getMessage();
+            }
+        } else {
+            $dados = new \stdClass();
+            $dados->nome = '-';
+            return $dados;
         }
     }
     

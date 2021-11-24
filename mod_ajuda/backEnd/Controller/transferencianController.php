@@ -93,6 +93,8 @@ class transferencianController extends Controller {
 
     # formulario cadastro
     public function cadastro() {
+        
+        
         include_once 'mod_ajuda/backEnd/View/conEstoque/transferencian/cadastro.php';
     }
     
@@ -109,6 +111,9 @@ class transferencianController extends Controller {
 
     public function gravar() {
 
+        var_dump($_POST);
+        die();
+        
         $transferencia = new TransferenciaConEstoqueModel;
         
         
