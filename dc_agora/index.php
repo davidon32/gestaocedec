@@ -50,20 +50,15 @@
 
     <?php
     //$categoria = isset($_GET['cat']) ? $_GET['cat'] : "";
-    require('dados.php');
-
+    
+        require('dados.php');
     ?>
 
     <div id="wrapper">
         <div class="collapse top-search" id="collapseExample">
-            <div class="card card-block">
-                <div class="newsletter-widget text-center">
-                    <form class="form-inline" id="frmBusca">
-                        <input type="text" name="termo" id="termo" class="form-control" placeholder="por qual termo vc quer buscar ?">
-                        <button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button>
-                    </form>
-                </div><!-- end newsletter -->
-            </div>
+            
+                <?=include_once 'search.php';?>
+            
         </div><!-- end top-search -->
 
         <div class="topbar-section">
@@ -80,7 +75,7 @@
 
                     <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                         <div class="topsearch text-right">
-                            <a data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-search"></i> Busca</a>
+                            <!--<a data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-search"></i> Busca</a>-->
                         </div><!-- end search -->
                     </div><!-- end col -->
                 </div><!-- end row -->
@@ -199,7 +194,7 @@ foreach ($paginacao->dados as $value) {
 
     print "<div class=\"blog-meta big-meta col-md-8\">";
     print "<span class=\"bg-aqua\">" . $value['categoria'] . "</span>";
-    print "<h4><a href=\"postagem.php?id=" . $value['id'] . "\" title=\"\">" . (isset($value['titulo']) ? $value['titulo'] : "Postagem") . "</a></h4>";
+    print "<h4><a href=\"postagem.php?id=" . $value['id'] . "\" title=\"\">" . (isset($value['titulo']) ? $value['titulo'] : substr($value['texto'], 0, 40)."...") . "</a></h4>";
     print "<p>" . substr($value['texto'], 0, 200) . " <span>Leia mais...</span></p>";
     print "<small><a href=\"garden-category.html\" title=\"\"><i class=\"fa fa-eye\"></i> " . $value['views'] . "</a></small>";
     print "<small><a href=\"postagem.php?id=" . $value['id'] . "\" title=\"\">" . DataMysql::dataExtensoDocumento(DataMysql::dataVisual($value['data_hora'])) . "</a></small>";
@@ -254,7 +249,7 @@ foreach ($post_recente as $key => $value) {
                                             <div class='w-100 justify-content-between'>
                                                 <img src = \"/anexo/def_civil_agora/" . $value['imagem1']."\" alt ='' class= 'img-fluid float-left'>
                                                 <h5 class ='mb-1'>" . substr($value['texto'], 0, 40) . "...</h5>
-                                                <small>" . $value['data_hora'] . "</small>
+                                                <small>" . DataMysql::dataCompletaVisual($value['data_hora']) . "</small>
                                             </div>
                                         </div>";
 }
@@ -295,7 +290,7 @@ foreach ($post_recente as $key => $value) {
                                     <ul>
 <?php
 foreach ($categorias as $key => $value) {
-    print "<li><a href=\"?cat=" . FuncaoBase::slug($value['categoria']) . "\">" . $value['categoria'] . "<span>(" . $value['qtd'] . ")</span></a></li>";
+    print "<li><a href=\"index.php?cat=" . FuncaoBase::slug($value['categoria']) . "\">" . $value['categoria'] . "<span>(" . $value['qtd'] . ")</span></a></li>";
 }
 ?>
                                     </ul>
@@ -375,6 +370,8 @@ foreach ($categorias as $key => $value) {
     <script type="text/javascript">
 
         $(document).ready(function () {
+            
+       
             
             function view(id) {
                 

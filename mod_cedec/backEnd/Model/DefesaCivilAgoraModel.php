@@ -25,9 +25,11 @@ class DefesaCivilAgoraModel {
         return $dados;
     }
 
-    public function listaPostagem($limit = 0) {
+    public function listaPostagem($limit = 0, $categoria = "") {
 
         $opcao = ($limit > 0) ? " limit 3 " : "";
+        
+        $cat = (empty($categoria) ? "" : " and categoria = '".self::enumCategoria($categoria)."' ");
 
         $dados = array();
 
@@ -43,9 +45,8 @@ class DefesaCivilAgoraModel {
                         data_hora,
                         views
                         from cedec_def_agora
-                        where status1 = 1 
+                        where status1 = 1 ".$cat."
                         order by data_hora desc " . $opcao;
-
         $result = $con->query($sql);
 
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -286,7 +287,7 @@ class DefesaCivilAgoraModel {
             case "ajuda_humanitaria":
                 return "Ajuda Humanitaria";
                 break;
-            case "cedec-mg":
+            case "cedec_mg":
                 return "CEDEC-MG";
                 break;
             case "diligencia":
@@ -298,8 +299,8 @@ class DefesaCivilAgoraModel {
             case "mapeamento_de_area_de_risco":
                 return "Mapeamento De Área De Risco";
                 break;
-            case "outros_descrever_no_texto_":
-                return "Outros(Descrever No Texto)";
+            case "outrosdescrever_no_texto":
+                return "Outros(descrever no texto)";
                 break;
             case "programa_agua_doce":
                 return "Programa Agua Doce";
@@ -310,8 +311,8 @@ class DefesaCivilAgoraModel {
             case "treinamento_capacitacao":
                 return "Treinamento Capacitação";
                 break;
-            case "vistoria":
-                return "Vistoria";
+            case "vistoria_fiscalizacao":
+                return "Vistoria/Fiscalização";
                 break;
             default:
                 break;

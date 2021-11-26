@@ -1,4 +1,6 @@
 <ul class="navbar-nav">
+    <li class="nav-item"><a class="nav-link color-green-hover" href="index.php">Início</a>
+    </li>
     <li class="nav-item"><a class="nav-link color-green-hover" href="index.php?cat=ajuda_humanitaria">Ajuda Humanitária</a>
     </li>
     <li class="nav-item">

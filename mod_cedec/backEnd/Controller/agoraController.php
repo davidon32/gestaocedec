@@ -77,11 +77,13 @@ class agoraController extends Controller {
 
     public function postagem() {
         
+        $post = $_POST;
+        
         $agora = new DefesaCivilAgoraModel();
 
         $nomeImagem = date('dmYHis') . 'def_agora';
 
-        $post['txtImagem'] = $nomeImagem . ".png";
+        $post['imagem1'] = $nomeImagem . ".png";
 
         $img = $_POST['imageData'];
 
@@ -98,7 +100,7 @@ class agoraController extends Controller {
                 # upload
                 $success = file_put_contents($file, $data);
                 # gravar nome arquivo
-                var_dump($agora->gravarPost($_POST));
+                var_dump($agora->gravarPost($post));
             } else {
                 print "arquivo";
             }

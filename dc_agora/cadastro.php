@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
     <!-- Basic -->
     <meta charset="utf-8">
@@ -57,7 +57,13 @@
             opacity: 0.5;
             width: 100%;
             height: 100%;
+        } 
+        
+        #upload-Preview{
+         max-width: 500px;   
         }
+        
+                       
     </style>
 
     <!--[if lt IE 9]>
@@ -165,14 +171,15 @@
                                         <textarea name="txt_texto" id="txt_texto"  class="form-control" placeholder="Texto" title="Texto da Postagem" maxlength="254"></textarea>
                                         <input name="fl_image" id="fl_image" onchange="loadImageFile()" accept="image/jpg,image/jpeg" type="file" class="form-control" placeholder="Imagem ( opcional )" title="Imagem para a postagem ( opcional )" >
                                         <button name="btn_enviar" id="btn_enviar" type="button" class="btn btn-primary">Enviar</button>
+                                        <button name="btn_voltar" id="btn_voltar" type="button" onclick='history.back();' class="btn btn-success">Voltar</button>
                                     </form>
                                 </div>
                             </div>
                         </div><!-- end page-wrapper -->
                     </div><!-- end col -->
-                    <div class="col-lg-2">
-                        <img id="upload-Preview" width="300" name="imgFormat">
-                        opas
+                    <div class="col-md-12 text-center ">
+                        <br>
+                        <img id="upload-Preview" name="imgFormat" > 
                     </div>
                 </div><!-- end row -->
             </div><!-- end container -->
@@ -185,18 +192,17 @@
                         <div class="widget">
                             <div class="footer-text text-center">
                                 <a href="index.html"><img src="images/version/garden-footer-logo.png" alt="" class="img-fluid"></a>
-                                <p>Forest Time is a personal blog for handcrafted, cameramade photography content, fashion styles from independent creatives around the world.</p>
+                                <p>Gabinete Militar do Estado de Minas Gerais e Coordenadoria Estadual de Defesa Civil de Minas Gerais.</p>
                                 <div class="social">
-                                    <a href="#" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i class="fa fa-facebook"></i></a>              
-                                    <a href="#" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i class="fa fa-twitter"></i></a>
-                                    <a href="#" data-toggle="tooltip" data-placement="bottom" title="Instagram"><i class="fa fa-instagram"></i></a>
-                                    <a href="#" data-toggle="tooltip" data-placement="bottom" title="Google Plus"><i class="fa fa-google-plus"></i></a>
-                                    <a href="#" data-toggle="tooltip" data-placement="bottom" title="Pinterest"><i class="fa fa-pinterest"></i></a>
+                                    <a href="https://www.facebook.com/defesacivilmg/" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i class="fa fa-facebook"></i></a>              
+                                    <a href="https://www.youtube.com/c/DefesaCivildeMinasGerais/videos" data-toggle="tooltip" data-placement="bottom" title="Youtube"><i class="fa fa-youtube"></i></a>
+                                    <a href="https://www.twitter.com/defesacivil_mg" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i class="fa fa-twitter"></i></a>
+                                    <a href="https://www.instagram.com/defesacivil_mg" data-toggle="tooltip" data-placement="bottom" title="Instagram"><i class="fa fa-instagram"></i></a>
                                 </div>
 
                                 <hr class="invis">
 
-                                <div class="newsletter-widget text-center">
+                                <!--<div class="newsletter-widget text-center">
                                     <form class="form-inline">
                                         <input type="text" class="form-control" placeholder="Enter your email address">
                                         <button type="submit" class="btn btn-primary">Subscribe <i class="fa fa-envelope-open-o"></i></button>
@@ -210,7 +216,7 @@
                     <div class="col-md-12 text-center">
                         <br>
                         <br>
-                        <div class="copyright">&copy; Forest Time. Design: <a href="http://html.design">HTML Design</a>.</div>
+                        <!--<div class="copyright">&copy; Forest Time. Design: <a href="http://html.design">HTML Design</a>.</div>-->
                     </div>
                 </div>
             </div><!-- end container -->
@@ -259,7 +265,10 @@
                                                         form_data.append('categoria', $("#sel_categoria").val());
                                                         form_data.append('opcao', "cadastro");
                                                         form_data.append("imageData", imageUp);
-                                                        form_data.append()
+                                                        form_data.append("texto", $("#txt_texto").val());
+                                                        form_data.append("data_hora", '<?=date('Y-m-d H:i:s');?>');
+                                                        form_data.append("status1 ", 0);
+                                                        
                                                         $.ajax({
                                                             type: 'POST',
                                                             url: 'index.php?modulo=cedec&controller=agora&action=postagem',
@@ -271,7 +280,7 @@
                                                                 //console.log(response)
                                                                 $(".mask-loading").fadeOut('slow');
                                                                 alert('Registro Lançado com Sucesso ! \n Sua postagem será avaliado por um moderador !');
-                                                                //location.reload();
+                                                                location.reload();
                                                             }
                                                         });
                                                     }
@@ -293,8 +302,14 @@
 
                                                     });
                                                     /*######################################################### */
+                                                });
+                                            });
+                                            /*###############################################################################*/
 
-                                                    fileReader.onload = function (event) {
+
+                                            var fileReader = new FileReader();
+                                            
+                                            fileReader.onload = function (event) {
                                                         var image = new Image();
                                                         image.onload = function () {
 
@@ -317,19 +332,13 @@
                                                                     );
                                                             document.getElementById("upload-Preview").src = canvas.toDataURL();
                                                             var dataURL = canvas.toDataURL();
-                                                            document.getElementById('hidden_data').value = dataURL;
+                                                            
+                                                            //document.getElementById('hidden_data').value = dataURL;
                                                         };
                                                         image.src = event.target.result;
                                                     };
 
-
-
-                                                });
-                                            });
-                                            /*###############################################################################*/
-
-
-                                            var fileReader = new FileReader();
+                                            
                                             var filterType = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
                                             var loadImageFile = function () {
                                                 var uploadImage = document.getElementById("fl_image");

@@ -54,14 +54,7 @@
 
     <div id="wrapper">
         <div class="collapse top-search" id="collapseExample">
-            <div class="card card-block">
-                <div class="newsletter-widget text-center">
-                    <form class="form-inline">
-                        <input type="text" class="form-control" placeholder="What you are looking for?">
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
-                    </form>
-                </div><!-- end newsletter -->
-            </div>
+            <?php include_once('search.php');?>
         </div><!-- end top-search -->
 
         <div class="topbar-section">
@@ -121,7 +114,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                        <h2><i class="fa fa-leaf bg-green"></i> Blog</h2>
+                        <h2><i class="fa fa-address-book bg-green"></i> Defesa Civil Agora</h2>
                     </div><!-- end col -->
                     <div class="col-lg-4 col-md-4 col-sm-12 hidden-xs-down hidden-sm-down">
                         <ol class="breadcrumb">
@@ -144,7 +137,7 @@
                                 <h3><?= $dados['texto'] ?></h3>
 
                                 <div class="blog-meta big-meta">
-                                    <small><?= $dados['data_hora'] ?></small>
+                                    <small><?= DataMysql::dataCompletaVisual($dados['data_hora']) ?></small>
                                     <small><?= $dados['autor'] ?></small>
                                     <small><i class="fa fa-eye"></i> <?=$dados['views']?></small>
                                 </div><!-- end meta -->
@@ -167,7 +160,7 @@
                             <hr class="invis1">
 
                             <div class="custombox authorbox clearfix">
-                                <h4 class="small-title">Nota author</h4>
+                                <h4 class="small-title">Nota autor</h4>
                                 <div class="row">
                                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                                         <img src="/core/imagem/edit_user.png" alt="" class="img-fluid rounded-circle"> 
@@ -207,9 +200,9 @@
                                                 </a>
                                             </div><!-- end media -->
                                             <div class="blog-meta">
-                                                <h4><a href="postagem.php?id=<?= $aleatorio[0]['id'] ?>" title=""><?= (isset($aleatorio[0]['titulo']) ? $aleatorio[0]['titulo'] : "Postagem") ?></a></h4>
+                                                <h4><a href="postagem.php?id=<?= $aleatorio[0]['id'] ?>" title=""><?= (isset($aleatorio[0]['titulo']) ? $aleatorio[0]['titulo'] : substr($value['texto'], 0, 40)."...") ?></a></h4>
                                                 <small><a href="postagem.php?id=<?= $aleatorio[0]['id'] ?>" title=""><?= $aleatorio[0]['categoria'] ?></a></small>
-                                                <small><a href="postagem.php?id=<?= $aleatorio[0]['id'] ?>" title=""><?= $aleatorio[0]['data_hora'] ?></a></small>
+                                                <small><a href="postagem.php?id=<?= $aleatorio[0]['id'] ?>" title=""><?= DataMysql::dataCompletaVisual($aleatorio[0]['data_hora']) ?></a></small>
                                             </div><!-- end meta -->
                                         </div><!-- end blog-box -->
                                     </div><!-- end col -->
@@ -225,9 +218,9 @@
                                                 </a>
                                             </div><!-- end media -->
                                             <div class="blog-meta">
-                                                <h4><a href="postagem.php?id=<?= $aleatorio[1]['id'] ?>" title=""><?= (isset($aleatorio[0]['titulo']) ? $aleatorio[0]['titulo'] : "Postagem") ?></a></h4>
+                                                <h4><a href="postagem.php?id=<?= $aleatorio[1]['id'] ?>" title=""><?= (isset($aleatorio[0]['titulo']) ? $aleatorio[0]['titulo'] : substr($value['texto'], 0, 40)."...") ?></a></h4>
                                                 <small><a href="postagem.php?id=<?= $aleatorio[1]['id'] ?>" title=""><?= $aleatorio[1]['categoria'] ?></a></small>
-                                                <small><a href="postagem.php?id=<?= $aleatorio[1]['id'] ?>" title=""><?= $aleatorio[1]['data_hora'] ?></a></small>
+                                                <small><a href="postagem.php?id=<?= $aleatorio[1]['id'] ?>" title=""><?= DataMysql::dataCompletaVisual($aleatorio[1]['data_hora']) ?></a></small>
                                             </div><!-- end meta -->
                                         </div><!-- end blog-box -->
                                     </div><!-- end col -->
@@ -271,9 +264,9 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <form class="form-wrapper" id="frmComentario">
-                                            <input type="text" class="form-control" placeholder="Your name" name="txt_nome" id="txt_nome">
-                                            <input type="text" class="form-control" placeholder="Email address" name="txt_email" id="txt_email">
-                                            <textarea class="form-control" placeholder="Your comment" name="txt_comentario" id="txt_comentario"></textarea>
+                                            <input type="text" class="form-control" placeholder="Seu nome" name="txt_nome" id="txt_nome">
+                                            <input type="text" class="form-control" placeholder="Email" name="txt_email" id="txt_email">
+                                            <textarea class="form-control" placeholder="Comentário" name="txt_comentario" id="txt_comentario"></textarea>
                                             <button type="button" class="btn btn-primary" name="btnGravar" id="btnGravar">Enviar comentário</button>
                                         </form>
                                     </div>
@@ -304,7 +297,7 @@ foreach ($post_recente as $key => $value) {
                                             <div class='w-100 justify-content-between'>
                                                 <img src = \"/anexo/def_civil_agora/".$value['imagem1']."\" alt ='' class= 'img-fluid float-left'>
                                                 <h5 class ='mb-1'>" . substr($value['texto'], 0, 40) . "...</h5>
-                                                <small>" . $value['data_hora'] . "</small>
+                                                <small>" . DataMysql::dataCompletaVisual($value['data_hora']) . "</small>
                                             </div>
                                         </div>";
 }
@@ -331,7 +324,7 @@ foreach ($post_recente as $key => $value) {
                                 <ul>
 <?php
 foreach ($categorias as $key => $value) {
-    print "<li><a href=\"?cat=" . FuncaoBase::slug($value['categoria']) . "\">" . $value['categoria'] . "<span>(" . $value['qtd'] . ")</span></a></li>";
+    print "<li><a href=\dc_agora\index.php?cat=" . FuncaoBase::slug($value['categoria']) . ">" . ( (strlen($value['categoria']) >= 20) ? substr($value['categoria'], 0, 20)."..." : $value['categoria'] ) . "<span>(" . $value['qtd'] . ")</span></a></li>";
 }
 ?>
                                 </ul>

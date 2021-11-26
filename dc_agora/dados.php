@@ -13,7 +13,10 @@ $agora = new DefesaCivilAgoraModel();
 # lista de categoria e quantidade
 $categoria = $agora->listaCategoria();
 
-$ultimas_postagens = $agora->listaPostagem(3);
+$cat = isset($_GET['cat']) ? $_GET['cat'] : "";
+
+$ultimas_postagens = $agora->listaPostagem(3, $cat);
+
 
 foreach ($ultimas_postagens as $key => $value) {
     $ids[] = $value['id'];
