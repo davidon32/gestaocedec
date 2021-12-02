@@ -18,8 +18,7 @@
     <!--<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">-->
 
-    <!-- Design fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet"> 
+    
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -43,6 +42,22 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+    <style>
+            @font-face {
+                font-family: "Droid Sans";
+                src: url('fonts/DroidSans.ttf');      
+        }
+        
+            @font-face {
+                font-family: "Droid Sans Bold";
+                src: url('fonts/DroidSans-Bold.ttf');      
+        }
+
+        body {
+          font-family: "Droid Sans", "Droid Sans Bold" ;
+         }
+    </style>
 
 </head>
 <body>
@@ -186,7 +201,7 @@ foreach ($paginacao->dados as $value) {
     print "<div class=\"col-md-4\">";
     print "<div class=\"post-media\" data-id=\"".$value['id']."\">";
     print "<a href=\"postagem.php?id=" . $value['id'] . "\" title=\"\">";
-    print "<img src=\"/anexo/def_civil_agora/" . $value['imagem1'] . "\" alt=\"\" class=\"img-fluid\">";
+    print "<img src=\"/anexo/def_civil_agora/" . $value['imagem1'] . "\" alt=\"\" class=\"img-fluid\" width=\"255px\"; height=\"255px\"; style=\"max-width: 255px; max-height: 255px; object-fit: cover;\">";
     print "<div class=\"hovereffect\"></div>";
     print "</a>";
     print "</div><!-- end media -->";
@@ -247,7 +262,7 @@ print $paginacao->rodape;
 foreach ($post_recente as $key => $value) {
     print "<div class= 'list-group-item list-group-item-action flex-column align-items-start' data-id='".$value['id']."'>
                                             <div class='w-100 justify-content-between'>
-                                                <img src = \"/anexo/def_civil_agora/" . $value['imagem1']."\" alt ='' class= 'img-fluid float-left'>
+                                                <img src = \"/anexo/def_civil_agora/" . $value['imagem1']."\" alt ='' class= 'img-fluid float-left' width='55px'; height='55px'; style='max-width: 55px; max-height: 55px; object-fit: cover;'>
                                                 <h5 class ='mb-1'>" . substr($value['texto'], 0, 40) . "...</h5>
                                                 <small>" . DataMysql::dataCompletaVisual($value['data_hora']) . "</small>
                                             </div>
@@ -311,12 +326,12 @@ foreach ($categorias as $key => $value) {
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="text-right">
-                                            <a href="garden-index.html"><img width="100" src="http://sistema.defesacivil.mg.gov.br/logo/imagens/logomarca_da_defesacivil_nova_expandida.png" alt=""></a>
+                                            <a href="garden-index.html"><img width="80" src="http://sistema.defesacivil.mg.gov.br/logo/imagens/logomarca_da_defesacivil_nova_s_fundo.png" alt=""></a>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="text-left">
-                                            <a href="garden-index.html"><img width="100" src="http://sistema.defesacivil.mg.gov.br/logo/imagens/logomarca_gabinete_militar_nova.png" alt=""></a>
+                                            <a href="garden-index.html"><img width="100" src="http://sistema.defesacivil.mg.gov.br/logo/imagens/logomarca_gabinete_militar_nova_sem_fundo.png" alt=""></a>
 
                                         </div><!-- end logo -->
                                     </div>
@@ -349,8 +364,6 @@ foreach ($categorias as $key => $value) {
 
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <br>
-                        <br>
                         <!--<div class="copyright">&copy; Forest Time. Design: <a href="http://html.design">HTML Design</a>.</div>-->
                     </div>
                 </div>
@@ -423,6 +436,13 @@ foreach ($categorias as $key => $value) {
             });
         
         });
+        
+        Redirect();
+      function Redirect()
+      {
+              setTimeout("location.reload(true);",300000);  
+
+      }
 
     </script>
 

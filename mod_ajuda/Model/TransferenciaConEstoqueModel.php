@@ -56,7 +56,7 @@ class TransferenciaConEstoqueModel extends Model {
          
          $dados = array();
  
-        $sql = "SELECT";
+        $sql = "SELECT id, ";
         $sql .= " ".implode(", ",self::$model['dados']['campos'])."";
         
         if (empty($id)) {
@@ -139,8 +139,6 @@ class TransferenciaConEstoqueModel extends Model {
 
     public static function gravar(array $dados) {
 
-
-        var_dump(self::$model);
         $sql = "INSERT INTO aju_ctransferencia
                     (data_transf,
                         motorista,
@@ -152,14 +150,14 @@ class TransferenciaConEstoqueModel extends Model {
                         obs,
                         id_tp_pedido,
                         id_unidade,
-                        qtd) VALUES (:data_transf
-                                    :motorista
-                                    :identificacao
-                                    :veiculo
-                                    :placa
-                                    :id_almoxarifado_ori
-                                    :id_almoxarifado
-                                    :obs
+                        qtd) VALUES (:data_transf,
+                                    :motorista,
+                                    :identificacao,
+                                    :veiculo,
+                                    :placa,
+                                    :id_almoxarifado_ori,
+                                    :id_almoxarifado,
+                                    :obs,
                                     :id_tp_pedido,
                                     :id_unidade,
                                     :qtd)";
@@ -168,7 +166,7 @@ class TransferenciaConEstoqueModel extends Model {
 
             $result = self::$con->prepare($sql);
             
-            $result->bindValue(":data_transf",  $dados['data_transferencia']);
+            $result->bindValue(":data_transf", DataMysql::dataCompletaForm($dados['data_transferencia']));
             $result->bindValue(":motorista",    $dados['motorista']);
             $result->bindValue(":identificacao",$dados['identificacao']);
             $result->bindValue(":veiculo",      $dados['veiculo']);
@@ -180,8 +178,7 @@ class TransferenciaConEstoqueModel extends Model {
             $result->bindValue(":id_unidade", $dados['id_unidade']);
             $result->bindValue(":qtd", $dados['qtd']);
             
-            $result->execute();
-                    return  true;
+            return $result->execute();
             
             #Log::GravaLog("Cadastro de marca : " . $dados['nome'] . " " . $_COOKIE['seguranca']['login'], "aju_log");
 
@@ -432,6 +429,27 @@ aju_ctransportadora.tel
         } catch (Exception $e) {
             return $e->getMessage() . "Erro ao inserir Fornecedor";
         }
+    }
+    
+    
+    # get situacao transferencia
+    public function getSituacao($situacao) {
+        
+        switch ($situacao) {
+            case 0:
+                return 'Em Aberto';
+                break;
+            case 1:
+                return 'Fechado';
+                break;
+            case 2:
+                return '<b style="color:red">Cancelado</b>';
+                break;
+            default:
+                return 'Código Inválido';
+                break;
+        }
+        
     }
 
     /**

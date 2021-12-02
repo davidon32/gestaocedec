@@ -25,8 +25,11 @@ $nome_almoxarifado = isset($id_almoxarifado) ? Deposito::PegaNomeDeposito($id_al
 $id_unidade = isset($_COOKIE['transferencia']['id_material']) ? $_COOKIE['transferencia']['id_material'] : "";
 $nome_unidade = isset($id_unidade) ? $transferenciaModel->getNomeIdFk('aju_cunidade', 'id_unidade', $id_unidade) : "";
 
-$saldo = isset($_COOKIE['transferencia']['saldo']) ? $_COOKIE['transferencia']['saldo'] : "0";
+$val_unit  = isset($_COOKIE['transferencia']['val_unit']) ? $_COOKIE['transferencia']['val_unit'] : "";
+$val_total = isset($_COOKIE['transferencia']['val_total']) ? $_COOKIE['transferencia']['val_total'] : "";
+$id_nota   = isset($_COOKIE['transferencia']['id_nota']) ? $_COOKIE['transferencia']['id_nota'] : "";
 
+$saldo = isset($_COOKIE['transferencia']['saldo']) ? $_COOKIE['transferencia']['saldo'] : "0";
 
 ?>
 
@@ -37,6 +40,9 @@ $saldo = isset($_COOKIE['transferencia']['saldo']) ? $_COOKIE['transferencia']['
         <label>Armazém Origem</label> <!--Armaem-->
         <input type="text" class='form form-control' name='nome_almoxarifado_ori' id='nome_almoxarifado_ori' required readonly='readonly' value="<?=$nome_almoxarifado?>">
         <input type="hidden" name='id_almoxarifado_ori' id='id_almoxarifado_ori' required readonly='readonly' value="<?=$id_almoxarifado?>">
+        <input type="hidden" name='val_unit' id='val_unit' required readonly='readonly' value="<?=$val_unit?>">
+        <input type="hidden" name='val_total' id='val_total' required readonly='readonly' value="<?=$val_total?>">
+        <input type="hidden" name='id_nota' id='id_nota' required readonly='readonly' value="<?=$id_nota?>">
     </div>
     <div class='col-md-6'>
         <label>Almoxarifado</label> <!--almoxarifado-->
@@ -53,12 +59,18 @@ $saldo = isset($_COOKIE['transferencia']['saldo']) ? $_COOKIE['transferencia']['
     </div>
     
     <div class='col-md-6'>
-        <label>Motorista</label>
+        <label>Nome Motorista</label>
         <input type="text" class='form form-control' name='txtMotorista' id='txtMotorista' required maxlength="70" >
     </div>
+    
     <div class='col-md-6'>
         <label>Data Transferencia</label>
         <input type="text" class='form form-control' name='data_transferencia' id='data_transferencia'required value="<?= date('d/m/Y') ?>">
+    </div>
+    
+    <div class='col-md-6'>
+        <label>Identificação Motorista</label>
+        <input type="text" class='form form-control' name='txtIdentificacao' id='txtIdentificacao' required maxlength="15" >
     </div>
     
     <div class='col-md-6'>
@@ -66,12 +78,13 @@ $saldo = isset($_COOKIE['transferencia']['saldo']) ? $_COOKIE['transferencia']['
             <input type="text" class='form form-control' name='txtVeiculo' id='txtVeiculo' required maxlength="45">
     </div>
     <div class='col-md-6'>
-        <label>Observação</label>
-        <textarea class='form form-control' name='txtObs' id='txtObs' maxlength='200' ></textarea>
-    </div>
-    <div class='col-md-6'>
         <label>Placa Veículo</label>
         <input type="text" class='form form-control' name='txtPlaca' id='txtPlaca' required maxlength="10">
+    </div>
+    
+    <div class='col-md-6'>
+        <label>Observação</label>
+        <textarea class='form form-control' name='txtObs' id='txtObs' maxlength='200' ></textarea>
     </div>
     <br>
     <br>
@@ -148,7 +161,8 @@ $saldo = isset($_COOKIE['transferencia']['saldo']) ? $_COOKIE['transferencia']['
     $(document).ready(function () {
         
         $("#data_emissao").mask("99/99/9999");
-
+        
+        
         /*###############################################*/
         /* clic form campo FK Armazem (almoxarifado) */
         $("#nomeAlmoxarifado_fk").click(function () {
@@ -176,6 +190,7 @@ $saldo = isset($_COOKIE['transferencia']['saldo']) ? $_COOKIE['transferencia']['
                 nomeTp_pedido_fk: {required: true},
                 id_almoxarifado :{required: true},
                 txtMotorista :{required: true},
+                txtIdentificacao :{required: true},
                 data_transferencia :{required: true},
                 txtVeiculo :{required: true},
                 txtPlaca :{required: true},
@@ -185,12 +200,13 @@ $saldo = isset($_COOKIE['transferencia']['saldo']) ? $_COOKIE['transferencia']['
             messages: {
 
                 id_almoxarifado_ori: {required: 'O campo Quantidade não pode ficar em Branco !'},
-                nome_almoxarifado_ori: {required: 'O campo Quantidade não pode ficar em Branco !'},
+                nome_almoxarifado_ori: {required: 'O campo Nome não pode ficar em Branco !'},
                 id_tp_pedido: {required: 'O campo Quantidade não pode ficar em Branco !'},
                 nomeTp_pedido_fk: {required: 'O campo Quantidade não pode ficar em Branco !'},
                 id_almoxarifado: {required: 'O campo Quantidade não pode ficar em Branco !'},
                 nome_almoxarifado_fk: {required: 'O campo Quantidade não pode ficar em Branco !'},
                 txtMotorista: {required: 'O campo Quantidade não pode ficar em Branco !'},
+                txtIdentificacao: {required: 'O campo Quantidade não pode ficar em Branco !'},
                 data_transferencia: {required: 'O campo Quantidade não pode ficar em Branco !'},
                 txtVeiculo: {required: 'O campo Quantidade não pode ficar em Branco !'},
                 txtPlaca: {required: 'O campo Quantidade não pode ficar em Branco !'},
@@ -207,12 +223,16 @@ $saldo = isset($_COOKIE['transferencia']['saldo']) ? $_COOKIE['transferencia']['
                     form_data.append("id_tp_pedido", $("#id_tp_pedido").val());
                     form_data.append("id_almoxarifado", $("#id_almoxarifado").val());
                     form_data.append("motorista", $("#txtMotorista").val());
-                    form_data.append("data_transferencia", $("#data_transferencia").val());
+                    form_data.append("identificacao", $("#txtIdentificacao").val());
+                    form_data.append("data_transferencia", $("#data_transferencia").val()+ " "+"<?=date("H:i:s");?>");
                     form_data.append("veiculo", $("#txtVeiculo").val());
                     form_data.append("obs", $("#txtObs").val());
                     form_data.append("placa", $("#txtPlaca").val());
+                    form_data.append("val_unit", $("#val_unit").val());
+                    form_data.append("val_total", $("#val_total").val());
+                    form_data.append("id_nota", $("#id_nota").val());
                     
-                    form_data.append("txt_id_unidade", $("#txt_id_unidade").val());
+                    form_data.append("id_unidade", $("#txt_id_unidade").val());
                     form_data.append("qtd", $("#txtQtd").val());
 
                     $.ajax({
@@ -223,12 +243,13 @@ $saldo = isset($_COOKIE['transferencia']['saldo']) ? $_COOKIE['transferencia']['
                         processData: false,
                         data: form_data,
                         success: function (response) {
+                            console.log(response);
                             var resposta = response;
                             if (resposta.trim() === 'sucesso') {
-                                alert("Cadastro realizado com Sucesso !");
-                                //location.reload();
+                                alert("Transferencia realizada com Sucesso !");
+                                window.location.href = "<?= FuncaoBase::geraLink('ajuda', 'transferencian', 'index') ?>";
                             } else {
-                                alert();
+                                console.log(response);
                             }
                         },
                         error: function (e) {

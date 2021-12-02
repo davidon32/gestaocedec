@@ -134,6 +134,9 @@
                                     data-id_almoxarifado='".$value['id_almoxarifado']."' 
                                     data-id_tp_pedido='".$value['id_tp_pedido']."' 
                                     data-saldo='".$value['qtd']."' 
+                                    data-val_unit='".$value['val_unit']."' 
+                                    data-id_nota='".$value['id_nota']."' 
+                                    data-val_total='".$total."' 
                                     title='Transferencia de Materiais entre Depósitos !'><img src='/core/imagem/transferencia.png' width='20'></a>
                             </td>";
                         print "<td>".$value['id_unidade']."</td>";
@@ -166,6 +169,9 @@ $(document).ready(function(){
         formData.append('id_almoxarifado', $(this).data('id_almoxarifado'));
         formData.append('id_tp_pedido', $(this).data('id_tp_pedido'));
         formData.append('saldo', $(this).data('saldo'));
+        formData.append('val_unit', $(this).data('val_unit'));
+        formData.append('val_total', $(this).data('val_total'));
+        formData.append('id_nota', $(this).data('id_nota'));
         $.ajax({
 		url : '/mod_ajuda/backEnd/View/conEstoque/transferencian/ajax.php',
 		type : 'POST',

@@ -168,7 +168,7 @@ class DefesaCivilAgoraModel {
         } else {
             $tabela = $dados['tabela'];
             $registros = self::count("select *from " . $tabela);
-            $sql = "select *from " . $tabela . " order by data_hora desc" . $limit;
+            $sql = "select *from " . $tabela . " where status1 = 1 order by data_hora desc" . $limit;
             $result->dados = self::select($sql);
         }
 

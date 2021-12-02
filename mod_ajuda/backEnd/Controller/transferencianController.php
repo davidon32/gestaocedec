@@ -110,17 +110,47 @@ class transferencianController extends Controller {
     # gravar registro
 
     public function gravar() {
-
-        var_dump($_POST);
-        die();
+        
+        $pedido = new PedidoConEstoqueModel;
         
         $transferencia = new TransferenciaConEstoqueModel;
         
-        
+        //var_dump($_POST);
+        //die();
+        $item = array(  'id_pedido'         => null,
+                        'data_registro'     => DataMysql::dataForm($_POST['data_transferencia']),
+                        'id_almoxarifado'   => $_POST['id_almoxarifado'],
+                        'id_unidade'        => $_POST['id_unidade'],
+                        'qtd'               => $_POST['qtd'],
+                        'val_unit'          => $_POST['val_unit'],
+                        'val_total'         => $_POST['val_total'],
+                        'id_nota'           => $_POST['id_nota'],
+                        'id_tp_pedido'      => $_POST['id_tp_pedido']);
 
+                    //var_dump($item);
+        # gravar
         if ($transferencia->gravar($_POST)) {
-            FuncaoBase::alert("Registro Gravado com Sucesso !");
-            $this->redirect("ajuda", "transferencian", "index");
+            
+        # debitar saldo
+        $item['historico'] = "Débito Transferencia de ". $pedido->getNomeIdFk('aju_calmoxarifado', 'id_almoxarifado', $_POST['id_almoxarifado_ori'])->nome." para ".$pedido->getNomeIdFk('aju_calmoxarifado', 'id_almoxarifado', $_POST['id_almoxarifado'])->nome;
+        $item['tipo_lancamento'] = 'saida'; 
+        //$pedido->debitar($item); 
+        
+        #cretidar saldo
+        $item['historico'] = "Crédito Transferencia de ". $pedido->getNomeIdFk('aju_calmoxarifado', 'id_almoxarifado', $_POST['id_almoxarifado_ori'])->nome." para ".$pedido->getNomeIdFk('aju_calmoxarifado', 'id_almoxarifado', $_POST['id_almoxarifado'])->nome;
+        $item['tipo_lancamento'] = 'entrada'; 
+        var_dump($item);
+        die();
+        $pedido->creditar($item); 
+            
+            ob_start();
+                setcookie("transferencia[id_material]", null, -1, '/');
+                setcookie("transferencia[id_almoxarifado]", null, -1, '/');
+                setcookie("transferencia[id_tp_pedido]", null, -1, '/');
+                setcookie("transferencia[saldo]", null, -1, '/');
+            ob_end_clean(); 
+            
+            print "sucesso";
         }
     }
             
@@ -131,12 +161,11 @@ class transferencianController extends Controller {
             include_once 'mod_ajuda/backEnd/View/conEstoque/transferencian/pesquisa.php';
     }
     
-
     #visualizar registro
 
     public function view() {
-         $transferenciaModel = $this->$transferencia;
-         $transferencias = $transferenciaModel->lsttransf($_GET['id']);
+        $transferenciaModel = $this->$transferencia;
+        $transferencias = $transferenciaModel->lsttransf($_GET['id']);
          
         $view = $this->transferencia->view($_GET['id']);
         include_once 'mod_ajuda/backEnd/View/conEstoque/transferencian/view.php';

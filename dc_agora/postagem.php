@@ -13,6 +13,28 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
+    
+    <!--<meta property="og:url"                content="http://www.defesacivil.mg.gov.br/dc_agora/index.php" />
+    <meta property="og:type"               content="article" />
+    <meta property="og:title"              content="" />
+    <meta property="og:description"        content="" />
+    <meta property="og:image"              content="http://www.defesacivil.mg.gov.br/anexo/def_civil_agora/<?= $dados['imagem1']; ?>" />-->
+    
+    <style>
+            @font-face {
+                font-family: "Droid Sans";
+                src: url('fonts/DroidSans.ttf');      
+        }
+        
+            @font-face {
+                font-family: "Droid Sans Bold";
+                src: url('fonts/DroidSans-Bold.ttf');      
+        }
+
+        body {
+          font-family: "Droid Sans", "Droid Sans Bold" ;
+         }
+    </style>
 
     <!-- Site Icons -->
     <!--    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
@@ -134,7 +156,7 @@
                             <div class="blog-title-area">
                                 <span class="color-green"><a href="index.php?cat=<?=FuncaoBase::slug($dados['categoria']);?>" title=""><?= $dados['categoria'] ?></a></span>
 
-                                <h3><?= $dados['texto'] ?></h3>
+                                <h2><?= $dados['texto'] ?></h2>
 
                                 <div class="blog-meta big-meta">
                                     <small><?= DataMysql::dataCompletaVisual($dados['data_hora']) ?></small>
@@ -144,7 +166,10 @@
 
                                 <div class="post-sharing">
                                     <ul class="list-inline">
-                                        <li><a href="#" class="fb-button btn btn-primary"><i class="fa fa-facebook"></i> <span class="down-mobile">Share on Facebook</span></a></li>
+                                        <li>
+                                            <div class="fb-share-button" data-href="http://www.defesacivil.mg.gov.br/dc_agora/index.php" data-layout="button_count" data-size="small">
+                                                <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.sistema.defesacivil.mg.gov.br%2Fdc_agora%2Fpostagem.php%3Fid%3D1142&amp;src=sdkpreparse" class="fb-button btn btn-primary"><i class="fa fa-facebook"></i><span class="down-mobile">Share on Facebook</span></a>&nbsp;
+                                            </div>
                                         <li><a href="#" class="tw-button btn btn-primary"><i class="fa fa-twitter"></i> <span class="down-mobile">Tweet on Twitter</span></a></li>
                                         <li><a href="#" class="gp-button btn btn-primary"><i class="fa fa-google-plus"></i></a></li>
                                     </ul>
@@ -152,7 +177,7 @@
                             </div><!-- end title -->
 
                             <div class="single-post-media">
-                                <img src="/anexo/def_civil_agora/<?=$dados['imagem1']?>" alt="" class="img-fluid">
+                                <img src="/anexo/def_civil_agora/<?=$dados['imagem1']?>" alt="" class="img-fluid" width="700px"; height="700px"; style="max-width: 700px; max-height: 700px; object-fit: cover;">
                             </div><!-- end media -->
 
 
@@ -187,20 +212,21 @@
 
                             <div class="custombox clearfix">
                                 <h4 class="small-title">Você pode gostar Disso</h4>
+                                
                                 <div class="row">
 
                                     <div class="col-lg-6">
                                         <div class="blog-box">
                                             <div class="post-media">
                                                 <a href="postagem.php?id=<?= $aleatorio[0]['id'] ?>" title="">
-                                                    <img src="/anexo/def_civil_agora/<?= $aleatorio[0]['imagem1'] ?>" alt="" class="img-fluid">
+                                                    <img src="/anexo/def_civil_agora/<?= $aleatorio[0]['imagem1'] ?>" alt="" class="img-fluid" width="364px"; height="364px"; style="max-width: 364px; max-height: 364px; object-fit: cover;">
                                                     <div class="hovereffect">
                                                         <span class=""></span>
                                                     </div><!-- end hover -->
                                                 </a>
                                             </div><!-- end media -->
                                             <div class="blog-meta">
-                                                <h4><a href="postagem.php?id=<?= $aleatorio[0]['id'] ?>" title=""><?= (isset($aleatorio[0]['titulo']) ? $aleatorio[0]['titulo'] : substr($value['texto'], 0, 40)."...") ?></a></h4>
+                                                <h4><a href="postagem.php?id=<?= $aleatorio[0]['id'] ?>" title=""><?= (isset($aleatorio[0]['titulo']) ? $aleatorio[0]['titulo'] : substr($aleatorio[0]['texto'], 0, 40)."...") ?></a></h4>
                                                 <small><a href="postagem.php?id=<?= $aleatorio[0]['id'] ?>" title=""><?= $aleatorio[0]['categoria'] ?></a></small>
                                                 <small><a href="postagem.php?id=<?= $aleatorio[0]['id'] ?>" title=""><?= DataMysql::dataCompletaVisual($aleatorio[0]['data_hora']) ?></a></small>
                                             </div><!-- end meta -->
@@ -211,14 +237,14 @@
                                         <div class="blog-box">
                                             <div class="post-media">
                                                 <a href="postagem.php?id=<?= $aleatorio[1]['id'] ?>" title="">
-                                                    <img src="/anexo/def_civil_agora/<?= $aleatorio[1]['imagem1'] ?>" alt="" class="img-fluid">
+                                                    <img src="/anexo/def_civil_agora/<?= $aleatorio[1]['imagem1'] ?>" alt="" class="img-fluid" width="364px"; height="364px"; style="max-width: 364px; max-height: 364px; object-fit: cover;">
                                                     <div class="hovereffect">
                                                         <span class=""></span>
                                                     </div><!-- end hover -->
                                                 </a>
                                             </div><!-- end media -->
                                             <div class="blog-meta">
-                                                <h4><a href="postagem.php?id=<?= $aleatorio[1]['id'] ?>" title=""><?= (isset($aleatorio[0]['titulo']) ? $aleatorio[0]['titulo'] : substr($value['texto'], 0, 40)."...") ?></a></h4>
+                                                <h4><a href="postagem.php?id=<?= $aleatorio[1]['id'] ?>" title=""><?= (isset($aleatorio[1]['titulo']) ? $aleatorio[1]['titulo'] : substr($aleatorio[1]['texto'], 0, 40)."...") ?></a></h4>
                                                 <small><a href="postagem.php?id=<?= $aleatorio[1]['id'] ?>" title=""><?= $aleatorio[1]['categoria'] ?></a></small>
                                                 <small><a href="postagem.php?id=<?= $aleatorio[1]['id'] ?>" title=""><?= DataMysql::dataCompletaVisual($aleatorio[1]['data_hora']) ?></a></small>
                                             </div><!-- end meta -->
@@ -231,7 +257,7 @@
                             <hr class="invis1">
 
                             <div class="custombox clearfix">
-                                <h4 class="small-title"><?= isset($comentarios) ? count($comentarios) : 0 ?> Commentários</h4>
+                                <h4 class="small-title"><?= isset($comentarios) ? count($comentarios) : 0 ?> Comentário(s)</h4>
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="comments-list">
@@ -260,7 +286,7 @@
                             <hr class="invis1">
 
                             <div class="custombox clearfix">
-                                <h4 class="small-title">Deixe um comentario</h4>
+                                <h4 class="small-title">Deixe um comentário</h4>
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <form class="form-wrapper" id="frmComentario">
@@ -380,6 +406,8 @@ foreach ($categorias as $key => $value) {
 <div class="dmtop">Scroll to Top</div>
 
 </div><!-- end wrapper -->
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v12.0&appId=939110226455556&autoLogAppEvents=1" nonce="sYGYdogU"></script>
 
 <!-- Core JavaScript
 ================================================== -->
@@ -387,9 +415,13 @@ foreach ($categorias as $key => $value) {
 <script src="js/tether.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/custom.js"></script>
+
 <script type="text/javascript">
+    
 
     $(document).ready(function () {
+        
+     
         
         function view(id) {
                 
