@@ -250,7 +250,7 @@ class Compdec {
 
             $con = Conexao::getInstance();
 
-            $sql = "UPDATE  com_comdec SET email             =:email,
+            $sql = "UPDATE  com_comdec SET email =:email,
 							plano_cont        =:plano_cont,
 							capacitacao       =:capacitacao,
 							dt_curso_capac    =:dt_curso_capac,

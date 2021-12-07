@@ -72,7 +72,7 @@ class RelatorioConEstoqueModel extends Model {
                         inner join aju_ctp_pedido
                         on aju_ccc.id_tp_pedido = aju_ctp_pedido.id_tp_pedido
                         where aju_ccc.id_aju_ccc > 0 " . $id_unidade . " " . $id_tp_pedido . "
-                        group by aju_ccc.id_unidade, aju_ccc.val_unit, aju_ccc.id_nota
+                        group by aju_ccc.id_unidade, aju_ccc.val_unit, aju_ccc.id_nota, id_almoxarifado
                         order by aju_cunidade.nome";
 
         $result = $con->prepare($sql);

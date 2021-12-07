@@ -26,7 +26,7 @@ $id_unidade = isset($_COOKIE['transferencia']['id_material']) ? $_COOKIE['transf
 $nome_unidade = isset($id_unidade) ? $transferenciaModel->getNomeIdFk('aju_cunidade', 'id_unidade', $id_unidade) : "";
 
 $val_unit  = isset($_COOKIE['transferencia']['val_unit']) ? $_COOKIE['transferencia']['val_unit'] : "";
-$val_total = isset($_COOKIE['transferencia']['val_total']) ? $_COOKIE['transferencia']['val_total'] : "";
+
 $id_nota   = isset($_COOKIE['transferencia']['id_nota']) ? $_COOKIE['transferencia']['id_nota'] : "";
 
 $saldo = isset($_COOKIE['transferencia']['saldo']) ? $_COOKIE['transferencia']['saldo'] : "0";
@@ -41,7 +41,7 @@ $saldo = isset($_COOKIE['transferencia']['saldo']) ? $_COOKIE['transferencia']['
         <input type="text" class='form form-control' name='nome_almoxarifado_ori' id='nome_almoxarifado_ori' required readonly='readonly' value="<?=$nome_almoxarifado?>">
         <input type="hidden" name='id_almoxarifado_ori' id='id_almoxarifado_ori' required readonly='readonly' value="<?=$id_almoxarifado?>">
         <input type="hidden" name='val_unit' id='val_unit' required readonly='readonly' value="<?=$val_unit?>">
-        <input type="hidden" name='val_total' id='val_total' required readonly='readonly' value="<?=$val_total?>">
+        <input type="hidden" name='val_total' id='val_total' required readonly='readonly'>
         <input type="hidden" name='id_nota' id='id_nota' required readonly='readonly' value="<?=$id_nota?>">
     </div>
     <div class='col-md-6'>
@@ -160,7 +160,17 @@ $saldo = isset($_COOKIE['transferencia']['saldo']) ? $_COOKIE['transferencia']['
 
     $(document).ready(function () {
         
+        var val_unit = 0.0;
+        var qtd = 0;
         $("#data_emissao").mask("99/99/9999");
+        
+        $("#txtQtd").change(function(){
+
+            qtd = parseInt($("#txtQtd").val());
+            val_unit = parseFloat($("#val_unit").val().replace(",", "."));
+            $("#val_total").val(val_unit *qtd)
+            
+        })
         
         
         /*###############################################*/
@@ -228,7 +238,7 @@ $saldo = isset($_COOKIE['transferencia']['saldo']) ? $_COOKIE['transferencia']['
                     form_data.append("veiculo", $("#txtVeiculo").val());
                     form_data.append("obs", $("#txtObs").val());
                     form_data.append("placa", $("#txtPlaca").val());
-                    form_data.append("val_unit", $("#val_unit").val());
+                    form_data.append("val_unit", $("#val_unit").val().replace(",","."));
                     form_data.append("val_total", $("#val_total").val());
                     form_data.append("id_nota", $("#id_nota").val());
                     

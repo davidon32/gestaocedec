@@ -119,12 +119,17 @@
                 }
                 
                  setlocale (LC_ALL, 'pt_BR');
+                 
+                 $total_geral = 0.0;
+                 $total_produtos = 0;
                 
                 foreach ($dados as $key => $value) {
                     $impressao = (!$saldo_zerado) ? ($value['qtd']  > 0) : true; 
                     if($impressao) {
  
                         $total = $value['qtd']*$value['val_unit'];
+                        $total_geral +=$total;
+                        $total_produtos +=$value['qtd'];
                 
                         print "<tr>";
                         print "<td class='sem_quebra'>
@@ -134,9 +139,8 @@
                                     data-id_almoxarifado='".$value['id_almoxarifado']."' 
                                     data-id_tp_pedido='".$value['id_tp_pedido']."' 
                                     data-saldo='".$value['qtd']."' 
-                                    data-val_unit='".$value['val_unit']."' 
+                                    data-val_unit='".str_replace(",", ".",$value['val_unit'])."' 
                                     data-id_nota='".$value['id_nota']."' 
-                                    data-val_total='".$total."' 
                                     title='Transferencia de Materiais entre Depósitos !'><img src='/core/imagem/transferencia.png' width='20'></a>
                             </td>";
                         print "<td>".$value['id_unidade']."</td>";
@@ -152,7 +156,15 @@
                     } 
                 }
                 ?>
+                    <tr>
+                        <td colspan="6"></td>
+                        <td colspan='2'>QUANTIDADE EM ESTOQUE</td>
+                        <td><b><?=$total_produtos;?></b></td>
+                        <td><b>TOTAL</b></td>
+                        <td><b>R$ <?=$total_geral;?></b></td>
+                    </tr>
 		</table>
+                
 
 
 <?php include_once "template/page/rodapePage.php"; ?>
@@ -170,7 +182,6 @@ $(document).ready(function(){
         formData.append('id_tp_pedido', $(this).data('id_tp_pedido'));
         formData.append('saldo', $(this).data('saldo'));
         formData.append('val_unit', $(this).data('val_unit'));
-        formData.append('val_total', $(this).data('val_total'));
         formData.append('id_nota', $(this).data('id_nota'));
         $.ajax({
 		url : '/mod_ajuda/backEnd/View/conEstoque/transferencian/ajax.php',

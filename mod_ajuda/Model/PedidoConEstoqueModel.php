@@ -75,10 +75,10 @@ class PedidoConEstoqueModel extends Model {
                       'data_registro'   => date('Y-m-d'),
                       'id_unidade'      => $value->id_unidade,
                       'qtd'             => $value->qtd,
-                      'val_unid'        => $value->val_unid,
+                      'val_unitario'        => $value->val_unid,
                       'val_total'       => $value->val_total,
                       'historico'       => "Entrada - Cancelamento Pedido Nr :".$dados['id_pedido'],
-                      'tipo'            => 'entrada',
+                      'tipo_lancamento' => 'entrada',
                       'id_pedido'       => $dados['id_pedido']);
 
             self::creditar($item);
@@ -188,7 +188,9 @@ class PedidoConEstoqueModel extends Model {
                                         id_pedido,
                                         val_unit,
                                         val_total,
-                                        id_almoxarifado)
+                                        id_almoxarifado,
+                                        id_nota,
+                                        id_tp_pedido)
                                             VALUES (:data_reg,
                                                     :id_unidade,
                                                     :historico,
@@ -197,7 +199,9 @@ class PedidoConEstoqueModel extends Model {
                                                     :id_pedido,
                                                     :val_unit,
                                                     :val_total,
-                                                    :id_almoxarifado)";
+                                                    :id_almoxarifado,
+                                                    :id_nota,
+                                                    :id_tp_pedido)";
         try {
             $result = self::$con->prepare($sql);
 
@@ -206,10 +210,12 @@ class PedidoConEstoqueModel extends Model {
             $result->bindValue(":id_almoxarifado", $item['id_almoxarifado']);
             $result->bindValue(":id_unidade", $item['id_unidade']);
             $result->bindValue(":historico", $item['historico']);
-            $result->bindValue(":tipo", $item['tipo']);
+            $result->bindValue(":tipo", $item['tipo_lancamento']);
             $result->bindValue(":qtd", $item['qtd']);
-            $result->bindValue(":val_unit", $item['val_unid']);
+            $result->bindValue(":val_unit", $item['val_unitario']);
             $result->bindValue(":val_total", $item['val_total']);
+            $result->bindValue(":id_nota", $item['id_nota']);
+            $result->bindValue(":id_tp_pedido", $item['id_tp_pedido']);
             
 
             $result->execute();

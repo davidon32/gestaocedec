@@ -138,6 +138,9 @@ class TransferenciaConEstoqueModel extends Model {
     # @ grava {$model} em banco
 
     public static function gravar(array $dados) {
+        
+        var_dump($dados, Unidade::PegaNomeId($dados['id_unidade']));
+        //die();
 
         $sql = "INSERT INTO aju_ctransferencia
                     (data_transf,
@@ -173,12 +176,16 @@ class TransferenciaConEstoqueModel extends Model {
             $result->bindValue(":placa",        $dados['placa']);
             $result->bindValue(":id_almoxarifado_ori",$dados['id_almoxarifado_ori']);
             $result->bindValue(":id_almoxarifado", $dados['id_almoxarifado']);
-            $result->bindValue(":obs",          $dados['obs']);
+            $result->bindValue(":obs",          $dados['obs']." \\n".Unidade::PegaNomeId($dados['id_unidade'])." ".$dados['val_unit']);
             $result->bindValue(":id_tp_pedido", $dados['id_tp_pedido']);
             $result->bindValue(":id_unidade", $dados['id_unidade']);
             $result->bindValue(":qtd", $dados['qtd']);
             
-            return $result->execute();
+            $exec = $result->execute();
+            
+            return array('result' => $exec,
+                         'id_transferencia' => self::$con->lastInsertId()
+                        );
             
             #Log::GravaLog("Cadastro de marca : " . $dados['nome'] . " " . $_COOKIE['seguranca']['login'], "aju_log");
 
@@ -229,32 +236,39 @@ $result->bindValue(":tel", $dados['tel']);
     /**
      * View Marca
      */
-    public static function view($id_transportadora) {
+    public static function view($id_transferencia) {
 
         $con = Conexao::getInstance();
 
         $fornecedor = "";
 
-        $sql = "SELECT aju_ctransportadora.id_transportadora,
-aju_ctransportadora.nome,
-aju_ctransportadora.cnpj,
-aju_ctransportadora.tel
-                              FROM aju_ctransportadora
-                              
-                              WHERE id_transportadora = " . $id_transportadora;
+        $sql = "SELECT aju_ctransferencia.id,
+                        aju_ctransferencia.motorista,
+                        aju_ctransferencia.identificacao,
+                        aju_ctransferencia.veiculo,
+                        aju_ctransferencia.placa,
+                        aju_ctransferencia.id_almoxarifado_ori,
+                        aju_ctransferencia.id_almoxarifado,
+                        aju_ctransferencia.obs,
+                        aju_ctransferencia.id_tp_pedido,
+                        aju_ctransferencia.situacao,
+                        aju_ctransferencia.id_unidade,
+                        aju_ctransferencia.qtd
+                            FROM aju_ctransferencia
+                            WHERE id = " . $id_transferencia;
 
         try {
 
             $result = $con->query($sql);
 
             while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-                $transportadora = $linha;
+                $transferencia = $linha;
             }
 
-           $model = self::$model;
-            return array($transportadora, $model);
+           //$model = self::$model;
+            return $transferencia;
         } catch (Exception $e) {
-            return $e->getMessage() . "Erro ao inserir Transportadora";
+            return $e->getMessage() . "Erro ao buscar registro";
         }
     }
     
@@ -278,8 +292,11 @@ aju_ctransportadora.tel
             
     }
 
-    #################  DELETAR  ##################
-    # @ deletar o transportadora
+    #################  CANCELAR  ##################
+    #   marca como cancelado 0
+    #   compoe o saldo origem em aju_ccc
+    #   apaga os registros destino aju_ccc
+    #
 
     public static function delete($id) {
 

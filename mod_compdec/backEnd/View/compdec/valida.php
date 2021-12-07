@@ -51,6 +51,7 @@ if ($opcao == "parte1") {
     }
     /* dados parte 2 */
 } elseif ($opcao == "parte2") {
+
     if ($_compdec->AtualizacaoParte2($post)) {
         print "sucesso";
     } else {

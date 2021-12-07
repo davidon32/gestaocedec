@@ -14,23 +14,23 @@
 
 $pedido = new PedidoConEstoqueModel();
 
-$iten_pedido = $pedido->lista_produto_pedido($view[0]['id_pedido']);
 
+var_dump($view);
 $volta = isset($_GET['volta']) ? $_GET['volta'] : 'index';
 
-$situacao = "Situacao : ". $pedido->getSituacao($view[0]['situacao']); 
+$situacao = "Situacao : ". $pedido->getSituacao($view['situacao']); 
 ?>
 
 <legend><?= $view[1]['tabela']->TABLE_COMMENT. $situacao ?></legend>
 <table class="table table-bordered table-striped">
 
     <tr>
-        <td class="col-md-3">Nº Pedido :</td><td><?= $view[0]['id_pedido']; ?></td>
+        <td class="col-md-3">Nº Transferencia :</td><td><?= $view[0]['id']; ?></td>
     </tr></div>
 
 <tr>
     <!-- tp_pedido -->
-    <td class="col-md-3">Almoxarifado :</td><td><?= $pedidoModel->getNomeIdFk('aju_ctp_pedido', 'id_tp_pedido', $view[0]['id_tp_pedido'])->nome; ?></td>
+    <td class="col-md-3">Almoxarifado :</td><td><?= $pedido->getNomeIdFk('aju_ctp_pedido', 'id_tp_pedido', $view[0]['id_tp_pedido'])->nome; ?></td>
 </tr></div>
 
 <tr>

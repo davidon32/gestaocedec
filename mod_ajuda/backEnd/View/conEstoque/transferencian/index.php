@@ -61,7 +61,9 @@ foreach ($transferencias as $transferencia) {
     print "<td>";
     /* visualizar dados */
     print "<a href='" . FuncaoBase::geraLink("ajuda", "transferencian", "view", array('id' => $transferencia['id'])) . "'><img src='/core/imagem/view.png' title='Visualizar Registro'></a>&nbsp;&nbsp;";
-    print ($transferencia['situacao'] == 0) ? "<a href='" . FuncaoBase::geraLink("ajuda", "pedido", "delete", array('id' => $transferencia['id'])) . "' onclick=\"return confirm('Deseja Deletar esse Registro ?')\"><img src='/core/imagem/delete.png' title='Deletar Registro'></a>&nbsp;&nbsp;" : "";
+    
+    /* deletar transferencia */
+    print ($transferencia['situacao'] == 0) ? "<a href='" . FuncaoBase::geraLink("ajuda", "transferencian", "delete", array('id' => $transferencia['id'])) . "' onclick=\"return confirm('Deseja Deletar esse Registro ?')\"><img src='/core/imagem/delete.png' title='Deletar Registro'></a>&nbsp;&nbsp;" : "";
     
     /* cancelar transferencia */
     if(Usuario::getPermissao("aju_cpermissao", "cancela_transf") == 1){ # permissao diretor
@@ -105,6 +107,5 @@ print "</div>";
 
     $(document).ready(function () {
 
-       
     });
 </script>

@@ -601,6 +601,21 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
 
     $(document).ready(function () {
         
+        $('input[type="checkbox"]:not("#sem_decreto, #sem_portaria, #ckSemDoc")').each(function () {
+            $(this).is(":checked") ? $(this).val(1): $(this).val(0); 
+        });
+        
+        $('input[type="checkbox"]:not("#sem_decreto, #sem_portaria, #ckSemDoc")').click(function () {
+            $(this).is(":checked") ? $(this).val(1): $(this).val(0); 
+        });
+        /*ck_sede
+        ck_viatura
+        ck_computador
+        ck_curso_gestao
+        ck_curso_sco
+        ck_particip_workshop
+        ck_exp_dc*/
+        
         /* validar documento compdec */
         $("button[name='valida_doc']").click(function(){
            var id_anexo = $(this).data('id_anexo');
@@ -887,8 +902,8 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
                     //dataType: 'json',
                     success: function (response) {
                         alert("Registro Atualizado com sucesso !");
-                        //console.log(JSON.stringify(response));
-                        location.reload();
+                        console.log(JSON.stringify(response));
+                        //location.reload();
 
                     },
                     error: function (e) {
@@ -901,7 +916,6 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
 
        /* grava checkebox sem DEcreto */
         $("input[name=ckSemDoc]").click(function () {
-
             var valor = ($(this).is(":checked")) ? 1:0; 
             var campo = $(this).attr('id');
 
