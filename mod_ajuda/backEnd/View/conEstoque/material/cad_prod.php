@@ -38,7 +38,7 @@
 				</div>
 				<div class="col-md-3">
 					<label>Descrição</label>
-					<input class="form-control" name="txtDescricao" id="txtDescricao" type="text" maxlength="70" />
+					<input class="form-control" name="txtDescricao" id="txtDescricao" type="text" maxlength="70" required/>
 				</div>
 				<div class="col-md-3">
 					</div>

@@ -31,7 +31,7 @@
     </head>
     <?php
     
-    var_dump($_REQUEST);
+    //var_dump($_REQUEST);
     $param = isset($_GET[md5('use70')]) ? $_GET[md5('use70')] : "";
 
     $usuario = new Usuario();
@@ -112,12 +112,12 @@
 
                 if ($campo_branco) {
                     $_login = new Login();
-
+                 
                     if ($_login->TrocaSenha($login, $senha_nova)) {
 
                         print "<script type='text/javascript'>";
 
-                        print "alert('Troca de Senha Realizada Com Sucesso !');";
+                        print "alert('Troca de Senha Realizada Com Sucesso ! - link');";
 
                         print "window.location.href='index.php';";
 

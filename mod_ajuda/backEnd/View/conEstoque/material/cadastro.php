@@ -101,7 +101,7 @@
 
 					foreach ($material as $key => $value) {
 						print "<tr><td>".$value['id_produto']."</td>
-								<td>".$value['dtEntradaSaida']."</td>
+								<td>". DataMysql::dataVisual($value['dtEntradaSaida'])."</td>
 								<td>".$value['nome']."</td>
 								<td>".$value['origem']."</td>
 								<td>".$value['depDestino']."</td>

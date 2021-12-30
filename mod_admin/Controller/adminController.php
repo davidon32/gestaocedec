@@ -37,7 +37,7 @@ class adminController extends Controller {
                     //var_dump(count($email_rec) > 0);
 
                     $_resultado = $usuario->resetaSenha(false, $email_rec[0]['email_rec']);
-
+                    
                     if (!is_null($_resultado)) {
 
                         if ($_resultado[0] == true) {

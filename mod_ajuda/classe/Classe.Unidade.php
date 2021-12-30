@@ -36,7 +36,7 @@
             $con = Conexao::getInstance();
 
             $sql = "select id_unidade, nome, descricao 
-            from aju_unidade";
+            from aju_unidade ORDER BY NOME";
 
             $dados = array();
 
