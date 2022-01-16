@@ -207,13 +207,26 @@ $(document).ready(function(){
 
 	$("#fl_nota").change(function(e){
 		var fileName = e.target.files[0].name;
+                var size = e.target.files[0].size;
+                    
+        
+                /* verificar acendo no nome
+                fileName.search() */
 
-		if (fileName.length == fileName.replace(" ", "").length) {
-			$("#btnCadMaterial").removeAttr("disabled");
+
+                /* verifica espaços no nome do arquivo */
+		if ( fileName.length != fileName.replace(" ", "").length ) {
+                    $("#btnCadMaterial").attr("disabled", "true");
+                    alert("O Nome do arquivo não pode conter espacos !");
+		/* verifica o tamanho do arquivo */
+                }else if( size > 2097152 ) {
+                    $("#btnCadMaterial").attr("disabled", "true");
+                    alert("O Arquivo está com o seu tamanho acima do permitido ! \n Tamanho máximo 2mb ");
 		}else {
-			$("#btnCadMaterial").attr("disabled", "true");
-			alert("O Nome do arquivo não pode conter espacos !");
-		}
+                    $("#btnCadMaterial").removeAttr("disabled");
+                
+                }
+                
 	});
 
 		/*$("#txtQtd").blur(function(){

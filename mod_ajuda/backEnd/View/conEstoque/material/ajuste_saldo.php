@@ -32,7 +32,7 @@
     </div>
     <div class="col-md-4">
         <label>Valor Correção</label>
-        <input id="txtSaldoCorrecao" class="form-control" type="spin" value="" maxlength="4">
+        <input id="txtSaldoCorrecao" class="form-control" type="spin" value="0" maxlength="4">
     </div>
     <div class="col-md-12">
         <label>Obs (Nº de Liberacao ou Transferencia / origem de algum evento)</label>
@@ -89,10 +89,11 @@ $(document).ready(function(){
 
     /* calcula o novo saldo */
     $("#txtSaldoCorrecao").on("spin", function( event, ui ) {
-        var valorCorrecao = parseInt($("#txtSaldoCorrecao").val(), 10);
-        var saldoAtual = parseInt($("#saldoAtual").text(),10);
+        var valorCorrecao = ui.value;
+        var saldoAtual = parseInt($("#saldoAtual").text());
         var saldoNovo = saldoAtual + valorCorrecao;
         $("#saldoNovo").text(saldoNovo);
+        console.log(ui);
 
     });
 

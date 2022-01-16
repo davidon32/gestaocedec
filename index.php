@@ -58,9 +58,12 @@ if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
 $acesso1 = isset($_GET['externo']) ? $_GET['externo'] :"";
 
     if ((isset($caminho[1]) && ($caminho[1] === 'mapa')) && ( (isset($caminho[2]) && $caminho[2] === 'site'))) { # mapas
+        $controller = 'relatorio';
+        $action = 'mapa';
         include_once "mod_ajuda/backEnd/Controller/relatorioController.php";
         $app = new relatorioController();
         $app->mapa();
+        //die();
     
     /* acesso externo sem login */
     }else if($acesso1 == md5('externo')){
@@ -72,7 +75,8 @@ $acesso1 = isset($_GET['externo']) ? $_GET['externo'] :"";
             ($action === 'trsenha_compdec') ||
             ($modulo === 'index') ||
             ($action === 'visualiza') ||
-            ($action === 'troca_senha_cedec_esqueci')
+            ($action === 'troca_senha_cedec_esqueci') ||
+            ($action === 'mapa')
     ) {
 
         include_once "mod_" . $modulo . "/Controller/" . $controller . ".php";
@@ -175,11 +179,14 @@ $acesso1 = isset($_GET['externo']) ? $_GET['externo'] :"";
 
 
     //var_dump(get_included_files());
+    
+    //var_dump($controller);
 
     if (class_exists($controller)) {
 
         $app = new $controller();
-
+        
+if($action != 'mapa'){
         if (method_exists($app, $action)) {
             $app->$action();
         } else {
@@ -194,10 +201,13 @@ $acesso1 = isset($_GET['externo']) ? $_GET['externo'] :"";
 </div>
 EOT;
         }
+    }
     } else {
         print FuncaoBase::mensagem("", "alert-error", "Arquivo:<br><br>- " . $controller . "<br><br> inexistente");
     }
 }
+//}
+
 
 
 /*  print "<script>

@@ -16,12 +16,13 @@ if(empty($post)) {
   
   $data_final = date('d/m/Y');
   $post['id_deposito'] = "";
-  $post['txtDtInicial'] = "01/01/2020";
-  $post['txtDtFinal'] = $data_Final;
+  $post['txtDtInicial'] = "01/10/2021";
+  $post['txtDtFinal'] = $data_final;
   $post['id_municipio'] = "";
-  $post['sel_evento'] = "COVID-19";
+  //$post['sel_evento'] = "COVID-19";
+  $post['sel_evento'] = "CHUVA";
 
-  $icone = '/core/imagem/covid_40.png';
+  $icone = ''; //'/core/imagem/covid_40.png';
 
   $voltar = "";
   
@@ -272,7 +273,7 @@ if(empty($post)) {
   <body>
   <div class="wrap">
     <?=$voltar?>
-    <span style='text-align: center'><?=$post['txtDtInicial'];?> a <?=$post['txtDtFinal'];?></span>
+      <span style='text-align: center'>Mapa de Distribuição de Material de Ajuda Humanitária <br> Período Chuvoso 2021/2022 <!--<?=$post['txtDtInicial'];?> a <?=$post['txtDtFinal'];?>--></span>
     <div id="map-canvas"></div>
   </div>
   </body>

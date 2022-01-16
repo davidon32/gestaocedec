@@ -70,7 +70,7 @@ class agoraController extends Controller {
     # form postagem
 
     public function cadpost() {
-        include '/dc_agora/cadastro.php';
+        include 'dc_agora/cadastro.php';
     }
 
     # gravar postagem

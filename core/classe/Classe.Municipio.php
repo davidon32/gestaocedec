@@ -435,6 +435,35 @@ class Municipio extends DataMysql {
         
     }
     
+    /**
+     * 
+     *  Lista municipio para busca id
+     */
+    public function listaid_municipioAutocomplete() {
+
+        
+        $con = Conexao::getInstance();
+
+        $dados = array();
+
+        $sql = "SELECT id_municipio, nome
+                              FROM cedec_municipio";
+
+        try {
+
+            $result = $con->query($sql);
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dados[] = $linha;
+            }
+
+            return $dados;
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+        
+    }
+    
     
     
     

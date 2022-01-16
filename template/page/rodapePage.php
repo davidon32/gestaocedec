@@ -80,7 +80,7 @@
         }
 
         /* jquery.mask.js igor escobar*/
-        $("input[name^='val_'").mask("#.##0,00", {reverse: true});
+        $("input[name^='val_'").mask("000.000.000.000.000,00", {reverse: true});
 
         $("input[name^='cep'").mask("00000-000");
         

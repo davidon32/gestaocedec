@@ -70,7 +70,7 @@ $dados = $ajudaRelatorioController->relatorioCadastroMaterial($ajudaRelatorioMod
         $totalRegistro++;
         print "<tr>";
         print "<td style='font-size:10px;'>" . $dados[$i]['id_produto'] . "</td>";
-        print "<td style='font-size:10px;'>" . $dados[$i]['nome'] . "</td>";
+        print "<td style='font-size:10px;'>" . $dados[$i]['codProd']."-".$dados[$i]['nome'] . "</td>";
         print "<td style='font-size:10px;'>" . $dados[$i]['quantidade'] . "</td>";
         print "<td style='font-size:10px;'>" . utf8_encode($dados[$i]['origem']) . "</td>";
         print "<td style='font-size:10px;'>" . $dados[$i]['depDestino'] . "</td>";

@@ -486,6 +486,10 @@ class RelatorioAju extends DataMysql {
         $result = $con->query($sql1);
         
         $total = $result->rowCount();
+        $totalPago =0;
+        $totalAberto =0;
+        $totalCancelado =0;
+        
 
         print "<div class=\"row text-center\">
             <br><a class=\"btn btn-success\" href=\"?token=" . hash('sha256', md5(VERSAO).date('dmY')) . "&ac=itn&modulo=ajuda&controller=relatorio&action=fbusca_liberacao\" title=\"Voltar Página\">Voltar</a>
@@ -514,6 +518,10 @@ class RelatorioAju extends DataMysql {
 			</tr>';
 
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            
+            $totalPago += ($linha['situacao'] == 1) ? 1: 0;
+            $totalAberto += ($linha['situacao'] == 0) ? 1: 0;
+            $totalCancelado += ($linha['situacao'] == 2) ? 1: 0;
 
             #@ situacao ser� somente em aberto, 'relatorio de materiais esperando pagamento'
             $situacao = "em Aberto";
@@ -578,7 +586,21 @@ class RelatorioAju extends DataMysql {
 						</tr>";
         }
         print "</table>";
-        print "<h4>Total Registros : " . $total . "</h4>";
+        print "<table>";
+        print "<tr>";
+        print "<td colspan='13'><h4>Total Registros : " . $total . "<h4></td>";
+        print "</tr>";
+        print "<tr>";
+        print "<td colspan='13'><h4>Total Liberações Pagas : " . $totalPago . "<h4></td>";
+        print "</tr>";
+        print "<tr>";
+        print "<td colspan='13'><h4>Total Liberações em Aberto : " . $totalAberto . "<h4></td>";
+        print "</tr>";
+        print "<tr>";
+        print "<td colspan='13'><h4>Total Liberações Canceladas : " . $totalCancelado . "<h4></td>";
+        print "</tr>";
+ 
+        print "</table>";
     }
 
     /**
