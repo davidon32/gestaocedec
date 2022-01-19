@@ -77,6 +77,32 @@
                 print FuncaoBase::getError($e->getMessage());
             }
         }
+        
+        
+        /* lista unidade */
+        public static function ListUnidade() {
+            $con = Conexao::getInstance();
+            
+            $sql = "select id_unidade, nome, descricao "
+                    . "from aju_unidade "
+                    . "order by nome";
+            
+            $dados = array();
+
+            try {
+
+                $result = $con->query($sql);
+                $result->execute();
+
+                while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                    $dados[] = $linha;
+                }
+                return $dados; 
+                
+            }catch (Exception $e){
+                print FuncaoBase::getError($e->getMessage());
+            }
+        }
 
         
         

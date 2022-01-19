@@ -17,6 +17,10 @@ include_once(MODEL_AJUDA_BACKEND.'/AjudaRelatorioModel.php');
             include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/rel_cad_mat.php';
         }
         
+        /* FILTRO INVENTARIO DE MATERIAIS */
+        public function form_busca_invet_libera(){
+            include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/form_busca_invet_libera.php';
+        }
         /* INVENTARIO DE MATERIAIS */
         public function inventario(){
             include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/inventario.php';

@@ -33,9 +33,33 @@ class Produto {
 			while($row = $result->fetch(PDO::FETCH_BOTH))
 
 				{
-					echo "<option value='".$row[0]."'>".$row[1]." - ".$row[2]."</option>";
+					echo "<option value='".$row[0]."'>".$row[1]." ".$row[2]." - ".$row[0]."</option>";
 				}
 				echo "</select>";
+
+		}
+                
+                static function pegaProdutoEntradaMat() {
+			
+			$con = Conexao::getInstance();
+		
+			$sql = "SELECT aju_unidade.id_unidade, aju_unidade.nome, aju_unidade.descricao
+                                FROM aju_unidade 
+                                WHERE aju_unidade.id_unidade NOT IN (SELECT codProd FROM aju_produto)
+                                ORDER BY aju_unidade.nome";
+			
+			$result = $con->query($sql);
+                        
+                        echo "<select class=\"form-control\" name=\"id_produto\" id=\"id_produto\" >";
+				
+			echo "<option value=''>Escolha o Material</option>";
+						
+			while($row = $result->fetch(PDO::FETCH_BOTH)){
+                            
+				echo "<option value='".$row[0]."'>".$row[0]." - ".$row[1]." ".$row[2]."</option>";
+                            }
+				echo "</select>";		
+                        
 
 		}
 

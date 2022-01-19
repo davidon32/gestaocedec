@@ -136,10 +136,11 @@
                             <div class="shadoweffect">
                                 <div class="shadow-desc">
                                     <div class="blog-meta">
-                                        <span class="bg-aqua"><?= (strpos($ultimas_postagens[0]['categoria'], "Outros") === 0) ? "Diversos" : $ultimas_postagens[0]['categoria'] ?></span>
+                                        <span class="bg-aqua"><?=(strpos($ultimas_postagens[0]['categoria'], "Outros") === 0) ? "Diversos" : $ultimas_postagens[0]['categoria'] ?></span>
                                         <h4 style="color: white;"><?= substr($ultimas_postagens[0]['texto'], 0, 60) ?>...</h4>
+                                        <small style="color: white;"><?= $ultimas_postagens[0]['orgao'] ?></small>
                                         <small style="color: white;"><?= date('d/m/Y H:i:s', strtotime($ultimas_postagens[0]['data_hora'])) ?></small>
-                                        <small style="color: white;"><?= $ultimas_postagens[0]['autor'] ?></small>
+                                        <!--<small style="color: white;"><?= $ultimas_postagens[0]['autor'] ?></small>-->
                                         <small style="color: white;" title="Visualizações"><i class="fa fa-eye"> <?= $ultimas_postagens[0]['views'] ?></i></small>
                                     </div><!-- end meta -->
                                 </div><!-- end shadow-desc -->
@@ -155,8 +156,9 @@
                                     <div class="blog-meta">
                                         <span class="bg-aqua"><a href="postagem.php?id=<?= $ultimas_postagens[1]['id'] ?>" title=""><?= (strpos($ultimas_postagens[1]['categoria'], "Outros") === 0) ? "Diversos" : $ultimas_postagens[1]['categoria'] ?></a></span>
                                         <h4 style="color: white;"><?= substr($ultimas_postagens[1]['texto'], 0, 60) ?>...</h4>
+                                        <small style="color: white;"><?= $ultimas_postagens[1]['orgao'] ?></small>
                                         <small style="color: white;"><?= date('d/m/Y H:i:s', strtotime($ultimas_postagens[1]['data_hora'])) ?></small>
-                                        <small style="color: white;"><?= $ultimas_postagens[1]['autor'] ?></small>
+                                        <!--<small style="color: white;"><?= $ultimas_postagens[1]['autor'] ?></small>-->
                                         <small style="color: white;" title="Visualizações"><i class="fa fa-eye"> <?= $ultimas_postagens[1]['views'] ?></i></small>
                                     </div><!-- end meta -->
                                 </div><!-- end shadow-desc -->
@@ -172,8 +174,9 @@
                                     <div class="blog-meta">
                                         <span class="bg-aqua"><a href="postagem.php?id=<?= $ultimas_postagens[2]['id'] ?>" title=""><?= (strpos($ultimas_postagens[2]['categoria'], "Outros") === 0) ? "Diversos" : $ultimas_postagens[2]['categoria'] ?></a></span>
                                         <h4 style="color: white;"><?= substr($ultimas_postagens[2]['texto'], 0, 60) ?>...</h4>
+                                        <small style="color: white;"><?= $ultimas_postagens[2]['orgao'] ?></small>
                                         <small style="color: white;"><?= date('d/m/Y H:i:s', strtotime($ultimas_postagens[2]['data_hora'])) ?></small>
-                                        <small style="color: white;"><?= $ultimas_postagens[2]['autor'] ?></small>
+                                        <!--<small style="color: white;"><?= $ultimas_postagens[2]['autor'] ?></small>-->
                                         <small style="color: white;" title="Visualizações"><i class="fa fa-eye"> <?= $ultimas_postagens[2]['views'] ?></i></small>
                                     </div><!-- end meta -->
                                 </div><!-- end shadow-desc -->
@@ -212,8 +215,9 @@ foreach ($paginacao->dados as $value) {
     print "<h4><a href=\"postagem.php?id=" . $value['id'] . "\" title=\"\">" . (isset($value['titulo']) ? $value['titulo'] : substr($value['texto'], 0, 40)."...") . "</a></h4>";
     print "<p>" . substr($value['texto'], 0, 200) . " <span>Leia mais...</span></p>";
     print "<small><a href=\"garden-category.html\" title=\"\"><i class=\"fa fa-eye\"></i> " . $value['views'] . "</a></small>";
+    print "<small><a href=\"postagem.php?id=" . $value['id'] . "\" title=\"\">" . $value['orgao'] . "</a></small>";
     print "<small><a href=\"postagem.php?id=" . $value['id'] . "\" title=\"\">" . DataMysql::dataExtensoDocumento(DataMysql::dataVisual($value['data_hora'])) . "</a></small>";
-    print "<small>" . $value['autor'] . "</small>";
+    /*print "<small>" . $value['autor'] . "</small>";*/
     print "</div><!-- end meta -->";
     print "</div><!-- end blog-box -->";
 
@@ -255,7 +259,7 @@ print $paginacao->rodape;
                             </div><!--end widget -->
 
                             <div class = "widget">
-                                <h2 class = "widget-title">Postagens Recentes</h2>
+                                <h2 class = "widget-title">Postagens </h2>
                                 <div class = "blog-list-widget">
                                     <div class = "list-group">
 <?php

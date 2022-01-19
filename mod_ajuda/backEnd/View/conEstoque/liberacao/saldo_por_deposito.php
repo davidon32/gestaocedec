@@ -16,9 +16,14 @@ if(!empty($id_deposito)){
     print "<div class=\"col-md-6\">";
     
     print "<table class=\"table table-bordered table-striped\">
-    <tr><th>Nome</th><th>Saldo</th><tr>";
+                <tr>
+                <th>#</th>
+                <th>Nome</th>
+                <th>Saldo</th>
+                <tr>";
     foreach ($dados as $key => $value) {
         print "<tr>
+        <td>".($key+1)."</td>
         <td>".$value['nome']."</td>
         <td>".$value['saldo']."</td>
         </tr>";

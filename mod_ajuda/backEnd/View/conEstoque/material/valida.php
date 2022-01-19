@@ -23,7 +23,7 @@ if($_POST['opcao'] == 'cad_material') {
 			if(FuncaoBase::CampoBranco($campos)){
 					
 				if(Material::Cadastrar($_id_produto,
-										Unidade::PegaNomeId($_id_produto),
+										Unidade::PegaNomeId($_id_produto)." ". str_replace("/",".",$_txtDtEntrada),
 										DataMysql::dataForm($_txtDtEntrada),
 										$_txtOrigem,
 										$_txarObs,
@@ -90,7 +90,11 @@ if($_POST['opcao'] == 'cad_material') {
 	$_btnCadMaterial = isset($_POST['btnCadFonte']) ? true 	   : "";
 	$_cad_por_mat = isset($_POST['cad_pelo_mat']) ? $_POST['cad_pelo_mat'] :"";
 
-	$campos = array("nome"        => $_nome);       
+	$campos = array("nome"        => $_nome);
+        
+           
+            $res = strpos($_nome, "ESTOQUE");
+            if($res === false) {
 	
 			if(FuncaoBase::CampoBranco($campos)){
 					
@@ -105,6 +109,9 @@ if($_POST['opcao'] == 'cad_material') {
 
 				}
 			}
+            }else {
+                return "erro";
+            }
 
 /* CADASTRO DE EVENTOS */
 }elseif($_POST['opcao'] == 'cad_evento') {

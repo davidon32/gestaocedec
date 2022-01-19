@@ -9,13 +9,17 @@
 <?php //include_once "template/page/menu.php";?>
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php";?>
+<?php
+
+$dadosOrigem = Material::ListFonte(true);
+?>
 <style>	
 	#frm_Entrada_mat .error {
     	color: red;
 	}
 </style>
 
-	<legend> Entrada de Materiais</legend>
+	<legend> Entrada de Materiais no Estoque</legend>
 	<div class="row">
 		<div class="col-md-12 text-center">
 			<br>
@@ -28,17 +32,17 @@
 			<div class="row">
 				<div class="col-md-4">
 						<label>Origem</label>
-							<select class="form-control" name="txtOrigem" id="txtOrigem">
-								<option></option>
-								<?php
-									print Material::Fonte();
-								?>
-								<option>Adicionar Fonte<option>
-							</select>
+							<div class="input-group">
+                                                            <input type="text" class="form-control" name='txtOrigem' id='txtOrigem'>
+                                                            <input type="hidden" name='id_origem' id='id_origem'>
+                                                            <span class="input-group-btn">
+                                                              <button class="btn btn-default" id="add_fonte" type="button">Ad.Fonte</button>
+                                                            </span>
+                                                        </div><!-- /input-group -->
 					</div>
 				<div class="col-md-4">
-					<label>Nome</label>
-					<?php Produto::PegaProduto();?>
+					<label>Nome Material</label>
+					<?php Produto::pegaProdutoEntradaMat();?>
 				</div>
 				<div class="col-md-4">
 					<label>Data Entrada</label>
@@ -47,7 +51,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-4">
-					<label>Validade</label>
+					<label>Validade ( Opcional )</label>
                                         <input class="form-control" name="txtValidade" type="text" id="txtValidade" data-mask="99/99/9999" maxlength="10"/>
 				</div>
 				<div class="col-md-4">
@@ -90,6 +94,7 @@
 				<th class="text-center">Nome</th>
 				<th class="text-center">Origem de Entrada</th>
 				<th class="text-center">Deposito Destino</th>
+				<th class="text-center">Obs</th>
 				<th class="text-center">Qtd</th>
 				<th class="text-center">Validade</th>
 				<th class="text-center">Nota F</th>
@@ -102,9 +107,10 @@
 					foreach ($material as $key => $value) {
 						print "<tr><td>".$value['id_produto']."</td>
 								<td>". DataMysql::dataVisual($value['dtEntradaSaida'])."</td>
-								<td>".$value['nome']."</td>
+								<td>".$value['codProd']."-".$value['nome']."- ".$value['descricao']."</td>
 								<td>".$value['origem']."</td>
 								<td>".$value['depDestino']."</td>
+								<td>".$value['obs']."</td>
 								<td>".$value['quantidade']."</td>
 								<td>".(empty($value['validade']) ? "n/a" : $value['validade'] )."</td>
                                                                 <td>-</td>
@@ -129,6 +135,8 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
+    
+    $("#id_origem").val("");
 
     $("#txtDtEntrada").datepicker({ dateFormat: 'dd/mm/yy' });
     $("#txtValidade").datepicker({ dateFormat: 'dd/mm/yy' });
@@ -137,10 +145,10 @@ $(document).ready(function(){
 		e.preventDefault();
 	}).validate({
 		rules: {
-				txtOrigem:{ required: true}, 		
+				txtOrigem:{ required: true, minlength: 3}, 		
 				txtQtd:{ required: true, number: true, minlength: 1 }, 	
-				id_produto:{ required: true}, 	
-				id_deposito:{ required: true}, 	
+				id_produto:{ required: true, minlength: 1}, 	
+				id_deposito:{ required: true, minlength: 1}, 	
 
 			},
 			messages: {
@@ -155,55 +163,57 @@ $(document).ready(function(){
 			var form_data = new FormData();
 
 			var file_data = $("#fl_nota").prop("files")[0];
+                        
+                        var input_origem_ctr = $('#id_origem').val();
+                        var input_form = $('#txtOrigem').val();
+                        
+                        if(input_origem_ctr != input_form){
+                            alert("Gentileza escolher uma origem que conste na lista !");
+                        }else {
 
-				form_data.append("fl_nota",        file_data);
-				form_data.append("opcao",       "cad_material");
-				form_data.append("id_produto",  $("#id_produto").val())
-				form_data.append("txtDtEntrada",$("#txtDtEntrada").val())
-				form_data.append("txtOrigem",   $("#txtOrigem").val())
-				form_data.append("txtValidade", $("#txtValidade").val())
-				form_data.append("txtQtd",      $("#txtQtd").val())
-				form_data.append("id_deposito", $("#id_deposito").val())
-				form_data.append("txObs",       $("#txObs").val())
-				
-			$.ajax({
-				type: 'POST',
-				url: 'mod_ajuda/backEnd/View/conEstoque/material/valida.php?v=<?=md5(VERSAO)?>',
-				cache: false,
-				contentType: false,
-				processData: false,
-				data: form_data,
-				success: function(response) {
-					if(response == 'sucesso'){
-					alert("Cadastro realizado com Sucesso !");
-					//console.log(response);
-					location.reload();
-					}
-				},
-				error: function(e){
-					console.log(JSON.stringify(form_data));
-					console.log(JSON.stringify(response));
-					alert("Ocorreu um Erro !");
-				}
-				
-			});
+                                    form_data.append("fl_nota",        file_data);
+                                    form_data.append("opcao",       "cad_material");
+                                    form_data.append("id_produto",  $("#id_produto").val())
+                                    form_data.append("txtDtEntrada",$("#txtDtEntrada").val())
+                                    form_data.append("txtOrigem",   $("#txtOrigem").val())
+                                    form_data.append("txtValidade", $("#txtValidade").val())
+                                    form_data.append("txtQtd",      $("#txtQtd").val())
+                                    form_data.append("id_deposito", $("#id_deposito").val())
+                                    form_data.append("txObs",       $("#txObs").val())
+
+                            $.ajax({
+                                    type: 'POST',
+                                    url: 'mod_ajuda/backEnd/View/conEstoque/material/valida.php?v=<?=md5(VERSAO)?>',
+                                    cache: false,
+                                    contentType: false,
+                                    processData: false,
+                                    data: form_data,
+                                    success: function(response) {
+                                            if(response == 'sucesso'){
+                                            alert("Cadastro realizado com Sucesso !");
+                                            //console.log(response);
+                                            $("#id_origem").val("");
+                                            location.reload();
+                                            }
+                                    },
+                                    error: function(e){
+                                            console.log(JSON.stringify(form_data));
+                                            console.log(JSON.stringify(response));
+                                            alert("Ocorreu um Erro !");
+                                    }
+                            });
+                        }
 
 		}
 	});
 
 
-	$("#txtOrigem").change(function(){
-
-		if($("#txtOrigem").val() == "Adicionar Fonte"){
-
-			var result = confirm("Deseja Cadastrar uma Fonte de Entrada de Materiais");
-
-			if(result){
-				window.location.href = "?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=origem&cad=true";
-			}
-		}
-
-	})
+	$("#add_fonte").click(function(){
+            var result = confirm("Deseja Cadastrar uma Fonte de Entrada de Materiais");
+            if(result){
+                window.location.href = "?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=origem&cad=true";
+            }
+	});
 
 	$("#fl_nota").change(function(e){
 		var fileName = e.target.files[0].name;
@@ -228,13 +238,26 @@ $(document).ready(function(){
                 }
                 
 	});
+        
+        
+        var itemOrigem = {
+            data:
+                <?php print json_encode($dadosOrigem); ?>, // array com os dados
+                getValue: "nome", /* alterar com nome do item BD */
 
-		/*$("#txtQtd").blur(function(){
-			var num = $("#txtQtd").val();
-
-			numInt = parseInt(num);
-			$("#txtQtd").val(numInt);
-		});*/
+                list: {
+                    match: {
+                    enabled: false
+                    },
+                onSelectItemEvent: function () {
+                    var nome = $("#txtOrigem").getSelectedItemData().nome;
+                    $("#id_origem").val(nome);
+                },
+            }
+        };
+        /*********** autocomplete origem ***********/
+        $("#txtOrigem").easyAutocomplete(itemOrigem);
+        
 
 });	
 </script>

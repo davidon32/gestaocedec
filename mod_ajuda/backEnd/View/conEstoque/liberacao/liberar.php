@@ -13,6 +13,10 @@
 	$saldo = new ControleSaldo();
 
 	$_municipio = new Municipio();
+        
+        $municipios = $_municipio->dadosSelectMunicipio($_COOKIE['seguranca']['rpm']);
+        
+        $dadosOrigem = Material::ListFonte();
 	
 	# verifica se tem algum produto com vencimento de data limite
 	//$saldo->DevolvePedido();
@@ -27,6 +31,7 @@
 	*******************************************************************************************/
 ?>
 
+<div class="col-md-3"></div>
 <div class="col-md-6">
 	<div class="col-md-12">
 		<p style="text-align:center"><legend>Lista de Materiais a Liberar</legend></p>
@@ -46,16 +51,22 @@
 		</div>
 		</div>	
 </div>
+<div class='col-md-3'>&nbsp;</div>
+<div class="row"></div>
+<hr>
 
+<div class='col-md-3'>&nbsp;</div>
+<div class='col-md-6'>
 
-	
 		<form method="POST" action="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=fechar_liberacao" name="flibera" style="background: #F2F2F2;"/>
 
+			<div class="col-md-12">
 			<legend>Liberação de Materiais</legend>
 								
-			<div class="col-md-12">
 				<label>Munic&iacute;pio Destino</label>
-				<?php $_municipio->PegaMunicipio();?>
+                                <input class="form-control" type="text" name="txtMunicipio" id="txtMunicipio">
+                                <input type="hidden" name="id_municipio" id="id_municipio">
+				<!--<?php $_municipio->PegaMunicipio();?>-->
 			</div>
 								
 			<div class="col-md-6">
@@ -65,12 +76,9 @@
 
 			<div class="col-md-6">
 				<label>Fonte de Origem<br/></label>
-				<select name="fonte" id="fonte" class="form-control" required>
-				<option value="">Selecione a Origem</option>
-						<?php
-							print Material::Fonte();
-						?>
-				</select>
+                                <input type="text" class="form-control" name='fonte' id='fonte'>
+                                <input type="hidden" name='id_origem' id='id_origem'>
+
 			</div>
 					
 			<div class="col-md-6">
@@ -123,8 +131,11 @@
 
 		
 	</form>
+</div>
+<div class="col-md-3"></div>
 
-<div class="col-md-12 text-center">
+    
+    <div class="col-md-12 text-center">
 	<br>
 		<a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=idxliberacao">Voltar</a>
 </div>
@@ -135,8 +146,48 @@
 <?php include_once "template/page/barra_config_template.php";?>
 <!-- =============== HEADER HTML PAGE ================= -->
 <?php include_once "template/page/rodapePage.php";?>
-		<script type="text/javascript">
-			$(document).ready(function(){
+<script type="text/javascript">
+    $(document).ready(function(){
+                            
+        var itensMunicipio = {
+            data:
+                <?php print json_encode($municipios); ?>, // array com os dados
+                getValue: "nome",
+                list: {
+                    maxNumberOfElements: 15,
+                        match: {
+                            enabled: true
+                        },
+                        onSelectItemEvent: function () {
+                            var value = $("#txtMunicipio").getSelectedItemData().id_municipio;
+
+                            $("#id_municipio").val(value);
+                            //$("#txtIdComunidadeSearch").val(value).trigger("change");
+                        }
+
+                }
+
+        };
+            $("#txtMunicipio").easyAutocomplete(itensMunicipio);
+            
+            /* auto complete origem */
+            var itemOrigem = {
+            data:
+                <?php print json_encode($dadosOrigem); ?>, // array com os dados
+                getValue: "nome", /* alterar com nome do item BD */
+
+                list: {
+                    match: {
+                    enabled: false
+                    },
+                onSelectItemEvent: function () {
+                    var nome = $("#fonte").getSelectedItemData().nome;
+                    $("#id_origem").val(nome);
+                },
+            }
+        };
+        /*********** autocomplete origem ***********/
+        $("#fonte").easyAutocomplete(itemOrigem);
 
 				
 				$("#dt_libera").datepicker({ dateFormat: 'dd/mm/yy' });

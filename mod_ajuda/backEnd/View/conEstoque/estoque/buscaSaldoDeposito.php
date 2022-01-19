@@ -29,7 +29,8 @@ if(empty($opcao) && (empty($qtd))){
                                             $txarObs,
                                             $qtd,
                                             Deposito::PegaNomeDeposito($id_deposito),
-                                            date("Y-m-d"));
+                                            date("Y-m-d"),
+                                            "-");
             }
             if($result){
                 print "sucesso";
@@ -46,7 +47,8 @@ if(empty($opcao) && (empty($qtd))){
                                             $txarObs,
                                             $qtd,
                                             Deposito::PegaNomeDeposito($id_deposito),
-                                            date("Y-m-d"));
+                                            date("Y-m-d"),
+                                            "-");
             }
             if($result){
                 print "sucesso";

@@ -62,17 +62,19 @@ table th {
 	$listMat = isset($_POST['ckListMat']) ? $_POST['ckListMat'] : "";
 
 	$id_material = isset($_POST['id_material']) ? $_POST['id_material'] : "";
-		
-	$cabecalho = "<div class=\"col-md-12\">Legenda:<br>
-	<i style=\"background-color:#00a65a; color:white\">&nbsp;Pago&nbsp;</i>
-	<i style=\"background-color:#f39c12; color:white\">&nbsp;Cancelado&nbsp;</i>
-	<i style=\"background-color:#00c0ef; color:white\">&nbsp;Em aberto&nbsp;</i>
-        <br><br>
-	</div>";
 	
-        
+        if($listMat){
+        }else {
+            $cabecalho = "<div class=\"col-md-12\">Legenda:<br>
+            <i style=\"background-color:#00a65a; color:white\">&nbsp;Pago&nbsp;</i>
+            <i style=\"background-color:#f39c12; color:white\">&nbsp;Cancelado&nbsp;</i>
+            <i style=\"background-color:#00c0ef; color:white\">&nbsp;Em aberto&nbsp;</i>
+            <br><br>
+            </div>";
 
-print $cabecalho;
+            print $cabecalho;
+        }
+
 
     /* relatorio de material Liberado restricao dep Avancado*/
     if(($id_liberacao == false) && ($_nivel == 4)){
@@ -84,36 +86,126 @@ print $cabecalho;
 		#@ relatorio com o id da liberacao
 		$_relatorioAjuda->RelatorioVisualizaLiberacao($id_liberacao);
 
-	/* lista conferencia de materiais **/
+	/* lista por materiais conferencia de materiais **/
 	}else if(!empty($listMat)) {
             
-            
-            
-
 		$total = 0;
+                $totalEntrada = 0;
+                $totalLiberacao = 0;
+                $totalTransferencia = 0;
 		$listRel = $_relatorioAjuda->RelatorioListaMat($id_material);
                 
-                //var_dump($listRel);
+                $entrada = $_relatorioAjuda->EntradaMaterial($_POST);
+                $transferencia = $_relatorioAjuda->EntradaMaterialTransf($_POST);
+      
                 print "</br>";
 		print "<a href='".FuncaoBase::geraLink("ajuda", "relatorio", "fbusca_liberacao")."' class='btn btn-primary'>Voltar</a><br>";
                 print "<br>";
                 print "<legend>Pedíodo : ".$_POST['txtDtInicial']." a ".$_POST['txtDtFinal']."</legend>";
+                print "<p style='text-align:center'><legend>DEPÓSITO ".Deposito::PegaNomeDeposito($_POST['id_deposito']). " - ". Unidade::PegaNomeId($id_material)."</legend></p>";
+                               
+                $corEntrada = "#057A60";
+                $corSaida = "#FE2E2E";
+                
+                
+                /* Entrada de materiais */
 		print "<table class='table table-bordered table-condensed'>";
 		print "<tr>";
-		print "<th>#</th>";
-		print "<th>Beneficiario</th>";
-		print "<th>Data Liberacao</th>";
-		print "<th>Código</th>";
-		print "<th>Descrição Material</th>";
-		print "<th>Quantidade</th>";
+		print "<th style='color:".$corEntrada."' colspan='6'><h4>Entrada de Materiais</h4></th>";
+		print "</tr>";
+		print "<tr>";
+		print "<th style='color:".$corEntrada."' width='5%'>#</th>";
+		print "<th style='color:".$corEntrada."' width='10%'>Cód Material</th>";
+		print "<th style='color:".$corEntrada."' width='10%'>Data Entrada</th>";
+		print "<th style='color:".$corEntrada."' width='35%'>Nome</th>";
+		print "<th style='color:".$corEntrada."' width='30%'>Origem</th>";
+		print "<th style='color:".$corEntrada."' width='10%'>Qtd</th>";
+		print "</tr>";
+		foreach ($entrada as $key => $value) {
+                        $saida = "";
+                        $totalEntrada += $value['quantidade'];
+                        if(strpos($value['origem'], "Correção") === 0) {
+                            $cor = $corSaida;
+                            $saida = "-";
+                        }else {
+                            $cor = $corEntrada;
+                        }
+			print "<tr>";
+			print "<td style='color:".$cor."'>".($key+1)."</td>";
+			print "<td style='color:".$cor."'>".$value['codProd']."</td>";
+			print "<td style='color:".$cor."'>". DataMysql::dataVisual($value['dtEntradaSaida'])."</td>";
+			print "<td style='color:".$cor."'>".$value['nome']."</td>";
+			print "<td style='color:".$cor."'>".$value['origem']." / ".$value['obs']."</td>";
+			print "<td style='color:".$cor."; text-align:center'>".$value['quantidade']."</td>";
+			print "</tr>";
+                }
+		print "<tr>";
+		print "<th colspan='5' style='text-align:right;color:".$corEntrada."'>Total Entrada Materiais</th>";
+		print "<th style='color:".$corEntrada."'>".$totalEntrada."</th>";
+		print "</tr>";
+		print "</table>";
+                print "<br>";
+                
+                if(count($transferencia) >0) {
+                /* Transferencia de materiais */
+		print "<table class='table table-bordered table-condensed'>";
+		print "<tr>";
+		print "<th style='color:".$corSaida."' colspan='6'><h4>Transferencia de Materiais entre Depósitos</h4></th>";
+		print "</tr>";
+		print "<tr>";
+		print "<th style='color:".$corSaida."' width='5%'>#</th>";
+		print "<th style='color:".$corSaida."' width='10%'>Cód Material</th>";
+		print "<th style='color:".$corSaida."' width='10%'>Data Entrada</th>";
+		print "<th style='color:".$corSaida."' width='35%'>Nome</th>";
+		print "<th style='color:".$corSaida."' width='30%'>Origem</th>";
+		print "<th style='color:".$corSaida."' width='10%'>Qtd</th>";
+		print "</tr>";
+		foreach ($transferencia as $key => $value) {
+                        $totalTransferencia += $value['quantidade'];
+                        
+                            $cor = $corSaida;
+                       
+			print "<tr>";
+			print "<td style='color:".$cor."'>".($key+1)."</td>";
+			print "<td style='color:".$cor."'>".$value['codProd']."</td>";
+			print "<td style='color:".$cor."'>". DataMysql::dataVisual($value['dtEntradaSaida'])."</td>";
+			print "<td style='color:".$cor."'>".$value['nome']."</td>";
+			print "<td style='color:".$cor."'>".$value['origem']." ".$value['obs']." para D.A. ".$value['depDestino']."</td>";
+			print "<td style='color:".$cor."; text-align:center'>-".$value['quantidade']."</td>";
+			print "</tr>";
+                }
+		print "<tr>";
+		print "<th colspan='5' style='text-align:right;color:".$corSaida."'>Total Transferencia Materiais</th>";
+		print "<th style='color:".$corSaida."'>-".$totalTransferencia."</th>";
+		print "</tr>";
+		print "</table>";
+                print "<br>";
+                }
+                
+                
+                
+                /* listagem dos materiais liberados */
+		print "<table class='table table-bordered table-condensed'>";
+		print "<tr>";
+		print "<th colspan='7'><h4>Liberações</h4></th>";
+		print "</tr>";
+                print "<tr>";
+		print "<th width='5%'>#</th>";
+		print "<th width='10%'>Nr.Liberacao</th>";
+		print "<th width='10%'>Data Liberacao</th>";
+		print "<th width='35%'>Beneficiario</th>";
+		print "<th width='15%'>Dep Origem</th>";
+		print "<th width='15%'>Descrição Material</th>";
+		print "<th width='10%'>Quantidade</th>";
 		print "</tr>";
 		foreach ($listRel as $key => $value) {
 			print "<tr>";
 			print "<td>".($key+1)."</td>";
+			print "<td>".$value['id_liberacao']."</td>";
 			print "<td>".DataMysql::dataVisual($value['dataLibera'])."</td>";
 			print "<td><i>".$value['beneficiario']."</i>  <b>".Municipio::PegaNomeMunicipio($value['id_municipio'])."</b></td>";
-			print "<td>".$value['cod']."</td>";
-			print "<td>".Unidade::PegaNomeId($value['cod'])." </td>";
+			print "<td>".Deposito::PegaNomeDeposito($value['id_dep_origem'])."</td>";
+			print "<td>".$value['cod']." - ".Unidade::PegaNomeId($value['cod'])." </td>";
 			print "<td  style='text-align:center'>".$value['quantidade']."</td>";
 			print "</tr>";
 
@@ -121,10 +213,42 @@ print $cabecalho;
 			
 		}
 		print "<tr>";
-		print "<th colspan='5' style='text-align:right'>Total</th>";
+		print "<th colspan='6' style='text-align:right'>Total Materiais Liberados</th>";
 		print "<th>".$total."</th>";
 		print "</tr>";
-		print "</table>";
+		print "</table><br>";
+                
+		/* resumo quantidades */
+                
+                $saldo = $totalEntrada-$totalTransferencia-$total;
+                $corSaldo = "#000000";
+                if($saldo > 0){
+                    $corSaldo = "#0000CD";
+                }
+                print "<div class='col-md-8'></div>";
+                print "<div class='col-md-4'>";
+                print "<table style='width=50%' class='table table-bordered table-condensed' align='text-center'>";
+                print "<tr>";
+                print "<td style='color:".$corEntrada."; font-weight:bold'>Total Entradas ( + )</td>";
+                print "<td style='color:".$corEntrada."; font-weight:bold'>".$totalEntrada."</td>";
+                print "</tr>";
+                print "<tr>";
+                print "<td style='color:".$corSaida."; font-weight:bold'>Total Transferencias ( - )</td>";
+                print "<td style='color:".$corSaida."; font-weight:bold'>".$totalTransferencia."</td>";
+                print "</tr>";
+                print "<tr>";
+                print "<td style='color:".$corSaida."; font-weight:bold'>Total Liberações ( - )</td>";
+                print "<td style='color:".$corSaida."; font-weight:bold'>".(($total > 0)? -$total : 0)."</td>";
+                print "</tr>";
+                print "<tr>";
+                print "<td style='color:".$corSaldo."; font-weight:bold'>Saldo a Liberar ( = )</td>";
+                print "<td style='color:".$corSaldo."; font-weight:bold'>".$saldo."</td>";
+                print "</tr>";
+                print "</table>";
+                print "</div>";
+                
+                
+                
 		
 	}else {
 

@@ -61,7 +61,7 @@ $nProd = new Produto();
 
 					<div class="col-md-12">
                                             <br>
-						<label>Produto :</label>
+						<label>Material :</label>
 						<?php $nProd->PegaProduto('required');
 						//Produto::PegaProdutoDescricao();
 					?>
@@ -130,7 +130,7 @@ $nProd = new Produto();
                     $item = $_pedido->Item($id_deposito, $material, $descricao, $qtd, Material::getNomeEvento($evento));
                 
                     #@ adiciona na cesta 
-					$_pedido->AdicionaItem($item);
+                    $_pedido->AdicionaItem($item);
 
     
                 }

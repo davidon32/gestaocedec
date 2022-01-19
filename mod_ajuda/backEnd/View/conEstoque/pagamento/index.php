@@ -43,7 +43,6 @@
 					<td>Op&ccedil;&atilde;o</td>
 					<td>Material</td>
 				</tr>";
-				
 			foreach ($dados as $key => $value) {
 			
 				print "<tr>";
@@ -51,7 +50,12 @@
 				print "<td>".Municipio::PegaNomeMunicipio($value['id_municipio'])."</td>";
 				print "<td>".DataMysql::dataVisual($value['dataLibera'])."</td>";
 				print "<td>".DataMysql::dataVisual($value['dtLimite'])."</td>";
-				print "<td><a class=\"btn btn-info\"href='index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=pagar&id=".$value['id_liberacao']."' title=\"Clique aqui para Pagar o Material\">Pagar</a></td>";
+				print "<td>";
+                                if($_COOKIE['seguranca']['idUser'] != $value['id_usuario'] && $value['dataLibera'] == date('Y-m-d')) {
+                                    print "<a class=\"btn btn-info\" href='index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=pagar&id=".$value['id_liberacao']."' title=\"Clique aqui para Pagar o Material\">Pagar</a></td>";
+                                }else {
+                                    print "<a class=\"btn btn-default\" title='este pagamento não está disponível para este usuario pois o mesmo quem fez a liberação !'>não disponível</a>";
+                                }
 				print "<td><button class=\"btn btn-info\" id=\"".$value['id_liberacao']."\" name=\"txtmatlib\" data-toggle=\"modal\" data-target=\"#myModal\" data-whatever=\"".$value['id_liberacao']."\" title=\"Visualizar Material para Pagamento\">Visualizar</button></td>";
 				print "</tr>";
 			}

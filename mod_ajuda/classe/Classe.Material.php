@@ -296,17 +296,48 @@ class Material {
 			print FuncaoBase::getError($e->getMessage(), 'Erro ao buscar Registro');
 		}
 	}
+	#@ retorna o nome no Material com Base no Identificador
+	static function ListFonte($liberacao = true) {
+            
+                $dados = array();
+
+		try{    if($liberacao){
+                            $estoque = "";
+                        }else {
+                            $estoque = " where nome <> 'ESTOQUE'";
+                        }
+
+			$sql = "SELECT nome from aju_fonte".$estoque;
+			
+			$con = Conexao::getInstance();
+
+			$result = $con->query($sql);
+			
+			while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                            $dados[] = $linha;
+			}
+			
+                        return $dados;
+		}catch (Exception $e) {
+			print FuncaoBase::getError($e->getMessage(), 'Erro ao buscar Registro');
+		}
+	}
 
 
 	/**
 	 *  Fonte de Material select html
 	 * 
 	 */
-	static function Fonte(){
+	static function Fonte($liberacao = true){
 
-		try{
+		try{    if($liberacao){
+                            $estoque = "";
+                        }else {
+                            $estoque = " where nome <> 'ESTOQUE'";
+                        }
+                
 
-			$sql = "SELECT * from aju_fonte";
+			$sql = "SELECT * from aju_fonte".$estoque;
 			
 			$con = Conexao::getInstance();
 
@@ -436,8 +467,11 @@ class Material {
 						aju_produto.quantidade,
 						aju_produto.depDestino,
 						aju_produto.validade,
-						aju_produto.nota_fiscal
+						aju_produto.nota_fiscal,
+                                                aju_unidade.descricao
 					FROM gestaocedec.aju_produto
+                                        inner join aju_unidade
+                                        on aju_produto.codProd = aju_unidade.id_unidade
                                         order by dtEntradaSaida desc ".$filtro;
 
 		$result = $con->query($sql);

@@ -24,14 +24,14 @@
         
 ?>
 
-	<p class="text-center"><legend>Relat&oacute;rio de Libera&ccedil;&otilde;es</legend></p>
+	<p class="text-center"><legend>Relat&oacute;rio de Inventário de materiais</legend></p>
 
-	<form method="POST" action="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=relatorio&action=rel_lib_mat" name="frm_rel_liberacao" >
+	<form method="POST" action="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=relatorio&action=inventario" name="frm_rel_inventario" >
 		<div class="col-md-12">
                     <label>Dep&oacute;sito Destino:</label>
                     <?php $_deposito->pegaDeposito();?>
                 </div>
-                <div class="col-md-12">
+                <!--<div class="col-md-12">
                     <br>
                     <label>Data Inicial:</label>
                     <input class="form-control" type="text" name="txtDtInicial" id="txtDtInicial" data-mask="99/99/9999" title="Periodo Inicial de Liberações " required/>
@@ -40,43 +40,22 @@
                     <br>
                     <label>Data Final:</label>
                     <input class="form-control" type="text" name="txtDtFinal" id="txtDtFinal" data-mask="99/99/9999" title="Periodo Final de Liberações" required/>
-		</div>
-                <div class="col-md-12">
+		</div>-->
+                
+                <!--<div class="col-md-12">
                     <br>
                     <label>Munic&iacute;pio:</label>
                     <?php $_municipio->PegaMunicipio();?>
-		</div>
+		</div>-->
 		
-            <div class="col-md-12">
-                <br>
-                <label for="listEvento">Evento</label>
-                    <select name="selEvento" id="selEvento" class="form form-control">
-                        <option value="">Todos</option>
-                                <?php 
-                                foreach ($eventos as $evento){
-                                    print "<option id='".$evento['id_evento']."'>".$evento['nome']."</option>";
-                                }
-                                ?>
-                            </select>
-            </div>
+           
             <div class="col-md-12">
                 <br>
                 <div class="form-group">
-				<label for="ckListMat">Listagem por Materiais</label>
-				<input type="checkbox" name="ckListMat" id="ckListMat">
+				<label for="ckSaldoZerado">Saldo Zerado</label>
+				<input type="checkbox" name="ckSaldoZerado" id="ckSaldoZerado">
 		</div>
-                <div class="form-group" id="lista">
-				<label for="ckListMat">Material</label>
-				<select class="form-control" name="id_material" id="id_material">
-					<option value="">Todos</option>
-					<?php
-
-						foreach ($unidade as $value) {
-							print "<option value='".$value['id_unidade']."'>".$value['nome']."/ ".$value['descricao']." </option>";
-						}?>
-				</select>
-			
-			</div>
+                
             </div>
             <div class="col-md-12">
             <input class="btn btn-primary" type="submit" name="pesquisar" value="Pesquisar" />

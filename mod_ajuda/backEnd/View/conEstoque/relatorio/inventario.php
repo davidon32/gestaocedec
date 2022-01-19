@@ -58,13 +58,15 @@
     }
     
 </style>
+<div class='col-md-12 text-center'>
+    <a class="btn btn-success imprimir" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=relIndex">Voltar</a>				 
+    <br><br>
+</div>
 
 <?php
     $_relatorioAjuda = new RelatorioAju();
-    
-    $dados = $_relatorioAjuda->inventarioGeral();
-    
-    //var_dump($dados);
+
+    $dados = $_relatorioAjuda->inventarioGeral($_POST['id_deposito']);
 
 ?>
 

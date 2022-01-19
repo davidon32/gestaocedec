@@ -36,7 +36,7 @@
     </div>
     <div class="col-md-12">
         <label>Obs (Nº de Liberacao ou Transferencia / origem de algum evento)</label>
-        <textarea id="txtObs" class="form-control" rows="4" maxlength="255" ></textarea>
+        <textarea id="txtObs" name="txtObs" class="form-control" rows="4" maxlength="255" ></textarea>
     </div>
 
     <div class="col-md-12" id="correcaoSaldo"> 
@@ -93,7 +93,7 @@ $(document).ready(function(){
         var saldoAtual = parseInt($("#saldoAtual").text());
         var saldoNovo = saldoAtual + valorCorrecao;
         $("#saldoNovo").text(saldoNovo);
-        console.log(ui);
+        //console.log(ui);
 
     });
 
@@ -161,6 +161,7 @@ $(document).ready(function(){
                 url: 'mod_ajuda/backEnd/View/conEstoque/estoque/buscaSaldoDeposito.php?v=<?=md5(VERSAO)?>',
                 data: dados,
                 success: function(response) {
+                    console.log(response);
                     if(response == "sucesso"){
                         alert("Salvo corrigo com Sucesso !");
                         location.reload();

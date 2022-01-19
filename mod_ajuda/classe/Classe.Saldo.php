@@ -468,7 +468,8 @@ include_once 'Classe.Transferencia.Material.php';
 					FROM aju_estoque
 					INNER JOIN aju_unidade
 					ON aju_estoque.id_produto = aju_unidade.id_unidade
-					WHERE aju_estoque.id_deposito = {$id_deposito}";
+					WHERE aju_estoque.id_deposito = {$id_deposito}"
+                                        . " and aju_estoque.saldo > 0";
 
 					$result = $con->query($sql);
 

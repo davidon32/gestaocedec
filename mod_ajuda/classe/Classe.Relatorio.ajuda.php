@@ -111,19 +111,26 @@ class RelatorioAju extends DataMysql {
 
     /* INVENTARIO DE MATERIAIS */
 
-    public function inventarioGeral() {
+    public function inventarioGeral($id_deposito = null) {
+        
+        if(!empty($id_deposito)){
+            $filtro = " where aju_deposito.id_deposito = '{$id_deposito}'" ;
+        }else {
+            $filtro = "";
+        }
 
         $sql = "select aju_unidade.id_unidade,
                 aju_unidade.nome as produto,
                 aju_unidade.descricao,
                 aju_deposito.nome as deposito,
                 aju_estoque.saldo 
-               from aju_estoque
-               inner join aju_unidade
-               on aju_unidade.id_unidade = aju_estoque.id_produto
-               inner join aju_deposito
-               on aju_deposito.id_deposito = aju_estoque.id_deposito
-               order by aju_unidade.nome, aju_estoque.id_deposito";
+                from aju_estoque
+                inner join aju_unidade
+                on aju_unidade.id_unidade = aju_estoque.id_produto
+                inner join aju_deposito
+                on aju_deposito.id_deposito = aju_estoque.id_deposito
+                ".$filtro."
+                order by aju_unidade.nome, aju_estoque.id_deposito";
 
         try {
 
@@ -895,6 +902,74 @@ class RelatorioAju extends DataMysql {
 					WHERE situacao = 1 
 					AND dataLibera BETWEEN dtInicial AND dtFinal";
     }
+    
+    /* lista de entrada por Material */
+    public static function EntradaMaterial($post){
+        $con = Conexao::getInstance();
+
+        $dados = array();
+
+        //$campoData = " AND aju_produto.dtEntradaSaida BETWEEN '" . DataMysql::dataForm($post['txtDtInicial']) . "' AND '" . DataMysql::dataForm($_POST['txtDtFinal']) . "' ";
+
+        $id_material = (!empty($post['id_material'])) ? " AND aju_produto.codProd = '{$post['id_material']}' " : "";
+        
+        $deposito = (!empty($post['id_deposito'])) ? " AND aju_produto.depDestino = '".Deposito::PegaNomeDeposito($post['id_deposito'])."' " : "";
+        
+        $sql = "SELECT aju_produto.codProd,
+			aju_produto.nome,
+			aju_produto.dtEntradaSaida,
+			aju_produto.origem,
+			aju_produto.quantidade,
+                        aju_produto.obs
+			FROM aju_produto
+                            WHERE aju_produto.id_produto > 0 {$id_material}{$deposito} 
+                                order by aju_produto.dtEntradaSaida";
+
+        $result = $con->query($sql);
+
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            $dados[] = $linha;
+        }
+
+        return $dados;
+        
+        
+    }
+    /* lista de entrada por Material */
+    public static function EntradaMaterialTransf($post){
+        $con = Conexao::getInstance();
+
+        $dados = array();
+
+        //$campoData = " AND aju_produto.dtEntradaSaida BETWEEN '" . DataMysql::dataForm($post['txtDtInicial']) . "' AND '" . DataMysql::dataForm($_POST['txtDtFinal']) . "' ";
+
+        $id_material = (!empty($post['id_material'])) ? " AND aju_produto.codProd = '{$post['id_material']}' " : "";
+        
+        $transferencia = (!empty($post['id_deposito'])) ? " AND aju_produto.id_dep_origem = '{$post['id_deposito']}'" : "";
+        
+        $sql = "SELECT aju_produto.codProd,
+			aju_produto.nome,
+			aju_produto.dtEntradaSaida,
+			aju_produto.origem,
+			aju_produto.quantidade,
+                        aju_produto.obs,
+                        aju_produto.id_dep_origem,
+                        aju_produto.depDestino
+			FROM aju_produto
+                            WHERE aju_produto.id_produto > 0 {$id_material}{$transferencia} 
+                                order by aju_produto.dtEntradaSaida";
+
+        $result = $con->query($sql);
+
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            $dados[] = $linha;
+        }
+
+        return $dados;
+        
+        
+    }
+    
 
     /**
      *  lista para conferencia de liberacoes por materiais
@@ -908,20 +983,23 @@ class RelatorioAju extends DataMysql {
         $campoData = " AND aju_item.dataLibera BETWEEN '" . DataMysql::dataForm($_POST['txtDtInicial']) . "' AND '" . DataMysql::dataForm($_POST['txtDtFinal']) . "' ";
 
         $id_material = (!empty($_POST['id_material'])) ? " AND aju_item.cod = '{$_POST['id_material']}' " : "";
-
+        
+        $deposito = (!empty($_POST['id_deposito'])) ? " AND aju_item.id_dep_origem = '{$_POST['id_deposito']}' " : "";
+        
         $sql = "SELECT distinct	aju_item.id_liberacao,
 			aju_liberacao.id_municipio,
 			aju_liberacao.beneficiario,
 			aju_item.cod,
 			aju_unidade.nome,
 			aju_item.quantidade,
-			aju_item.dataLibera
+			aju_item.dataLibera,
+                        aju_item.id_dep_origem
 			FROM aju_item
 			INNER JOIN aju_unidade
 			ON aju_item.cod = aju_unidade.id_unidade
 			INNER JOIN aju_liberacao
 			ON aju_item.id_liberacao = aju_liberacao.id_liberacao
-			  WHERE aju_item.situacao = '1' {$id_material}{$campoData} 
+			  WHERE aju_item.situacao = '1' {$id_material}{$campoData} {$deposito} 
 			  order by aju_item.dataLibera";
 
         $result = $con->query($sql);
@@ -959,6 +1037,9 @@ class RelatorioAju extends DataMysql {
         } catch (Exception $e) {
             print FuncaoBase::getError($e->getMessage());
         }
+        
+        
+        
     }
 
 }

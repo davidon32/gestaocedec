@@ -3,6 +3,7 @@
 <?php include_once "mod_ajuda/Model/indexModel.php";?>
 <!-- =============== HEADER HTML PAGE ================= -->
 <?php include_once "template/page/headerPageSimples.php";?>
+
 <style type="text/css">
 
       
