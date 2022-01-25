@@ -24,6 +24,7 @@ include_once "template/page/headerPageSimples.php";
     $_txt_motivo           = isset($_POST['txt_motivo'])           ? $_POST['txt_motivo']           : "";
     $_txt_id_dep_destino   = isset($_POST['txt_id_dep_destino'])   ? $_POST['txt_id_dep_destino']   : "";
     $_btn_enviar           = isset($_POST['btn_enviar'])           ? $_POST['btn_enviar']           : "";
+    $_id_dep_origem        = isset($_POST['id_dep_origem'])        ? $_POST['id_dep_origem']           : "";
 
         // valida campo em branco
         $_campos = array("Numero Transferencia"=>$_txt_id_transferencia,
@@ -59,7 +60,8 @@ include_once "template/page/headerPageSimples.php";
                                                          "Transferencia entre Depositos",
                                                          "-",
                                                          $dados[$i]['quantidade'],
-                                                         "'".Deposito::PegaNomeDeposito($_txt_id_dep_destino)."'");
+                                                         "'".Deposito::PegaNomeDeposito($_txt_id_dep_destino)."'",
+                                                         $_id_dep_origem);
                     }
                     
                 }

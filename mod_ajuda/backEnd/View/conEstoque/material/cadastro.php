@@ -137,8 +137,14 @@ $dadosOrigem = Material::ListFonte(true);
 $(document).ready(function(){
     
     $("#id_origem").val("");
+    
 
-    $("#txtDtEntrada").datepicker({ dateFormat: 'dd/mm/yy' });
+
+    $("#txtDtEntrada").datepicker({ 
+        dateFormat: 'dd/mm/yy',
+        maxDate: 5,
+        minDate: -10,
+    });
     $("#txtValidade").datepicker({ dateFormat: 'dd/mm/yy' });
 
 	$("#frm_Entrada_mat").submit(function(e) {
@@ -247,7 +253,7 @@ $(document).ready(function(){
 
                 list: {
                     match: {
-                    enabled: false
+                    enabled: true,
                     },
                 onSelectItemEvent: function () {
                     var nome = $("#txtOrigem").getSelectedItemData().nome;

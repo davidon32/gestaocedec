@@ -148,6 +148,18 @@
 <?php include_once "template/page/rodapePage.php";?>
 <script type="text/javascript">
     $(document).ready(function(){
+        
+        $("#dt_libera").datepicker({
+           maxDate:3,
+           minDate:-5,
+           dateFormat: 'dd/mm/yy',
+            orientation: "bottom left",
+            beforeShow: function () { /* problema datapicker atras controle input*/
+                setTimeout(function () {
+                    $('.ui-datepicker').css('z-index', 99999999999999);
+                }, 0);
+            }
+         });
                             
         var itensMunicipio = {
             data:

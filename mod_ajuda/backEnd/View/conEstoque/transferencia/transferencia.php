@@ -96,7 +96,11 @@
 <?php include_once "template/page/rodapePage.php";?>
 <script type="text/javascript">
 
-	$("#txt_dt_transferencia").datepicker({ dateFormat: 'dd/mm/yy' });
+	$("#txt_dt_transferencia").datepicker({ 
+            dateFormat: 'dd/mm/yy',
+            maxDate:3,
+            minDate:-5,
+        });
 	$("#txt_saida").datepicker({ dateFormat: 'dd/mm/yy' });
 	$("#txt_chegada").datepicker({ dateFormat: 'dd/mm/yy' });
 	

@@ -45,7 +45,8 @@ class Produto {
 		
 			$sql = "SELECT aju_unidade.id_unidade, aju_unidade.nome, aju_unidade.descricao
                                 FROM aju_unidade 
-                                WHERE aju_unidade.id_unidade NOT IN (SELECT codProd FROM aju_produto)
+                                WHERE aju_unidade.complnota = 1
+                                or aju_unidade.id_unidade NOT IN (SELECT codProd FROM aju_produto)
                                 ORDER BY aju_unidade.nome";
 			
 			$result = $con->query($sql);

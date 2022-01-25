@@ -127,7 +127,8 @@
 								  $_origem,
 								  $_obs,
 								  $_quantidade,
-								  $_id_dep_destino){
+								  $_id_dep_destino,
+                                                                  $_id_dep_origem){
 
 			$con = Conexao::getInstance();
 
@@ -139,14 +140,16 @@
 												origem,
 												obs,
 												quantidade,
-												depDestino)
+												depDestino,
+                                                                                                id_dep_origem)
 												VALUES (".$_id_produto.",
 														'".$_descricao."',
 														'".$_dt_transferencia."',
 														'".$_origem."',
 														'".$_obs."',
 														".$_quantidade.",
-														".$_id_dep_destino.")";
+														".$_id_dep_destino.","
+                                        . "                                                                     ".$_id_dep_origem.")";
 				
 					$result = $con->query($sql);
 					return true;

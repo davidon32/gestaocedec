@@ -44,7 +44,11 @@ class Pedido extends FuncaoBase {
                 $_SESSION['cesta'][] = $_item;
                 print "<script type='text/javascript'>";
                 print "alert('Material Adicionado com Sucesso !');";
-                print "history.back();";
+                if($_GET['action'] == "add_material"){
+                print "window.location = '".FuncaoBase::geraLink("ajuda", "conestoque", "add_material")."';";
+                }else {
+                print "window.location = '".FuncaoBase::geraLink("ajuda", "conestoque", "add_mat_transf")."';";
+                }
                 print "</script>";
             } else {
 

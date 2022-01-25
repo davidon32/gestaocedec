@@ -76,7 +76,7 @@ $acesso1 = isset($_GET['externo']) ? $_GET['externo'] :"";
             ($modulo === 'index') ||
             ($action === 'visualiza') ||
             ($action === 'troca_senha_cedec_esqueci') ||
-            ($action === 'mapa')
+            ($action === 'mapa') 
     ) {
 
         include_once "mod_" . $modulo . "/Controller/" . $controller . ".php";
@@ -106,9 +106,11 @@ $acesso1 = isset($_GET['externo']) ? $_GET['externo'] :"";
                 ($controller == 'agoraController' && $action == 'gravarComentario') ||
                 ($controller == 'agoraController' && $action == 'cadpost') ||
                 ($controller == 'agoraController' && $action == 'postagem')
-        ) {
-            
+        ) 
+        
+         {   
 
+            
             $ac = 'backEnd/';
 
             include_once "mod_" . $modulo . "/" . $ac . "Controller/" . $controller . ".php";
@@ -181,6 +183,7 @@ $acesso1 = isset($_GET['externo']) ? $_GET['externo'] :"";
     //var_dump(get_included_files());
     
     //var_dump($controller);
+    
 
     if (class_exists($controller)) {
 

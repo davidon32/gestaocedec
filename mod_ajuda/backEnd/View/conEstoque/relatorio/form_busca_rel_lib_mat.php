@@ -67,14 +67,17 @@
 		</div>
                 <div class="form-group" id="lista">
 				<label for="ckListMat">Material</label>
-				<select class="form-control" name="id_material" id="id_material">
+                                <input class="form form-control" type="text" name="nome_material" id="nome_material" >
+                                <input type="hidden" name="id_material" id="id_material" >
+                                
+				<!--<select class="form-control" name="id_material" id="id_material">
 					<option value="">Todos</option>
 					<?php
 
 						foreach ($unidade as $value) {
 							print "<option value='".$value['id_unidade']."'>".$value['nome']."/ ".$value['descricao']." </option>";
 						}?>
-				</select>
+				</select>-->
 			
 			</div>
             </div>
@@ -114,6 +117,33 @@
 			$("#lista").hide(700);
 			$("#ckListMat").attr("checked",false);
 		}
-	})
+	});
+        
+         var itemMaterial = {
+            data:
+                <?php print json_encode($unidade); ?>, // array com os dados
+                getValue: "nome", /* alterar com nome do item BD */
+
+                list: {
+                    match: {
+                    enabled: true,
+                    },
+                onSelectItemEvent: function () {
+                    var nome = $("#nome_material").getSelectedItemData().nome;
+                    var id = $("#nome_material").getSelectedItemData().id_unidade;
+                    $("#id_material").val(id);
+
+    
+                }
+            },
+            template: {
+                type: "custom",
+                method: function (value, item) {
+                        return  item.id_unidade+" - "+value;
+                }
+            },
+        };
+        /*********** autocomplete origem ***********/
+        $("#nome_material").easyAutocomplete(itemMaterial);
 	
 </script>

@@ -445,6 +445,8 @@ class RelatorioAju extends DataMysql {
         if ((!$_dt_inicial) and (!$_dt_final) and (!$_id_municipio) and (!$_dep_destino)) {
             $filtro = '';
         }
+        
+        
 
         #@ data inicial
         elseif (($_dt_inicial) && (!$_dt_final) && (!$_id_municipio) && (!$_dep_destino)) {
@@ -459,6 +461,10 @@ class RelatorioAju extends DataMysql {
         #@ data inicial e final 
         elseif (($_dt_inicial) && ($_dt_final) && (!$_id_municipio) && (!$_dep_destino)) {
             $filtro = 'WHERE dataLibera between "' . $_dt_inicial . '" and "' . $_dt_final . '"';
+        }
+        #@ data inicial, final e deposito
+        elseif (($_dt_inicial) && ($_dt_final) && (!$_id_municipio) && ($_dep_destino)) {
+            $filtro = 'WHERE dataLibera between "' . $_dt_inicial . '" and "' . $_dt_final . '" and depDestino ='.$_dep_destino;
         }
 
         #@ deposito origem
@@ -489,6 +495,7 @@ class RelatorioAju extends DataMysql {
                 id_user_pgto
                 FROM aju_liberacao ' . $filtro;
 
+        
         #@ concatenacao de sql com resultado da escolha 
         $result = $con->query($sql1);
         
@@ -1041,7 +1048,13 @@ class RelatorioAju extends DataMysql {
         
         
     }
+    
+    /* salvar diario controle estoque*/
+    public static function Diario(){
+        print "ok";
+        include_once ('/mod_ajuda/backEnd/View/conEstoque/relatorio/diario.php');
+        
+    }
+    
 
-}
-
-?>
+}?>

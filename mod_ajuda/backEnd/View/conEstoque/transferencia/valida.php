@@ -10,9 +10,10 @@ include_once "template/page/headerPageSimples.php";
      if(isset($_SESSION['cesta'])){
 
         $_material = $_SESSION['cesta'];
-        
+       
     }
 
+        $_txt_dep_origem       = isset($_POST['id_dep_origem'])          ? $_POST['id_deposito']              : "" ;
         $_txt_dep_destino      = isset($_POST['id_deposito'])          ? $_POST['id_deposito']              : "" ;
         $_txt_dt_transferencia = isset($_POST['txt_dt_transferencia']) ? $_POST['txt_dt_transferencia']     : "" ;
         $_txt_motorista        = isset($_POST['txt_motorista'])        ? strtoupper($_POST['txt_motorista']): "" ;

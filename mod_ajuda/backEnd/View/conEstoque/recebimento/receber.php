@@ -46,14 +46,16 @@ $_dados = $_transferencia->MaterialReceber($_id_transferencia);
 	<div class="col-md-6">
 		<div class="col-md-6">
 			<label>Depósito Origem:</label>
-			<input type="hidden" name="txt_id_transferencia" value="<?php print $_dados['id_transferencia'];?>">
-			<input type="hidden" name="txt_id_dep_destino"   value="<?php print $_dados['id_dep_destino'];?>">
-			
 			<input type="text"  class="form-control" name="txt_depOrigem"        value="<?php print Deposito::PegaNomeDeposito($_dados['id_dep_origem']);?>" readonly="readonly"> 
+			<input type="hidden" name="id_dep_origem" id="id_dep_origem"   value="<?php print $_dados['id_dep_origem'];?>">
+			
+                        <input type="hidden" name="txt_id_transferencia" value="<?php print $_dados['id_transferencia'];?>">
+			
 		</div>
 		<div class="col-md-6">
 			<label>Depósito Destino:</label>
 			<input type="text" class="form-control" name="txt_depDestino" value="<?php print Deposito::PegaNomeDeposito($_dados['id_dep_destino']);?>"	readonly="readonly"></label>
+			<input type="hidden" name="txt_id_dep_destino"   value="<?php print $_dados['id_dep_destino'];?>">
 		</div>
 		<div class="col-md-6">
 			<label>Veiculo:</label>
@@ -93,7 +95,7 @@ $_dados = $_transferencia->MaterialReceber($_id_transferencia);
 		</div>
 		<div class="col-md-6">
 			<label>&nbsp;</label>
-                        <input class="form-control" type="text"  size="20" readonly maxlength="0">
+                        <input class="form-control" type="text"  size="20" readonly maxlength="0" name="">
 		</div>
 		<div class="col-md-6">
 			<label>Perda de Material no Transporte ?</label><br>

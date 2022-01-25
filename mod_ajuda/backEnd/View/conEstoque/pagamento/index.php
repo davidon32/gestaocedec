@@ -51,7 +51,7 @@
 				print "<td>".DataMysql::dataVisual($value['dataLibera'])."</td>";
 				print "<td>".DataMysql::dataVisual($value['dtLimite'])."</td>";
 				print "<td>";
-                                if($_COOKIE['seguranca']['idUser'] != $value['id_usuario'] && $value['dataLibera'] == date('Y-m-d')) {
+                                if($_COOKIE['seguranca']['idUser'] != $value['id_usuario'] ) {
                                     print "<a class=\"btn btn-info\" href='index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=pagar&id=".$value['id_liberacao']."' title=\"Clique aqui para Pagar o Material\">Pagar</a></td>";
                                 }else {
                                     print "<a class=\"btn btn-default\" title='este pagamento não está disponível para este usuario pois o mesmo quem fez a liberação !'>não disponível</a>";

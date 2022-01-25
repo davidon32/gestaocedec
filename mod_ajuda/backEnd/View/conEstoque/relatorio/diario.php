@@ -81,7 +81,7 @@
 
 $data = date('d/m/Y');
 $hora = date('H:i:s');
-$inventario = <<<HTML
+?>
 <div class="col-md-9 text-center">
        GABINETE MILITAR DO GOVERNADOR DE MINAS GERAIS <br>
        INVENTÁRIO DE MATERIAIS
@@ -100,23 +100,21 @@ $inventario = <<<HTML
             <th>CUSTO</th>
             <th>QTD</th>
         </tr>
-HTML;
         
-?>
         <?php
             foreach ($dados as $key => $value) {
                 
                 if($value['saldo'] > 0){
                     $saldo = $value['saldo'];
-                    $inventario .="<tr>";
-                    $inventario .= "<td>".$value['id_unidade']."</td>";
-                    $inventario .= "<td>".$value['produto'].(!empty($value['descricao']) ? " - ".$value['descricao'] : "") ."</td>";
-                    $inventario .= "<td></td>";
-                    $inventario .= "<td></td>";
-                    $inventario .= "<td>".$value['deposito']."</td>";
-                    $inventario .= "<td></td>";
-                    $inventario .= "<td>".$saldo."</td>";
-                    $inventario .= "</tr>";
+                    print "<tr>";
+                    print "<td>".$value['id_unidade']."</td>";
+                    print "<td>".$value['produto'].(!empty($value['descricao']) ? " - ".$value['descricao'] : "") ."</td>";
+                    print "<td></td>";
+                    print "<td></td>";
+                    print "<td>".$value['deposito']."</td>";
+                    print "<td></td>";
+                    print "<td>".$saldo."</td>";
+                    print "</tr>";
                     
                 }else{
                     if(true){ // busca transito
@@ -131,27 +129,6 @@ HTML;
           
     $inventario .= "</table>
 </div>";
-
-require 'vendor/autoload.php';
-use Dompdf\Dompdf;
-
-if($tipo == 'pdf'){
-    
-// Dompdf namespace
-// dompdf class
-$dompdf = new Dompdf();
-// html que será transformado em PDF
-$dompdf->loadHtml($inventario);
-// (Opcional) Tipo do papel e orientação
-$dompdf->setPaper('A4');
-// Render HTML para PDF
-$dompdf->render();
-// Download do arquivo
-file_put_contents('doc/diario/'.date('d').'-'.date('m').'-'.date('Y').'-'.date('his').'-inventario.pdf', $dompdf->output());
-}else {
-    print $inventario;
-}
-
 ?>
 
 

@@ -27,8 +27,7 @@ $remove = isset($_GET['r']) ? $_GET['r']: null;
 		$_SESSION['cesta'] = array_values($_SESSION['cesta']);
 
 		print "<script type='text/javascript'>";
-
-		print "window.location = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=add_material'";
+                print "history.back();";
 
 		print "</script>";	
 		

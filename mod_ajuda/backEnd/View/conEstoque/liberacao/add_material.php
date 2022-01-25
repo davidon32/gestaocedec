@@ -108,13 +108,12 @@ $nProd = new Produto();
 
 				<?php
 	
-			$acao = isset($_POST['acao']) ? $_POST['acao'] : '';
+	    $acao = isset($_POST['acao']) ? $_POST['acao'] : '';
             $material = isset($_POST['id_produto']) ? $_POST['id_produto'] : '';
             $qtd = isset($_POST['qtd']) ? $_POST['qtd'] : '';
             $id_deposito = isset($_POST['id_deposito']) ? $_POST['id_deposito'] : '';
             $descricao = isset($_POST['descricao']) ? $_POST['descricao'] : '';
             $evento = isset($_POST['evento']) ? $_POST['evento'] : '';
-
 
             if($acao == 'Adicionar'){
 
@@ -127,7 +126,13 @@ $nProd = new Produto();
                 if(FuncaoBase::CampoBranco($campos)){
     
                     #@ Monta o item 
-                    $item = $_pedido->Item($id_deposito, $material, $descricao, $qtd, Material::getNomeEvento($evento));
+                    $item = $_pedido->Item($id_deposito,
+                                        $material,
+                                        $descricao,
+                                        $qtd,
+                                        Material::getNomeEvento($evento),
+                                        $dep_origem
+                                        );
                 
                     #@ adiciona na cesta 
                     $_pedido->AdicionaItem($item);

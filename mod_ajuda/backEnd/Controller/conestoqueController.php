@@ -285,5 +285,14 @@
             include_once 'mod_ajuda/backEnd/View/conEstoque/liberacao/correcao.php';
 
         }
+        
+        
+        /**
+         * diario controle estoque
+         */
+        function diario1(){
+            include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/diario.php';
+
+        }
 
     }?>
