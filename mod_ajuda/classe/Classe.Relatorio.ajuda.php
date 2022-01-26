@@ -1044,15 +1044,57 @@ class RelatorioAju extends DataMysql {
         } catch (Exception $e) {
             print FuncaoBase::getError($e->getMessage());
         }
-        
-        
-        
     }
     
     /* salvar diario controle estoque*/
     public static function Diario(){
         print "ok";
         include_once ('/mod_ajuda/backEnd/View/conEstoque/relatorio/diario.php');
+        
+    }
+    
+    /**/
+    public static function saldoAnterior(array $filtro){
+        $dados = array();
+
+        $con = Conexao::getInstance();
+
+        try {
+            $sql = "SELECT distinct aju_estoque_anterior.id_produto,
+                            aju_estoque_anterior.id_deposito,
+                            aju_estoque_anterior.saldo,
+                            aju_deposito.nome,
+                            aju_unidade.nome
+                            FROM aju_estoque_anterior
+                            INNER JOIN aju_unidade
+                            ON aju_estoque_anterior.id_produto = aju_unidade.id_unidade
+                            INNER JOIN aju_deposito
+                            on aju_estoque_anterior.id_deposito = aju_deposito.id_deposito
+                            WHERE data_saldo = '".$filtro['data']."'
+                            AND aju_estoque_anterior.id_deposito = 1
+                            AND aju_estoque_anterior.saldo > 0
+                            AND aju_unidade.nome REGEXP 'CESTA|"
+                                                        ."KIT HIGIENE|"
+                                                        ."KIT LIMPEZA|"
+                                                        ."LEITE|"
+                                                        ."AGUA|"
+                                                        ."COLCHAO|"
+                                                        ."LONA|"
+                                                        ."COBERTOR|"
+                                                        ."KIT DORMITORIO {$filtro['material']}'
+                                                        order by aju_unidade.nome";
+
+            $result = $con->query($sql);
+            //print $sql;
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dados[] = $linha;
+            }
+
+            return $dados;
+        } catch (Exception $e) {
+            print FuncaoBase::getError($e->getMessage());
+        }
         
     }
     

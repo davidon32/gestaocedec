@@ -22,6 +22,7 @@
 $_pagamento = new Pagamento();
 
 
+
 /* ****************************************************************************************
  *  	Org�o Gestor : Coordenadoria Estadual de Defesa Civil do Estado de Minas Gerais
 *	Sistema      : Sistema de Gest�o de Ajuda Humanit�ria
@@ -39,7 +40,7 @@ if((int)$id_libera){
 	
 	$dado = $_pagamento->EfetPgto($id_libera);
 	
-	
+	$dados_municipio = Municipio::dadosMunicipio($dado['id_municipio'])
 	//$pgto -> MosLibInd($_SESSION['seguranca']['idUser'], $_GET['idLibera']);
 	
 	?>
@@ -100,12 +101,12 @@ if((int)$id_libera){
 			<div class="col-md-8">	
 				<label>Endere&ccedil;o:</label>
 				<span class="info">*</span>
-				<input class="form-control" name="endereco" type="text" maxlength="40" required>
+                                <input class="form-control" name="endereco" type="text" maxlength="40" required value="<?=$dados_municipio['endereco']?>">
 			</div>
 			<div class="col-md-4">
 				<label>N&uacute;mero:</label>
 				<span class="info">*</span>
-				<input  class="form-control" name="numero" type="text" value="" size="6" maxlength="6" required>
+				<input  class="form-control" name="numero" type="text" value="" size="6" maxlength="6" required value="0">
 			</div>
 		</div>	
 		<div class="col-md-12">	
@@ -113,17 +114,17 @@ if((int)$id_libera){
 			<div class="col-md-4">
 				<label>Bairro:</label>
 				<span class="info">*</span>
-				<input class="form-control" name="bairro" type="text" size="40" maxlength="20" required>
+				<input class="form-control" name="bairro" type="text" size="40" maxlength="20" required value="<?=$dados_municipio['bairro']?>">
 			</div>
 			<div class="col-md-4">					
 				<label>Telefone:</label>
 				<span class="info">*</span>
-				<input class="form-control" name="tel_dest" type="text" data-mask="(99)9999-9999" size="40">		
+				<input class="form-control" name="tel_dest" type="text" data-mask="(99)9999-9999" size="40" value="<?=$dados_municipio['tel_pref']?>">		
 			</div>
 			<div class="col-md-4">	
 				<label>Celular:</label>
 				<span class="info">*</span>
-				<input class="form-control" name="cel_dest" type="text" data-mask="(99)9999-9999" size="40">
+				<input class="form-control" name="cel_dest" type="text" data-mask="(99)9999-9999" size="40" value="<?=$dados_municipio['cel_pref']?>">
 			</div>
 		</div>
 
@@ -218,7 +219,11 @@ if((int)$id_libera){
 
 			});
 
-			$("#dtPgto").datepicker({ dateFormat: 'dd/mm/yy' });
+			$("#dtPgto").datepicker({ 
+                            dateFormat: 'dd/mm/yy',
+                            minDate: "-1D",
+                            maxDate: "+15D", 
+                        }).attr('readonly', 'readonly');;
 		
 
 		});

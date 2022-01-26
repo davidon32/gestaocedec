@@ -25,23 +25,23 @@ class Material {
 								
 		$con = Conexao::getInstance();
 				$sql = "insert into aju_produto (codProd,
-												nome,
-												dtEntradaSaida,
-												origem,
-												obs,
-												quantidade,
-												depDestino,
-												validade,
-												nota_fiscal)
-												VALUES (:id_produto,
-														:nome_produto,
-														:dt_entrada,
-														:dep_origem,
-														:obs,
-														:qtd,
-														:dep_destino,
-														:validade,
-														:nota_fiscal)";
+                                            nome,
+                                            dtEntradaSaida,
+                                            origem,
+                                            obs,
+                                            quantidade,
+                                            depDestino,
+                                            validade,
+                                            nota_fiscal)
+                                            VALUES (:id_produto,
+						:nome_produto,
+						:dt_entrada,
+						:dep_origem,
+						:obs,
+						:qtd,
+						:dep_destino,
+						:validade,
+						:nota_fiscal)";
 		try {
 			$result = $con->prepare($sql);
 
@@ -54,8 +54,25 @@ class Material {
 			$result->bindValue(":dep_destino" , $_nome_deposito);
 			$result->bindValue(":validade"    , $_validade);
 			$result->bindValue(":nota_fiscal" , $_nota);
+			
 
 			$result->execute();
+			return true;
+		}catch (Exception $e){
+			print FuncaoBase::getError($e->getMessage());
+		}
+	}
+        
+        public static function Complnota($_id_produto, $_complnota) {
+								
+		$con = Conexao::getInstance();
+				$sql = "UPDATE aju_unidade
+			 SET complnota = '{$_complnota}'
+			 WHERE id_unidade = '{$_id_produto}'";
+			 
+		try {
+			$result = $con->query($sql);
+
 			return true;
 		}catch (Exception $e){
 			print FuncaoBase::getError($e->getMessage());

@@ -12,6 +12,7 @@ if($_POST['opcao'] == 'cad_material') {
 	$_txarObs        = isset($_POST['txObs'])          ? FuncaoBase::tirarAcentos($_POST['txObs'])        : "";
 	$_nota       = isset($_FILES['fl_nota']['name'])   ? $_id_produto."_nota_entrada.".Anexo::getExtensao($_FILES['fl_nota']['name']) : "";
 	$_btnCadMaterial = isset($_POST['btnCadMaterial']) ? true 					  : "";
+	$_complnota      = isset($_POST['complnota'])      ? $_POST['complnota']      : "";
 
 
 	$campos = array("Produto"        => $_id_produto,    
@@ -23,14 +24,16 @@ if($_POST['opcao'] == 'cad_material') {
 			if(FuncaoBase::CampoBranco($campos)){
 					
 				if(Material::Cadastrar($_id_produto,
-										Unidade::PegaNomeId($_id_produto)." ". str_replace("/",".",$_txtDtEntrada),
-										DataMysql::dataForm($_txtDtEntrada),
-										$_txtOrigem,
-										$_txarObs,
-										$_txtQtd,
-										Deposito::PegaNomeDeposito($_id_deposito),
-										DataMysql::dataForm($_txtValidade),
-										$_nota)) {
+							Unidade::PegaNomeId($_id_produto)." ". str_replace("/",".",$_txtDtEntrada),
+							DataMysql::dataForm($_txtDtEntrada),
+							$_txtOrigem,
+							$_txarObs,
+							$_txtQtd,
+							Deposito::PegaNomeDeposito($_id_deposito),
+							DataMysql::dataForm($_txtValidade),
+							$_nota)) {
+                                    
+                                    Material::Complnota($_id_produto, $_complnota);
 
 					/* LANCA ATUALIZACAO SALDO DO MATERIAL */
 					Material::atualizarSaldo($_id_produto,$_id_deposito,$_txtQtd);

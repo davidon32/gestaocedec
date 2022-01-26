@@ -75,6 +75,7 @@ $dadosOrigem = Material::ListFonte(true);
 				</div>
 				<div class="col-md-12 text-center">
 					<br>
+                                        <input type="hidden" name="complnota" id="complnota" value="0"/>
 					<input type="submit" class="btn btn-primary"  name="btnCadMaterial" id="btnCadMaterial" value="Cadastrar"/>
 				</div>
 			</div>
@@ -136,10 +137,41 @@ $dadosOrigem = Material::ListFonte(true);
 
 $(document).ready(function(){
     
-    $("#id_origem").val("");
+    $("#id_produto").change(function(){
+        
+        Swal.fire({
+            title: 'Operação necessária !',
+            width: 600,
+            allowOutsideClick: false,
+            html: "Este material está dividido em mais de uma nota  \nou foi recebido fracionado ? \n\
+                                      <br>\
+                                      Ao confirmar esta opção, este material estara disponível para lancamento no mesmo código.<br>\
+                                      <br>Certifique-se que:<br>\
+                                      <br> O Material que será posteriormente Entrado no estoque é o mesmo que já está cadastrado no SDC.<br>\
+                                      <br> Ou o material não foi entregue na sua totalidade. <br>\
+                                      <br> Ou o material foi fracionado em mais de uma nota cujo Doador/Fornecedor são a mesma Pessoa/Entidade ?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirmar'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                
+                $("#complnota").val(1);
+              /*Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+              )*/
+            }else{
+                $("#complnota").val(0);
+            }
+          })
+});
     
-
-
+    $("#id_origem").val("");
+ 
     $("#txtDtEntrada").datepicker({ 
         dateFormat: 'dd/mm/yy',
         maxDate: 5,
@@ -186,6 +218,7 @@ $(document).ready(function(){
                                     form_data.append("txtQtd",      $("#txtQtd").val())
                                     form_data.append("id_deposito", $("#id_deposito").val())
                                     form_data.append("txObs",       $("#txObs").val())
+                                    form_data.append("complnota",   $("#complnota").val())
 
                             $.ajax({
                                     type: 'POST',

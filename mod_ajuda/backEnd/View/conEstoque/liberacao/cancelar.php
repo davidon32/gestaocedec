@@ -34,10 +34,14 @@ $_readOnly = "";
 	</div>
 		<br />
 		<input class="btn btn-success" type="submit" name="btn_cancela" value="Buscar" />
+                <br>
 		
 	</form>
 
 	<div class="col-md-12">
+            <br>
+                <span>Limite para cancelamento de Liberações ( 30 Dias )</span>
+                <br>
 
 			<?php
 
@@ -59,7 +63,14 @@ $_readOnly = "";
 						$link = "<a id='cancela'><img width='35px' src='core/imagem/cancela.png'></a>";
 					}elseif($situacao == 'Pago'){
 						$css =" style='color:#FFFFFF;background:#088A29'";
-						$link = "<a id='cancela' data-pago><img width='35px' src='core/imagem/cancela.png'></a>";
+                                                $data_liberacao = $dados['dataLibera'];
+                                                $data_limite = date("d/m/Y", strtotime("+30 days", strtotime($data_liberacao)));
+                                                if($data_limite < date("d/m/Y")){
+                                                    
+                                                    $link = "Fora da data Limite pra Cancelamento";
+                                                }else {
+                                                    $link = "<a id='cancela' data-pago><img width='35px' src='core/imagem/cancela.png'></a>";
+                                                }
                                                 print "<script>Swal.fire({
                                                                             icon: 'error',
                                                                             title: 'Atenção...',

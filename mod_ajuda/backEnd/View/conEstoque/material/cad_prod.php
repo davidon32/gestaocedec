@@ -34,7 +34,7 @@
 				</div>
 				<div class="col-md-3">
 					<label>Nome</label>
-                                        <input class="form-control" name="txtNome" id="txtNome" type="text" required maxlength="45"/>
+                                        <input class="form-control" name="txtNome" id="txtNome" type="text" required maxlength="70"/>
 				</div>
 				<div class="col-md-3">
 					<label>Descrição</label>

@@ -68,66 +68,65 @@
     <br><br>
 </div>
 
+<form action="#" method="POST" name="frmSaldo" id="frmSaldo" >
+    
+    <input type="text" class="form form-control" name="data" id="data" >
+    <input type="submit" name="btnEnvia" id="btnEnvia" value="Pesquisar">
+</form>
+
+
 <?php
 
-    $id_deposito = isset($_POST['id_deposito']) ? $_POST["id_deposito"] : "";
+    $dataHoje = date('Y-m-d');
     
+    $data = date('Y-m-d H:i:s', strtotime($dataHoje . ' -1 day'));
+    
+    $filtro['data'] = $data;
+    $filtro['material'] = ''; 
     $_relatorioAjuda = new RelatorioAju();
 
-    $dados = $_relatorioAjuda->inventarioGeral($id_deposito);
+    $dados = $_relatorioAjuda->saldoAnterior($filtro);
     
+   
+       
     
-
-
-$data = date('d/m/Y');
+$data1 = date('d/m/Y');
 $hora = date('H:i:s');
 ?>
-<div class="col-md-9 text-center">
+<div class="col-md-3 text-center">
+    
+</div>
+<div class="col-md-6 text-center">
        GABINETE MILITAR DO GOVERNADOR DE MINAS GERAIS <br>
        INVENTÁRIO DE MATERIAIS
    </div>
 <div class="col-md-3 text-center">
-    {$data} {$hora}   
+    <?=$data1." ".$hora?>   
 </div>
 <div class="col-md-12" style="font-size:10pt;">
     <table class="table table-condensed table-bordered">
         <tr>
             <th>CÓDIGO</th>
-            <th>DESCRICAO</th>
-            <th>UN</th>
-            <th>MARCA</th>
+            <th>NOME</th>
             <th>ESTOQUE</th>
-            <th>CUSTO</th>
-            <th>QTD</th>
+            <th>DATA</th>
+            <th>SALDO</th>
         </tr>
         
         <?php
             foreach ($dados as $key => $value) {
-                
-                if($value['saldo'] > 0){
-                    $saldo = $value['saldo'];
-                    print "<tr>";
-                    print "<td>".$value['id_unidade']."</td>";
-                    print "<td>".$value['produto'].(!empty($value['descricao']) ? " - ".$value['descricao'] : "") ."</td>";
-                    print "<td></td>";
-                    print "<td></td>";
-                    print "<td>".$value['deposito']."</td>";
-                    print "<td></td>";
-                    print "<td>".$saldo."</td>";
-                    print "</tr>";
-                    
-                }else{
-                    if(true){ // busca transito
-                        //$saldo = GerTransito::MarcaTransito($rSaldo[1],$rSaldo[0])
-                        
-                    }
-                }   
-                    
-                
+
+                print "<tr>";
+                print "<td>".$value['id_produto']."</td>";
+                print "<td>".$value['nome']."</td>";
+                print "<td>".Deposito::PegaNomeDeposito($value['id_deposito'])."</td>";
+                print "<td>". DataMysql::dataVisual($data)."</td>";
+                print "<td>".$value['saldo']."</td>";
+                print "</tr>";
             }
         
           
-    $inventario .= "</table>
+    print "</table>
 </div>";
 ?>
 
