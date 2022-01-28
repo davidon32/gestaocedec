@@ -34,6 +34,12 @@
         public function cadastro(){
             include_once 'mod_ajuda/backEnd/View/conEstoque/material/cadastro.php';
         }
+        
+        /* editar entrada de material no estoque */
+        public function edEntMat(){
+            $id_entrada = isset($_GET['id']) ? $_GET['id'] : "";
+            include_once 'mod_ajuda/backEnd/View/conEstoque/material/editar.php';
+        }
 
         /* Cadastro de Produto */
         public function cad_prod(){
@@ -286,7 +292,6 @@
 
         }
         
-        
         /**
          * diario controle estoque
          */
@@ -294,5 +299,7 @@
             include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/diario.php';
 
         }
+        
+        
 
     }?>

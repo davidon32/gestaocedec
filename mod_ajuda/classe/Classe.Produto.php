@@ -18,9 +18,8 @@ class Produto {
 			
 			$con = Conexao::getInstance();
 		
-		/* faz um select na base e monta um <select> html com a tabela produto */
+                        /* faz um select na base e monta um <select> html com a tabela produto */
 		
-			//$sql = ('SELECT DISTINCT p.id_produto, p.nome, p.dtEntradaSaida, p.origem, p.obs, p.quantidade FROM produto p');
 			$sql = "SELECT u.id_Unidade, u.nome, u.descricao FROM aju_unidade u ORDER BY u.nome";
 			
 			

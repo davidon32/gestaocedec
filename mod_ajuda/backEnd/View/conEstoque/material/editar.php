@@ -19,7 +19,7 @@ $dadosOrigem = Material::ListFonte(true);
 	}
 </style>
 
-	<legend> Entrada de Materiais no Estoque</legend>
+	<legend> Alteração Entrada Estoque</legend>
 	<div class="row">
 		<div class="col-md-12 text-center">
 			<br>
@@ -120,7 +120,7 @@ $dadosOrigem = Material::ListFonte(true);
                                                                     $countSaida = (int)Liberacao::CountLibera($value['id_produto'])+(int)Liberacao::CountTransferencia($value['id_produto']);
                                                                     
                                                                     if($countSaida ==0){
-                                                                        print "<a href='".FuncaoBase::geraLink("ajuda", "conestoque", "edEntMat", array('id' => $value['id_produto']))."'><img src=core/imagem/editar.png></a>";
+                                                                        print "<a href='".FuncaoBase::geraLink("ajuda", "conestoque", "editEntradaMat", array('id' => $value['id_produto']))."'><img src=core/imagem/editar.png></a>";
                                                                     }else {
                                                                         print "-";
                                                                     }

@@ -36,8 +36,9 @@ if(!isset($_SESSION['cesta'])){
 $nProd = new Produto();	
 ?>
 		<div class="row-fluid">
-			<div class="span12">
 				<legend>Adicionar Materiais</legend>
+                    <div class="col-md-3"></div>
+			<div class="col-md-6">
 				<form method="POST" action="#" name="adItem" id="frmAddMaterialLib">
 				    <!--index.php?ac=itn&modulo=pipa&secao=liberacao&acao=adicionarCesta-->
 		
@@ -88,8 +89,9 @@ $nProd = new Produto();
 						<br><br>
 					</div>
 				</form>
-				
 			</div>
+                    <div class="col-md-3"></div>
+                    <div class="col-md-12">
 			<p class="text-center"><legend>Materiais da Liberação</legend></p>
 			<div class="col-md-2"></div>
 			<div class="col-md-8" style="background:#BDBDBD;">

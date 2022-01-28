@@ -139,6 +139,22 @@ include_once(MODEL_AJUDA_BACKEND.'/AjudaRelatorioModel.php');
 
         }
         
+        /**
+         *  form busca prestacao de contas */
+        public function form_busca_prest_contas(){
+
+            include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/form_busca_rel_prest_contas.php';
+
+        }
+        /**
+         *  relatorio prestacao de contas */
+        public function rel_prest_conta(){
+
+            include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/rel_prest_conta.php';
+
+        }
+        
+        
         
         
         ############### Resumo ######################

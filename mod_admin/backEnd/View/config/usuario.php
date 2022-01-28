@@ -63,6 +63,9 @@
                             if(Usuario::getPermissao('cedec_permissao', 'permissao_usuario')){
                                 print "<a href='".FuncaoBase::geraLink("admin", "adm", "alterar", array('id'=>$value['id_usuario']))."'><img src='core/imagem/editar.png' width='25' title='Alterar Usuario'></a>";
                             }
+                            if(Usuario::getPermissao('cedec_permissao', 'dados_usuario')){
+                                print "<a href='".FuncaoBase::geraLink("cedec", "funcionario", "alterar", array('id'=>$value['id_usuario']))."'><img src='core/imagem/editar.png' width='25' title='Alterar Usuario'></a>";
+                            }
                             print "</td></tr>";
                     }
 

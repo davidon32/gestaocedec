@@ -24,11 +24,11 @@
         
 ?>
 
-	<p class="text-center"><legend>Relat&oacute;rio de Libera&ccedil;&otilde;es</legend></p>
-
 <div class="col-md-3"></div>
-<div class="col-md-6">
-	<form method="POST" action="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=relatorio&action=rel_lib_mat" name="frm_rel_liberacao" >
+<div class="col-md-6">   
+	<p class="text-center"><legend>Relat&oacute;rio de Prestação de Contas</legend></p>
+
+	<form method="POST" action="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=relatorio&action=rel_prest_conta" name="frm_rel_prest_conta" >
 		<div class="col-md-12">
                     <label>Dep&oacute;sito Destino:</label>
                     <?php $_deposito->pegaDeposito();?>
@@ -36,12 +36,12 @@
                 <div class="col-md-12">
                     <br>
                     <label>Data Inicial:</label>
-                    <input class="form-control" type="text" name="txtDtInicial" id="txtDtInicial" data-mask="99/99/9999" title="Periodo Inicial de Liberações " required/>
+                    <input class="form-control" type="text" name="txtDtInicial" id="txtDtInicial" data-mask="99/99/9999" title="Periodo Inicial de Liberações " />
 		</div>
 		<div class="col-md-12">
                     <br>
                     <label>Data Final:</label>
-                    <input class="form-control" type="text" name="txtDtFinal" id="txtDtFinal" data-mask="99/99/9999" title="Periodo Final de Liberações" required/>
+                    <input class="form-control" type="text" name="txtDtFinal" id="txtDtFinal" data-mask="99/99/9999" title="Periodo Final de Liberações" />
 		</div>
                 <div class="col-md-12">
                     <br>
@@ -63,27 +63,12 @@
             </div>
             <div class="col-md-12">
                 <br>
-                <div class="form-group">
-				<label for="ckListMat">Listagem por Materiais</label>
-				<input type="checkbox" name="ckListMat" id="ckListMat">
-		</div>
-                <div class="form-group" id="lista">
 				<label for="ckListMat">Material</label>
-                                <input class="form form-control" type="text" name="nome_material" id="nome_material" >
+                                <input class="form form-control" type="text" name="nome_material" id="nome_material" required>
                                 <input type="hidden" name="id_material" id="id_material" >
-                                
-				<!--<select class="form-control" name="id_material" id="id_material">
-					<option value="">Todos</option>
-					<?php
-
-						foreach ($unidade as $value) {
-							print "<option value='".$value['id_unidade']."'>".$value['nome']."/ ".$value['descricao']." </option>";
-						}?>
-				</select>-->
-			
-			</div>
+            <br><br>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12 text-center">
             <input class="btn btn-primary" type="submit" name="pesquisar" value="Pesquisar" />
 					&nbsp;&nbsp;<a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=relIndex">Voltar</a>				 
             </div>

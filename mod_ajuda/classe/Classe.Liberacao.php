@@ -916,6 +916,43 @@ class Liberacao extends DataMysql{
 		}
 		return $dados;
 	}
+        
+        /* conta liberacao baseada na entrada de materiais */
+        public static function CountLibera($id_entrada){
+            
+            $con = Conexao::getInstance();
+
+		$dados = 0;
+            
+                $sql = "SELECT COUNT(aju_liberacao.id_liberacao) as totLibera
+                            FROM aju_liberacao
+                            WHERE id_entrada = {$id_entrada}";
+
+                $result = $con->query($sql);
+
+                while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                    $dados += $linha['totLibera'];
+                }
+                return $dados;
+        }
+        /* conta liberacao baseada na entrada de materiais */
+        public static function CountTransferencia($id_entrada){
+            
+            $con = Conexao::getInstance();
+
+		$dados = 0;
+            
+                $sql = "SELECT COUNT(aju_transferencia.id_transferencia) as totTransf
+                            FROM aju_transferencia
+                            WHERE id_entrada = {$id_entrada}";
+
+                $result = $con->query($sql);
+
+                while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                    $dados += $linha['totTransf'];
+                }
+                return $dados;
+        }
 
 
 
