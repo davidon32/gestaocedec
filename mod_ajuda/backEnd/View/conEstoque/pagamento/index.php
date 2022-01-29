@@ -39,6 +39,7 @@
 					<td>N&#186;</td>
 					<td>Liberado para Munic&iacute;pio</td>
 					<td>Data Libera&ccedil;&atilde;o</td>
+					<td>Data Recibo</td>
 					<td>Data Limite</td>
 					<td>Op&ccedil;&atilde;o</td>
 					<td>Material</td>
@@ -49,6 +50,7 @@
 				print "<td>".$value['id_liberacao']."</td>";;
 				print "<td>".Municipio::PegaNomeMunicipio($value['id_municipio'])."</td>";
 				print "<td>".DataMysql::dataVisual($value['dataLibera'])."</td>";
+				print "<td>".DataMysql::dataVisual($value['dt_recibo'])."</td>";
 				print "<td>".DataMysql::dataVisual($value['dtLimite'])."</td>";
 				print "<td>";
                                 

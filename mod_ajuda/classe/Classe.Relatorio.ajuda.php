@@ -492,7 +492,8 @@ class RelatorioAju extends DataMysql {
                 observacao,
                 dtlimite,
                 situacao,
-                id_user_pgto
+                id_user_pgto,
+                dt_recibo
                 FROM aju_liberacao ' . $filtro;
 
         
@@ -516,7 +517,8 @@ class RelatorioAju extends DataMysql {
         echo "<table border=\"0\" class=\"table table-bordered text-center table-condensed\">";
         echo '<tr>
 			<th><x-small><b>Nº Liberacao</b></small></th>
-			<th><x-small><b>Data Liberacao       </b></small></th>
+			<th><x-small><b>Dt Liberacao       </b></small></th>
+			<th><x-small><b>Dt Recibo       </b></small></th>
 			<th><x-small><b>Municipio            </b></small></th>
 			<th><x-small><b>Usuario Liberacao </b></small></th>
 			<th><x-small><b>Deposito Origem      </b></small></th>
@@ -565,6 +567,7 @@ class RelatorioAju extends DataMysql {
             print "<tr>
 						<td style='font-size:11px; border-bottom:0.1em solid;' class='" . $background . "'>" . $linha['id_liberacao'] . "</td>
 						<td style='font-size:11px; border-bottom:0.1em solid;' class='" . $background . "'> " . DataMysql::dataVisual($linha['datalibera']) . "</td>
+						<td style='font-size:11px; border-bottom:0.1em solid;' class='" . $background . "'> " . DataMysql::dataVisual($linha['dt_recibo']) . "</td>
 						<td style='font-size:11px; border-bottom:0.1em solid;' class='" . $background . "'> " . Municipio::PegaNomeMunicipio($linha['id_municipio']) . "</td>
 						<td style='font-size:11px; border-bottom:0.1em solid;' class='" . $background . "'> " . Usuario::getNomeId($linha['id_usuario']) . "</td>
 						<td style='font-size:11px; border-bottom:0.1em solid;' class='" . $background . "'> " . Deposito::PegaNomeDeposito($linha['depDestino']) . "</td>
@@ -726,7 +729,7 @@ class RelatorioAju extends DataMysql {
             $filtro = "WHERE situacao = 0 AND depDestino = " . $depDestino;
         }
 
-        $sql = "SELECT id_liberacao, datalibera, id_municipio, id_usuario, depDestino, beneficiario, evento, observacao, dtlimite, situacao, id_user_pgto
+        $sql = "SELECT id_liberacao, datalibera, id_municipio, id_usuario, depDestino, beneficiario, evento, observacao, dtlimite, situacao, id_user_pgto, dt_recibo, hora_libera
 			FROM aju_liberacao " . $filtro;
         //print $sql;
 
@@ -742,7 +745,8 @@ class RelatorioAju extends DataMysql {
         echo '
 					<tr>
 						<td style="text-align:center; background:#cccccc; font-size:10px;">Nr Liberacao</td>
-						<td style="text-align:center; background:#cccccc; font-size:10px;">Data Liberacao </td>
+						<td style="text-align:center; background:#cccccc; font-size:10px;">Dt Liberacao </td>
+						<td style="text-align:center; background:#cccccc; font-size:10px;">Dt Recibo </td>
 						<td style="text-align:center; background:#cccccc; font-size:10px;">Municipio</td>
 						<td style="text-align:center; background:#cccccc; font-size:10px;">Usuario Realizou Lib</td>
 						<td style="text-align:center; background:#cccccc; font-size:10px;">Deposito Origem</td>
@@ -764,6 +768,7 @@ class RelatorioAju extends DataMysql {
             print "<tr>
 									<td align=\"center\"> $linha[0] </td>
 									<td align=\"center\"> " . DataMysql::dataVisual($linha[1]) . "</td>
+									<td align=\"center\"> " . DataMysql::dataVisual($linha[12]) . "</td>
 									<td align=\"center\"> " . Municipio::PegaNomeMunicipio($linha[2]) . "</td>
 									<td align=\"center\"> " . Usuario::getNomeId($linha[3]) . "</td>
 									<td align=\"center\"> " . Deposito::PegaNomeDeposito($linha[4]) . " </td>

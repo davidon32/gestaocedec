@@ -38,7 +38,29 @@ class Produto {
 
 		}
                 
-                static function pegaProdutoEntradaMat() {
+                static function pegaProdutoCsaldo($id_deposito, $attr = null) {
+			
+			$con = Conexao::getInstance();
+		
+			$sql = "SELECT u.id_Unidade, u.nome, u.descricao FROM aju_unidade u ORDER BY u.nome";
+			
+			
+			$result = $con->query($sql);
+						
+			echo "<select class=\"form-control\" name=\"id_produto\" id=\"id_produto\" ".$attr.">";
+				
+			echo "<option value=''>Escolha o Material</option>";
+			
+			while($row = $result->fetch(PDO::FETCH_BOTH))
+
+				{
+					echo "<option value='".$row[0]."'>".$row[1]." ".$row[2]." - ".$row[0]."</option>";
+				}
+				echo "</select>";
+
+		}
+                
+                static function pegaProdutoEntradaMat($value = false) {
 			
 			$con = Conexao::getInstance();
 		
@@ -51,8 +73,11 @@ class Produto {
 			$result = $con->query($sql);
                         
                         echo "<select class=\"form-control\" name=\"id_produto\" id=\"id_produto\" >";
-				
-			echo "<option value=''>Escolha o Material</option>";
+			if(!$value){	
+                            echo "<option value=''>Escolha o Material</option>";
+                        }else {
+                            echo "<option value'".$value."'>".$value." - ".Unidade::PegaNomeId($value)."</option>";
+                        }
 						
 			while($row = $result->fetch(PDO::FETCH_BOTH)){
                             

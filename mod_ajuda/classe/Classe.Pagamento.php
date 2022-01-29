@@ -34,7 +34,7 @@
 			
             if($_nivel < 3) { # mostra todos os pagamentos 
             
-			$sql = "SELECT l.id_liberacao, l.dataLibera, l.id_municipio, l.id_usuario, l.depDestino, l.beneficiario, l.evento, l.observacao, l.dtLimite, l.situacao ".
+			$sql = "SELECT l.id_liberacao, l.dataLibera, l.id_municipio, l.id_usuario, l.depDestino, l.beneficiario, l.evento, l.observacao, l.dtLimite, l.situacao, dt_recibo ".
 					"FROM aju_liberacao l ".
 					"WHERE l.dtLimite >=".DataMysql::dataForm(self::$dtLibera)." and l.situacao = 0";
             }else{

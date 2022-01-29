@@ -206,6 +206,34 @@ class Material {
 			print FuncaoBase::getError($e->getMessage(), 'Erro ao buscar Registro');
 		}
 	}
+	/**
+	 *  Pega saldo de material por id_unidade
+	 * 
+	 */
+	static function SaldoMaterial($_id_unidade, $_id_deposito){
+
+		try{
+
+			$dados = "";
+			$sql = "SELECT aju_estoque.saldo
+					FROM aju_estoque 
+					WHERE aju_estoque.id_produto = {$_id_unidade} 
+					and aju_estoque.id_deposito = {$_id_deposito}";
+			
+			$con = Conexao::getInstance();
+
+			$result = $con->query($sql);
+			
+			while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+				$dados = $linha['saldo'];
+			}
+
+			return $dados;
+			
+		}catch (Exception $e) {
+			print FuncaoBase::getError($e->getMessage(), 'Erro ao buscar Registro');
+		}
+	}
 
 	# @ verifica se tem produto na tabela estoque, se true, atualiza o saldo sen�o cria um saldo com valor 0 para o produto 
 	static function atualizarSaldo($_id_produto, $_id_deposito, $_quantidade){ 
@@ -369,6 +397,56 @@ class Material {
 		}
 	}
 	/**
+	 *  Fonte de Material select html
+	 * 
+	 */
+	static function getMaterial($id_material){
+            
+            $dados = "";
+
+		try{                   
+			$sql = "SELECT * from aju_produto where id_produto = {$id_material}";
+			
+			$con = Conexao::getInstance();
+
+			$result = $con->query($sql);
+			
+			while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+				$dados = $linha;
+			}
+                        
+                        return $dados;
+			
+		}catch (Exception $e) {
+			print FuncaoBase::getError($e->getMessage(), 'Erro ao buscar Registro');
+		}
+	}
+	/**
+	 *  Fonte de Material select html
+	 * 
+	 */
+	static function getOrigem($_nome){
+            
+            $dados = array();
+
+		try{                   
+			$sql = "SELECT id, nome from aju_fonte where nome = '{$_nome}'";
+			
+			$con = Conexao::getInstance();
+
+			$result = $con->query($sql);
+			
+			while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+				$dados = $linha;
+			}
+                        
+                        return $dados;
+			
+		}catch (Exception $e) {
+			print FuncaoBase::getError($e->getMessage(), 'Erro ao buscar Registro');
+		}
+	}
+	/**
 	 *  Evento lista select html
 	 * 
 	 */
@@ -439,6 +517,7 @@ class Material {
 		}
 	}
 	
+	
 	/**
 	 * Lista de Eventos que tem liberacao
 	 */
@@ -485,7 +564,8 @@ class Material {
 						aju_produto.depDestino,
 						aju_produto.validade,
 						aju_produto.nota_fiscal,
-                                                aju_unidade.descricao
+                                                aju_unidade.descricao,
+                                                aju_produto.cancelado
 					FROM gestaocedec.aju_produto
                                         inner join aju_unidade
                                         on aju_produto.codProd = aju_unidade.id_unidade
@@ -498,10 +578,28 @@ class Material {
 		}
 
 		return $dados;
-
-
-
 	}
+        
+        /**
+	 *  cancelamento de entrada de material
+	 * 
+	 */
+	static function CancelaEntrada($id_entrada){
+
+            try {
+                $con = Conexao::getInstance();
+                $sql = "update aju_produto set cancelado = 1 WHERE id_produto = {$id_entrada}";
+
+                $result = $con->query($sql);
+
+                    return true;
+            }catch (Exception $e){
+                print FuncaoBase::getError($e->getMessage());
+            }
+	}
+        
+        
+        
 
 
 	

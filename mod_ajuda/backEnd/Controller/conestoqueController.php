@@ -40,7 +40,7 @@
             $id_entrada = isset($_GET['id']) ? $_GET['id'] : "";
             include_once 'mod_ajuda/backEnd/View/conEstoque/material/editar.php';
         }
-
+        
         /* Cadastro de Produto */
         public function cad_prod(){
             include_once 'mod_ajuda/backEnd/View/conEstoque/material/cad_prod.php';

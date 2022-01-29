@@ -18,7 +18,12 @@
 					
 							
 		#@ data atual (data que vai ser gerada a liberacao)
-		$datalibera = isset($_POST['dt_libera']) ? $_POST['dt_libera'] : null;
+		$datalibera = date('d/m/Y') ;
+                        
+                $dataRecibo = isset($_POST['dt_libera']) ? $_POST['dt_libera'] : null;
+                
+                //var_dump($dataRecibo, $datalibera);
+                //die();
 										
 		#@ id municipio
 		$id_municipio = isset($_POST['id_municipio']) ? $_POST['id_municipio'] : null;
@@ -82,9 +87,9 @@
 				#@ testar se tem liberacao para executar 
 				if(count($_SESSION['cesta']) > 0) {
 					// Lancar Liberacao do Banco
-					$id_liberacao = $libera -> libera($_dataMysql->dataForm($datalibera), $id_municipio, $id_usuario, $depDestino, $beneficiario, Material::getNomeEvento($evento), $obs, $_dataMysql->dataForm($dtLimite), 0, 0, $resp, $_modo_entrega);
-
-						#@ pega o id da ultima liberacao e joga na sessao
+					$id_liberacao = $libera -> libera($_dataMysql->dataForm($datalibera), $id_municipio, $id_usuario, $depDestino, $beneficiario, Material::getNomeEvento($evento), $obs, $_dataMysql->dataForm($dtLimite), 0, 0, $resp, $_modo_entrega, $_dataMysql->dataForm($dataRecibo));
+                                        
+                                        						#@ pega o id da ultima liberacao e joga na sessao
 						$_SESSION['idLibera'] = $id_liberacao[0];
 												
 						#@ abastece a sessao com os dados da liberacao

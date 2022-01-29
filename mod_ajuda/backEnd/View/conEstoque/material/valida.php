@@ -119,7 +119,7 @@ if($_POST['opcao'] == 'cad_material') {
 /* CADASTRO DE EVENTOS */
 }elseif($_POST['opcao'] == 'cad_evento') {
 
-	$_nome      = isset($_POST['nome'])      ? $_POST['nome']      : "";
+	$_nome     = isset($_POST['nome'])      ? $_POST['nome']      : "";
 	$_btnCadMaterial = isset($_POST['btnCadEvento']) ? true 	   : "";
 
 	$campos = array("nome"        => $_nome);       
@@ -133,6 +133,25 @@ if($_POST['opcao'] == 'cad_material') {
 
 				}
 			}
+ /* remover entrada de materiais */                        
+}elseif($_POST['opcao'] == 'del_entrada') {
+    
+    $id_entrada = $_POST['id_entrada'];
+    $quantidade = $_POST['quantidade'];
+    $_id_produto = $_POST['id_produto'];
+    $_id_deposito = $_POST['id_deposito'];
+        
+    $saldo = Material::SaldoMaterial($_id_produto, $_id_deposito);
+    
+    if($quantidade > $saldo) {
+        print "semsaldo";
+    }else {
+        Material::CancelaEntrada($id_entrada);
+        ControleSaldo::DebitarSaldo($_id_produto, $_id_deposito, $quantidade);
+        print "sucesso";
+    }
+    
+    
 }
 
 ?>

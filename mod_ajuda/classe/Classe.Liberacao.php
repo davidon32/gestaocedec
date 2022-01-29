@@ -27,11 +27,12 @@ class Liberacao extends DataMysql{
 	private $resp;
 	private $entrega;
 	private $id_deposito;
+	private $dataRecibo;
 
 	private static $dados;
 	
 	# @ adiciona a liberacao na tabela 'liberacao' do banco.
-	function libera($nDatalibera, $nIdMunicipio, $nid_usuario, $nDepDestino, $nBeneficiario, $nEvento, $nObservacoes, $nDtLimite, $nSituacao, $nid_user_pgto, $_resp, $_entrega) {
+	function libera($nDatalibera, $nIdMunicipio, $nid_usuario, $nDepDestino, $nBeneficiario, $nEvento, $nObservacoes, $nDtLimite, $nSituacao, $nid_user_pgto, $_resp, $_entrega, $_dataRecibo) {
 		
 		$this -> datalibera = $nDatalibera;
 		$this -> idMunicipio = $nIdMunicipio;
@@ -45,6 +46,7 @@ class Liberacao extends DataMysql{
 		$this -> id_user_pgto = $nid_usuario;
 		$this -> resp = $_resp;
 		$this -> entrega = $_entrega;
+                $this -> dataRecibo = $_dataRecibo;
 		
 		$id = array();
 
@@ -59,7 +61,9 @@ class Liberacao extends DataMysql{
                                     		situacao,
                                     		id_user_pgto,
                                     		responsavel,
-                                    		entrega)
+                                    		entrega,
+                                                dt_recibo,
+                                                hora_libera)
                                     		      VALUES (:nDatalibera,
                                                     	  :nIdMunicipio,
                                                     	  :nid_usuario,
@@ -71,7 +75,9 @@ class Liberacao extends DataMysql{
                                                     	  :nSituacao,
                                                     	  :nid_user_pgto,
                                                     	  :resp,
-                                                    	  :entrega)";
+                                                    	  :entrega,
+                                                          :dt_recibo,
+                                                          :hora_libera)";
 
         try {
             
@@ -89,6 +95,8 @@ class Liberacao extends DataMysql{
             $result->bindValue(":nid_user_pgto",$nid_user_pgto);
             $result->bindValue(":resp",         $_resp);
             $result->bindValue(":entrega",      $_entrega);
+            $result->bindValue(":dt_recibo",    $_dataRecibo);
+            $result->bindValue(":hora_libera",  date('H:i:s'));
             $result->execute();
             
     

@@ -50,6 +50,8 @@
                         'Placa'=>$_placa);
         
         if(FuncaoBase::campoBranco($campos)){
+            
+            if(true) {
         
                     if ($_pagamento->Pagar($_dtLibera,
                             $_nLibera,
@@ -83,10 +85,11 @@
                         print "window.location.href = 'index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=recibopg&id=".$_nLibera."';";
         
                         print "</script>";
-        
-        
-        
+
                     }
+            }else {
+                
+            }
         }
     }elseif($_POST['opcao'] =="upload_rec_pgto"){
 

@@ -105,22 +105,31 @@ $dadosOrigem = Material::ListFonte(true);
 				<?php
 
 					$material = Material::listaEntradaMaterial(50);
+                                        
+                                        
+                                        
 
 					foreach ($material as $key => $value) {
-						print "<tr><td>".$value['id_produto']."</td>
-								<td>". DataMysql::dataVisual($value['dtEntradaSaida'])."</td>
-								<td>".$value['codProd']."-".$value['nome']."- ".$value['descricao']."</td>
-								<td>".$value['origem']."</td>
-								<td>".$value['depDestino']."</td>
-								<td>".$value['obs']."</td>
-								<td>".$value['quantidade']."</td>
-								<td>".(empty($value['validade']) ? "n/a" : $value['validade'] )."</td>
-                                                                <td>-</td>
-                                                                <td>";
-                                                                    $countSaida = (int)Liberacao::CountLibera($value['id_produto'])+(int)Liberacao::CountTransferencia($value['id_produto']);
+
+                                                $nome_deposito = Deposito::PegaIdDeposito($value['depDestino']);
+                                                
+                                                $cancelado = ($value['cancelado'] == 1) ? "style='color:red' title='Entrada de Materiais Cancelada ! Este material foi removido do seu respectivo saldo !'" : "";
+                                                
+						print "<tr><td ".$cancelado.">".$value['id_produto']."</td>
+								<td ".$cancelado.">". DataMysql::dataVisual($value['dtEntradaSaida'])."</td>
+								<td ".$cancelado.">".$value['codProd']."-".$value['nome']."- ".$value['descricao']."</td>
+								<td ".$cancelado.">".$value['origem']."</td>
+								<td ".$cancelado.">".$value['depDestino']."</td>
+								<td ".$cancelado.">".$value['obs']."</td>
+								<td ".$cancelado.">".$value['quantidade']."</td>
+								<td ".$cancelado.">".(empty($value['validade']) ? "n/a" : $value['validade'] )."</td>
+                                                                <td ".$cancelado.">-</td>
+                                                                <td ".$cancelado.">";
+                                                                    //$countSaida = (int)Liberacao::CountLibera($value['id_produto'])+(int)Liberacao::CountTransferencia($value['id_produto']);
                                                                     
-                                                                    if($countSaida ==0){
-                                                                        print "<a href='".FuncaoBase::geraLink("ajuda", "conestoque", "edEntMat", array('id' => $value['id_produto']))."'><img src=core/imagem/editar.png></a>";
+                                                                    if($value['cancelado'] == 0){
+                                                                        //print "<a href='".FuncaoBase::geraLink("ajuda", "conestoque", "edEntMat", array('id' => $value['id_produto']))."'><img src=core/imagem/editar.png></a>";
+                                                                        print "<a href='' name='lk_del_entrada' data-id_entrada='".$value['id_produto']."' data-id_produto='".$value['codProd']."' data-id_deposito='". $nome_deposito."' data-qtd='".$value['quantidade']."'><img src=core/imagem/delete.png></a>";
                                                                     }else {
                                                                         print "-";
                                                                     }
@@ -146,6 +155,52 @@ $dadosOrigem = Material::ListFonte(true);
 <script type="text/javascript">
 
 $(document).ready(function(){
+    
+    $("a[name='lk_del_entrada']").click(function(e){
+        
+        var result = confirm("Confirmar o Cancelamento desta Entrada de Materiais !");
+        
+        e.preventDefault();
+        
+        if(result) {
+            var form_data = new FormData();
+            var id_entrada = $(this).data('id_entrada');
+            var id_deposito = $(this).data('id_deposito');
+            var id_produto = $(this).data('id_produto');
+            var quantidade = $(this).data('qtd');
+
+
+            form_data.append("opcao",       'del_entrada');
+            form_data.append("id_entrada",   id_entrada);
+            form_data.append("id_produto",   id_produto);
+            form_data.append("id_deposito",  id_deposito);
+            form_data.append("quantidade",   quantidade);
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'mod_ajuda/backEnd/View/conEstoque/material/valida.php?v=<?=md5(VERSAO)?>',
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: form_data,
+                    success: function(response) {
+                        if(response == 'sucesso'){
+                            alert("Entrada removida com Sucesso !");
+                            //console.log(response);
+                            location.reload();
+                        }else if(response == 'semsaldo') {
+                            alert('Não foi possivel remover essa entrada pois não existe saldo para abatimento de materiais, \n gentileza cancelar alguma liberação para que o saldo seja suficiente !');
+                        }
+                    },
+                    error: function(e){
+                        console.log(JSON.stringify(form_data));
+                        console.log(JSON.stringify(response));
+                        alert("Ocorreu um Erro !");
+                    }
+                });
+        }
+                        
+    });
     
     $("#id_produto").change(function(){
         

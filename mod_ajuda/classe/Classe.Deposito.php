@@ -122,7 +122,7 @@ class Deposito {
      * @return integer
      * 
      */
-    function PegaIdDeposito($nomeDeposito) {
+    static function PegaIdDeposito($nomeDeposito) {
 
         $dados = array();
         
@@ -141,7 +141,7 @@ class Deposito {
 
             while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
             
-                $dados[] = $linha;
+                $dados = $linha;
             }
 
             return $dados['id_deposito'];

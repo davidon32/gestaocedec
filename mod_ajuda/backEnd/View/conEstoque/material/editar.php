@@ -12,6 +12,14 @@
 <?php
 
 $dadosOrigem = Material::ListFonte(true);
+
+$id_entrada = isset($_GET['id']) ?$_GET['id'] : die();
+
+$dados = Material::getMaterial($id_entrada);
+
+var_dump($dados);
+$nome_origem = Material::getOrigem($dados['origem']);
+
 ?>
 <style>	
 	#frm_Entrada_mat .error {
@@ -26,15 +34,17 @@ $dadosOrigem = Material::ListFonte(true);
 			<a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=material"/>Voltar</a>
 		</div>
 	</div>
-			<br>		
+			<br>
+                        
+                
 			
 		<form id="frm_Entrada_mat" action="" method="">
 			<div class="row">
 				<div class="col-md-4">
 						<label>Origem</label>
 							<div class="input-group">
-                                                            <input type="text" class="form-control" name='txtOrigem' id='txtOrigem'>
-                                                            <input type="hidden" name='id_origem' id='id_origem'>
+                                                            <input type="text" class="form-control" name='txtOrigem' id='txtOrigem' value="<?=$dados['origem'];?>">
+                                                            <input type="hidden" name='id_origem' id='id_origem' value="<?=$nome_origem['nome'];?>">
                                                             <span class="input-group-btn">
                                                               <button class="btn btn-default" id="add_fonte" type="button">Ad.Fonte</button>
                                                             </span>
@@ -42,21 +52,21 @@ $dadosOrigem = Material::ListFonte(true);
 					</div>
 				<div class="col-md-4">
 					<label>Nome Material</label>
-					<?php Produto::pegaProdutoEntradaMat();?>
+					<?php Produto::pegaProdutoEntradaMat($dados['codProd']);?>
 				</div>
 				<div class="col-md-4">
 					<label>Data Entrada</label>
-                                        <input class="form-control" name="txtDtEntrada" id="txtDtEntrada" type="text" data-mask="99/99/9999" value="<?php echo date('d/m/Y'); ?>" maxlength="10" />
+                                        <input class="form-control" name="txtDtEntrada" id="txtDtEntrada" type="text" data-mask="99/99/9999" value="<?=DataMysql::dataVisual($dados['dtEntradaSaida'])?>" maxlength="10" />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-4">
 					<label>Validade ( Opcional )</label>
-                                        <input class="form-control" name="txtValidade" type="text" id="txtValidade" data-mask="99/99/9999" maxlength="10"/>
+                                        <input class="form-control" name="txtValidade" type="text" id="txtValidade" data-mask="99/99/9999" maxlength="10" value="<?=DataMysql::dataForm($dados['validade'])?>"/>
 				</div>
 				<div class="col-md-4">
 					<label>Quantidade</label>
-                                        <input type="text" name="txtQtd" id="txtQtd" class="form-control" required maxlength="4"/>
+                                        <input type="text" name="txtQtd" id="txtQtd" class="form-control" required maxlength="4" value="<?=$dados['quantidade']?>"/>
 				</div>
 				<div class="col-md-4">		
 					<label>Dep&oacute;sito Avan&ccedil;ado:</label>
@@ -66,16 +76,16 @@ $dadosOrigem = Material::ListFonte(true);
 			<div class="row">
 				<div class="col-md-6">
 					<label>Observa&ccedil;&otilde;es:</label>
-                                        <textarea class="form-control" name="txObs" id="txObs" cols="30" rows="4" maxlength="255"></textarea>
+                                        <textarea class="form-control" name="txObs" id="txObs" cols="30" rows="4" maxlength="255"><?=$dados['obs']?></textarea>
 				</div>
 				<div class="col-md-6">
-				
+                                    <br>
 					<label>Upload Nota Fiscal</label>
-					<input type="file" name="fl_nota" id="fl_nota">
+                                        opção a implementar
+					<!--<input type="file" name="fl_nota" id="fl_nota">-->
 				</div>
 				<div class="col-md-12 text-center">
 					<br>
-                                        <input type="hidden" name="complnota" id="complnota" value="0"/>
 					<input type="submit" class="btn btn-primary"  name="btnCadMaterial" id="btnCadMaterial" value="Cadastrar"/>
 				</div>
 			</div>
