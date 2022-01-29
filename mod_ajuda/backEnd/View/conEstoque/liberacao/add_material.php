@@ -156,7 +156,10 @@ $nProd = new Produto();
 <script type="text/javascript">
 	$(document).ready(function(){
 
-
+            $("a[name='lk_material']").click(function(){
+                
+               alert($(this).data('id_material')); 
+            });
 
 
 		

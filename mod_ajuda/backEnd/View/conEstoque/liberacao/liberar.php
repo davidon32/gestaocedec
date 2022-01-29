@@ -159,7 +159,7 @@
                     $('.ui-datepicker').css('z-index', 99999999999999);
                 }, 0);
             }
-         });
+         }).attr('readonly', 'readonly');
                             
         var itensMunicipio = {
             data:

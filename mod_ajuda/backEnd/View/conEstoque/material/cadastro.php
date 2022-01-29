@@ -241,7 +241,7 @@ $(document).ready(function(){
         dateFormat: 'dd/mm/yy',
         maxDate: 5,
         minDate: -10,
-    });
+    }).attr('readonly', 'readonly');
     $("#txtValidade").datepicker({ dateFormat: 'dd/mm/yy' });
 
 	$("#frm_Entrada_mat").submit(function(e) {

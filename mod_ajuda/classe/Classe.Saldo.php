@@ -464,7 +464,9 @@ include_once 'Classe.Transferencia.Material.php';
 
 			try {
 
-				$sql = "SELECT aju_unidade.nome, aju_estoque.saldo
+				$sql = "SELECT aju_unidade.nome, aju_estoque.saldo,
+                                        aju_unidade.descricao,
+                                        aju_unidade.id_unidade
 					FROM aju_estoque
 					INNER JOIN aju_unidade
 					ON aju_estoque.id_produto = aju_unidade.id_unidade

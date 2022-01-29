@@ -24,7 +24,7 @@ if(!empty($id_deposito)){
     foreach ($dados as $key => $value) {
         print "<tr>
         <td>".($key+1)."</td>
-        <td>".$value['nome']."</td>
+        <td><a name='lk_material' data-id_material='".$value['id_unidade']."'>".$value['id_unidade']." - ".$value['nome']." - ".$value['descricao']."</a></td>
         <td>".$value['saldo']."</td>
         </tr>";
     }
@@ -34,4 +34,10 @@ if(!empty($id_deposito)){
 }
 ?>
 
+<script>
+    $("a[name='lk_material']").click(function(){
+        var id_material = $(this).data('id_material'); 
+        $("#id_produto").val(id_material).change();
+    });
 
+</script>

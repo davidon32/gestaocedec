@@ -100,7 +100,7 @@
             dateFormat: 'dd/mm/yy',
             maxDate:3,
             minDate:-5,
-        });
+        }).attr('readonly', 'readonly');
 	$("#txt_saida").datepicker({ dateFormat: 'dd/mm/yy' });
 	$("#txt_chegada").datepicker({ dateFormat: 'dd/mm/yy' });
 	
