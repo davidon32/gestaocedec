@@ -20,13 +20,24 @@
 *
 *******************************************************************************************/
 
+$dadosDeposito = Deposito::ListaDeposito();
+
 ?>
-    <div class="col-md-6 text-center">
+    <legend>Transfer&ecirc;ncia de Materiais</legend>
+    <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
 	<br>
-	
-			<a class="btn btn-info" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=add_mat_transf" class="btn window" title="">Adicionar Material</a>
+        <div class="input-group">
+            <!-- Adicionar Materiais na Liberacao -->
+            <input type="text" class="form col-md-12" name="nome_deposito" id="nome_deposito" placeholder="Deposito Retirada">
+            <input type="hidden" name="id_deposito" id="id_deposito"> 
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default" id='btnAddMaterial'>Adicionar Materiais</button>
+            </span>
+        </div><!-- /input-group -->
 			
-		<p class="text-center"><legend> Materiais da Transferencia</legend></p>
+	<p class="text-center"><legend> Materiais da Transferencia</legend></p>
 
 		<?php
 				if(isset($_SESSION['cesta']) && (!empty($_SESSION['cesta']))){
@@ -36,8 +47,9 @@
 				}
 			?>
 	</div>
-	<div class="col-md-6">
-		<legend>Transfer&ecirc;ncia de Materiais</legend>
+        <div class="col-md-3"></div>
+        </div>
+	<div class="col-md-12">
 		<form action="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=transfgravar" method="POST" name="frm_cesta">
 
 		<div class="col-md-6">
@@ -95,6 +107,13 @@
 <!-- =============== HEADER HTML PAGE ================= -->
 <?php include_once "template/page/rodapePage.php";?>
 <script type="text/javascript">
+    
+    $('#btnAddMaterial').click(function(){
+            var id_deposito = $("#id_deposito").val();
+            if(id_deposito.length > 0){
+               window.location.href = '<?= FuncaoBase::geraLink("ajuda", "conestoque", "add_mat_transf")?>&id='+id_deposito; 
+            }
+        });
 
 	$("#txt_dt_transferencia").datepicker({ 
             dateFormat: 'dd/mm/yy',
@@ -103,5 +122,24 @@
         }).attr('readonly', 'readonly');
 	$("#txt_saida").datepicker({ dateFormat: 'dd/mm/yy' });
 	$("#txt_chegada").datepicker({ dateFormat: 'dd/mm/yy' });
+        
+        /* auto complete deposito */
+            var itemDeposito = {
+            data:
+                <?php print json_encode($dadosDeposito); ?>, // array com os dados
+                getValue: "nome", /* alterar com nome do item BD */
+
+                list: {
+                    match: {
+                    enabled: true
+                    },
+                onSelectItemEvent: function () {
+                    var id = $("#nome_deposito").getSelectedItemData().id_deposito;
+                    $("#id_deposito").val(id);
+                },
+            }
+        };
+        /*********** autocomplete origem ***********/
+        $("#nome_deposito").easyAutocomplete(itemDeposito);
 	
 </script>

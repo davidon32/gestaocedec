@@ -17,6 +17,8 @@
         $municipios = $_municipio->dadosSelectMunicipio($_COOKIE['seguranca']['rpm']);
         
         $dadosOrigem = Material::ListFonte();
+        
+        $dadosDeposito = Deposito::ListaDeposito();
 	
 	# verifica se tem algum produto com vencimento de data limite
 	//$saldo->DevolvePedido();
@@ -34,13 +36,18 @@
 <div class="col-md-3"></div>
 <div class="col-md-6">
 	<div class="col-md-12">
+                <div class="input-group">
+                        <!-- Adicionar Materiais na Liberacao -->
+                    <input type="text" class="form col-md-12" name="nome_deposito" id="nome_deposito" placeholder="Deposito Retirada">
+                    <input type="hidden" name="id_deposito" id="id_deposito"> 
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" id='btnAddMaterial'>Adicionar Materiais</button>
+                    </span>
+                </div><!-- /input-group -->
+        </div>
 		<p style="text-align:center"><legend>Lista de Materiais a Liberar</legend></p>
 				
-		<!-- Adicionar Materiais na Liberacao -->
 		<div class="col-md-12 text-center">
-			<a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=add_material" class="btn btn-info" rel="1024x600" title="Adicionar Materiais no Pedido">Adicionar Material</a>
-			<br /><br />
-		
 			<?php
 				if(isset($_SESSION['cesta']) && (!empty($_SESSION['cesta']))){
 					print Pedido::MostraPedido($_SESSION['cesta']);
@@ -65,8 +72,8 @@
 								
 				<label>Munic&iacute;pio Destino</label>
                                 <input class="form-control" type="text" name="txtMunicipio" id="txtMunicipio">
-                                <input type="hidden" name="id_municipio" id="id_municipio">
 				<!--<?php $_municipio->PegaMunicipio();?>-->
+                                <input type="hidden" name="id_municipio" id="id_municipio">
 			</div>
 								
 			<div class="col-md-6">
@@ -149,6 +156,13 @@
 <script type="text/javascript">
     $(document).ready(function(){
         
+        $('#btnAddMaterial').click(function(){
+            var id_deposito = $("#id_deposito").val();
+            if(id_deposito.length > 0){
+               window.location.href = '<?= FuncaoBase::geraLink("ajuda", "conestoque", "add_material")?>&id='+id_deposito; 
+            }
+        });
+        
         $("#dt_libera").datepicker({
            maxDate:3,
            minDate:-5,
@@ -200,6 +214,25 @@
         };
         /*********** autocomplete origem ***********/
         $("#fonte").easyAutocomplete(itemOrigem);
+        
+        /* auto complete deposito */
+            var itemDeposito = {
+            data:
+                <?php print json_encode($dadosDeposito); ?>, // array com os dados
+                getValue: "nome", /* alterar com nome do item BD */
+
+                list: {
+                    match: {
+                    enabled: true
+                    },
+                onSelectItemEvent: function () {
+                    var id = $("#nome_deposito").getSelectedItemData().id_deposito;
+                    $("#id_deposito").val(id);
+                },
+            }
+        };
+        /*********** autocomplete origem ***********/
+        $("#nome_deposito").easyAutocomplete(itemDeposito);
 
 				
 				$("#dt_libera").datepicker({ dateFormat: 'dd/mm/yy' });

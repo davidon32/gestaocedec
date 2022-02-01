@@ -82,36 +82,23 @@ class Deposito {
      * 
      */
      
-    function pegaDepositoSelected($idDeposito) {
+    static function pegaDepositoSelected($id_deposito) {
 
-        $dados1 = array();
-        
-        $sql = ('SELECT d.id_deposito, d.nome, d.endereco FROM aju_deposito d');
+        $dados = array();
         
         #@ impressao do selected
-        $sql1 = ('SELECT nome FROM aju_deposito WHERE id_deposito =' . $idDeposito);
+        $sql = ('SELECT nome, id_deposito FROM aju_deposito');
         
         $result = Conexao::getInstance()->query($sql);
         
-        $result1 = Conexao::getInstance()->query($sql1);
+        print "<select name='id_deposito' id='id_deposito' class='form form-control'>";
 
-        print "<select name=\"nDeposito\">";
-
-
-        while ($linha1 = $result1->fetch(PDO::FETCH_NUM)) {
-            
-            $dados1[] = $linha1;
-        }
+        print "<option value='".$id_deposito."'>" . Deposito::PegaNomeDeposito($id_deposito) . "</option>";
         
-
-        print "<option selected>" . $dados1['nome'] . "</option>";
-
-        while ($linha = $result->fetch(PDO::FETCH_NUM)) {
-
-            echo "<option>" . $linha["1"] . "</option>";
-
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            echo "<option value='".$linha['id_deposito']."'>" . $linha["nome"] . "</option>";
         }
-
+       
         echo "</select>";
 
     }
@@ -178,6 +165,8 @@ class Deposito {
         
                 $dados = $linha;
             }
+            
+            //var_dump($dados);
         
             return $dados[0];
         
@@ -248,6 +237,28 @@ class Deposito {
 
 
     }
+    
+        # Lista Deposito Autocomplete
+	static function ListaDeposito() {
+            
+                $dados = array();
 
-}
-?>
+		try{    
+
+			$sql = "SELECT id_deposito, nome from aju_deposito";
+			
+			$con = Conexao::getInstance();
+
+			$result = $con->query($sql);
+			
+			while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                            $dados[] = $linha;
+			}
+			
+                        return $dados;
+		}catch (Exception $e) {
+			print FuncaoBase::getError($e->getMessage(), 'Erro ao buscar Registro');
+		}
+	}
+
+}?>

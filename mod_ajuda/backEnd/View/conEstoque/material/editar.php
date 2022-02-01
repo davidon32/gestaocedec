@@ -17,8 +17,9 @@ $id_entrada = isset($_GET['id']) ?$_GET['id'] : die();
 
 $dados = Material::getMaterial($id_entrada);
 
-var_dump($dados);
 $nome_origem = Material::getOrigem($dados['origem']);
+
+var_dump($nome_origem);
 
 ?>
 <style>	
@@ -38,13 +39,13 @@ $nome_origem = Material::getOrigem($dados['origem']);
                         
                 
 			
-		<form id="frm_Entrada_mat" action="" method="">
+		<form id="frm_editar_mat" action="" method="">
 			<div class="row">
 				<div class="col-md-4">
 						<label>Origem</label>
 							<div class="input-group">
                                                             <input type="text" class="form-control" name='txtOrigem' id='txtOrigem' value="<?=$dados['origem'];?>">
-                                                            <input type="hidden" name='id_origem' id='id_origem' value="<?=$nome_origem['nome'];?>">
+                                                            <input type="hidden" name='id_origem' id='id_origem' value="<?=$nome_origem['id'];?>">
                                                             <span class="input-group-btn">
                                                               <button class="btn btn-default" id="add_fonte" type="button">Ad.Fonte</button>
                                                             </span>
@@ -52,11 +53,11 @@ $nome_origem = Material::getOrigem($dados['origem']);
 					</div>
 				<div class="col-md-4">
 					<label>Nome Material</label>
-					<?php Produto::pegaProdutoEntradaMat($dados['codProd']);?>
+                                        <input type="text" class="form-control" name='' id='' value="<?=($dados['nome']);?>" readonly>
 				</div>
 				<div class="col-md-4">
 					<label>Data Entrada</label>
-                                        <input class="form-control" name="txtDtEntrada" id="txtDtEntrada" type="text" data-mask="99/99/9999" value="<?=DataMysql::dataVisual($dados['dtEntradaSaida'])?>" maxlength="10" />
+                                        <input class="form-control" name="txtDtEntrada" id="txtDtEntrada" type="text" data-mask="99/99/9999" value="<?=DataMysql::dataVisual($dados['dtEntradaSaida'])?>" maxlength="10" readonly/>
 				</div>
 			</div>
 			<div class="row">
@@ -66,19 +67,28 @@ $nome_origem = Material::getOrigem($dados['origem']);
 				</div>
 				<div class="col-md-4">
 					<label>Quantidade</label>
-                                        <input type="text" name="txtQtd" id="txtQtd" class="form-control" required maxlength="4" value="<?=$dados['quantidade']?>"/>
+                                        <input type="text" name="txtQtd" id="txtQtd" class="form-control" required maxlength="4" value="<?=$dados['quantidade']?>" readonly/>
 				</div>
 				<div class="col-md-4">		
 					<label>Dep&oacute;sito Avan&ccedil;ado:</label>
-					<?php Deposito::pegaDeposito();?>
+                                        <input type="text" class="form-control" name='id_deposito' id='id_deposito' value="<?=$dados['depDestino'];?>" readonly>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-6">
+                                <div class="col-md-4">
+					<label>Vincular Entrada</label>
+                                        <span class="help-tip">
+                                            <p>Se esta entrada é complemento de alguma nota que já foi lancada, 
+                                            Olhe na listagem abaixo o numero da entrada e adicione aqui, pois a prestação de contas leva em conta o total mercadorias entradas.</p>
+                                        </span>
+                                        <input class="form-control" type='text' name="id_entrada" id="id_entrada"  maxlength="4" value="<?=$dados['id_entrada'];?>">
+                                               
+                            </div>
+				<div class="col-md-4">
 					<label>Observa&ccedil;&otilde;es:</label>
                                         <textarea class="form-control" name="txObs" id="txObs" cols="30" rows="4" maxlength="255"><?=$dados['obs']?></textarea>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-4">
                                     <br>
 					<label>Upload Nota Fiscal</label>
                                         opção a implementar
@@ -86,7 +96,7 @@ $nome_origem = Material::getOrigem($dados['origem']);
 				</div>
 				<div class="col-md-12 text-center">
 					<br>
-					<input type="submit" class="btn btn-primary"  name="btnCadMaterial" id="btnCadMaterial" value="Cadastrar"/>
+					<input type="submit" class="btn btn-primary"  name="btnCadMaterial" id="btnCadMaterial" value="Salvar"/>
 				</div>
 			</div>
 		</form>
@@ -109,7 +119,6 @@ $nome_origem = Material::getOrigem($dados['origem']);
 				<th class="text-center">Qtd</th>
 				<th class="text-center">Validade</th>
 				<th class="text-center">Nota F</th>
-				<th class="text-center">Opções</th>
 			
 			</tr>
 				<?php
@@ -126,15 +135,7 @@ $nome_origem = Material::getOrigem($dados['origem']);
 								<td>".$value['quantidade']."</td>
 								<td>".(empty($value['validade']) ? "n/a" : $value['validade'] )."</td>
                                                                 <td>-</td>
-                                                                <td>";
-                                                                    $countSaida = (int)Liberacao::CountLibera($value['id_produto'])+(int)Liberacao::CountTransferencia($value['id_produto']);
-                                                                    
-                                                                    if($countSaida ==0){
-                                                                        print "<a href='".FuncaoBase::geraLink("ajuda", "conestoque", "editEntradaMat", array('id' => $value['id_produto']))."'><img src=core/imagem/editar.png></a>";
-                                                                    }else {
-                                                                        print "-";
-                                                                    }
-                                                                print "</td>
+                                                                
 								</tr>";
 					}
 				?>
@@ -156,61 +157,24 @@ $nome_origem = Material::getOrigem($dados['origem']);
 <script type="text/javascript">
 
 $(document).ready(function(){
-    
-    $("#id_produto").change(function(){
-        
-        Swal.fire({
-            title: 'Operação necessária !',
-            width: 600,
-            allowOutsideClick: false,
-            html: "Este material está dividido em mais de uma nota  \nou foi recebido fracionado ? \n\
-                                      <br>\
-                                      Ao confirmar esta opção, este material estara disponível para lancamento no mesmo código.<br>\
-                                      <br>Certifique-se que:<br>\
-                                      <br> O Material que será posteriormente Entrado no estoque é o mesmo que já está cadastrado no SDC.<br>\
-                                      <br> Ou o material não foi entregue na sua totalidade. <br>\
-                                      <br> Ou o material foi fracionado em mais de uma nota cujo Doador/Fornecedor são a mesma Pessoa/Entidade ?",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Confirmar'
-          }).then((result) => {
-            if (result.isConfirmed) {
-                
-                $("#complnota").val(1);
-              /*Swal.fire(
-                'Deleted!',
-                'Your file has been deleted.',
-                'success'
-              )*/
-            }else{
-                $("#complnota").val(0);
-            }
-          })
-});
-    
+      
     $("#id_origem").val("");
  
-    $("#txtDtEntrada").datepicker({ 
-        dateFormat: 'dd/mm/yy',
-        maxDate: 5,
-        minDate: -10,
-    });
+    
     $("#txtValidade").datepicker({ dateFormat: 'dd/mm/yy' });
 
-	$("#frm_Entrada_mat").submit(function(e) {
+	$("#frm_editar_mat").submit(function(e) {
 		e.preventDefault();
 	}).validate({
 		rules: {
 				txtOrigem:{ required: true, minlength: 3}, 		
-				txtQtd:{ required: true, number: true, minlength: 1 }, 	
+				//txtQtd:{ required: true, number: true, minlength: 1 }, 	
 				id_produto:{ required: true, minlength: 1}, 	
 				id_deposito:{ required: true, minlength: 1}, 	
 
 			},
 			messages: {
-				txtQtd: { required: 'O campo Quantidade não pode ficar em Branco !', number: 'O valor precisa ser numerico', minlength: 'tamanho errado'},
+				//txtQtd: { required: 'O campo Quantidade não pode ficar em Branco !', number: 'O valor precisa ser numerico', minlength: 'tamanho errado'},
 				txtOrigem: { required: 'O campo Origem não pode ficar em Branco !'},
 				id_produto: { required: 'O campo Material não pode ficar em Branco !'},
 				id_deposito: { required: 'O campo Deposito não pode ficar em Branco !'}	,
@@ -220,7 +184,7 @@ $(document).ready(function(){
 
 			var form_data = new FormData();
 
-			var file_data = $("#fl_nota").prop("files")[0];
+			//var file_data = $("#fl_nota").prop("files")[0];
                         
                         var input_origem_ctr = $('#id_origem').val();
                         var input_form = $('#txtOrigem').val();
@@ -229,16 +193,17 @@ $(document).ready(function(){
                             alert("Gentileza escolher uma origem que conste na lista !");
                         }else {
 
-                                    form_data.append("fl_nota",        file_data);
-                                    form_data.append("opcao",       "cad_material");
+                                    //form_data.append("fl_nota",        file_data);
+                                    form_data.append("opcao",       "editar_entrada");
                                     form_data.append("id_produto",  $("#id_produto").val())
-                                    form_data.append("txtDtEntrada",$("#txtDtEntrada").val())
+                                    //form_data.append("txtDtEntrada",$("#txtDtEntrada").val())
                                     form_data.append("txtOrigem",   $("#txtOrigem").val())
                                     form_data.append("txtValidade", $("#txtValidade").val())
-                                    form_data.append("txtQtd",      $("#txtQtd").val())
+                                    //form_data.append("txtQtd",      $("#txtQtd").val())
                                     form_data.append("id_deposito", $("#id_deposito").val())
                                     form_data.append("txObs",       $("#txObs").val())
-                                    form_data.append("complnota",   $("#complnota").val())
+                                    form_data.append("id_entrada",       $("#id_entrada").val())
+                                    //form_data.append("complnota",   $("#complnota").val())
 
                             $.ajax({
                                     type: 'POST',

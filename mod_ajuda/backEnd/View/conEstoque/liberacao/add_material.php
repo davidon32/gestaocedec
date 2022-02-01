@@ -33,6 +33,11 @@ if(!isset($_SESSION['cesta'])){
 	$_SESSION['cesta'] = array();
 }
 
+//$id_deposito = isset($_POST['id']) ? $_POST['id'] :0;
+
+$id_deposito1 = isset($_GET['id']) ? $_GET['id'] :0;
+$itensProduto = ControleSaldo::saldoPorDeposito($id_deposito1);
+
 $nProd = new Produto();	
 ?>
 		<div class="row-fluid">
@@ -43,8 +48,10 @@ $nProd = new Produto();
 				    <!--index.php?ac=itn&modulo=pipa&secao=liberacao&acao=adicionarCesta-->
 		
 					<div class="col-md-12">
-						<label>Dep&oacute;sito Origem :</label>
-						<?php $_deposito->pegaDeposito('required');?>
+						<label>Dep&oacute;sito a Liberar os Materiais :</label>
+						<!--<?php $_deposito->pegaDeposito('required');?>-->
+                                                <input type="text" class="form form-control" readonly value="<?=Deposito::PegaNomeDeposito($id_deposito1);?>">
+                                                <input type="hidden" name='id_deposito' id='id_deposito' value="<?=$id_deposito1;?>">
 					</div>
                                         <div class="col-md-12">
                                             <br />
@@ -63,9 +70,11 @@ $nProd = new Produto();
 					<div class="col-md-12">
                                             <br>
 						<label>Material :</label>
-						<?php $nProd->PegaProduto('required');
+						<!--<?php $nProd->PegaProduto('required');
 						//Produto::PegaProdutoDescricao();
-					?>
+					?>-->
+                                        <input type="text" name="nome_produto" id="nome_produto" class="col-md-12">
+                                        <input type="hidden" name="id_produto" id="id_produto">
 					</div>
 					
 					<div class="col-md-12">
@@ -109,6 +118,7 @@ $nProd = new Produto();
 				<span id="id"></span>
 
 				<?php
+                                
 	
 	    $acao = isset($_POST['acao']) ? $_POST['acao'] : '';
             $material = isset($_POST['id_produto']) ? $_POST['id_produto'] : '';
@@ -132,8 +142,7 @@ $nProd = new Produto();
                                         $material,
                                         $descricao,
                                         $qtd,
-                                        Material::getNomeEvento($evento),
-                                        $dep_origem
+                                        Material::getNomeEvento($evento)
                                         );
                 
                     #@ adiciona na cesta 
@@ -183,4 +192,30 @@ $nProd = new Produto();
 			$("#txtQtd").val(numInt);
 		});
 	});
+        
+        var itensProduto = {
+            data:
+                <?php print json_encode($itensProduto); ?>, // array com os dados
+                getValue: "nome",
+                template: {
+                    type: "custom",
+                    method: function(value, item) {
+			return value + " | " + item.descricao + " | Saldo :  " + item.saldo;
+		}
+                },
+                list: {
+                    match: {
+                            enabled: true
+                        },
+                        onSelectItemEvent: function () {
+                            var id = $("#nome_produto").getSelectedItemData().id_unidade;
+                            $("#id_produto").val(id);
+                            
+                            //$("#txtIdComunidadeSearch").val(value).trigger("change");
+                        }
+
+                }
+
+        };
+            $("#nome_produto").easyAutocomplete(itensProduto);
 </script>

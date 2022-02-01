@@ -28,6 +28,9 @@ $_pedido = new Pedido();
 
 $saldo = new Relatorio();
 
+$id_deposito1 = isset($_GET['id']) ? $_GET['id'] :0;
+$itensProduto = ControleSaldo::saldoPorDeposito($id_deposito1);
+
 if(!isset($_SESSION['cesta'])){
 
 	$_SESSION['cesta'] = array();
@@ -51,12 +54,16 @@ $nProd = new Produto();
 					
 							<div class="col-md-6">
 								<label>Dep&oacute;sito Origem :</label>
-								<?php $_deposito->pegaDeposito();?>
+								<!--<?php $_deposito->pegaDeposito();?>-->
+                                                                <input type="text" class="form form-control" readonly value="<?=Deposito::PegaNomeDeposito($id_deposito1);?>">
+                                                                <input type="hidden" name='id_deposito' id='id_deposito' value="<?=$id_deposito1;?>">
 							</div>
 							
 							<div class="col-md-6">
 								<label>Produto :</label>
-								<?php $nProd -> PegaProduto();?>
+								<!--<?php $nProd -> PegaProduto();?>-->
+                                                                <input type="text" name="nome_produto" id="nome_produto" class="col-md-12">
+                                                                <input type="hidden" name="id_produto" id="id_produto">
 							</div>
 
 							<div class="col-md-4">
@@ -134,9 +141,13 @@ $nProd = new Produto();
 						?>
 			</div>
 	</div>
-	<script src="/js/jquery.js"></script>
-	<script src="/js/bootstrap.js"></script>
-	<script src="/js/jasny-bootstrap.js"></script>
+	<!-- =================== RODAPE CORPO ==================== -->
+<?php include_once "template/page/corpoRodape.php";?>
+<!-- =================== RODAPE  ======================== -->
+<?php include_once "template/page/rodape.php"?>
+<?php include_once "template/page/barra_config_template.php";?>
+<!-- =============== HEADER HTML PAGE ================= -->
+<?php include_once "template/page/rodapePage.php";?>
 	<script type="text/javascript">
 		$(document).ready(function(){
 
@@ -162,6 +173,32 @@ $nProd = new Produto();
 				});
 
 		});
+                
+                var itensProduto = {
+            data:
+                <?php print json_encode($itensProduto); ?>, // array com os dados
+                getValue: "nome",
+                template: {
+                    type: "custom",
+                    method: function(value, item) {
+			return value + " | " + item.descricao + " | Saldo :  " + item.saldo;
+		}
+                },
+                list: {
+                    match: {
+                            enabled: true
+                        },
+                        onSelectItemEvent: function () {
+                            var id = $("#nome_produto").getSelectedItemData().id_unidade;
+                            $("#id_produto").val(id);
+                            
+                            //$("#txtIdComunidadeSearch").val(value).trigger("change");
+                        }
+
+                }
+
+        };
+            $("#nome_produto").easyAutocomplete(itensProduto);
 	</script>
 
 

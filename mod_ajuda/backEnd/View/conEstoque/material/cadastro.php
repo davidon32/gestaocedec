@@ -64,21 +64,32 @@ $dadosOrigem = Material::ListFonte(true);
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-6">
-					<label>Observa&ccedil;&otilde;es:</label>
-                                        <textarea class="form-control" name="txObs" id="txObs" cols="30" rows="4" maxlength="255"></textarea>
-				</div>
-				<div class="col-md-6">
+				<div class="col-md-4">
+					<label>Vincular Entrada</label>
+                                        <span class="help-tip">
+                                            <p>Se esta entrada é complemento de alguma nota que já foi lancada, 
+                                            Olhe na listagem abaixo o numero da entrada e adicione aqui, pois a prestação de contas leva em conta o total mercadorias entradas.</p>
+                                        </span>
+                                        <input class="form-control " type='text' name="id_entrada" id="id_entrada"  maxlength="4" >
+                                               
+                            </div>
+			
+				<div class="col-md-4">
 				
 					<label>Upload Nota Fiscal</label>
 					<input type="file" name="fl_nota" id="fl_nota">
 				</div>
+				<div class="col-md-4">
+					<label>Observa&ccedil;&otilde;es:</label>
+                                        <textarea class="form-control" name="txObs" id="txObs" cols="30" rows="4" maxlength="255"></textarea>
+				</div>
+                        </div>
 				<div class="col-md-12 text-center">
 					<br>
                                         <input type="hidden" name="complnota" id="complnota" value="0"/>
 					<input type="submit" class="btn btn-primary"  name="btnCadMaterial" id="btnCadMaterial" value="Cadastrar"/>
 				</div>
-			</div>
+			
 		</form>
 	</div>
 	<br>
@@ -90,7 +101,7 @@ $dadosOrigem = Material::ListFonte(true);
 		<div class="col-md-10">
 
 			<table class="table table-bordered">
-				<tr><th class="text-center">Cod</th>
+				<tr><th class="text-center">Numero Entrada</th>
 				<th class="text-center">Data Entrada</th>
 				<th class="text-center">Nome</th>
 				<th class="text-center">Origem de Entrada</th>
@@ -128,7 +139,7 @@ $dadosOrigem = Material::ListFonte(true);
                                                                     //$countSaida = (int)Liberacao::CountLibera($value['id_produto'])+(int)Liberacao::CountTransferencia($value['id_produto']);
                                                                     
                                                                     if($value['cancelado'] == 0){
-                                                                        //print "<a href='".FuncaoBase::geraLink("ajuda", "conestoque", "edEntMat", array('id' => $value['id_produto']))."'><img src=core/imagem/editar.png></a>";
+                                                                        print "<a href='".FuncaoBase::geraLink("ajuda", "conestoque", "edEntMat", array('id' => $value['id_produto']))."'><img src=core/imagem/editar.png></a>";
                                                                         print "<a href='' name='lk_del_entrada' data-id_entrada='".$value['id_produto']."' data-id_produto='".$value['codProd']."' data-id_deposito='". $nome_deposito."' data-qtd='".$value['quantidade']."'><img src=core/imagem/delete.png></a>";
                                                                     }else {
                                                                         print "-";

@@ -66,7 +66,31 @@ if($_POST['opcao'] == 'cad_material') {
 				}
 	
 			}
+}elseif ($_POST['opcao'] == 'editar_entrada'){
+    
+    //var_dump($_POST);
+    
+        $_id_produto     = isset($_POST['id_produto'])     ? $_POST['id_produto']     : "";
+	$_txtOrigem      = isset($_POST['txtOrigem'])      ? $_POST['txtOrigem']: "";
+	$_txtValidade    = isset($_POST['txtValidade'])    ? $_POST['txtValidade']    : "";
+	$_id_deposito    = isset($_POST['id_deposito'])    ? $_POST['id_deposito']    : "";
+	$_txarObs        = isset($_POST['txObs'])          ? FuncaoBase::tirarAcentos($_POST['txObs'])        : "";
+	$_btnCadMaterial = isset($_POST['btnAlteraMaterial']) ? true 					  : "";
 
+
+	$campos = array("Produto"   => $_id_produto,    
+				"Origem Material"=> $_txtOrigem);  
+					
+			if(FuncaoBase::CampoBranco($campos)){
+					
+				if(Material::Editar($_id_produto,
+							$_txtOrigem,
+							$_txarObs)) {
+					
+                                    print "sucesso";
+				}
+	
+			}
 /* Cadastro produto (unidade) */
 }elseif($_POST['opcao'] == 'cad_prod') {
 
