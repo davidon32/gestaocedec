@@ -110,6 +110,7 @@ $dadosOrigem = Material::ListFonte(true);
 				<th class="text-center">Qtd</th>
 				<th class="text-center">Validade</th>
 				<th class="text-center">Nota F</th>
+				<th class="text-center">Entrada Vinculada</th>
 				<th class="text-center">Opções</th>
 			
 			</tr>
@@ -135,6 +136,7 @@ $dadosOrigem = Material::ListFonte(true);
 								<td ".$cancelado.">".$value['quantidade']."</td>
 								<td ".$cancelado.">".(empty($value['validade']) ? "n/a" : $value['validade'] )."</td>
                                                                 <td ".$cancelado.">-</td>
+                                                                <td ".$cancelado.">".$value['id_entrada']."</td>
                                                                 <td ".$cancelado.">";
                                                                     //$countSaida = (int)Liberacao::CountLibera($value['id_produto'])+(int)Liberacao::CountTransferencia($value['id_produto']);
                                                                     

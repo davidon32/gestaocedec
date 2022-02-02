@@ -212,13 +212,16 @@ print $nomTerritorio ['nome'];
         <div role="tabpanel" class="tab-pane" id="panel-dados2">
             <br>
             <label>Email :</label>
-            <input class="form-control" type="text" name="txt_email" id="txt_email" value="<?php print $_dados[0]['email']; ?>" maxlength="100">
+            <input class="form-control" type="email" name="txt_email" id="txt_email" value="<?php print $_dados[0]['email']; ?>" maxlength="100">
+            <span id='sp_email' style="color: red">Email invalido !</span>
             <br>
             <label>Email 2 :</label>
-            <input class="form-control" type="text" name="txt_email2" id="txt_email2" value="<?php print $_dados[0]['email2']; ?>" maxlength="100">
+            <input class="form-control" type="email" name="txt_email2" id="txt_email2" value="<?php print $_dados[0]['email2']; ?>" maxlength="100">
+            <span id='sp_email2' style="color: red">Email invalido !</span>
             <br>
             <label>Email 3 :</label>
-            <input class="form-control" type="text" name="txt_email3" id="txt_email3" value="<?php print $_dados[0]['email3']; ?>" maxlength="100">
+            <input class="form-control" type="email" name="txt_email3" id="txt_email3" value="<?php print $_dados[0]['email3']; ?>" maxlength="100">
+            <span id='sp_email3' style="color: red">Email invalido !</span>
 
             <br>
             <label>Possui Plano de Contingência ?</label>
@@ -600,6 +603,61 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
 <script type="text/javascript">
 
     $(document).ready(function () {
+        $("#sp_email").hide();
+        $("#sp_email2").hide();
+        $("#sp_email3").hide();
+        
+        $("#txt_email").blur(function(){
+            var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+            if($("#txt_email").val().length >0){
+                var email = $("#txt_email").val();
+                if(!email.match(validRegex)){ 
+                    $("#sp_email").css('color', 'red');
+                    $("#sp_email").show();
+                    $("#txt_email").focus();
+                    return true;
+                }else {
+                    $("#sp_email").hide();
+                }
+            }else {
+                $("#sp_email").hide();
+            }
+        });
+        
+        $("#txt_email2").blur(function(){
+            var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+            if($("#txt_email2").val().length >0){
+                var email = $("#txt_email2").val();
+                
+                if(!email.match(validRegex)){ 
+                    $("#sp_email2").css('color', 'red');
+                    $("#sp_email2").show();
+                    $("#txt_email2").focus();
+                    return true;
+                }else {
+                    $("#sp_email2").hide();
+                }
+            }else{
+                $("#sp_email2").hide();
+            }
+        });
+        
+        $("#txt_email3").blur(function(){
+            var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+            if($("#txt_email3").val().length >0){
+                var email = $("#txt_email3").val();
+                if(!email.match(validRegex)){ 
+                    $("#sp_email3").css('color', 'red');
+                    $("#sp_email3").show();
+                    $("#txt_email3").focus();
+                    return true;
+                }else {
+                    $("#sp_email3").hide();
+                }
+            }else {
+                $("#sp_email3").hide();
+            }
+        });
         
         $('input[type="checkbox"]:not("#sem_decreto, #sem_portaria, #ckSemDoc")').each(function () {
             $(this).is(":checked") ? $(this).val(1): $(this).val(0); 
@@ -863,6 +921,8 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
          *
          */
         $("#btnDados2").click(function () {
+        
+            validaEmail()
 
             if (false) {
 

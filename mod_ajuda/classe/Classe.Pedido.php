@@ -45,9 +45,9 @@ class Pedido extends FuncaoBase {
                 print "<script type='text/javascript'>";
                 print "alert('Material Adicionado com Sucesso !');";
                 if($_GET['action'] == "add_material"){
-                print "window.location = '".FuncaoBase::geraLink("ajuda", "conestoque", "add_material", array('id'=>$_item[0]))."';";
+                print "window.location.href = '".FuncaoBase::geraLink("ajuda", "conestoque", "add_material", array('id'=>$_item[0]))."';";
                 }else {
-                print "window.location = '".FuncaoBase::geraLink("ajuda", "conestoque", "add_mat_transf", array('id'=>$_item[0]))."';";
+                print "window.location.href = '".FuncaoBase::geraLink("ajuda", "conestoque", "add_mat_transf", array('id'=>$_item[0]))."';";
                 }
                 print "</script>";
             } else {

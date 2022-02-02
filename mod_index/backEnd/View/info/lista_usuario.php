@@ -40,7 +40,7 @@
                     print "<td>".$value['telefone']."<br>".$value['celular']."</td>";
                     print "<td>".$value['email_rec']."</td>";
                     print "<td>".($value['desc_funcao'] == 'Agente Regional de DC' ? 'Regional' : '')."</td>";
-                    print "<td>".$value['rpm']."</td>";
+                    print "<td>".$value['rpm']."/".$value['dep_avancado']."</td>";
                     print "<td>".$value['orgao']."</td>";
                     print "<td>".$value['login']."</td>";
                     print "<td>". DataMysql::dataCompletaVisual($value['ultimo_acesso'])."</td>";

@@ -217,12 +217,14 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
             <?php //Compdec::getEmailRec();
             ?>
             <input class="form-control" type="email" name="txt_email" id="txt_email" value="<?php print $_dados[0]['email']; ?>" required maxlength="100">
+            <span id='sp_email' style="color: red">Email invalido !</span>
         </div>
         <div class='col-md-12'><br>
             <label style="">Email 2:</label>
             <?php //Compdec::getEmailRec();
             ?>
             <input class="form-control" type="email" name="txt_email2" id="txt_email2" value="<?php print $_dados[0]['email2']; ?>" required maxlength="100">
+            <span id='sp_email2' style="color: red">Email invalido !</span>
         </div>
 
         <div class='col-md-12'><br>
@@ -230,6 +232,7 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
             <?php //Compdec::getEmailRec();
             ?>
             <input class="form-control" type="email" name="txt_email3" id="txt_email3" value="<?php print $_dados[0]['email3']; ?>" required maxlength="100">
+            <span id='sp_email3' style="color: red">Email invalido !</span>
         </div>
         <div class='col-md-6'>
             <br>
@@ -636,6 +639,62 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
 <?php include_once "template/page/rodapePage.php"; ?>
 <script type="text/javascript">
     $(document).ready(function () {
+        
+        $("#sp_email").hide();
+        $("#sp_email2").hide();
+        $("#sp_email3").hide();
+        
+        $("#txt_email").blur(function(){
+            var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+            if($("#txt_email").val().length >0){
+                var email = $("#txt_email").val();
+                if(!email.match(validRegex)){ 
+                    $("#sp_email").css('color', 'red');
+                    $("#sp_email").show();
+                    $("#txt_email").focus();
+                    return true;
+                }else {
+                    $("#sp_email").hide();
+                }
+            }else {
+                $("#sp_email").hide();
+            }
+        });
+        
+        $("#txt_email2").blur(function(){
+            var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+            if($("#txt_email2").val().length >0){
+                var email = $("#txt_email2").val();
+                
+                if(!email.match(validRegex)){ 
+                    $("#sp_email2").css('color', 'red');
+                    $("#sp_email2").show();
+                    $("#txt_email2").focus();
+                    return true;
+                }else {
+                    $("#sp_email2").hide();
+                }
+            }else{
+                $("#sp_email2").hide();
+            }
+        });
+        
+        $("#txt_email3").blur(function(){
+            var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+            if($("#txt_email3").val().length >0){
+                var email = $("#txt_email3").val();
+                if(!email.match(validRegex)){ 
+                    $("#sp_email3").css('color', 'red');
+                    $("#sp_email3").show();
+                    $("#txt_email3").focus();
+                    return true;
+                }else {
+                    $("#sp_email3").hide();
+                }
+            }else {
+                $("#sp_email3").hide();
+            }
+        });
         
         /*Swal.fire({
         icon: 'error',

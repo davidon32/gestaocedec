@@ -63,6 +63,45 @@ class Material {
 		}
 	}
         
+        /**
+	 *  Editar material 
+	 * 
+	 */
+	static function Editar(array $dados){
+            
+            var_dump($dados);
+            
+             $validade = ($dados['validade'] == null) ? null : "'".$dados['validade']."'";
+
+            $con = Conexao::getInstance();
+            $sql = "update aju_produto set origem = :origem,
+                                                validade   = :validade,
+                                                depDestino = :depDestino,
+                                                obs        = :obs,
+                                                id_entrada = :id_entrada
+						WHERE id_produto = :id_produto";
+                var_dump($sql);
+                die();
+            try {
+                
+                $dados['origem']."',
+                                                validade = ".$validade.",
+                                                depDestino = '".$dados['id_deposito']."',
+                                                obs =       '".$dados['obs']."',
+                                                id_entrada = '".$dados['id_entrada']."'
+						WHERE id_produto = '".$dados['id_produto']."'";
+                $result->bindValue(":nome"  , $_nome);
+                $result->bindValue(":nome"  , $_nome);
+                $result->bindValue(":nome"  , $_nome);
+                $result->bindValue(":nome"  , $_nome);
+		$result = $con->query($sql);
+
+		return true;
+            }catch (Exception $e){
+			print FuncaoBase::getError($e->getMessage());
+		}
+	}
+        
         public static function Complnota($_id_produto, $_complnota) {
 								
 		$con = Conexao::getInstance();
@@ -564,6 +603,7 @@ class Material {
 						aju_produto.depDestino,
 						aju_produto.validade,
 						aju_produto.nota_fiscal,
+                                                aju_produto.id_entrada,
                                                 aju_unidade.descricao,
                                                 aju_produto.cancelado
 					FROM gestaocedec.aju_produto

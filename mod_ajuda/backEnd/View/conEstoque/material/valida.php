@@ -72,9 +72,10 @@ if($_POST['opcao'] == 'cad_material') {
     
         $_id_produto     = isset($_POST['id_produto'])     ? $_POST['id_produto']     : "";
 	$_txtOrigem      = isset($_POST['txtOrigem'])      ? $_POST['txtOrigem']: "";
-	$_txtValidade    = isset($_POST['txtValidade'])    ? $_POST['txtValidade']    : "";
+	$_txtValidade    = isset($_POST['txtValidade'])    ? (empty($_POST['txtValidade']) ? null : $_POST['txtValidade'])    : null;
 	$_id_deposito    = isset($_POST['id_deposito'])    ? $_POST['id_deposito']    : "";
 	$_txarObs        = isset($_POST['txObs'])          ? FuncaoBase::tirarAcentos($_POST['txObs'])        : "";
+	$_id_entrada     = isset($_POST['id_entrada'])     ? $_POST['id_entrada']    : "";
 	$_btnCadMaterial = isset($_POST['btnAlteraMaterial']) ? true 					  : "";
 
 
@@ -82,10 +83,16 @@ if($_POST['opcao'] == 'cad_material') {
 				"Origem Material"=> $_txtOrigem);  
 					
 			if(FuncaoBase::CampoBranco($campos)){
-					
-				if(Material::Editar($_id_produto,
-							$_txtOrigem,
-							$_txarObs)) {
+                            
+                            $post = array("id_produto" =>$_id_produto,
+                                            "origem" =>	$_txtOrigem,
+                                            "validade" =>$_txtValidade,
+                                            "id_deposito" =>$_id_deposito,
+                                            "obs" => $_txarObs,
+                                            "id_entrada"=>$_id_entrada);
+                           	
+                                    var_dump(Material::Editar($post));
+				if(Material::Editar($post)) {
 					
                                     print "sucesso";
 				}

@@ -2377,12 +2377,15 @@ cedec_funcionario.desc_funcao,
 cedec_funcionario.telefone,
 cedec_funcionario.celular,
 cedec_funcionario.id_rpm,
-cedec_rpm.nome as rpm
+cedec_rpm.nome as rpm,
+aju_deposito.nome as dep_avancado
 from cedec_usuario
 inner join cedec_funcionario
 on cedec_usuario.id_funcionario = cedec_funcionario.id_funcionario
 inner join cedec_rpm
 on cedec_funcionario.id_rpm = cedec_rpm.id
+inner join aju_deposito
+on cedec_rpm.id = aju_deposito.id_rpm
 where cedec_usuario.situacao = 1
 and cedec_usuario.id_usuario != 79
 ".$filtro."

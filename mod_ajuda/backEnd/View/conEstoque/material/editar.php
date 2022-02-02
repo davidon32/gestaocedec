@@ -19,8 +19,6 @@ $dados = Material::getMaterial($id_entrada);
 
 $nome_origem = Material::getOrigem($dados['origem']);
 
-var_dump($nome_origem);
-
 ?>
 <style>	
 	#frm_Entrada_mat .error {
@@ -45,7 +43,7 @@ var_dump($nome_origem);
 						<label>Origem</label>
 							<div class="input-group">
                                                             <input type="text" class="form-control" name='txtOrigem' id='txtOrigem' value="<?=$dados['origem'];?>">
-                                                            <input type="hidden" name='id_origem' id='id_origem' value="<?=$nome_origem['id'];?>">
+                                                            <input type="hidden" name='id_origem' id='id_origem' value="<?=$nome_origem['nome'];?>">
                                                             <span class="input-group-btn">
                                                               <button class="btn btn-default" id="add_fonte" type="button">Ad.Fonte</button>
                                                             </span>
@@ -53,7 +51,8 @@ var_dump($nome_origem);
 					</div>
 				<div class="col-md-4">
 					<label>Nome Material</label>
-                                        <input type="text" class="form-control" name='' id='' value="<?=($dados['nome']);?>" readonly>
+                                        <input type="text" class="form-control" name='nome_produto' id='nome_produto' value="<?=($dados['nome']);?>" readonly>
+                                        <input type="hidden" class="form-control" name='id_produto' id='id_produto' value="<?=($dados['id_produto']);?>" readonly>
 				</div>
 				<div class="col-md-4">
 					<label>Data Entrada</label>
@@ -119,6 +118,7 @@ var_dump($nome_origem);
 				<th class="text-center">Qtd</th>
 				<th class="text-center">Validade</th>
 				<th class="text-center">Nota F</th>
+				<th class="text-center">Nota Vinculada</th>
 			
 			</tr>
 				<?php
@@ -135,6 +135,7 @@ var_dump($nome_origem);
 								<td>".$value['quantidade']."</td>
 								<td>".(empty($value['validade']) ? "n/a" : $value['validade'] )."</td>
                                                                 <td>-</td>
+								<td>".$value['id_entrada']."</td>
                                                                 
 								</tr>";
 					}
@@ -158,7 +159,7 @@ var_dump($nome_origem);
 
 $(document).ready(function(){
       
-    $("#id_origem").val("");
+    //$("#id_origem").val("");
  
     
     $("#txtValidade").datepicker({ dateFormat: 'dd/mm/yy' });
