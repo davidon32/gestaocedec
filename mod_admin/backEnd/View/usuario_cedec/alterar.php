@@ -14,6 +14,7 @@ $usuario = Usuario::getDadoUsuario($id_usuario);
 
 $permissaoModulo = Usuario::getPermissaoModulo($usuario['login']);
 $permissaoAjudaH = Usuario::getPermissaoAjudaH($usuario['login']);
+
 $permissaoEstoque = Usuario::getPermissaoEstoque($usuario['login']);
 $permissaoCompdec = Usuario::getPermissaoCompdec($usuario['login']);
 $permissaoCedec = Usuario::getPermissaoCedec($usuario['login']);
@@ -257,7 +258,7 @@ if(!empty($usuario)){
                 <label>Visualizar Icone CEDEC </label><br>
 
                 <br>
-                <input type="checkbox" id="prefeitura" data-tabela="cedec_permissao" data-chave="id_permissao" <?= ($permissaoCedec['prefeitura']) ? " checked='checked'" : ""; ?>>
+                <input type="checkbox" id="cad_prefeitura" data-tabela="cedec_permissao" data-chave="id_permissao" <?= ($permissaoCedec['cad_prefeitura']) ? " checked='checked'" : ""; ?>>
                 <label>Dados Prefeitura</label><br>
                 <br>
                 <input type="checkbox" id="municipio" data-tabela="cedec_permissao" data-chave="id_permissao" <?= ($permissaoCedec['municipio']) ? " checked='checked'" : ""; ?>>
@@ -322,8 +323,8 @@ if(!empty($usuario)){
                 <input type="checkbox" id="it_m_comdec" data-tabela="cedec_usuario" data-chave="id_usuario" <?= ($permissaoModulo['it_m_comdec']) ? " checked='checked'" : ""; ?>>
                 <label>Visualizar Módulo Compdec</label>
                 <br>
-                <input type="checkbox" id="cad_comdec" data-tabela="com_permissao" data-chave="id_permissao" <?= ($permissaoCompdec['cad_comdec']) ? " checked='checked'" : ""; ?>>
-                <label>Cadastro Compdec</label>
+                <!--<input type="checkbox" id="cad_comdec" data-tabela="com_permissao" data-chave="id_permissao" <?= ($permissaoCompdec['cad_comdec']) ? " checked='checked'" : ""; ?>>
+                <label>Cadastro Compdec</label>-->
                 <br>
                 <input type="checkbox" id="cad_consulta" data-tabela="com_permissao" data-chave="id_permissao" <?= ($permissaoCompdec['cad_consulta']) ? " checked='checked'" : ""; ?>>
                 <label>Consulta Compdec</label>
@@ -337,8 +338,8 @@ if(!empty($usuario)){
                 <input type="checkbox" id="admuser" data-tabela="com_permissao" data-chave="id_permissao" <?= ($permissaoCompdec['admuser']) ? " checked='checked'" : ""; ?>>
                 <label>Administra Usuario Compdec</label>
                 <br>
-                <input type="checkbox" id="adduser" data-tabela="com_permissao" data-chave="id_permissao" <?= ($permissaoCompdec['adduser']) ? " checked='checked'" : ""; ?>>
-                <label>Adicionar Usuario</label>
+                <!--<input type="checkbox" id="adduser" data-tabela="com_permissao" data-chave="id_permissao" <?= ($permissaoCompdec['adduser']) ? " checked='checked'" : ""; ?>>
+                <label>Adicionar Usuario</label>-->
 
 
             </div>
@@ -373,9 +374,9 @@ if(!empty($usuario)){
                 <div class="progress">
                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
                 </div>
-                <legend>Poços</legend>
+                <!--<legend>Poços</legend>
                 <input type="checkbox" id="it_m_poco" data-tabela="cedec_usuario" data-chave="id_usuario" <?= ($permissaoModulo['it_m_poco']) ? " checked='checked'" : ""; ?>>
-                <label>Visualizar Módulo Poço</label>
+                <label>Visualizar Módulo Poço</label>-->
 
                 <br><br>
             </div>

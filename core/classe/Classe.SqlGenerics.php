@@ -22,6 +22,7 @@ class SqlGenerics extends FuncaoBase {
 
         $a = "" . implode(",", $campo) . "";
         $b = "'" . implode("','", $valor) . "'";
+        
 
         $sql = "INSERT INTO $tabela ($a) VALUES ($b)";
 

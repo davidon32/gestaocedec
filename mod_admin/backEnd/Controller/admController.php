@@ -65,20 +65,31 @@
                             'id_funcionario'=>Usuario::idFuncionario($numPolicia)));
                 
                 /* inserir permissoes CEDEC PERMISSAO */
-                SqlGenerics::Inserir('cedec_permissao', array('login'=>$username));
+                SqlGenerics::Inserir('cedec_permissao', array('login'=>$username,
+                                                            'nivel'=>0,
+                                                            'id_usuario'=> Usuario::getIdUsuario($username)));
+
                 
+                /******************************* modulo ajuda humanitaria novo ***********************
                 /* inserir permissoes AJUDA */
                 SqlGenerics::Inserir('aju_cpermissao', array('login'=>$username,
+                                                            'nivel'=>0,
+                                                            'id_usuario'=> Usuario::getIdUsuario($username)));
+                 
+                /******************************* modulo ajuda humanitaria ***********************
+                /* inserir permissoes AJUDA */
+                SqlGenerics::Inserir('aju_permissao', array('login'=>$username,
                                                             'nivel'=>0,
                                                             'id_usuario'=> Usuario::getIdUsuario($username)));
                 
                 /* inserir permissoes AJUDA Humanitaria */
                 SqlGenerics::Inserir('aju_h_permissao', array('login'=>$username,
-                                                            'id_usuario'=> Usuario::getIdUsuario($username)));
+                                                                'id_usuario'=> Usuario::getIdUsuario($username)));
                 
                 
                 /* inserir permissoes CCE */
-                SqlGenerics::Inserir('cce_permissao', array('login'=>$username));
+                SqlGenerics::Inserir('cce_permissao', array('login'=>$username,
+                                                            'id_usuario'=> Usuario::getIdUsuario($username)));
                 
                 /* inserir permissoes DECRETAÇÂO */
                 SqlGenerics::Inserir('dec_permissao', array('login'=>$username,
@@ -87,14 +98,20 @@
                 
                 /* inserir permissoes COMPDEC */
                 SqlGenerics::Inserir('com_permissao', array('login'=>$username,
-                                                            'nivel'=>0));
+                                                            'nivel'=>0,
+                                                            'id_usuario'=> Usuario::getIdUsuario($username)));
                 
                 /* inserir permissoes EQUIPE */
-                SqlGenerics::Inserir('equ_permissao', array('login'=>$username));
+                SqlGenerics::Inserir('equ_permissao', array('login'=>$username,
+                                                            'nivel'=>0,
+                                                            'id_usuario'=> Usuario::getIdUsuario($username)));
                 
                 
                 /* inserir permissoes PIPA */
-                SqlGenerics::Inserir('pip_permissao', array('login'=>$username));
+                SqlGenerics::Inserir('pip_permissao', array('login'=>$username,
+                                                            'nivel'=>0,
+                                                            'id_usuario'=> Usuario::getIdUsuario($username)));
+                
                 
                                
                     print "<script>
