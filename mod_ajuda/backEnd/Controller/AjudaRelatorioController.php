@@ -222,6 +222,10 @@ class AjudaRelatorioController extends AppController {
     function relatorioCadastroMaterial(AjudaRelatorioModel $ajudaRelatorioModel) {
 
         $con = Conexao::getInstance();
+        $filtro ="";
+        $filtro .= !empty($ajudaRelatorioModel->getDt_inicial()) ? " and dtEntradaSaida >= '".$ajudaRelatorioModel->getDt_inicial()."'" : "";
+        $filtro .= !empty($ajudaRelatorioModel->getDt_final())   ? " and dtEntradaSaida <= '".$ajudaRelatorioModel->getDt_final()."'"   : "";
+        $filtro .= !empty($ajudaRelatorioModel->getMaterial())   ? " and nome like '%".$ajudaRelatorioModel->getMaterial()."%'"   : "";
 
         try {
             
@@ -235,9 +239,8 @@ class AjudaRelatorioController extends AppController {
                                             depDestino,
                                             validade
                                             from aju_produto
-                                            where dtEntradaSaida >= '".$ajudaRelatorioModel->getDt_inicial()."'
-                                            and dtEntradaSaida <= '".$ajudaRelatorioModel->getDt_final()."'
-                                            order by ".self::SwOrder($ajudaRelatorioModel->getOrdem());
+                                            where id_produto > 0 ".
+                                            $filtro." order by ".self::SwOrder($ajudaRelatorioModel->getOrdem());
            
 
             $statement = $con->query($sql);

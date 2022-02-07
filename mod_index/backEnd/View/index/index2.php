@@ -9,6 +9,9 @@
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php";?>
 
+<div class="col-md-12 text-center">
+    <p style="text-center"><a href='<?= FuncaoBase::geraLink("index", "index", "index1")?>' class='btn btn-primary'>Voltar</a></p>
+</div>
 <!-- modulos de acesso -->
             <div class="col-md-12">   
                 <?php  

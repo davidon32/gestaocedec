@@ -26,17 +26,17 @@
 
     <?php if ($_COOKIE['seguranca']['id_deposito'] == "1") { ?>
 
-
+   
         <!-- entrada de material -->
         <?php
-        Usuario::Acesso('aju_permissao', 'cad_material', 'estoque/entrada.png', '&modulo=ajuda&controller=conestoque&action=material', 'Entrada de Materiais', 'class="col-md-2 text-center"');
+        Usuario::Acesso('aju_permissao', 'cad_material', 'estoque/entrada.png', '&modulo=ajuda&controller=conestoque&action=material', 'Entrada de Materiais', 'class="col-md-4 text-center"');
         ?>
-
+  
         <!-- Saldo Estoque -->
         <?php
         if (Usuario::getPermissao('aju_permissao', 'rel_saldo_geral')) {
             ?>
-            <div class="col-md-2 text-center">
+            <div class="col-md-4 text-center">
                 <a href="?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=salindex" title="Saldo Estoque">
                     <img src="/core/imagem/estoque/estoque.png" width="80"><br>
                     Estoque
@@ -44,7 +44,7 @@
             </div>
             <?php
         } else {
-            print '<div class="col-md-2 text-center">';
+            print '<div class="col-md-4 text-center">';
             print "<img class=\"imgCinza\" src=\"core/imagem/estoque/estoque.png\" width=\"80px\" title=\"Saldo Estoque\">";
             print "<br> Estoque";
             print "</div>";
@@ -56,7 +56,7 @@
         <?php
         if (Usuario::getPermissao('aju_permissao', 'cad_liberacao')) {
             ?>
-            <div class="col-md-2 text-center">
+            <div class="col-md-4 text-center">
                 <a href="?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=idxliberacao" title="Liberacao de Materiais">
                     <img src="/core/imagem/estoque/liberacao.png" width="80px"><br>
                     Liberação
@@ -65,7 +65,7 @@
 
             <?php
         } else {
-            print '<div class="col-md-2 text-center">';
+            print '<div class="col-md-4 text-center">';
             print "<img class=\"imgCinza\" src=\"core/imagem/estoque/liberacao.png\" width=\"80px\" title=\"Liberacao de Materiais\">";
             print "<br> Liberacao de Materiais";
             print "</div>";
@@ -76,7 +76,7 @@
         <?php
         if (Usuario::getPermissao('aju_permissao', 'cad_pagamento')) {
             ?> 
-            <div class="col-md-2 text-center">
+            <div class="col-md-4 text-center">
                 <a href="?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=idxpagamento" title="Fazer o pagamento de materiais liberados">
                     <img src="/core/imagem/estoque/pagamento.png" width="80px"><br>
                     Pagamento de Materiais
@@ -84,7 +84,7 @@
             </div>
             <?php
         } else {
-            print '<div class="col-md-2 text-center">';
+            print '<div class="col-md-4 text-center">';
             print "<img class=\"imgCinza\" src=\"core/imagem/estoque/pagamento.png\" width=\"80px\" title=\"Pagamento de Materiais\">";
             print "<br> Pagamento de Materiais";
             print "</div>";
@@ -96,7 +96,7 @@
         <?php
         if (Usuario::getPermissao('aju_permissao', 'cad_transferencia')) {
             ?> 
-            <div class="col-md-2 text-center">
+            <div class="col-md-4 text-center">
                 <a href="?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=idxtransf" title="Transferencia de Materiais entre Depositos">
                     <img src="/core/imagem/estoque/transferencia.png" width="80x"><br>
                     Transferencia de Materiais
@@ -105,7 +105,7 @@
 
             <?php
         } else {
-            print '<div class="col-md-2 text-center">';
+            print '<div class="col-md-4 text-center">';
             print "<img class=\"imgCinza\" src=\"core/imagem/estoque/transferencia.png\" width=\"80px\" title=\"Transferencia de Materiais entre Depositos\">";
             print "<br> Transferencia de Materiais";
             print "</div>";
@@ -116,7 +116,7 @@
         <?php
         if (Usuario::getPermissao('aju_permissao', 'relatorio')) {
             ?> 
-            <div class="col-md-2 text-center">
+            <div class="col-md-4 text-center">
                 <a href="?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=relIndex"" title="Relatorios">
                     <img src="/core/imagem/estoque/relatorios.png" width="80x"><br>
                     Relatorios
@@ -124,7 +124,7 @@
             </div>
             <?php
         } else {
-            print '<div class="col-md-2 text-center">';
+            print '<div class="col-md-4 text-center">';
             print "<img class=\"imgCinza\" src=\"core/imagem/estoque/relatorios.png\" width=\"80px\" title=\"Relatorios \">";
             print "<br> Relatorios";
             print "</div>";
@@ -142,19 +142,19 @@
         print "estoque";
         ?> <br>
 
-        <div class="col-md-2 text-center">
+        <div class="col-md-4 text-center">
             <a href="?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=idxpagamento" title="Fazer o pagamento de materiais liberador">
                 <img src="/core/imagem/estoque/pagamento.png" width="80px"><br>
                 Pagamento de Materiais
             </a>
         </div>
-        <div class="col-md-2 text-center">
+        <div class="col-md-4 text-center">
             <a href="?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=idxtransf" title="Transferencia de Materiais entre Depositos">
                 <img src="/core/imagem/estoque/transferencia.png" width="80x"><br>
                 Transferencia de Materiais
             </a>
         </div>
-        <div class="col-md-2 text-center">
+        <div class="col-md-4 text-center">
             <a href="?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=relIndex"" title="Relatorios">
                 <img src="/core/imagem/estoque/relatorios.png" width="80x"><br>
                 Relatorios

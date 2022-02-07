@@ -25,9 +25,7 @@ class FuncionarioController extends Controller {
 
             include_once 'mod_equipe/View/funcionario/alterar.php';
         }
-        
-        
-        
+  
     }
 
     

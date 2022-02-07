@@ -67,7 +67,7 @@ table th {
 	
         if($listMat){
         }else {
-            $cabecalho = "<div class=\"col-md-12\">Legenda:<br>
+            $cabecalho = "<div class=\"col-md-12 table table-hover\">Legenda:<br>
             <i style=\"background-color:#00a65a; color:white\">&nbsp;Pago&nbsp;</i>
             <i style=\"background-color:#f39c12; color:white\">&nbsp;Cancelado&nbsp;</i>
             <i style=\"background-color:#00c0ef; color:white\">&nbsp;Em aberto&nbsp;</i>

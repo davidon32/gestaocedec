@@ -9,10 +9,11 @@
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php"; ?>
 
-<div class="col-md-6">
+<div id='continuar_sistema' class="col-md-6 text-left">
     <a class="btn btn-success btn-lg" href='index.php?token=<?= hash('sha256', md5(VERSAO) . "-" . time()) ?>&modulo=index&controller=index&action=menu'> Continuar a usar o Sistema !</a>  
-</div> 
-<div class="col-md-6 text-right">
+</div>
+<p id="espaco_menu"></p>
+<div id='info_rapido' class="col-md-6 text-right">
     <a class="btn btn-success" title='Informações Rápidas' href='<?= FuncaoBase::geraLink("index", "index", "info")?>'> Informações Rápidas</a>  
 </div> 
 <div class="col-md-12">
@@ -107,6 +108,11 @@
 <script>
 
     $(document).ready(function () {
+        
+        if(checkmobile()){
+            $("#info_rapido").addClass('text-center');
+            $("#continuar_sistema").addClass('text-center');
+        }
         var email = '<?= $_COOKIE['seguranca']['email_rec'] ?>';
         if ((email.length > 0) && (email.match(/.com/))) {
             Swal.fire({

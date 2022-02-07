@@ -12,6 +12,7 @@
 
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="Content-Language" content="pt-br">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>SDC - Sistema Defesa Ci</title>
   <!-- Tell the browser to be responsive to screen width -->

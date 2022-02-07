@@ -10,16 +10,20 @@
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php";?>
 
-    <legend>Filtro Relatorio Cadastro Materiais</legend>
+    <legend>Filtro Relatorio Entrada de Materiais</legend>
                 <form action="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=relatorio&action=rel_cad_mat" method="POST">
 
+                <div class="col-md-12">
+                    <label>Historico</label>
+                    <input class="form-control" type="text" id="txtMaterial" name="txtMaterial" />
+                </div>
                 <div class="col-md-4">
                     <label>Data Inicial de Entrada no Sistema</label>
-                    <input class="form-control" type="text" id="txtDtInicio" name="txtDtInicio" data-mask="99/99/9999" required />
+                    <input class="form-control" type="text" id="txtDtInicio" name="txtDtInicio" data-mask="99/99/9999"  />
                 </div>
                 <div class="col-md-4">
                     <label>Data Final de Entrada no Sistema</label>
-                    <input class="form-control" type="text" id="txtDtFinal" name="txtDtFinal" data-mask="99/99/9999" required />
+                    <input class="form-control" type="text" id="txtDtFinal" name="txtDtFinal" data-mask="99/99/9999"  />
                 </div>
                 <div class="col-md-4">
                         <label>Ordem</label><br>

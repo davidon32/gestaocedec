@@ -69,9 +69,14 @@ class docController extends Controller
         include_once "mod_doc/backEnd/View/glossario.php";
     }
     
-    # sdc
+    # sdc index 
     public function sdc(){
         include_once "mod_doc/backEnd/View/sdc.php";
+    }
+    
+    # sdc ajuda troca senha 
+    public function sdc_tr_senha(){
+        include_once "mod_doc/backEnd/View/sdc_tr_senha.php";
     }
   
 

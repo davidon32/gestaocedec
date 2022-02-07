@@ -58,7 +58,8 @@ function logar($_login, $_senha, $redireciona = true) {
 		cedec_funcionario.id_funcionario as id_funcionario,
 		cedec_funcionario.nome as nome,
 		cedec_funcionario.num_masp,
-                cedec_funcionario.id_rpm
+                cedec_funcionario.id_rpm,
+                cedec_funcionario.posto
 		FROM cedec_usuario
 		INNER JOIN cedec_funcionario
 		ON cedec_usuario.id_funcionario = cedec_funcionario.id_funcionario
@@ -135,6 +136,7 @@ static function SetCookieAdm($dados = ""){
 			setcookie("seguranca[sessao]",		  $_COOKIE['seguranca']['sess'], time()+SESSAOADM); //4 horas tempo sessao
 			setcookie("seguranca[matricula]",$_COOKIE['seguranca']['matricula'], time()+SESSAOADM);
 			setcookie("seguranca[rpm]",$_COOKIE['seguranca']['rpm'], time()+SESSAOADM);
+			setcookie("seguranca[posto]",$_COOKIE['seguranca']['posto'], time()+SESSAOADM);
 			ob_end_clean();
 
 			return true;
@@ -167,6 +169,7 @@ static function SetCookieAdm($dados = ""){
 		setcookie("seguranca[matricula]",$dados['num_masp'], time()+SESSAOADM);
 		setcookie("seguranca[sess]", date('dmY'), time()+SESSAOADM);
 		setcookie("seguranca[rpm]", $dados['id_rpm'], time()+SESSAOADM);
+		setcookie("seguranca[posto]", $dados['posto'], time()+SESSAOADM);
 		
 		if(isset($_COOKIE['seguranca']['sessao_id'])){
 			session_regenerate_id();

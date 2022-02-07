@@ -82,12 +82,15 @@ class Deposito {
      * 
      */
      
-    static function pegaDepositoSelected($id_deposito) {
+    static function pegaDepositoSelected($id_deposito, $travado = false) {
 
         $dados = array();
         
+        $option = "";
+        
+        
         #@ impressao do selected
-        $sql = ('SELECT nome, id_deposito FROM aju_deposito');
+        $sql = 'SELECT nome, id_deposito FROM aju_deposito';
         
         $result = Conexao::getInstance()->query($sql);
         
@@ -96,9 +99,14 @@ class Deposito {
         print "<option value='".$id_deposito."'>" . Deposito::PegaNomeDeposito($id_deposito) . "</option>";
         
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-            echo "<option value='".$linha['id_deposito']."'>" . $linha["nome"] . "</option>";
+            $option .= "<option value='".$linha['id_deposito']."'>" . $linha["nome"] . "</option>";
         }
-       
+        
+            if(!$travado) {
+                $option = "";
+            } 
+            
+
         echo "</select>";
 
     }

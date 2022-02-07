@@ -16,6 +16,7 @@
     }
     
     @media print {
+        fonte{size : 9pt;}  
                
         #cabecalho {
             display: none;
@@ -31,7 +32,7 @@
         }
 
         body {
-            width: 700px;
+            /*width: 600px;*/
             margin: 0 auto;
         }
         th, td {
@@ -63,12 +64,23 @@
     }
     
 </style>
-<div class='col-md-12 text-center'>
-    <a class="btn btn-success imprimir" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=relIndex">Voltar</a>				 
-    <br><br>
+<div class="container table table-responsive">
+     
+<div class='col-md-6 text-center'>
+    <?php if(isset($_GET['voltar'])) {
+        print "<a class=\"btn btn-success imprimir\" href=\"".FuncaoBase::geraLink('index', 'index', 'index1')."\">Voltar</a>";				 
+    }else {
+        print "<a class=\"btn btn-success imprimir\" href=\"?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=relIndex\">Voltar</a>";				 
+    }
+    ?>
+    
+</div>
+<div class='col-md-6 text-center'>
+    <button type="button" class="btn btn-primary imprimir" onclick="window.print();">Imprimir</button>
 </div>
 
 <?php
+
 
     $id_deposito = isset($_POST['id_deposito']) ? $_POST["id_deposito"] : "";
     
@@ -90,13 +102,14 @@ $inventario = <<<HTML
     {$data} {$hora}   
 </div>
 <div class="col-md-12" style="font-size:10pt;">
-    <table class="table table-condensed table-bordered">
+    <table class="table table-condensed table-bordered table-hover table-striped" id='inventario'>
         <tr>
             <th>CÓDIGO</th>
             <th>DESCRICAO</th>
             <th>UN</th>
             <th>MARCA</th>
             <th>ESTOQUE</th>
+            <th>DEP</th>
             <th>CUSTO</th>
             <th>QTD</th>
         </tr>
@@ -104,19 +117,32 @@ HTML;
         
 ?>
         <?php
+        
+//var_dump($dados);
             foreach ($dados as $key => $value) {
                 
                 if($value['saldo'] > 0){
+                    //var_dump(strrpos($value['produto'], 'CESTA'));
                     $saldo = $value['saldo'];
-                    $inventario .="<tr>";
+                    $inventario .="<tr>\n";
                     $inventario .= "<td>".$value['id_unidade']."</td>";
-                    $inventario .= "<td>".$value['produto'].(!empty($value['descricao']) ? " - ".$value['descricao'] : "") ."</td>";
+                    if(strrpos($value['produto'], 'CESTA') ===0){
+                        $inventario .= "<td style='color:F13B0E'>";
+                        $inventario .= "<b><i>".$value['produto']."</i></b>"; 
+                        $inventario .= (!empty($value['descricao'])) ? " - ".$value['descricao'] : "";
+                    }else {
+                        $inventario .= "<td>";
+                        $inventario .= $value['produto'];
+                        $inventario .= (!empty($value['descricao'])) ? " - ".$value['descricao'] : "";
+                    }
+                    $inventario .= "</td>";
                     $inventario .= "<td></td>";
                     $inventario .= "<td></td>";
                     $inventario .= "<td>".$value['deposito']."</td>";
+                    $inventario .= "<td>".$value['abreviacao']."</td>";
                     $inventario .= "<td></td>";
                     $inventario .= "<td>".$saldo."</td>";
-                    $inventario .= "</tr>";
+                    $inventario .= "\n</tr>\n\n";
                     
                 }else{
                     if(true){ // busca transito
@@ -132,29 +158,32 @@ HTML;
     $inventario .= "</table>
 </div>";
 
+    print $inventario;
 require 'vendor/autoload.php';
 use Dompdf\Dompdf;
 
-if($tipo == 'pdf'){
-    
-// Dompdf namespace
-// dompdf class
-$dompdf = new Dompdf();
-// html que será transformado em PDF
-$dompdf->loadHtml($inventario);
-// (Opcional) Tipo do papel e orientação
-$dompdf->setPaper('A4');
-// Render HTML para PDF
-$dompdf->render();
-// Download do arquivo
-file_put_contents('doc/diario/'.date('d').'-'.date('m').'-'.date('Y').'-'.date('his').'-inventario.pdf', $dompdf->output());
-}else {
-    print $inventario;
-}
+/*if(isset($tipo)) {
+    if($tipo == 'pdf'){
+
+    // Dompdf namespace
+    // dompdf class
+    $dompdf = new Dompdf();
+    // html que será transformado em PDF
+    $dompdf->loadHtml($inventario);
+    // (Opcional) Tipo do papel e orientação
+    $dompdf->setPaper('A4');
+    // Render HTML para PDF
+    $dompdf->render();
+    // Download do arquivo
+    file_put_contents('doc/diario/'.date('d').'-'.date('m').'-'.date('Y').'-'.date('his').'-inventario.pdf', $dompdf->output());
+    }else {
+        print $inventario;
+    }
+}*/
 
 ?>
 
-
+</div>
 
 <!-- =================== RODAPE CORPO ==================== -->
 <?php include_once "template/page/corpoRodape.php";?>
@@ -164,9 +193,42 @@ file_put_contents('doc/diario/'.date('d').'-'.date('m').'-'.date('Y').'-'.date('
 <!-- =============== HEADER HTML PAGE ================= -->
 <?php include_once "template/page/rodapePage.php";?>
 
+<script src="js/script.js"></script>
 <script type="text/javascript">
 
 $(document).ready(function(){
+    console.log(checkmobile());
+    /* remove colunas mobile */
+    if(checkmobile()){
+        
+        $("#inventario").find("tr").each(function() {
+            $(this).find("th:eq(0)").remove();
+            $(this).find("td:eq(0)").remove();
+        });
+        
+        $("#inventario").find("tr").each(function() {
+            $(this).find("th:eq(1)").remove();
+            $(this).find("td:eq(1)").remove();
+        });
+        $("#inventario").find("tr").each(function() {
+            $(this).find("th:eq(2)").remove();
+            $(this).find("td:eq(2)").remove();
+        });
+        $("#inventario").find("tr").each(function() {
+            $(this).find("th:eq(3)").remove();
+            $(this).find("td:eq(3)").remove();
+        });
+        
+        $("#inventario").find("tr").each(function() {
+            $(this).find("th:eq(1)").remove();
+            $(this).find("td:eq(1)").remove();
+        });
+        
+        
+        
+ 
+        
+    }
 
 });
 

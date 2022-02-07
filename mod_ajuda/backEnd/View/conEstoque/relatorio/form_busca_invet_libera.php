@@ -22,14 +22,23 @@
         $eventoModel = new EventoConEstoqueModel;
         $eventos = $eventoModel->listaEvento();
         
+        $voltar = isset($_GET['voltar']) ? array('voltar' => 'menu') : "";
+        
+
 ?>
 
 	<p class="text-center"><legend>Relat&oacute;rio de Inventário de materiais</legend></p>
 
-	<form method="POST" action="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=relatorio&action=inventario" name="frm_rel_inventario" >
+<form method="POST" action="<?= FuncaoBase::geraLink("ajuda", "relatorio", "inventario", $voltar)?>" name="frm_rel_inventario" >
 		<div class="col-md-12">
                     <label>Dep&oacute;sito Destino:</label>
-                    <?php $_deposito->pegaDeposito();?>
+                    <?php if($_COOKIE['seguranca']['rpm'] !=1) {
+                        $id_deposito = $_COOKIE['seguranca']['id_deposito'];
+                        $_deposito->pegaDepositoSelected($id_deposito, true);
+                    }else{
+                        $_deposito->pegaDeposito();
+                    }
+                        ?>
                 </div>
                 <!--<div class="col-md-12">
                     <br>
@@ -59,7 +68,17 @@
             </div>
             <div class="col-md-12">
             <input class="btn btn-primary" type="submit" name="pesquisar" value="Pesquisar" />
-					&nbsp;&nbsp;<a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=relIndex">Voltar</a>				 
+            
+            <?php 
+            
+                if(isset($_GET['voltar'])) {
+                    print "<a class=\"btn btn-success imprimir\" href=\"".FuncaoBase::geraLink('index', 'index', 'index1')."\">Voltar</a>";				 
+                }else {
+                    print "<a class=\"btn btn-success imprimir\" href=\"?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=relIndex\">Voltar</a>";				 
+                }
+                
+                ?>
+                
             </div>
 
 	</form>

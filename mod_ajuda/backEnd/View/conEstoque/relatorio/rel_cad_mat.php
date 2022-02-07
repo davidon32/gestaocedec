@@ -35,6 +35,8 @@ $_relatorioAjuda = new RelatorioAju();
 $dtInicio = isset($_POST['txtDtInicio']) ? DataMysql::dataForm($_POST['txtDtInicio']) : false;
 $dtFinal = isset($_POST['txtDtFinal']) ? DataMysql::dataForm($_POST['txtDtFinal']) : false;
 $ordem = isset($_POST['rbOrdem']) ? $_POST['rbOrdem'] : false;
+$nome_material = isset($_POST['txtMaterial']) ? $_POST['txtMaterial'] : false;
+ 
 
 $ajudaRelatorioModel = new AjudaRelatorioModel();
 
@@ -43,6 +45,7 @@ $ajudaRelatorioController = new AjudaRelatorioController();
 $ajudaRelatorioModel->setDt_inicial($dtInicio);
 $ajudaRelatorioModel->setDt_final($dtFinal);
 $ajudaRelatorioModel->setOrdem($ordem);
+$ajudaRelatorioModel->setMaterial($nome_material);
 
 $dados = $ajudaRelatorioController->relatorioCadastroMaterial($ajudaRelatorioModel);
 ?>

@@ -17,10 +17,28 @@ $_funcaoBase = new FuncaoBase();
     
 <br><br>
 
-<h2><a href='<?= FuncaoBase::geraLink("doc", "doc", "sdc_tr_senha")?>' class="alert" style="text-decoration:none"><img src='core/imagem/help.png' width="25">&nbsp;&nbsp;&nbsp;&nbsp; Troca de Senha Usuário / Dados do Usuários</a></h2>
+<h2><p>Troca de Senha</p></h2>
+<p>1) Clique no nome do Usuario conforme figura abaixo, após clique em perfil :</p>
+    <p style='vertical-align: text-top' class=""><img src="anexo/doc/interno/ajuda/senha_perfil/perfil.png"></p>
+<br>
+<p>2) Clique em editar </p>
+<p><img src='/anexo/doc/interno/ajuda/senha_perfil/editar.png'></p>
+<br>
+<p>3) Após Alterar a senha ou editar as informações clique em Salvar</p>
+<p><img src='/anexo/doc/interno/ajuda/senha_perfil/dados.png'></p>
 
-<h2><a href='<?= FuncaoBase::geraLink("index", "index", "info")?>' class="alert" style="text-decoration:none"><img src='core/imagem/help.png' width="25">&nbsp;&nbsp;&nbsp;&nbsp; Informaçoes Rápidas</a></h2>
-<span></span>
+<h2><p>Atualizar dados Gerais do Usuário</p></h2>
+<p>1) Clique em Dados do Funcionário :</p>
+    <p style='vertical-align: text-top' class=""><img src="anexo/doc/interno/ajuda/senha_perfil/dados_funcionario.png"></p>
+    <p>Preencha as informações e no final do formulário, clicar em salvar.</p>
+    <p>é importante manter as informações atualizadas de contatos eletrônicos e email, pois estas informações estaram disponiveis <br> na tela inicial do sistema em "Informações Rápidas" e também agilizando a abertura de chamados na Cidade Administrativa.</p>
+    <br>
+    <i>"Isto fica feliz em ser útil ! - Andrew Martin"</i>
+    
+</li>
+<li>
+    
+</li>
 
     
 

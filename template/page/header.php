@@ -171,7 +171,7 @@ print "</script>";
                         if (isset($pageSession['session']['seguranca']['externo'])) {
                             print $pageSession['session']['seguranca']['nome_usuario'];
                         } else {
-                            print $pageSession['session']['seguranca']['nome_usuario'];
+                            print $pageSession['session']['seguranca']['posto']." ".$pageSession['session']['seguranca']['nome_usuario'];
                         }
                         ?>
                         <script>start_countdown();</script>
@@ -217,7 +217,8 @@ print "</script>";
                                 
                             } else {
                                 print "<div class=\"pull-left\">";
-                                print "<a href='" . FuncaoBase::geraLink("admin", "adm", "perfil", array('id' => $pageSession['session']['seguranca']['idUser'])) . "' class=\"btn btn-default btn-flat\">Perfil</a>
+                                print "<div class='pull-left'><a href='" . FuncaoBase::geraLink("admin", "adm", "perfil", array('id' => $pageSession['session']['seguranca']['idUser'])) . "' class=\"btn btn-default btn-flat\" title='Alterar senha / email de recuperação '>Perfil</a></div>
+                                <div class='pull-right'><a href='" . FuncaoBase::geraLink("equipe", "funcionario", "alterar", array('id' => $pageSession['session']['seguranca']['idUser'])) . "' class=\"btn btn-default btn-flat\" title='Atualize / Complete o seus dados'>Dados Funcionário</a></div>
                       </div>";
                             }
                             ?>

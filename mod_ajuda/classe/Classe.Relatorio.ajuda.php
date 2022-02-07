@@ -108,10 +108,46 @@ class RelatorioAju extends DataMysql {
             echo "</table>";
         }
     }
+    
+    /* relacao de materiais preferencia */
+    public function listMateriaisInvent(){
+        
+        $con = Conexao::getInstance();
+        
+        try {
+            $dados = "";
+        $sql = "SELECT id_unidade FROM aju_unidade 
+                    ORDER BY nome REGEXP '^cesta|^agua|^kit higiene|^kit limpeza|^colchao|^telha|^roupa'";
+        
+
+            $con = Conexao::getInstance();
+
+            $result = $con->query($sql);
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                
+                $dados .= "'".$linha['id_unidade']."', ";
+            }
+            
+            $dados = substr($dados, 0, -2);
+            
+
+            return $dados;
+        } catch (Exception $e) {
+            
+        }
+        
+        
+    }
 
     /* INVENTARIO DE MATERIAIS */
 
     public function inventarioGeral($id_deposito = null) {
+        
+        try {
+            $dados = array();
+        $id_unidades = self::listMateriaisInvent();
+        //print (self::listMateriaisInvent());
+        //die();
         
         if(!empty($id_deposito)){
             $filtro = " where aju_deposito.id_deposito = '{$id_deposito}'" ;
@@ -123,6 +159,7 @@ class RelatorioAju extends DataMysql {
                 aju_unidade.nome as produto,
                 aju_unidade.descricao,
                 aju_deposito.nome as deposito,
+                aju_deposito.abreviacao,
                 aju_estoque.saldo 
                 from aju_estoque
                 inner join aju_unidade
@@ -130,11 +167,10 @@ class RelatorioAju extends DataMysql {
                 inner join aju_deposito
                 on aju_deposito.id_deposito = aju_estoque.id_deposito
                 ".$filtro."
-                order by aju_unidade.nome, aju_estoque.id_deposito";
+                order by field (aju_unidade.id_unidade, ".$id_unidades.") desc";
 
-        try {
+       
 
-            $dados = array();
             $con = Conexao::getInstance();
 
             $result = $con->query($sql);
@@ -927,12 +963,14 @@ class RelatorioAju extends DataMysql {
         
         $deposito = (!empty($post['id_deposito'])) ? " AND aju_produto.depDestino = '".Deposito::PegaNomeDeposito($post['id_deposito'])."' " : "";
         
-        $sql = "SELECT aju_produto.codProd,
+        $sql = "SELECT aju_produto.id_produto,
+                        aju_produto.codProd,
 			aju_produto.nome,
 			aju_produto.dtEntradaSaida,
 			aju_produto.origem,
 			aju_produto.quantidade,
-                        aju_produto.obs
+                        aju_produto.obs,
+                        aju_produto.depDestino
 			FROM aju_produto
                             WHERE aju_produto.id_produto > 0 {$id_material}{$deposito} 
                                 order by aju_produto.dtEntradaSaida";

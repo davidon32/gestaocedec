@@ -22,7 +22,7 @@ if ($_COOKIE['seguranca']['id_deposito'] == 1) {
 <div class="row">
     <div class="col-md-12 text-center">
         <!-- Pedido Cesta -->
-        <div class="col-md-3 text-center">
+        <div class="col-md-4 text-center">
             <!--####################### PEDIDO DE AJUDA HUMANITARIO ###########################-->
             <?php
             $permissao = Usuario::getPermissao('aju_permissao', 'pedido_ajuda');
@@ -42,7 +42,7 @@ if ($_COOKIE['seguranca']['id_deposito'] == 1) {
         </div>
 
         <!-- TDAP -->
-        <div class="col-md-3 text-center">
+        <div class="col-md-4 text-center">
             <!--######################## TDAP ###############################-->
             <?php
             $permissao = Usuario::getPermissao('aju_permissao', 'tdap');
@@ -63,7 +63,7 @@ if ($_COOKIE['seguranca']['id_deposito'] == 1) {
         if ($permissao == "1") {
             ?>
             <!-- CONTROLE DE ESTOQUE -->
-            <div class="col-md-3 text-center">
+            <div class="col-md-4 text-center">
                 <a href="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=index">
                     <img src="core/imagem/controle_estoque.png" width="80px" height="80px">
                     <br>
@@ -82,7 +82,7 @@ if ($_COOKIE['seguranca']['id_deposito'] == 1) {
         if ($permissao == "1") {
             ?>
             <!-- CONTROLE DE ESTOQUE -->
-            <div class="col-md-3 text-center">
+            <div class="col-md-4 text-center">
                 <a href="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=indexn">
                     <img src="core/imagem/controle_estoque_novo.png" width="80px" height="80px">
                     <br>

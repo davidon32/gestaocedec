@@ -5,6 +5,12 @@ include_once PATH . '/core/Controller/Controller.php';
 include_once PATH . '/core/Model/UsuarioModel.php';
 
 class usuarioController extends Controller {
+    
+    
+    public function index(){
+        print "opa";
+        
+    }
 
 
 
@@ -85,14 +91,9 @@ MSG;
             include_once 'mod_equipe/View/usuario/recsenha_compdec.php';
         }
     }
-
     # trocar senha interno
 
     public function trsenha_compdec() {
         include_once 'mod_equipe/View/usuario/trsenha_compdec.php';
     }
-
-    
-    
-
 }

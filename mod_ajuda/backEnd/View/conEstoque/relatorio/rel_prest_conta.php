@@ -46,9 +46,6 @@ table th {
 </style>
 	<?php	
         
-        
-        var_dump($_POST);
-
 	$_dt_inicial = isset($_POST['txtDtInicial']) ? DataMysql::dataForm($_POST['txtDtInicial']) : false;
 
 	$_dt_final = isset($_POST['txtDtFinal']) ? DataMysql::dataForm($_POST['txtDtFinal']) : false;
@@ -75,8 +72,10 @@ table th {
                 print "</br>";
 		print "<p align='center'><a href='".FuncaoBase::geraLink("ajuda", "relatorio", "fbusca_liberacao")."' class='btn btn-primary'>Voltar</a></p>";
                 print "<br>";
-                print "<legend>Pedíodo : ".$_POST['txtDtInicial']." a ".$_POST['txtDtFinal']."</legend>";
-                print "<p style='text-align:center'><legend>DEPÓSITO ".Deposito::PegaNomeDeposito($_POST['id_deposito']). " - ". Unidade::PegaNomeId($id_material)."</legend></p>";
+                print !empty($_POST['txtDtInicial']) ? "<legend>Pedíodo : ".$_POST['txtDtInicial']." a ".$_POST['txtDtFinal']."</legend>" : "";
+                print "<p style='text-align:center'>";
+                print !empty($_POST['id_deposito']) ? "<legend>DEPÓSITO ".Deposito::PegaNomeDeposito($_POST['id_deposito'])." - ": "<legend>" ;
+                print Unidade::PegaNomeId($id_material)."</legend></p>";
                                
                 $corEntrada = "#057A60";
                 $corSaida = "#FE2E2E";
@@ -85,14 +84,17 @@ table th {
                 /* Entrada de materiais */
 		print "<table class='table table-bordered table-condensed'>";
 		print "<tr>";
-		print "<th style='color:".$corEntrada."' colspan='6'><h4>Entrada de Materiais</h4></th>";
+		print "<th style='color:".$corEntrada."' colspan='8'><h4>Entrada de Materiais</h4></th>";
 		print "</tr>";
 		print "<tr>";
 		print "<th style='color:".$corEntrada."' width='5%'>#</th>";
-		print "<th style='color:".$corEntrada."' width='10%'>Cód Material</th>";
+		print "<th style='color:".$corEntrada."' width='10%'>Cod Entrada</th>";
 		print "<th style='color:".$corEntrada."' width='10%'>Data Entrada</th>";
+		print "<th style='color:".$corEntrada."' width='10%'>Cód Material</th>";
 		print "<th style='color:".$corEntrada."' width='35%'>Nome</th>";
-		print "<th style='color:".$corEntrada."' width='30%'>Origem</th>";
+		print "<th style='color:".$corEntrada."' width='30%'>Origem Material</th>";
+		print "<th style='color:".$corEntrada."' width='30%'>Deposito Destino</th>";
+                
 		print "<th style='color:".$corEntrada."' width='10%'>Qtd</th>";
 		print "</tr>";
 		foreach ($entrada as $key => $value) {
@@ -106,10 +108,12 @@ table th {
                         }
 			print "<tr>";
 			print "<td style='color:".$cor."'>".($key+1)."</td>";
-			print "<td style='color:".$cor."'>".$value['codProd']."</td>";
+			print "<td style='color:".$cor."'>".$value['id_produto']."</td>";
 			print "<td style='color:".$cor."'>". DataMysql::dataVisual($value['dtEntradaSaida'])."</td>";
+			print "<td style='color:".$cor."'>".$value['codProd']."</td>";
 			print "<td style='color:".$cor."'>".$value['nome']."</td>";
 			print "<td style='color:".$cor."'>".$value['origem']." / ".$value['obs']."</td>";
+			print "<td style='color:".$cor."'>".$value['depDestino']."</td>";
 			print "<td style='color:".$cor."; text-align:center'>".$value['quantidade']."</td>";
 			print "</tr>";
                 }

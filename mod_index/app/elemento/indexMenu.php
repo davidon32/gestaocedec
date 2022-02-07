@@ -20,6 +20,8 @@ foreach ($dados as $value) {
 	}	
 }
 
+
+
 $itensVisivel = array();
 foreach ($menuModulo as $value) {
 		$itensVisivel[$value] = $menu->buscaPermissao($value, 'cedec_usuario');
