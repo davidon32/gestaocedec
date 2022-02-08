@@ -99,14 +99,16 @@ class Deposito {
         print "<option value='".$id_deposito."'>" . Deposito::PegaNomeDeposito($id_deposito) . "</option>";
         
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            
+            
             $option .= "<option value='".$linha['id_deposito']."'>" . $linha["nome"] . "</option>";
         }
-        
+
             if(!$travado) {
                 $option = "";
             } 
             
-
+            print $option;
         echo "</select>";
 
     }

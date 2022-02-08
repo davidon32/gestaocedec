@@ -41,7 +41,9 @@ table th {
 
 </style>
 
-    <?php   
+    <?php  
+    
+    
 
     $dtInicial = isset($_POST['txtDtInicial']) ? DataMysql::dataForm($_POST['txtDtInicial']) : false;
 
@@ -55,6 +57,7 @@ table th {
 
     $nivel = $_COOKIE['seguranca']['nivel'];
     
+   
     ?>
         <br>
         <div class='text-center'><a class="btn btn-success" href='index.php?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=relatorio&action=rel_material_tranf' class="btn">Voltar</a></div>
@@ -109,8 +112,7 @@ table th {
         
         $dados = $ajudaRelatorioController->materialTransferencia($ajudaRelatorioModel);
 
-        //var_dump($ajudaRelatorioModel);
-        
+       
         for ($i=0; $i < count($dados) ; $i++) {
             
             $ajudaRelatorioModel->setId_transferencia($dados[$i]['id_transferencia']);    

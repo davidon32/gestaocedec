@@ -144,7 +144,6 @@ class AjudaRelatorioController extends AppController {
                                                 where aju_transferencia.dt_transferencia >= :dtInicio and aju_transferencia.dt_transferencia <= :dtFinal
                                                 order by aju_transferencia.dt_transferencia");
             }
-            //return print($statement);
 
             $statement->bindValue(':dtInicio', $ajudaRelatorioModel->getDt_inicial(), PDO::PARAM_STR);
             $statement->bindValue(':dtFinal', $ajudaRelatorioModel->getDt_final(), PDO::PARAM_STR);
@@ -153,7 +152,8 @@ class AjudaRelatorioController extends AppController {
 
             $linha = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-            //return print_r($statement);
+            // print_r($statement);
+            //die();
 
             return $linha;
         } catch (PDOException $e) {
@@ -222,10 +222,15 @@ class AjudaRelatorioController extends AppController {
     function relatorioCadastroMaterial(AjudaRelatorioModel $ajudaRelatorioModel) {
 
         $con = Conexao::getInstance();
+        
+        $dt_inicio = $ajudaRelatorioModel->getDt_inicial();
+        $dt_final = $ajudaRelatorioModel->getDt_final();
+        $material = $ajudaRelatorioModel->getMaterial();
+        
         $filtro ="";
-        $filtro .= !empty($ajudaRelatorioModel->getDt_inicial()) ? " and dtEntradaSaida >= '".$ajudaRelatorioModel->getDt_inicial()."'" : "";
-        $filtro .= !empty($ajudaRelatorioModel->getDt_final())   ? " and dtEntradaSaida <= '".$ajudaRelatorioModel->getDt_final()."'"   : "";
-        $filtro .= !empty($ajudaRelatorioModel->getMaterial())   ? " and nome like '%".$ajudaRelatorioModel->getMaterial()."%'"   : "";
+        $filtro .= !empty($dt_inicio) ? " and dtEntradaSaida >= '".$dt_inicio."'" : "";
+        $filtro .= !empty($dt_final)   ? " and dtEntradaSaida <= '".$dt_final."'"   : "";
+        $filtro .= !empty($material)   ? " and nome like '%".$material."%'"   : "";
 
         try {
             

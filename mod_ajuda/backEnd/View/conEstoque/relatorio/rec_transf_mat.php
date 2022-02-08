@@ -14,17 +14,26 @@
 
     *{
         margin: 0 auto;
+        font-size: 10pt;
     }
     table {
-        width: 70%
+        width: 80%;
+            white-space:nowrap;
     }
 
     @media print {
 
         .imprimir {
             display: none;
+            font-size: 10pt;
+            
         }
     }
+    
+    @page {
+    size: 7in 9.25in;
+    margin: 10mm 5mm 10mm 5mm;
+}
 
 </style>
 <?php

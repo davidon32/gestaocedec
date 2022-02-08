@@ -11,12 +11,16 @@
 <?php include_once "template/page/corpoHeader.php";?>
 <style>
     
+    @page {
+        size: 7in 9.25in;
+        margin: 10mm 16mm 10mm 16mm;
+    }
+    
     * {
      fonte{size : 10pt;}   
     }
     
     @media print {
-        fonte{size : 9pt;}  
                
         #cabecalho {
             display: none;
@@ -32,13 +36,13 @@
         }
 
         body {
-            /*width: 600px;*/
+            width: 600px;
             margin: 0 auto;
         }
         th, td {
             padding: 2px !important;
             margin: 1px;
-            white-space: nowrap;
+            /*white-space: nowrap;*/
         }
 
         body {
@@ -56,7 +60,7 @@
     }
 
     hr.linha {
-        border: 1px solid blue;
+        border: 0.5em solid blue;
     }
 
     #div-icon {
@@ -200,6 +204,8 @@ $(document).ready(function(){
     console.log(checkmobile());
     /* remove colunas mobile */
     if(checkmobile()){
+        
+        $("#inventario").tr
         
         $("#inventario").find("tr").each(function() {
             $(this).find("th:eq(0)").remove();

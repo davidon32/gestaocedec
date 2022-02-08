@@ -23,20 +23,29 @@
         $eventos = $eventoModel->listaEvento();
         
         $voltar = isset($_GET['voltar']) ? array('voltar' => 'menu') : "";
+        if($voltar !=""){
+            $url_form = FuncaoBase::geraLink("ajuda", "relatorio", "inventario", $voltar);
+        }else {
+            $url_form = FuncaoBase::geraLink("ajuda", "relatorio", "inventario");
+        }
+        
+        
+        
+        $id_deposito = $_COOKIE['seguranca']['id_deposito'];
         
 
 ?>
 
 	<p class="text-center"><legend>Relat&oacute;rio de Inventário de materiais</legend></p>
 
-<form method="POST" action="<?= FuncaoBase::geraLink("ajuda", "relatorio", "inventario", $voltar)?>" name="frm_rel_inventario" >
+            <form method="POST" action="<?= $url_form?>" name="frm_rel_inventario" >
 		<div class="col-md-12">
                     <label>Dep&oacute;sito Destino:</label>
                     <?php if($_COOKIE['seguranca']['rpm'] !=1) {
-                        $id_deposito = $_COOKIE['seguranca']['id_deposito'];
-                        $_deposito->pegaDepositoSelected($id_deposito, true);
+                        
+                        $_deposito->pegaDepositoSelected($id_deposito, false);
                     }else{
-                        $_deposito->pegaDeposito();
+                        $_deposito->pegaDepositoSelected($id_deposito, true);
                     }
                         ?>
                 </div>

@@ -40,8 +40,15 @@ if((int)$id_libera){
 	
 	$dado = $_pagamento->EfetPgto($id_libera);
 	
-	$dados_municipio = Municipio::dadosMunicipio($dado['id_municipio'])
-	//$pgto -> MosLibInd($_SESSION['seguranca']['idUser'], $_GET['idLibera']);
+        if(count($dado) > 0){
+            $dados_municipio = Municipio::dadosMunicipio($dado['id_municipio']);
+            //$pgto -> MosLibInd($_SESSION['seguranca']['idUser'], $_GET['idLibera']);
+        }else {
+            print "<script> alert(' Pagamento não disponivel, Verifique este lancamento');";
+            print "window.location.href = '".FuncaoBase::geraLink("ajuda", "conestoque", "idxpagamento")."';";
+            print "</script>";
+            die();
+        }
 	
 	?>
 		

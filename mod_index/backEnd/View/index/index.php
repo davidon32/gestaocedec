@@ -108,10 +108,13 @@
 <script>
 
     $(document).ready(function () {
-        
+
         if(checkmobile()){
-            $("#info_rapido").addClass('text-center');
+            $("#continuar_sistema").removeClass('text-left');
+            $("#info_rapido").removeClass('text-right');
+            
             $("#continuar_sistema").addClass('text-center');
+            $("#info_rapido").addClass('text-center');
         }
         var email = '<?= $_COOKIE['seguranca']['email_rec'] ?>';
         if ((email.length > 0) && (email.match(/.com/))) {

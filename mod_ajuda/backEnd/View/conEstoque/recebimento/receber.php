@@ -15,6 +15,7 @@
 	$_transferencia = new TransferenciaMaterial();
 
 	$_produto = new Produto();
+        
 
 
 /* ****************************************************************************************
@@ -27,6 +28,12 @@
 *******************************************************************************************/
 
 $_id_transferencia = isset($_GET['n']) ? (int)$_GET['n'] : null;
+if($_transferencia::getSituacaoTransferencia($_id_transferencia) > 0) {
+    print "<script>alert('Transferencia não disponivel para Recebimento !');";
+    print "window.location.href= '".FuncaoBase::geraLink("ajuda", "conestoque", "idxtransf")."';";
+    print "</script>";
+    die();
+}
 
 if(is_null($_id_transferencia)){
 	die();

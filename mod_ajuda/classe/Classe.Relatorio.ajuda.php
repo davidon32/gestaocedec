@@ -1007,6 +1007,7 @@ class RelatorioAju extends DataMysql {
                         aju_produto.depDestino
 			FROM aju_produto
                             WHERE aju_produto.id_produto > 0 {$id_material}{$transferencia} 
+                                and aju_produto.origem = 'Transferencia entre Depositos'
                                 order by aju_produto.dtEntradaSaida";
 
         $result = $con->query($sql);

@@ -11,20 +11,20 @@
 <div class="col-md-12 text-center">
     <p style="text-center"><a href='<?= FuncaoBase::geraLink("index", "index", "index1")?>' class='btn btn-primary'>Voltar</a></p>
 </div>
-<div class="col-md-12">
+<div class="col-md-12" id='icon_info_rapido'>
 
-    <div class="col-md-4 text-center">
+    <div class="col-md-4">
        
         <p><a href='<?=FuncaoBase::geraLink("ajuda", "relatorio", "form_busca_invet_libera", array('voltar'=>'menu'))?>' title='Saldo de MAH'><img width="45px" src='core/imagem/estoque/estoque.png'>&nbsp Estoque MAH</a></p>
         
     </div>
-    <div class="col-md-4 text-center">
-        <p><a href='<?=FuncaoBase::geraLink("index", "index", "usuarioCedec")?>' title='Lista de Usuarios do SDC'><img width="45px" src='core/imagem/usuario_cedec.png'>Informações de Usuarios Cedec / Contatos</a></p>
+    <div class="col-md-4">
+        <p><a href='<?=FuncaoBase::geraLink("index", "index", "usuarioCedec")?>' title='Lista de Usuarios do SDC'><img width="45px" src='core/imagem/usuario_cedec.png'>&nbsp Usuários Cedec / Contatos</a></p>
     </div>
-    <div class="col-md-4 text-center">
-        <p><a href='<?=FuncaoBase::geraLink("index", "index", "usuarioCedec", array("tipo"=>'regional'))?>' title='Lista de Usuario Regionais'><img width="45px" src='core/imagem/usuario_redec.png'>Inf. Usuários Regionais de Defesa Civil / Contatos</a></p>
+    <div class="col-md-4">
+        <p><a href='<?=FuncaoBase::geraLink("index", "index", "usuarioCedec", array("tipo"=>'regional'))?>' title='Lista de Usuario Regionais'><img width="45px" src='core/imagem/usuario_redec.png'>&nbsp Usuários Regionais DC / Contatos</a></p>
     </div>
-    <div class="col-md-4">-</div>
+    <div class="col-md-4"></div>
 
 
 </div>
@@ -39,6 +39,10 @@
 <script>
 
     $(document).ready(function () {
+        
+        if(checkmobile()){
+            $("#icon_info_rapido").css('padding-left', '30px');
+        }
 
     });
 
