@@ -40,7 +40,7 @@ var_dump($dadosItemLib);
 ?>
 
 <div class="row-fluid">
-    <legend>Dados Item Liberação nº <?=$dadosItemLib['id_liberacao']?></legend>
+    <legend>Dados Item Liberação nº <?= $dadosItemLib['id_liberacao'] ?></legend>
     <form method="POST" action="#" name="frmEditarItemLib" id="frmEditarItemLib">
         <div class='row'>
             <div class="col-md-3"></div>
@@ -54,89 +54,42 @@ var_dump($dadosItemLib);
             <div class="col-md-3"></div>
             <div class="col-md-6">
                 <label>Cod Entrada</label>
-                <input type="text" class="form form-control" value="<?= $dadosItemLib['descricao'] ?>">
+                <input type="text" class="form form-control" value="<?= $dadosItemLib['id_entrada'] ?>">
             </div>
+            <div class="col-md-3"></div>
         </div>
-         <div class='row'>
+        <div class='row'>
             <div class="col-md-3"></div>
             <div class="col-md-6">
-        <label>Evento</label>
-            <select name="evento" class="form-control" required>
-                <option></option>
-                <?php
-                Material::Evento();
-                ?>
+                <label>Evento</label>
+                <select name="evento" class="form-control" required>
+                    <option></option>
+                    <?php
+                    Material::Evento();
+                    ?>
 
-            </select>
+                </select>
+            </div>
+            <div class="col-md-3"></div>
         </div>
-         </div>
 
-        <div class="col-md-12">
-            <br>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
             <label>Quantidade :</label>
-            <input type="text" name="qtd" id="txtQtd" size="25" maxlength="6" class="form-control" required>
-            <br />
+            <input type="text" name="qtd" id="txtQtd" size="25" maxlength="6" class="form-control" readonly value="<?=$dadosItemLib['quantidade'];?>">
+            </div>
         </div>	
 
         <div class="col-md-12 text-center">
-            <a class="btn btn-success" href="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')) ?>&ac=itn&modulo=ajuda&controller=conestoque&action=liberacao">Voltar</a>
-            <input class="btn btn-primary" type="submit" name="acao" value="Adicionar">
+            <br>
+            <a class="btn btn-success" href="<?= FuncaoBase::geraLink("ajuda", "conestoque", "correcao")?>">Voltar</a>
+            <input class="btn btn-primary" type="submit" name="btnGravar" value="Gravar">
             <br><br>
         </div>
     </form>
 </div>
-<div class="col-md-3"></div>
-<div class="col-md-12">
-    <p class="text-center"><legend>Materiais da Liberação</legend></p>
-<div class="col-md-2"></div>
-<div class="col-md-8" style="background:#BDBDBD;">
-    <br>
-    <?php
-    $pedido = new Pedido();
-    //FuncaoBase::vd($_SESSION);
-    #@ mostra os materiais que estao no pedido
-    $pedido->MostraPedido($_SESSION['cesta']);
-    ?>
 
-</div>
-<div class="col-md-2"></div>
-
-<div class="col-md-12">
-    <span id="id"></span>
-
-    <?php
-    $acao = isset($_POST['acao']) ? $_POST['acao'] : '';
-    $material = isset($_POST['id_produto']) ? $_POST['id_produto'] : '';
-    $qtd = isset($_POST['qtd']) ? $_POST['qtd'] : '';
-    $id_deposito = isset($_POST['id_deposito']) ? $_POST['id_deposito'] : '';
-    $descricao = isset($_POST['descricao']) ? $_POST['descricao'] : '';
-    $evento = isset($_POST['evento']) ? $_POST['evento'] : '';
-
-    if ($acao == 'Adicionar') {
-
-        $campos = array('Acao' => $acao,
-            'Material' => $material,
-            'Quantidade' => $qtd,
-            'Deposito' => $id_deposito,
-            'Descrição' => $descricao);
-
-        if (FuncaoBase::CampoBranco($campos)) {
-
-            #@ Monta o item 
-            $item = $_pedido->Item($id_deposito,
-                    $material,
-                    $descricao,
-                    $qtd,
-                    Material::getNomeEvento($evento)
-            );
-
-            #@ adiciona na cesta 
-            $_pedido->AdicionaItem($item);
-        }
-    }
-    ?>
-</div>		
-</div>
 <!-- =================== RODAPE CORPO ==================== -->
 <?php include_once "template/page/corpoRodape.php"; ?>
 <!-- =================== RODAPE  ======================== -->

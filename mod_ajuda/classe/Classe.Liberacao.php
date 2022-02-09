@@ -1010,7 +1010,28 @@ class Liberacao extends DataMysql{
         /* dados item liberacao */
         public static function DadosItemLiberacao($id_item) {
             
-            return true;
+            $con = Conexao::getInstance();
+            
+            $dados = array();
+            
+            $sql = "select aju_item.id_item,
+                            aju_item.dataLibera,
+                            aju_item.id_liberacao,
+                            aju_item.descricao,
+                            aju_item.quantidade,
+                            aju_item.cod,
+                            aju_item.id_dep_origem,
+                            aju_item.evento,
+                            aju_item.id_entrada
+                            from aju_item
+                            WHERE aju_item.id_item = '".$id_item."'";
+            
+            $result = $con->query($sql);
+
+                while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                    $dados = $linha;
+                }
+                return $dados;
             
         }
 
