@@ -8,7 +8,11 @@
 <!-- =================== MENU  ============================ -->
 <?php //include_once "template/page/menu.php";?>
 <!-- =================== CORPO  ============================ -->
-<?php include_once "template/page/corpoHeader.php"; ?>
+<?php include_once "template/page/corpoHeader.php"; 
+
+$itensProduto = Produto::listProdutoAutocomplete();
+
+?>
 <style>
 
     table th, td{
@@ -23,6 +27,9 @@
         <form action="#" method="POST" name="frmBusca">
             <label>Nr. Liberacao</label>
             <input class="form form-control" type="text" name="txt_id_liberacao" id="txt_id_liberacao">
+            <label>Material</label>
+            <input class="form form-control" type="text" name="nome_produto" id="nome_produto">
+            <input class="form form-control" type="text" name="id_produto" id="id_produto">
             <br>
             <button class="btn btn-primary" type="submit" name="btnBusca" id="btnBusca">Buscar</button>
 
@@ -36,10 +43,14 @@
     <br>
     <?php
     $liberacao = new Liberacao();
+    
+    
 
-    if (isset($_POST['txt_id_liberacao'])) {
+    if (isset($_POST['btnBusca'])) {
+        
+        $filtro = $_POST;
 
-        $dados = $liberacao->buscaLiberacao($_POST['txt_id_liberacao']);
+        $dados = $liberacao->buscaLiberacaoCorrecao($filtro);
 
         if (count($dados) > 0) {
 
@@ -48,12 +59,18 @@
             print "<th>Nr. Liberacao</th>";
             print "<th>Data</th>";
             print "<th>Munic. Destino</th>";
+            print "<th>Quantidade</th>";
+            print "<th>Entrada</th>";
+            print "<th>Opcoes</th>";
             print "</tr>";
             foreach ($dados as $key => $value) {
                 print "<tr>";
                 print "<td>" . $value['id_liberacao'] . "</td>";
                 print "<td>" . DataMysql::dataVisual($value['dataLibera']) . "</td>";
                 print "<td>" . Municipio::PegaNomeMunicipio($value['id_municipio'])." </td>";
+                print "<td>" . $value['quantidade']." </td>";
+                print "<td>" . $value['id_entrada']." </td>";
+                print "<td><a href='".FuncaoBase::geraLink("ajuda", "conestoque", "editItLibera", array('id'=>$value['id_item']))."' title='Editar Item de Liberacao'><img src='core/imagem/editar.png'></a></td>";
                 
                 print "</tr>";
             }
@@ -90,3 +107,34 @@
 <?php include_once "template/page/barra_config_template.php"; ?>
 <!-- =============== HEADER HTML PAGE ================= -->
 <?php include_once "template/page/rodapePage.php"; ?>
+<script>
+    
+    $(document).ready(function(){
+        
+        var itensProduto = {
+            data:
+                <?php print json_encode($itensProduto); ?>, // array com os dados
+                getValue: "nome",
+                template: {
+                    type: "custom",
+                    method: function(value, item) {
+			return value + " | " + item.descricao;
+		}
+                },
+                list: {
+                    match: {
+                            enabled: true
+                        },
+                        onSelectItemEvent: function () {
+                            var id = $("#nome_produto").getSelectedItemData().id_unidade;
+                            $("#id_produto").val(id);
+                        }
+                }
+
+        };
+            $("#nome_produto").easyAutocomplete(itensProduto);
+        
+        
+    });
+
+</script>

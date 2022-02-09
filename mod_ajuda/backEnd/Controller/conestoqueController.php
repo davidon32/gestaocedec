@@ -41,6 +41,12 @@
             include_once 'mod_ajuda/backEnd/View/conEstoque/material/editar.php';
         }
         
+        /* editar item liberacao  */
+        public function editItLibera(){
+            $id_entrada = isset($_GET['id']) ? $_GET['id'] : "";
+            include_once 'mod_ajuda/backEnd/View/conEstoque/liberacao/editarItem.php';
+        }
+        
         /* Cadastro de Produto */
         public function cad_prod(){
             include_once 'mod_ajuda/backEnd/View/conEstoque/material/cad_prod.php';

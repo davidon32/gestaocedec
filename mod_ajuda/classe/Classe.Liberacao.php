@@ -464,6 +464,50 @@ class Liberacao extends DataMysql{
 		return $dados;
 		
 	}
+        
+        #@ dados liberacao 
+	function buscaLiberacaoCorrecao(array $filtro){
+
+		$con = Conexao::getInstance();
+                
+                $id_liberacao = isset($filtro['id_liberacao']) ? " and aju_liberacao.id_liberacao = '".$filtro['id_liberacao']."' " : "";
+                $id_produto = isset($filtro['id_produto']) ? " and aju_item.cod = '".$filtro['id_produto']."' ": "";
+		
+		$dados = array();
+		
+		$sql = "SELECT aju_liberacao.id_liberacao,
+						aju_liberacao.dataLibera,
+						aju_liberacao.id_municipio,
+						aju_liberacao.depDestino,
+						aju_liberacao.beneficiario,
+						aju_liberacao.evento,
+						aju_liberacao.observacao,
+						aju_liberacao.dtLimite,
+						aju_liberacao.responsavel,
+						aju_liberacao.entrega,
+                                                aju_item.id_item,
+                                                aju_item.descricao,
+                                                aju_item.quantidade,
+                                                aju_item.cod,
+                                                aju_item.id_dep_origem,
+                                                aju_item.situacao,
+                                                aju_item.id_entrada
+						FROM aju_liberacao
+                                                INNER JOIN aju_item
+                                                on aju_liberacao.id_liberacao = aju_item.id_liberacao
+						WHERE aju_liberacao.situacao != 2 ".$id_liberacao.$id_produto;
+
+		$result = $con->query($sql);
+				
+		while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+			
+			$dados[] = $linha;
+			
+		}
+		
+		return $dados;
+		
+	}
 
 
 	#@ Busca Liberacao id
@@ -960,6 +1004,14 @@ class Liberacao extends DataMysql{
                     $dados += $linha['totTransf'];
                 }
                 return $dados;
+        }
+        
+        
+        /* dados item liberacao */
+        public static function DadosItemLiberacao($id_item) {
+            
+            return true;
+            
         }
 
 

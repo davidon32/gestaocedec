@@ -122,6 +122,23 @@ class Produto {
 
 			return $dados;
 		}
+                
+                /* lista autocomplete produto */
+                public static function listProdutoAutocomplete(){
+                    
+                    $con = Conexao::getInstance();
+                    
+                    $dados = array();
+		
+                    $sql ='SELECT aju_unidade.id_unidade, aju_unidade.nome FROM aju_unidade';
+			
+			$result = $con->query($sql);
+			
+			while($linha = $result->fetch(PDO::FETCH_ASSOC)){
+				$dados[] = $linha;
+			}
+			return $dados;
+                }
 
 	}
 
