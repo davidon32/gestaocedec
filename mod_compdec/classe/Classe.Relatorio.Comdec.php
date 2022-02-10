@@ -168,20 +168,20 @@ Class RelatorioComdec {
      * 
      */
     function relCompdec($ativo = 2) {
-
+        
         $con = Conexao::getInstance();
         $_dados = array();
 
-        $filtro = "";
-
-        #inativo
-        if ($ativo == 0) {
-            $filtro = " and com_const = 0 ";
-        #ativo
-        } elseif ($ativo == 1) {
-            $filtro = " and com_const = 1 ";
-        } else {
+        #todos
+        if($ativo == ""){
             $filtro = "";
+        #inativo
+        }elseif ($ativo == '0') {
+            $filtro = " and com_const = 0 ";
+            
+        #ativo
+        } elseif ($ativo == '1') {
+            $filtro = " and com_const = 1 ";
         }
 
         $sql = "SELECT r.nome as regiao, 
@@ -197,15 +197,21 @@ Class RelatorioComdec {
                            c.dt_decreto,
                            c.dt_portaria,
                            c.id_comdec,
-                           c.com_const
+                           c.com_const,
+                           cedec_rpm_mun.nome as rpm,
+                           aju_deposito.nome as da
                                FROM com_comdec c
                                INNER JOIN com_regiao r
                                ON c.regiao = r.id_regiao
                                INNER JOIN cedec_municipio m
                                ON c.id_municipio = m.id_municipio
+                               inner join cedec_rpm_mun
+                               on c.id_municipio = cedec_rpm_mun.id_municipio
+                               inner join aju_deposito
+                               on cedec_rpm_mun.id_rpm = aju_deposito.id_rpm
                                WHERE c.id_comdec != '7221' $filtro
                                ORDER BY c.com_const desc, m.nome, r.nome";
-
+        
         $result = $con->query($sql);
 
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {

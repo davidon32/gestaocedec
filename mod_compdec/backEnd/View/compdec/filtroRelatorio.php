@@ -35,7 +35,7 @@ $_compdec = new Compdec();
             <input type="radio" value="0" name="rb_filtro" id="rb_associacao">Compdec por Associação<br>
             <input type="radio" value="1" name="rb_filtro" id="rb_endereco">Compdec por Endereço<br>
             <input type="radio" value="2" name="rb_filtro" id="rb_regiao">Compdec por Região do Estado<br>
-            <input type="radio" value="3" name="rb_filtro" id="rb_existente">Compdec Existente<br>
+            <input type="radio" value="3" name="rb_filtro" id="rb_existente">Compdec Existente/Inexistentes<br>
             <input type="radio" value="4" name="rb_filtro" id="rb_data">Data Criação<br>
             <input type="radio" value="5" name="rb_filtro" id="rb_desenvolvimento">Compdec por Região de Desenvolvimento<br>
             <input type="radio" value="6" name="rb_filtro" id="rb_resumo">Resumo<br>
@@ -62,7 +62,7 @@ $_compdec = new Compdec();
         Data Inicial : <input type="text" name="dt_inicio" data-mask="99/99/9999">
     </div>
     <div class="span4 divExistente">
-        <select id="" name="selExistente">
+        <select id="selExistente" name="selExistente">
             <option value="">Todos</option>
             <option value="1">Compdec Existente</option>
             <option value="0">Sem Compdec</option>

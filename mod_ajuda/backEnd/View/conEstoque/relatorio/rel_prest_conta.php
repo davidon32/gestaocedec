@@ -84,7 +84,7 @@ table th {
                 /* Entrada de materiais */
 		print "<table class='table table-bordered table-condensed'>";
 		print "<tr>";
-		print "<th style='color:".$corEntrada."' colspan='8'><h4>Entrada de Materiais</h4></th>";
+		//print "<th style='color:".$corEntrada."' colspan='8'><h4>Entrada de Materiais</h4></th>";
 		print "</tr>";
 		print "<tr>";
 		print "<th style='color:".$corEntrada."' width='5%'>#</th>";
@@ -98,6 +98,11 @@ table th {
 		print "<th style='color:".$corEntrada."' width='10%'>Qtd</th>";
 		print "</tr>";
 		foreach ($entrada as $key => $value) {
+                    
+                        $totEntrada = $value['quantidade'];
+                    
+                        $items = Liberacao::getItensLiberacao($value['id_produto']);
+                        
                         $saida = "";
                         $totalEntrada += $value['quantidade'];
                         if(strpos($value['origem'], "Correção") === 0) {
@@ -116,114 +121,90 @@ table th {
 			print "<td style='color:".$cor."'>".$value['depDestino']."</td>";
 			print "<td style='color:".$cor."; text-align:center'>".$value['quantidade']."</td>";
 			print "</tr>";
-                }
-		print "<tr>";
-		print "<th colspan='5' style='text-align:right;color:".$corEntrada."'>Total Entrada Materiais</th>";
-		print "<th style='color:".$corEntrada."'>".$totalEntrada."</th>";
-		print "</tr>";
-		print "</table>";
-                print "<br>";
-                
-                if(count($transferencia) >0) {
-                /* Transferencia de materiais */
-		print "<table class='table table-bordered table-condensed'>";
-		print "<tr>";
-		print "<th style='color:".$corSaida."' colspan='6'><h4>Transferencia de Materiais entre Depósitos</h4></th>";
-		print "</tr>";
-		print "<tr>";
-		print "<th style='color:".$corSaida."' width='5%'>#</th>";
-		print "<th style='color:".$corSaida."' width='10%'>Cód Material</th>";
-		print "<th style='color:".$corSaida."' width='10%'>Data Entrada</th>";
-		print "<th style='color:".$corSaida."' width='35%'>Nome</th>";
-		print "<th style='color:".$corSaida."' width='30%'>Origem</th>";
-		print "<th style='color:".$corSaida."' width='10%'>Qtd</th>";
-		print "</tr>";
-		foreach ($transferencia as $key => $value) {
-                        $totalTransferencia += $value['quantidade'];
                         
-                            $cor = $corSaida;
-                       
-			print "<tr>";
-			print "<td style='color:".$cor."'>".($key+1)."</td>";
-			print "<td style='color:".$cor."'>".$value['codProd']."</td>";
-			print "<td style='color:".$cor."'>". DataMysql::dataVisual($value['dtEntradaSaida'])."</td>";
-			print "<td style='color:".$cor."'>".$value['nome']."</td>";
-			print "<td style='color:".$cor."'>".$value['origem']." ".$value['obs']." para D.A. ".$value['depDestino']."</td>";
-			print "<td style='color:".$cor."; text-align:center'>-".$value['quantidade']."</td>";
-			print "</tr>";
-                }
-		print "<tr>";
-		print "<th colspan='5' style='text-align:right;color:".$corSaida."'>Total Transferencia Materiais</th>";
-		print "<th style='color:".$corSaida."'>-".$totalTransferencia."</th>";
-		print "</tr>";
-		print "</table>";
-                print "<br>";
-                }
-                
-                
-                
-                /* listagem dos materiais liberados */
-		print "<table class='table table-bordered table-condensed'>";
-		print "<tr>";
-		print "<th colspan='7'><h4>Liberações</h4></th>";
-		print "</tr>";
-                print "<tr>";
-		print "<th width='5%'>#</th>";
-		print "<th width='10%'>Nr.Liberacao</th>";
-		print "<th width='10%'>Data Liberacao</th>";
-		print "<th width='35%'>Beneficiario</th>";
-		print "<th width='15%'>Dep Origem</th>";
-		print "<th width='15%'>Descrição Material</th>";
-		print "<th width='10%'>Quantidade</th>";
-		print "</tr>";
-		foreach ($listRel as $key => $value) {
-			print "<tr>";
-			print "<td>".($key+1)."</td>";
-			print "<td>".$value['id_liberacao']."</td>";
-			print "<td>".DataMysql::dataVisual($value['dataLibera'])."</td>";
-			print "<td><i>".$value['beneficiario']."</i>  <b>".Municipio::PegaNomeMunicipio($value['id_municipio'])."</b></td>";
-			print "<td>".Deposito::PegaNomeDeposito($value['id_dep_origem'])."</td>";
-			print "<td>".$value['cod']." - ".Unidade::PegaNomeId($value['cod'])." </td>";
-			print "<td  style='text-align:center'>".$value['quantidade']."</td>";
-			print "</tr>";
+                        /* tranferencia */
+                        if(count($transferencia) >0) {
+                            foreach ($transferencia as $key => $transf) {
+                                
+                                    if($transf['depDestino'] != $value['depDestino']){
+                                        $totalTransferencia += $transf['quantidade'];
 
-			$total += $value['quantidade'];
-			
-		}
-		print "<tr>";
-		print "<th colspan='6' style='text-align:right'>Total Materiais Liberados</th>";
-		print "<th>".$total."</th>";
-		print "</tr>";
-		print "</table><br>";
-                
-		/* resumo quantidades */
-                
-                $saldo = $totalEntrada-$totalTransferencia-$total;
-                $corSaldo = "#000000";
-                if($saldo > 0){
-                    $corSaldo = "#0000CD";
+                                            $cor = $corSaida;
+
+                                        print "<tr>";
+                                        print "<td style='color:".$cor."'>".($key+1)."</td>";
+                                        print "<td style='color:".$cor."'>".$transf['id_produto']."</td>";
+                                        print "<td style='color:".$cor."'>". DataMysql::dataVisual($transf['dtEntradaSaida'])."</td>";
+                                        print "<td style='color:".$cor."'>".$transf['codProd']."</td>";
+                                        print "<td style='color:".$cor."'>".$transf['nome']."</td>";
+                                        print "<td style='color:".$cor."'>".$transf['origem']." ".$transf['obs']." para D.A. ".$transf['depDestino']."</td>";
+                                        print "<td style='color:".$cor."'>".$transf['depDestino']."</td>";
+                                        print "<td style='color:".$cor."; text-align:center'>-".$transf['quantidade']."</td>";
+                                        print "</tr>";
+                                    }
+                            }
+                            
+
+
+                        }
+                        /* fim transferencia */
+                        
+                        if(count($items) > 0) {
+                            print "<tr><td></td>";
+                            print "<td></td>";
+                            print "<td></td>";
+                            print "<td></td>";
+                            print "<td colspan='4'>";
+                            print "<table class='table table-bordered'>";
+                                print "<tr>";
+                                print "<th>#</th>";
+                                print "<th>Codigo Item</th>";
+                                print "<th>Nº Liberacao</th>";
+                                print "<th>Data Liberação</th>";
+                                print "<th>Municipio Destino</th>";
+                                print "<th>Qtd</th>";
+                                print "</tr>";
+                            
+                        
+                            foreach ($items as $key=>$item){
+                           
+                                print "<tr>";
+                                print "<td>".($key+1)."</td>";
+                                print "<td>".$item['cod']."</td>";
+                                print "<td>".$item['id_liberacao']."</td>";
+                                print "<td>". DataMysql::dataVisual($item['dataLibera'])."</td>";
+                                print "<td>".Liberacao::getMunicipioLiberacao($item['id_liberacao'])."</td>";
+                                print "<td style='color :".$corSaida."'>-".$item['quantidade']."</td>";
+                                print "</tr>";
+                                print "</tr>";
+                                
+                                $total += $item['quantidade'];
+                                
+                            }
+                            if(count($items) > 0) {
+                                
+                                $cor = ($totEntrada-$total) > 0 ? "#0000FF" :$corSaida ;
+                                print "<tr><td colspan='5' style='text-align:right'>Total Liberado</td>";
+                                print "<td style='color :".$corSaida."'>-".$total."</td></tr>";
+
+                                print "</tr>";
+                                print "<td colspan='5' style='text-align:right'>Saldo</td>";
+                                print "<td style='color :".$cor."'>".($totEntrada-$totalTransferencia-$total)."</td>";
+                                print "</tr>";
+                            }
+                                                
+                        print "</table>";
+                        print "</td>";
+                        print "<tr><td colspan='8'><hr style='border:0.1em solid'></td></tr>";
+                        }
+                        
+                        $total = 0;
+                        $totalEntrada = 0;
+                        
+                        
                 }
-                print "<div class='col-md-8'></div>";
-                print "<div class='col-md-4'>";
-                print "<table style='width=50%' class='table table-bordered table-condensed' align='text-center'>";
-                print "<tr>";
-                print "<td style='color:".$corEntrada."; font-weight:bold'>Total Entradas ( + )</td>";
-                print "<td style='color:".$corEntrada."; font-weight:bold'>".$totalEntrada."</td>";
-                print "</tr>";
-                print "<tr>";
-                print "<td style='color:".$corSaida."; font-weight:bold'>Total Transferencias ( - )</td>";
-                print "<td style='color:".$corSaida."; font-weight:bold'>".$totalTransferencia."</td>";
-                print "</tr>";
-                print "<tr>";
-                print "<td style='color:".$corSaida."; font-weight:bold'>Total Liberações ( - )</td>";
-                print "<td style='color:".$corSaida."; font-weight:bold'>".(($total > 0)? -$total : 0)."</td>";
-                print "</tr>";
-                print "<tr>";
-                print "<td style='color:".$corSaldo."; font-weight:bold'>Saldo a Liberar ( = )</td>";
-                print "<td style='color:".$corSaldo."; font-weight:bold'>".$saldo."</td>";
-                print "</tr>";
-                print "</table>";
-                print "</div>";
+		
+                            
 	?>
 
 <!-- =================== RODAPE CORPO ==================== -->

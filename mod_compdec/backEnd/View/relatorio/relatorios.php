@@ -24,6 +24,7 @@ $_btn_enviar     = isset($_REQUEST['btn_enviar'])     ? true : false;
 <title><?php echo TITULO; ?></title>
 <link href="/css/bootstrap.css" rel="stylesheet" >
 <link href="/css/bootstrap-responsive.css" rel="stylesheet" >
+
 <style>
     
     @media print {
@@ -100,6 +101,7 @@ tr:nth-child(even) {
             <?php $_funcaBase->vifs("volta", "?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=compdec&controller=compdec&action=filtroRelatorio");
                 print "&nbsp;&nbsp;&nbsp;";
                 $_funcaBase->vifs("imprimir"); ?>
+            <!--<button class='btn btn-success' onclick="exportReportToExcel(this)">Exportar Excel</button>-->
           <br>  
         </div>
         <div class="text-center">
@@ -223,10 +225,11 @@ tr:nth-child(even) {
 </div>
 <script src="js/chartjs/Chart.js" type="text/javascript"></script>
 
-<!--  -->
 <script>
-
-/* COMPDEC EXISTENTE */
+    
+   
+   
+/* compdec existentes
 var ctx = document.getElementById("compdecExistente");
 var myChart = new Chart(ctx, {
     type: 'pie',
@@ -253,7 +256,7 @@ var myChart = new Chart(ctx, {
     }
 });
 
-/* COMPDEC ATIVO */
+/* COMPDEC ATIVO
 var ctx = document.getElementById("compdecAtivo");
 var myChart = new Chart(ctx, {
     type: 'pie',
@@ -280,7 +283,7 @@ var myChart = new Chart(ctx, {
     }
 });
 
-/* POSSUI NUPDEC */ 
+/* POSSUI NUPDEC 
 var ctx = document.getElementById("possuiNupdec");
 var myChart = new Chart(ctx, {
     type: 'pie',
@@ -306,7 +309,7 @@ var myChart = new Chart(ctx, {
     	},
     }
 });
-/* POSSUI CARTAO PROTECAO E DEFESA CIVIL */ 
+/* POSSUI CARTAO PROTECAO E DEFESA CIVIL
 var ctx = document.getElementById("possuiCartao");
 var myChart = new Chart(ctx, {
     type: 'pie',
@@ -332,7 +335,7 @@ var myChart = new Chart(ctx, {
     	},
     }
 });
-/* POSSUI MAPEAMENTO */ 
+/* POSSUI MAPEAMENTO
 var ctx = document.getElementById("possuiMapeamento");
 var myChart = new Chart(ctx, {
     type: 'pie',
@@ -358,7 +361,7 @@ var myChart = new Chart(ctx, {
     	},
     }
 });
-/* POSSUI CAPACITACAO */ 
+/* POSSUI CAPACITACAO
 var ctx = document.getElementById("possuiCapacitacao");
 var myChart = new Chart(ctx, {
     type: 'pie',
@@ -384,7 +387,7 @@ var myChart = new Chart(ctx, {
     	},
     }
 });
-/* POSSUI PLANO */ 
+/* POSSUI PLANO 
 var ctx = document.getElementById("possuiPlano");
 var myChart = new Chart(ctx, {
     type: 'pie',
@@ -410,5 +413,6 @@ var myChart = new Chart(ctx, {
     	},
     }
 });
+*/
 </script>
 </body>

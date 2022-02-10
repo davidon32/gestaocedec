@@ -1035,7 +1035,61 @@ class Liberacao extends DataMysql{
             
         }
 
+        
 
+        /* get itens liberação */
+        public static function getItensLiberacao($id_entrada){
+            
+            $con = Conexao::getInstance();
+            
+            $dados = array();
+            
+            $sql = "select aju_item.id_item,
+                            aju_item.dataLibera,
+                            aju_item.id_liberacao,
+                            aju_item.descricao,
+                            aju_item.quantidade,
+                            aju_item.cod,
+                            aju_item.id_dep_origem,
+                            aju_item.evento,
+                            aju_item.id_entrada
+                            from aju_item
+                            WHERE aju_item.situacao = 1 
+                            and aju_item.id_entrada = '".$id_entrada."'";
+            
+            $result = $con->query($sql);
+
+                while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                    $dados[] = $linha;
+                }
+                return $dados;
+            
+            
+        }
+        /* get itens liberação */
+        public static function getMunicipioLiberacao($id_Liberacao){
+            
+            $con = Conexao::getInstance();
+            
+            $dados = "";
+            
+            $sql = "select aju_liberacao.id_municipio,
+                    cedec_municipio.nome
+                            from aju_liberacao
+                            inner join
+                            cedec_municipio
+                            on aju_liberacao.id_municipio = cedec_municipio.id_municipio
+                            WHERE aju_liberacao.id_liberacao = '".$id_Liberacao."'";
+            
+            $result = $con->query($sql);
+
+                while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                    $dados = $linha['nome'];
+                }
+                return $dados;
+            
+            
+        }
 
  
  

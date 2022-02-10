@@ -33,7 +33,7 @@ class compdecController extends Controller {
     # menu relatorio 
 
     public function filtroRelatorio() {
-
+        
         include_once "mod_compdec/backEnd/View/compdec/filtroRelatorio.php";
     }
 

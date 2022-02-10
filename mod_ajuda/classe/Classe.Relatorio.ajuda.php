@@ -997,7 +997,8 @@ class RelatorioAju extends DataMysql {
         
         $transferencia = (!empty($post['id_deposito'])) ? " AND aju_produto.id_dep_origem = '{$post['id_deposito']}'" : "";
         
-        $sql = "SELECT aju_produto.codProd,
+        $sql = "SELECT aju_produto.id_produto,
+                        aju_produto.codProd,
 			aju_produto.nome,
 			aju_produto.dtEntradaSaida,
 			aju_produto.origem,
