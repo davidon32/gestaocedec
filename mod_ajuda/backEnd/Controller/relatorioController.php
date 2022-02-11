@@ -140,6 +140,27 @@ include_once(MODEL_AJUDA_BACKEND.'/AjudaRelatorioModel.php');
         }
         
         /**
+         *  form busca posicao prestacao de contas */
+        public function form_busca_pos_prest_contas(){
+
+            include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/form_busca_pos_prest_contas.php';
+
+        }
+        /**
+         *  relaotrio posicao prestacao de contas */
+        public function rel_pos_prest_conta(){
+
+            include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/rel_pos_prest_conta.php';
+
+        }
+        /**
+         *  form busca prestacao de contas */
+        public function form_prest_contas(){
+
+            include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/form_prest_contas.php';
+
+        }
+        /**
          *  form busca prestacao de contas */
         public function form_busca_prest_contas(){
 
@@ -161,9 +182,6 @@ include_once(MODEL_AJUDA_BACKEND.'/AjudaRelatorioModel.php');
 
         /* Resumo de Liberação por municipio */
         public function resumo_por_municipio(){
-
-            
-
         }
 
 

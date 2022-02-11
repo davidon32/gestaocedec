@@ -60,7 +60,7 @@ table th {
 
 	$id_material = isset($_POST['id_material']) ? $_POST['id_material'] : "";
 	      
-		$total = 0;
+		$totalItem = 0;
                 $totalEntrada = 0;
                 $totalLiberacao = 0;
                 $totalTransferencia = 0;
@@ -70,7 +70,7 @@ table th {
                 $transferencia = $_relatorioAjuda->EntradaMaterialTransf($_POST);
       
                 print "</br>";
-		print "<p align='center'><a href='".FuncaoBase::geraLink("ajuda", "relatorio", "fbusca_liberacao")."' class='btn btn-primary'>Voltar</a></p>";
+		print "<p align='center'><a href='".FuncaoBase::geraLink("ajuda", "relatorio", "form_busca_prest_contas")."' class='btn btn-primary'>Voltar</a></p>";
                 print "<br>";
                 print !empty($_POST['txtDtInicial']) ? "<legend>Pedíodo : ".$_POST['txtDtInicial']." a ".$_POST['txtDtFinal']."</legend>" : "";
                 print "<p style='text-align:center'>";
@@ -98,8 +98,6 @@ table th {
 		print "<th style='color:".$corEntrada."' width='10%'>Qtd</th>";
 		print "</tr>";
 		foreach ($entrada as $key => $value) {
-                    
-                        $totEntrada = $value['quantidade'];
                     
                         $items = Liberacao::getItensLiberacao($value['id_produto']);
                         
@@ -178,31 +176,34 @@ table th {
                                 print "</tr>";
                                 print "</tr>";
                                 
-                                $total += $item['quantidade'];
+                                $totalItem += $item['quantidade'];
                                 
                             }
                             if(count($items) > 0) {
                                 
-                                $cor = ($totEntrada-$total) > 0 ? "#0000FF" :$corSaida ;
+                                $cor = ($totalEntrada-$totalItem) > 0 ? "#0000FF" :$corSaida ;
                                 print "<tr><td colspan='5' style='text-align:right'>Total Liberado</td>";
-                                print "<td style='color :".$corSaida."'>-".$total."</td></tr>";
+                                print "<td style='color :".$corSaida."'>-".$totalItem."</td></tr>";
 
                                 print "</tr>";
                                 print "<td colspan='5' style='text-align:right'>Saldo</td>";
-                                print "<td style='color :".$cor."'>".($totEntrada-$totalTransferencia-$total)."</td>";
+                                print "<td style='color :".$cor."'>".($totalEntrada-$totalTransferencia-$totalItem)."</td>";
+                                //var_dump($totalEntrada,$totalTransferencia, $totalItem );
                                 print "</tr>";
                             }
                                                 
                         print "</table>";
-                        print "</td>";
+                        print "</td></tr>";
                         print "<tr><td colspan='8'><hr style='border:0.1em solid'></td></tr>";
                         }
                         
-                        $total = 0;
+                        $totalItem = 0;
                         $totalEntrada = 0;
+                        $totalTransferencia = 0;
                         
                         
                 }
+                        print "</table>";
 		
                             
 	?>

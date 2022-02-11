@@ -21,8 +21,8 @@
     <br>
     <a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=relatorio&action=form_busca_invet_libera" class="btn btn-info">Inventário</a><br>
     <br>
-    <!-- Relatorio de prestação de contas -->
-    <a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=relatorio&action=form_busca_prest_contas" class="btn btn-info">Prestaçao de Contas</a><br>
+    <!-- Prestação de contas -->
+    <a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=relatorio&action=form_prest_contas" class="btn btn-info">Prestaçao de Contas</a><br>
     
     
     <br>
