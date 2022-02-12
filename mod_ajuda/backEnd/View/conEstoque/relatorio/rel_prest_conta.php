@@ -148,10 +148,8 @@ table th {
                         /* fim transferencia */
                         
                         if(count($items) > 0) {
-                            print "<tr><td></td>";
-                            print "<td></td>";
-                            print "<td></td>";
-                            print "<td></td>";
+                            print "<tr><td colspan='4'></td>";
+                            
                             print "<td colspan='4'>";
                             print "<table class='table table-bordered'>";
                                 print "<tr>";

@@ -26,7 +26,7 @@ $eventos = $eventoModel->listaEvento();
 
 <div class="col-md-3"></div>
 <div class="col-md-6">   
-    <p class="text-center"><legend>Relat&oacute;rio de Prestação de Contas</legend></p>
+    <p class="text-center"><legend>Situaçao Prestação de Contas</legend></p>
 
 <form method="POST" action="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')); ?>&ac=itn&modulo=ajuda&controller=relatorio&action=rel_pos_prest_conta" name="frm_rel_pos_prest_conta" >
     <div class="col-md-12">
@@ -71,7 +71,7 @@ $eventos = $eventoModel->listaEvento();
     </div>
     <div class="col-md-12 text-center">
         <input class="btn btn-primary" type="submit" name="pesquisar" value="Pesquisar" />
-        &nbsp;&nbsp;<a class="btn btn-success" href="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=relIndex">Voltar</a>				 
+        &nbsp;&nbsp;<a class="btn btn-success" href="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')); ?>&ac=itn&modulo=ajuda&controller=relatorio&action=form_prest_contas">Voltar</a>				 
     </div>
 
 </form>

@@ -26,6 +26,7 @@
                     }
                 }
             }else {
+                var_dump($_POST);
 
                 print "aqui";
                 print "<script type=\"text/javascript\">";

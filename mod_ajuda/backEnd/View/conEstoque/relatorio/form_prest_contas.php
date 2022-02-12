@@ -13,6 +13,10 @@ include_once "template/page/corpoHeader.php";
 ?>
 
 <div class="container">
+    <div class="col-md-12 text-center">
+        <a href="<?=FuncaoBase::geraLink("ajuda", "conestoque", "relindex")?>" class='btn btn-primary'>Voltar</a>
+        <br><br>
+    </div>
     <div class="col-md-3"></div>
     <div class="col-md-4">
         <p>
@@ -34,6 +38,8 @@ include_once "template/page/corpoHeader.php";
 <!-- =============== HEADER HTML PAGE ================= -->
 <?php include_once "template/page/rodapePage.php"; ?>
 <script type="text/javascript">
+    
+    
 
     $("#txtDtInicial").datepicker({dateFormat: 'dd/mm/yy'});
     $("#txtDtFinal").datepicker({dateFormat: 'dd/mm/yy'});
@@ -58,31 +64,5 @@ include_once "template/page/corpoHeader.php";
         }
     });
 
-    var itemMaterial = {
-        data:
-<?php print json_encode($unidade); ?>, // array com os dados
-        getValue: "nome", /* alterar com nome do item BD */
-
-        list: {
-            match: {
-                enabled: true,
-            },
-            onSelectItemEvent: function () {
-                var nome = $("#nome_material").getSelectedItemData().nome;
-                var id = $("#nome_material").getSelectedItemData().id_unidade;
-                $("#id_material").val(id);
-
-
-            }
-        },
-        template: {
-            type: "custom",
-            method: function (value, item) {
-                return  item.id_unidade + " - " + value;
-            }
-        },
-    };
-    /*********** autocomplete origem ***********/
-    $("#nome_material").easyAutocomplete(itemMaterial);
-
+   
 </script>

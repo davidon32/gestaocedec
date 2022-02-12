@@ -76,6 +76,17 @@ $nProd = new Produto();
                                         <input type="text" name="nome_produto" id="nome_produto" class="col-md-12">
                                         <input type="hidden" name="id_produto" id="id_produto">
 					</div>
+                                    
+                                        <!-- Entrada de Materiais -->
+					<div class="col-md-12">
+                                            <br>
+						<label>Entrada de Materiais :</label>
+						
+                                                <select class='form form-control' id="selEntrada" name="SelEntrada">
+                                                    <option></option>
+                                                </select>
+                                        <input type="hidden" name="id_entrada" id="id_entrada">
+					</div>
 					
 					<div class="col-md-12">
 					<br />
@@ -109,6 +120,7 @@ $nProd = new Produto();
 						//FuncaoBase::vd($_SESSION);
 						#@ mostra os materiais que estao no pedido
 						$pedido -> MostraPedido($_SESSION['cesta']);
+                                                var_dump($_SESSION['cesta']);
 					?>
 
 			</div>
@@ -210,8 +222,17 @@ $nProd = new Produto();
                         onSelectItemEvent: function () {
                             var id = $("#nome_produto").getSelectedItemData().id_unidade;
                             $("#id_produto").val(id);
+                            $.ajax({
+                                url:"mod_ajuda/backEnd/View/conEstoque/liberacao/busca_entrada.php",
+                                type:"POST",
+                                data: '{"data":"' + id + '"}',
+                                dataType : "json",
+                                success:function(data){
+                                    console.info(data);
+                                }
+                                });
                             
-                            //$("#txtIdComunidadeSearch").val(value).trigger("change");
+                            
                         }
 
                 }

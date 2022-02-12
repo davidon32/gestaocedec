@@ -205,7 +205,7 @@ $(document).ready(function(){
     /* remove colunas mobile */
     if(checkmobile()){
         
-        $("#inventario").tr
+        //$("#inventario").tr
         
         $("#inventario").find("tr").each(function() {
             $(this).find("th:eq(0)").remove();
