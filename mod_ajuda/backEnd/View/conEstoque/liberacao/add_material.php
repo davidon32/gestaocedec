@@ -221,14 +221,23 @@ $nProd = new Produto();
                         },
                         onSelectItemEvent: function () {
                             var id = $("#nome_produto").getSelectedItemData().id_unidade;
+                            var id_deposito = $("#id_deposito").val();
+                            
+                            var dados = {
+                                'id_material': ''+ id +'',
+                                'id_deposito':''+id_deposito+''
+                            }
+                            
                             $("#id_produto").val(id);
                             $.ajax({
                                 url:"mod_ajuda/backEnd/View/conEstoque/liberacao/busca_entrada.php",
                                 type:"POST",
-                                data: '{"data":"' + id + '"}',
-                                dataType : "json",
+                                data: dados,
+                                //dataType : "json",
                                 success:function(data){
-                                    console.info(data);
+                                    $.each(data, (i, val) => {
+                                        $('#selEntrada').append(`<option value="${val.id_produto}"> ${val.id_produto} </option>`);
+                                    });
                                 }
                                 });
                             
@@ -239,4 +248,5 @@ $nProd = new Produto();
 
         };
             $("#nome_produto").easyAutocomplete(itensProduto);
+            
 </script>

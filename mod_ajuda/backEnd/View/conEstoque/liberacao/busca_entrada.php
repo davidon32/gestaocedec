@@ -1,6 +1,12 @@
+<?php include_once $_SERVER['DOCUMENT_ROOT'].'/core/include.php';?>
 <?php
 
-$id_material = isset($_POST['id_material']) ? $_POST['id_material'] :"";
+$post = isset($_POST) ? json_decode(json_encode($_POST)) :"";
 
+if(!empty($post)){
+$dados = Produto::ListEntradaSaldo($post->id_material);
 
-var_dump($_POST);
+}
+
+print $dados;
+

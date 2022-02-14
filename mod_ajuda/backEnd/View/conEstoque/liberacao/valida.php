@@ -26,9 +26,9 @@
                     }
                 }
             }else {
-                var_dump($_POST);
+                
 
-                print "aqui";
+                //print "aqui";
                 print "<script type=\"text/javascript\">";
                 print "alert(\"Favor preencher os campos\");";
                 print "history.back();";
