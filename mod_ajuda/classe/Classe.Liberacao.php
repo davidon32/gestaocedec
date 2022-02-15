@@ -133,7 +133,8 @@ class Liberacao extends DataMysql{
         			$_id_produto,
         			$_tipo,
 					$_id_dep_origem,
-					$_evento) {
+					$_evento,
+                                        $_id_entrada) {
 
 		$sql = "INSERT INTO aju_item (dataLibera,
                                 		id_liberacao,
@@ -142,15 +143,17 @@ class Liberacao extends DataMysql{
                                 		cod,
                                 		tipo,
                                 		id_dep_origem,
-										evento)
+						evento,
+                                                id_entrada)
 		                                VALUES ( :dt_liberacao,
                                                  :id_liberacao,
                                                  :descricao   ,
                                                  :quantidade  ,
                                                  :id_produto  ,
-                                                 :tipo 		  ,
+                                                 :tipo,
                                                  :id_dep_origem,
-												 :evento)";
+						 :evento,
+                                                 :id_entrada)";
 		
 		try {
 		    
@@ -164,6 +167,7 @@ class Liberacao extends DataMysql{
     		$result->bindValue(":tipo", 		   $_tipo);
     		$result->bindValue(":id_dep_origem",$_id_dep_origem);
     		$result->bindValue(":evento",$_evento);
+    		$result->bindValue(":id_entrada",$_id_entrada);
     		$result->execute();
     
     		return true;

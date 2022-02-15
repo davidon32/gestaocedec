@@ -19,7 +19,10 @@ class FuncionarioController extends Controller {
             $funcionario->edit($post);
             $usuario->AtualizaEmail($dadosEmailRec);
             FuncaoBase::alert("Dados Atualizados com Sucesso !");
-            include_once 'mod_index/backEnd/View/index/index.php';
+            print "<script>
+                window.location.href='".FuncaoBase::geraLink('index', 'index', 'index1')."'; 
+            </script>";
+            //include_once 'mod_index/backEnd/View/index/index.php';
             
         }else {
 

@@ -13,8 +13,13 @@
                 print "<li><a href=".FuncaoBase::geraLink("index", "index", "index1e")."><i class=\"fa fa-dashboard\"></i> Home</a></li>";
                 print "<li><a href=".FuncaoBase::geraLink("index", "index", "menue")."><i class=\"fa\"></i> Menu</a></li>";
             }else {
+                if($_GET['action'] == 'alterar'){
+                    
+                }else{
                 print "<li><a href=".FuncaoBase::geraLink("index", "index", "index1")."><i class=\"fa fa-dashboard\"></i> Home</a></li>";
                 print "<li><a href=".FuncaoBase::geraLink("index", "index", "menu")."><i class=\"fa\"></i> Menu</a></li>";
+                
+                }
             }
             ?>
         <li class="active "><?=($_GET['controller'] == "almoxarifado" ? "Armazém" : Config::traducaobreadcrumb($_GET['controller']));?></li>

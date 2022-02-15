@@ -16,16 +16,20 @@ class Pedido extends FuncaoBase {
 
     #@ monta um item de pedido
 
-    function Item($_id_deposito, $_id_produto, $_descricao, $_quantidade, $evento) {
-        $_item = array($_id_deposito, $_id_produto, $_descricao, $_quantidade, $evento);
+    function Item($_id_deposito, $_id_produto, $_descricao, $_quantidade, $evento, $id_entrada) {
+        $_item = array($_id_deposito, $_id_produto, $_descricao, $_quantidade, $evento, $id_entrada);
         return $_item;
     }
 
     #@ busca item Duplicado
 
     public function BuscaDuplicado($_item) {
+        
+        var_dump($_item, $_SESSION['cesta']);
+        die();
+        
         for ($i = 0; $i < count($_SESSION['cesta']); $i++) {
-            if ($_item[1] == $_SESSION['cesta'][$i][1]) {
+            if ( ($_item[1] == $_SESSION['cesta'][$i][1] )  && ( $_item[5] == $_SESSION['cesta'][$i][5]) ){
                 self::$achou = true;
             }
         }
@@ -35,6 +39,7 @@ class Pedido extends FuncaoBase {
     #@ adiciona o item no pedido
 
     function AdicionaItem($_item) {
+        
         if ($saldo = ControleSaldo::chSaldo($_item[1], $_item[0], $_item[3])) { #@ verifica se o material tem saldo
             if (!isset($_SESSION['cesta']) && ($_SESSION['cesta'][0] == null)) { #@ verifica se a sessao esta iniciada
                 $_SESSION['cesta'] = array();
@@ -54,19 +59,27 @@ class Pedido extends FuncaoBase {
 
                 if ($_item[0] == $_SESSION['cesta'][0][0]) {
                     for ($i = 0; $i < $key; $i++) {
-                        if ($_item[1] == $_SESSION['cesta'][$i][1])
+                        if ( ($_item[1] == $_SESSION['cesta'][$i][1])  && ( $_item[5] == $_SESSION['cesta'][$i][5]) )
                             self::$achou = true;
                     }
                     if (self::$achou == false) {
                         $_SESSION['cesta'][] = $_item;
                         print "<script type='text/javascript'>";
                         print "alert('Material Adicionado Com Sucesso !');";
-                        print "history.back();";
+                        if($_GET['action'] == "add_material"){
+                            print "window.location.href = '".FuncaoBase::geraLink("ajuda", "conestoque", "add_material", array('id'=>$_item[0]))."';";
+                        }else {
+                            print "window.location.href = '".FuncaoBase::geraLink("ajuda", "conestoque", "add_mat_transf", array('id'=>$_item[0]))."';";
+                        }
                         print "</script>";
                     } else {
                         print "<script type='text/javascript'>";
                         print "alert('Material Duplicado !');";
-                        print "history.back();";
+                        if($_GET['action'] == "add_material"){
+                            print "window.location.href = '".FuncaoBase::geraLink("ajuda", "conestoque", "add_material", array('id'=>$_item[0]))."';";
+                        }else {
+                            print "window.location.href = '".FuncaoBase::geraLink("ajuda", "conestoque", "add_mat_transf", array('id'=>$_item[0]))."';";
+                        }
                         print "</script>";
                     }
                 } else {
@@ -92,6 +105,7 @@ class Pedido extends FuncaoBase {
 
             echo '<table class="table table-bordered table-striped">';
             echo '<tr>
+						<th style="text-align:center">Cod Entrada</th>
 						<th style="text-align:center">Deposito</th>
 						<th style="text-align:center">Produto</th>
 						<th style="text-align:center">Evento</th>
@@ -101,6 +115,7 @@ class Pedido extends FuncaoBase {
 						</tr>';
             for ($i = 0; $i < count($a); $i++) {
                 print "<tr>
+							<td align='center'>{$a[$i][5]}</td>
 							<td>" . Deposito::PegaNomeDeposito($a[$i][0]) . "</td>
 							<td align='center'>" . Produto::PegaNomeProduto($a[$i][1]) . "</td>
 							<td align='center'>{$a[$i][4]}</td>

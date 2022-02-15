@@ -138,17 +138,23 @@ class Produto {
      * @example description adicionar entrada no item de liberacao para controle
      * 
      *  */
-    public static function ListEntradaSaldo($id_material) {
-
+    public static function ListEntradaSaldo($filtro) {
+        
         $con = Conexao::getInstance();
 
         $dados = array();
         $sql = "SELECT aju_produto.id_produto,
-                                sum(case when aju_produto.id_entrada IS not null THEN aju_produto.quantidade*-1 ELSE aju_produto.quantidade
-                                END) AS total
-                                FROM aju_produto
-                                WHERE aju_produto.codProd = '{$id_material}'
-                                OR aju_produto.id_entrada = aju_produto.id_produto";
+                    aju_produto.quantidade,
+                    sum(aju_item.quantidade) AS totlibera,
+                    (aju_produto.quantidade-sum(aju_item.quantidade)) AS saldo
+                    FROM aju_produto
+                    left JOIN aju_item
+                    ON aju_produto.id_produto = aju_item.id_entrada
+                    WHERE aju_produto.codProd = {$filtro[0]}
+                    AND aju_produto.id_dep_destino = {$filtro[1]}
+                    GROUP BY aju_produto.id_produto";
+        /*$sql = "SELECT *FROM aju_produto WHERE codProd = {$filtro[0]}
+                and id_dep_destino = {$filtro[1]}";*/
 
         $result = $con->query($sql);
 

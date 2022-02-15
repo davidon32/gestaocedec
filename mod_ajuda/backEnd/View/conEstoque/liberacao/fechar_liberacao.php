@@ -105,7 +105,8 @@
 								$_SESSION['cesta'][$i][1],
 								0,
 								$_SESSION['cesta'][$i][0],
-								$_SESSION['cesta'][$i][4]);
+								$_SESSION['cesta'][$i][4],
+								$_SESSION['cesta'][$i][5]);
 													
 						}
 												

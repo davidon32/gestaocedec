@@ -73,7 +73,7 @@ $nProd = new Produto();
 						<!--<?php $nProd->PegaProduto('required');
 						//Produto::PegaProdutoDescricao();
 					?>-->
-                                        <input type="text" name="nome_produto" id="nome_produto" class="col-md-12">
+                                        <input type="text" name="nome_produto" id="nome_produto" class="col-md-12" required>
                                         <input type="hidden" name="id_produto" id="id_produto">
 					</div>
                                     
@@ -82,7 +82,7 @@ $nProd = new Produto();
                                             <br>
 						<label>Entrada de Materiais :</label>
 						
-                                                <select class='form form-control' id="selEntrada" name="SelEntrada">
+                                                <select class='form form-control' id="selEntrada" name="selEntrada" required>
                                                     <option></option>
                                                 </select>
                                         <input type="hidden" name="id_entrada" id="id_entrada">
@@ -99,7 +99,7 @@ $nProd = new Produto();
 					<div class="col-md-12">
 						<br>
 						<label>Quantidade :</label>
-						<input type="text" name="qtd" id="txtQtd" size="25" maxlength="6" class="form-control" required>
+						<input type="number" name="qtd" id="txtQtd" size="25" class="form-control" required>
 						<br />
 					</div>	
 
@@ -120,7 +120,7 @@ $nProd = new Produto();
 						//FuncaoBase::vd($_SESSION);
 						#@ mostra os materiais que estao no pedido
 						$pedido -> MostraPedido($_SESSION['cesta']);
-                                                var_dump($_SESSION['cesta']);
+                                                
 					?>
 
 			</div>
@@ -138,6 +138,7 @@ $nProd = new Produto();
             $id_deposito = isset($_POST['id_deposito']) ? $_POST['id_deposito'] : '';
             $descricao = isset($_POST['descricao']) ? $_POST['descricao'] : '';
             $evento = isset($_POST['evento']) ? $_POST['evento'] : '';
+            $id_entrada = isset($_POST['selEntrada']) ? $_POST['selEntrada'] : '';
 
             if($acao == 'Adicionar'){
 
@@ -154,9 +155,10 @@ $nProd = new Produto();
                                         $material,
                                         $descricao,
                                         $qtd,
-                                        Material::getNomeEvento($evento)
+                                        Material::getNomeEvento($evento),
+                                        $id_entrada
                                         );
-                
+
                     #@ adiciona na cesta 
                     $_pedido->AdicionaItem($item);
 
@@ -212,14 +214,15 @@ $nProd = new Produto();
                 template: {
                     type: "custom",
                     method: function(value, item) {
-			return value + " | " + item.descricao + " | Saldo :  " + item.saldo;
+			return item.id_unidade + " - " +value + " | " + item.descricao + " | Saldo :  " + item.saldo;
 		}
                 },
                 list: {
                     match: {
                             enabled: true
                         },
-                        onSelectItemEvent: function () {
+                        onClickEvent: function () {
+                            $('#selEntrada')[0].options.length = 0;
                             var id = $("#nome_produto").getSelectedItemData().id_unidade;
                             var id_deposito = $("#id_deposito").val();
                             
@@ -233,11 +236,20 @@ $nProd = new Produto();
                                 url:"mod_ajuda/backEnd/View/conEstoque/liberacao/busca_entrada.php",
                                 type:"POST",
                                 data: dados,
-                                //dataType : "json",
-                                success:function(data){
-                                    $.each(data, (i, val) => {
-                                        $('#selEntrada').append(`<option value="${val.id_produto}"> ${val.id_produto} </option>`);
+                                dataType : "json",
+                                success:function(dados){
+                                    console.log(dados)
+                                    $('#selEntrada').append("<option></option>");
+                                    $.each(dados, (i, val) => {
+                                        var saldo = val.saldo;
+                                        if(typeof saldo == 'object') {
+                                            saldo = val.quantidade;
+                                        }else {
+                                            saldo = val.saldo;
+                                        }
+                                        $('#selEntrada').append(`<option value="${val.id_produto}" data-saldo="${saldo}"> ${val.id_produto} - Saldo Individual ${saldo} </option>`);
                                     });
+                                    
                                 }
                                 });
                             
@@ -248,5 +260,12 @@ $nProd = new Produto();
 
         };
             $("#nome_produto").easyAutocomplete(itensProduto);
+            
+            $("#selEntrada").change(function(){
+                var max = $(this).find(':selected').data('saldo')
+                $("#txtQtd").attr({
+                        "max" : max,        
+                        "min" : 1});
+            });
             
 </script>
