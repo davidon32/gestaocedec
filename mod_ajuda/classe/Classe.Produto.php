@@ -141,29 +141,91 @@ class Produto {
     public static function ListEntradaSaldo($filtro) {
         
         $con = Conexao::getInstance();
-
+        
         $dados = array();
         $sql = "SELECT aju_produto.id_produto,
-                    aju_produto.quantidade,
-                    sum(aju_item.quantidade) AS totlibera,
-                    (aju_produto.quantidade-sum(aju_item.quantidade)) AS saldo
-                    FROM aju_produto
-                    left JOIN aju_item
-                    ON aju_produto.id_produto = aju_item.id_entrada
-                    WHERE aju_produto.codProd = {$filtro[0]}
-                    AND aju_produto.id_dep_destino = {$filtro[1]}
-                    GROUP BY aju_produto.id_produto";
-        /*$sql = "SELECT *FROM aju_produto WHERE codProd = {$filtro[0]}
-                and id_dep_destino = {$filtro[1]}";*/
-
+                aju_produto.codProd,
+                aju_produto.quantidade
+                FROM aju_produto
+                WHERE codProd = {$filtro[0]}
+                and aju_produto.cancelado = 0
+                AND aju_produto.id_dep_destino = {$filtro[1]}";
+        
         $result = $con->query($sql);
 
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-            $dados[] = $linha;
+            $campos = $linha;
+            
+            
+            $transferencia = Produto::ListEntradaTransf($filtro, $linha['id_produto']);
+            $liberacao = Produto::ListItemLiberacao($filtro, $linha['id_produto']);
+            $campos['transferencia'] = $transferencia;
+            $campos['liberacao'] = $liberacao;
+            $campos['saldo'] = $linha['quantidade'] - $transferencia - $liberacao;
+            $dados[] = $campos;
         }
+        
         return json_encode($dados);
+ 
+    }
+    /**
+     * @example Pega as transferencias de materiais
+     * 
+     *  */
+    public static function ListEntradaTransf($filtro, $id_entrada) {
+        
+        $con = Conexao::getInstance();
+
+        $dados = array();
+        $sql = "SELECT 
+                case when sum(aju_produto.quantidade) is NULL 
+                then 0
+                else sum(aju_produto.quantidade)
+                end AS totTransf
+                FROM aju_produto
+                WHERE codProd = {$filtro[0]}
+                AND aju_produto.id_dep_origem = {$filtro[1]}
+                AND aju_produto.id_entrada = {$id_entrada}
+                AND aju_produto.origem LIKE 'Transferencia entre Depositos%'";
+        
+        $result = $con->query($sql);
+
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            $dados = $linha['totTransf'];
+        }
+        return $dados;
+    }
+    /**
+     * @example item liberacao 
+     * 
+     *  */
+    public static function ListItemLiberacao($filtro, $id_entrada) {
+        
+        $con = Conexao::getInstance();
+
+        $dados = array();
+        $sql = "SELECT case when SUM(aju_item.quantidade) IS null
+                then 0
+                ELSE sum(aju_item.quantidade)
+                END AS totLiberacao
+                FROM aju_item
+                WHERE aju_item.situacao = 1
+                AND aju_item.cod = {$filtro[0]}
+                AND aju_item.id_entrada = {$id_entrada}";
+        
+        $result = $con->query($sql);
+
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            $dados = $linha['totLiberacao'];
+        }
+        return $dados;
     }
 
 }
+
+
+/**
+ 
+ *  */
 
 ?>

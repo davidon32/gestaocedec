@@ -9,6 +9,9 @@
 <?php //include_once "template/page/menu.php";?>
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php";?>
+<?php
+    $_SESSION['cesta'] = array();
+?>
 <style>
 
     table th, td{

@@ -1058,7 +1058,7 @@ class Liberacao extends DataMysql{
                             aju_item.evento,
                             aju_item.id_entrada
                             from aju_item
-                            WHERE aju_item.situacao = 1 
+                            WHERE aju_item.situacao <> 2 
                             and aju_item.id_entrada = '".$id_entrada."'";
             
             $result = $con->query($sql);

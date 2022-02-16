@@ -59,7 +59,7 @@ class Pedido extends FuncaoBase {
 
                 if ($_item[0] == $_SESSION['cesta'][0][0]) {
                     for ($i = 0; $i < $key; $i++) {
-                        if ( ($_item[1] == $_SESSION['cesta'][$i][1])  && ( $_item[5] == $_SESSION['cesta'][$i][5]) )
+                        if ( ($_item[1] == $_SESSION['cesta'][$i][1]) && ( $_item[5] == $_SESSION['cesta'][$i][5]) )
                             self::$achou = true;
                     }
                     if (self::$achou == false) {

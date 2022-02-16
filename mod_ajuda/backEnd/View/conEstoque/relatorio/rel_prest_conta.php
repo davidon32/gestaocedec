@@ -67,7 +67,7 @@ table th {
 		$listRel = $_relatorioAjuda->RelatorioListaMat($id_material);
                 
                 $entrada = $_relatorioAjuda->EntradaMaterial($_POST);
-                $transferencia = $_relatorioAjuda->EntradaMaterialTransf($_POST);
+                
       
                 print "</br>";
 		print "<p align='center'><a href='".FuncaoBase::geraLink("ajuda", "relatorio", "form_busca_prest_contas")."' class='btn btn-primary'>Voltar</a></p>";
@@ -121,6 +121,7 @@ table th {
 			print "</tr>";
                         
                         /* tranferencia */
+                        $transferencia = $_relatorioAjuda->EntradaMaterialTransf($value['codProd'], $value['id_produto']);
                         if(count($transferencia) >0) {
                             foreach ($transferencia as $key => $transf) {
                                 

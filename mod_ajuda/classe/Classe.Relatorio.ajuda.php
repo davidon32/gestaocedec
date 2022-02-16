@@ -972,7 +972,8 @@ class RelatorioAju extends DataMysql {
                         aju_produto.obs,
                         aju_produto.depDestino
 			FROM aju_produto
-                            WHERE aju_produto.id_produto > 0 {$id_material}{$deposito} 
+                            WHERE aju_produto.id_produto > 0
+                            {$id_material}{$deposito} 
                                 order by aju_produto.dtEntradaSaida";
 
         $result = $con->query($sql);
@@ -986,16 +987,17 @@ class RelatorioAju extends DataMysql {
         
     }
     /* lista de entrada por Material */
-    public static function EntradaMaterialTransf($post){
+    public static function EntradaMaterialTransf($codProd, $id_entrada){
         $con = Conexao::getInstance();
 
         $dados = array();
 
         //$campoData = " AND aju_produto.dtEntradaSaida BETWEEN '" . DataMysql::dataForm($post['txtDtInicial']) . "' AND '" . DataMysql::dataForm($_POST['txtDtFinal']) . "' ";
 
-        $id_material = (!empty($post['id_material'])) ? " AND aju_produto.codProd = '{$post['id_material']}' " : "";
+        $id_material = (!empty($codProd)) ? " AND aju_produto.codProd = '{$codProd}' " : "";
         
-        $transferencia = (!empty($post['id_deposito'])) ? " AND aju_produto.id_dep_origem = '{$post['id_deposito']}'" : "";
+        //$transferencia = (!empty($post['id_deposito'])) ? " AND aju_produto.id_dep_origem = '{$post['id_deposito']}'" : "";
+        $id_entrada = (!empty($id_entrada)) ? " AND aju_produto.id_entrada = '{$id_entrada}'" : "";
         
         $sql = "SELECT aju_produto.id_produto,
                         aju_produto.codProd,
@@ -1007,9 +1009,10 @@ class RelatorioAju extends DataMysql {
                         aju_produto.id_dep_origem,
                         aju_produto.depDestino
 			FROM aju_produto
-                            WHERE aju_produto.id_produto > 0 {$id_material}{$transferencia} 
-                                and aju_produto.origem = 'Transferencia entre Depositos'
+                            WHERE aju_produto.id_produto > 0 {$id_material}{$id_entrada} 
+                                and aju_produto.origem like 'Transferencia entre Depositos%'
                                 order by aju_produto.dtEntradaSaida";
+
 
         $result = $con->query($sql);
 
