@@ -21,7 +21,8 @@ class Material {
 							$_qtd,
 							$_nome_deposito,
 							$_validade = null,
-							$_nota) {
+							$_nota,
+                                                        $_id_dep_destino) {
 								
 		$con = Conexao::getInstance();
 				$sql = "insert into aju_produto (codProd,
@@ -32,7 +33,8 @@ class Material {
                                             quantidade,
                                             depDestino,
                                             validade,
-                                            nota_fiscal)
+                                            nota_fiscal,
+                                            id_dep_destino)
                                             VALUES (:id_produto,
 						:nome_produto,
 						:dt_entrada,
@@ -41,7 +43,8 @@ class Material {
 						:qtd,
 						:dep_destino,
 						:validade,
-						:nota_fiscal)";
+						:nota_fiscal,
+                                                :id_dep_destino)";
 		try {
 			$result = $con->prepare($sql);
 
@@ -54,6 +57,7 @@ class Material {
 			$result->bindValue(":dep_destino" , $_nome_deposito);
 			$result->bindValue(":validade"    , $_validade);
 			$result->bindValue(":nota_fiscal" , $_nota);
+			$result->bindValue(":id_dep_destino" , $_id_dep_destino);
 			
 
 			$result->execute();

@@ -71,6 +71,7 @@ class ProdutoConEstoqueModel extends Model {
 
 
         var_dump(self::$model);
+        DIE();
         $sql = "INSERT INTO ".self::$model['tabela']->table_name;
         
         

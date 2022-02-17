@@ -31,7 +31,8 @@ if($_POST['opcao'] == 'cad_material') {
 							$_txtQtd,
 							Deposito::PegaNomeDeposito($_id_deposito),
 							DataMysql::dataForm($_txtValidade),
-							$_nota)) {
+							$_nota,
+                                                        $_id_deposito)) {
                                     
                                     Material::Complnota($_id_produto, $_complnota);
 
