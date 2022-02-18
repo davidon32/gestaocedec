@@ -64,6 +64,7 @@ table th {
                 $totalEntrada = 0;
                 $totalLiberacao = 0;
                 $totalTransferencia = 0;
+                $totalCorrecao = 0;
 		$listRel = $_relatorioAjuda->RelatorioListaMat($id_material);
                 
                 $entrada = $_relatorioAjuda->EntradaMaterial($_POST);
@@ -120,6 +121,33 @@ table th {
 			print "<td style='color:".$cor."; text-align:center'>".$value['quantidade']."</td>";
 			print "</tr>";
                         
+                        /* correcao saldo */
+                        $correcao = $_relatorioAjuda->EntradaMaterialCorrecaoSaldo($value['codProd'], $value['id_produto']);
+                        if(count($correcao) >0) {
+                            foreach ($correcao as $key => $corr) {
+                                //var_dump($corr);
+                                    if($corr['depDestino'] != $value['depDestino']){
+                                        $totalCorrecao += $corr['quantidade'];
+                        //var_dump($correcao);
+
+                                            $cor = $corSaida;
+
+                                        print "<tr>";
+                                        print "<td style='color:".$cor."'>".($key+1)."</td>";
+                                        print "<td style='color:".$cor."'>".$corr['id_produto']."</td>";
+                                        print "<td style='color:".$cor."'>". DataMysql::dataVisual($corr['dtEntradaSaida'])."</td>";
+                                        print "<td style='color:".$cor."'>".$corr['codProd']."</td>";
+                                        print "<td style='color:".$cor."'>".$corr['nome']."</td>";
+                                        print "<td style='color:".$cor."'>".$corr['origem']." ".$corr['obs']." para D.A. ".$transf['depDestino']."</td>";
+                                        print "<td style='color:".$cor."'>".$corr['depDestino']."</td>";
+                                        print "<td style='color:".$cor."; text-align:center'>-".$corr['quantidade']."</td>";
+                                        print "</tr>";
+                                    }
+                            }
+                        }
+                        /* fim transferencia */
+                        
+                        
                         /* tranferencia */
                         $transferencia = $_relatorioAjuda->EntradaMaterialTransf($value['codProd'], $value['id_produto']);
                         if(count($transferencia) >0) {
@@ -142,9 +170,6 @@ table th {
                                         print "</tr>";
                                     }
                             }
-                            
-
-
                         }
                         /* fim transferencia */
                         
@@ -186,7 +211,7 @@ table th {
 
                                 print "</tr>";
                                 print "<td colspan='5' style='text-align:right'>Saldo</td>";
-                                print "<td style='color :".$cor."'>".($totalEntrada-$totalTransferencia-$totalItem)."</td>";
+                                print "<td style='color :".$cor."'>".($totalEntrada-$totalTransferencia-$totalItem-$totalCorrecao)."</td>";
                                 //var_dump($totalEntrada,$totalTransferencia, $totalItem );
                                 print "</tr>";
                             }
@@ -199,6 +224,7 @@ table th {
                         $totalItem = 0;
                         $totalEntrada = 0;
                         $totalTransferencia = 0;
+                        $totalCorrecao = 0;
                         
                         
                 }

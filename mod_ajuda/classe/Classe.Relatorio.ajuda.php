@@ -973,6 +973,7 @@ class RelatorioAju extends DataMysql {
                         aju_produto.depDestino
 			FROM aju_produto
                             WHERE aju_produto.id_produto > 0
+                            AND aju_produto.origem not like 'Correção Manual de Saldo%'
                             {$id_material}{$deposito} 
                                 order by aju_produto.dtEntradaSaida";
 
@@ -1024,6 +1025,47 @@ class RelatorioAju extends DataMysql {
         
         
     }
+    
+    
+    /* lista de entrada por Material */
+    public static function EntradaMaterialCorrecaoSaldo($codProd, $id_entrada){
+        $con = Conexao::getInstance();
+
+        $dados = array();
+
+        //$campoData = " AND aju_produto.dtEntradaSaida BETWEEN '" . DataMysql::dataForm($post['txtDtInicial']) . "' AND '" . DataMysql::dataForm($_POST['txtDtFinal']) . "' ";
+
+        $id_material = (!empty($codProd)) ? " AND aju_produto.codProd = '{$codProd}' " : "";
+        
+        //$transferencia = (!empty($post['id_deposito'])) ? " AND aju_produto.id_dep_origem = '{$post['id_deposito']}'" : "";
+        $id_entrada = (!empty($id_entrada)) ? " AND aju_produto.id_entrada = '{$id_entrada}'" : "";
+        
+        $sql = "SELECT aju_produto.id_produto,
+                        aju_produto.codProd,
+			aju_produto.nome,
+			aju_produto.dtEntradaSaida,
+			aju_produto.origem,
+			aju_produto.quantidade,
+                        aju_produto.obs,
+                        aju_produto.id_dep_origem,
+                        aju_produto.depDestino
+			FROM aju_produto
+                            WHERE aju_produto.id_produto > 0 {$id_material}{$id_entrada} 
+                                and aju_produto.origem like 'Correção Manual de Saldo%'
+                                order by aju_produto.dtEntradaSaida";
+
+                            //print $sql;
+        $result = $con->query($sql);
+
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            $dados[] = $linha;
+        }
+
+        return $dados;
+        
+        
+    }
+    
     
 
     /**
