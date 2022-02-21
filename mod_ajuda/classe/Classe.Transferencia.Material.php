@@ -20,27 +20,28 @@ class TransferenciaMaterial {
             $con = Conexao::getInstance();
 
             $sql = "INSERT INTO aju_transferencia (dt_transferencia,
-														motorista,
-														veiculo,
-														placa,
-														dt_saida,
-														dt_chegada,
-														id_dep_destino,
-														situacao,
-														id_dep_origem) VALUES ('" . $_dt_transferencia . "',
-																						'" . $_motorista . "',
-																						'" . $_veiculo . "',
-																						'" . $_placa . "',
-																						'" . $_dt_saida . "',
-																						'" . $_dt_chegada . "',
-																						'" . $_id_dep_destino . "',
-																						'" . $_situacao . "',
-																						'" . $_id_dep_origem . "')";
+                    motorista,
+                    veiculo,
+                    placa,
+                    dt_saida,
+                    dt_chegada,
+                    id_dep_destino,
+                    situacao,
+                    id_dep_origem) VALUES ('" . $_dt_transferencia . "',
+                                            '" . $_motorista . "',
+                                            '" . $_veiculo . "',
+                                            '" . $_placa . "',
+                                            '" . $_dt_saida . "',
+                                            '" . $_dt_chegada . "',
+                                            '" . $_id_dep_destino . "',
+                                            '" . $_situacao . "',
+                                            '" . $_id_dep_origem . "')";
 
             $result = $con->query($sql);
 
             return true;
         } catch (Exception $e) {
+            print $e->getMessage();
             
         }
     }
@@ -68,20 +69,26 @@ class TransferenciaMaterial {
 
     #@ lanca materiais no aju_item_tranferencia
 
-    function LancaItemTransferencia($_id_transferencia, $_id_produto, $_descricao, $_quantidade) {
+    function LancaItemTransferencia($_id_transferencia,
+                                        $_id_produto,
+                                        $_descricao,
+                                        $_quantidade,
+                                        $_id_entrada) {
 
         $con = Conexao::getInstance();
 
         try {
 
             $sql = "INSERT INTO aju_item_transf (id_transferencia,
-													id_produto,
-													descricao,
-													quantidade)
-													VALUES ('" . $_id_transferencia . "',
-															'" . $_id_produto . "',
-															'" . $_descricao . "',
-															'" . $_quantidade . "')";
+						id_produto,
+						descricao,
+						quantidade,
+                                                id_entrada)
+						VALUES ('" . $_id_transferencia . "',
+							'" . $_id_produto . "',
+							'" . $_descricao . "',
+							'" . $_quantidade . "',
+                                                        '" . $_id_entrada. "')";
 
             $result = $con->query($sql);
 

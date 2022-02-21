@@ -50,12 +50,11 @@ include_once "template/page/headerPageSimples.php";
 
                 $_tot_cesta = count($_material);
 
-                //var_dump($_tot_cesta);
-
                 if($_tot_cesta > 0){
-
+                    
+                    
                     #@ lanca na tabela ajuda_transferencia
-                        $_transferencia->CadastraTransferencia(DataMysql::dataForm($_txt_dt_transferencia),
+                    $_transferencia->CadastraTransferencia(DataMysql::dataForm($_txt_dt_transferencia),
                                                                 $_txt_motorista,
                                                                 $_txt_veiculo,
                                                                 $_txt_placa,
@@ -64,7 +63,8 @@ include_once "template/page/headerPageSimples.php";
                                                                 $_txt_dep_destino,
                                                                 0,
                                                                 $_material[0][0]);
-
+                
+                  
                         $id_transferencia = $_transferencia->getUltimoId();
                         
                     for ($i=0; $i < $_tot_cesta ; $i++) { 
@@ -74,7 +74,16 @@ include_once "template/page/headerPageSimples.php";
                         
 
                         #@ Lanca os itens da tranferencia tabela aju_item_transf
-                        $_transferencia->LancaItemTransferencia($id_transferencia, $_material[$i][1], $_material[$i][2], $_material[$i][3]);
+                        $_transferencia->LancaItemTransferencia($id_transferencia,
+                                                                $_material[$i][1],
+                                                                $_material[$i][2],
+                                                                $_material[$i][3],
+                                                                $_material[$i][5]);
+                        
+                        
+                        /* obs: 
+                         * RegistraMaterial na entrada somente apos recever o material 
+                         */
 
                         /*$_gerTransito->Transito($_material[1],
                                                 $_material[0],

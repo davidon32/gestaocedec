@@ -52,19 +52,25 @@ $nProd = new Produto();
 						<form method="POST" action="#" name="adItem">
 
 					
-							<div class="col-md-6">
+							<div class="col-md-4">
 								<label>Dep&oacute;sito Origem :</label>
 								<!--<?php $_deposito->pegaDeposito();?>-->
                                                                 <input type="text" class="form form-control" readonly value="<?=Deposito::PegaNomeDeposito($id_deposito1);?>">
                                                                 <input type="hidden" name='id_deposito' id='id_deposito' value="<?=$id_deposito1;?>">
 							</div>
 							
-							<div class="col-md-6">
+							<div class="col-md-4">
 								<label>Produto :</label>
 								<!--<?php $nProd -> PegaProduto();?>-->
                                                                 <input type="text" name="nome_produto" id="nome_produto" class="col-md-12">
                                                                 <input type="hidden" name="id_produto" id="id_produto">
 							</div>
+                                                        <div class="col-md-4">
+								<label>Entrada</label>
+                                                                <select class='form form-control' id="selEntrada" name="selEntrada" required>
+                                                    <option></option>
+                                                </select>
+							</div>	
 
 							<div class="col-md-4">
 
@@ -79,6 +85,7 @@ $nProd = new Produto();
 
 								</select>
 							</div>
+                                                        
 							<div class="col-md-4">
 								<label>Descrição :</label>
                                                                 <input class="form-control" type="text" name="descricao" size="25" value="-" maxlength="45">
@@ -118,6 +125,7 @@ $nProd = new Produto();
 							$id_deposito = isset($_POST['id_deposito']) ? $_POST['id_deposito'] : '';
 							$descricao = isset($_POST['descricao']) ? $_POST['descricao'] : '';
 							$evento = isset($_POST['evento']) ? $_POST['evento'] : '';
+                                                        $id_entrada = isset($_POST['selEntrada']) ? $_POST['selEntrada'] : '';
 				
 							if($acao == 'Adicionar'){
 				
@@ -130,7 +138,12 @@ $nProd = new Produto();
 								if(FuncaoBase::CampoBranco($campos)){
 					
 									#@ Monta o item 
-									$item = $_pedido->Item($id_deposito, $material, $descricao, $qtd, $evento);
+									$item = $_pedido->Item($id_deposito,
+                                                                                                $material,
+                                                                                                $descricao,
+                                                                                                $qtd,
+                                                                                                Material::getNomeEvento($evento),
+                                                                                                $id_entrada);
 								
 									#@ adiciona na cesta 
 									$_pedido->AdicionaItem($item);
@@ -189,16 +202,51 @@ $nProd = new Produto();
                             enabled: true
                         },
                         onSelectItemEvent: function () {
+                            $('#selEntrada')[0].options.length = 0;
                             var id = $("#nome_produto").getSelectedItemData().id_unidade;
+                            var id_deposito = $("#id_deposito").val();
+                            
+                            var dados = {
+                                'id_material': ''+ id +'',
+                                'id_deposito':''+id_deposito+''
+                            }
+                            
                             $("#id_produto").val(id);
                             
-                            //$("#txtIdComunidadeSearch").val(value).trigger("change");
+                            $.ajax({
+                                url:"mod_ajuda/backEnd/View/conEstoque/liberacao/busca_entrada.php",
+                                type:"POST",
+                                data: dados,
+                                dataType : "json",
+                                success:function(dados){
+                                    console.log(dados)
+                                    $('#selEntrada').append("<option></option>");
+                                    $.each(dados, (i, val) => {
+                                        var saldo = val.saldo;
+                                        if(typeof saldo == 'object') {
+                                            saldo = val.quantidade;
+                                        }else {
+                                            saldo = val.saldo;
+                                        }
+                                        $('#selEntrada').append(`<option value="${val.id_produto}" data-saldo="${saldo}"> ${val.id_produto} - Saldo Individual ${saldo} </option>`);
+                                    });
+                                    
+                                }
+                                });
+                            
+                            
                         }
 
                 }
 
         };
             $("#nome_produto").easyAutocomplete(itensProduto);
+            $("#selEntrada").change(function(){
+                var max = $(this).find(':selected').data('saldo')
+                $("#txtQtd").attr({
+                        "max" : max,        
+                        "min" : 1});
+            });
 	</script>
 
 

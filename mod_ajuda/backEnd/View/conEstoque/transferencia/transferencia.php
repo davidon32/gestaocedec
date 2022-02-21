@@ -67,7 +67,7 @@ $dadosDeposito = Deposito::ListaDeposito();
 		</div>
 		<div class="col-md-6">
 			<label>Placa</label>
-                        <input class="form-control" type="text" name="txt_placa" maxlength="10"/>
+                        <input class="form-control" type="text" name="txt_placa" maxlength="8"/>
 		</div>
 		<div class="col-md-6">
 			<label>Data Saida</label>
