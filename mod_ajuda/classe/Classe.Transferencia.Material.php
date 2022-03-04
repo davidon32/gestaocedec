@@ -133,29 +133,35 @@ class TransferenciaMaterial {
             $_origem,
             $_obs,
             $_quantidade,
+            $_dep_destino,
+            $_id_dep_origem,
             $_id_dep_destino,
-            $_id_dep_origem) {
+            $_id_entrada) {
 
         $con = Conexao::getInstance();
 
         try {
 
             $sql = "INSERT INTO aju_produto (codProd,
-												nome,
-												dtEntradaSaida,
-												origem,
-												obs,
-												quantidade,
-												depDestino,
-                                                                                                id_dep_origem)
-												VALUES (" . $_id_produto . ",
-														'" . $_descricao . "',
-														'" . $_dt_transferencia . "',
-														'" . $_origem . "',
-														'" . $_obs . "',
-														" . $_quantidade . ",
-														" . $_id_dep_destino . ","
-                    . "                                                                     " . $_id_dep_origem . ")";
+		nome,
+		dtEntradaSaida,
+		origem,
+		obs,
+		quantidade,
+		depDestino,
+                id_dep_origem,
+                id_dep_destino,
+                id_entrada)
+		VALUES (" . $_id_produto . ",
+				'" . $_descricao . "',
+				'" . $_dt_transferencia . "',
+				'" . $_origem . "',
+				'" . $_obs . "',
+				" . $_quantidade . ",
+                                " . $_dep_destino . ",
+                                " . $_id_dep_origem . ",
+                                " . $_id_dep_destino .",
+                                " . $_id_entrada . ")";
 
             $result = $con->query($sql);
             return true;
@@ -205,14 +211,15 @@ class TransferenciaMaterial {
 
         try {
 
-            $sql = "SELECT i.id_produto as id_produto,
-							i.descricao as descricao,
-							i.quantidade as quantidade,
-							u.nome as nome
-							FROM aju_item_transf i
-							INNER JOIN aju_unidade u
-							ON i.id_produto = u.id_unidade
-							WHERE id_transferencia = " . $_id_transferencia;
+            $sql = "SELECT aju_item_transf.id_produto as id_produto,
+                            aju_item_transf.descricao as descricao,
+                            aju_item_transf.quantidade as quantidade,
+                            aju_item_transf.id_entrada as id_entrada,
+                            aju_unidade.nome as nome
+                            FROM aju_item_transf
+                            INNER JOIN aju_unidade
+                            ON aju_item_transf.id_produto = aju_unidade.id_unidade
+                            WHERE aju_item_transf.id_transferencia = " . $_id_transferencia;
 
             $result = $con->query($sql);
 

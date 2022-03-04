@@ -61,7 +61,9 @@ include_once "template/page/headerPageSimples.php";
                                                          "-",
                                                          $dados[$i]['quantidade'],
                                                          "'".Deposito::PegaNomeDeposito($_txt_id_dep_destino)."'",
-                                                         $_id_dep_origem);
+                                                         $_id_dep_origem,
+                                                         $_txt_id_dep_destino,
+                                                         $dados[$i]['id_entrada']);
                     }
                     
                 }

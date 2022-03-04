@@ -92,7 +92,7 @@ $nProd = new Produto();
 							</div>	
 							<div class="col-md-4">
 								<label>Quantidade :</label>
-								<input class="form-control" type="text" name="qtd" id="txtQtd" size="25" maxlength="5">
+                                                                <input class="form-control" type="number" name="qtd" id="txtQtd" size="25" maxlength="5">
 								<br />	
 							</div>
 							<div class="col-md-12 text-center">
