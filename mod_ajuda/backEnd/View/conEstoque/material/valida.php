@@ -104,13 +104,16 @@ if($_POST['opcao'] == 'cad_material') {
 
 		$_nome      = isset($_POST['nome'])      ? $_POST['nome']      : "";
 		$_descricao = isset($_POST['descricao']) ? $_POST['descricao'] : "";
+		$_uniMedida = isset($_POST['unidadeMedida']) ? $_POST['unidadeMedida'] : "";
+		$_peso = isset($_POST['peso']) ? $_POST['peso'] : "";
+		$_valor = isset($_POST['valor']) ? $_POST['valor'] : "";
 		$_btnCadMaterial = isset($_POST['btnCadProduto']) ? true 	   : "";
 	
 		$campos = array("nome"        => $_nome);  
 		
 				if(FuncaoBase::CampoBranco($campos)){
 						
-					$ultimoID = Material::CadProd($_nome,$_descricao);
+					$ultimoID = Material::CadProd($_nome,$_descricao, $_uniMedida, $_peso, $_valor);
 					
 					ControleSaldo::lancaSaldoGeralZerado($ultimoID);
 					Log::GravaLog("Cadastro de Produto nome:".$_nome." descricao:".$_descricao, "aju_log");		

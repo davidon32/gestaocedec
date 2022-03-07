@@ -123,18 +123,30 @@ class Material {
 	}
 
 	static function CadProd($_nome,
-							$_descricao) {
+				$_descricao,
+                                $_uni_medida,
+                                $_peso,
+                                $_valor) {
 								
 		$con = Conexao::getInstance();
 				$sql = "insert into aju_unidade (nome,
-												descricao)
-												VALUES (:nome,
-														:descricao)";
+                                                                descricao,
+                                                                uni_medida,
+                                                                peso,
+                                                                valor)
+								VALUES (:nome,
+                                                                	:descricao,
+                                                                        :uni_medida,
+                                                                        :peso,
+                                                                        :valor)";
 		try {
 			$result = $con->prepare($sql);
 
 			$result->bindValue(":nome"  , $_nome);
 			$result->bindValue(":descricao", $_descricao);
+			$result->bindValue(":uni_medida", $_uni_medida);
+			$result->bindValue(":peso", $_peso);
+			$result->bindValue(":valor", $_valor);
 			
 
 			$result->execute();

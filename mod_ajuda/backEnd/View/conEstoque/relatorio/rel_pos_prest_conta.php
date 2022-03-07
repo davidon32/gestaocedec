@@ -69,8 +69,11 @@ $totalEntrada = 0;
 $totalLiberacao = 0;
 $totalTransferencia = 0;
 
+//var_dump($_POST);
+
 $entrada = $_relatorioAjuda->EntradaMaterial($_POST);
-$transferencia = $_relatorioAjuda->EntradaMaterialTransf($_POST);
+//$transferencia = $_relatorioAjuda->EntradaMaterialTransf($id_material, );
+//$correcao = $_relatorioAjuda->EntradaMaterialCorrecaoSaldo($_POST);
 
 print "<p align='center'><a href='" . FuncaoBase::geraLink("ajuda", "relatorio", "form_busca_pos_prest_contas") . "' class='btn btn-primary'>Voltar</a></p>";
 print "<br>";
@@ -84,7 +87,7 @@ print "<th>Cod. Entrada</th>";
 print "<th>Deposito</th>";
 print "<th>Material</th>";
 print "<th>Total Entrada (+)</th>";
-print "<th>Transferência (-)</th>";
+print "<th>Transferência/Correcao Saldo (-)</th>";
 print "<th>Total Liberacao (-)</th>";
 print "<th>Saldo(=)</th>";
 
@@ -97,22 +100,17 @@ foreach ($entrada as $key => $value) {
     $entrada = $value['quantidade'];
 
     /* tranferencia */
-    if (count($transferencia) > 0) {
-        foreach ($transferencia as $key => $transf) {
-            if ($transf['depDestino'] != $value['depDestino']) {
-                $totalTransferencia += $transf['quantidade'];
-            }
-        }
-    }
-    /* fim transferencia */
+    $totalTransferencia = $_relatorioAjuda->TransfereciaTotal($value['id_produto']);
+    
+    /* correcao saldo */
+    $totalCorrecao = $_relatorioAjuda->CorrecaoSaldoTotal($value['id_produto']);
 
-    if (count($items) > 0) {
-        foreach ($items as $key => $item) {
-            $totalItem += $item['quantidade'];
-        }
-    }
+    /* itens saida */
+    $totalItensSaida = $_relatorioAjuda->SaidaItemTotal($value['id_produto']);
+    
+    //var_dump($totalTransferencia, $totalItensSaida, $totalCorrecao);
 
-    $saldo = $value['quantidade'] - $totalTransferencia - $totalItem;
+    $saldo = $value['quantidade'] - ($totalItensSaida+$totalTransferencia+$totalCorrecao);
 
     $cor = " style='color:green' title='Parabéns material está em conformidade com entradas e saidas !'";
 
@@ -129,8 +127,8 @@ foreach ($entrada as $key => $value) {
     print "<td" . $cor. ">" . $value['depDestino'] . "</td>";
     print "<td" . $cor. ">" . $value['codProd'] . " - " . Unidade::PegaNomeId($value['codProd']) . " - " . $value['origem'] . " </td>";
     print "<td" . $cor. "> " . $entrada . "</td>";
-    print "<td" . $cor. "> " . $totalTransferencia . "</td>";
-    print "<td" . $cor. "> " . $totalItem . "</td>";
+    print "<td" . $cor. "> " . ($totalTransferencia - $totalCorrecao) . "</td>";
+    print "<td" . $cor. "> " . $totalItensSaida . "</td>";
     print "<td" . $cor . "> ". $saldo . "</td>";
     print "</tr>";
     $totalItem = 0;

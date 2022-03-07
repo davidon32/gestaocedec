@@ -46,6 +46,14 @@ table th {
 </style>
 	<?php	
         
+       
+        if(empty($_POST)){
+            print "<script>window.location.href='".FuncaoBase::geraLink("ajuda", "relatorio", "form_busca_prest_contas")."';</script>";
+        }else {
+            
+            
+            
+        
 	$_dt_inicial = isset($_POST['txtDtInicial']) ? DataMysql::dataForm($_POST['txtDtInicial']) : false;
 
 	$_dt_final = isset($_POST['txtDtFinal']) ? DataMysql::dataForm($_POST['txtDtFinal']) : false;
@@ -69,14 +77,41 @@ table th {
                 
                 $entrada = $_relatorioAjuda->EntradaMaterial($_POST);
                 
+                $totalGeralEntrada =count($entrada);
+                
       
                 print "</br>";
 		print "<p align='center'><a href='".FuncaoBase::geraLink("ajuda", "relatorio", "form_busca_prest_contas")."' class='btn btn-primary'>Voltar</a></p>";
-                print "<br>";
                 print !empty($_POST['txtDtInicial']) ? "<legend>Pedíodo : ".$_POST['txtDtInicial']." a ".$_POST['txtDtFinal']."</legend>" : "";
                 print "<p style='text-align:center'>";
                 print !empty($_POST['id_deposito']) ? "<legend>DEPÓSITO ".Deposito::PegaNomeDeposito($_POST['id_deposito'])." - ": "<legend>" ;
                 print Unidade::PegaNomeId($id_material)."</legend></p>";
+                
+                print "<div class='col-md-3'></div>";
+                print "<div class='col-md-6'>";
+                print "<table class='table table-stripped'>";
+                print "<tr>";
+                print "<td>Total Entradas :</td><td>".$totalGeralEntrada."</td>";
+                print "</tr>";
+                print "<tr>";
+                print "<td>Total Entradas :</td><td>Total Entradas :</td>";
+                print "</tr>";
+                print "<tr>";
+                print "<td>Total Transferencias :</td><td>Total Entradas :</td>";
+                print "</tr>";
+                print "<td>Total Correções Saldo :</td><td>Total Entradas :</td>";
+                print "</tr>";
+                print "</tr>";
+                print "<td>Saldo :</td><td>Total Entradas :</td>";
+                print "</tr>";
+                print "</table>";
+                print "</div>";
+                print "<div class='col-md-3'></div>";
+                print "<div class='row'></div>";
+                
+                
+                print "<br><br>";
+                
                                
                 $corEntrada = "#057A60";
                 $corSaida = "#FE2E2E";
@@ -91,10 +126,10 @@ table th {
 		print "<th style='color:".$corEntrada."' width='5%'>#</th>";
 		print "<th style='color:".$corEntrada."' width='10%'>Cod Entrada</th>";
 		print "<th style='color:".$corEntrada."' width='10%'>Data Entrada</th>";
-		print "<th style='color:".$corEntrada."' width='10%'>Cód Material</th>";
+		print "<th style='color:".$corEntrada."' width='5%'>Cód Material</th>";
 		print "<th style='color:".$corEntrada."' width='35%'>Nome</th>";
-		print "<th style='color:".$corEntrada."' width='30%'>Origem Material</th>";
-		print "<th style='color:".$corEntrada."' width='30%'>Deposito Destino</th>";
+		print "<th style='color:".$corEntrada."' width='20%'>Origem Material</th>";
+		print "<th style='color:".$corEntrada."' width='20%'>Deposito Destino</th>";
                 
 		print "<th style='color:".$corEntrada."' width='10%'>Qtd</th>";
 		print "</tr>";
@@ -123,12 +158,13 @@ table th {
                         
                         /* correcao saldo */
                         $correcao = $_relatorioAjuda->EntradaMaterialCorrecaoSaldo($value['codProd'], $value['id_produto']);
+                        //var_dump(count($correcao));
+                        
                         if(count($correcao) >0) {
                             foreach ($correcao as $key => $corr) {
-                                //var_dump($corr);
-                                    if($corr['depDestino'] != $value['depDestino']){
-                                        $totalCorrecao += $corr['quantidade'];
-                        //var_dump($correcao);
+                                //var_dump($value);
+                                    if($corr['depDestino'] == $value['depDestino']){
+                                        $totalCorrecao -= $corr['quantidade'];
 
                                             $cor = $corSaida;
 
@@ -138,9 +174,9 @@ table th {
                                         print "<td style='color:".$cor."'>". DataMysql::dataVisual($corr['dtEntradaSaida'])."</td>";
                                         print "<td style='color:".$cor."'>".$corr['codProd']."</td>";
                                         print "<td style='color:".$cor."'>".$corr['nome']."</td>";
-                                        print "<td style='color:".$cor."'>".$corr['origem']." ".$corr['obs']." para D.A. ".$transf['depDestino']."</td>";
+                                        print "<td style='color:".$cor."'>".$corr['origem']." ".$corr['obs']." para D.A. ".$corr['depDestino']."</td>";
                                         print "<td style='color:".$cor."'>".$corr['depDestino']."</td>";
-                                        print "<td style='color:".$cor."; text-align:center'>-".$corr['quantidade']."</td>";
+                                        print "<td style='color:".$cor."; text-align:center'>".$corr['quantidade']."</td>";
                                         print "</tr>";
                                     }
                             }
@@ -203,23 +239,26 @@ table th {
                                 $totalItem += $item['quantidade'];
                                 
                             }
-                            if(count($items) > 0) {
+                        print "</table>";
+                        }
+                            // resumo material 
+                            //if(count($items) > 0) {
                                 
                                 $cor = ($totalEntrada-$totalItem) > 0 ? "#0000FF" :$corSaida ;
-                                print "<tr><td colspan='5' style='text-align:right'>Total Liberado</td>";
-                                print "<td style='color :".$corSaida."'>-".$totalItem."</td></tr>";
+                                print "<tr><td colspan='6' style='text-align:right'>Total Liberado</td>";
+                                print "<td colspan='2' style='color :".$corSaida."'>".( ($totalItem ==0 ) ? "" : "-" ).$totalItem."</td></tr>";
 
                                 print "</tr>";
-                                print "<td colspan='5' style='text-align:right'>Saldo</td>";
-                                print "<td style='color :".$cor."'>".($totalEntrada-$totalTransferencia-$totalItem-$totalCorrecao)."</td>";
+                                print "<td colspan='6' style='text-align:right'>Saldo</td>";
+                                print "<td colspan='2' style='color :".$cor."'>".($totalEntrada-$totalTransferencia-$totalItem-$totalCorrecao)."</td>";
                                 //var_dump($totalEntrada,$totalTransferencia, $totalItem );
                                 print "</tr>";
-                            }
+                            //}
                                                 
-                        print "</table>";
+                        
                         print "</td></tr>";
                         print "<tr><td colspan='8'><hr style='border:0.1em solid'></td></tr>";
-                        }
+                        
                         
                         $totalItem = 0;
                         $totalEntrada = 0;
@@ -229,7 +268,7 @@ table th {
                         
                 }
                         print "</table>";
-		
+        }
                             
 	?>
 

@@ -987,6 +987,73 @@ class RelatorioAju extends DataMysql {
         
         
     }
+    
+    /*
+    * total de itens liberacao
+    *
+    */
+    public static function SaidaItemTotal($id_entrada){
+        
+        $dados = "";
+        
+        $con = Conexao::getInstance();
+        $sql = "SELECT SUM(QUANTIDADE) as quantidade FROM aju_item 
+                    WHERE aju_item.situacao <2
+                    AND aju_item.id_entrada = ".$id_entrada;
+        
+        $result = $con->query($sql);
+
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            $dados = $linha['quantidade'];
+        }
+
+        return $dados;
+    }
+    
+    /*
+    * total de transferencia de materiais
+    *
+    */
+    public static function TransfereciaTotal($id_entrada){
+        
+        $dados = "";
+        
+        $con = Conexao::getInstance();
+        $sql = "SELECT SUM(QUANTIDADE) as quantidade FROM aju_produto 
+                    WHERE aju_produto.origem LIKE 'Transferência entre Depósitos%'
+                    AND id_entrada = ".$id_entrada;
+        
+        $result = $con->query($sql);
+
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            $dados = $linha['quantidade'];
+        }
+
+        return $dados;
+    }
+    
+    /*
+    * total de correcao do saldo
+    *
+    */
+    public static function CorrecaoSaldoTotal($id_entrada){
+        
+        $dados = "";
+        
+        $con = Conexao::getInstance();
+        $sql = "SELECT SUM(quantidade) as quantidade FROM aju_produto 
+                    WHERE aju_produto.origem LIKE 'Correcao Manual de Saldo%'
+                    AND id_entrada = ".$id_entrada;
+        
+        $result = $con->query($sql);
+
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            $dados = $linha['quantidade'];
+        }
+
+        return $dados;
+    }
+    
     /* lista de entrada por Material */
     public static function EntradaMaterialTransf($codProd, $id_entrada){
         $con = Conexao::getInstance();
@@ -1051,7 +1118,7 @@ class RelatorioAju extends DataMysql {
                         aju_produto.depDestino
 			FROM aju_produto
                             WHERE aju_produto.id_produto > 0 {$id_material}{$id_entrada} 
-                                and aju_produto.origem like 'Correção Manual de Saldo%'
+                                and aju_produto.origem like 'Correcao Manual de Saldo%'
                                 order by aju_produto.dtEntradaSaida";
 
                             //print $sql;
