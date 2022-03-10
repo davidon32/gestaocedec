@@ -88,8 +88,8 @@
 
     $id_deposito = isset($_POST['id_deposito']) ? $_POST["id_deposito"] : "";
     
-    if(empty($id_deposito)){
-    //die();
+    if(empty($_POST)){
+    
     print "<script>window.location.href='".FuncaoBase::geraLink("ajuda", "relatorio", "form_busca_invet_libera")."';</script>";
     }
     

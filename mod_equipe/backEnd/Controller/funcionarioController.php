@@ -3,6 +3,8 @@
 class FuncionarioController extends Controller {
 
     public function alterar(){
+        
+
                 
         $funcionario = new FuncionarioEquipeModel();
         $usuario = new Usuario();
@@ -19,10 +21,16 @@ class FuncionarioController extends Controller {
             $funcionario->edit($post);
             $usuario->AtualizaEmail($dadosEmailRec);
             FuncaoBase::alert("Dados Atualizados com Sucesso !");
-            print "<script>
-                window.location.href='".FuncaoBase::geraLink('index', 'index', 'index1')."'; 
-            </script>";
-            //include_once 'mod_index/backEnd/View/index/index.php';
+            if($_GET['voltar'] == 'pesquisa') {
+                print "<script>
+                    window.location.href='".FuncaoBase::geraLink('admin', 'adm', 'usuario')."'; 
+                </script>";
+            }else {
+                print "<script>
+                    //window.location.href='".FuncaoBase::geraLink('index', 'index', 'index1')."'; 
+                </script>";
+                //include_once 'mod_index/backEnd/View/index/index.php';
+            }
             
         }else {
 

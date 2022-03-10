@@ -41,6 +41,8 @@
             <form method="POST" action="<?= $url_form?>" name="frm_rel_inventario" >
 		<div class="col-md-12">
                     <label>Dep&oacute;sito Destino:</label>
+                    
+                    <!-- CEDEC -->
                     <?php if($_COOKIE['seguranca']['rpm'] !=1) {
                         
                         $_deposito->pegaDepositoSelected($id_deposito, false);

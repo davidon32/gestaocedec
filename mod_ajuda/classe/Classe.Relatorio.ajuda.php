@@ -142,12 +142,12 @@ class RelatorioAju extends DataMysql {
     /* INVENTARIO DE MATERIAIS */
 
     public function inventarioGeral($id_deposito = null) {
-        
+              
         try {
             $dados = array();
         $id_unidades = self::listMateriaisInvent();
         //print (self::listMateriaisInvent());
-        //die();
+        
         
         if(!empty($id_deposito)){
             $filtro = " where aju_deposito.id_deposito = '{$id_deposito}'" ;

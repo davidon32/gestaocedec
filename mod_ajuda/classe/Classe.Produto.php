@@ -209,10 +209,10 @@ class Produto {
                 ELSE sum(aju_item.quantidade)
                 END AS totLiberacao
                 FROM aju_item
-                WHERE aju_item.situacao = 1
+                WHERE aju_item.situacao < 2
                 AND aju_item.cod = {$filtro[0]}
                 AND aju_item.id_entrada = {$id_entrada}";
-        
+                
         $result = $con->query($sql);
 
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
