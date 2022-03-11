@@ -45,7 +45,7 @@ if(!empty($usuario)){
         <input class="form-control" type="text" name="txtNumPol" id="txtNumPol" maxlenght="9" readonly='readonly' value='<?= $maspNumPol[0]['num_masp']; ?>'>
 
         <label>Nome Completo</label>
-        <input class="form-control" type="text" name="txtNome" value="<?= !empty($usuario) ? $usuario['nome'] : ""; ?>" id="txtNome" maxlenght="9" readonly='readonly'>
+        <input class="form-control" type="text" name="txtNome" value="<?= !empty($usuario) ? $usuario['nome'] : ""; ?>" id="txtNome" maxlenght="39" >
         <label>Usuario (alternativo S999999)</label>
         <input class="form-control" type="text" name="txtUsuario" value="<?= !empty($usuario) ? $usuario['login'] : ""; ?>" id="txtUsuario" maxlenght="9" readonly='readonly'>
 

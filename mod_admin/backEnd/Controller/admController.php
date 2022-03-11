@@ -121,6 +121,9 @@
                 }
             }elseif($opcao == "atualiza") {
                 
+                var_dump($_POST);
+                die();
+                
                 $id_funcionario = $usuario->getIdFuncionario($username);
                 
                     if($situacao == 0) {

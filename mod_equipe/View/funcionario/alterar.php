@@ -20,7 +20,7 @@
 
 $email_rec = Usuario::getDadoUsuario($_COOKIE['seguranca']['idUser']);
 
-$voltar = isset($_GET['voltar']) ? array('voltar' => $_GET['voltar']) : "";
+$voltar = isset($_GET['voltar']) ? ",".array('voltar' => $_GET['voltar']) : "";
 
 
 ?>
@@ -28,7 +28,7 @@ $voltar = isset($_GET['voltar']) ? array('voltar' => $_GET['voltar']) : "";
 <!-- CORPO PAGINA  -->
 <div class="span12">
     <legend>Dados Gerais</legend>
-    <form action="<?= FuncaoBase::geraLink("equipe", "funcionario", "alterar", $voltar) ?>" method="POST" name="frm_cad_funcionario">
+    <form action="<?= FuncaoBase::geraLink("equipe", "funcionario", "alterar" .$voltar) ?>" method="POST" name="frm_cad_funcionario">
         <input type="hidden" name="txt_id_funcionario" value="<?php print $dados['id_funcionario']; ?>">
 
 
