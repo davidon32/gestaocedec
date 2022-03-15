@@ -140,6 +140,8 @@ class Produto {
      *  */
     public static function ListEntradaSaldo($filtro) {
         
+        //var_dump($filtro);
+        
         $con = Conexao::getInstance();
         
         $dados = array();

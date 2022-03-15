@@ -124,6 +124,8 @@
                 var_dump($_POST);
                 die();
                 
+                $usuario->AtualizarUsuario($dados);
+                
                 $id_funcionario = $usuario->getIdFuncionario($username);
                 
                     if($situacao == 0) {

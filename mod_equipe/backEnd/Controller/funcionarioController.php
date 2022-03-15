@@ -3,12 +3,21 @@
 class FuncionarioController extends Controller {
 
     public function alterar(){
+        # usuario master editando perfil
+        $id_funcionario_get = isset($_GET['id_']) ? $_GET['id_'] :"";
         
+        # proprio usuario editando perfil
+        if(empty($id_funcionario_get)){
+            $id_funcionario = $_COOKIE['seguranca']['id_funcionario'];
+        }else {
+            $id_funcionario = $id_funcionario_get;
+        }
+        
+        var_dump($id_funcionario);
 
-                
         $funcionario = new FuncionarioEquipeModel();
         $usuario = new Usuario();
-        $dados = $funcionario->lista($_COOKIE['seguranca']['id_funcionario']);
+        $dados = $funcionario->lista($id_funcionario);
         $dados_rpm = $funcionario->rpm();
 
         if($this->isPost()){
@@ -19,7 +28,13 @@ class FuncionarioController extends Controller {
                                    'situacao' =>$dados['situacao']);
 
             $funcionario->edit($post);
-            $usuario->AtualizaEmail($dadosEmailRec);
+            //$usuario->AtualizaEmail($dadosEmailRec);
+            
+            //$id_usuario = $usuario->dadosUsuarioIdFunc($id_funcionario);
+            
+            //$usuario::AtualizarNomeUsuario($id_usuario);
+            var_dump($_POST);
+            die();
             FuncaoBase::alert("Dados Atualizados com Sucesso !");
             if(isset($_GET['voltar']) && $_GET['voltar'] == 'pesquisa') {
                 print "<script>

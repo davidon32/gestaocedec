@@ -16,23 +16,31 @@
     }
 </style>
 
+<div class='row'>
 <div class="col-md-12">
 
     <legend>Ajuste de Saldo Materiais</legend>
     <label>Deposito</label>
     <?=Deposito::pegaDeposito();?>
     <br>
-    <div class="col-md-4">
+</div>
+    <div class="col-md-3">
         <label>Material</label>
         <?=Produto::pegaProduto();?>
     </div>
-    <div class="col-md-4">
-        <label>Saldo Atual</label>
-        <input id="txtSaldoAtual" class="form-control" type="text" value="" readonly>
+    <div class="col-md-3">
+        <label>Entrada</label>
+        <select class='form-control' id='selEntrada' name='selEntrada'>
+            <option></option>
+        </select>
     </div>
-    <div class="col-md-4">
-        <label>Valor Correção</label>
-        <input id="txtSaldoCorrecao" class="form-control" type="spin" value="0" maxlength="4">
+    <div class="col-md-3">
+        <label>Saldo Atual</label>
+        <input id="txtSaldoAtual" name="txtSaldoAtual" class="form-control" type="text" value="0" readonly>
+    </div>
+    <div class="col-md-3">
+        <label>Valor Correção</label><br>
+        <input id="txtSaldoCorrecao" class="form-control" type="number" />
     </div>
     <div class="col-md-12">
         <label>Obs (Nº de Liberacao ou Transferencia / origem de algum evento)</label>
@@ -80,49 +88,69 @@
 
 $(document).ready(function(){
 
-    var spinner = $("#txtSaldoCorrecao").spinner({
-        max:50,
-        min:-50,
-        step: 1,
-        numberFormat : "n"
-    });
-
-    /* calcula o novo saldo */
-    $("#txtSaldoCorrecao").on("spin", function( event, ui ) {
-        var valorCorrecao = ui.value;
-        var saldoAtual = parseInt($("#saldoAtual").text());
-        var saldoNovo = saldoAtual + valorCorrecao;
-        $("#saldoNovo").text(saldoNovo);
-        //console.log(ui);
-
-    });
-
-
+    
     $("#correcaoSaldo").hide();
+
+    $("#selEntrada").change(function(){
+        saldo = $("#selEntrada").find(':selected').data('saldo');
+        $("#txtSaldoAtual").val(saldo);
+        $("#txtSaldoCorrecao").attr({
+            "max" : saldo,
+            "min" : 1
+                 });
+        $("#saldoAtual").text(saldo);
+    });
+    
+    $("#txtSaldoCorrecao").change(function(){
+        var valorCorrecao = $(this).val();
+        var saldoAtual = parseInt($("#txtSaldoAtual").val());
+       
+        if(valorCorrecao > saldoAtual){
+            alert('Valor maior que o saldo disponivel !');
+            $('#btnCorrecaoSaldo').attr('disabled', true);
+        }else{
+            var saldoNovo = saldoAtual - valorCorrecao;
+            $("#saldoNovo").text(saldoNovo);
+            $('#btnCorrecaoSaldo').attr('disabled', false);
+        }
+    }); 
 
     $("#id_produto").change(function(){
 
         if($("#id_deposito").val() != "0"){
+            
+            $('#selEntrada')[0].options.length = 0;
 
+            var id = $("#id_produto").val();
             var id_deposito = $("#id_deposito").val();
-            var id_produto = $("#id_produto").val();
 
             $("#correcaoSaldo").show();
 
             var dados = {
-                    "id_deposito": id_deposito,
-                    "id_produto": id_produto,
-                    "opcao" : "saldo",
-            };
+                    'id_material': ''+ id +'',
+                    'id_deposito':''+id_deposito+''
+                }
 
-            /* ajax buscar saldo*/
+            /* ajax buscar entrada */
             $.ajax({
                 type: 'POST',
-                url: 'mod_ajuda/backEnd/View/conEstoque/estoque/buscaSaldoDeposito.php?v=<?=md5(VERSAO)?>',
+                url:"mod_ajuda/backEnd/View/conEstoque/liberacao/busca_entrada.php?v=<?=md5(VERSAO)?>",
                 data: dados,
-                success: function(response) {
-                    $("#saldoAtual").text(response);
-                    $("#txtSaldoAtual").val(response);
+                dataType : "json",
+                success: function(dados) {
+                    //console.log(dados)
+                    $('#selEntrada').append("<option></option>");
+                    $.each(dados, (i, val) => {
+                        var saldo = val.saldo;
+                        if(typeof saldo == 'object') {
+                            saldo = val.quantidade;
+                        }else {
+                            saldo = val.saldo;
+                        }
+                        $('#selEntrada').append(`<option value="${val.id_produto}" data-saldo="${saldo}"> ${val.id_produto} - Saldo Individual ${saldo} </option>`);
+                        
+                    });
+                                    
 
 
                 },
@@ -142,8 +170,7 @@ $(document).ready(function(){
         var id_produto = $("#id_produto").val();
         var qtd = parseInt($("#txtSaldoCorrecao").val(), 10);
         var obs = $("#txtObs").val();
-
-        var isValid = $( "#txtSaldoCorrecao" ).spinner( "isValid" );
+        var id_entrada = $("#selEntrada").find(':selected').val();
 
         var dados = {
                 "id_deposito": id_deposito,
@@ -151,9 +178,8 @@ $(document).ready(function(){
                 "qtd"       : qtd,
                 "opcao" : "gravar",
                 'obs'   : obs,
+                'id_entrada' : id_entrada,
         };
-
-        if(isValid){
 
             /* ajax grava saldo*/
             $.ajax({
@@ -164,16 +190,14 @@ $(document).ready(function(){
                     console.log(response);
                     if(response == "sucesso"){
                         alert("Salvo corrigo com Sucesso !");
-                        location.reload();
+                        //location.reload();
                     }
                 },
                 error: function(e){
                     console.log(JSON.stringify(e));
                 }				
             });
-        }else{
-            alert("Número inválido para Correção do saldo \n O valor deve estar entre 50 e -50");
-        }
+        
 
 
 

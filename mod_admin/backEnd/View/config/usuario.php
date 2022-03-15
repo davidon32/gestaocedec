@@ -59,15 +59,19 @@
                                 <td>".$value['email_rec']."</td>
                                 <td>".($value['situacao'] == 1 ? "Ativo" : "Inativo")."</td>
                                     <td>".$value['ultimo_acesso']."</td>
-                                <td><a href='".FuncaoBase::geraLink("admin", "adm", "caduser", array('id'=>$value['id_usuario']))."'><img src='core/imagem/view.png' width='25' title='Visualizar'></a>";
-                            if(Usuario::getPermissao('cedec_permissao', 'permissao_usuario')){
-                                print "<a href='".FuncaoBase::geraLink("admin", "adm", "alterar", array('id'=>$value['id_usuario']))."'><img src='core/imagem/permissao_icon.png' width='25' title='Alterar Permissoes Usuario'></a>";
-                            }
-                            if(Usuario::getPermissao('cedec_permissao', 'dados_usuario')){
-                                print "<a href='".FuncaoBase::geraLink("cedec", "funcionario", "alterar", array('id'=>$value['id_usuario']))."'><img src='core/imagem/permissao_icon.png' width='25' title='Alterar Permissoes Usuario'></a>";
-                            }
-                            print "<a href='".FuncaoBase::geraLink("equipe", "funcionario", "alterar", array('id'=>$value['id_usuario'], 'voltar'=>'pesquisa'))."'><img src='core/imagem/editar.png' width='25' title='Alterar Usuario'></a>";
-                            print "</td></tr>";
+                                <td>
+                                <!-- visualizar registro -->
+                                <a href='".FuncaoBase::geraLink("admin", "adm", "caduser", array('id'=>$value['id_usuario']))."'><img src='core/imagem/view.png' width='25' title='Visualizar'></a>";
+                                    # Alterar Permissoes 
+                                    if(Usuario::getPermissao('cedec_permissao', 'permissao_usuario')){
+                                        print "<a href='".FuncaoBase::geraLink("admin", "adm", "alterar", array('id'=>$value['id_usuario']))."'><img src='core/imagem/permissao_icon.png' width='25' title='Alterar Permissoes Usuario'></a>";
+                                    }
+                                    # alterar perfil 
+                                    if(Usuario::getPermissao('cedec_permissao', 'dados_usuario')){
+                                        print "<a href='".FuncaoBase::geraLink("equipe", "funcionario", "alterar", array('id'=>$value['id_funcionario'], 'voltar'=>'pesquisa', 'id_'=> $value['id_funcionario'] ))."'><img src='core/imagem/editar.png' width='25' title='Alterar Usuario'></a>";
+                                        //print "<a href='".FuncaoBase::geraLink("equipe", "funcionario", "alterar", array('id'=>$value['id_usuario']))."'><img src='core/imagem/editar.png' width='25' title='Alterar dados perfil Usuario'></a>";
+                                    }
+                                    print "</td></tr>";
                     }
 
                     //var_dump($dados);

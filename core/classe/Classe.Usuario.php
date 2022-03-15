@@ -940,7 +940,7 @@ class Usuario extends UsuarioModel {
 
     #@ funcao retorna dados do usuario para alteracao
 
-    function dadosUsuarioIdFunc($id_funcionario) {
+    public static function dadosUsuarioIdFunc($id_funcionario) {
 
         $con = Conexao::getInstance();
 
@@ -952,18 +952,18 @@ class Usuario extends UsuarioModel {
 							id_deposito,
 							nome,
 							senha,
-							email,
+							email_rec,
 							nivel,
 							situacao,
 							login,
-							m_deposito,
-							m_pipa,
-							m_cce,
-							m_decretacao,
-							m_comdec,
-							m_apoio,
-							m_poco,
-							m_escola
+							it_m_deposito,
+							it_m_pipa,
+							it_m_cce,
+							it_m_decretacao,
+							it_m_comdec,
+							it_m_apoio,
+							it_m_poco,
+							it_m_escola
 							FROM cedec_usuario
 							WHERE id_funcionario = :id_funcionario';
 
@@ -1745,6 +1745,30 @@ class Usuario extends UsuarioModel {
         $result->bindValue(":senha", $dados['senha']);
         $result->bindValue(":email", $dados['email_rec']);
         $result->bindValue(":nivel", $dados['nivel']);
+        $result->bindValue(":id", $dados['id_usuario']);
+
+
+        $result->execute();
+
+        return true;
+    }
+    
+    
+    /**
+     * atualiza nome
+     * 
+     */
+    public static function AtualizarNomeUsuario($dados) {
+        
+        var_dump($dados);
+        
+        $con = Conexao::getInstance();
+
+        $sql = "UPDATE cedec_usuario SET nome = :nome
+					WHERE id_usuario = :id";
+
+        $result = $con->prepare($sql);
+        $result->bindValue(":nome", $dados['nome']);
         $result->bindValue(":id", $dados['id_usuario']);
 
 

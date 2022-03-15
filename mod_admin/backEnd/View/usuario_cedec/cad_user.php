@@ -11,9 +11,34 @@
 <?php
 
     $id_usuario = isset($_GET['id']) ? $_GET['id'] : null;
+    $edit = isset($_GET['edit']) ? $_GET['edit'] : null;
+    
+    
     
     # pega dos dados do usuario "cedec_usuario"
     $usuario = Usuario::getDadoUsuario($id_usuario);
+    
+    $readonly = '';
+    $formaction = "action='#'";
+    $button = '';
+    $title = 'Visualizar Dados do Usuario';
+    
+   
+    if(empty($id_usuario)) {
+        print "<script>";
+        print "window.location.href = '".FuncaoBase::geraLink('admin', "adm", "usuario")."';";
+        print "</script>";
+    
+    # editar
+    }else if(!empty ($edit)) {
+       $button = "<input class='btn btn-info' type='submit' name='btnEnviar' id='btnEnviar' value='Gravar'>";
+       $formaction = "action=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=admin&controller=adm&action=cad_user_valida\"";
+       $title = "Editar Dados";
+    }else{
+       $readonly = "readonly='readonly'";
+       
+        
+    }
 
     # pega permissao dos modulos 
     $permissaoModulo = Usuario::getPermissaoModulo($_COOKIE['seguranca']['login']);
@@ -24,15 +49,15 @@
 ?>
 
 <div class="col-md-6">
-<legend>Dados do Usuario</legend>
-    <form action="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=&modulo=admin&controller=adm&action=cad_user_valida" method="POST" name="frmCadUserRapido" id="frmCadUserRapido">
+<legend><?=$title;?></legend>
+    <form <?=$formaction;?> method="POST" name="frmCadUserRapido" id="frmCadUserRapido">
         <label>Numero Policia</label>
-        <input class="form-control" type="text" name="txtNumPol" value="<?=!empty($usuario) ? $usuario['num_masp'] : "" ;?>" id="txtNumPol" maxlenght="9" data-mask='9999999-9' >
+        <input class="form-control" type="text" name="txtNumPol" value="<?=!empty($usuario) ? $usuario['num_masp'] : "" ;?>" id="txtNumPol" maxlenght="9" data-mask='9999999-9' <?=$readonly;?>
 
         <label>Nome Completo</label>
-            <input class="form-control" type="text" name="txtNome" value="<?=!empty($usuario) ? $usuario['nome'] : "" ;?>" id="txtNome" maxlength="39" >
+            <input class="form-control" type="text" name="txtNome" value="<?=!empty($usuario) ? $usuario['nome'] : "" ;?>" id="txtNome" maxlength="39" <?=$readonly;?> />
         <label>Usuario (alternativo S999999)</label>
-            <input class="form-control" type="text" name="txtUsuario" value="<?=!empty($usuario) ? $usuario['login'] : "" ;?>" id="txtUsuario" maxlength="9" >
+            <input class="form-control" type="text" name="txtUsuario" value="<?=!empty($usuario) ? $usuario['login'] : "" ;?>" id="txtUsuario" maxlength="9" <?=$readonly;?> >
         
         <label>Lotado</label>
         <select class="form-control" name="selSetor" value="" id="selSetor">
@@ -41,13 +66,13 @@
         </select>
         <br>
         <label style='color: red'>Email Recuperação Senha</label>
-        <input class="form-control" type="email" name="txtEmail" value="<?=!empty($usuario) ? $usuario['email_rec'] : "" ;?>" id="txtEmail">
+        <input class="form-control" type="email" name="txtEmail" value="<?=!empty($usuario) ? $usuario['email_rec'] : "" ;?>" id="txtEmail" <?=$readonly;?> >
         <br>
         <label>Email Informações 1</label>
-        <input class="form-control" type="email" name="txtEmailInfo1" value="<?=!empty($usuario) ? $usuario['email_info1'] : "" ;?>" id="txtEmailInfo1">
+        <input class="form-control" type="email" name="txtEmailInfo1" value="<?=!empty($usuario) ? $usuario['email_info1'] : "" ;?>" id="txtEmailInfo1" <?=$readonly;?> >
         <br>
         <label>Email Informações 2</label>
-        <input class="form-control" type="email" name="txtEmailInfo2" value="<?=!empty($usuario) ? $usuario['email_info2'] : "" ;?>" id="txtEmailInfo2">
+        <input class="form-control" type="email" name="txtEmailInfo2" value="<?=!empty($usuario) ? $usuario['email_info2'] : "" ;?>" id="txtEmailInfo2" <?=$readonly;?> >
         <br>
         
         <input type="hidden" name="opcao" value="<?=!empty($usuario) ? "atualiza" : "caduser" ;?>" >
@@ -56,7 +81,7 @@
         <br>
         
 
-        <input class="btn btn-info" type="submit" name="btnEnviar" id="btnEnviar" value="Gravar">
+        <?=$button?>
         
     </form>
 </div>
