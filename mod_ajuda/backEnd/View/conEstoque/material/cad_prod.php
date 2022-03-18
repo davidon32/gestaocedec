@@ -32,11 +32,30 @@
     <form id="frmCad_produto" action="" method="post">
         <div class="col-md-12">
 
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label>Nome</label>
                 <input class="form-control" name="txtNome" id="txtNome" type="text" required maxlength="70"/>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
+                <label title='Este campo é necessário para geração de relatorio sem destinção de fornecedor, ou seja quantitativamente !'>Nome basico do Material</label>
+                <select class="form form-control">
+                    <option value='0'>Escolha o nome do produto</option>
+                    <option value='1'>CESTA BASICA</option>
+                    <option value='2'>KIT HIGIENE</option>
+                    <option value='3'>AGUA MINERAL</option>
+                    <option value='4'>KIT DORMITORIO</option>
+                    <option value='5'>COLCHAO</option>
+                    <option value='6'>KIT LIMPEZA</option>
+                    <option value='7'>LEITE</option>
+                    <option value='8'>LONA</option>
+                    <option value='9'>TELHA</option>
+                    <option value='10'>COBERTOR</option>
+                    <option value='11'>ROUPA</option>
+                    <option value='12'>ALCOOL</option>
+                    <option value='13'>OUTROS</option>
+                </select>
+            </div>
+            <div class="col-md-4">
                 <label>Descrição</label>
                 <input class="form-control" name="txtDescricao" id="txtDescricao" type="text" maxlength="70" required/>
             </div>

@@ -79,7 +79,7 @@
         <div class="topbar-section">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-4 col-md-6 col-sm-6 hidden-xs-down">
+                    <div class="col">
                         <div class="topsocial">
                             <?php include_once('rede_social.php') ?>
                         </div><!-- end social -->
@@ -98,17 +98,17 @@
         </div><!-- end topbar -->
 
         <div class="header-section">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="text-right">
+                    <div class="col-6 text-right">
+                        
                             <a href="http://www.defesacivil.mg.gov.br"><img width="100" src="http://sistema.defesacivil.mg.gov.br/logo/imagens/logomarca_da_defesacivil_nova_expandida.png" alt=""></a>                            
-                        </div>
+                        
                     </div>
-                    <div class="col-md-6">
-                        <div class="text-left">
+                    <div class="col-6 text-left">
+                        
                             <a href="http://www.defesacivil.mg.gov.br"><img width="100" src="http://sistema.defesacivil.mg.gov.br/logo/imagens/logomarca_gabinete_militar_nova.png" alt=""></a>
-                        </div><!-- end logo -->
+                       <!-- end logo -->
                     </div>
                 </div><!-- end row -->
             </div><!-- end header-logo -->
@@ -322,25 +322,27 @@ foreach ($categorias as $key => $value) {
         </section>
 
         <footer class="footer">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-8 offset-lg-2">
                         <div class="widget">
                             <div class="footer-text text-center">
+                                <div class="container-fluid">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="text-right">
-                                            <a href="garden-index.html"><img width="80" src="http://sistema.defesacivil.mg.gov.br/logo/imagens/logomarca_da_defesacivil_nova_s_fundo.png" alt=""></a>
+                                    
+                                        <div class="col-6 text-right ">
+                                            <a href="garden-index.html"><img width="100" src="http://sistema.defesacivil.mg.gov.br/logo/imagens/logomarca_da_defesacivil_nova_s_fundo.png" alt=""></a>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="text-left">
+                                   
+                                   
+                                        <div class="col-6 text-left">
                                             <a href="garden-index.html"><img width="100" src="http://sistema.defesacivil.mg.gov.br/logo/imagens/logomarca_gabinete_militar_nova_sem_fundo.png" alt=""></a>
 
                                         </div><!-- end logo -->
-                                    </div>
+                                    
 
                                 </div><!-- end row -->
+                                </div>
                                 <!--<a href="index.html"><img src="images/version/garden-footer-logo.png" alt="" class="img-fluid"></a>-->
                                 <p>Defesa Civil do Estado de Minas Gerais <br>Defesa Civil, somos todos nós !</p>
                                 <div class="social">

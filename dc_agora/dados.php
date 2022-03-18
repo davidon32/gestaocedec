@@ -21,7 +21,7 @@ $ultimas_postagens = $agora->listaPostagem(3, $cat);
 foreach ($ultimas_postagens as $key => $value) {
     $ids[] = $value['id'];
 }
-
+//var_dump($ultimas_postagens);
 # lista com postagens -3 ultimas 
 $postagens = $agora->listaRestantePostagem($ids);
 

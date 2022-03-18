@@ -158,6 +158,7 @@
                                         <select name="sel_categoria" id="sel_categoria" class="form-control" style="color: gray ;" title="Nota do autor ref. a postagem" maxlength="149">
                                             <option>Selecione uma Categoria</option>
                                             <option>CEDEC-MG</option>
+                                            <option title='Ação Integrada de Proteção e Defesa Civil'>AIPDC</option>
                                             <option>Outros(descrever no texto)</option>
                                             <option>Reunião</option>
                                             <option>Diligência</option>

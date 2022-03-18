@@ -314,6 +314,9 @@ class DefesaCivilAgoraModel {
             case "vistoria_fiscalizacao":
                 return "Vistoria/Fiscalização";
                 break;
+            case "aipdc":
+                return "Ações Integradas de Proteção e DC";
+                break;
             default:
                 break;
         }
