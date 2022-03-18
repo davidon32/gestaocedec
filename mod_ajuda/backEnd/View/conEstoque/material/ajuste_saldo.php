@@ -108,7 +108,11 @@ $(document).ready(function(){
         if(valorCorrecao > saldoAtual){
             alert('Valor maior que o saldo disponivel !');
             $('#btnCorrecaoSaldo').attr('disabled', true);
-        }else{
+        }else if(valorCorrecao <1){
+            alert('Os Valores não podem ser negativos !');
+            $('#btnCorrecaoSaldo').attr('disabled', true);
+        
+        }else {
             var saldoNovo = saldoAtual - valorCorrecao;
             $("#saldoNovo").text(saldoNovo);
             $('#btnCorrecaoSaldo').attr('disabled', false);
@@ -159,16 +163,13 @@ $(document).ready(function(){
                 }				
             });
         }
-
-
-
     });
 
     /* Corrige o Saldo */
     $("#btnCorrecaoSaldo").click(function(){
         var id_deposito = $("#id_deposito").val();
         var id_produto = $("#id_produto").val();
-        var qtd = parseInt($("#txtSaldoCorrecao").val(), 10);
+        var qtd = parseInt(-$("#txtSaldoCorrecao").val(), 10);
         var obs = $("#txtObs").val();
         var id_entrada = $("#selEntrada").find(':selected').val();
 
@@ -177,6 +178,7 @@ $(document).ready(function(){
                 "id_produto": id_produto,
                 "qtd"       : qtd,
                 "opcao" : "gravar",
+                "operacao" : "correcao",
                 'obs'   : obs,
                 'id_entrada' : id_entrada,
         };
@@ -187,19 +189,16 @@ $(document).ready(function(){
                 url: 'mod_ajuda/backEnd/View/conEstoque/estoque/buscaSaldoDeposito.php?v=<?=md5(VERSAO)?>',
                 data: dados,
                 success: function(response) {
-                    console.log(response);
+                    //console.log(response);
                     if(response == "sucesso"){
                         alert("Salvo corrigo com Sucesso !");
-                        //location.reload();
+                        location.reload();
                     }
                 },
                 error: function(e){
                     console.log(JSON.stringify(e));
                 }				
             });
-        
-
-
 
     });
 

@@ -37,16 +37,16 @@ if(empty($opcao) && (empty($qtd))){
                                             Deposito::PegaNomeDeposito($id_deposito),
                                             date("Y-m-d"),
                                             "-",
-                                            $id_deposito,
-                                            $id_entrada);
+                                            $id_deposito);
             }
             if($result){
                 print "sucesso";
             };
 
         }elseif ($qtd < 0){
-            # lancar entrada negativa material
+            # lancar entrada negativa material - ajuste saldo
             $ajusteSaldo = $saldo->DebitarSaldo($id_material, $id_deposito, abs($qtd));
+            
             if($ajusteSaldo){
                 $result = Material::Cadastrar($id_material,
                                             Unidade::PegaNomeId($id_material),
@@ -56,7 +56,9 @@ if(empty($opcao) && (empty($qtd))){
                                             $qtd,
                                             Deposito::PegaNomeDeposito($id_deposito),
                                             date("Y-m-d"),
-                                            "-");
+                                            "-",
+                                            $id_deposito,
+                                            $id_entrada);
             }
             if($result){
                 print "sucesso";

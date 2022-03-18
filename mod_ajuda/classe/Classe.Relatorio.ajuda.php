@@ -994,10 +994,11 @@ class RelatorioAju extends DataMysql {
     */
     public static function SaidaItemTotal($id_entrada){
         
-        $dados = "";
+        $dados = 0;
         
         $con = Conexao::getInstance();
-        $sql = "SELECT SUM(QUANTIDADE) as quantidade FROM aju_item 
+        $sql = "SELECT case when SUM(QUANTIDADE) IS NULL then 0 ELSE SUM(QUANTIDADE)
+                end as quantidade FROM aju_item 
                     WHERE aju_item.situacao <2
                     AND aju_item.id_entrada = ".$id_entrada;
         
@@ -1019,7 +1020,9 @@ class RelatorioAju extends DataMysql {
         $dados = "";
         
         $con = Conexao::getInstance();
-        $sql = "SELECT SUM(QUANTIDADE) as quantidade FROM aju_produto 
+        $sql = "SELECT case when SUM(QUANTIDADE) is null then 0 else SUM(QUANTIDADE) 
+                END 
+                as quantidade FROM aju_produto 
                     WHERE aju_produto.origem LIKE 'Transferência entre Depósitos%'
                     AND id_entrada = ".$id_entrada;
         

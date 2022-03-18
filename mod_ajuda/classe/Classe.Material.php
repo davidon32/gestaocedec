@@ -11,20 +11,20 @@
 ************************************************************************************/
 
 class Material {
-
 	
 	static function cadastrar($_id_produto,
-							$_nome_produto,
-							$_dataEntrada,
-							$_origem,
-							$_obs,
-							$_qtd,
-							$_nome_deposito,
-							$_validade = null,
-							$_nota,
-                                                        $_id_dep_destino,
-                                                        $id_entrada = null) {
-								
+					$_nome_produto,
+					$_dataEntrada,
+					$_origem,
+					$_obs,
+					$_qtd,
+					$_nome_deposito,
+					$_validade = null,
+					$_nota,
+                                        $_id_dep_destino,
+                                        $id_entrada = null) {
+            
+            								
 		$con = Conexao::getInstance();
 				$sql = "insert into aju_produto (codProd,
                                             nome,
@@ -47,7 +47,7 @@ class Material {
 						:validade,
 						:nota_fiscal,
                                                 :id_dep_destino,
-                                                id_entrada)";
+                                                :id_entrada)";
 		try {
 			$result = $con->prepare($sql);
 
@@ -61,6 +61,7 @@ class Material {
 			$result->bindValue(":validade"    , $_validade);
 			$result->bindValue(":nota_fiscal" , $_nota);
 			$result->bindValue(":id_dep_destino" , $_id_dep_destino);
+			$result->bindValue(":id_entrada" , $id_entrada);
 			
 
 			$result->execute();
@@ -76,7 +77,7 @@ class Material {
 	 */
 	static function Editar(array $dados){
             
-            var_dump($dados);
+            //var_dump($dados);
             
              $validade = ($dados['validade'] == null) ? null : "'".$dados['validade']."'";
 

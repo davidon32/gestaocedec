@@ -13,7 +13,7 @@ class FuncionarioController extends Controller {
             $id_funcionario = $id_funcionario_get;
         }
         
-        var_dump($id_funcionario);
+        //var_dump($id_funcionario);
 
         $funcionario = new FuncionarioEquipeModel();
         $usuario = new Usuario();

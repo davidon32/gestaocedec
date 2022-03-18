@@ -104,14 +104,25 @@ foreach ($entrada as $key => $value) {
     
     
     /* correcao saldo */
-    $totalCorrecao = $_relatorioAjuda->CorrecaoSaldoTotal($value['id_produto']);
+    $totalCorrecao = (int)$_relatorioAjuda->CorrecaoSaldoTotal($value['id_produto']);
 
     /* itens saida */
-    $totalItensSaida = $_relatorioAjuda->SaidaItemTotal($value['id_produto']);
     
+    $totalItensSaida = (int)$_relatorioAjuda->SaidaItemTotal($value['id_produto']);
+        
     //var_dump($value['quantidade'], $totalTransferencia, $totalCorrecao, $totalItensSaida);
 
-    $saldo = $value['quantidade'] - ($totalItensSaida+(($totalTransferencia == null) ? 0 : $totalTransferencia) +$totalCorrecao);
+    
+    
+    $quantidade = $value['quantidade'];
+    $saldo = $quantidade -$totalItensSaida -$totalTransferencia +$totalCorrecao;
+    
+    
+    #var_dump("quantidade". $value['quantidade']."<br><hr>");
+    #var_dump("total liberado ".$totalItensSaida."<br><hr>");
+    #var_dump("transferencia" .$totalTransferencia."<br><hr>");
+    #var_dump("correcao" .$totalCorrecao."<br><hr>");
+    #var_dump("correcao" .$saldo."<br><hr>");
 
     $cor = " style='color:green' title='Parabéns material está em conformidade com entradas e saidas !'";
 

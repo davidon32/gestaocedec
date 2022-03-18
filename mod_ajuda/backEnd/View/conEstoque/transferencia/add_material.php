@@ -219,7 +219,7 @@ $nProd = new Produto();
                                 data: dados,
                                 dataType : "json",
                                 success:function(dados){
-                                    console.log(dados)
+                                    //console.log(dados)
                                     $('#selEntrada').append("<option></option>");
                                     $.each(dados, (i, val) => {
                                         var saldo = val.saldo;
@@ -228,7 +228,9 @@ $nProd = new Produto();
                                         }else {
                                             saldo = val.saldo;
                                         }
-                                        $('#selEntrada').append(`<option value="${val.id_produto}" data-saldo="${saldo}"> ${val.id_produto} - Saldo Individual ${saldo} </option>`);
+                                        if(saldo > 0){
+                                            $('#selEntrada').append(`<option value="${val.id_produto}" data-saldo="${saldo}"> ${val.id_produto} - Saldo Individual ${saldo} </option>`);
+                                        }
                                     });
                                     
                                 }

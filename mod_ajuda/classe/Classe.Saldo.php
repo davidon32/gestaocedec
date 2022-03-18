@@ -51,6 +51,7 @@ include_once 'Classe.Transferencia.Material.php';
 		
 		#@debita o saldo do estoque
 		static function DebitarSaldo($id_produto, $idDeposito, $qtd){
+                
 			
 			$con = Conexao::getInstance();
 			

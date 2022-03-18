@@ -26,7 +26,7 @@ if(isset($_GET['voltar'])){
     $url = FuncaoBase::geraLink("equipe", "funcionario", "alterar");
 }
 
-var_dump($dados,$_GET['id_']);
+//var_dump($dados,$_GET['id_']);
 
 $email_rec = Usuario::dadosUsuarioIdFunc($dados['id_funcionario']);
 

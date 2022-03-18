@@ -139,9 +139,7 @@ class Produto {
      * 
      *  */
     public static function ListEntradaSaldo($filtro) {
-        
-        //var_dump($filtro);
-        
+
         $con = Conexao::getInstance();
         
         $dados = array();
@@ -151,6 +149,7 @@ class Produto {
                 FROM aju_produto
                 WHERE codProd = {$filtro[0]}
                 and aju_produto.cancelado = 0
+                and aju_produto.origem not like 'Correcao Manual de Saldo'
                 AND aju_produto.id_dep_destino = {$filtro[1]}";
         
         $result = $con->query($sql);
@@ -160,10 +159,14 @@ class Produto {
             
             
             $transferencia = Produto::ListEntradaTransf($filtro, $linha['id_produto']);
+            $transferenciaEmAberto = Produto::ListEntradaTransfEmAberto($filtro, $linha['id_produto']);
+            $correcaoSaldo = Produto::ListEntradaCorrecaoSaldo($filtro, $linha['id_produto']);
             $liberacao = Produto::ListItemLiberacao($filtro, $linha['id_produto']);
             $campos['transferencia'] = $transferencia;
+            $campos['transferenciaEmAberto'] = $transferenciaEmAberto;
             $campos['liberacao'] = $liberacao;
-            $campos['saldo'] = $linha['quantidade'] - $transferencia - $liberacao;
+            $campos['correcaosaldo'] = $correcaoSaldo;
+            $campos['saldo'] = $linha['quantidade'] -$transferencia +$correcaoSaldo -$liberacao -$transferenciaEmAberto;
             $dados[] = $campos;
         }
         
@@ -197,6 +200,66 @@ class Produto {
         }
         return $dados;
     }
+    
+    /**
+     * @example Pega as transferencias de materiais
+     * 
+     *  */
+    public static function ListEntradaTransfEmAberto($filtro, $id_entrada) {
+        
+        $con = Conexao::getInstance();
+
+        $dados = array();
+        $sql = "SELECT 
+                case when sum(aju_item_transf.quantidade) is NULL 
+                then 0
+                else sum(aju_item_transf.quantidade)
+                end AS totTransfAberto
+                FROM aju_item_transf
+                INNER JOIN aju_transferencia
+                ON aju_transferencia.id_transferencia = aju_item_transf.id_transferencia
+                WHERE aju_item_transf.id_produto = {$filtro[0]}
+                AND aju_transferencia.situacao = 0
+                AND aju_transferencia.id_dep_origem = {$filtro[1]}
+                AND aju_item_transf.id_entrada = {$id_entrada}";
+                
+                
+        
+        $result = $con->query($sql);
+
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            $dados = $linha['totTransfAberto'];
+        }
+        return $dados;
+    }
+    
+    /**
+     * @example Pega as transferencias de materiais
+     * 
+     *  */
+    public static function ListEntradaCorrecaoSaldo($filtro, $id_entrada) {
+        
+        $con = Conexao::getInstance();
+
+        $dados = array();
+        $sql = "SELECT 
+                case when sum(aju_produto.quantidade) is NULL 
+                then 0
+                else sum(aju_produto.quantidade)
+                end AS totTransf
+                FROM aju_produto
+                WHERE codProd = {$filtro[0]}
+                AND aju_produto.id_entrada = {$id_entrada}
+                AND aju_produto.origem LIKE 'Correcao Manual de Saldo%'";
+        
+        $result = $con->query($sql);
+
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            $dados = $linha['totTransf'];
+        }
+        return $dados;
+    }
+    
     /**
      * @example item liberacao 
      * 

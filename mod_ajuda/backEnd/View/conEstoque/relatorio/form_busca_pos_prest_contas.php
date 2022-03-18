@@ -32,7 +32,7 @@ $eventos = $eventoModel->listaEvento();
     <div class="col-md-12">
         <br>
         <label for="ckListMat">Material</label>
-        <input class="form form-control" type="text" name="nome_material" id="nome_material" required>
+        <input class="form form-control" type="text" name="nome_material" id="nome_material" >
         <input type="hidden" name="id_material" id="id_material" >
         <br><br>
     </div>
