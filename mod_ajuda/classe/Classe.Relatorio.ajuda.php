@@ -158,6 +158,9 @@ class RelatorioAju extends DataMysql {
         $sql = "select aju_unidade.id_unidade,
                 aju_unidade.nome as produto,
                 aju_unidade.descricao,
+                aju_unidade.peso,
+                aju_unidade.valor,
+                aju_unidade.uni_medida,
                 aju_deposito.nome as deposito,
                 aju_deposito.abreviacao,
                 aju_estoque.saldo 
@@ -171,6 +174,53 @@ class RelatorioAju extends DataMysql {
 
        
 
+            $con = Conexao::getInstance();
+
+            $result = $con->query($sql);
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dados[] = $linha;
+            }
+
+            return $dados;
+        } catch (Exception $e) {
+            
+        }
+    }
+    
+    /* INVENTARIO DE MATERIAIS */
+
+    public function inventarioGeralSaldoAnterior($id_deposito = null, $data_saldo) {
+              
+        try {
+            $dados = array();
+            $id_unidades = self::listMateriaisInvent();
+            
+        
+        if(!empty($id_deposito)){
+            $deposito = " and aju_deposito.id_deposito = '{$id_deposito}'" ;
+        }else {
+            $deposito = "";
+        }
+
+        $sql = "SELECT aju_estoque_anterior.id_produto as id_unidade,
+                aju_unidade.nome as produto,
+                aju_unidade.descricao,
+                aju_unidade.uni_medida,
+                aju_unidade.peso,
+                aju_unidade.valor,
+                aju_deposito.nome as deposito,
+                aju_deposito.abreviacao,
+                aju_estoque_anterior.saldo
+                FROM aju_estoque_anterior
+                INNER JOIN aju_unidade
+                ON aju_estoque_anterior.id_produto = aju_unidade.id_unidade
+                INNER JOIN aju_deposito
+                ON aju_estoque_anterior.id_deposito = aju_deposito.id_deposito
+                WHERE aju_estoque_anterior.data_saldo = '".$data_saldo."'
+                 $deposito
+                ORDER BY aju_deposito.id_deposito,
+                aju_unidade.nome";
+        
             $con = Conexao::getInstance();
 
             $result = $con->query($sql);

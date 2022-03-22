@@ -24,17 +24,17 @@ class FuncionarioController extends Controller {
             $post = $_POST;
             
             $dadosEmailRec = array('txtEmail'=>$post['txtEmailRec'],
-                                   'id_usuario'=>$_COOKIE['seguranca']['idUser'],
+                                   'id_usuario'=>$post['txt_id_usuario'],
                                    'situacao' =>$dados['situacao']);
 
             $funcionario->edit($post);
-            //$usuario->AtualizaEmail($dadosEmailRec);
+            $usuario->AtualizaEmail($dadosEmailRec);
             
             //$id_usuario = $usuario->dadosUsuarioIdFunc($id_funcionario);
             
-            //$usuario::AtualizarNomeUsuario($id_usuario);
-            var_dump($_POST);
-            die();
+            $usuario::AtualizarNomeUsuario(array('id_usuario'=>$post['txt_id_usuario'], 'nome'=>$post['txt_nome']));
+            //var_dump($_POST);
+            //die();
             FuncaoBase::alert("Dados Atualizados com Sucesso !");
             if(isset($_GET['voltar']) && $_GET['voltar'] == 'pesquisa') {
                 print "<script>

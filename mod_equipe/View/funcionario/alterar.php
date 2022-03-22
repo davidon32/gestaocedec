@@ -37,6 +37,7 @@ $email_rec = Usuario::dadosUsuarioIdFunc($dados['id_funcionario']);
     <legend>Dados Gerais</legend>
     <form action="<?=$url?>" method="POST" name="frm_cad_funcionario">
         <input type="hidden" name="txt_id_funcionario" value="<?php print $dados['id_funcionario']; ?>">
+        <input type="hidden" name="txt_id_usuario" value="<?php print $dados['id_usuario']; ?>">
 
 
         <label>Nº Policia/MASP</label>  

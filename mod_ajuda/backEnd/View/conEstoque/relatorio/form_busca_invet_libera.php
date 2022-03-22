@@ -51,16 +51,16 @@
                     }
                         ?>
                 </div>
-                <!--<div class="col-md-12">
+                <div class="col-md-12">
                     <br>
-                    <label>Data Inicial:</label>
-                    <input class="form-control" type="text" name="txtDtInicial" id="txtDtInicial" data-mask="99/99/9999" title="Periodo Inicial de Liberações " required/>
+                    <label>Data: (a partir de 25/01/2022)</label>
+                    <input class="form-control" type="text" name="txtDtInicial" id="txtDtInicial" data-mask="99/99/9999" title="Consulta a saldo anterior !" />
 		</div>
-		<div class="col-md-12">
+		<!--<div class="col-md-12">
                     <br>
                     <label>Data Final:</label>
                     <input class="form-control" type="text" name="txtDtFinal" id="txtDtFinal" data-mask="99/99/9999" title="Periodo Final de Liberações" required/>
-		</div>-->
+		</div>
                 
                 <!--<div class="col-md-12">
                     <br>
@@ -102,8 +102,12 @@
 <?php include_once "template/page/rodapePage.php";?>
 <script type="text/javascript">
 
-	$("#txtDtInicial").datepicker({ dateFormat: 'dd/mm/yy' });
-	$("#txtDtFinal").datepicker({ dateFormat: 'dd/mm/yy' });
+	$("#txtDtInicial").datepicker(
+                { dateFormat: 'dd/mm/yy',
+                  maxDate: "today",
+                  minDate: "25/01/2022"},
+                );
+	/*$("#txtDtFinal").datepicker({ dateFormat: 'dd/mm/yy' });*/
 
 	
 	$("#ckListMat").attr("checked",false);

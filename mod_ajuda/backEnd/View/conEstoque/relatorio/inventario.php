@@ -88,6 +88,10 @@
 
     $id_deposito = isset($_POST['id_deposito']) ? $_POST["id_deposito"] : "";
     
+    $dataInventario = isset($_POST['txtDtInicial']) ? DataMysql::dataForm($_POST["txtDtInicial"]) : "";
+    
+    $linha = "<td>".date('d/m/Y')."</td>";  
+   
     if(empty($_POST)){
     
     print "<script>window.location.href='".FuncaoBase::geraLink("ajuda", "relatorio", "form_busca_invet_libera")."';</script>";
@@ -95,7 +99,12 @@
     
     $_relatorioAjuda = new RelatorioAju();
 
-    $dados = $_relatorioAjuda->inventarioGeral($id_deposito);
+    if(empty($dataInventario) || $dataInventario == date('Y/m/d')){
+        $dados = $_relatorioAjuda->inventarioGeral($id_deposito);
+    }else {
+        $linha = "<td>". DataMysql::dataVisual($dataInventario)."</td>";
+        $dados = $_relatorioAjuda->inventarioGeralSaldoAnterior($id_deposito, $dataInventario);
+    }
     
     
 
@@ -114,27 +123,30 @@ $inventario = <<<HTML
     <table class="table table-condensed table-bordered table-hover table-striped" id='inventario'>
         <tr>
             <th>CÓDIGO</th>
+            <th>DATA</th>
             <th>DESCRICAO</th>
             <th>UN</th>
             <th>MARCA</th>
             <th>ESTOQUE</th>
             <th>DEP</th>
-            <th>CUSTO</th>
+            <th>CUSTO UNIT.</th>
+            <th>CUSTO TOTAL</th>
+            <th>PESO UNIT.(kg) </th>
+            <th>PESO TOTAL (kg)</th>
             <th>QTD</th>
         </tr>
 HTML;
         
 ?>
         <?php
-        
-//var_dump($dados);
+
             foreach ($dados as $key => $value) {
                 
                 if($value['saldo'] > 0){
                     //var_dump(strrpos($value['produto'], 'CESTA'));
                     $saldo = $value['saldo'];
                     $inventario .="<tr>\n";
-                    $inventario .= "<td>".$value['id_unidade']."</td>";
+                    $inventario .= "<td>".$value['id_unidade']."</td>".$linha;
                     if(strrpos($value['produto'], 'CESTA') ===0){
                         $inventario .= "<td style='color:F13B0E'>";
                         $inventario .= "<b><i>".$value['produto']."</i></b>"; 
@@ -145,11 +157,14 @@ HTML;
                         $inventario .= (!empty($value['descricao'])) ? " - ".$value['descricao'] : "";
                     }
                     $inventario .= "</td>";
-                    $inventario .= "<td></td>";
+                    $inventario .= "<td>".$value['uni_medida']."</td>";
                     $inventario .= "<td></td>";
                     $inventario .= "<td>".$value['deposito']."</td>";
                     $inventario .= "<td>".$value['abreviacao']."</td>";
-                    $inventario .= "<td></td>";
+                    $inventario .= "<td>R$ ". FuncaoBase::real($value['valor'])."</td>";
+                    $inventario .= "<td>R$ ".FuncaoBase::real(($saldo * $value['valor']))."</td>";
+                    $inventario .= "<td>".$value['peso']."</td>";
+                    $inventario .= "<td>".($saldo * $value['peso'])."</td>";
                     $inventario .= "<td>".$saldo."</td>";
                     $inventario .= "\n</tr>\n\n";
                     

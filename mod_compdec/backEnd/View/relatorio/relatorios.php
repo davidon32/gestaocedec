@@ -137,23 +137,30 @@ tr:nth-child(even) {
 		
 	                
 	    if($_btn_enviar) {
-	        /* opção 1 - por associacoes */
+                
+                //var_dump($_rb_filtro);
+                //die();
+	        /* opção 0 - por associacoes */
 	        if($_rb_filtro == "0"){
 	            include_once 'rel_associacao.php';
-	        /* opção 2 - de Endereço */
+	        /* opção 1 - de Endereço */
 	        }else if ($_rb_filtro == "1"){
 	            include_once 'rel_endereco.php';
-	        /* opcao 3 - por regiao do estado */    
+	        
+                /* opcao 2 - por regiao do estado */    
 	        } else if ($_rb_filtro == "2"){
 	        	include_once 'rel_regiao_estado.php';
-	        /* opcao 4 - por compdec existente */   
+	        
+                /* opcao 3 - por compdec existente */   
 	        } else if($_rb_filtro == "3"){
                     $sel = $_POST['selExistente'];
 	            include_once 'rel_compdec.php';
-	        /* por data de criação */    
+	        
+                /* opcao 4 - por data de criação */    
 	        } else if($_rb_filtro == "4"){
 	            include_once 'rel_dt_criacao.php';
-	        # por regioes de desenvolvimento    
+	        
+                # opcaso 5 - por regioes de desenvolvimento    
 	        } else if($_rb_filtro == "5") {
 	            include_once 'rel_regiao_des.php';
 	        # resumo de compdecs    
@@ -208,7 +215,7 @@ tr:nth-child(even) {
 	           
 		    } else if ($_rb_filtro == "7"){
 		       include_once 'rel_livro_compdec.php';	
-            # lista mail
+            # opcao 8 lista mail
             } else if ($_rb_filtro == "8"){
                 include_once 'rel_lista_email.php';
             #envio email pelo outlook    

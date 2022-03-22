@@ -171,6 +171,8 @@ Class RelatorioComdec {
         
         $con = Conexao::getInstance();
         $_dados = array();
+        
+        $filtro = "";
 
         #todos
         if($ativo == ""){
@@ -209,7 +211,7 @@ Class RelatorioComdec {
                                on c.id_municipio = cedec_rpm_mun.id_municipio
                                inner join aju_deposito
                                on cedec_rpm_mun.id_rpm = aju_deposito.id_rpm
-                               WHERE c.id_comdec != '7221' $filtro
+                               WHERE m.id_municipio != '7221' $filtro
                                ORDER BY c.com_const desc, m.nome, r.nome";
         
         $result = $con->query($sql);
@@ -366,6 +368,7 @@ Class RelatorioComdec {
                                ON com_comdec.id_municipio = cedec_municipio.id_municipio
             				   INNER JOIN com_territ_desenv
             				   ON com_comdec.id_territorio = com_territ_desenv.id_territ
+                                           where cedec_municipio.id_municipio != 7221
                                ORDER BY cedec_municipio.territorio_desenv";
 
         $result = $con->query($sql);

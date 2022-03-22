@@ -12,9 +12,7 @@
 
     $id_usuario = isset($_GET['id']) ? $_GET['id'] : null;
     $edit = isset($_GET['edit']) ? $_GET['edit'] : null;
-    
-    
-    
+       
     # pega dos dados do usuario "cedec_usuario"
     $usuario = Usuario::getDadoUsuario($id_usuario);
     
@@ -26,7 +24,7 @@
    
     if(empty($id_usuario)) {
         print "<script>";
-        print "window.location.href = '".FuncaoBase::geraLink('admin', "adm", "usuario")."';";
+        //print "window.location.href = '".FuncaoBase::geraLink('admin', "adm", "usuario")."';";
         print "</script>";
     
     # editar
@@ -60,6 +58,11 @@
             <input class="form-control" type="text" name="txtUsuario" value="<?=!empty($usuario) ? $usuario['login'] : "" ;?>" id="txtUsuario" maxlength="9" <?=$readonly;?> >
         
         <label>Lotado</label>
+        <select class="form-control" name="selSetor" value="" id="selSetor">
+            <option>CEDEC</option>
+            <option>GMG</option>
+        </select>
+        <label>Funcao</label>
         <select class="form-control" name="selSetor" value="" id="selSetor">
             <option>CEDEC</option>
             <option>GMG</option>

@@ -1759,9 +1759,7 @@ class Usuario extends UsuarioModel {
      * 
      */
     public static function AtualizarNomeUsuario($dados) {
-        
-        var_dump($dados);
-        
+
         $con = Conexao::getInstance();
 
         $sql = "UPDATE cedec_usuario SET nome = :nome

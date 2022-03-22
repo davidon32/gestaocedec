@@ -212,7 +212,7 @@ if (!empty($dados)) {
                 print "<option value='2'>Em Análise</option>";
                 //print "<option value='3'>Arquivado</option>";
                 print "<option value='4'>Aprovado</option>";
-                //print "<option value='5'>Anulado</option>";
+                print "<option value='5'>Anulado</option>";
                 //print "<option value='9'>Encerrado</option>";
                 if ($pmda->status($value['status']) != 'Arquivado') {
                     print "<option value='1'>Liberar Alterações</option>";

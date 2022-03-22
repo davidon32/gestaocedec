@@ -50,10 +50,13 @@ class FuncionarioEquipeModel extends Model {
                 cedec_funcionario.num_mesa,
                 cedec_funcionario.ponto_rede,
                 cedec_rpm.id as id_rpm,
-                cedec_rpm.nome as rpm
+                cedec_rpm.nome as rpm,
+                cedec_usuario.id_usuario
                     FROM cedec_funcionario
                     inner join cedec_rpm
                     on cedec_funcionario.id_rpm = cedec_rpm.id
+                    inner join cedec_usuario
+                    on cedec_funcionario.id_funcionario = cedec_usuario.id_funcionario
                     WHERE cedec_funcionario.id_funcionario =".$id_funcionario;
         
         $result = $con->query($sql);

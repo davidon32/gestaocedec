@@ -16,6 +16,13 @@
 
         }
         
+        /* busca Usuario */
+        public function pesquisa(){
+
+            include_once('mod_admin/backEnd/View/config/editar.php');
+
+        }
+        
         /* Visualizar dados */
         public function visualizar(){
 
