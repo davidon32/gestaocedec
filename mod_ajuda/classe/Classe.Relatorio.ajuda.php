@@ -1020,12 +1020,15 @@ class RelatorioAju extends DataMysql {
 			aju_produto.origem,
 			aju_produto.quantidade,
                         aju_produto.obs,
-                        aju_produto.depDestino
+                        aju_produto.depDestino,
+                        aju_produto.id_dep_destino
 			FROM aju_produto
                             WHERE aju_produto.id_produto > 0
                             AND aju_produto.origem not like 'Correção Manual de Saldo%'
                             {$id_material}{$deposito} 
-                                order by aju_produto.dtEntradaSaida";
+                                order by aju_produto.depDestino";
+                            
+                            print $sql;
 
         $result = $con->query($sql);
 
@@ -1036,6 +1039,27 @@ class RelatorioAju extends DataMysql {
         return $dados;
         
         
+    }
+    
+    public static function num_entradas($id_unidade, $id_dep_destino) {
+        $con = Conexao::getInstance();
+        $dados = "";
+
+            $sql = "SELECT COUNT(aju_produto.id_produto) as num_entradas
+                FROM aju_produto
+                WHERE aju_produto.codProd = '".$id_unidade."' 
+                and aju_produto.origem not like 'Correção Manual de Saldo%'
+                AND aju_produto.id_dep_destino = '".$id_dep_destino."'";
+            
+            var_dump($sql);
+            $result = $con->query($sql);
+
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            $dados = $linha['num_entradas'];
+        }
+
+        return $dados;
+    
     }
     
     /*

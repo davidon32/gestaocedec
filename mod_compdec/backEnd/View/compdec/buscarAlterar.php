@@ -66,6 +66,7 @@ if ($_btn_enviar && !empty($_id_municipio)) {
 							<th width='' title='Acesso ao Módulo PMDA'>Módulo PMDA</th>
 							<th width='' title='Acesso ao Módulo Ajuda Humanitária'>Módulo Ajuda Humanitária</th>
 							<th width='' title='Plano Contingencia'>Plano de Contingëncia</th>
+							<th width='' title='Histórico do Munícipio'>Histórico do Município</th>
 						</tr>
 						<tr>
 							
@@ -91,10 +92,11 @@ if ($_btn_enviar && !empty($_id_municipio)) {
 							<td><input type='checkbox' name='ck_PMDA' id='ck_PMDA' " . ( ($_dados[0]['mod_pipa'] == 1) ? 'checked' : '') . "></td>
 							<td><input type='checkbox' name='ck_AJUDA' id='ck_AJUDA' " . ( ($_dados[0]['mod_ajuda'] == 1) ? 'checked' : '') . "></td>
 							<td><a href='" . FuncaoBase::geraLink("compdec", "compdec", "plano", array("id" => $_dados[0]['id_municipio'])) . "'>Visualizar</a></td>
+							<td><a href='" . FuncaoBase::geraLink("compdec", "compdec", "informacoes", array("id" => $_dados[0]['id_municipio'])) . "'>Historico Município</a></td>
 
 						</tr>
 						<tr>
-							<td colspan='8'>
+							<td colspan='9'>
 								<table class='table'>
 									<tr>
 										<th>

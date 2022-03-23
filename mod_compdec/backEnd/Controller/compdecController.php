@@ -129,5 +129,12 @@ if(!$mail->send()) {
             include_once "mod_compdec/backEnd/View/relatorio/email.php";
         }
     }
+    
+    
+    /* informacoes de municipios */
+    public function informacoes() {
+        
+        include_once "mod_compdec/backEnd/View/compdec/informacoes.php";
+    }
 
 }

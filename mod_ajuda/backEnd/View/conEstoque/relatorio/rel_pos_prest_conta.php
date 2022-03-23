@@ -90,11 +90,15 @@ print "<th>Total Entrada (+)</th>";
 print "<th>Transferência/Correcao Saldo (-)</th>";
 print "<th>Total Liberacao (-)</th>";
 print "<th>Saldo(=)</th>";
+print "<th title='Este saldo é o saldo apurado com as respctivas entradas e saidas'>Saldo Inventário</th>";
 
 print "</tr>";
 
 
 foreach ($entrada as $key => $value) {
+    
+    $rowspan = "rowspan='".$_relatorioAjuda->num_entradas($value['codProd'], $value['id_dep_destino'])."'";
+    var_dump($rowspan);
     $items = Liberacao::getItensLiberacao($value['id_produto']);
     //$totalEntrada += $value['quantidade'];
     $entrada = $value['quantidade'];
@@ -142,6 +146,7 @@ foreach ($entrada as $key => $value) {
     print "<td" . $cor. "> " . ($totalTransferencia - $totalCorrecao) . "</td>";
     print "<td" . $cor. "> " . $totalItensSaida . "</td>";
     print "<td" . $cor . "> ". $saldo . "</td>";
+    print "<td ".$rowspan." ". $cor . "> ". $saldo . "</td>";
     print "</tr>";
     $totalItem = 0;
     $totalTransferencia = 0;
