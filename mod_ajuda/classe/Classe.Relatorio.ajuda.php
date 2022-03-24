@@ -1028,7 +1028,6 @@ class RelatorioAju extends DataMysql {
                             {$id_material}{$deposito} 
                                 order by aju_produto.depDestino";
                             
-                            print $sql;
 
         $result = $con->query($sql);
 
@@ -1051,7 +1050,6 @@ class RelatorioAju extends DataMysql {
                 and aju_produto.origem not like 'Correção Manual de Saldo%'
                 AND aju_produto.id_dep_destino = '".$id_dep_destino."'";
             
-            var_dump($sql);
             $result = $con->query($sql);
 
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -1287,6 +1285,7 @@ class RelatorioAju extends DataMysql {
         
     }
     
+    
     /**/
     public static function saldoAnterior(array $filtro){
         $dados = array();
@@ -1332,5 +1331,29 @@ class RelatorioAju extends DataMysql {
         
     }
     
+    /* saldo individual de material */
+    public static function saldoIndividual($id_produto, $id_deposito){
+        $dados = "";
+
+        $con = Conexao::getInstance();
+
+        try {
+            $sql = "SELECT saldo 
+                    FROM aju_estoque
+                    WHERE id_produto = ".$id_produto." 
+                    AND id_deposito = ".$id_deposito." ";
+
+            $result = $con->query($sql);
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dados = $linha['saldo'];
+            }
+
+            return $dados;
+        } catch (Exception $e) {
+            print FuncaoBase::getError($e->getMessage());
+        }
+        
+    }
 
 }?>
