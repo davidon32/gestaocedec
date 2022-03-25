@@ -104,6 +104,7 @@ print "<th title='Este saldo é o saldo apurado com as respctivas entradas e sai
 print "</tr>";
 
 $row = "";
+$rowDep = "";
 
 $ultimoKey = count($entrada);
 
@@ -112,15 +113,24 @@ $totEntradaTransfCorre = 0; # somatorio de transferencia e correcao de saldo por
 $totLiberacoes = 0; # somatorio de liberacoes por material e deposito
 $totSaldoEntrada = 0; #somatorio saldo das (entradas - transf/correcoes - saidas)
 
+$print = true;
+
 foreach ($entrada as $key => $value) {  
+    if($value['codProd'] == 17) {
+        die();
+    }
        
-    #$rowspan = $_relatorioAjuda->num_entradas($value['codProd'], $value['id_dep_destino']);
+    $rowspan = $_relatorioAjuda->num_entradas($value['codProd'], $value['id_dep_destino']);
     $saldoInventario = $_relatorioAjuda::saldoIndividual($value['codProd'], $value['id_dep_destino']);
     $items = Liberacao::getItensLiberacao($value['id_produto']);
     //$totalEntrada += $value['quantidade'];
     $entrada1 = $value['quantidade'];
     
+    
     $row = $value['depDestino'];
+    $row1 = $value['codProd'];
+    
+    
     
     
     /* tranferencia */
@@ -151,14 +161,27 @@ foreach ($entrada as $key => $value) {
 
     }
     print "<tr>";
-    print "<td" . $cor. ">" . $value['id_produto'] . "</td>";
+    print "<td" . $cor. ">" . $value['id_produto'] . "-".$rowspan."</td>";
     print "<td" . $cor. ">" . $value['depDestino'] . "</td>";
     print "<td" . $cor. ">" . $value['codProd'] . " - " . Unidade::PegaNomeId($value['codProd']) . " - " . $value['origem'] . " </td>";
     print "<td" . $cor. ">" . $entrada1 . "</td>";
     print "<td" . $cor. ">" . ($totalTransferencia - $totalCorrecao) . "</td>";
     print "<td" . $cor. ">" . $totalItensSaida . "</td>";
     print "<td" . $cor. ">" . $saldo . "</td>";
-    print "<td" . $cor. ">" . 0 . "</td>";
+    
+    if( $row1 != $entrada[$key+$rowspan]['codProd']) {
+        $print = true;
+    }else {
+        $print = false;
+    }
+    
+    if($rowDep != $value['depDestino']) {
+        print "<td rowspan='".$rowspan."'" . $cor. ">"  .$saldoInventario.  "</td>";
+    }else if($print){
+        $print =false;
+        print "<td rowspan='".$rowspan."'>-</td>";
+    }
+    //print "</tr>";
     
     $totEntrada += $entrada1;
     $totEntradaTransfCorre += ($totalTransferencia - $totalCorrecao);
@@ -167,14 +190,20 @@ foreach ($entrada as $key => $value) {
         
     if($key < ($ultimoKey-1)){
         #<!-- total -->
-        if( $row != $entrada[$key+1]['depDestino'] ){
+        if( ($row != $entrada[$key+1]['depDestino'] ) || ($row1 != $entrada[$key+1]['codProd']) ) {
             print "<tr>";
             print "<td colspan='3' class='text-right total'>TOTAL</td>";
             print "<td class='total'>".$totEntrada."</td>";
             print "<td class='total'>".$totEntradaTransfCorre."</td>";
             print "<td class='total'>". $totLiberacoes . "</td>";
             print "<td class='total'>". $totSaldoEntrada . "</td>";
-            print "<td class='total'>". $saldoInventario . "</td>";
+            print "<td class='total'>";
+            if($saldoInventario == $totSaldoEntrada){
+                print $saldoInventario;
+            }else {
+                print "erro !";
+            }
+            print "</td>";
             print "</tr>";
             $totEntrada = 0;
             $totEntradaTransfCorre = 0;
@@ -189,8 +218,10 @@ foreach ($entrada as $key => $value) {
     $totalTransferencia = 0;
     
     $row = $value['depDestino'];
+    $row1 = $value['codProd'];
+    $rowDep = $value['depDestino'];
     
-}
+    }
     
 
 $totalEntrada = 0;
