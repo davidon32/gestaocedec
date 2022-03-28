@@ -113,12 +113,17 @@ $totEntradaTransfCorre = 0; # somatorio de transferencia e correcao de saldo por
 $totLiberacoes = 0; # somatorio de liberacoes por material e deposito
 $totSaldoEntrada = 0; #somatorio saldo das (entradas - transf/correcoes - saidas)
 
-$print = true;
+$totalGeralEntrada = 0;
+$totalGeralEntradaTransfCorrecoes = 0;
+$totalGeralLiberações = 0;
+$totalGeralSaldoEntrada = 0;
+
+$bac = '';
 
 foreach ($entrada as $key => $value) {  
-    if($value['codProd'] == 17) {
+    /*if($value['codProd'] == 17) {
         die();
-    }
+    }*/
        
     $rowspan = $_relatorioAjuda->num_entradas($value['codProd'], $value['id_dep_destino']);
     $saldoInventario = $_relatorioAjuda::saldoIndividual($value['codProd'], $value['id_dep_destino']);
@@ -126,11 +131,10 @@ foreach ($entrada as $key => $value) {
     //$totalEntrada += $value['quantidade'];
     $entrada1 = $value['quantidade'];
     
+    $totalLinha = $rowspan;
     
     $row = $value['depDestino'];
     $row1 = $value['codProd'];
-    
-    
     
     
     /* tranferencia */
@@ -144,12 +148,6 @@ foreach ($entrada as $key => $value) {
         
     $quantidade = $value['quantidade'];
     $saldo = $quantidade -$totalItensSaida -$totalTransferencia +$totalCorrecao;
-    
-    #var_dump("quantidade". $value['quantidade']."<br><hr>");
-    #var_dump("total liberado ".$totalItensSaida."<br><hr>");
-    #var_dump("transferencia" .$totalTransferencia."<br><hr>");
-    #var_dump("correcao" .$totalCorrecao."<br><hr>");
-    #var_dump("correcao" .$saldo."<br><hr>");
 
     $cor = " style='color:green' title='Parabéns material está em conformidade com entradas e saidas !'";
 
@@ -160,38 +158,33 @@ foreach ($entrada as $key => $value) {
         $cor = " class='sinal' style='color:orange; font-style: italic; background-color:#610B0B' title='Material Com erro na quantidade de liberacao !, verifique os registros' ";
 
     }
-    print "<tr>";
-    print "<td" . $cor. ">" . $value['id_produto'] . "-".$rowspan."</td>";
+    
+       
+    print "<tr ".$bac.">";
+    print "<td ".$bac . $cor. ">" . $value['id_produto'] ."</td>";
     print "<td" . $cor. ">" . $value['depDestino'] . "</td>";
     print "<td" . $cor. ">" . $value['codProd'] . " - " . Unidade::PegaNomeId($value['codProd']) . " - " . $value['origem'] . " </td>";
     print "<td" . $cor. ">" . $entrada1 . "</td>";
     print "<td" . $cor. ">" . ($totalTransferencia - $totalCorrecao) . "</td>";
     print "<td" . $cor. ">" . $totalItensSaida . "</td>";
     print "<td" . $cor. ">" . $saldo . "</td>";
+    print "<td" . $cor. ">"  .$saldoInventario.  "</td>";
     
-    if( $row1 != $entrada[$key+$rowspan]['codProd']) {
-        $print = true;
-    }else {
-        $print = false;
-    }
-    
-    if($rowDep != $value['depDestino']) {
-        print "<td rowspan='".$rowspan."'" . $cor. ">"  .$saldoInventario.  "</td>";
-    }else if($print){
-        $print =false;
-        print "<td rowspan='".$rowspan."'>-</td>";
-    }
-    //print "</tr>";
-    
+        
     $totEntrada += $entrada1;
     $totEntradaTransfCorre += ($totalTransferencia - $totalCorrecao);
     $totLiberacoes += $totalItensSaida;
     $totSaldoEntrada += $saldo;
-        
+    
+    $totalGeralEntrada += $entrada1;
+    $totalGeralEntradaTransfCorrecoes += ($totalTransferencia - $totalCorrecao);
+    $totalGeralLiberações += $totalItensSaida;
+    $totalGeralSaldoEntrada += $saldo;
+    
     if($key < ($ultimoKey-1)){
         #<!-- total -->
         if( ($row != $entrada[$key+1]['depDestino'] ) || ($row1 != $entrada[$key+1]['codProd']) ) {
-            print "<tr>";
+            print "<tr style=\"background-color:#BDBDBD\">";
             print "<td colspan='3' class='text-right total'>TOTAL</td>";
             print "<td class='total'>".$totEntrada."</td>";
             print "<td class='total'>".$totEntradaTransfCorre."</td>";
@@ -211,7 +204,30 @@ foreach ($entrada as $key => $value) {
             $totSaldoEntrada = 0;
         }
         
+    }else if($key+1 == $ultimoKey){
+        print "<tr style=\"background-color:#BDBDBD\">";
+            print "<td colspan='3' class='text-right total'>TOTAL</td>";
+            print "<td class='total'>".$totEntrada."</td>";
+            print "<td class='total'>".$totEntradaTransfCorre."</td>";
+            print "<td class='total'>". $totLiberacoes . "</td>";
+            print "<td class='total'>". $totSaldoEntrada . "</td>";
+            print "<td class='total'>";
+            if($saldoInventario == $totSaldoEntrada){
+                print $saldoInventario;
+            }else {
+                print "erro !";
+            }
+            print "</td>";
+            print "</tr>";
+            $totEntrada = 0;
+            $totEntradaTransfCorre = 0;
+            $totLiberacoes = 0;
+            $totSaldoEntrada = 0;
+            
+            
     }
+    
+    
 
     print "</tr>";
     $totalItem = 0;
@@ -225,6 +241,16 @@ foreach ($entrada as $key => $value) {
     
 
 $totalEntrada = 0;
+
+
+
+print "<tr>";
+print "<td colspan='3'>Total Geral</td>";
+print "<td>".$totalGeralEntrada."</td>";
+print "<td>".$totalGeralEntradaTransfCorrecoes."</td>";
+print "<td>".$totalGeralLiberações."</td>";
+print "<td>".$totalGeralSaldoEntrada."</td>";
+print "</tr>";
 
 print "</table>";
 ?>

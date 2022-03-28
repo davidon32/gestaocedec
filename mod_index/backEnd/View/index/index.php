@@ -26,7 +26,48 @@
         $dash = new Dashboard();
         ?>
     </div>
-    <div class="col-md-12"> 
+    <!-- aJUDA HUMANITÁRIA -->
+    <div class="col-md-12">
+        <p style="text-align:center"><legend>AJUDA HUMANITÁRIA</legend></p>
+        <div class='col-md-6'>
+            
+            <table class="table table-bordered">
+                <tr>
+                    <th colspan="2" class='text-center'>PERÍODO DE CHUVA 2022</th>
+                </tr>
+                <tr>
+                    <td>MUNICÍPIOS ATENDIDOS</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>MATERIAIS DISTRIBUIDOS</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>CESTA BÁSICAS</td>
+                    <td>0</td>
+                </tr>
+            </table>
+        </div>
+    <div class='col-md-6'>
+            
+            <table class="table table-bordered">
+                <tr>
+                    <th colspan="2" class='text-center'>PERÍODO DE ESTIAGEM 2022</th>
+                </tr>
+                <tr>
+                    <td>MUNICÍPIOS ATENDIDOS</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>MATERIAIS DISTRIBUIDOS</td>
+                    <td>0</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!-- pmda -->
+    <div class="col-md-6"> 
         <p style="text-align:center"><legend>RESUMO PROCESSOS PMDA</legend></p>
         <!-- quantidade por mes ano atual -->
         <div class='col-md-6'>
@@ -58,7 +99,7 @@
         </div>
     </div>
     <br>
-    <div class='col-md-12'>
+    <div class='col-md-6'>
         <!-- linha 2 quantidade pmda todos anos -->
         <div class='col-md-6'>
             <legend>PMDA ANOS ANTERIORES</legend>

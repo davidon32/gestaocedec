@@ -163,8 +163,8 @@
     <div class="col-md-6">
         <div class='col-md-12'>
             <table class="table table-bordered">
-                <tr><th class="col-md-8 text-center" colspan="2" style='background-color:#C0C0C0'>Liberações por Municípios <br>Período : <?=$_POST['txtDtInicial'];?> a <?=$_POST['txtDtFinal'];?></th></tr>
-                <tr><th class="col-md-8 text-center" style='background-color:#C0C0C0'>Município</th><th class="col-md-4 text-center" style='background-color:#C0C0C0'>Qtd de Liberações</th></tr>
+                <tr><th class="col-md-8 text-center" colspan="3" style='background-color:#C0C0C0'>Liberações por Municípios <br>Período : <?=$_POST['txtDtInicial'];?> a <?=$_POST['txtDtFinal'];?></th></tr>
+                <tr><th>#</th><th class="col-md-8 text-center" style='background-color:#C0C0C0'>Município</th><th class="col-md-4 text-center" style='background-color:#C0C0C0'>Qtd de Liberações</th></tr>
                 <?php
 
                     $liberacoes = Liberacao::liberacaoPorMunicipio($_POST);
@@ -172,7 +172,7 @@
                     $total_lib_por_mun = 0;
 
                     foreach ($liberacoes as $key => $value) {
-                        print "<tr><td class='col-md-8' style='background-color:#E6E6E6'><a class='mostra' id='".$value['id_municipio']."' title='Clique para ver os materiais'>".Municipio::PegaNomeMunicipio($value['id_municipio'])."</a>";
+                        print "<tr><td>".($key+1)."</td><td class='col-md-8' style='background-color:#E6E6E6'><a class='mostra' id='".$value['id_municipio']."' title='Clique para ver os materiais'>".Municipio::PegaNomeMunicipio($value['id_municipio'])."</a>";
                         print "<div class='material' id='material".$value['id_municipio']."' style='background-color:#D8D8D8'><p class=\"text-center\"><i>Materiais Liberados</i><p>";
                         
                         $mat = Liberacao::totMaterialLiberadoMapa($value['id_municipio'], $_POST);
@@ -186,7 +186,7 @@
                     }
 
                 ?>
-                <tr><td style='background-color:#C0C0C0'>Total de Liberações</td><td class='text-center' style='background-color:#C0C0C0'><?=$total_lib_por_mun;?></td></tr>
+                <tr><td colspan="2" style='background-color:#C0C0C0'>Total de Liberações</td><td class='text-center' style='background-color:#C0C0C0'><?=$total_lib_por_mun;?></td></tr>
             </table>
         </div>
     </div>
