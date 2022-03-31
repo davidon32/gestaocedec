@@ -1130,7 +1130,7 @@ class RelatorioAju extends DataMysql {
     }
     
     /* lista de entrada por Material */
-    public static function EntradaMaterialTransf($codProd, $id_entrada){
+    public static function EntradaMaterialTransf($codProd, $id_entrada = null){
         $con = Conexao::getInstance();
 
         $dados = array();
@@ -1225,7 +1225,7 @@ class RelatorioAju extends DataMysql {
         
         $deposito = (!empty($_POST['id_deposito'])) ? " AND aju_item.id_dep_origem = '{$_POST['id_deposito']}' " : "";
         
-        $sql = "SELECT distinct	aju_item.id_liberacao,
+        $sql = "SELECT aju_item.id_liberacao,
 			aju_liberacao.id_municipio,
 			aju_liberacao.beneficiario,
 			aju_item.cod,
@@ -1239,8 +1239,9 @@ class RelatorioAju extends DataMysql {
 			INNER JOIN aju_liberacao
 			ON aju_item.id_liberacao = aju_liberacao.id_liberacao
 			  WHERE aju_item.situacao = '1' {$id_material}{$campoData} {$deposito} 
-			  order by aju_item.dataLibera";
+			  order by aju_item.id_dep_origem, aju_item.dataLibera";
 
+        //var_dump($sql);
         $result = $con->query($sql);
 
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {

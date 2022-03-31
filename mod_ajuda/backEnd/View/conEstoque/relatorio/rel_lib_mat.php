@@ -104,7 +104,9 @@ table th {
 		print "<a href='".FuncaoBase::geraLink("ajuda", "relatorio", "fbusca_liberacao")."' class='btn btn-primary'>Voltar</a><br>";
                 print "<br>";
                 print "<legend>Pedíodo : ".$_POST['txtDtInicial']." a ".$_POST['txtDtFinal']."</legend>";
+                if(!empty($_id_deposito)) {
                 print "<p style='text-align:center'><legend>DEPÓSITO ".Deposito::PegaNomeDeposito($_POST['id_deposito']). " - ". Unidade::PegaNomeId($id_material)."</legend></p>";
+                }
                                
                 $corEntrada = "#057A60";
                 $corSaida = "#FE2E2E";

@@ -63,10 +63,10 @@
             </div>
             <div class="col-md-12">
                 <br>
-                <div class="form-group">
+                <!--<div class="form-group">
 				<label for="ckListMat">Listagem por Materiais</label>
 				<input type="checkbox" name="ckListMat" id="ckListMat">
-		</div>
+		</div>-->
                 <div class="form-group" id="lista">
 				<label for="ckListMat">Material</label>
                                 <input class="form form-control" type="text" name="nome_material" id="nome_material" >
@@ -81,7 +81,7 @@
 						}?>
 				</select>-->
 			
-			</div>
+		</div>
             </div>
             <div class="col-md-12">
             <input class="btn btn-primary" type="submit" name="pesquisar" value="Pesquisar" />
