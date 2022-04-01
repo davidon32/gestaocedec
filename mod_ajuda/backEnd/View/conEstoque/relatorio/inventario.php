@@ -12,8 +12,7 @@
 <style>
     
     @page {
-        size: 7in 9.25in;
-        margin: 10mm 16mm 10mm 16mm;
+        size: A4;
     }
     
     * {
@@ -36,7 +35,7 @@
         }
 
         body {
-            width: 600px;
+            width: 700px;
             margin: 0 auto;
         }
         th, td {
@@ -69,7 +68,7 @@
     
 </style>
 <div class="container table table-responsive">
-     
+    
 <div class='col-md-6 text-center'>
     <?php if(isset($_GET['voltar'])) {
         print "<a class=\"btn btn-success imprimir\" href=\"".FuncaoBase::geraLink('index', 'index', 'index1')."\">Voltar</a>";				 
@@ -122,7 +121,7 @@ $inventario = <<<HTML
 <div class="col-md-12" style="font-size:10pt;">
     <table class="table table-condensed table-bordered table-hover table-striped" id='inventario'>
         <tr>
-            <th>CÓDIGO</th>
+            <th>CÓD.</th>
             <th>DATA</th>
             <th>DESCRICAO</th>
             <th>UN</th>

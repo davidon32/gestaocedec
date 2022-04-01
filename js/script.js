@@ -105,6 +105,7 @@ function checkmobile(){
     
     return toMatch.some((toMatchItem) => {
         return navigator.userAgent.match(toMatchItem);
+        console.log(navigator.userAgent.match(toMatchItem));
     });
 }
 
