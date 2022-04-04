@@ -1,8 +1,6 @@
 <?php include_once $_SERVER['DOCUMENT_ROOT'].'/core/include.php';?>
 <?php
 
-var_dump($_POST);
-
 $saldo = new ControleSaldo();
 $id_deposito = isset($_POST['id_deposito']) ? $_POST['id_deposito'] :"";
 $id_material = isset($_POST['id_produto']) ? $_POST['id_produto'] :"";
