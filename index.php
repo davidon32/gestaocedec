@@ -20,6 +20,8 @@ if (!isset($_SESSION)) {
      * 
      */
     
+   
+    
 
 if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
     include('index_manutencao.php');
@@ -48,7 +50,6 @@ if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
 
     $acesso = isset($_COOKIE['seguranca']['tipo']) ? $_COOKIE['seguranca']['tipo'] : null;
     
-
     # Acesso Externo
     # Acesso Interno
     # Acesso sem login
@@ -76,7 +77,10 @@ $acesso1 = isset($_GET['externo']) ? $_GET['externo'] :"";
             ($modulo === 'index') ||
             ($action === 'visualiza') ||
             ($action === 'troca_senha_cedec_esqueci') ||
-            ($action === 'mapa') 
+            ($action === 'mapa') ||
+            ($action === 'usuarioRegionaisSite') ||
+            ($action === 'lista_munic_reg_site')
+                   
     ) {
 
         include_once "mod_" . $modulo . "/Controller/" . $controller . ".php";

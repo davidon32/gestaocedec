@@ -53,7 +53,7 @@
                 </div>
                 <div class="col-md-12">
                     <br>
-                    <label>Data: (a partir de 25/01/2022)</label>
+                    <label>Salto Anterior do dia: </label><span>Posição do saldo <b><i>Anterior</i></b> no dia escolhido</span>
                     <input class="form-control" type="text" name="txtDtInicial" id="txtDtInicial" data-mask="99/99/9999" title="Consulta a saldo anterior !" />
 		</div>
 		<!--<div class="col-md-12">

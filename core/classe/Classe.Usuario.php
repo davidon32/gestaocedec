@@ -2399,6 +2399,9 @@ cedec_funcionario.desc_funcao,
 cedec_funcionario.telefone,
 cedec_funcionario.celular,
 cedec_funcionario.id_rpm,
+cedec_funcionario.posto,
+cedec_funcionario.num_masp,
+cedec_funcionario.email2,
 cedec_rpm.nome as rpm,
 aju_deposito.nome as dep_avancado
 from cedec_usuario

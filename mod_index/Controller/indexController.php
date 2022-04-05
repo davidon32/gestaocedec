@@ -143,7 +143,6 @@ class indexController extends Controller
        include_once 'mod_index/backEnd/View/info/info.php';
     }
     
-    
     /* informações Usuarios */
     public function usuarioCedec() {
 
@@ -155,6 +154,24 @@ class indexController extends Controller
        include_once 'mod_index/backEnd/View/info/lista_usuario.php';
     }
     
+    /* informações Usuarios Regionais */
+    public function usuarioRegionaisSite() {
+        
+        $_GET['tipo'] = 'regional';
+
+       $dados = Usuario::listaUsuario(); 
+       
+       include_once 'mod_index/backEnd/View/info/lista_regionais_site.php';
+    }
+    
+   
+    /* lista de municipios pertencentes ao redec*/
+    public function lista_munic_reg_site() {
+        
+        $dados = Municipio::listaMunicipioRegional($_GET['id_rpm']);
+        
+        include_once 'mod_index/backEnd/View/info/lista_municipio_reg_site.php';
+    }
     
     public function lista_munic_reg() {
         
