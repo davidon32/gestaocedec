@@ -70,7 +70,7 @@ include_once(MODEL_AJUDA_BACKEND.'/AjudaRelatorioModel.php');
         }
 
         /**
-         *  form busca relatorio transferencia de materiais
+         *  form busca relatorio liberacoes
          */
         function busca_resumog(){
 

@@ -68,9 +68,15 @@
 			</label>
 			<br> -->
 		<label>
-			<input type="checkbox" name="ck_diario" id="ck_diario" value="1">
+                    <input type="checkbox" name="ck_diario" id="ck_diario" value="1" >
 			Resumo Diário
 		</label>
+                <hr>
+		<label>
+			<input type="checkbox" name="ck_resumo_distr" id="ck_resumo_distr" value='2'>
+                        Resumo Distribuição de Materiais <h6>( Resumo Quantitativo de Materiais distribuídos )</h6>
+		</label>
+                <hr>
 	</div>
 
 </form>
@@ -84,29 +90,47 @@
 <!-- =============== HEADER HTML PAGE ================= -->
 <?php include_once "template/page/rodapePage.php";?>
 <script type="text/javascript">
-$("#txtDtInicial").datepicker({
-    dateFormat: 'dd/mm/yy',
-    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-    dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
-    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
-    monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro',
-        'Outubro', 'Novembro', 'Dezembro'
-    ],
-    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-    nextText: 'Proximo',
-    prevText: 'Anterior'
-});
-$("#txtDtFinal").datepicker({
-    dateFormat: 'dd/mm/yy',
-    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-    dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
-    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
-    monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro',
-        'Outubro', 'Novembro', 'Dezembro'
-    ],
-    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-    nextText: 'Proximo',
-    prevText: 'Anterior'
+    
+$(document).ready(function(){
+        
+   $("#ck_diario").change(function(){
+        if($("#ck_diario").is(":checked")){
+            $("#ck_resumo_distr").prop('checked', false);
+        }
+    });
+    
+    $("#ck_resumo_distr").change(function(){
+        if($("#ck_resumo_distr").is(":checked")){
+            $("#ck_diario").prop('checked',false);
+        }
+    });
+    
+    
+    $("#txtDtInicial").datepicker({
+        dateFormat: 'dd/mm/yy',
+        dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+        dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+        dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+        monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro',
+            'Outubro', 'Novembro', 'Dezembro'
+        ],
+        monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+        nextText: 'Proximo',
+        prevText: 'Anterior'
+    });
+    $("#txtDtFinal").datepicker({
+        dateFormat: 'dd/mm/yy',
+        dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+        dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+        dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+        monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro',
+            'Outubro', 'Novembro', 'Dezembro'
+        ],
+        monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+        nextText: 'Proximo',
+        prevText: 'Anterior'
+
+    });
 
 });
 </script>

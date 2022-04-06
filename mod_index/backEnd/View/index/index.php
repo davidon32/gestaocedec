@@ -18,34 +18,58 @@
 </div> 
 <div class="col-md-12">
     <br>
+    
     <div class="col-md-4 text-center"> 
         <?php
         $login = new Login();
         $login->acessoLembrete($_COOKIE['seguranca']['login'], $_COOKIE['seguranca']['id_deposito']);
         $login->acessoLembreteTransito($_COOKIE['seguranca']['login'], $_COOKIE['seguranca']['id_deposito']);
         $dash = new Dashboard();
+        
+        /* periodo Chuvoso 2021 */
+        $dados_mah_chuva_2021 = Ajuda::liberacoesPeriodoChuva("2021");
+        $dados_mah_chuva_2021_qtd = Ajuda::QuantidadeMatePeriodoChuva("2021");
+
+        $total_chuva_mat = 0;
+        foreach ($dados_mah_chuva_2021_qtd as $key => $value) {
+            $total_chuva_mat += $value['qtd'];
+        } 
+        
+        
+        /* periodo Estiagem 2021 */
+        $dados_mah_estiagem_2021 = Ajuda::liberacoesPeriodoEstiagem("2021");
+        $dados_mah_estiagem_2021_qtd = Ajuda::QuantidadeMatePeriodoEstiagem("2021");
+        
+        $total_estiagem_mat = 0;
+        foreach ($dados_mah_estiagem_2021_qtd as $key => $value) {
+            $total_estiagem_mat += $value['qtd'];
+        } 
+        
+        
         ?>
     </div>
     <!-- aJUDA HUMANITÁRIA -->
     <div class="col-md-12">
+        <br>
+        <div class="alert alert-info" role="alert">nota: Os números abaixo relacionados a Ajuda Humanitária, são baseados nos atendimentos sobre o período de 01/10/2021 a 31/03/2022, para as liberações baseadas em decretos intempestivos, consulte o relatorio "Resumo de liberações" marque a opção "Resumo Distribuição de Materiais".</div>
         <p style="text-align:center"><legend>AJUDA HUMANITÁRIA</legend></p>
         <div class='col-md-6'>
             
             <table class="table table-bordered">
                 <tr>
-                    <th colspan="2" class='text-center'>PERÍODO DE CHUVA 2022</th>
+                    <th colspan="2" class='text-center'>PERÍODO DE CHUVA 2021</th>
                 </tr>
                 <tr>
                     <td>MUNICÍPIOS ATENDIDOS</td>
-                    <td>0</td>
+                    <td><?=count($dados_mah_chuva_2021)?></td>
                 </tr>
                 <tr>
                     <td>MATERIAIS DISTRIBUIDOS</td>
-                    <td>0</td>
+                    <td><?=$total_chuva_mat;?></td>
                 </tr>
                 <tr>
                     <td>CESTA BÁSICAS</td>
-                    <td>0</td>
+                    <td><?=$dados_mah_chuva_2021_qtd[0]['qtd'];?></td>
                 </tr>
             </table>
         </div>
@@ -53,15 +77,19 @@
             
             <table class="table table-bordered">
                 <tr>
-                    <th colspan="2" class='text-center'>PERÍODO DE ESTIAGEM 2022</th>
+                    <th colspan="2" class='text-center'>PERÍODO DE ESTIAGEM 2021</th>
                 </tr>
                 <tr>
                     <td>MUNICÍPIOS ATENDIDOS</td>
-                    <td>0</td>
+                    <td><?=count($dados_mah_estiagem_2021)?></td>
                 </tr>
                 <tr>
                     <td>MATERIAIS DISTRIBUIDOS</td>
-                    <td>0</td>
+                    <td><?=$total_estiagem_mat;?></td>
+                </tr>
+                <tr>
+                    <td>CESTA BÁSICAS</td>
+                    <td><?=$dados_mah_estiagem_2021_qtd[0]['qtd'];?></td>
                 </tr>
             </table>
         </div>

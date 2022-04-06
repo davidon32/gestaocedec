@@ -198,6 +198,136 @@ class Ajuda{
     }
     
     /* Materiais liberador por municipios */
+    
+    
+    /**
+     * Municipios atendidos
+     * quantidade de atendimentos
+     * periodo Chuva
+     * 
+     **/
+    public static function liberacoesPeriodoChuva($ano) {
+        
+        $con = Conexao::getInstance();
+	$dados = array();
+        
+        
+        $sql = "SELECT distinct(aju_liberacao.ID_municipio) AS id_municipio, 
+		cedec_municipio.nome,
+		COUNT(aju_liberacao.id_municipio) AS qtdAtendimento
+                FROM aju_liberacao 
+                INNER JOIN cedec_municipio
+                ON aju_liberacao.id_municipio = cedec_municipio.id_municipio
+                where aju_liberacao.evento = 'CHUVA'
+                AND aju_liberacao.SITUACAO < 2
+                AND aju_liberacao.DATALIBERA BETWEEN '".$ano."-10-01' AND '".($ano+1)."-03-31'
+                GROUP BY aju_liberacao.id_municipio";
+        
+            $result = $con->query($sql);
+
+            while($linha = $result->fetch(PDO::FETCH_ASSOC)){
+		$dados[] = $linha;
+            }
+            
+            return $dados;
+        
+    }
+    
+    
+    /**
+     * Quantidade materiais distribuidos no periodo Chuvoso
+     * 
+     */
+    public static function QuantidadeMatePeriodoChuva($ano){
+        
+        $con = Conexao::getInstance();
+	$dados = array();
+        
+        $sql = "SELECT aju_item.cod, aju_unidade.nome,
+                    SUM(aju_item.quantidade) as qtd
+                    FROM aju_liberacao
+                    INNER JOIN aju_item 
+                    ON aju_liberacao.ID_LIBERACAO = aju_item.id_liberacao
+                    INNER JOIN aju_unidade
+                    ON aju_item.cod = aju_unidade.id_unidade
+                    WHERE aju_liberacao.SITUACAO < 2
+                    AND aju_liberacao.DATALIBERA BETWEEN '".$ano."-10-01' AND '".($ano+1)."-03-31'
+                    AND aju_liberacao.EVENTO = 'CHUVA'
+                    group BY aju_item.cod";
+    
+        $result = $con->query($sql);
+
+            while($linha = $result->fetch(PDO::FETCH_ASSOC)){
+		$dados[] = $linha;
+            }
+            
+            return $dados;
+    
+    }
+    /**
+     * Municipios atendidos
+     * quantidade de atendimentos
+     * periodo Chuva
+     * 
+     **/
+    public static function liberacoesPeriodoEstiagem($ano) {
+        
+        $con = Conexao::getInstance();
+	$dados = array();
+        
+        
+        $sql = "SELECT distinct(aju_liberacao.ID_municipio) AS id_municipio, 
+		cedec_municipio.nome,
+		COUNT(aju_liberacao.id_municipio) AS qtdAtendimento
+                FROM aju_liberacao 
+                INNER JOIN cedec_municipio
+                ON aju_liberacao.id_municipio = cedec_municipio.id_municipio
+                where aju_liberacao.evento = 'SECA'
+                AND aju_liberacao.SITUACAO < 2
+                AND aju_liberacao.DATALIBERA BETWEEN '".$ano."-05-01' AND '".($ano+1)."-10-30'
+                GROUP BY aju_liberacao.id_municipio";
+        
+            $result = $con->query($sql);
+
+            while($linha = $result->fetch(PDO::FETCH_ASSOC)){
+		$dados[] = $linha;
+            }
+            
+            return $dados;
+        
+    }
+    
+    
+    /**
+     * Quantidade materiais distribuidos no periodo Chuvoso
+     * 
+     */
+    public static function QuantidadeMatePeriodoEstiagem($ano){
+        
+        $con = Conexao::getInstance();
+	$dados = array();
+        
+        $sql = "SELECT aju_item.cod, aju_unidade.nome,
+                    SUM(aju_item.quantidade) as qtd
+                    FROM aju_liberacao
+                    INNER JOIN aju_item 
+                    ON aju_liberacao.ID_LIBERACAO = aju_item.id_liberacao
+                    INNER JOIN aju_unidade
+                    ON aju_item.cod = aju_unidade.id_unidade
+                    WHERE aju_liberacao.SITUACAO < 2
+                    AND aju_liberacao.DATALIBERA BETWEEN '".$ano."-05-01' AND '".($ano+1)."-10-30'
+                    AND aju_liberacao.EVENTO = 'SECA'
+                    group BY aju_item.cod";
+    
+        $result = $con->query($sql);
+
+            while($linha = $result->fetch(PDO::FETCH_ASSOC)){
+		$dados[] = $linha;
+            }
+            
+            return $dados;
+    
+    }
 
  
     
