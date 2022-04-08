@@ -21,25 +21,32 @@
             </tr>
 
             <tr>
-                <td>PLACA</td><td></td>
+                <td>PLACA</td>
+                <td><input class="form form-control" type="text" name="txtPlaca" id="txtPlaca" maxlength="6"/> </td>
             </tr>
             <tr>
-                <td>PLACA SEGURANCA</td><td></td>
+                <td>PLACA SEGURANCA</td>
+                <td><input class="form form-control" type="text" name="txtPlacaSeg" id="txtPlacaSeg" maxlength="6"/></td>
             </tr>
             <tr>
-                <td>MODELO</td><td></td>
+                <td>MODELO</td>
+                <td><input class="form form-control" type="text" name="txtModelo" id="txtModelo" maxlength=""/></td>
             </tr>
             <tr>
-                <td>MARCA</td><td></td>
+                <td>MARCA</td>
+                <td><input class="form form-control" type="text" name="txtMarca" id="txtMarca" maxlength=""/></td>
             </tr>
             <tr>
-                <td>ANO</td><td></td>
+                <td>ANO</td>
+                <td><input class="form form-control" type="text" name="txtAno" id="txtAno" maxlength=""/></td>
             </tr>
             <tr>
-                <td>NOME</td><td></td>
+                <td>NOME</td>
+                <td><input class="form form-control" type="text" name="txtNome" id="txtNome" maxlength=""/></td>
             </tr>
             <tr>
-                <td>OBS</td><td></td>
+                <td>OBS</td>
+                <td><input class="form form-control" type="text" name="txtObs" id="txtObs" maxlength=""/></td>
             </tr>
 
         </table>

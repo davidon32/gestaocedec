@@ -87,7 +87,7 @@ class indexController extends Controller
         
         $numAcesso = Login::pegaQtdAcesso($id_usuario);
         
-        if($numAcesso[0]['qtd_acesso'] >= 5){
+        if($numAcesso[0]['qtd_acesso'] >= 10){
             Login::atualizaAcesso($id_usuario, 0);
             print "<script style='text/javascript'>";
                     print "window.location = '".FuncaoBase::geraLink("equipe", "funcionario", "alterar")."'";

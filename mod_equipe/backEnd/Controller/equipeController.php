@@ -17,4 +17,7 @@ class equipeController extends Controller {
         include_once 'mod_equipe/backEnd/View/equipe/reg_dsp_viatura.php';
         
     }
+    
+    
+    
 }
