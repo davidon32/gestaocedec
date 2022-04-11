@@ -14,11 +14,11 @@
 </style>
 <div class='row'>
     <div class="col-md-12">
-        <div class="col-md-6 text-center">
-            <a href='<?= FuncaoBase::geraLink("equipe", "equipe", "reg_dsp") ?>' class='btn btn-primary' title='Novo Cadastro e Registro de DSP'>Registro DSP</a>
-        </div>
-        <div class="col-md-6 text-center">
-            <a href='<?= FuncaoBase::geraLink("equipe", "viatura", "index") ?>' class='btn btn-primary' title='Novo Cadastro e Registro de DSP'>Cadastro Veículo/Viatura</a>
+        <div class="col-md-12">
+            <a href='<?= FuncaoBase::geraLink("equipe", "viatura", "novo") ?>' class='btn btn-primary' title='Cadastrar nova Vatura para DSP'>Novo</a>
+            <br>
+            <br>
+            <a href='<?= FuncaoBase::geraLink("equipe", "viatura", "search") ?>' class='btn btn-primary' title='Pesquisa para Edição e Visualizar Registro'>Pesquisar</a>
         </div>
     </div>
 </div>
@@ -28,10 +28,13 @@
 
         <table class="table table-bordered table-striped">
             <tr>
-                <th colspan="3">Resuno DSP's</th>
+                <th colspan="4" class='text-center'>CADASTRO VIATURA</th>
             </tr>
             <tr>
-                <td>Resuno DSP's</td>
+                <td>#</td>
+                <td>Placa</td>
+                <td>Placa Seg.</td>
+                <td>Nome</td>
             </tr>
 
         </table>
