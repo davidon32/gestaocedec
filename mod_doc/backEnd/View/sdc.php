@@ -19,6 +19,12 @@ $_funcaoBase = new FuncaoBase();
 
 <h2><a href='<?= FuncaoBase::geraLink("doc", "doc", "sdc_tr_senha")?>' class="alert" style="text-decoration:none"><img src='core/imagem/help.png' width="25">&nbsp;&nbsp;&nbsp;&nbsp; Troca de Senha Usuário / Dados do Usuários</a></h2>
 
+<h2>
+    <?php
+        $_funcaoBase->listaArquivoLink('/anexo/doc/interno/usuario', true);
+    ?>
+    </h2>
+
 <h2><a href='<?= FuncaoBase::geraLink("index", "index", "info")?>' class="alert" style="text-decoration:none"><img src='core/imagem/help.png' width="25">&nbsp;&nbsp;&nbsp;&nbsp; Informaçoes Rápidas</a></h2>
 <span></span>
 

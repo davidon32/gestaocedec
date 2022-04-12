@@ -25,7 +25,7 @@ $_readOnly = "";
 			<label>Nº Recibo Pagamento </label>
 			<input class="form-control" type="text" name="txtNumPgto" id="txtNumPgto" value="<?=$id_pgto;?>" <?=$_readOnly;?> />
 			<br>
-			<input type="file" name="fl_nota" id="fl_nota">
+			<input type="file" name="fl_nota" id="fl_nota" accept=".png,.jpeg,.pdf">
 			<br>
 		</div>
 		</div>
@@ -49,14 +49,26 @@ $(document).ready(function(){
 
 	$("#fl_nota").change(function(e){
 			var fileName = e.target.files[0].name;
+			var fileInfo = e.target.files[0];
+                        
+                        
+                        if( (fileInfo.type = "image/png") ||
+                            (fileInfo.type = "image/jpeg") ||
+                            (fileInfo.type = "application/pdf") &&
+                            (fileinfo.size <= 300000) ){
+                        
+                        console.log(fileInfo);
 
-			if (fileName.length == fileName.replace(" ", "").length) {
+                            if (fileName.length == fileName.replace(" ", "").length) {
 
-				$("#btnUpload").removeAttr("disabled");
-			}else {
-				$("#btnUpload").attr("disabled", "true");
-				alert("O Nome do arquivo não pode conter espacos !");
-			}
+                                    $("#btnUpload").removeAttr("disabled");
+                            }else {
+                                    $("#btnUpload").attr("disabled", "true");
+                                    alert("O Nome do arquivo não pode conter espacos !");
+                            }
+                        }else {
+                            alert();
+                        }
 		});
 
 		$("#btnUpload").click(function(){

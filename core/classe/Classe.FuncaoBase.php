@@ -780,7 +780,7 @@ static function vifs($_tipo = false, $_redireciona = false, $_msg = 'Procediment
        * Lista arquivos PDF de um diretorio e cria um link para download
        * $path - caminho do diretorio
        */
-      function listaArquivoLink($path){
+      function listaArquivoLink($path, $semLista = false){
           
           $interno = "";
           
@@ -803,12 +803,17 @@ static function vifs($_tipo = false, $_redireciona = false, $_msg = 'Procediment
 
 			  
       
-      		if ($_form == "pdf") {
+      		if ( ($_form == "pdf") && (!$semLista) ) {
       
       			print ($old == "old") ? "<strike>" : "";
       			print $_num++." ) <a href='".$path."/" . utf8_encode($file) . "' title='".$title."'>" . utf8_encode($file) . "</a> ".$interno."<br><br>";
       			print ($old == "old") ? "</strike>" : "";
-      		}
+      		}elseif ( ($_form == "pdf") && ($semLista) ) {
+      			print ($old == "old") ? "<strike>" : "";
+      			print "<a href='".$path."/" . utf8_encode($file) . "' title='".$title."' class='alert' style='text-decoration:none'><img src='core/imagem/help.png' width='25'>&nbsp;&nbsp;&nbsp;&nbsp;" . utf8_encode($file) . "</a> ".$interno;
+      			print ($old == "old") ? "</strike>" : "";
+                
+            }
       	}
 	  }
           
