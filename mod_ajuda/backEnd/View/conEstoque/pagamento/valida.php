@@ -101,11 +101,33 @@
 			if(FuncaoBase::CampoBranco($campos)){
 					
 				if(!empty($_nota)){
-					Anexo::upload(PATH.'/anexo/recibo_pgto', $_FILES, "fl_nota", $_id_pgto."_".date("his"));
-                    //Log::GravaLog("upload_re_pgto:".$_nota['name'], "aju_log");			
-                    print "sucesso";
+                                    Anexo::upload(PATH.'/anexo/recibo_pgto', $_FILES, "fl_nota", $_id_pgto."_".date("his"));
+                                    //Log::GravaLog("upload_re_pgto:".$_nota['name'], "aju_log");			
+                                    print "sucesso";
 				}
 
 			}
+    }elseif($_POST['opcao'] == 'busca_pgto'){
+        $id_pagamento = $_POST['id_pagamento'];
+        $dados = $_pagamento->pagamentoId($id_pagamento);
+               
+        if(count($dados > 0)) {
+            $linha = "<tr>
+                        <th>Nº Pagto</th>
+                        <th>Nº Liberação</th>
+                        <th>Municipio</th>
+                    </tr>";
+            foreach ($dados as $key => $value) {
+                $linha .= "<tr><td>".$value['id_pagamento']."</td>
+                                <td>".$value['id_liberacao']."</td>
+                                <td>".$value['municipio']."</td>
+                                <td>".$value['municipio']."</td>
+                            </tr>";
+            }
+            print $linha;
+        }else {
+            print "<tr><td colspan='3'>A Pesquisa não encontrou resultados</td>";
+        }
+        
     }
 ?>

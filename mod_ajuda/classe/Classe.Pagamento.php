@@ -261,6 +261,31 @@
 				return $dados;
 			}
 		}
+                
+                
+                # select pgto pelo ID
+		function pagamentoId($id_pagamento){
+
+			$con = Conexao::getInstance();
+
+			$dados = "";
+			
+			$sql = "SELECT id_pagamento, 
+                                id_liberacao, 
+                                municipio
+                                FROM aju_pagamento
+                                WHERE id_pagamento = {$id_pagamento}";
+			
+			$result = $con->query($sql);
+			
+			if($result->rowCount() > 0){
+				while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+					$dados[] = $linha;
+				}
+
+				return $dados;
+			}
+		}
 		
 		#@ relatorio de materia pago 
 		function relMatPago(){
