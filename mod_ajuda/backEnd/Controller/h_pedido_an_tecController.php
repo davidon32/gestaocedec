@@ -134,17 +134,19 @@ class h_pedido_an_tecController extends Controller {
     public function edit() {
 
         $h_pedido_an_tecModel = new H_pedido_an_tecajuda_hModel;
+        
+        $result = "";
+        
 
         if ($this->isPost()) {
 
             $result = $h_pedido_an_tecModel->edit($_POST);
-            
-            //var_dump($result);
+
             if (!empty($result)) {
                 FuncaoBase::alert("Registro Atualizado com Sucesso !");
-                $view = $h_pedido_an_tecModel->view($_POST['id_h_pedido_an_tec']);
-                $param = array('id'=> $_POST['id_h_pedido_an_tec']);
-                $this->redirect("ajuda", "h_pedido_an_tec", "view", $param);
+                $view = $h_pedido_an_tecModel->view($_POST['id_analise']);
+                $param = array('id'=> $_POST['id_analise'], 'id_pedido' => $_POST['id_pedido'], 'an'=>$_POST['tramit_parecer']);
+                $this->redirect("ajuda", "h_pedido_an_tec", "edit", $param);
             }
         } else {
 

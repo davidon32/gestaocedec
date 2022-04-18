@@ -20,8 +20,8 @@ class RegDspViatura {
                                                                     :obs)";
 
         $result = $con->prepare($sql);
-        $result->bindParam(":placa", $_POST['txtPlaca']);
-        $result->bindParam(":placa_seguranca",$_POST['txtPlacaSeg']);
+        $result->bindParam(":placa", $_POST['pl_placa']);
+        $result->bindParam(":placa_seguranca",$_POST['pl_placaSeg']);
         $result->bindParam(":modelo",$_POST['txtModelo']);
         $result->bindParam(":marca",$_POST['txtMarca']);
         $result->bindParam(":ano",$_POST['txtAno']);
@@ -41,17 +41,11 @@ class RegDspViatura {
                                                 marca = :marca,
                                                 ano = :ano,
                                                 nome = :nome,
-                                                obs = :obs) VALUES (:placa,
-                                                                    :placa_seguranca,
-                                                                    :modelo,
-                                                                    :marca,
-                                                                    :ano,
-                                                                    :nome,
-                                                                    :obs)";
+                                                obs = :obs";
 
         $result = $con->prepare($sql);
-        $result->bindParam(":placa", $_POST['txtPlaca']);
-        $result->bindParam(":placa_seguranca",$_POST['txtPlacaSeg']);
+        $result->bindParam(":placa", $_POST['pl_placa']);
+        $result->bindParam(":placa_seguranca",$_POST['pl_placaSeg']);
         $result->bindParam(":modelo",$_POST['txtModelo']);
         $result->bindParam(":marca",$_POST['txtMarca']);
         $result->bindParam(":ano",$_POST['txtAno']);

@@ -22,6 +22,8 @@ $dadosRegiao = $com_regiao->listaid_regiaoAutocomplete();
 $dec_cobrade = new H_pedido_pedidajuda_hModel();
 
 $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
+
+//var_dump($view[0]);
 ?>
 <div class='col-md-12'>
     <legend>Editar Pedido Ajuda Humanitaria nº: <?= $view[0]['numero']."-". substr($view[0]['data_entrada_sistema'], 0, 4) ?></legend>
@@ -114,7 +116,7 @@ $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
                 <div class='col-md-6'>
                     <label>Tipo do Desastre</label>
                     <div class="input-group">
-                        <input type="text" class='form form-control' name='nomeCobrade_fk' id='nomeCobrade_fk' value='<?= $h_pedido_pedidModel->getNomeIdFk('dec_cobrade', 'id_cobrade', $view[0]['id'])->nome; ?>' required readonly='readonly'>
+                        <input type="text" class='form form-control' name='nomeCobrade_fk' id='nomeCobrade_fk' value='<?= $h_pedido_pedidModel->getNomeIdFk('dec_cobrade', 'id_cobrade', $view[0]['id_cobrade'])->nome; ?>' required readonly='readonly'>
                         <span onclick="" class="input-group-addon" id="btnBuscaid_cobrade">
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                         </span> </div><input type="hidden" name='id_cobrade' id='id_cobrade' required readonly='readonly' value='<?= $view[0]['id_cobrade'] ?>'>
@@ -209,19 +211,21 @@ $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
 <?php
 $materiais = H_pedido_pedidajuda_hModel::item_pedido($view[0]['id']);
 
-foreach ($materiais as $key => $material) {
+if(count($materiais)> 0) {
+    foreach ($materiais as $key => $material) {
 
-    print "<tr>";
-    print "<td>" . $material['codigo'] . "</td>";
-    print "<td>" . $material['descricao_item'] . "</td>";
-    print "<td>" . $material['qtd'] . "</td>";
-    print "<td>" . $material['qtd_familia_atendida'] . "</td>";
-    print "<td>";
-    print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'add_itens', array('id'=>$view[0]['id'], 'id_material'=>$material['id'])) . "'><img src='/core/imagem/editar.png'></a>";
-    print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_itens', 'delete', array('id'=>$material['id'], 'action1'=>'edit', 'id_pedido'=>$view[0]['id'])) . "'><img src='/core/imagem/delete.png'></a>";
+        print "<tr>";
+        print "<td>" . $material['codigo'] . "</td>";
+        print "<td>" . $material['descricao_item'] . "</td>";
+        print "<td>" . $material['qtd'] . "</td>";
+        print "<td>" . $material['qtd_familia_atendida'] . "</td>";
+        print "<td>";
+        print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'add_itens', array('id'=>$view[0]['id'], 'id_material'=>$material['id'])) . "'><img src='/core/imagem/editar.png'></a>";
+        print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_itens', 'delete', array('id'=>$material['id'], 'action1'=>'edit', 'id_pedido'=>$view[0]['id'])) . "'><img src='/core/imagem/delete.png'></a>";
 
-    print "</td>";
-    print "</tr>";
+        print "</td>";
+        print "</tr>";
+    }
 }
 ?>
 

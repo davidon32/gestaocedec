@@ -95,7 +95,7 @@
                   $("input[name^='placa']").mask(mask, options);
               }};
 
-              $("input[name^='pl_']").mask('AAA-0000', pl_mask);
+              $("input[name^='pl_']").mask('AAA-0A00', pl_mask);
               $("input[name^='placa']").mask('AAA-0000', pl_mask);
               
               

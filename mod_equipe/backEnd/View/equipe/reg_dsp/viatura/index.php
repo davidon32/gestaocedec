@@ -42,3 +42,11 @@
         <p><button class='btn btn-success' type="button" onclick="history.back();" >Voltar</button>
     </div>
 </div>
+
+<!-- =================== RODAPE CORPO ==================== -->
+<?php include_once "template/page/corpoRodape.php";?>
+<!-- =================== RODAPE  ======================== -->
+<?php include_once "template/page/rodape.php"?>
+<?php include_once "template/page/barra_config_template.php";?>
+<!-- =============== HEADER HTML PAGE ================= -->
+<?php include_once "template/page/rodapePage.php";?>    

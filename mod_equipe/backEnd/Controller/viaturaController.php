@@ -37,21 +37,21 @@ class viaturaController extends Controller {
         
         $id_viatura = isset($post['id_viatura']) ? $post['id_viatura'] : "";
         
+        # editar 
         if(!empty($id_viatura)){
-            if(RegDspViatura::Gravar($post)){
+            if(RegDspViatura::GravarEdicao($post)){
                 print "<script>alert('Registro Alterado com Sucesso !');</script>";
-                print "<script>window.location.href = '".FuncaoBase::geraLink("equipe", "equipe", "reg_dsp_viatura")."'</script>";
+                print "<script>window.location.href = '".FuncaoBase::geraLink("equipe", "viatura", "edit", array('id'=>$id_viatura))."'</script>";
             }
-            
+          
+        #novo
         }else {
             if(RegDspViatura::Gravar($post)){
                 print "<script>alert('Registro gravado com Sucesso !');</script>";
-                print "<script>window.location.href = '".FuncaoBase::geraLink("equipe", "equipe", "reg_dsp_viatura")."'</script>";
+                print "<script>window.location.href = '".FuncaoBase::geraLink("equipe", "viatura", "novo")."'</script>";
             }
         }
-        
-        //var_dump($_POST);
-        //die();
+//die();
         
     }
     

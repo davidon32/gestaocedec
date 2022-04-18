@@ -21,11 +21,11 @@
 
             <tr>
                 <td>PLACA</td>
-                <td><input class="form form-control" type="text" name="txtPlaca" id="txtPlaca" maxlength="6" required/> </td>
+                <td><input class="form form-control" type="text" name="pl_placa" id="pl_placa" maxlength="10" required/> </td>
             </tr>
             <tr>
                 <td>PLACA SEGURANCA</td>
-                <td><input class="form form-control" type="text" name="txtPlacaSeg" id="txtPlacaSeg" maxlength="6" required/></td>
+                <td><input class="form form-control" type="text" name="pl_placaSeg" id="pl_placaSeg" maxlength="10" required/></td>
             </tr>
             <tr>
                 <td>MODELO</td>
@@ -45,7 +45,7 @@
             </tr>
             <tr>
                 <td>OBS</td>
-                <td><input class="form form-control" type="text" name="txtObs" id="txtObs" maxlength="255"/></td>
+                <td><textarea class="form form-control" name="txtObs" id="txtObs" maxlength="255"/></textarea></td>
             </tr>
 
         </table>
@@ -55,3 +55,10 @@
 </form>
         <p><button class='btn btn-success' type="button" onclick="window.location.href= '<?= FuncaoBase::geraLink("equipe", "viatura", "index")?>';" >Voltar</button>
 </div>
+<!-- =================== RODAPE CORPO ==================== -->
+<?php include_once "template/page/corpoRodape.php";?>
+<!-- =================== RODAPE  ======================== -->
+<?php include_once "template/page/rodape.php"?>
+<?php include_once "template/page/barra_config_template.php";?>
+<!-- =============== HEADER HTML PAGE ================= -->
+<?php include_once "template/page/rodapePage.php";?>    

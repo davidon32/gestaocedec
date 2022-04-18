@@ -225,9 +225,9 @@ foreach ($analises_tecnica as $key => $an_drd) {
                         contentType: false, // tell jQuery not to set contentType
                         success: function (response) {
                             console.log(response);
-                            //Swal.fire('Documento Transmitido para <?= $sigla_despacho ?>  !').then(function () {
-                                //window.location.href = '<?= FuncaoBase::geralink("ajuda", "h_pedido_index", "index"); ?>';
-                            //});
+                            Swal.fire('Documento Transmitido para <?= $sigla_despacho ?>  !').then(function () {
+                                window.location.href = '<?= FuncaoBase::geralink("ajuda", "h_pedido_index", "index"); ?>';
+                            });
                         },
                         error: function (e) {
                             //console.log(JSON.stringify(e));

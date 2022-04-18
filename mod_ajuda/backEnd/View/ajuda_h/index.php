@@ -100,7 +100,7 @@ if ($dadosConfig['aju_h_alta_perf'] == 1) {
 
 $listaPedido = $pedido_h->buscaPedidoH();
 
-var_dump($listaPedido);
+//var_dump($listaPedido);
 $total_reg = 0;
 
 foreach ($listaPedido as $key => $pedid) {

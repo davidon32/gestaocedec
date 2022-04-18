@@ -56,7 +56,7 @@ if ($secao == 'analise_drd') {
 
     <div class="col-md-12 text-center">
         <br>
-        <a class="btn btn-success" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_an_tec", "index") ?>">Voltar</a>
+        <a class="btn btn-success" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_an_tec", "cadastro", array('id' => $view[0]['id_pedido'], 'voltar' => 'idx_recente', 'an' =>$view[0]['tramit_parecer'])) ?>">Voltar</a>
         <input type="submit" class="btn btn-info" name="btnGravar" id="btnGravar" value="Atualizar">
     </div>
 </form>
