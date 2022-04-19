@@ -23,7 +23,7 @@ $dec_cobrade = new H_pedido_pedidajuda_hModel();
 
 $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
 
-//var_dump($view[0]);
+
 ?>
 <div class='col-md-12'>
     <legend>Editar Pedido Ajuda Humanitaria nº: <?= $view[0]['numero']."-". substr($view[0]['data_entrada_sistema'], 0, 4) ?></legend>

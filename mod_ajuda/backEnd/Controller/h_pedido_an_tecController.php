@@ -174,11 +174,12 @@ class h_pedido_an_tecController extends Controller {
     public function tramitarParecer() {
                        
         $h_pedido_pedid = new H_pedido_pedidajuda_hModel();
-
+        
         if($this->h_pedido_an_tec->tramitar($_POST)){
             
             if($_POST['tramit'] == 'atendido'){
-                var_dump($h_pedido_pedid->iniciaPrestContas($_POST['id_pedido']));
+                $h_pedido_pedid->iniciaPrestContas($_POST['id_pedido']);
+                //$this->h_pedido_an_tec->tramitar($dados)
             }
             
            //FuncaoBase::alert("Registro Apagado com Sucesso !");

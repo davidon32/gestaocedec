@@ -41,7 +41,8 @@ class RegDspViatura {
                                                 marca = :marca,
                                                 ano = :ano,
                                                 nome = :nome,
-                                                obs = :obs";
+                                                obs = :obs
+                                                where id_viatura = :id_viatura";
 
         $result = $con->prepare($sql);
         $result->bindParam(":placa", $_POST['pl_placa']);
@@ -51,6 +52,7 @@ class RegDspViatura {
         $result->bindParam(":ano",$_POST['txtAno']);
         $result->bindParam(":nome",$_POST['txtNome']);
         $result->bindParam(":obs",$_POST['txtObs']);
+        $result->bindParam(":id_viatura",$_POST['id_viatura']);
         $result->execute();
 
         return true;

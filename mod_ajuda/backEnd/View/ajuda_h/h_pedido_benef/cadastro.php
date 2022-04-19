@@ -42,7 +42,7 @@
 <div class='row'>
 <div class='col-md-2'>
 <label>Quantidade de Material</label>
-<input type="text" class='form form-control' name='qtd' id='qtd' maxlength='' required >
+<input type="number" class='form form-control' name='qtd' id='qtd' max='999' required >
 </div>
 </div>
 <div class='row'>

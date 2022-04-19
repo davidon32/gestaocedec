@@ -33,5 +33,14 @@ if($opcao == 'dados_compdec') {
         print 'sucesso';
     }
     
+}elseif($opcao == 'envia_edicao') {
+    
+    $dados = array('tramit' => 'edicao_compdec',
+                    'status' => '0',
+                    'id_pedido' => $_POST['id_pedido'],
+                    'data_hora_envio' => date('Y-m-d H:i:s'));
+    $h_pedido_pedid->envia_pedido($dados);
+    
+    print 'sucesso';
 }
 

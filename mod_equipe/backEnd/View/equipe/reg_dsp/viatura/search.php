@@ -18,6 +18,7 @@
         <div class="col-md-3"></div>
         <div class="col-md-6">
             <form method="POST" action="<?= FuncaoBase::geraLink("equipe", "viatura", "search")?>">
+                <label>Busque por qualquer dado referente a viatura ex. nome, placa, ano, etc..</label>
             <input type="text" name="txtSearch" id='txtSearch' class='form form-control'>
             <br>
             <input class="btn btn-primary" type="submit" name="btnSearch" id="btnSearch" value="Pesquisar">
@@ -33,7 +34,8 @@
                     
                     $dados = RegDspViatura::search($pesquisa);
             
-                    print "<table class=\"table table-bordered table-striped\">
+                    print "<table id='listViatura' class='table table-bordered' >
+                        <thead>
                         <tr>
                             <th colspan=\"5\" class='text-center'>CADASTRO VIATURA</th>
                         </tr><tr>
@@ -42,17 +44,19 @@
                                     <td>Placa Seg.</td>
                                     <td>Nome</td>
                                     <td>Ação</td>
-                                </tr>";
+                                </tr>
+                                </thead>";
                     
                     foreach ($dados as $key => $value) {
 
-                            print "<tr>
+                            print "<tbody><tr>
                                     <td>".($key+1)."</td>
                                     <td>".$value['placa']."</td>
                                     <td>".$value['placa_seguranca']."</td>
                                     <td>".$value['nome']."</td>
                                     <td><a href='".FuncaoBase::geraLink("equipe", "viatura", "edit", array('id'=>$value['id_viatura']))."'><img src='/core/imagem/editar.png'></a></td>
-                                </tr>";
+                                </tr>
+                                </tbody>";
                     }
                         print "</table>";
                 }

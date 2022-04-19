@@ -135,7 +135,7 @@ private $data_hora_envio = null;
 
                                   
             try {
-
+                
                 $result = $con->query($sql);
 
                 while ($linha = $result->fetch(PDO::FETCH_OBJ)) {
@@ -1272,12 +1272,11 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
         
         # Busca materiais Pedido
         $dados = $h_pedido_pedid->item_pedido($id_pedido);
-
+        
         try{
             # lanca materiais perestaçao de contas
             foreach ($dados as $key => $value) {  
-                var_dump($value);
-                var_dump($h_pedido_pedid->lancaMaterialPrest($value)); 
+                $h_pedido_pedid->lancaMaterialPrest($value); 
             }
         } catch (Exception $e) {
             $e->getMessage();
@@ -1292,7 +1291,7 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
      * 
      */
     public function lancaMaterialPrest($dados){
-        
+
         $con = Conexao::getInstance();
         $sql = "INSERT INTO aju_h_pedido_prest (id_pedido,
                                                 cod_material,
@@ -1360,7 +1359,7 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
         
         $con = Conexao::getInstance();
         $sql = "update aju_h_pedido_pedid set tramit = :tramit,
-                                           status = 2,
+                                           status = :status,
                                            data_hora_envio = :data_hora_envio
                                            where id = :id_pedido";
 
@@ -1369,6 +1368,7 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
             $result->bindValue(":id_pedido", $dados['id_pedido']);
             $result->bindValue(":data_hora_envio", $dados['data_hora_envio']);
             $result->bindValue(":tramit", $dados['tramit']);
+            $result->bindValue(":status", $dados['status']);
             
             $result->execute();
 

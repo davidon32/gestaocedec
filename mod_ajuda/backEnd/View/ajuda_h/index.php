@@ -172,9 +172,28 @@ foreach ($listaPedido as $key => $pedid) {
 
             print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar' => 'idx_recente', 'an' => 'analise_coord')) . "' title='Despacho Coordenador Adjunto'><img width='25' src='/core/imagem/boss.png'></a>";
         }
+        
+        # devolver para ediçao
+        if ($pedid['status'] != 0 && $pedid['status'] != 5) {
+            print "<button id='btnEdicao' name='btnEdicao' type='button' data-enviar_edicao=".$pedid['id']." class='btn btn-primart'>Enviar para Edição</button>";
+            
+        }
 
         print "</td>";
         print "</tr>";
+    }else if($pedid['tramit'] == 'edicao_compdec') {
+        print "<tr style='color:" . $cor['fonte'] . "; background-color:" . $cor['fdo'] . "'>
+                <td title='".$cor['title']."'>" . $pedid['numero'] . "-" . substr($pedid['data_entrada_sistema'], 0, 4) . "</td>
+                <td title='".$cor['title']."'>" . Municipio::PegaNomeMunicipio($pedid['id_municipio']) . "</td>
+                <td title='".$cor['title']."'>" . DataMysql::dataCompletaVisual($pedid['data_entrada_sistema']) . "</td>
+                <td title='".$cor['title']."'>" . Decreto::getNomeCobrade($pedid['id_cobrade']) . "</td>
+                <td title='".$cor['title']."'>" . $pedido_h->enumStatus($pedid['status']) . "</td>
+                <td title='".$cor['title']."'>" . $pedido_h->enumFase($pedid['tramit']) . ( ($pedid['status'] == 5) ? " <br>Prazo : " . ($prazo) : "") . "</td>
+                <td title='".$cor['title']."'>" . DataMysql::dataCompletaVisual($pedid['data_hora_envio']) . "</td>
+                <td>";
+        print "</td>";
+        print "</tr>";
+        
     }
 }
 ?>
@@ -192,13 +211,43 @@ foreach ($listaPedido as $key => $pedid) {
 <!-- =============== HEADER HTML PAGE ================= -->
 <?php include_once "template/page/rodapePage.php"; ?>
 <script>
+    
+    $(document).ready(function(){
+       
+        $("#btnEdicao").click(function(){
+            var result = confirm('Deseja enviar processo para COMPDEC ?');
+            var id_pedido = $(this).data('enviar_edicao');
+            if(result) {
+                var formData = new FormData();
+                formData.append('opcao', 'envia_edicao'); 
+                formData.append('id_pedido', id_pedido); 
+                $.ajax({
+                        url : '/mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/ajax.php',
+                        type : 'POST',
+                        data : formData,
+                        processData: false,  // tell jQuery not to process the data
+                        contentType: false,  // tell jQuery not to set contentType
+                        success : function(response) {
+                            if(response == 'sucesso'){
+                                Swal.fire('Pedido enviado para Edição !');
+                                window.location.reload();
+                            }
+                            
+                        },
+                        error : function(response) {
+                        }
+                    });
+            }else {
+                console.log(result);
+            }
+        });
+    });
 
     /* Criar novo plano de contingencia */
     (function ($) {
 
         $("#total_registro").text(<?= $total_reg; ?>);
-
-
+        
     })(jQuery);
 
 </script>

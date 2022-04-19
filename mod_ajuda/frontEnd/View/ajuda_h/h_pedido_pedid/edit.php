@@ -22,6 +22,7 @@ $dadosRegiao = $com_regiao->listaid_regiaoAutocomplete();
 $dec_cobrade = new H_pedido_pedidajuda_hModel();
 
 $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
+
 ?>
 <div class='col-md-12'>
     <legend>Editar Pedido de Ajuda Humanitária nº : <?= $view[0]['numero']."-". substr($view[0]['data_entrada_sistema'], 0, 4) ?></legend>
@@ -115,7 +116,7 @@ $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
                 <div class='col-md-6'>
                     <label>Tipo do Desastre</label>
                     <div class="input-group">
-                        <input type="text" class='form form-control' name='nomeCobrade_fk' id='nomeCobrade_fk' value='<?= $h_pedido_pedidModel->getNomeIdFk('dec_cobrade', 'id_cobrade', $view[0]['id'])->nome; ?>' required readonly='readonly'>
+                        <input type="text" class='form form-control' name='nomeCobrade_fk' id='nomeCobrade_fk' value='<?= $h_pedido_pedidModel->getNomeIdFk('dec_cobrade', 'id_cobrade', $view[0]['id_cobrade'])->nome; ?>' required readonly='readonly'>
                         <span onclick="" class="input-group-addon" id="btnBuscaid_cobrade">
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                         </span> </div><input type="hidden" name='id_cobrade' id='id_cobrade' required readonly='readonly' value='<?= $view[0]['id_cobrade'] ?>'>
