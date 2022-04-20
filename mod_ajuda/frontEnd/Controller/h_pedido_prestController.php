@@ -118,11 +118,17 @@ class h_pedido_prestController extends Controller {
     
 
     #visualizar registro
-
     public function view() {
          $h_pedido_prestModel = $this->h_pedido_prest;
         $view = $this->h_pedido_prest->view($_GET['id']);
         include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_prest/view.php';
+    }
+    
+    #visualizar prestacao e contas
+    public function visualizar() {
+         $h_pedido_prestModel = $this->h_pedido_prest;
+        $view = $this->h_pedido_prest->viewPrestConta($_GET['id']);
+        include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_prest/visualizar.php';
     }
 
     # editar registro

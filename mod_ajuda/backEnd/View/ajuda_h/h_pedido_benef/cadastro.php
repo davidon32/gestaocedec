@@ -75,15 +75,7 @@
     $(document).ready(function () {
     
         /* close focus pesquisa */
-        
-    
         $("#frmH_pedido_benef").trigger("reset");
-    
-        
-        
-        
-   
-        
 
     });
 </script>

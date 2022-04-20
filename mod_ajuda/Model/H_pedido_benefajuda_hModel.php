@@ -142,29 +142,29 @@ private $data_entrega = null;
     public static function gravar(array $dados) {
 
         $sql = "INSERT INTO aju_h_pedido_benef (nome_beneficiario,
-rg,
-comunidade,
-qtd,
-data_entrega,
-id_prest_conta
-) VALUES (:nome_beneficiario,
-:rg,
-:comunidade,
-:qtd,
-:data_entrega,
-:id_prest_conta
-)";
+                                                rg,
+                                                comunidade,
+                                                qtd,
+                                                data_entrega,
+                                                id_prest_conta
+                                                ) VALUES (:nome_beneficiario,
+                                                :rg,
+                                                :comunidade,
+                                                :qtd,
+                                                :data_entrega,
+                                                :id_prest_conta
+                                                )";
 
         try {
 
             $result = self::$con->prepare($sql);
 
             $result->bindValue(":nome_beneficiario", $dados['nome_beneficiario']);
-$result->bindValue(":rg", $dados['rg']);
-$result->bindValue(":comunidade", $dados['comunidade']);
-$result->bindValue(":qtd", $dados['qtd']);
-$result->bindValue(":data_entrega", DataMysql::dataForm($dados['data_entrega']));
-$result->bindValue(":id_prest_conta", $dados['id_prest_conta']);
+            $result->bindValue(":rg", $dados['rg']);
+            $result->bindValue(":comunidade", $dados['comunidade']);
+            $result->bindValue(":qtd", $dados['qtd']);
+            $result->bindValue(":data_entrega", DataMysql::dataForm($dados['data_entrega']));
+            $result->bindValue(":id_prest_conta", $dados['id_prest_conta']);
 
  
             $result->execute();

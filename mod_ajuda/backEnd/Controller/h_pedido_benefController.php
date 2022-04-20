@@ -103,9 +103,11 @@ class h_pedido_benefController extends Controller {
 
         $h_pedido_benef = new H_pedido_benefajuda_hModel;
 
+        var_dump($h_pedido_benef->gravar($_POST));
+        die();
         if ($h_pedido_benef->gravar($_POST)) {
             FuncaoBase::alert("Registro Gravado com Sucesso !");
-            $this->redirect("ajuda", "h_pedido_benef", "index");
+            //$this->redirect("ajuda", "h_pedido_benef", "index");
         }
     }
             

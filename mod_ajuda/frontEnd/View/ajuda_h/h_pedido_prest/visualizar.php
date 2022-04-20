@@ -9,11 +9,7 @@
 <!-- =================== MENU  ============================ -->
 <?php //include_once "template/page/menu.php";?>
 <!-- =================== CORPO  ============================ -->
-<?php include_once "template/page/corpoHeader.php"; 
- var_dump($view);
-
-?>
-
+<?php include_once "template/page/corpoHeader.php"; ?>
 
 <legend><?=$view[1]['tabela']->TABLE_COMMENT?></legend>
 <table class="table table-bordered table-striped">
@@ -45,8 +41,6 @@
 
 <?php 
     $beneficiarios = H_pedido_benefajuda_hModel::listBeneficiario($view[0]['id']);
-    
-    var_dump($view[0]['id']);
 
 ?>
 <legend>Beneficiários</legend>

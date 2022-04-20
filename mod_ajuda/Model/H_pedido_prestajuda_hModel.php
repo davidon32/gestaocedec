@@ -215,7 +215,7 @@ $result->bindValue(":total_familia_at", $dados['total_familia_at']);
 
     #################  VIEW  ##################
     /**
-     * View Marca
+     * View 
      */
     public static function view($id_h_pedido_prest) {
 
@@ -233,6 +233,41 @@ aju_h_pedido_prest.total_familia_at
                               FROM aju_h_pedido_prest
                               
                               WHERE id = " . $id_h_pedido_prest;
+
+        try {
+
+            $result = $con->query($sql);
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $h_pedido_prest = $linha;
+            }
+
+           $model = self::$model;
+            return array($h_pedido_prest, $model);
+        } catch (Exception $e) {
+            return $e->getMessage() . "Erro ao inserir H_pedido_prest";
+        }
+    }
+    
+    
+    #################  VIEW  ##################
+    /**
+     * View 
+     */
+    public static function viewPrestConta($id_h_pedido_prest) {
+
+        $con = Conexao::getInstance();
+
+        $fornecedor = "";
+
+        $sql = "SELECT aju_h_pedido_prest.id,
+                    aju_h_pedido_prest.id_pedido,
+                    aju_h_pedido_prest.cod_material,
+                    aju_h_pedido_prest.nome_material,
+                    aju_h_pedido_prest.qtd,
+                    aju_h_pedido_prest.total_familia_at
+                        FROM aju_h_pedido_prest
+                        WHERE id = " . $id_h_pedido_prest;
 
         try {
 

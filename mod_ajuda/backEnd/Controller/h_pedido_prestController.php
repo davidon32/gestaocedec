@@ -124,6 +124,17 @@ class h_pedido_prestController extends Controller {
         $view = $this->h_pedido_prest->view($_GET['id']);
         include_once 'mod_ajuda/backEnd/View/ajuda_h/h_pedido_prest/view.php';
     }
+    
+    #visualizar registro
+
+    public function visualizar() {
+        $view = H_pedido_pedidajuda_hModel::view($_GET['id']);
+        include_once 'mod_ajuda/backEnd/View/ajuda_h/h_pedido_prest/view.php';
+        
+        $h_pedido_prestModel = $this->h_pedido_prest;
+        $viewPrest = $this->h_pedido_prest->view($_GET['id']);
+        include_once 'mod_ajuda/backEnd/View/ajuda_h/h_pedido_prest/visualizar.php';
+    }
 
     # editar registro
 
