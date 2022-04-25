@@ -43,9 +43,9 @@ private $qtd_familia_atendida = null;
     
 
     #################  CONSTRUTOR ##################
-     function __construct() {
+     function __construct($aju_h_pedido_itens = null) {
 
-         self::$model = $this->Tabela('aju_h_pedido_itens');
+         self::$model = $this->Tabela($aju_h_pedido_itens);
 
          self::$mod = "aju";
          
@@ -69,7 +69,6 @@ private $qtd_familia_atendida = null;
             $result =  self::$con->query($sql);
         } else {
 
-            var_dump($sql);
             $sql .= " FROM ".self::$model['tabela']->TABLE_NAME."  
                             WHERE ".self::$model['campos'][0]." = :id
                             ORDER BY nome";

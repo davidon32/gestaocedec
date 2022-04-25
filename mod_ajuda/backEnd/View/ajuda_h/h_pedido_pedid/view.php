@@ -21,6 +21,9 @@
     
 </style>
 
+<?php
+var_dump($view);
+?>
 
 <button class="btn btn-primary print" id='btn_print' type="button">Impressão</button>
 

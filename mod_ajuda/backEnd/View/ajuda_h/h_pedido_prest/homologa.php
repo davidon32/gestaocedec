@@ -11,35 +11,26 @@
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php"; ?>
 
-<legend><?=$view[1]['tabela']->TABLE_COMMENT?></legend>
-<table class="table table-bordered table-striped">
+<legend>Aprovação Prestação de Contas</legend>
 
-    <tr>
-                <td class="col-md-3">Identificador Prestação de Contas :</td><td><?=$view[0]['id'];?></td>
-            </tr></div>
+<form action="#" method="POST" name="frmHomologar" id="frmHomologar">
+    
+    <label>Aprovar</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="checkbox" name="rbAprovar" id="rbAprovar"><br>
+    <label>Recusar</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="checkbox" name="rbRecusar" id="rbRecusar"><br>
+    <label>Em aberto</label>&nbsp; <input type="checkbox" name="rbAberto" id="rbAberto">
+    <br>
+    <br>
+    <label>Parecer / Justificativa:</label>
+    
+    
+    <textarea class="form form-control" rows='10'></textarea>
+    <br>
+    <input class='btn btn-primary' type="submit" value="Gravar">
+    
+</form>
 
-<tr>
-                <td class="col-md-3">Identificador do Pedido :</td><td><?=$view[0]['id_pedido'];?></td>
-            </tr></div>
-
-<tr>
-                <td class="col-md-3">Código Material :</td><td><?=$view[0]['cod_material'];?></td>
-            </tr></div>
-
-<tr>
-                <td class="col-md-3">Nome do Material :</td><td><?=$view[0]['nome_material'];?></td>
-            </tr></div>
-
-<tr>
-                <td class="col-md-3">Total de Familias Atendidas :</td><td><?=$view[0]['total_familia_at'];?></td>
-            </tr></div>
-
-
-
-  </table>
 <br>
 <a class="btn btn-success" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_prest", "index") ?>">Voltar</a>
-<a class="btn btn-info" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_prest", "edit", array('id'=>$view[0]['id'])) ?>">Editar</a>
 <br>
 <br>
 
@@ -54,6 +45,10 @@
 <script>
 
     $(document).ready(function () {
+        
+        $("input[type='checkbox']").click(function(){
+           $(this).attr('id')); 
+        });
 
     });
 </script>

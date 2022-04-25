@@ -10,78 +10,103 @@
 <?php //include_once "template/page/menu.php";?>
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php"; ?>
+<?php
+
+$id_pedido = isset($_GET['id']) ? $_GET['id'] : "";
+
+$pedido = H_ajuda::Pedido($id_pedido);
+
+$itemPedido = H_ajuda::ItemPedido($id_pedido);
+
+  
+?>
 
 <legend>Prestação de Contas</legend>
-<table class="table">
-
+<table class="table table-bordered">
     <tr>
-        <td class="col-md-3">Identificador do Pedido :</td><td><?= $view[0]['id_pedido']; ?></td>
-    </tr>
-
-    <tr>
-        <td class="col-md-3">Código Material :</td><td><?= $view[0]['cod_material']; ?></td>
-    </tr>
-
-    <tr>
-        <td class="col-md-3">Nome do Material :</td><td><?= $view[0]['nome_material']; ?></td>
+        <td class="col-md-3">Nº do Pedido :</td><td><?= $pedido['id']; ?></td>
     </tr>
     <tr>
-        <td class="col-md-3">Quantidade :</td><td><?= $view[0]['qtd']; ?></td>
-    </tr>
-
-    <tr>
-        <td class="col-md-3">Total de Familias Atendidas :</td><td><?= $view[0]['total_familia_at']; ?></td>
+        <td class="col-md-3">Data do Pedido :</td><td><?= DataMysql::dataCompletaVisual($pedido['data_entrada_sistema']); ?></td>
     </tr>
 </table>
 <br>
-
-<?php
-$beneficiarios = H_pedido_benefajuda_hModel::listBeneficiario($view[0]['id']);
-
-
-?>
-<legend>Beneficiários</legend>
-<table class="table table-bordered table-striped">
-
-    <tr>
-        <th>#</th>
-        <th>Nome Beneficiario</th>
-        <th>RG</th>
-        <th>Comunidade</th>
-        <th>Qtd</th>
-        <th>Data Entrega</th>
-        <th>Opções</th>
-    </tr>
-
+    <table class="table table-bordered">
     <?php
-    $total_material = 0;
-    foreach ($beneficiarios as $key => $beneficiario) {
-
-
-
-        print "<tr>";
-        print "<td>" . $beneficiario['id'] . "</td>";
-        print "<td>" . $beneficiario['nome_beneficiario'] . "</td>";
-        print "<td>" . $beneficiario['rg'] . "</td>";
-        print "<td>" . $beneficiario['comunidade'] . "</td>";
-        print "<td>" . $beneficiario['qtd'] . "</td>";
-        print "<td>" . DataMysql::dataVisual($beneficiario['data_entrega']) . "</td>";
-        print "<td><a href=" . FuncaoBase::geraLink("ajuda", "h_pedido_benef", "delete", array('id' => $beneficiario['id'], 'id_prest_conta' => $view[0]['id'])) . "><img src='/core/imagem/delete.png'></a></td>";
-
-        print "</tr>";
-        $total_material += $beneficiario['qtd'];
-    }
-
-    print "<tr align='right'><td colspan='7'>"
-            . "<i>Total Materiais&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <b>" . $total_material . "</b>"
-            . "</i><br><i>Materiais Restantes: </i><b>" . ( (($view[0]['qtd'] - $total_material) < $view[0]['qtd']) ? "<span style='color:red;font-size:12pt;'>" . ($view[0]['qtd'] - $total_material) . "</span>" : ($view[0]['qtd'] - $total_material) ) . "</b></td></tr>";
+        foreach ($itemPedido as $key => $value) {
+            $beneficiarios = H_ajuda::beneficiario($value['id']);
     ?>
+    
+    <tr>
+        <th class="">#</th>
+        <th class="">Código</th>
+        <th class="">Nome do Material</th>
+        <th class="">Quantidade :</th>
+        <th class="">Total de Familias Atendidas :</th>
+    </th>
 
-
+    <tr>
+        <td class=""><?= ($key+1); ?></td>
+        <td class=""><?= $value['codigo']; ?></td>
+        <td class=""><?= $value['descricao_item']; ?></td>
+        <td class=""><?= $value['qtd']; ?></td>
+        <td class=""><?= $value['qtd_familia_atendida']; ?></td>
+    </tr>
+    <?php
+        if(count($beneficiarios) >0){
+            $total_materiais = 0;
+        ?>
+        <tr>
+            <td></td>
+        <td colspan="4">
+            <table class='table table-bordered table-condensed-super'>
+                <tr>
+                    <th colspan="6" style='text-align:center'>BENEFICIÁRIOS</th>
+                </tr>
+                <tr>
+                    <th style='text-align:center'>#</th>
+                    <th style='text-align:center'>Nome Beneficiário</th>
+                    <th style='text-align:center'>Identidade</th>
+                    <th style='text-align:center'>Comunidade</th>
+                    <th style='text-align:center'>Data Entrega</th>
+                    <th style='text-align:center'>Qtd Material</th>
+                </tr>
+       <?php
+            foreach ($beneficiarios as $key => $beneficiario) {
+        ?>
+    
+                <tr>
+                    <td><?=($key+1)?></td>
+                    <td><?=$beneficiario['nome_beneficiario']?></td>
+                    <td><?=$beneficiario['rg']?></td>
+                    <td><?=$beneficiario['comunidade']?></td>
+                    <td><?= DataMysql::dataCompletaVisual($beneficiario['data_entrega'])?></td>
+                    <td><?=$beneficiario['qtd']?></td>
+                </tr>
+            
+    <?php
+                $total_materiais += $beneficiario['qtd'];
+                $cor = '';
+                $title = '';
+        }
+                if($total_materiais < $value['qtd']){
+                    $cor = 'red';
+                    $title = 'Existe Materiais para prestar contas !';
+                }
+        print "<tr><td colspan='5'></td><td style='color:".$cor."' title='".$title."'>Total Materiais : ".$total_materiais."</td></tr>
+        </table>
+        </td></tr>";
+        }
+    
+    }
+    
+    ?>
 </table>
 <br>
-<a class="btn btn-success" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_prest", "index", array('id' => $view[0]['id_pedido'])) ?>">Voltar</a>
-<!--<a class="btn btn-info" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_prest", "edit", array('id' => $view[0]['id'])) ?>">Editar</a>-->
+
+
+<br>
+<a class="btn btn-success" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_prest", "index", array('id' => $id_pedido)) ?>">Voltar</a>
 <br>
 <br>
 

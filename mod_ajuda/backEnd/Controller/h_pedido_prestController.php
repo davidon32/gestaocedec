@@ -128,11 +128,6 @@ class h_pedido_prestController extends Controller {
     #visualizar registro
 
     public function visualizar() {
-        $view = H_pedido_pedidajuda_hModel::view($_GET['id']);
-        include_once 'mod_ajuda/backEnd/View/ajuda_h/h_pedido_prest/view.php';
-        
-        $h_pedido_prestModel = $this->h_pedido_prest;
-        $viewPrest = $this->h_pedido_prest->view($_GET['id']);
         include_once 'mod_ajuda/backEnd/View/ajuda_h/h_pedido_prest/visualizar.php';
     }
 
@@ -169,6 +164,12 @@ class h_pedido_prestController extends Controller {
 
             $this->redirect("ajuda", "h_pedido_prest", "index");
         
+    }
+    
+    
+    /*  homologar prestacao de contas */
+    public function homologa() {
+        include_once 'mod_ajuda/backEnd/View/ajuda_h/h_pedido_prest/homologa.php';
     }
 
 }

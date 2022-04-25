@@ -31,6 +31,7 @@ class Model {
     
     #informações da tabela
     public function Tabela($tabela) {
+        $dados = array();
         $con = Conexao::getInstance();
         
         $sql = "SELECT TABLE_NAME,"
@@ -40,12 +41,13 @@ class Model {
                 . " where table_name = '".$tabela."'";
         
         $result = $con->query($sql);
-             
+;             
       while ($linha = $result->fetch(PDO::FETCH_OBJ)){
           $dados['tabela'] = $linha;
       }
       
       $dados['dados'] = $this->Campos($tabela);
+      //var_dump($dados);
       
       return $dados;
           

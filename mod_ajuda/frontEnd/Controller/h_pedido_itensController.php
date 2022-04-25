@@ -169,5 +169,12 @@ class h_pedido_itensController extends Controller {
             $this->redirect("ajuda", "h_pedido_pedid", "edit", array('id_pedido'=>$_GET['id_pedido'], 'voltar'=> 'idx_recente'));
        }   
     }
+    
+    
+    /* lista itens */
+    public static function listItens($_id_pedido){
+        
+        
+    }
 
 }

@@ -62,7 +62,20 @@ $id_usuario = $_COOKIE['seguranca']['idUser']
             </div>
         </div>
     </div>
-
+    <div class="row">
+        <form action="#" method="POST" name="frmSearch" id="frmSearch">
+        <label>Busca</label>
+        <input class='form form-control' type="text" name="txtSearch" id="txtSearch" >
+        <input class='btn btn-primary' type="submit" name="btnSearch" id="btnSearch" value="Pesquisar">
+        </form>
+    </div>
+    
+    <?php
+        $btn = isset($_POST['btnSearch']) ? $_POST['btnSearch'] : "";
+        
+        if($btn == 'Pesquisar') {
+    
+    ?>
     Total Registros : <span id='total_registro'></span>
     <table class="table table-condensed">
         <tr>
@@ -196,6 +209,8 @@ foreach ($listaPedido as $key => $pedid) {
         
     }
 }
+
+        }
 ?>
 
         </tbody>

@@ -11,8 +11,14 @@
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php"; ?>
 
+<?php
+
+    var_dump($_GET);
+
+?>
 <legend><?=$view[1]['tabela']->TABLE_COMMENT?></legend>
 <table class="table table-bordered table-striped">
+    
 
     <!--<tr>
                 <td class="col-md-3">Código Prestação de Contas :</td><td><?=$view[0]['id'];?></td>

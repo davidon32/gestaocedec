@@ -164,5 +164,12 @@ class h_pedido_itensController extends Controller {
             $this->redirect("ajuda", "h_pedido_itens", "index");
         
     }
+    
+    
+    /* lista itens */
+    public static function listItens($_id_pedido){
+        
+        
+    }
 
 }
