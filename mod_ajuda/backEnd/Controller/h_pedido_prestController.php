@@ -169,7 +169,18 @@ class h_pedido_prestController extends Controller {
     
     /*  homologar prestacao de contas */
     public function homologa() {
-        include_once 'mod_ajuda/backEnd/View/ajuda_h/h_pedido_prest/homologa.php';
+
+        if($this->isPost()){
+            
+            $_POST['txtUsuario'] = $_COOKIE['seguranca']['matricula']." ".$_COOKIE['seguranca']['nome_usuario'];
+            if(H_pedido_prestajuda_hModel::homologar($_POST)){
+                FuncaoBase::alert("Registro Gravado com Sucesso !");
+                $this->redirect("ajuda", "h_pedido_prest", "index", array('id'=> $_POST['id_pedido'])); 
+            }
+            
+        }else {
+            include_once 'mod_ajuda/backEnd/View/ajuda_h/h_pedido_prest/homologa.php';
+        }
     }
 
 }

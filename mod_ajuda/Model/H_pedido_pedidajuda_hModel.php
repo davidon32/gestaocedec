@@ -92,11 +92,11 @@ private $data_hora_envio = null;
                             WHERE ".self::$model['campos'][0]." = :id
                             ORDER BY nome";
             
-            
             $result = self::$con->prepare($sql);
             $result->bindValue(":id", $id);
             $result->execute();
         }
+            
 
         try {
          

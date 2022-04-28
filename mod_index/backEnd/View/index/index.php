@@ -31,8 +31,12 @@
         $dados_mah_chuva_2021_qtd = Ajuda::QuantidadeMatePeriodoChuva("2021");
 
         $total_chuva_mat = 0;
+        $quantidade_cesta_chuva =0;
         foreach ($dados_mah_chuva_2021_qtd as $key => $value) {
             $total_chuva_mat += $value['qtd'];
+            if($value['singular'] == 'CESTA'){
+                $quantidade_cesta_chuva += $value['qtd'];
+            }
         } 
         
         
@@ -41,8 +45,12 @@
         $dados_mah_estiagem_2021_qtd = Ajuda::QuantidadeMatePeriodoEstiagem("2021");
         
         $total_estiagem_mat = 0;
+        $quantidade_cesta_estiagem =0;
         foreach ($dados_mah_estiagem_2021_qtd as $key => $value) {
             $total_estiagem_mat += $value['qtd'];
+            if($value['singular'] == 'CESTA'){
+                $quantidade_cesta_estiagem += $value['qtd'];
+            }
         } 
         
         
@@ -69,7 +77,7 @@
                 </tr>
                 <tr>
                     <td>CESTA BÁSICAS</td>
-                    <td><?=$dados_mah_chuva_2021_qtd[0]['qtd'];?></td>
+                    <td><?=$quantidade_cesta_chuva;?></td>
                 </tr>
             </table>
         </div>
@@ -80,7 +88,7 @@
                     <th colspan="2" class='text-center'>PERÍODO DE ESTIAGEM 2021</th>
                 </tr>
                 <tr>
-                    <td>MUNICÍPIOS ATENDIDOS</td>
+                    <td><a href='#' title='Clique aqui e veja quais municipios foram atenditos'>MUNICÍPIOS ATENDIDOS</a></td>
                     <td><?=count($dados_mah_estiagem_2021)?></td>
                 </tr>
                 <tr>
@@ -89,7 +97,7 @@
                 </tr>
                 <tr>
                     <td>CESTA BÁSICAS</td>
-                    <td><?=$dados_mah_estiagem_2021_qtd[0]['qtd'];?></td>
+                    <td><?=$quantidade_cesta_estiagem;?></td>
                 </tr>
             </table>
         </div>
@@ -166,7 +174,7 @@
     </div>
 
 </div>
-
+<div></div>
 <!-- =================== RODAPE CORPO ==================== -->
 <?php include_once "template/page/corpoRodape.php"; ?>
 <!-- =================== RODAPE  ======================== -->

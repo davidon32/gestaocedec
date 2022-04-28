@@ -33,7 +33,7 @@ $dadosOrigem = Material::ListFonte(true);
 				<div class="col-md-4">
 						<label>Origem</label>
 							<div class="input-group">
-                                                            <input type="text" class="form-control" name='txtOrigem' id='txtOrigem'>
+                                                            <input type="text" class="form col-md-12" name='txtOrigem' id='txtOrigem'>
                                                             <input type="hidden" name='id_origem' id='id_origem'>
                                                             <span class="input-group-btn">
                                                               <button class="btn btn-default" id="add_fonte" type="button">Ad.Fonte</button>
@@ -56,7 +56,7 @@ $dadosOrigem = Material::ListFonte(true);
 				</div>
 				<div class="col-md-4">
 					<label>Quantidade</label>
-                                        <input type="text" name="txtQtd" id="txtQtd" class="form-control" required maxlength="4"/>
+                                        <input type="number" name="txtQtd" id="txtQtd" class="form-control" required maxlength="5" max="99999"/>
 				</div>
 				<div class="col-md-4">		
 					<label>Dep&oacute;sito Avan&ccedil;ado:</label>

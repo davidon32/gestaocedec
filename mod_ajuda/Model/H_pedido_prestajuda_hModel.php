@@ -640,4 +640,35 @@ aju_h_pedido_prest.total_familia_at
     }
     
     
+     /**
+     *  homologacao de prestacao de contas
+     * @param id_pedido
+     */
+    public static function homologar($dados){
+        
+        $con = Conexao::getInstance();
+       
+        $sql = "UPDATE aju_h_pedido_pedid
+                    SET status_prest =  :status_prest,
+                        parecer_prest = :parecer_prest,
+                        usuario_homolog = :usuario_homolog
+                        WHERE id = :id_pedido";
+         try {
+             
+            $result = $con->prepare($sql);
+            $result->bindValue(":status_prest", $dados['rbParecer']);
+            $result->bindValue(":parecer_prest", nl2br($dados['txtParecer']));
+            $result->bindValue(":usuario_homolog", $dados['txtUsuario']);
+            $result->bindValue(":id_pedido", $dados['id_pedido']);
+            $result->execute();
+
+            return true;
+            
+        } catch (Exception $e) {
+            return $e->getMessage() . "";
+        }
+        
+    }
+    
+    
 }

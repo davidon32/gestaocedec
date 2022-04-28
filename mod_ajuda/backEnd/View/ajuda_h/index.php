@@ -12,7 +12,7 @@
 <?php
 $id_municipio = isset($pageSession['session']['seguranca']['id_municipio']) ? $pageSession['session']['seguranca']['id_municipio'] : "";
 
-$dados = H_pedido_pedidajuda_hModel::lista();
+
 $pedido_h = new H_pedido_pedidajuda_hModel();
 
 $id_usuario = $_COOKIE['seguranca']['idUser']
@@ -72,6 +72,9 @@ $id_usuario = $_COOKIE['seguranca']['idUser']
     
     <?php
         $btn = isset($_POST['btnSearch']) ? $_POST['btnSearch'] : "";
+        $municip = isset($_POST['txtSearch']) ? $_POST['txtSearch'] : "";
+        
+        $dados = H_pedido_pedidajuda_hModel::lista($municip);
         
         if($btn == 'Pesquisar') {
     

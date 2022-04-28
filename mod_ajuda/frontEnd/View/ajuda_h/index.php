@@ -30,6 +30,8 @@ $pedido_h = new H_pedido_pedidajuda_hModel();
 
 $pedido_h_item = new H_pedido_itensajuda_hModel();
 
+//var_dump($pedido_h_item);
+
 
 ?>	
 <div class="col-md-12 text-center">

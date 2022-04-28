@@ -43,9 +43,9 @@ private $qtd_familia_atendida = null;
     
 
     #################  CONSTRUTOR ##################
-     function __construct($aju_h_pedido_itens = null) {
+     function __construct() {
 
-         self::$model = $this->Tabela($aju_h_pedido_itens);
+         self::$model = $this->Tabela('aju_h_pedido_itens');
 
          self::$mod = "aju";
          

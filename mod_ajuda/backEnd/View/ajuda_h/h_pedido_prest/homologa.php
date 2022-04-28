@@ -13,17 +13,19 @@
 
 <legend>Aprovação Prestação de Contas</legend>
 
-<form action="#" method="POST" name="frmHomologar" id="frmHomologar">
+<form action="<?= FuncaoBase::geraLink("ajuda", "h_pedido_prest", "homologa") ?>" method="POST" name="frmHomologar" id="frmHomologar">
     
-    <label>Aprovar</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="checkbox" name="rbAprovar" id="rbAprovar"><br>
-    <label>Recusar</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="checkbox" name="rbRecusar" id="rbRecusar"><br>
-    <label>Em aberto</label>&nbsp; <input type="checkbox" name="rbAberto" id="rbAberto">
+    <input type='hidden' name='id_pedido' id='id_pedido' value='<?=$_GET['id']?>'>   
+    <input type='hidden' name='txtUsuario' id='txtUsuario' value=''>
+    <label>Aprovar</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="checkbox" name="rbParecer" id="rbAprovar" value='Aprovado'><br>
+    <label>Recusar</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="checkbox" name="rbParecer" id="rbRecusar" value='Recusado'><br>
+    <label>Em aberto</label>&nbsp; <input type="checkbox" name="rbParecer" id="rbAberto" value='EmAberto'>
     <br>
     <br>
     <label>Parecer / Justificativa:</label>
     
     
-    <textarea class="form form-control" rows='10'></textarea>
+    <textarea class="form form-control" rows='10' name='txtParecer' id='txtParecer' maxlength='255'></textarea>
     <br>
     <input class='btn btn-primary' type="submit" value="Gravar">
     
@@ -35,6 +37,11 @@
 <br>
 
 <br>
+<?php
+
+    var_dump($_POST);
+
+?>
 <!-- =================== RODAPE CORPO ==================== -->
 <?php include_once "template/page/corpoRodape.php"; ?>
 <!-- =================== RODAPE  ======================== -->
@@ -46,8 +53,8 @@
 
     $(document).ready(function () {
         
-        $("input[type='checkbox']").click(function(){
-           $(this).attr('id')); 
+        $('input[type="checkbox"]').on('change', function() {
+            $(this).siblings('input[type="checkbox"]').prop('checked', false);
         });
 
     });

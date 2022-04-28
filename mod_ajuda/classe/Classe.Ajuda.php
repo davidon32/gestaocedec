@@ -243,7 +243,7 @@ class Ajuda{
         $con = Conexao::getInstance();
 	$dados = array();
         
-        $sql = "SELECT aju_item.cod, aju_unidade.nome,
+        $sql = "SELECT aju_item.cod, aju_unidade.nome, aju_unidade.singular,
                     SUM(aju_item.quantidade) as qtd
                     FROM aju_liberacao
                     INNER JOIN aju_item 
@@ -307,7 +307,7 @@ class Ajuda{
         $con = Conexao::getInstance();
 	$dados = array();
         
-        $sql = "SELECT aju_item.cod, aju_unidade.nome,
+        $sql = "SELECT aju_item.cod, aju_unidade.nome, aju_unidade.singular,
                     SUM(aju_item.quantidade) as qtd
                     FROM aju_liberacao
                     INNER JOIN aju_item 

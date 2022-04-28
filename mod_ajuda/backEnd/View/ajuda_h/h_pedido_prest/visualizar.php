@@ -54,7 +54,7 @@ $itemPedido = H_ajuda::ItemPedido($id_pedido);
     </tr>
     <?php
         if(count($beneficiarios) >0){
-            $total_materiais = 0;
+            $total_materiais_prestado_conta = 0;
         ?>
         <tr>
             <td></td>
@@ -85,22 +85,30 @@ $itemPedido = H_ajuda::ItemPedido($id_pedido);
                 </tr>
             
     <?php
-                $total_materiais += $beneficiario['qtd'];
+                $total_materiais_prestado_conta += $beneficiario['qtd'];
                 $cor = '';
                 $title = '';
         }
-                if($total_materiais < $value['qtd']){
+                if($total_materiais_prestado_conta < $value['qtd']){
                     $cor = 'red';
                     $title = 'Existe Materiais para prestar contas !';
                 }
-        print "<tr><td colspan='5'></td><td style='color:".$cor."' title='".$title."'>Total Materiais : ".$total_materiais."</td></tr>
-        </table>
-        </td></tr>";
+        print "</table>
+        </td></tr>
+        <tr>
+            <td colspan='4'></td>
+            <td style='color:".$cor."; text-align:right' title='".$title."'>Total Material Pedido : ".$value['qtd']."<br> Total Materiais Prestado Conta : ".$total_materiais_prestado_conta."<br> Saldo a Prestar Conta : ".($value['qtd'] - $total_materiais_prestado_conta)."</td>
+        </tr>
+        ";
         }
     
     }
     
     ?>
+                
+                <tr>
+                    <td>Total </td>
+                </tr>
 </table>
 <br>
 
