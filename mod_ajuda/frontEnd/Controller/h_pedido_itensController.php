@@ -99,10 +99,7 @@ class h_pedido_itensController extends Controller {
     ################  GRAVAR ##################    
     # gravar registro
 
-    public function gravar() {
-        
-        var_dump($_GET, $_POST);
-        
+    public function gravar() {     
         
         $h_pedido_itens = new H_pedido_itensajuda_hModel;
         

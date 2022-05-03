@@ -9,54 +9,61 @@
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php";
 ?>
+<div class='col-md-12 text-center'>
+<a class="btn btn-success" href="?ac=itn&modulo=pipa&controller=pipa&action=index">Voltar</a>
+</div>
 
-<p style="text-align:center;" id="titulo"><h4>Listagem Posição PMDA</h4></p>
 
 <!-- INICIO DO CORPO-->
-<h3>PMDA - Busca</h3>
+<legend>PMDA - Busca</legend>
 <form action="#" method="post" id="form">
-    <div class="radio">
-        <input type="hidden" name="txtId_user" id="txtId_user" value="<?= $pageSession['session']['seguranca']['idUser']; ?>">
+    
+    <div class='col-md-6'>
+        <div>					
+                <input class="form-control" type="text" id="lbPesquisa" name="txtPesquisa" id="txtPesquisa" style="height: 32px;"/>
+                <select id="selSituacao" name="selSituacao">
+                    <option value="4">Aprovado</option>
+                    <option value="0">Em Edição</option>
+                    <option value="3">Arquivado</option>
+                    <option value="8">Todos</option>
+                    <option value="9">Encerrado</option>
+                </select>
+                <br>
+            <input type="submit" name="btnPesquisa" id="btnPesquisa" class="btn btn-primary" value="Pesquisar"/>
+            
+        </div>
+    </div>
+    
+    <div class='col-md-3'>
+        <div class="radio">
+            <input type="hidden" name="txtId_user" id="txtId_user" value="<?= $pageSession['session']['seguranca']['idUser']; ?>">
+
+            <div class="radio">
+                <label>
+                    <input type="radio" name="rbOpcao" id="rbOpcaoMun" value="municipio" checked="checked">
+                    Por Município
+                </label>
+            </div>
+        </div>
 
         <div class="radio">
             <label>
-                <input type="radio" name="rbOpcao" id="rbOpcaoMun" value="municipio" checked="checked">
-                Por Município
+                <input type="radio" name="rbOpcao" id="rbOpcaoPmda" value="pmda">
+                Por PMDA
+            </label>
+        </div>
+
+        <div class="radio">
+            <label>
+                <input type="radio" name="rbOpcao" id="rbOpcaoGeral" value="geral">
+                Geral
             </label>
         </div>
     </div>
-
-    <div class="radio">
-        <label>
-            <input type="radio" name="rbOpcao" id="rbOpcaoPmda" value="pmda">
-            Por PMDA
-        </label>
-    </div>
-
-    <div class="radio">
-        <label>
-            <input type="radio" name="rbOpcao" id="rbOpcaoGeral" value="geral">
-            Geral
-        </label>
-    </div>
-    <br>
-    <div class="">					
-        <label>Pesquisa<br>
-            <input class="form-control" type="text" id="lbPesquisa" name="txtPesquisa" id="txtPesquisa" style="height: 32px;"/>
-            <select id="selSituacao" name="selSituacao">
-                <option value="4">Aprovado</option>
-                <option value="0">Em Edição</option>
-                <option value="3">Arquivado</option>
-                <option value="8">Todos</option>
-                <option value="9">Encerrado</option>
-            </select>
-        </label>
-        <input type="submit" name="btnPesquisa" id="btnPesquisa" class="btn btn-primary" value="Pesquisar"/>
-    </div>
+    
 
 </form>
-
-<a class="btn btn-primary" href="?ac=itn&modulo=pipa&controller=pipa&action=index">Voltar</a>
+<div class="col-md-12">
 <?php
 $pmda = new Pmda();
 $municipio = new Municipio();
@@ -81,18 +88,20 @@ if ($btn == 'Pesquisar') {
     if ($opcao == "municipio") {
         $dadosMun = $municipio->BuscaMunicipio($busca);
 
-        print "<br><br><table class='table' style='width:70%;'>";
+        print "<br><br><table class='table'>";
         print "<tr>
-		<th style='text-align:center;background-color:#BDBDBD;'>MUNICÍPIO</th>
-		<th style='text-align:center;background-color:#BDBDBD;'>Quantidades de PMDA's</th>
+		<th>MUNICÍPIO</th>
+		<th>Quantidades de PMDA's</th>
+		<th>Opção/Ação</th>
 		<tr>";
 
         foreach ($dadosMun as $value) {
             $existePmda = $pmda->listaPmda($value['id_municipio']);
             if (count($existePmda) > 0) {
                 print "<tr>
-			<td style='background-color:#01DF3A;text-align:center; color:#000000; font-size:15pt;'><a class='btn btn-primary' style='text-decoration:none;' href='?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=pipa&controller=pipa&action=pesquisaPmda&idmun=" . $value['id_municipio'] . "'>" . $value['nome'] . "</a></td>
-			<td style='background-color:#01DF3A;text-align:center; color:#000000; font-size:15pt;'>" . count($existePmda) . "</td>
+			<td>". $value['nome'] . "</td>
+			<td>" . count($existePmda) . "</td>
+                        <td><a href='?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=pipa&controller=pipa&action=pesquisaPmda&idmun=" . $value['id_municipio'] . "' title='Visualizar/Editar Processos'><img src='/core/imagem/view.png'></a>
 			</tr>";
             } else {
                 print "<tr><td style='background-color:#FA5858;text-align:center; color:#ffffff;'>" . $value['nome'] . "</td>
@@ -205,17 +214,23 @@ if (!empty($dados)) {
                 $alteraStatus = "";
             }else {
                 $alteraStatus = "|<a href='javascript:alterarStatus(" . $value['id_pmda'] . ")' title='Alterar Status deste PMDA'><img src='core/imagem/status.png'></a>";
-                print "<td " . $homologado . "><select class='form-control' id='selStatus" . $value['id_pmda'] . "' data-id_pmda='" . $value['id_pmda'] . "' name='selStatus'>
-                                                                                                                            <option value='" . $value['status'] . "'>" . $pmda->status($value['status']) . "</option>";
-                print "<option value='0'>Em Edição</option>";
-                //print "<option value='1'>Completo</option>";
-                print "<option value='2'>Em Análise</option>";
-                //print "<option value='3'>Arquivado</option>";
-                print "<option value='4'>Aprovado</option>";
-                print "<option value='5'>Anulado</option>";
-                //print "<option value='9'>Encerrado</option>";
-                if ($pmda->status($value['status']) != 'Arquivado') {
-                    print "<option value='1'>Liberar Alterações</option>";
+                print "<td " . $homologado . ">";
+                print "<select class='form-control' id='selStatus" . $value['id_pmda'] . "' data-id_pmda='" . $value['id_pmda'] . "' name='selStatus'>";
+                print "<option value='" . $value['status'] . "'>" . $pmda->status($value['status']) . "</option>";
+                if($value['status'] == 4){
+                    
+                    
+                }else {
+                    print "<option value='0'>Em Edição</option>";
+                    //print "<option value='1'>Completo</option>";
+                    print "<option value='2'>Em Análise</option>";
+                    //print "<option value='3'>Arquivado</option>";
+                    print "<option value='4'>Aprovado</option>";
+                    print "<option value='5'>Anulado</option>";
+                    //print "<option value='9'>Encerrado</option>";
+                    if ($pmda->status($value['status']) != 'Arquivado') {
+                        print "<option value='1'>Liberar Alterações</option>";
+                    }
                 }
                 print "</select></td>";
             }

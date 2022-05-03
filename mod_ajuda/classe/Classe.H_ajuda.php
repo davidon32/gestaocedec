@@ -57,6 +57,41 @@ class H_ajuda extends DataMysql {
         
     }
     
+    public static function BuscaPedidoMunicipio($_municipio) {
+        
+        $dados = array();
+        $con = Conexao::getInstance();
+
+        $sql = "SELECT  aju_h_pedido_pedid.id, 
+			aju_h_pedido_pedid.data_entrada_sistema,
+			aju_h_pedido_pedid.id_municipio,
+			aju_h_pedido_pedid.status,
+			aju_h_pedido_pedid.tramit,
+			dec_cobrade.nome,
+			cedec_municipio.nome,
+                        aju_h_pedido_pedid.data_aprovacao,
+                        aju_h_pedido_pedid.numero,
+                        aju_h_pedido_pedid.id_cobrade,
+                        aju_h_pedido_pedid.data_hora_envio
+			from aju_h_pedido_pedid
+			INNER JOIN dec_cobrade
+			ON aju_h_pedido_pedid.ID_COBRADE = dec_cobrade.id_cobrade
+			INNER JOIN cedec_municipio
+			ON aju_h_pedido_pedid.id_municipio = cedec_municipio.id_municipio
+                        WHERE cedec_municipio.nome LIKE :nome";
+        
+        $result = $con->prepare($sql);
+            $result->bindValue(":nome", '%'.$_municipio.'%');
+            $result->execute();
+        
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            $dados[] = $linha;
+        }
+        
+        return $dados;
+        
+    }
+    
     
     
 

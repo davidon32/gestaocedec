@@ -36,6 +36,21 @@
                 <td>Placa Seg.</td>
                 <td>Nome</td>
             </tr>
+            
+            <?php
+                       
+                foreach ($viatura as $key => $value) {
+                    
+                    print "<tr>
+                            <td>#</td>
+                            <td>Placa</td>
+                            <td>Placa Seg.</td>
+                            <td>Nome</td>
+                    </tr>";
+                    
+                }
+            
+            ?>
 
         </table>
 

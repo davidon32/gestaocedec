@@ -6,6 +6,7 @@ $opcao = isset($_POST['opcao']) ? $_POST['opcao'] :"";
 
 $h_pedido_pedid = new H_pedido_pedidajuda_hModel();
 
+/* buscar dados do compdec */
 if($opcao == 'dados_compdec') {
     $dados = $h_pedido_pedid->buscaDadosPedido($id_municipio);
     print json_encode($dados);

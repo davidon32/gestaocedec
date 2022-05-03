@@ -7,6 +7,8 @@ include_once PATH . '/core/Model/UsuarioModel.php';
 class viaturaController extends Controller {
 
     public function index(){
+        
+        
         include_once 'mod_equipe/backEnd/View/equipe/reg_dsp/viatura/index.php';
     }
     

@@ -74,6 +74,10 @@
         public function processar(){
             include_once 'mod_ajuda/backEnd/View/tdap/processar.php';
         }
+        /* declaracao de conformidade */
+        public function deConf(){
+            include_once 'mod_ajuda/backEnd/View/tdap/indexDconf.php';
+        }
         
         /* processar arquivo sms modem*/
         public function processarsms(){

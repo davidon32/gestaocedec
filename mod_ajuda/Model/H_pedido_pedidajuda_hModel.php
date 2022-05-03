@@ -278,19 +278,19 @@ $result->bindValue(":esforcos_realizados", $dados['esforcos_realizados']);
 $result->bindValue(":tramit", "analise_drd");
 $result->bindValue(":ano", date('Y'));
 
-            if($result->execute()){
-                $id = self::$con->lastInsertId();
+        if($result->execute()){
+            $id = self::$con->lastInsertId();
+            $result1['result'] = true;
+            $result1['id'] = $id;
 
-                print "<script>";
-                print "window.location.href = '".(FuncaoBase::geraLink("ajuda", "h_pedido_itens", "cadastro", array("id" => $id)))."';";
-                print "</script>";
-            }else {
-                print "erro";
-            }
+        }else {
+            return $result1['result'] = false;;
+        }
+            
+            return $result1;
 
             #Log::GravaLog("Cadastro de marca : " . $dados['nome'] . " " . $_COOKIE['seguranca']['login'], "aju_log");
 
-            print "sucesso";
         } catch (Exception $e) {
             return $e->getMessage() . "Erro ao inserir marca";
         }
@@ -833,7 +833,7 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
         
         $dado = "";
         
-        $sql = "select aju_h_pedido_pedid.numero
+        $sql = "select max(aju_h_pedido_pedid.numero) as numero
                 from aju_h_pedido_pedid
                 where year(data_entrada_sistema) = year(CURDATE())";
         
@@ -848,7 +848,7 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
             if(is_null($dado)){
                 return 1;
             }else {
-                return (int)$dado+1;
+                return (int)($dado+1);
             }
         } catch (Exception $e) {
             return $e->getMessage() . "Ocorreu um erro !";
@@ -872,7 +872,7 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
  com_eq_comdec.telefone as tel_coordenador,
  com_eq_comdec.celular as cel_coordenador,
  com_eq_comdec.email as email_coordenador,
- cedec_municipio.nome as nome_coordenador,
+ cedec_municipio.nome as nome_municipio,
  cedec_municipio.prefeito as nome_prefeito,
  cedec_municipio.tel_pref as tel_prefeito,
  cedec_municipio.cel_pref as cel_prefeito,
@@ -1211,7 +1211,8 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
                             aju_h_pedido_pedid.status,
                             aju_h_pedido_pedid.tramit,
                             aju_h_pedido_pedid.data_aprovacao
-                            FROM gestaocedec.aju_h_pedido_pedid";
+                            FROM gestaocedec.aju_h_pedido_pedid
+                            where status > 1 and status < 5";
         
         try {
 

@@ -23,8 +23,10 @@ if ($_COOKIE['seguranca']['id_deposito'] == 1) {
     <a href="<?= FuncaoBase::geraLink("ajuda", "tdap", "listreceb")?>" class="btn btn-info">Recebimento QRCode</a>
     <br>
     <br>
-    
     <a href="<?=FuncaoBase::geraLink("ajuda", "tdap", "processar")?>" class="btn btn-info">Processar Arquivo SMS</a>
+    <br>
+    <br>
+    <a href="<?=FuncaoBase::geraLink("ajuda", "tdap", "deConf")?>" class="btn btn-info">Declaração de Conformidade</a>
 
 
        <?php } ?>

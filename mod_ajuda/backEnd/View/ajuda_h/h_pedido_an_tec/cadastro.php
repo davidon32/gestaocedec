@@ -30,9 +30,14 @@ if ($secao == 'analise_drd') {
     $status = 4;
 } else if ($secao == 'analise_coord') {
     $label_secao = 'Coordenadoria Adjunda';
-    $sigla_despacho = "Aprovação";
-    $despacho = 'atendido';
+    $sigla_despacho = "Aguardando Disponibilidade";
+    $despacho = 'aguard_disp';
     $status = 5;
+}else if ($secao == 'aguard_disp') {
+    $label_secao = 'Coordenadoria Adjunda';
+    $sigla_despacho = "Aguardando Disponibilidade";
+    $despacho = 'aguard_disp';
+    $status = 6;
 }
 ?>
 
@@ -47,7 +52,7 @@ if ($secao == 'analise_drd') {
         </div>
 
         <!-- secao tramit -->
-        <div class='col-md-2'>
+        <div class='col-md-3'>
             <label id='lb_tramitar'>Tramitar Pedido </label>
             <select class='form form-control' name="sel_despacho" id="sel_despacho">
                 <option value="" data-status="">Escolha uma Seção</option>
@@ -60,8 +65,34 @@ if ($secao != 'analise_coord') {
 }
 
 if ($secao == 'analise_coord') {
-    print "<option value=\"atendido\" data-status=\"5\">Aprovação</option>";
+    
+    /* Aguardando disponibilidade */
+    print "<option value=\"aguard_disp\" data-status=\"5\">Aguardando Disponibilidade Material</option>";
+    
 }
+
+
+if ($secao == 'aguard_disp') {
+    
+    /* Aguardando Retirada */
+    print "<option value=\"aguard_ret\" data-status=\"6\">Aguardando Retirada</option>";
+    print "<option value=\"cancelado\" data-status=\"8\">Cancelado</option>";
+}
+
+
+if ($secao == 'aguard_ret') {
+    /* Processo Atendido */
+    print "<option value=\"atendido\" data-status=\"7\">Atendido</option>";
+    print "<option value=\"cancelado\" data-status=\"8\">Cancelado</option>";
+}
+
+/* obs: criar regras para cancelamento 
+    cancelar somente antes de 10 dias de atendido */
+if ($secao == 'atendido') {
+    /* Cancelado */
+    print "<option value=\"cancelado\" data-status=\"8\">Cancelado</option>";
+}
+
 ?>
             
 

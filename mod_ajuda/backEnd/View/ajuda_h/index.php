@@ -25,9 +25,9 @@ $id_usuario = $_COOKIE['seguranca']['idUser']
         <div class="col-md-12">
             <div class="col-md-6">
         <!--<a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "cadastro") ?>">Novo Pedido</a>-->
-            <a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "index") ?>">Pesquisa</a>
-            <br></br>
-            <p class=""> <a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "config_ajuda") ?>" title="Cadastro Analistas">Configurações</a></p>
+            <!--<a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "index") ?>">Pesquisa</a>-->
+            
+            <a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "config_ajuda") ?>" title="Cadastro Analistas">Configurações</a>
             </div>
             <div class="col-md-3">
                 <h3>Legenda</h3>
@@ -64,26 +64,38 @@ $id_usuario = $_COOKIE['seguranca']['idUser']
     </div>
     <div class="row">
         <form action="#" method="POST" name="frmSearch" id="frmSearch">
-        <label>Busca</label>
-        <input class='form form-control' type="text" name="txtSearch" id="txtSearch" >
+        <label>Pesquisa</label>
+        <input class='form form-control' type="text" name="txtSearch" id="txtSearch" ><br>
         <input class='btn btn-primary' type="submit" name="btnSearch" id="btnSearch" value="Pesquisar">
+        <br>
         </form>
     </div>
     
     <?php
         $btn = isset($_POST['btnSearch']) ? $_POST['btnSearch'] : "";
         $municip = isset($_POST['txtSearch']) ? $_POST['txtSearch'] : "";
-        
-        $dados = H_pedido_pedidajuda_hModel::lista($municip);
-        
-        if($btn == 'Pesquisar') {
+
+        /* Pesquisa */
+        if($this->isPost()){
+
+            $listaPedido = H_ajuda::BuscaPedidoMunicipio($municip);
+            $tituloForm = "Resultado de Pesquisa";
+        }else {
+            /* listagem pedido recente */
+            $listaPedido = $pedido_h->buscaPedidoH();
+            $tituloForm = "Pedidos Enviados para Análise";
+
+        }
+       
     
     ?>
+    <br>
+    <legend><?=$tituloForm;?></legend>
     Total Registros : <span id='total_registro'></span>
+    
     <table class="table table-condensed">
-        <tr>
-            <th colspan="8">Pedidos Recentes</th>
-        </tr>
+        
+        
         <tbody>
             <tr>
                 <th>Nr</th>
@@ -113,10 +125,6 @@ if ($dadosConfig['aju_h_alta_perf'] == 1) {
     $permissao = $pedido_h->buscaAnalista($id_usuario);
 }
 
-
-$listaPedido = $pedido_h->buscaPedidoH();
-
-//var_dump($listaPedido);
 $total_reg = 0;
 
 foreach ($listaPedido as $key => $pedid) {
@@ -213,7 +221,7 @@ foreach ($listaPedido as $key => $pedid) {
     }
 }
 
-        }
+
 ?>
 
         </tbody>

@@ -102,10 +102,12 @@ class h_pedido_anexoController extends Controller {
     public function gravar() {
 
         $h_pedido_anexo = new H_pedido_anexoajuda_hModel;
+        
+        var_dump($_FILES);
 
         if ($h_pedido_anexo->gravar($_POST)) {
             FuncaoBase::alert("Registro Gravado com Sucesso !");
-            $this->redirect("ajuda", "h_pedido_anexo", "index");
+            #$this->redirect("ajuda", "h_pedido_pedid", "edit", array('id'=>$_POST['id_pedido']));
         }
     }
             

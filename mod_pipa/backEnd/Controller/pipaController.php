@@ -6,7 +6,7 @@ include_once "core/Model/Model.php";
 class pipaController extends Controller {
 
     public function index() {
-        include_once "mod_pipa/backEnd/View/index/indexView.php";
+        include_once "mod_pipa/backEnd/View/index/index.php";
         //var_dump($pageSession);
     }
 
@@ -38,10 +38,9 @@ class pipaController extends Controller {
         include_once "mod_pipa/backEnd/View/usuario/cExUserView.php";
     }
 
-    #pmda
-
-    public function pmda() {
-        include_once "mod_pipa/backEnd/View/pmda/indexView.php";
+    # Administração do pmda
+    public function pmdaIndex() {
+        include_once "mod_pipa/backEnd/View/index/indexPmda.php";
     }
 
     #pesquisa pmda
@@ -167,5 +166,19 @@ class pipaController extends Controller {
                     </script>";
        }
     }
+    
+    
+    # Declaração de Conformidade 
+    public function decIndex() {
+        include_once "mod_pipa/backEnd/View/index/indexDconf.php";
+    }
+    
+    
+    # nova declaracao
+    public function novoDconf() {
+        include_once "mod_pipa/backEnd/View/dconf/declaracao.php";
+    }
+    
+    
 
 }
