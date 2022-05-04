@@ -911,27 +911,28 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
                 return 'Edição Compdec';
                 break;
             case 1:
-                return '-';
-                break;
-            case 2:
                 return 'Analise DRD';
                 break;
-            case 3:
+            case 2:
                 return 'Analise DLOG';
                 break;
-            case 4:
+            case 3:
                 return 'Analise Coord.';
                 break;
-            case 5:
-                return 'Atendido';
+            case 4:
+                return 'Aguardando Disponibilidade Mat.';
+                break;
+             case 5:
+                return 'Aguardando Retirada Mat.';
                 break;
             case 6:
-                return 'Arquivado';
+                return 'Atendido';
                 break;
             case 7:
                 return 'Cancelado';
                 break;
             default:
+                return 'Opção Inválida !';
                 break;
         }
         
@@ -941,6 +942,9 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
     public function enumFase($fase) {
         
         switch ($fase) {
+            case 'edicao_compdec':
+                return 'Processo em Edição pelo Compdec';
+                break;
             case 'analise_drd':
                 return 'em Análise DRD';
                 break;
@@ -950,10 +954,17 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
             case 'analise_coord':
                 return 'em Análise Coord. Adjunto CEDEC';
                 break;
+            case 'aguard_disp':
+                return 'Aguard. Disponibilidade Material';
+                break;
+            case 'aguard_ret':
+                return 'Aguardando Retirada de Material';
+                break;
             case 'atendido':
                 return 'Prestação de Contas';
                 break;
             default:
+                return 'Fase Inválida !' ;
                 break;
         }
         
@@ -1000,7 +1011,7 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
                 return array('fdo'=>'#F3E2A9', 'fonte'=>'#2E2E2E');
                 break;
             case 1:
-                # -
+                # caramelo
                 return array('fdo'=>'#F3E2A9', 'fonte'=>'#2E2E2E');
                 break;
             case 2:
@@ -1016,12 +1027,12 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
                 return array('fdo'=>'#FE642E', 'fonte'=>'#151515');;
                 break;
             case 5:
-                # Atendido / verde
-                return array('fdo'=>'#4B8A08', 'fonte'=>'#FFFFFF');;
+                # Aguardando Disponibilidade
+                return array('fdo'=>'#9F81F7', 'fonte'=>'#FFFFFF');;
                 break;
             case 6:
-                # Cancelado / vermelho
-                return array('fdo'=>'#B40404', 'fonte'=>'#2E2E2E');;
+                # Atendido / verde
+                return array('fdo'=>'#9F81F7', 'fonte'=>'#2E2E2E');;
                 break;
             default:
                 break;

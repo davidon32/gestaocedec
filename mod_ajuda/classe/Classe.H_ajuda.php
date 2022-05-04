@@ -80,6 +80,7 @@ class H_ajuda extends DataMysql {
 			ON aju_h_pedido_pedid.id_municipio = cedec_municipio.id_municipio
                         WHERE cedec_municipio.nome LIKE :nome";
         
+        
         $result = $con->prepare($sql);
             $result->bindValue(":nome", '%'.$_municipio.'%');
             $result->execute();

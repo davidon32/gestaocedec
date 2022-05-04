@@ -33,6 +33,11 @@ if(empty($id)){
 </div>
 </div>
 <div class='row'>
+    <div class='col-md-12'>
+    <legend>Obs: Anexar um documento Digital PDF ou Colar o Link do google drive com o arquivo compartilhado</legend>
+    <a href='https://www.youtube.com/watch?v=gm2LmELpBG8'>Veja aqui como Compartilhar arquivos no Google Drive</a>
+    <br><br>
+    </div>
 <div class='col-md-6'>
 <label>Nome do Arquivo</label>
 <input type="file" class='form form-control' name='nome_arquivo' id='nome_arquivo' maxlength='44' required >
@@ -43,6 +48,11 @@ if(empty($id)){
 <div class='col-md-6'>
     <label>Descrição </label><span class='labelInfo'> ( Este campo será usado para informar o conteudo do seu arquivo ex: "Lei 4444 parte 1 de 3")</span>
 <input type="text" class='form form-control' name='descricao' id='descricao' maxlength='44' required >
+</div>
+    
+<div class='col-md-6'>
+    <label>Link Arquivo Google Drive </label><span class='labelInfo'> ( Cole aqui o link do arquivo compartilhado no Google Drive )</span>
+<input type="text" class='form form-control' name='linkGdrive' id='linkGdrive' maxlength='150' required >
 </div>
 </div>
 

@@ -56,6 +56,9 @@ $id_usuario = $_COOKIE['seguranca']['idUser']
                 <span style="background-color: #4B8A08;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
                 &nbsp; Atendido ( Aguardando Prestação de Contas ).<br>
                 
+                <span style="background-color: #9F81F7;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+                &nbsp; Aguardando Disponibilidade Material.<br>
+                
                 <span style="background-color: #B40404;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
                 &nbsp; Cancelado / Nulo.<br>
                 
@@ -131,6 +134,7 @@ foreach ($listaPedido as $key => $pedid) {
     # get permissao
     
     $cor = $pedido_h->getCorStatus($pedid['status']);
+    var_dump($cor);
 
     $percent = ( ( H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedid['id']) * 100 ) != 0 ) ? (H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedid['id']) * 100) /  H_pedido_prestajuda_hModel::totalMaterialPrestConta($pedid['id']) : 0 ;
     
@@ -142,10 +146,15 @@ foreach ($listaPedido as $key => $pedid) {
         //print $prazo;
     }
     
+    
+    var_dump($prazo);
+    
     if (($pedid['tramit'] == 'analise_drd' && $permissao[0]['analista_drd'] == '1') ||
             ($pedid['tramit'] == 'analise_dlog' && $permissao[0]['analista_dlog'] == '1') ||
             ($pedid['tramit'] == 'analise_coord' && $permissao[0]['analista_coord'] == '1') ||
-            ($pedid['tramit'] == 'atendido')) {
+            ($pedid['tramit'] == 'atendido') ||
+            ($pedid['tramit'] == 'aguard_disp')
+            ) {
 
         $total_reg++;
         
