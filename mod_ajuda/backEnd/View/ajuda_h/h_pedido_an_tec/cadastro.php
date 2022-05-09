@@ -17,6 +17,8 @@ $secao = isset($_GET['an']) ? $_GET['an'] : "";
 
 $id_pedido = isset($_GET['id']) ? $_GET['id'] : "";
 
+$pedido = H_pedido_pedidajuda_hModel::lista($id_);
+
 $sigla = 'DRD';
 if ($secao == 'analise_drd') {
     $label_secao = 'DRD - Diretoria de Redução de Desastre';
@@ -64,7 +66,7 @@ if ($secao != 'analise_coord') {
     print "<option value=\"analise_coord\" data-status=\"4\">Coordenador Adjunto</option>";
 }
 
-if ($secao == 'analise_coord') {
+if ( ($secao == 'analise_coord') && (true) ) {
     
     /* Aguardando disponibilidade */
     print "<option value=\"aguard_disp\" data-status=\"5\">Aguardando Disponibilidade Material</option>";

@@ -1,6 +1,7 @@
-<?php include_once('core/Controller/Controller.php');
+<?php include_once 'core/include.php';
+include_once('core/Controller/Controller.php');
 
-class FuncionarioController extends Controller {
+class funcionarioController extends Controller {
 
     public function alterar(){
         # usuario master editando perfil
@@ -53,7 +54,8 @@ class FuncionarioController extends Controller {
         }
   
     }
-
     
+    
+       
     
 }

@@ -2426,4 +2426,32 @@ order by cedec_rpm.id";
         
     }
     
+    
+    /**
+     * 
+     *  Lista municipio para busca id
+     */
+    public static function listaid_funcionarioAutocomplete() {
+
+        $con = Conexao::getInstance();
+
+        $dados = array();
+
+        $sql = "SELECT id_funcionario, num_masp, posto, nome
+                    FROM cedec_funcionario where situacao = 1";
+        try {
+
+            $result = $con->query($sql);
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dados[] = $linha;
+            }
+
+            return $dados;
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+        
+    }
+    
 }?>

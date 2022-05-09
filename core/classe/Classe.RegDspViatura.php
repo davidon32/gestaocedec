@@ -58,6 +58,12 @@ class RegDspViatura {
         return true;
     } 
     
+    /**
+     * Busca por registro
+     * @param type $text
+     * @return type
+     * 
+     */
     public static function search($text){
         
         $con = Conexao::getInstance();
@@ -95,6 +101,54 @@ class RegDspViatura {
         
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
             $dados = $linha;            
+        }
+
+        return $dados;
+ 
+    }
+    
+    /**
+     * 
+     * @param type $id
+     * @return type
+     * 
+     */
+    
+    public static function Lista(){
+        
+        $con = Conexao::getInstance();
+        $dados = array();
+        
+        $sql = "SELECT * FROM equ_reg_dsp_viatura";
+                        
+
+        $result = $con->query($sql);
+        
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            $dados[] = $linha;            
+        }
+
+        return $dados;
+ 
+    }
+    /**
+     * Lista Autocomplete
+     * @param type $id
+     * @return type
+     * 
+     */
+    
+    public static function listaid_ViaturaAutocomplete(){
+        
+        $con = Conexao::getInstance();
+        $dados = array();
+        
+        $sql = "SELECT id_viatura, placa, nome from equ_reg_dsp_viatura";
+
+        $result = $con->query($sql);
+        
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            $dados[] = $linha;            
         }
 
         return $dados;

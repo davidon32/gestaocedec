@@ -8,7 +8,7 @@ class viaturaController extends Controller {
 
     public function index(){
         
-        
+        $viatura = RegDspViatura::Lista();
         include_once 'mod_equipe/backEnd/View/equipe/reg_dsp/viatura/index.php';
     }
     

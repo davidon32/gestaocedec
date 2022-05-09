@@ -438,5 +438,35 @@ dec_cobrade.nome
             return $e->getMessage() . "Erro ao inserir Fornecedor";
         }
     }
+    
+    
+    /**
+     * 
+     *  Lista municipio para busca id
+     */
+    public static function listaid_CobradeAutocomplete() {
+
+        
+        $con = Conexao::getInstance();
+
+        $dados = array();
+
+        $sql = "SELECT id_cobrade, codigo, descricao
+                              FROM dec_cobrade";
+
+        try {
+
+            $result = $con->query($sql);
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dados[] = $linha;
+            }
+
+            return $dados;
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+        
+    }
 
 }

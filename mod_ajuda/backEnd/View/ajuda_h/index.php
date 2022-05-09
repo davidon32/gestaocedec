@@ -134,20 +134,24 @@ foreach ($listaPedido as $key => $pedid) {
     # get permissao
     
     $cor = $pedido_h->getCorStatus($pedid['status']);
-    var_dump($cor);
 
     $percent = ( ( H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedid['id']) * 100 ) != 0 ) ? (H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedid['id']) * 100) /  H_pedido_prestajuda_hModel::totalMaterialPrestConta($pedid['id']) : 0 ;
     
-    $prazo = $pedido_h->prazo_presta_conta($pedid['data_aprovacao']);
-    if (strtotime(date('Y-m-d')) > strtotime($prazo) && $pedid['status'] != 6) {
-        $cor = array('fonte'=> '#FFFFFF',
-                     'fdo'=>'#FF0000',
-                     'title'=> 'Prestação de Contas Vencido');
-        //print $prazo;
+    if($pedid['status'] == 6){
+        $prazo = $pedido_h->prazo_presta_conta($pedid['data_aprovacao']);
+        if (strtotime(date('Y-m-d')) > strtotime($prazo) && $pedid['status'] != 6) {
+            $cor = array('fonte'=> '#FFFFFF',
+                         'fdo'=>'#FF0000',
+                         'title'=> 'Prestação de Contas Vencido');
+        }
+    }else {
+        $prazo = "";
+        $cor['title'] ="";
+        
     }
     
     
-    var_dump($prazo);
+    //var_dump($prazo);
     
     if (($pedid['tramit'] == 'analise_drd' && $permissao[0]['analista_drd'] == '1') ||
             ($pedid['tramit'] == 'analise_dlog' && $permissao[0]['analista_dlog'] == '1') ||
@@ -165,20 +169,25 @@ foreach ($listaPedido as $key => $pedid) {
                 <td title='".$cor['title']."'>" . DataMysql::dataCompletaVisual($pedid['data_entrada_sistema']) . "</td>
                 <td title='".$cor['title']."'>" . Decreto::getNomeCobrade($pedid['id_cobrade']) . "</td>
                 <td title='".$cor['title']."'>" . $pedido_h->enumStatus($pedid['status']) . "</td>
-                <td title='".$cor['title']."'>" . $pedido_h->enumFase($pedid['tramit']) . ( ($pedid['status'] == 5) ? " <br>Prazo : " . ($prazo) : "") . "</td>
+                <td title='".$cor['title']."'>" . $pedido_h->enumFase($pedid['tramit']) . ( ($pedid['status'] == 6) ? " <br>Prazo : " . ($prazo) : "") . "</td>
                 <td title='".$cor['title']."'>" . DataMysql::dataCompletaVisual($pedid['data_hora_envio']) . "</td>
                 <td>";
 
         # EDITAR
-        if ($pedid['status'] < 5) {
+        if ($pedid['status'] < 4) {
             print "<a href='" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit', array('id' => $pedid['id'], 'voltar'=>'idx_recente')) . "' title='Editar Pedido'><img src='/core/imagem/editar.png'></a> |";
+            
+            # devolver para ediçao
+            print "<button id='btnEdicao' name='btnEdicao' type='button' data-enviar_edicao=".$pedid['id']." class='btn btn-primart'>Enviar para Edição</button>";
+            
+
         }
 
         # visualizar 
         print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "view", array('id' => $pedid['id'], 'voltar'=>'idx_recente')) . "' title='Visualiação e Impressa do Pedido'><img width='25px' src='/core/imagem/view1.png'></a> |";
 
         #prestação de contas
-        if ($pedid['status'] == 5) {
+        if ($pedid['status'] == 6) {
             
             print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_prest', 'index',array('id' => $pedid['id'])) . "' title='Presatação de contas'><img width='25' src='/core/imagem/relatorio.png'></a>|";
             print "&nbsp;&nbsp;<a href='' style='color:".$cor['fonte']."; font-size:14pt;' title='Percentual de Conclusão da Prestação de Contas do Pedido'>".$percent."%</a> |";
@@ -206,12 +215,6 @@ foreach ($listaPedido as $key => $pedid) {
             print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar' => 'idx_recente', 'an' => 'analise_coord')) . "' title='Despacho Coordenador Adjunto'><img width='25' src='/core/imagem/boss.png'></a>";
         }
         
-        # devolver para ediçao
-        if ($pedid['status'] != 0 && $pedid['status'] != 5) {
-            print "<button id='btnEdicao' name='btnEdicao' type='button' data-enviar_edicao=".$pedid['id']." class='btn btn-primart'>Enviar para Edição</button>";
-            
-        }
-
         print "</td>";
         print "</tr>";
     }else if($pedid['tramit'] == 'edicao_compdec') {

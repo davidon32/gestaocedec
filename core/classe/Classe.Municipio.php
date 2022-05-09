@@ -439,7 +439,7 @@ class Municipio extends DataMysql {
      * 
      *  Lista municipio para busca id
      */
-    public function listaid_municipioAutocomplete() {
+    public static function listaid_municipioAutocomplete() {
 
         
         $con = Conexao::getInstance();

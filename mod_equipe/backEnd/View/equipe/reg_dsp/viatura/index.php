@@ -28,13 +28,14 @@
 
         <table class="table table-bordered table-striped">
             <tr>
-                <th colspan="4" class='text-center'>CADASTRO VIATURA</th>
+                <th colspan="5" class='text-center'>CADASTRO VIATURA</th>
             </tr>
             <tr>
                 <td>#</td>
                 <td>Placa</td>
                 <td>Placa Seg.</td>
                 <td>Nome</td>
+                <td>Ação</td>
             </tr>
             
             <?php
@@ -42,10 +43,11 @@
                 foreach ($viatura as $key => $value) {
                     
                     print "<tr>
-                            <td>#</td>
-                            <td>Placa</td>
-                            <td>Placa Seg.</td>
-                            <td>Nome</td>
+                            <td>".($key+1)."</td>
+                            <td>".$value['placa']."</td>
+                            <td>".$value['placa_seguranca']."</td>
+                            <td>".$value['nome']."</td>
+                            <td><a href='#'><img src='/core/imagem/view.png'></a></td>
                     </tr>";
                     
                 }

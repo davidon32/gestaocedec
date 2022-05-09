@@ -104,8 +104,8 @@ include_once PATH . '/mod_equipe/classe/Classe.Acesso.Equipe.php';
 include_once PATH . '/mod_equipe/classe/Classe.Equipe.Funcionario.php';
 include_once PATH . '/mod_equipe/classe/Classe.Equipe.Dsp.php';
 
-
 include_once PATH . '/mod_equipe/Model/FuncionarioEquipeModel.php';
+include_once PATH . '/mod_equipe/Model/RegistroDspModel.php';
 
 #@ administracao
 include_once PATH . '/mod_admin/classe/Classe.Msg.php';

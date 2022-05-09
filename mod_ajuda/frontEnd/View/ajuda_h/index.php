@@ -125,7 +125,7 @@ foreach ($dados as $key => $value) {
     
 
     # prestação de  contas somente status atendido
-    if ($value['status'] == 5) {
+    if ($value['status'] == 6) {
         print " <a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_prest", "index", array('id' => $value['id'], 'voltar'=> 'idx_recente')) . "' title='Presatação de contas'><img width='25' src='/core/imagem/relatorio.png'></a> |";
         
     }

@@ -903,7 +903,18 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
     }
     
     
-    /* enumStatus get status */
+    /* enumStatus get status 
+     * 
+     * 0 - Edição Compdec
+     * 1 - Analise DRD
+     * 2 - Analise DLOG
+     * 3 - Analise Coord
+     * 4 - Aguardando Disponibilidade Mat
+     * 5 - Aguardando Retirada Mat
+     * 6 - Atendido
+     * 7 - Cancelado
+     * 
+     */
     public static function enumStatus($status) {
         
         switch ($status) {
@@ -1395,6 +1406,8 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
      *  prazo Prestacao d contas
      */
     public static function prazo_presta_conta($dt_aprovacao) {
+        
+        var_dump($dt_aprovacao);
 
         $config = Config::getConfig();
         
