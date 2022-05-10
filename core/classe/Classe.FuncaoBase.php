@@ -834,6 +834,14 @@ static function vifs($_tipo = false, $_redireciona = false, $_msg = 'Procediment
           }
 	  
 
+          /**
+     * Pipe to array
+     * 
+     */
+    public static function pipeToString($string){
+        $text = '"'.str_replace('|', '","',$string).'"';
+        return $text;
+    }
 
 
 

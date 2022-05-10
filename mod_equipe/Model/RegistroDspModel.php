@@ -61,6 +61,7 @@ class RegistroDspEquipeModel extends Model {
 
      }
     
+     /* lista de integrantes da dsp */
     public static function lista($id_funcionario){
         
         $con = Conexao::getInstance();
@@ -114,6 +115,39 @@ class RegistroDspEquipeModel extends Model {
     }
     
     
+     /* lista de integrantes da dsp */
+    public static function listaDsp($limit = 0){
+        
+        $registros = ($limit > 0) ? $limit : "";
+        
+        
+        $con = Conexao::getInstance();
+        
+        $dados = "";
+        
+        $sql = "select data_hora,
+            objetivo,
+            ids_evento,
+            data_hora_inicio,
+            data_hora_fim,
+            historico,
+            obs,
+            ids_municipio,
+            ids_viatura, 
+            ids_integrante
+                from equ_reg_dsp                                        
+                    ORDER BY id_reg_dsp DESC
+                    limit ".$registros;
+                
+        $result = $con->query($sql);
+        
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)){
+            $dados[] = $linha;
+        }
+        return $dados;
+        
+    }
+ 
 
 
 ################  Atualizar dados categoria  ###################

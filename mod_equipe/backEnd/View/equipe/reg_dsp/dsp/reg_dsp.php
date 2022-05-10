@@ -15,8 +15,9 @@
     p {text-align: center};
 
 </style>
-<div class="col-md-12">
-    <input type=""
+<div class="col-md-12 text-center">
+    <a class='btn btn-success' href='<?= FuncaoBase::geraLink('equipe', 'index', "index")?>'>Voltar</a>
+    <br>
 </div>
 
 <form action="<?= FuncaoBase::geraLink("equipe", "equipe", "gravar_dsp")?>" method="POST" name="frmDsp" id="frmDsp" >
