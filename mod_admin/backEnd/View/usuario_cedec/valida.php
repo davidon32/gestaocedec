@@ -2,7 +2,6 @@
 
 include_once 'core/include.php';
 
-
 #@ nome do usuario 
 $_nome = isset($_POST['nome']) ? $_POST['nome'] : null;
 

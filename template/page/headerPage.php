@@ -47,6 +47,8 @@ if(isset($pageSession)){
 <link rel="stylesheet" href="css/sweetalert2.min.css"/>
 
 <script src="js/sweetalert2.all.min.js"></script>
+<link rel="stylesheet" href="/plugins/datetimepicker/jquery.datetimepicker.css"/>
+
    <!-- Google Font -->
   <!--<!--removido Google Fontes-->
 

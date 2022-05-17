@@ -9,18 +9,20 @@ class pipaController extends Controller {
         include_once "mod_pipa/backEnd/View/index/index.php";
         //var_dump($pageSession);
     }
+    
+    /* editar pmda */
+    public function pmda() {
+        include_once "mod_pipa/backEnd/View/pmda/indexView.php";
+
+    }
 
     # usuario index
-
     public function usuario() {
-
         include_once "mod_pipa/backEnd/View/usuario/indexView.php";
     }
 
     #cadastro Usuario
-
     public function caduser() {
-
         include_once "mod_pipa/backEnd/View/usuario/caduserView.php";
     }
 

@@ -123,9 +123,10 @@ class RegistroDspEquipeModel extends Model {
         
         $con = Conexao::getInstance();
         
-        $dados = "";
+        $dados = array();
         
-        $sql = "select data_hora,
+        $sql = "select id_reg_dsp, 
+            data_hora,
             objetivo,
             ids_evento,
             data_hora_inicio,
@@ -147,69 +148,96 @@ class RegistroDspEquipeModel extends Model {
         return $dados;
         
     }
+     /* lista de integrantes da dsp */
+    public static function SearchDsp($id_dsp){
+        
+        $con = Conexao::getInstance();
+        
+        $dados = "";
+        
+        $sql = "select id_reg_dsp, 
+            data_hora,
+            objetivo,
+            ids_evento,
+            data_hora_inicio,
+            data_hora_fim,
+            historico,
+            obs,
+            ids_municipio,
+            ids_viatura, 
+            ids_integrante
+                from equ_reg_dsp
+                    WHERE id_reg_dsp = ".$id_dsp;
+                
+        $result = $con->query($sql);
+        
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)){
+            $dados = $linha;
+        }
+        return $dados;
+        
+    }
+    
+    
+     /* lista de Anexo  */
+    public static function listAnexo($id_dsp){
+        
+        $con = Conexao::getInstance();
+        
+        $dados = array();
+        
+        $sql = "select id_doc, 
+                    nome,
+                    data_hora
+                from equ_reg_dsp_doc
+                    WHERE id_dsp = ".$id_dsp;
+                
+        $result = $con->query($sql);
+        
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)){
+            $dados[] = $linha;
+        }
+        return $dados;
+        
+    }
  
 
 
-################  Atualizar dados categoria  ###################
+################  Atualizar dados dps  ###################
 
     public static function edit(array $dados) {
         
  
         $con = Conexao::getInstance();
 
-        $sql = "UPDATE cedec_funcionario
-                        SET
-                        num_masp = :num_masp,
-                        nome = :nome,
-                        endereco = :endereco,
-                        bairro = :bairro,
-                        cidade = :cidade,
-                        telefone = :telefone,
-                        celular = :celular,
-                        posto = :posto,
-                        secao = :secao,
-                        funcao = :funcao,
-                        desc_funcao = :desc_funcao,
-                        dt_nasc = :dt_nasc,
-                        curso = :curso,
-                        email = :email,
-                        email2 = :email2,
-                        cpf = :cpf,
-                        orgao = :orgao,
-                        ci = :ci,
-                        ramal = :ramal,
-                        num_mesa = :num_mesa,
-                        ponto_rede = :ponto_rede,
-                        id_rpm = :id_rpm
-                        WHERE id_funcionario = :id_funcionario";
+        $sql = "UPDATE equ_reg_dsp
+                        SET data_hora = :data_hora,
+                            objetivo = :objetivo,
+                            ids_evento = :ids_evento,
+                            data_hora_inicio = :data_hora_inicio,
+                            data_hora_fim = :data_hora_fim,
+                            historico = :historico,
+                            obs = :obs,
+                            ids_municipio = :ids_municipio,
+                            ids_viatura = :ids_viatura,
+                            ids_integrante = :ids_integrante
+                            WHERE id_reg_dsp = :id_reg_dsp";
 
         try {
 
             $result = $con->prepare($sql);
             
-            $result->bindValue(":id_funcionario",$dados['txt_id_funcionario']);
-            $result->bindValue(":num_masp",      $dados['txt_masp']);
-            $result->bindValue(":nome",          $dados['txt_nome']);
-            $result->bindValue(":endereco",      $dados['txt_endereco']);
-            $result->bindValue(":bairro",        $dados['txt_bairro']);
-            $result->bindValue(":cidade",        $dados['id_municipio']);
-            $result->bindValue(":telefone",      $dados['txt_tel']);
-            $result->bindValue(":celular",       $dados['txt_cel']);
-            $result->bindValue(":posto",         $dados['txt_posto']);
-            $result->bindValue(":secao",         $dados['txt_secao']);
-            $result->bindValue(":funcao",        $dados['txt_funcao']);
-            $result->bindValue(":desc_funcao",   $dados['txt_descr_funcao']);
-            $result->bindValue(":dt_nasc",       DataMysql::dataForm($dados['txt_dt_nascimento']));
-            $result->bindValue(":curso",         $dados['txt_curso']);
-            $result->bindValue(":email",         $dados['txt_email']);
-            $result->bindValue(":email2",        $dados['txt_email2']);
-            $result->bindValue(":cpf",           $dados['txt_cpf']);
-            $result->bindValue(":orgao",         $dados['txt_orgao']);
-            $result->bindValue(":ci",            $dados['txt_ci']);
-            $result->bindValue(":ramal",         $dados['txtTel_mesa']);
-            $result->bindValue(":num_mesa",      $dados['txtNum_mesa']);
-            $result->bindValue(":ponto_rede",    $dados['txtPonto']);
-            $result->bindValue(":id_rpm",    $dados['sel_rpm']);
+            $result->bindValue(":data_hora"        ,DataMysql::dataForm($dados["data_hora"]));
+            $result->bindValue(":objetivo"         ,$dados["txtObj"]);
+            $result->bindValue(":ids_evento"       ,implode("|",$dados["evento"]));
+            $result->bindValue(":data_hora_inicio" ,DataMysql::dataCompletaForm($dados["datetime_inicio"]));
+            $result->bindValue(":data_hora_fim"    ,DataMysql::dataCompletaForm($dados["datetime_final"]));
+            $result->bindValue(":historico"        ,$dados["txtHist"]);
+            $result->bindValue(":obs"              ,$dados["txtObs"]);
+            $result->bindValue(":ids_municipio"    ,implode("|",$dados["states"]));
+            $result->bindValue(":ids_viatura"      ,implode("|",$dados["viatura"]));
+            $result->bindValue(":ids_integrante"   ,implode("|",$dados["integrante"]));
+            $result->bindValue(":id_reg_dsp"       ,$dados["id_reg_dsp"]);
 
             
             $result->execute();
@@ -218,7 +246,7 @@ class RegistroDspEquipeModel extends Model {
 
             return true;
         } catch (Exception $e) {
-            return $e->getMessage() . "Erro ao Atualizar dados Funcionario !";
+            return $e->getMessage() . "Erro ao Atualizar dados DSP !";
         }
     }
     
@@ -241,5 +269,91 @@ class RegistroDspEquipeModel extends Model {
         }
         return $dados;
     }
+    
+    
+     /**
+     * Busca por registro
+     * @param type $text
+     * @return type
+     * 
+     */
+    public static function search($text){
+        
+        $con = Conexao::getInstance();
+        $dados = array();
+        
+        
+        $ids_evento = FuncaoBase::buscaIds('dec_cobrade', 'id_cobrade', 'descricao', $text);
+        $ids_viatura = FuncaoBase::buscaIds('equ_reg_dsp_viatura', 'id_viatura', 'placa', $text);
+        $ids_municipio = FuncaoBase::buscaIds('cedec_municipio', 'id_municipio', 'nome', $text);
+        
+        if(!empty($ids_viatura)) {
+            $viatura = "OR ids_viatura in (".$ids_viatura.")";
+        }
+        var_dump(implode(",", $ids_viatura));
+        
+        $sql = "SELECT * FROM equ_reg_dsp
+                        WHERE data_hora LIKE '%".$text."%' 
+                        OR objetivo LIKE '%".$text."%'
+                        OR historico LIKE '%".$text."%'
+                        OR obs LIKE '%".$text."%'
+                        OR ids_evento in (".$ids_evento.")
+                        OR ids_municipio in (".$ids_municipio.")
+                        ".$viatura."";
+        
+        var_dump($sql);
+
+        $result = $con->query($sql);
+        
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            $dados[] = $linha;            
+        }
+
+        return $dados;
+ 
+    }
+    
+    
+    /* upload de documentos  */
+    
+    public static function upload_doc() {
+            
+        $dados = isset($_POST) ? $_POST :"";
+
+         try { 
+             
+            if( isset($_FILES['fl_doc_dsp']) && ($_FILES['fl_doc_dsp']['error'] == 0) ) {
+                #upload
+                var_dump(Upload2mb::upload("/anexo/reg_dsp"));
+                
+            }
+                
+            $con = Conexao::getInstance();
+
+            $sql = "insert into equ_reg_dsp_doc (nome,
+                                             data_hora,
+                                             id_dsp) values (:nome,
+                                                            :data_hora,
+                                                            :id_dsp)" ;
+                $result = $con->prepare($sql);
+
+                $result->bindValue(":nome",        $dados['notNormalizaLinkGoogle']);
+                $result->bindValue(":data_hora",   $dados['data_hora']." ".date('H:i:s'));
+                $result->bindValue(":id_dsp",         $dados['id_dsp']);
+
+                $result->execute();
+                
+                
+            
+            return true;
+        } catch (Exception $e){
+            return false;
+        }
+
+        
+        
+    }
+    
+    
     
 }

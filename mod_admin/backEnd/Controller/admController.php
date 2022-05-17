@@ -38,7 +38,7 @@
 
         /** valida cadatro usuario */
         public function cad_user_valida(){
-            
+           
            
             $usuario = new Usuario();
 
@@ -128,9 +128,7 @@
                 }
             }elseif($opcao == "atualiza") {
                 
-                var_dump($_POST);
-                die();
-                
+              
                 $usuario->AtualizarUsuario($dados);
                 
                 $id_funcionario = $usuario->getIdFuncionario($username);

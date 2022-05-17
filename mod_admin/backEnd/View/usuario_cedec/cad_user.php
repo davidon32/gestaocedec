@@ -24,12 +24,14 @@
    
     if(empty($id_usuario)) {
         print "<script>";
-        //print "window.location.href = '".FuncaoBase::geraLink('admin', "adm", "usuario")."';";
+        //print "window.location.href = '".FuncaoBase::geraLink('admin', "adm", "caduser")."';";
         print "</script>";
+        $title = 'Novo Usuario';
+        $button = "<input class='btn btn-info' type='submit' name='btnEnviar' id='btnEnviar' value='Gravar'>";
+        $formaction = "action=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=admin&controller=adm&action=cad_user_valida\"";
     
     # editar
     }else if(!empty ($edit)) {
-       $button = "<input class='btn btn-info' type='submit' name='btnEnviar' id='btnEnviar' value='Gravar'>";
        $formaction = "action=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=&modulo=admin&controller=adm&action=cad_user_valida\"";
        $title = "Editar Dados";
     }else{

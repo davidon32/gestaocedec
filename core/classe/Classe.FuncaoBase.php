@@ -843,6 +843,74 @@ static function vifs($_tipo = false, $_redireciona = false, $_msg = 'Procediment
         return $text;
     }
 
+    
+    
+    /**
+     * 
+     *  Lista dados com quebra de linha
+     *  @param tabela BD
+     *  @param id_tabela
+     *  @param campo nome
+     *  @param id's com funcao pipeToString para condicao IN sql
+     */
+    public static function listaBreakLine($tabela,
+                                            $primaryKey,
+                                            $nomeDescricao,
+                                            $ids) {
+
+        $con = Conexao::getInstance();
+
+        $dados = "";
+
+            $sql = "SELECT {$primaryKey}, {$nomeDescricao}
+                             FROM $tabela
+                             WHERE {$primaryKey} in (".$ids.")";               
+        try {
+            $numero = 1;
+            $result = $con->query($sql);
+            
+            
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dados .= $numero." - ".$linha[$nomeDescricao]."<br>";
+                $numero++;
+            }
+
+            return $dados;
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+        
+    }
+    
+    
+     /**
+     * Busca id com base no nome/descricao 
+     * @param type $tabela
+      * @param $primaryKey
+      * @param $campoNome
+      * @param $texto
+     * @return type
+     * 
+     */
+    public static function buscaIds($tabela, $primaryKey ,$nome, $texto){
+        
+        $con = Conexao::getInstance();
+        $dados = "";
+
+        $sql = "SELECT {$primaryKey} from
+                        {$tabela}
+                        WHERE {$nome} LIKE '%".$texto."%' ";
+
+        $result = $con->query($sql);
+        
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            $dados = $linha[$primaryKey];            
+        }
+
+        return $dados;
+ 
+    }
 
 
 }?>

@@ -105,7 +105,8 @@ if ($btn == 'Pesquisar') {
 			</tr>";
             } else {
                 print "<tr><td style='background-color:#FA5858;text-align:center; color:#ffffff;'>" . $value['nome'] . "</td>
-			<td style='background-color:#FA5858;text-align:center; color:#ffffff;'> Não existe pmda para este município !</td>";
+			<td colspan='2' style='background-color:#FA5858;text-align:center; color:#ffffff;'> Não existe pmda para este município !</td>";
+			
             }
         }
         print "</table>";

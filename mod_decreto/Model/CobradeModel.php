@@ -475,41 +475,6 @@ dec_cobrade.nome
         }
         
     }
-    /**
-     * 
-     *  Lista municipio para busca id
-     */
-    public static function listaEventosBreakLine($ids = null) {
-
-        
-        $con = Conexao::getInstance();
-
-        $dados = "";
-        
-        $sql = "";
-        
-        if(!is_null($ids)){
-            $sql = "SELECT id_cobrade, codigo, descricao
-                             FROM dec_cobrade
-                             WHERE id_cobrade in (".$ids.")";               
-        }else {
-            $sql = "SELECT id_cobrade, codigo, descricao
-                             FROM dec_cobrade";               
-        }
-
-        try {
-
-            $result = $con->query($sql);
-
-            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-                $dados .= $linha['codigo']."-".$linha['descricao']."<br>";
-            }
-
-            return $dados;
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-        
-    }
+    
 
 }

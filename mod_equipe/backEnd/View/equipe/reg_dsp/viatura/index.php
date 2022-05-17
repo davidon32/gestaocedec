@@ -12,6 +12,8 @@
     p {text-align: center};
 
 </style>
+
+<p><a href='<?=FuncaoBase::geraLink("equipe", "index", "index");?>' class='btn btn-success'>Voltar</a>
 <div class='row'>
     <div class="col-md-12">
         <div class="col-md-12">
@@ -55,8 +57,6 @@
             ?>
 
         </table>
-
-        <p><button class='btn btn-success' type="button" onclick="history.back();" >Voltar</button>
     </div>
 </div>
 

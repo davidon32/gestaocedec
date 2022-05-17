@@ -16,7 +16,8 @@
     <div class="col-md-12">
         <div class="col-md-6">
             <a href='<?= FuncaoBase::geraLink("equipe", "equipe", "reg_dsp") ?>' class='btn btn-primary' title='Novo Cadastro e Registro de DSP'>Registro DSP</a><br><br>
-            <a href='<?= FuncaoBase::geraLink("equipe", "viatura", "index") ?>' class='btn btn-primary' title='Novo Cadastro e Registro de DSP'>Cadastro Veículo/Viatura</a>
+            <a href='<?= FuncaoBase::geraLink("equipe", "viatura", "index") ?>' class='btn btn-primary' title='Novo Cadastro de Viatura'>Cadastro Veículo/Viatura</a><br></br>
+            <a href='<?= FuncaoBase::geraLink("equipe", "equipe", "busca_dsp") ?>' class='btn btn-primary' title='Listagem busca Registro'>Pesquisa</a>
         </div>
         <div class="col-md-6 text-center">
         </div>
@@ -27,7 +28,7 @@
         <div class="col-md-12">
         <table class="table table-bordered table-striped">
             <tr>
-                <th colspan="6" style="text-align:center">Últimas DSP's</th>
+                <th colspan="7" style="text-align:center">Últimas DSP's</th>
             </tr>
             <tr>
                 <th style="text-align:center">#</th>
@@ -36,18 +37,27 @@
                 <th style="text-align:center">Evento</th>
                 <th style="text-align:center">Data Inicio</th>
                 <th style="text-align:center">Data Final</th>
+                <th style="text-align:center">Ações</th>
             </tr>
             <?php
+            
+                if(count($dsp) > 0) {
+            
                 foreach ($dsp as $key => $value) {
 
                     print "<tr><td>".($key+1)."</td>";
                     print "<td>". DataMysql::dataCompletaVisual($value['data_hora'])."</td>";
-                    print "<td>".Municipio::listaMunicipioBreakLine(FuncaoBase::pipeToString($value['ids_municipio']))."</td>";
-                    print "<td>".CobradeModel::listaEventosBreakLine(FuncaoBase::pipeToString($value['ids_evento']))."</td>";
+                    print "<td>".FuncaoBase::listaBreakLine('cedec_municipio', 'id_municipio', 'nome', FuncaoBase::pipeToString($value['ids_municipio']))."</td>";
+                    print "<td>".FuncaoBase::listaBreakLine('dec_cobrade', 'id_cobrade', 'descricao', FuncaoBase::pipeToString($value['ids_evento']))."</td>";
                     print "<td>".DataMysql::dataCompletaVisual($value['data_hora_inicio'])."</td>";
                     print "<td>".DataMysql::dataCompletaVisual($value['data_hora_fim'])."</td>";   
+                    print "<td><a href='".FuncaoBase::geraLink("equipe", "equipe", "editDsp", array('id'=>$value['id_reg_dsp']))."'><img src='/core/imagem/editar.png'></a>&nbsp;&nbsp;
+                          <a href='".FuncaoBase::geraLink("equipe", "equipe", "upload_dsp", array('id'=>$value['id_reg_dsp']))."' title='upload de Documentos'><img width='25' src='/core/imagem/upload1.png'></a>
+                          <a href='".FuncaoBase::geraLink("equipe", "equipe", "view_dsp", array('id'=>$value['id_reg_dsp']))."' title='Visualizar Registro'><img width='25' src='/core/imagem/view.png'></a></td>";   
                     print "</tr>";
                     
+                }
+                
                 }
                 
                 ?>

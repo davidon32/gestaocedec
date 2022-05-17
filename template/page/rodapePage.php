@@ -34,6 +34,7 @@
 <script src="/plugins/jqueryValidation/jquery.validate.min.js"></script>
 <script src="/plugins/jqueryValidation/additional-methods.min.js"></script>
 <script src="/js/script.js?v=<?=md5(VERSAO);?>"></script>
+<script src="/plugins/datetimepicker/jquery.datetimepicker.full.js"></script>
 <?php
     include_once('ajuda_php.php');
 ?>
@@ -121,7 +122,7 @@
                 }, 0);
             }
         }, );
-
+       
 
         $('.close').click(function (event) {
             $('#div-icon').fadeOut();
@@ -164,7 +165,7 @@
 
 
 
-        $('input[type="text"]:not([type="email"]):not([type="submit"]),textarea').blur(function () {
+        $('input[type="text"]:not([type="email"]):not([type="submit"]):not([name*="notNormaliza"]),textarea').blur(function () {
             $(this).val($(this).val().toUpperCase());
         });
 
@@ -172,7 +173,7 @@
             $(this).val($(this).val().toLowerCase());
         });
 
-        $('input[type="text"]:not([name^="val"]):not([name*="DtInici"]):not([name*="DtFinal"]):not([name*="txtAliquota"]),textarea').blur(function () {
+        $('input[type="text"]:not([name^="val"]):not([name*="DtInici"]):not([name*="DtFinal"]):not([name*="txtAliquota"]):not([name*="notNormaliza"]),textarea').blur(function () {
             function retira_acentos(palavra) {
                 var string = palavra;
                 var mapaAcentosHex = {
