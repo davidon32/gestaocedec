@@ -66,7 +66,13 @@
         
         <?php
                 foreach ($anexo as $key => $value) {
-                    print "<br>".($key+1).")&nbsp;&nbsp;&nbsp;<a target='_blank' href='".strtolower($value['nome'])."'>".strtolower($value['nome']).$value['data_hora']."</a><br>";
+                    $num = ($key+1);
+
+                    if(substr($value['nome'], 0, 8) == "https://"){
+                        print "<br>".($num).")&nbsp;&nbsp;&nbsp;<a target='_blank' href='".$value['nome']."'>".$value['nome'].$value['data_hora']."</a><br>";
+                    }else {
+                        print "<br>".($num).")&nbsp;&nbsp;&nbsp;<a onclick=\"javascript:anexoOpen('anexo/reg_dsp/".$value['nome']."') \">".$value['nome']." - Documento Anexado</a><br>";
+                    }
             }
         ?>
         </td>
@@ -82,4 +88,4 @@
 <?php include_once "template/page/rodape.php" ?>
 <?php include_once "template/page/barra_config_template.php"; ?>
 <!-- =============== HEADER HTML PAGE ================= -->
-<?php include_once "template/page/rodapePage.php"; ?>    
+<?php include_once "template/page/rodapePage.php"; ?>   

@@ -15,9 +15,9 @@
 <div class='row'>
     <div class="col-md-12">
         <div class="col-md-6">
-            <a href='<?= FuncaoBase::geraLink("equipe", "equipe", "reg_dsp") ?>' class='btn btn-primary' title='Novo Cadastro e Registro de DSP'>Registro DSP</a><br><br>
-            <a href='<?= FuncaoBase::geraLink("equipe", "viatura", "index") ?>' class='btn btn-primary' title='Novo Cadastro de Viatura'>Cadastro Veículo/Viatura</a><br></br>
-            <a href='<?= FuncaoBase::geraLink("equipe", "equipe", "busca_dsp") ?>' class='btn btn-primary' title='Listagem busca Registro'>Pesquisa</a>
+            <img src='/core/imagem/icon_app/novo.png'><a href='<?= FuncaoBase::geraLink("equipe", "equipe", "reg_dsp") ?>' title='Novo Cadastro e Registro de DSP'>Novo Registro DSP</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+            <img src='/core/imagem/icon_app/novo.png'><a href='<?= FuncaoBase::geraLink("equipe", "viatura", "index") ?>' title='Novo Cadastro de Viatura'>Cadastro Veículo/Viatura</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+            <img src='/core/imagem/icon_app/search.png'><a href='<?= FuncaoBase::geraLink("equipe", "equipe", "busca_dsp") ?>' title='Listagem busca Registro'>Pesquisa</a>
         </div>
         <div class="col-md-6 text-center">
         </div>

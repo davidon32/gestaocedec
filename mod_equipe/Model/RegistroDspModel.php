@@ -324,8 +324,12 @@ class RegistroDspEquipeModel extends Model {
              
             if( isset($_FILES['fl_doc_dsp']) && ($_FILES['fl_doc_dsp']['error'] == 0) ) {
                 #upload
-                var_dump(Upload2mb::upload("/anexo/reg_dsp"));
+                $resultado = Upload2mb::upload("/anexo/reg_dsp"); 
+
+                $nome = $resultado['nome_arquivo'];
                 
+            } else {
+                $nome = $dados['notNormalizaLinkGoogle'];
             }
                 
             $con = Conexao::getInstance();
@@ -337,7 +341,7 @@ class RegistroDspEquipeModel extends Model {
                                                             :id_dsp)" ;
                 $result = $con->prepare($sql);
 
-                $result->bindValue(":nome",        $dados['notNormalizaLinkGoogle']);
+                $result->bindValue(":nome",        $nome);
                 $result->bindValue(":data_hora",   $dados['data_hora']." ".date('H:i:s'));
                 $result->bindValue(":id_dsp",         $dados['id_dsp']);
 

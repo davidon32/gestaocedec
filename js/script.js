@@ -109,5 +109,9 @@ function checkmobile(){
     });
 }
 
+function anexoOpen(url) {
+        window.location.href = url;
+    }
+
 
 

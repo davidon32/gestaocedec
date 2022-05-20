@@ -104,20 +104,11 @@ class equipeController extends Controller {
         if ($this->isPost()) {
             $link_google = isset($_POST['txtLinkGoogle']) ? $_POST['txtLinkGoogle'] : "";
 
-            $arquivo = isset($_FILES['fl_doc_dsp']) ? $_FILES['fl_doc_dsp'] : "";
-
-            if (!empty($arquivo)) {
                 # upload
-                var_dump(RegistroDspEquipeModel::upload_doc())
-                ;
-            }
-
-            if (!empty($link_google)) {
-                # grava link
-            }
-
-            var_dump($_REQUEST, $_FILES);
-        
+                if(RegistroDspEquipeModel::upload_doc()){
+                    FuncaoBase::alert("Registro Gravado com Sucesso !");
+                    $this->redirect('equipe', "index", 'index');
+                }  
 
         } else {
             include_once 'mod_equipe/backEnd/View/equipe/reg_dsp/dsp/upload_doc.php';
