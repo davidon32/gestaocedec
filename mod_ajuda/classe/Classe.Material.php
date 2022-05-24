@@ -130,19 +130,22 @@ class Material {
 				$_descricao,
                                 $_uni_medida,
                                 $_peso,
-                                $_valor) {
+                                $_valor,
+                                $_basico) {
 								
 		$con = Conexao::getInstance();
 				$sql = "insert into aju_unidade (nome,
                                                                 descricao,
                                                                 uni_medida,
                                                                 peso,
-                                                                valor)
+                                                                valor,
+                                                                singular)
 								VALUES (:nome,
                                                                 	:descricao,
                                                                         :uni_medida,
                                                                         :peso,
-                                                                        :valor)";
+                                                                        :valor,
+                                                                        :singular)";
 		try {
 			$result = $con->prepare($sql);
 
@@ -151,6 +154,7 @@ class Material {
 			$result->bindValue(":uni_medida", $_uni_medida);
 			$result->bindValue(":peso", $_peso);
 			$result->bindValue(":valor", $_valor);
+			$result->bindValue(":singular", $_basico);
 			
 
 			$result->execute();

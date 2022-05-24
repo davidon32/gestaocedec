@@ -178,7 +178,7 @@ class pipaController extends Controller {
     
     # nova declaracao
     public function novoDconf() {
-        include_once "mod_pipa/backEnd/View/dconf/declaracao.php";
+        include_once "mod_pipa/backEnd/View/tdap/declaracao.php";
     }
     
     

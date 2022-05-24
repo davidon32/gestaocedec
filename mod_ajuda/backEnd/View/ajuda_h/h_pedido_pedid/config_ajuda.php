@@ -40,6 +40,7 @@
         <div class="col-md-6">
             <legend>Permissao de Materiais Pedidos</legend>
             <label></label>
+            <input class='form form-control' type="text" name="txtPesquisa" id="txtPesquisa">
         </div>
     </div>
         <br>

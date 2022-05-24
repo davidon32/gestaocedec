@@ -76,7 +76,7 @@
         }
         /* declaracao de conformidade */
         public function deConf(){
-            include_once 'mod_ajuda/backEnd/View/tdap/indexDconf.php';
+            include_once 'mod_ajuda/backEnd/View/conformidade/indexDconf.php';
         }
         
         /* processar arquivo sms modem*/

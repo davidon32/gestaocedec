@@ -336,14 +336,17 @@ class RegistroDspEquipeModel extends Model {
 
             $sql = "insert into equ_reg_dsp_doc (nome,
                                              data_hora,
-                                             id_dsp) values (:nome,
+                                             id_dsp,
+                                             id_usuario) values (:nome,
                                                             :data_hora,
-                                                            :id_dsp)" ;
+                                                            :id_dsp,
+                                                            :id_usuario)" ;
                 $result = $con->prepare($sql);
 
                 $result->bindValue(":nome",        $nome);
                 $result->bindValue(":data_hora",   $dados['data_hora']." ".date('H:i:s'));
-                $result->bindValue(":id_dsp",         $dados['id_dsp']);
+                $result->bindValue(":id_dsp",      $dados['id_dsp']);
+                $result->bindValue(":id_usuario",  $dados['id_usuario']);
 
                 $result->execute();
                 

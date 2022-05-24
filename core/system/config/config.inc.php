@@ -153,7 +153,20 @@ define("MODOACESSO", 0);
     
     ####################################################################################################
     
-    
+    # NOME BASICO MATERIAL
+    $NOME_BASICO_MAT = array('CESTA BASICA',
+                                    'KIT HIGIENE',
+                                    'AGUA MINERAL',
+                                    'KIT DORMITORIO',
+                                    'COLCHAO',
+                                    'KIT LIMPEZA',
+                                    'LEITE',
+                                    'LONA',
+                                    'TELHA',
+                                    'COBERTOR',
+                                    'ROUPA',
+                                    'ALCOOL',
+                                    'OUTROS');
     
     
     # MACRORREGIAO PMMG
