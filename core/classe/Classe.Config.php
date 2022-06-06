@@ -62,7 +62,7 @@ class Config {
         
         $con = Conexao::getInstance();
         $sql = "update cedec_config set ".$campo." = :campo
-                                               where id = 1";
+                                               where id_config = 1";
         try {
             $result = $con->prepare($sql);
             $result->bindValue(":campo", $valor);

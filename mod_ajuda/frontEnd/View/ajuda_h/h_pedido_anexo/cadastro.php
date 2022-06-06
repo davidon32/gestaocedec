@@ -35,12 +35,16 @@ if(empty($id)){
 <div class='row'>
     <div class='col-md-12'>
     <legend>Obs: Anexar um documento Digital PDF ou Colar o Link do google drive com o arquivo compartilhado</legend>
-    <a href='https://www.youtube.com/watch?v=gm2LmELpBG8'>Veja aqui como Compartilhar arquivos no Google Drive</a>
+    <a href='https://www.youtube.com/watch?v=gm2LmELpBG8'>Veja aqui como Compartilhar arquivos no Google Drive &nbsp;&nbsp;&nbsp;&nbsp;<img src="/core/imagem/googledrive.png" width="100"></a>
+    
     <br><br>
     </div>
 <div class='col-md-6'>
 <label>Nome do Arquivo</label>
-<input type="file" class='form form-control' name='nome_arquivo' id='nome_arquivo' maxlength='44' required >
+<input type="file" class='col-md-6 form form-control' name='nome_arquivo' id='nome_arquivo' maxlength='44' required >
+<img id='tamanho_ok' style="float: right" width="25" src="/core/imagem/checar_comunidade.png">
+<img id='tamanho_erro' style="float: right" width="25" src="/core/imagem/remove.png">
+<span id='spAlerta' class='alert-danger'>Arquivo Maior que Permitido ! ( Máximo 2 Mb)</span>
 </div>
 </div>
     
@@ -52,7 +56,7 @@ if(empty($id)){
     
 <div class='col-md-6'>
     <label>Link Arquivo Google Drive </label><span class='labelInfo'> ( Cole aqui o link do arquivo compartilhado no Google Drive )</span>
-<input type="text" class='form form-control' name='linkGdrive' id='linkGdrive' maxlength='150' required >
+<input type="text" class='form form-control' name='linkGdrive' id='linkGdrive' maxlength='150' >
 </div>
 </div>
 
@@ -77,14 +81,32 @@ if(empty($id)){
 <script>
         
     $(document).ready(function () {
-    
-        /* close focus pesquisa */
         
-    
+         $("#spAlerta, #tamanho_erro, #tamanho_ok").hide();
+
+        /* close focus pesquisa */
         $("#frmH_pedido_anexo").trigger("reset");
     
         
-        
+        $("#nome_arquivo").change(function(){
+            
+            var arquivo = $("#nome_arquivo").prop('files')[0];
+            
+        	if(arquivo.size > 1999353) { /* 2MB*/
+                    $("#spAlerta, #tamanho_erro").show();
+                    $("#tamanho_ok").hide();
+                    $("#nome_arquivo").addClass('alert-danger');
+                    $("#btnGravar").hide();
+                    
+                }else {
+                    $("#spAlerta, #tamanho_erro").hide();
+                    $("#tamanho_ok").show();
+                    $("#nome_arquivo").removeClass('alert-danger');
+                    $("#nome_arquivo").addClass('alert-success');
+                    $("#btnGravar").show();
+                    
+                }
+        });
         
    
         

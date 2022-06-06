@@ -47,19 +47,6 @@ private $tipo_decreto = null;
 private $esforcos_realizados = null;
 private $data_hora_envio = null;
 
-
-    
-    
- public function getData_hora_envio(){
-        return $this->data_hora_envio;
-    }
-
-            
-    public function setData_hora_envio($data_hora_envio){
-            $this->data_hora_envio = $data_hora_envio;
-    }
-    
-
     #################  CONSTRUTOR ##################
      function __construct() {
 
@@ -69,13 +56,23 @@ private $data_hora_envio = null;
          
          self::$con = Conexao::getInstance();
      }
+     
+     
+     public function getData_hora_envio(){
+        return $this->data_hora_envio;
+    }
+
+            
+    public function setData_hora_envio($data_hora_envio){
+            $this->data_hora_envio = $data_hora_envio;
+    }
    
     #################  LISTA  ##################
    # lista {$model}
   
     public static function lista($id = null) {
-        
-        
+           
+         
          $dados = array();
  
         $sql = "SELECT id, ";
@@ -89,9 +86,9 @@ private $data_hora_envio = null;
         } else {
 
             $sql .= " FROM ".self::$model['tabela']->TABLE_NAME."  
-                            WHERE ".self::$model['campos'][0]." = :id
-                            ORDER BY nome";
-            
+                            WHERE id = :id
+                            ORDER BY id";
+                     
             $result = self::$con->prepare($sql);
             $result->bindValue(":id", $id);
             $result->execute();
@@ -974,6 +971,9 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
             case 'atendido':
                 return 'Prestação de Contas';
                 break;
+            case 'cancelado':
+                return 'Processo Cancelado !';
+                break;
             default:
                 return 'Fase Inválida !' ;
                 break;
@@ -983,16 +983,16 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
     
     
     /* busca material para pedido ajuda*/
-    public static function MaterialPedido(){
+    public static function MaterialPedido($situacao = 1){
         
         $con = Conexao::getInstance();
         
         $dado = array();
         
-        $sql = "select id_unidade, nome, descricao from aju_unidade
-                where pedido_h = 1
+        $sql = "select id_unidade, singular, descricao, nome from aju_unidade
+                where pedido_h = {$situacao}
+                    and singular is not null
                 order by nome";
-        
         try {
 
             $result = $con->query($sql);
@@ -1019,31 +1019,35 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
         switch ($status) {
             case 0:
                 # edição compdec / amarelo
-                return array('fdo'=>'#F3E2A9', 'fonte'=>'#2E2E2E');
+                return array('fdo'=>'#F3E2A9', 'fonte'=>'#2E2E2E', 'title' => '');
                 break;
             case 1:
-                # caramelo
-                return array('fdo'=>'#F3E2A9', 'fonte'=>'#2E2E2E');
+                # analise_drd / cinza
+                return array('fdo'=>'#D8D8D8', 'fonte'=>'#000000', 'title' => '');
                 break;
             case 2:
-                # analise_drd / cinza
-                return array('fdo'=>'#D8D8D8', 'fonte'=>'#000000');
+                # analise dlog / azul
+                return array('fdo'=>'#2E64FE', 'fonte'=>'#FFFFFF', 'title' => '');
                 break;
             case 3:
-                # analise dlog / azul
-                return array('fdo'=>'#2E64FE', 'fonte'=>'#FFFFFF');
+                # analise_coord / laranja
+                return array('fdo'=>'#FE642E', 'fonte'=>'#151515', 'title' => '');
                 break;
             case 4:
-                # analise_coord / laranja
-                return array('fdo'=>'#FE642E', 'fonte'=>'#151515');;
+                # Aguardando Disponibilidade
+                return array('fdo'=>'#9F81F7', 'fonte'=>'#FFFFFF', 'title' => '');
                 break;
             case 5:
-                # Aguardando Disponibilidade
-                return array('fdo'=>'#9F81F7', 'fonte'=>'#FFFFFF');;
+                # Aguardando retirada  / amarelo
+                return array('fdo'=>'#FFD700', 'fonte'=>'#000000', 'title' => '');
                 break;
             case 6:
                 # Atendido / verde
-                return array('fdo'=>'#9F81F7', 'fonte'=>'#2E2E2E');;
+                return array('fdo'=>'#4B8A08', 'fonte'=>'#2E2E2E', 'title' => '');
+                break;
+            case 7:
+                # Cancelado / nulo
+                return array('fdo'=>'#B40404', 'fonte'=>'#FFFFFF', 'title' => 'Processo Cancelado');
                 break;
             default:
                 break;
@@ -1402,12 +1406,36 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
     }
     
     
+     /**
+     * remove permissao de pedir material
+      * 
+     */
+    public function PermissaoMaterial($dados) {
+        
+        $con = Conexao::getInstance();
+        $sql = "update aju_unidade set pedido_h = :pedido_h
+                                           where id_unidade = :id_unidade";
+
+        try {
+            $result = $con->prepare($sql);
+            $result->bindValue(":pedido_h", $dados['func']);
+            $result->bindValue(":id_unidade", $dados['id_unidade']);
+            
+            $result->execute();
+
+            return true;
+        } catch (Exception $e) {
+            return $e->getMessage() . "-";
+        }      
+    }
+    
+    
     /**
      *  prazo Prestacao d contas
      */
     public static function prazo_presta_conta($dt_aprovacao) {
         
-        var_dump($dt_aprovacao);
+        //var_dump($dt_aprovacao);
 
         $config = Config::getConfig();
         

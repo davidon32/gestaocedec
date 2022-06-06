@@ -10,7 +10,7 @@
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php"; ?>
 <?php
-$materiais = H_pedido_pedidajuda_hModel::MaterialPedido();
+$materiais = H_pedido_pedidajuda_hModel::MaterialPedido(1);
 
 $id = isset($_GET['id']) ? $_GET['id'] : "";
 
@@ -29,6 +29,11 @@ if (isset($id)) {
     print "erro de acesso a pagina !";
     die();
 }
+
+
+
+$materiaisItens = H_pedido_pedidajuda_hModel::item_pedido($id_pedido);
+
 ?>    
 <div class="container-fluid">
     <form action="<?= FuncaoBase::geraLink("ajuda", "h_pedido_itens", "gravar", array('id'=>$id, 'voltar'=> $_GET['voltar'])) ?>" method="POST" name="frmAdd" id="frmAdd">
@@ -36,13 +41,15 @@ if (isset($id)) {
         <div class='row'>
 
             <div class="col-md-6">
-                <label>Material de Ajuda Humanitária</label>
+                <label>Material de Ajuda Humanitária7</label>
                 <select class="form form-control" name="descricao_item" id="descricao_item" required="required">
                     <option <?=isset($dados_editar[0]['codigo']) ? "id='".$dados_editar[0]['codigo']."'> ".$dados_editar[0]['descricao_item']  : "Selecione o Material";?> </option>
 <?php
+
 foreach ($materiais as $material) {
     print "<option id='" . $material['id_unidade'] . "'>" . $material['nome'] . $material['descricao'] . "</option>";
 }
+
 ?>
                     <input type="hidden" name="codigo" id="codigo" value="<?= isset($dados_editar[0]['codigo']) ? $dados_editar[0]['codigo'] : "" ?>">
                     <input type="hidden" name="id_pedido" id="id_pedido" value="<?= $id_pedido; ?>">
@@ -98,9 +105,8 @@ foreach ($materiais as $material) {
                     <td>Opções</td>
                 </tr>
 <?php
-$materiais = H_pedido_pedidajuda_hModel::item_pedido($id_pedido);
 
-foreach ($materiais as $key => $material) {
+foreach ($materiaisItens as $key => $material) {
 
     print "<tr>";
     print "<td class='col-md-1'>" . $material['id'] . "</td>";

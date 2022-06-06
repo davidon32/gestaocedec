@@ -110,8 +110,8 @@ class h_pedido_pedidController extends Controller {
 
             //var_dump($h_pedido_pedid->gravar($_POST));
         if ($h_pedido_pedid->gravar($_POST)) {
-            //FuncaoBase::alert("Registro Gravado com Sucesso !");
-            //$this->redirect("ajuda", "h_pedido_pedid", "index");
+            FuncaoBase::alert("Registro Gravado com Sucesso !");
+            $this->redirect("ajuda", "h_pedido_pedid", "index");
         }
     }
             

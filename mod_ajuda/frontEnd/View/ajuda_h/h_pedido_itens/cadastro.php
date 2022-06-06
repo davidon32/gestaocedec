@@ -79,7 +79,10 @@ if (isset($_GET['id'])) {
     </div>
 </div>
 </form>
-
+<?php 
+    $materiais = H_pedido_pedidajuda_hModel::item_pedido($id_pedido);
+    var_dump($materiais);
+?>
 
 <!- tabela de materiais do pedido -->
     <div class='row table-responsive'>
@@ -98,8 +101,6 @@ if (isset($_GET['id'])) {
                     <td>Opções</td>
                 </tr>
 <?php
-$materiais = H_pedido_pedidajuda_hModel::item_pedido($id_pedido);
-
 if(count($materiais) > 0){
 
 foreach ($materiais as $key => $material) {

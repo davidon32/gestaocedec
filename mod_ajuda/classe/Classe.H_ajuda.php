@@ -79,10 +79,9 @@ class H_ajuda extends DataMysql {
 			INNER JOIN cedec_municipio
 			ON aju_h_pedido_pedid.id_municipio = cedec_municipio.id_municipio
                         WHERE cedec_municipio.nome LIKE :nome";
-        
-        
+                
         $result = $con->prepare($sql);
-            $result->bindValue(":nome", '%'.$_municipio.'%');
+            $result->bindValue(":nome", "%$_municipio%");
             $result->execute();
         
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {

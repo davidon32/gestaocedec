@@ -24,13 +24,13 @@ if(empty($id_municipio)){
     
 }
 
-$dados = H_pedido_pedidajuda_hModel::lista();
+$dados = H_pedido_pedidajuda_hModel::lista($id_municipio);
 
 $pedido_h = new H_pedido_pedidajuda_hModel();
 
 $pedido_h_item = new H_pedido_itensajuda_hModel();
 
-//var_dump($pedido_h_item);
+var_dump($dados);
 
 
 ?>	
@@ -96,7 +96,7 @@ $pedido_h_item = new H_pedido_itensajuda_hModel();
 foreach ($dados as $key => $value) {
     $cor = $pedido_h->getCorStatus($value['status']);
     print "<tr style='background-color:" . $cor['fdo'] . "'>
-            <td>" . $value['numero'] . "-" . substr($value['data_entrada_sistema'], 0, 4) . "</td>
+            <td title='".$value['id']."'>" . $value['numero'] . "-" . substr($value['data_entrada_sistema'], 0, 4) . "</td>
             <td>" . DataMysql::dataCompletaVisual($value['data_entrada_sistema']) . "</td>
             <td>" . Decreto::getNomeCobrade($value['id_cobrade']) . "</td>
             <td>" . (($value['despachante_analista'] == "") ? "-   " : $value['despachante_analista']) . "</td>

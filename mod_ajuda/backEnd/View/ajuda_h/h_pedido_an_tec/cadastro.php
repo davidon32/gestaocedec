@@ -1,5 +1,3 @@
-
-
 <?php include_once PATH . '/core/include.php'; ?>
 <?php include_once "core/Model/indexModel.php"; ?>
 <?php include_once "mod_ajuda/Model/indexModel.php"; ?>
@@ -17,30 +15,34 @@ $secao = isset($_GET['an']) ? $_GET['an'] : "";
 
 $id_pedido = isset($_GET['id']) ? $_GET['id'] : "";
 
-$pedido = H_pedido_pedidajuda_hModel::lista($id_);
+$pedido = new H_pedido_pedidajuda_hModel();
+
+$dado_pedido = $pedido->lista($id_pedido);
+
 
 $sigla = 'DRD';
 if ($secao == 'analise_drd') {
     $label_secao = 'DRD - Diretoria de Redução de Desastre';
     $sigla_despacho = "DLOG";
     $despacho = 'analise_dlog';
-    $status = 3;
+    $status = 1;
 } else if ($secao == 'analise_dlog') {
     $label_secao = 'Diretoria de Logistica';
     $sigla_despacho = "CORRD. ADJUNTO";
     $despacho = 'analise_coord';
-    $status = 4;
+    $status = 2;
 } else if ($secao == 'analise_coord') {
     $label_secao = 'Coordenadoria Adjunda';
     $sigla_despacho = "Aguardando Disponibilidade";
     $despacho = 'aguard_disp';
-    $status = 5;
+    $status = 3;
 }else if ($secao == 'aguard_disp') {
     $label_secao = 'Coordenadoria Adjunda';
     $sigla_despacho = "Aguardando Disponibilidade";
     $despacho = 'aguard_disp';
-    $status = 6;
+    $status = 4;
 }
+
 ?>
 
 <legend id="">Analise Técnica Parecer : <span style='color:red'><?= $label_secao ?></span></legend>
@@ -58,42 +60,42 @@ if ($secao == 'analise_drd') {
             <label id='lb_tramitar'>Tramitar Pedido </label>
             <select class='form form-control' name="sel_despacho" id="sel_despacho">
                 <option value="" data-status="">Escolha uma Seção</option>
-                <option value="analise_drd" data-status="2">Analise DRD</option>
-                <option value="analise_dlog" data-status="3">Analise DLOG</option>
+               
 <?php
+
+    # permite
+    # status 1 drd
+    # status 2 dlog
+    # status 3 Coord
+    if($dado_pedido[0]['status'] < 3) {
+        print '<option value="analise_drd" data-status="1">Analise DRD</option>';
+        print '<option value="analise_dlog" data-status="2">Analise DLOG</option>';
+        print "<option value=\"analise_coord\" data-status=\"3\">Coordenador Adjunto</option>";
+    }
     
-if ($secao != 'analise_coord') {
-    print "<option value=\"analise_coord\" data-status=\"4\">Coordenador Adjunto</option>";
-}
+    if($dado_pedido[0]['status'] == 3) {
+        print "<option value=\"aguard_disp\" data-status=\"4\">Aguardando Disponibilidade Material</option>";   
+        print "<option value=\"cancelado\" data-status=\"7\">Cancelado</option>";
+    }
 
-if ( ($secao == 'analise_coord') && (true) ) {
+    # status 4 - permite aguardand retirada, cancelamento
+    if ($dado_pedido[0]['status'] == 4){
+        print "<option value=\"aguard_ret\" data-status=\"5\">Aguardando Retirada</option>";
+        print "<option value=\"cancelado\" data-status=\"7\">Cancelado</option>";
+    }
     
-    /* Aguardando disponibilidade */
-    print "<option value=\"aguard_disp\" data-status=\"5\">Aguardando Disponibilidade Material</option>";
+    # status 5 aguardando retirada
+    if ($dado_pedido[0]['status'] == 5){
+        print "<option value=\"atendido\" data-status=\"6\">Atendido</option>";
+        print "<option value=\"cancelado\" data-status=\"7\">Cancelado</option>";
+    }
     
-}
-
-
-if ($secao == 'aguard_disp') {
-    
-    /* Aguardando Retirada */
-    print "<option value=\"aguard_ret\" data-status=\"6\">Aguardando Retirada</option>";
-    print "<option value=\"cancelado\" data-status=\"8\">Cancelado</option>";
-}
-
-
-if ($secao == 'aguard_ret') {
-    /* Processo Atendido */
-    print "<option value=\"atendido\" data-status=\"7\">Atendido</option>";
-    print "<option value=\"cancelado\" data-status=\"8\">Cancelado</option>";
-}
-
-/* obs: criar regras para cancelamento 
+    # status 6 atendido
+    /* obs: criar regras para cancelamento 
     cancelar somente antes de 10 dias de atendido */
-if ($secao == 'atendido') {
-    /* Cancelado */
-    print "<option value=\"cancelado\" data-status=\"8\">Cancelado</option>";
-}
+    if ($dado_pedido[0]['status'] == 6){
+        print "<option value=\"cancelado\" data-status=\"7\">Cancelado</option>";
+    }
 
 ?>
             
@@ -106,10 +108,6 @@ if ($secao == 'atendido') {
 
     </div>
 </div>
-
-
-
-
 
 
 <form action="<?= FuncaoBase::geraLink("ajuda", "h_pedido_an_tec", "gravar"); ?>" method="post" accept-charset="utf-8" name="frmH_pedido_an_tec" id="frmH_pedido_an_tec">

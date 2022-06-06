@@ -11,7 +11,7 @@
 <?php include_once "template/page/corpoHeader.php"; ?>
 <?php
 
-$materiais = H_pedido_pedidajuda_hModel::MaterialPedido();
+$materiais = H_pedido_pedidajuda_hModel::MaterialPedido(1);
 
 if(isset($_GET['id'])){
     $id_pedido = (int)$_GET['id'];

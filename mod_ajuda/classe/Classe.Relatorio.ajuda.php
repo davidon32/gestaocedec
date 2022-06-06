@@ -502,22 +502,15 @@ class RelatorioAju extends DataMysql {
      * 
      * #@ relatorio material liberado 
      */
-    function MaterialLiberado($_dt_inicial = false,
-            $_dt_final = false,
+    function MaterialLiberado($_dt_inicial,
+            $_dt_final,
             $_id_municipio = false,
-            $_dep_destino = false) {
+            $_dep_destino = false,
+            $_evento = false) {
 
         $con = Conexao::getInstance();
 
-        $filtro = null;
-
-        if ($_dt_inicial == '//') {
-            $_dt_inicial = false;
-        }
-
-        if ($_dt_final == '//') {
-            $_dt_final = false;
-        }
+        $filtro = ' WHERE dataLibera between "' . $_dt_inicial . '" and "' . $_dt_final . '"';
 
         if ($_id_municipio == '') {
             $_id_municipio = false;
@@ -526,42 +519,27 @@ class RelatorioAju extends DataMysql {
         if ($_dep_destino == '') {
             $_dep_destino = false;
         }
+        
+        if ($_evento == '') {
+            $_evento = false;
+        }
+            
 
-        #@ sem filtro 
-        if ((!$_dt_inicial) and (!$_dt_final) and (!$_id_municipio) and (!$_dep_destino)) {
-            $filtro = '';
+        # filtro deposito Origem
+        if ( $_dep_destino ) {
+            $filtro .= ' and depDestino ='.$_dep_destino;
         }
         
+        # municipio
+        if ( $_id_municipio ) {
+            $filtro .= ' and id_municipio ='.$_id_municipio;
+        }
         
-
-        #@ data inicial
-        elseif (($_dt_inicial) && (!$_dt_final) && (!$_id_municipio) && (!$_dep_destino)) {
-            $filtro = 'WHERE dataLibera > "' . $_dt_inicial . '"';
+        # evento
+        if ( $_evento ) {
+            $filtro .= ' and evento ="'.$_evento.'"';
         }
 
-        #@ data final
-        elseif ((!$_dt_inicial) && ($_dt_final) && (!$_id_municipio) && (!$_dep_destino)) {
-            $filtro = 'WHERE dataLibera < "' . $_dt_final . '"';
-        }
-
-        #@ data inicial e final 
-        elseif (($_dt_inicial) && ($_dt_final) && (!$_id_municipio) && (!$_dep_destino)) {
-            $filtro = 'WHERE dataLibera between "' . $_dt_inicial . '" and "' . $_dt_final . '"';
-        }
-        #@ data inicial, final e deposito
-        elseif (($_dt_inicial) && ($_dt_final) && (!$_id_municipio) && ($_dep_destino)) {
-            $filtro = 'WHERE dataLibera between "' . $_dt_inicial . '" and "' . $_dt_final . '" and depDestino ='.$_dep_destino;
-        }
-
-        #@ deposito origem
-        elseif ((!$_dt_inicial) && (!$_dt_final) && (!$_id_municipio) && ($_dep_destino)) {
-            $filtro = 'WHERE depDestino = ' . $_dep_destino;
-        }
-
-        #@ municipio
-        elseif ((!$_dt_inicial) && (!$_dt_final) && ($_id_municipio) && (!$_dep_destino)) {
-            $filtro = 'WHERE  id_municipio = ' . $_id_municipio;
-        }
 
         // sql somente material liberado sem pagto
         /* $sql1 = 'SELECT id_liberacao, datalibera, id_municipio, id_usuario, depDestino, beneficiario, evento, observacao, dtlimite, situacao, id_user_pgto
@@ -1219,7 +1197,10 @@ class RelatorioAju extends DataMysql {
 
         $dados = array();
 
-        $campoData = " AND aju_item.dataLibera BETWEEN '" . DataMysql::dataForm($_POST['txtDtInicial']) . "' AND '" . DataMysql::dataForm($_POST['txtDtFinal']) . "' ";
+        $campoData = "";
+        if( !empty($post['txtDtFinal']) ){
+            $campoData = " AND aju_item.dataLibera BETWEEN '" . DataMysql::dataForm($_POST['txtDtInicial']) . "' AND '" . DataMysql::dataForm($_POST['txtDtFinal']) . "' ";
+        }
 
         $id_material = (!empty($_POST['id_material'])) ? " AND aju_item.cod = '{$_POST['id_material']}' " : "";
         

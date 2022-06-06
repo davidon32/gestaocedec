@@ -23,7 +23,7 @@ class h_pedido_indexController extends Controller {
     
     public function __construct() {
         $this->h_pedido_pedid = new H_pedido_pedidajuda_hModel;
-        $this->h_pedido_pedids = $this->h_pedido_pedid->lista();
+        $this->h_pedido_pedids = $this->h_pedido_pedid->lista($_COOKIE['seguranca']['id_municipio']);
 
     }
 

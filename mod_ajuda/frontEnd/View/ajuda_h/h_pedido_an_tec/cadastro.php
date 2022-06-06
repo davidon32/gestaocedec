@@ -1,5 +1,3 @@
-
-
 <?php include_once PATH . '/core/include.php'; ?>
 <?php include_once "core/Model/indexModel.php"; ?>
 <?php include_once "mod_ajuda/Model/indexModel.php"; ?>
@@ -81,16 +79,8 @@
         
     
         /* close focus pesquisa */
-        
-    
+
         $("#frmH_pedido_an_tec").trigger("reset");
-        
-    
-        
-        
-        
-   
-        
 
     });
 </script>

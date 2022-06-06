@@ -14,7 +14,7 @@ if($opcao == 'dados_compdec') {
 }elseif($opcao == 'add_permissao'){
 
     #busca permissao
-    if(empty($h_pedido_pedid->buscaAnalista($_POST['id_usuario']))){
+    if(count($h_pedido_pedid->buscaAnalista($_POST['id_usuario'])) == 0){
     
         # nova permissao
         $h_pedido_pedid->AddPermissao($_POST);
@@ -30,7 +30,7 @@ if($opcao == 'dados_compdec') {
 }elseif($opcao == 'ck_alta_perf'){
       
     if(Config::AtualizaConfig('aju_h_alta_perf', $_POST['aju_h_alta_perf']) && 
-            Config::AtualizaConfig('aju_prazo_prest_conta', $_POST['aju_prazo_prest_conta'])){
+        Config::AtualizaConfig('aju_prazo_prest_conta', $_POST['aju_prazo_prest_conta'])){
         print 'sucesso';
     }
     
@@ -43,5 +43,11 @@ if($opcao == 'dados_compdec') {
     $h_pedido_pedid->envia_pedido($dados);
     
     print 'sucesso';
+}elseif ($opcao == 'permis_material_pedido') {
+    
+    if($h_pedido_pedid->PermissaoMaterial($_POST)){
+        print 'sucesso';
+    }
+    
 }
 

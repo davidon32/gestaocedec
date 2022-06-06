@@ -22,10 +22,12 @@
 </style>
 
 <?php
-var_dump($view);
+//var_dump($view);
 ?>
-
+<p class="text-center">
 <button class="btn btn-primary print" id='btn_print' type="button">Impressão</button>
+<a href='<?= FuncaoBase::geraLink("ajuda", "h_pedido_index", "index")?>' class="btn btn-success print" id='btn_voltar'>Voltar</a>
+</p>
 
 <div class='col-md-12' id='view'>
 <div class='col-md-12 text-center'>

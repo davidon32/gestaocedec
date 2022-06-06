@@ -12,8 +12,6 @@
 
 $_relatorioAjuda = new RelatorioAju();
 
-
-
 ?>
 <style>
  
@@ -45,10 +43,6 @@ table th {
 
 </style>
 	<?php	
-        
-        
-        //var_dump($_POST);
-
 	$_dt_inicial = isset($_POST['txtDtInicial']) ? DataMysql::dataForm($_POST['txtDtInicial']) : false;
 
 	$_dt_final = isset($_POST['txtDtFinal']) ? DataMysql::dataForm($_POST['txtDtFinal']) : false;
@@ -56,6 +50,8 @@ table th {
 	$_id_municipio = isset($_POST['id_municipio']) ? $_POST['id_municipio'] : false;
 
 	$_id_deposito = isset($_POST['id_deposito']) ? $_POST['id_deposito'] : false;
+	
+        $_evento = isset($_POST['selEvento']) ? $_POST['selEvento'] : false;
 
 	$id_liberacao = isset($_GET['id']) ? $_GET['id'] : false;
     
@@ -258,7 +254,9 @@ table th {
 
 		#@ relatorio com filtro de opcoes
             
-		$_relatorioAjuda->MaterialLiberado($_dt_inicial, $_dt_final, $_id_municipio, $_id_deposito, false);
+		$_relatorioAjuda->MaterialLiberado($_dt_inicial, $_dt_final, $_id_municipio, $_id_deposito, $_evento);
+                
+
 
 	}
 

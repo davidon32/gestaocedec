@@ -30,7 +30,7 @@
 <div class="col-md-6">
 	<form method="POST" action="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=relatorio&action=rel_lib_mat" name="frm_rel_liberacao" >
 		<div class="col-md-12">
-                    <label>Dep&oacute;sito Destino:</label>
+                    <label>Dep&oacute;sito Origem Material:</label>
                     <?php $_deposito->pegaDeposito();?>
                 </div>
                 <div class="col-md-12">
@@ -54,12 +54,12 @@
                 <label for="listEvento">Evento</label>
                     <select name="selEvento" id="selEvento" class="form form-control">
                         <option value="">Todos</option>
-                                <?php 
+                            <?php 
                                 foreach ($eventos as $evento){
-                                    print "<option id='".$evento['id_evento']."'>".$evento['nome']."</option>";
+                                    print "<option>".$evento['nome']."</option>";
                                 }
-                                ?>
-                            </select>
+                            ?>
+                    </select>
             </div>
             <div class="col-md-12">
                 <br>

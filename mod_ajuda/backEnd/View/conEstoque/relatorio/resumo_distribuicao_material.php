@@ -59,6 +59,8 @@
 </style>
 
 <?php
+
+
     $_relatorioAjuda = new RelatorioAju();
     
     $id_deposito = isset($_POST['id_deposito'])  ? $_POST['id_deposito']  : NULL;

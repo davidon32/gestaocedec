@@ -1,6 +1,6 @@
 <?php
 //var_dump(get_defined_vars())    ;
-var_dump($view[0]);
+//var_dump($view[0]);
 ?>
 <style>
     * { font-size: 12pt; }

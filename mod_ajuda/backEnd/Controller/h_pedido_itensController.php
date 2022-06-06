@@ -103,8 +103,10 @@ class h_pedido_itensController extends Controller {
 
         $h_pedido_itens = new H_pedido_itensajuda_hModel;
         
+        var_dump($h_pedido_itens->gravar($_POST));
+        die();
         if ($h_pedido_itens->gravar($_POST)) {
-            FuncaoBase::alert("Registro Gravado com Sucesso !");
+            FuncaoBase::alert("Material Adicionado com Sucesso !");
             //$this->redirect("ajuda", "h_pedido_pedid", "add_itens", array('id'=> $_POST['id_pedido']));
         }
     }

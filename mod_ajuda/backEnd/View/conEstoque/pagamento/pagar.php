@@ -126,12 +126,12 @@ if((int)$id_libera){
 			<div class="col-md-4">					
 				<label>Telefone:</label>
 				<span class="info">*</span>
-				<input class="form-control" name="tel_dest" type="text" data-mask="(99)9999-9999" size="40" value="<?=$dados_municipio['tel_pref']?>">		
+				<input class="form-control" name="tel_dest" type="text" size="40" value="<?=$dados_municipio['tel_pref']?>">		
 			</div>
 			<div class="col-md-4">	
 				<label>Celular:</label>
 				<span class="info">*</span>
-				<input class="form-control" name="cel_dest" type="text" data-mask="(99)9999-9999" size="40" value="<?=$dados_municipio['cel_pref']?>">
+				<input class="form-control" name="cel_dest" type="text" size="40" value="<?=$dados_municipio['cel_pref']?>">
 			</div>
 		</div>
 

@@ -53,11 +53,14 @@ $id_usuario = $_COOKIE['seguranca']['idUser']
                 <span style="background-color: #FE642E">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
                 &nbsp; Coord. Adjunto(a).<br>
                 
-                <span style="background-color: #4B8A08;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-                &nbsp; Atendido ( Aguardando Prestação de Contas ).<br>
-                
                 <span style="background-color: #9F81F7;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
                 &nbsp; Aguardando Disponibilidade Material.<br>
+                
+                <span style="background-color: #FFD700;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+                &nbsp; Aguardando Retirada  .<br>
+                
+                <span style="background-color: #4B8A08;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+                &nbsp; Atendido ( Aguardando Prestação de Contas ).<br>
                 
                 <span style="background-color: #B40404;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
                 &nbsp; Cancelado / Nulo.<br>
@@ -78,9 +81,9 @@ $id_usuario = $_COOKIE['seguranca']['idUser']
         $btn = isset($_POST['btnSearch']) ? $_POST['btnSearch'] : "";
         $municip = isset($_POST['txtSearch']) ? $_POST['txtSearch'] : "";
 
+       
         /* Pesquisa */
-        if($this->isPost()){
-
+        if($this->isPost() && !empty($municip)){
             $listaPedido = H_ajuda::BuscaPedidoMunicipio($municip);
             $tituloForm = "Resultado de Pesquisa";
         }else {
@@ -134,7 +137,6 @@ foreach ($listaPedido as $key => $pedid) {
     # get permissao
     
     $cor = $pedido_h->getCorStatus($pedid['status']);
-
     $percent = ( ( H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedid['id']) * 100 ) != 0 ) ? (H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedid['id']) * 100) /  H_pedido_prestajuda_hModel::totalMaterialPrestConta($pedid['id']) : 0 ;
     
     if($pedid['status'] == 6){
@@ -150,21 +152,21 @@ foreach ($listaPedido as $key => $pedid) {
         
     }
     
-    
-    //var_dump($prazo);
-    
     if (($pedid['tramit'] == 'analise_drd' && $permissao[0]['analista_drd'] == '1') ||
             ($pedid['tramit'] == 'analise_dlog' && $permissao[0]['analista_dlog'] == '1') ||
             ($pedid['tramit'] == 'analise_coord' && $permissao[0]['analista_coord'] == '1') ||
             ($pedid['tramit'] == 'atendido') ||
-            ($pedid['tramit'] == 'aguard_disp')
+            ($pedid['tramit'] == 'aguard_disp') ||
+            ($pedid['tramit'] == 'aguard_ret') ||
+            ($pedid['tramit'] == 'atendido') ||
+            ($pedid['tramit'] == 'cancelado')
+            
             ) {
 
         $total_reg++;
         
-
         print "<tr style='color:" . $cor['fonte'] . "; background-color:" . $cor['fdo'] . "'>
-                <td title='".$cor['title']."'>" . $pedid['numero'] . "-" . substr($pedid['data_entrada_sistema'], 0, 4) . "</td>
+                <td title='id ".$pedid['id']."'>" . $pedid['numero'] . "-" . substr($pedid['data_entrada_sistema'], 0, 4) . "</td>
                 <td title='".$cor['title']."'>" . Municipio::PegaNomeMunicipio($pedid['id_municipio']) . "</td>
                 <td title='".$cor['title']."'>" . DataMysql::dataCompletaVisual($pedid['data_entrada_sistema']) . "</td>
                 <td title='".$cor['title']."'>" . Decreto::getNomeCobrade($pedid['id_cobrade']) . "</td>
@@ -195,31 +197,30 @@ foreach ($listaPedido as $key => $pedid) {
 
         # analise DRD
         if ($permissao[0]['analista_drd'] == 1 
-                && $pedid['status'] != 5
-                && $pedid['status'] != 4) {
+                && $pedid['status'] <= 3) {
 
             print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar' => 'idx_recente', 'an' => 'analise_drd')) . "' title='Analise DRD'><img width='25' src='/core/imagem/cedec.png'></a>";
         }
 
         # analise_dlog
         if ($permissao[0]['analista_dlog'] == 1 
-                && $pedid['status'] != 5
-                && $pedid['status'] != 4) {
+                && $pedid['status'] < 3) {
 
             print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar' => 'idx_recente', 'an' => 'analise_dlog')) . "' title='Despacho DLOG'><img width='25' src='/core/imagem/dlog.png'></a>";
         }
 
         # analise_coord
-        if ($permissao[0]['analista_coord'] == 1) {
-
+        if ( ($permissao[0]['analista_coord'] == 1) 
+                && ($pedid['status'] < 6 ) )  {
             print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar' => 'idx_recente', 'an' => 'analise_coord')) . "' title='Despacho Coordenador Adjunto'><img width='25' src='/core/imagem/boss.png'></a>";
         }
         
         print "</td>";
         print "</tr>";
     }else if($pedid['tramit'] == 'edicao_compdec') {
+        $total_reg++;
         print "<tr style='color:" . $cor['fonte'] . "; background-color:" . $cor['fdo'] . "'>
-                <td title='".$cor['title']."'>" . $pedid['numero'] . "-" . substr($pedid['data_entrada_sistema'], 0, 4) . "</td>
+                <td title='id ".$pedid['id']."'>" . $pedid['numero'] . "-" . substr($pedid['data_entrada_sistema'], 0, 4) . "</td>
                 <td title='".$cor['title']."'>" . Municipio::PegaNomeMunicipio($pedid['id_municipio']) . "</td>
                 <td title='".$cor['title']."'>" . DataMysql::dataCompletaVisual($pedid['data_entrada_sistema']) . "</td>
                 <td title='".$cor['title']."'>" . Decreto::getNomeCobrade($pedid['id_cobrade']) . "</td>
@@ -251,6 +252,14 @@ foreach ($listaPedido as $key => $pedid) {
 <script>
     
     $(document).ready(function(){
+        
+        $("#btnSearch").click(function(){
+            
+            console.log($('#txtSearch').length);
+            if($('#txtSearch').length <= 1){
+                //alert('Gentileza digitar um nome ou parte de um nome de Municipio para pesquisa');
+            }
+        });
        
         $("#btnEdicao").click(function(){
             var result = confirm('Deseja enviar processo para COMPDEC ?');

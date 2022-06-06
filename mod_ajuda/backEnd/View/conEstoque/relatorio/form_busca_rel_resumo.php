@@ -14,6 +14,9 @@
 	$_deposito = new Deposito();
 
 	$_municipio = new Municipio();
+        
+        $eventoModel = new EventoConEstoqueModel;
+        $eventos = $eventoModel->listaEvento();
 	
 ?>
 
@@ -45,6 +48,19 @@
         <div class="col-md-12">
             <label>Munic&iacute;pio:</label>
             <?php $_municipio->PegaMunicipio();?>
+            <br>
+        </div>
+        
+        <div class="col-md-12">
+            <label>Evento</label>
+            <select name="selEvento" id="selEvento" class="form form-control">
+                        <option value="">Todos</option>
+                            <?php 
+                                foreach ($eventos as $evento){
+                                    print "<option>".$evento['nome']."</option>";
+                                }
+                            ?>
+                    </select>
             <br>
         </div>
 
