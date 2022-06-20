@@ -15,7 +15,7 @@
 </div>
 <div class="col-md-6 text-right">
     <a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_prest", "visualizar", array('id'=>$_GET['id'])) ?>">Visualizar</a>
-    <a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_prest", "homologa", array('id'=>$_GET['id'])) ?>">Homologar</a>
+    
 </div>
 <br>
 <br>
@@ -43,6 +43,8 @@ $h_pedido_prest = new H_pedido_prestajuda_hModel();
 
 $materiais = $h_pedido_prest::listaPrestContasporPedido($id);
 
+
+
 foreach ($materiais as $material) {
 
     $percent = ( $h_pedido_prest->percBenef($material['id']) / $material['qtd']) * 100;
@@ -58,7 +60,8 @@ foreach ($materiais as $material) {
 
     print "<td>";
     print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_prest", "view", array('id' => $material['id'])) . "'><img src='/core/imagem/view.png' title='Visualizar Prestação de Contas'></a>|";
-    print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_prest", "homologar", array('id' => $material['id'], 'id_pedido' => $material['id_pedido'])) . "'><img src='/core/imagem/contas.png' title='Fazer Prestação de Contas'></a>|";
+    #print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_prest", "homologar", array('id' => $material['id'], 'id_pedido' => $material['id_pedido'])) . "'><img src='/core/imagem/contas.png' title='Fazer Prestação de Contas'></a>|";
+    print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_prest", "homologa", array('id'=>$_GET['id'],'id_material' => $material['id']))."' ><img src='/core/imagem/check.png' width='30' title='Homologar Material de Pedido'></a>";
 
     print
             "</td>";

@@ -196,9 +196,10 @@ if ($_GET['voltar'] == 'idx_recente') {
                 <td>Opções</td>
             </tr>
             <?php
-            $materiais = H_pedido_pedidajuda_hModel::item_pedido($view[0]['id']);
+            $materiaisPedido = H_pedido_pedidajuda_hModel::item_pedido($view[0]['id'], "P");
+            $materiaisLiberado = H_pedido_pedidajuda_hModel::item_pedido($view[0]['id'], "L");
 
-            foreach ($materiais as $key => $material) {
+            foreach ($materiaisPedido as $key => $material) {
 
                 print "<tr>";
                 print "<td class='col-md-1'>" . $material['id'] . "</td>";

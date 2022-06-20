@@ -237,7 +237,7 @@ foreach ($analises_tecnica as $key => $an_drd) {
 
                 var result = confirm('Deseja enviar para o despachante da '+$("#sel_despacho").val()+' ? ');
                 
-                var data_aprovacao = $("#sel_despacho").val() == 'atendido' ? '<?=date('Y-m-d')?>' : ""
+                var data_aprovacao = $("#sel_despacho").val() == 'atendido' ? '<?=date('Y-m-d H:i:s')?>' : ""
 
                 if (result) {
 

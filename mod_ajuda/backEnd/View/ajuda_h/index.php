@@ -106,11 +106,12 @@ $id_usuario = $_COOKIE['seguranca']['idUser']
             <tr>
                 <th>Nr</th>
                 <th>Municipio</th>
-                <th>Data</th>
+                <th>Data Criação</th>
                 <th>Tipo</th>
                 <th>Status</th>
                 <th>Fase do Processo</th>
                 <th>Data Envio Analise</th>
+                <th title='data em que o processo foi alterado para Atendido'>Dt Aprov/Cancelamento</th>
                 <th>Ações</th>
 
             </tr>
@@ -141,7 +142,7 @@ foreach ($listaPedido as $key => $pedid) {
     
     if($pedid['status'] == 6){
         $prazo = $pedido_h->prazo_presta_conta($pedid['data_aprovacao']);
-        if (strtotime(date('Y-m-d')) > strtotime($prazo) && $pedid['status'] != 6) {
+        if (strtotime(date('Y-m-d')) > strtotime($prazo) && $pedid['status'] == 6) {
             $cor = array('fonte'=> '#FFFFFF',
                          'fdo'=>'#FF0000',
                          'title'=> 'Prestação de Contas Vencido');
@@ -173,6 +174,7 @@ foreach ($listaPedido as $key => $pedid) {
                 <td title='".$cor['title']."'>" . $pedido_h->enumStatus($pedid['status']) . "</td>
                 <td title='".$cor['title']."'>" . $pedido_h->enumFase($pedid['tramit']) . ( ($pedid['status'] == 6) ? " <br>Prazo : " . ($prazo) : "") . "</td>
                 <td title='".$cor['title']."'>" . DataMysql::dataCompletaVisual($pedid['data_hora_envio']) . "</td>
+                <td title='".$cor['title']."'>" . DataMysql::dataCompletaVisual($pedid['data_aprovacao']) . "</td>
                 <td>";
 
         # EDITAR
@@ -225,8 +227,9 @@ foreach ($listaPedido as $key => $pedid) {
                 <td title='".$cor['title']."'>" . DataMysql::dataCompletaVisual($pedid['data_entrada_sistema']) . "</td>
                 <td title='".$cor['title']."'>" . Decreto::getNomeCobrade($pedid['id_cobrade']) . "</td>
                 <td title='".$cor['title']."'>" . $pedido_h->enumStatus($pedid['status']) . "</td>
-                <td title='".$cor['title']."'>" . $pedido_h->enumFase($pedid['tramit']) . ( ($pedid['status'] == 5) ? " <br>Prazo : " . ($prazo) : "") . "</td>
+                <td title='".$cor['title']."'>" . $pedido_h->enumFase($pedid['tramit']) . ( ($pedid['status'] == 6) ? " <br>Prazo : " . ($prazo) : "") . "</td>
                 <td title='".$cor['title']."'>" . DataMysql::dataCompletaVisual($pedid['data_hora_envio']) . "</td>
+                <td title='".$cor['title']."'>" . DataMysql::dataCompletaVisual($pedid['data_aprovacao']) . "</td>
                 <td>";
         print "</td>";
         print "</tr>";

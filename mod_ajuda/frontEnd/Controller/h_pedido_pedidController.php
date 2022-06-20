@@ -199,6 +199,16 @@ class h_pedido_pedidController extends Controller {
         }
     }
     
+    
+    /* envia pedido para analise */
+    public function envio() {
+        
+        if($this->h_pedido_pedid->envia_pedido($_POST)){
+            print "sucesso";
+        }
+        
+    }
+    
            
 
 }

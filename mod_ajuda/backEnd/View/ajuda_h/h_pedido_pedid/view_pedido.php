@@ -1,6 +1,8 @@
 <?php
 //var_dump(get_defined_vars())    ;
 //var_dump($view[0]);
+
+//var_dump($materiaisPedido);
 ?>
 <style>
     * { font-size: 12pt; }
@@ -155,28 +157,35 @@
             </td>
         </tr>
         <tr>
-            <td colspan="11" width="705">
-                <p>DADOS SOBRE O PEDIDO</p>
-            </td>
+</table>
+
+<!-- MATERIAL  DO PEDIDO -->
+<table class='table table-bordered'>
+    <tr>
+            <th colspan="11" width="705" style="text-align: center">
+                <p><b>MATERIAL PEDIDO</b></p>
+            </th>
         </tr>
-        <tr>
-            <td width="83">
+        </tr>
+            <th width="83">
                 <p>C&oacute;d.</p>
-            </td>
-            <td colspan="4" width="338">
+            </th>
+            <th colspan="4" width="338">
                 <p>Descri&ccedil;&atilde;o do Item</p>
-            </td>
-            <td colspan="4" width="141">
+            </th>
+            <th colspan="4" width="141">
                 <p>Quantidade</p>
-            </td>
-            <td colspan="2" width="144">
+            </th>
+            <th colspan="2" width="144">
                 <p>Quantidade de Fam&iacute;lias a serem atendidas</p>
-            </td>
+            </th>
         </tr>
         
         <?php
         
-        foreach ($materiais as $key => $material) {
+        #################################  MATERIAL PEDIDO ####################################################
+        
+        foreach ($materiaisPedido as $key => $material) {
             
             print "<tr>
                     <td width='83'>
@@ -194,7 +203,8 @@
                 </tr>";
             }
         ?>
-        
+</table>
+<table class="table table-bordered">
         <tr>
             <td colspan="11" width="705">
                 <p>ESFOR&Ccedil;OS J&Aacute; REALIZADOS PELO MUNIC&Iacute;PIO : </p>
@@ -336,32 +346,37 @@
                 <p>&nbsp;</p>
             </td>-->
         </tr>
+    </tbody>
+</table>
+
+<!-- MATERIAL LIBERADO -->
+<table class="table table-bordered">
         <tr>
-            <td colspan="6" width="705">
-                <p>RETIRADA/DISTRIBUI&Ccedil;&Atilde;O</p>
-            </td>
+            <th colspan="6" width="705" class="text-center">
+                <p>RETIRADA/DISTRIBUI&Ccedil;&Atilde;O (MATERIAL LIBERADO)</p>
+            </th>
         </tr>
         <tr>
-            <td width="83">
+            <th width="83">
                 <p>C&oacute;d.</p>
-            </td>
-            <td colspan="2" width="251">
+            </th>
+            <th colspan="2" width="251">
                 <p>Descri&ccedil;&atilde;o do Item</p>
-            </td>
-            <td width="113">
+            </th>
+            <th width="113">
                 <p>Data</p>
-            </td>
-            <td width="76">
+            </th>
+            <th width="76">
                 <p>Quant.</p>
-            </td>
-            <td width="183">
+            </th>
+            <th width="183">
                 <p>Respons&aacute;vel pela Entrega (CEDEC)</p>
-            </td>
+            </th>
         </tr>
                
         <?php
         
-        foreach ($materiais as $key => $material) {
+        foreach ($materiaisLiberado as $key => $material) {
             
             print "<tr>
                     <td width='83'>
@@ -383,8 +398,6 @@
                 </tr>";
             }
         ?>
-        
-    </tbody>
 </table>
 <p>&nbsp;</p>
 <p>&nbsp;</p>

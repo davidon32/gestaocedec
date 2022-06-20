@@ -69,7 +69,7 @@ print "<tr>
             # envio para analise se nao existir processos em analise e pendente prestacao de contas
             if( ( $pedido_pedid::compdecVerificaPedido($h_pedido_pedid['id_municipio'] ) ) &&
                 ( $h_pedido_pedid['status'] == "0" ) ){
-                print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "envio", array('id' => $h_pedido_pedid['id'], 'voltar'=>'idx_index')) . "'><img src='/core/imagem/envio_pedido.png' title='Enviar para Homologação'></a>|";
+                print "<a name='enviaAnalise' href='#' data-id_pedido='".$h_pedido_pedid['id']."' data-tramit='analise_drd' data-status='1'><img src='/core/imagem/envio_pedido.png' title='Enviar para Homologação'></a>|";
             }
             
             # Visualizar
@@ -131,19 +131,25 @@ print "<tr>
 
     $(document).ready(function () {
         
-          $("#enviar_analise_drd").click(function(){
+            /* enviar para homologação */
+          $("[name=enviaAnalise]").click(function(){
+              
+              console.log($(this).data('id_pedido'));
             var formData = new FormData();
-		formData.append('id_pedido', $("#enviar_analise_drd").data('id_pedido')); 
+		formData.append('id_pedido', $(this).data('id_pedido')); 
+		formData.append('tramit', $(this).data('tramit')); 
+		formData.append('status', $(this).data('status')); 
+		formData.append('data_hora_envio', '<?=date('Y-m-d H:i:s');?>'); 
            $.ajax({
-		url : '<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "analise_drd")?>',
+		url : '<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "envio")?>',
 		type : 'POST',
 		data : formData,
 		processData: false,  // tell jQuery not to process the data
 		contentType: false,  // tell jQuery not to set contentType
-		success : function(response) {
-                    
+		success : function(response) {                  
                     if(response.trim() == 'sucesso'){
-                        Swal.fire('Pedido enviado para analise !')
+                        Swal.fire('Pedido enviado para analise !');
+                        window.location.reload();
                     }
 		},
 		error : function(e) {
@@ -164,7 +170,7 @@ print "<tr>
             processData: false, // tell jQuery not to process the data
             contentType: false, // tell jQuery not to set contentType
             success : function(response) {
-                console.log(response);
+//
                 //Swal.fire('Importação realizada com Sucesso !')
             },
             error : function(e) {

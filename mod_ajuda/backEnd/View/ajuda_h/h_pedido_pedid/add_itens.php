@@ -42,6 +42,7 @@ if(isset($_GET['id'])){
             <!-- id itens_pedido -->
             <input type="hidden" name="id" id="id">
             
+            <input type="hidden" name="tipo" id="tipo" value='P'>
             <input type="hidden" name="add_pedido" id="add_pedido" value='1'>
             
         </select>

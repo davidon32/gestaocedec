@@ -49,17 +49,17 @@ $materiaisItens = H_pedido_pedidajuda_hModel::item_pedido($id_pedido);
 foreach ($materiais as $material) {
     print "<option id='" . $material['id_unidade'] . "'>" . $material['nome'] . $material['descricao'] . "</option>";
 }
-
 ?>
+ </select>
                     <input type="hidden" name="codigo" id="codigo" value="<?= isset($dados_editar[0]['codigo']) ? $dados_editar[0]['codigo'] : "" ?>">
                     <input type="hidden" name="id_pedido" id="id_pedido" value="<?= $id_pedido; ?>">
                     
                     <!-- id itens_pedido -->
                     <input type="hidden" name="id" id="id" value="<?= isset($dados_editar[0]['id']) ? $dados_editar[0]['id'] :"" ?>">
 
+                    <input type="hidden" name="tipo" id="tipo" value='P'>
                     <input type="hidden" name="add_pedido" id="add_pedido" value='1'>
 
-                </select>
             </div>
         </div>
 

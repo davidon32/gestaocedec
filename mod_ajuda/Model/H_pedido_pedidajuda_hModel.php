@@ -500,7 +500,7 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
         
 
     #####################  Iten pedido  ######################
-    public static function item_pedido($id_pedido) {
+    public static function item_pedido($id_pedido, $tipo = "P") {
 
         
         $con = Conexao::getInstance();
@@ -514,7 +514,8 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
                 aju_h_pedido_itens.qtd_familia_atendida,
                 aju_h_pedido_itens.id_pedido
                 from aju_h_pedido_itens
-                where aju_h_pedido_itens.id_pedido = ".$id_pedido;
+                where aju_h_pedido_itens.id_pedido = ".$id_pedido."
+                And tp_item = '".$tipo."'";
 
         try {
 

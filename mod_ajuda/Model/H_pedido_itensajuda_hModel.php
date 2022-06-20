@@ -144,12 +144,14 @@ private $qtd_familia_atendida = null;
 descricao_item,
 qtd,
 qtd_familia_atendida,
-id_pedido
+id_pedido,
+tp_item
 ) VALUES (:codigo,
 :descricao_item,
 :qtd,
 :qtd_familia_atendida,
-:id_pedido
+:id_pedido,
+:tp_item
 )";
 
         try {
@@ -157,12 +159,13 @@ id_pedido
             $result = self::$con->prepare($sql);
 
             $result->bindValue(":codigo", $dados['codigo']);
-$result->bindValue(":descricao_item", $dados['descricao_item']);
-$result->bindValue(":qtd", $dados['qtd']);
-$result->bindValue(":qtd_familia_atendida", $dados['qtd_familia_atendida']);
-$result->bindValue(":id_pedido", $dados['id_pedido']);
-
- 
+            $result->bindValue(":descricao_item", $dados['descricao_item']);
+            $result->bindValue(":qtd", $dados['qtd']);
+            $result->bindValue(":qtd_familia_atendida", $dados['qtd_familia_atendida']);
+            $result->bindValue(":id_pedido", $dados['id_pedido']);
+            $result->bindValue(":tp_item", $dados['tipo']);
+            $result->execute();
+            $result->bindValue(":tp_item", "L");
             $result->execute();
 
             #Log::GravaLog("Cadastro de marca : " . $dados['nome'] . " " . $_COOKIE['seguranca']['login'], "aju_log");

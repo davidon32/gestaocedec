@@ -67,6 +67,7 @@ class H_ajuda extends DataMysql {
 			aju_h_pedido_pedid.id_municipio,
 			aju_h_pedido_pedid.status,
 			aju_h_pedido_pedid.tramit,
+                        aju_h_pedido_pedid.data_aprovacao,
 			dec_cobrade.nome,
 			cedec_municipio.nome,
                         aju_h_pedido_pedid.data_aprovacao,
