@@ -95,7 +95,8 @@ class Pmda extends Comunidade {
                                id_municipio,
                 				resp_homolog,
                                                 dt_analise,
-                                                data_aprov
+                                                data_aprov,
+                                                estado
                                FROM pip_pmda
 							   WHERE id_municipio = :id_municipio
                                                            
@@ -191,6 +192,9 @@ class Pmda extends Comunidade {
                 break;
             case 7:
                 return "Atendido";
+                break;
+            case 8:
+                return "Cancelado";
                 break;
             default:
                 return "opção Inválida !";
@@ -653,7 +657,8 @@ class Pmda extends Comunidade {
         				pedido_altera,
         				em_analise,
         				resp_homolog,
-                                        dt_analise
+                                        dt_analise,
+                                        situacao
         				FROM pip_pmda
         					WHERE id_pmda = :id_pmda";
 

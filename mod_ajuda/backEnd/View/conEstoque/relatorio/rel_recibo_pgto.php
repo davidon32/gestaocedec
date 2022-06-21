@@ -38,7 +38,8 @@ body {
 			<tr>
 				<td><br>
 					<?php if(isset($_GET['m'])){?>
-						<a class="btn btn-success" href="index.php?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=ajuda&controller=relatorio&action=fbusca_pag_mat">Voltar</a>
+						<!--<a class="btn btn-success" href="index.php?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=ajuda&controller=relatorio&action=fbusca_pag_mat">Voltar</a>-->
+						<a class="btn btn-success" onclick='history.back();'>Voltar</a>
 					<?php }else { ?>
 						<a class="btn btn-success" href="index.php?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=ajuda&controller=conestoque&action=recibopg&id=<?=$id_liberacao?>">Voltar</a>
 					<?php } ?>
@@ -268,7 +269,10 @@ body {
 						--------------------------------------------------------
 						<br />
 						Assinatura:
-						<?php print $result['responsavel'];?>
+						<?php if(isset($_GET['nom']) == 's'){
+                                                    print $result['responsavel'];
+                                                }
+                                                    ?>
 					</td>
 
 				</tr>

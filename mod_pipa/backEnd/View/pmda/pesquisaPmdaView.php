@@ -159,6 +159,7 @@ if (!empty($dados)) {
     print "<th>Data Aprovação</th>";
     print "<th>Homologado Por</th>";
     print "<th>Dt Analise</th>";
+    print "<th>Estado</th>";
 
 
     if ($opcao == "geral") {
@@ -203,56 +204,103 @@ if (!empty($dados)) {
         if ($listagem) {
 
             print "<td  " . $homologado . ">" . $pmda->status($value['status']) . "</td>";
-            $alteraStatus = "";
         } else {
             if (!$pmdaLegado) {
                 print "<td  " . $homologado . ">" . $pmda->status($value['status']) . "</td>";
-                $alteraStatus = "";
-            
-            /* PMDA - atendido */    
-            } elseif($value['status'] == 7) {
-                print "<td  " . $homologado . ">" . $pmda->status($value['status']) . "</td>";
-                $alteraStatus = "";
-            }else {
-                $alteraStatus = "|<a href='javascript:alterarStatus(" . $value['id_pmda'] . ")' title='Alterar Status deste PMDA'><img src='core/imagem/status.png'></a>";
+
+           }else {
                 print "<td " . $homologado . ">";
-                print "<select class='form-control' id='selStatus" . $value['id_pmda'] . "' data-id_pmda='" . $value['id_pmda'] . "' name='selStatus'>";
-                print "<option value='" . $value['status'] . "'>" . $pmda->status($value['status']) . "</option>";
-                if($value['status'] == 4){
-                    
-                    
+                
+                # em edicao status ( sem acoes para o operador)
+                # completo ( sem acoes para o operaror) 
+                if($value['status'] < 2) {
+                    print "<span title ='Status sem Ações para o Operador / Aguardando Ação do COMPDEC'>".$pmda->status($value['status'])."</span>" ;  
                 }else {
-                    print "<option value='0'>Em Edição</option>";
-                    //print "<option value='1'>Completo</option>";
-                    print "<option value='2'>Em Análise</option>";
-                    //print "<option value='3'>Arquivado</option>";
-                    print "<option value='4'>Aprovado</option>";
-                    print "<option value='5'>Anulado</option>";
-                    //print "<option value='9'>Encerrado</option>";
-                    if ($pmda->status($value['status']) != 'Arquivado') {
-                        print "<option value='1'>Liberar Alterações</option>";
-                    }
+                
+                # SELECT STATUS 
+                print "<select class='form-control' id='selStatus" . $value['id_pmda'] . "' data-id_pmda='" . $value['id_pmda'] . "' name='selStatus'>";
+                
+                print "<option value='" . $value['status'] . "'>" . $pmda->status($value['status']) . "</option>";
+                
+                
+                # em analise
+                if($value['status'] == 2) {
+                    print "<option value='4'>Aprovado</option>";  
                 }
+                 
+                # Aprovado
+                if($value['status'] == 4){
+                    print "<option value='7'>Atendido</option>";
+                    print "<option value='8'>Cancelar</option>";
+                }
+                
+                # atendido
+                if($value['status'] == 7){
+                    print "<option value='8'>Cancelar</option>";
+                }
+                
                 print "</select></td>";
+                }
             }
         }
         print "<td " . $homologado . " id='print'>";
         # pmda's que não estão atendidos 
-        if($pmdaLegado && $value['status'] !=7){
-            if($value['status'] != 4){
-               print "|<a href='?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=pipa&controller=pipa&action=deletePmda&param=" . $value['id_pmda'] . "&idmun=".$value['id_municipio']."' title='Deletar PMDA'><img src='core/imagem/delete.png' name='del_pmda' data-id_pmda='".$value['id_pmda']."'></a>";
+        //if($pmdaLegado && $value['status'] !=7){
+        
+        # icone em Analise
+        if($value['status'] == 2){
+            if($edicao) {
+            # enviar para Edição
+                print "<a class='btn btn-primary' >Enviar p/ COMPDEC</a>";
             }
+            
+            # deletar PMDA
+            print "|<a href='?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=pipa&controller=pipa&action=deletePmda&param=" . $value['id_pmda'] . "&idmun=".$value['id_municipio']."' title='Deletar PMDA'><img src='core/imagem/delete.png' name='del_pmda' data-id_pmda='".$value['id_pmda']."'></a>";
+            
+            
+            # editar PMDA    
             print "<a href='?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=pipa&controller=pipa&action=pmda&param=" . $value['id_pmda'] . "&a=9978&p=" . $busca . "&mun=" . $value['id_municipio'] . "' title='Alterar PMDA'><img src='core/imagem/editar.png' width='30px'></a>" . $alteraStatus;
+            
+            # comentario / nota
+            print "|<a data-toggle='modal' data-target='#modalComentario' id='btnComentario' name='Comentario' data-pmda='" . $value['id_pmda'] . "' title='Lançar Notas / Comentários neste PMDA'><img src='core/imagem/comment.png'></a>";
+ 
         }
+        
+        # icone opcao aprovado
+        if($value['status'] == 4 && $edicao){
+            # enviar para Edição ( não pode ter em edição )
+            print "<a class='btn btn-primary' >Enviar p/ COMPDEC</a>";
+            
+        }
+        
+        //}
+        //
+        
+        # imprimir
         print "|<a href='?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=pipa&controller=pipa&action=printView&param=" . $value['id_pmda'] . "&mun=" . $value['id_municipio'] . "' title='Impressão PMDA'><img src='core/imagem/printer.png'></a>";
         print $pmdaLegado ? ("|<a data-toggle='modal' data-target='#modalMensagem' id='btnMsg' name='TrocaMensagem' data-idpmda='" . $value['id_pmda'] . "' data-idusuario='" . $pageSession['session']['seguranca']['idUser'] . "' data-idmunicipio='" . $value['id_municipio'] . "' data-protocolo='" . $protocolo . "' ><img src='core/imagem/msg_tr.png' title='Troca de mensagens PMDA'></a>") : "";
-        print "|<a data-toggle='modal' data-target='#modalComentario' id='btnComentario' name='Comentario' data-pmda='" . $value['id_pmda'] . "' title='Lançar Notas / Comentários neste PMDA'><img src='core/imagem/comment.png'></a>";
+        
+        
+        
+        # visualizar Comentarios/Notas
         print "|<a href='?ac=itn&modulo=pipa&controller=pipa&action=historicoMsg&id_pmda=" . $value['id_pmda'] . "' id='list_msg' name='list_msg' title='Historico de Mensagens do PMDA nº " . $protocolo . "'><img src='core/imagem/notas.png'></a></td>";
 
         print "<td " . $homologado . ">" . $ultimoAcesso . "</td>";
         print "<td " . $homologado . ">".$value['data_aprov']."</td>";
         print "<td " . $homologado . ">" . (!isset($value['resp_homolog']) ? "-" : Usuario::getNomeId($value['resp_homolog']) ) . "</td>";
         print "<td " . $homologado . ">".$value['dt_analise']."</td>";
+        
+        # situacao atendido
+        print "<td>";
+            if($value['status'] != 7){
+                print $value['estado'];
+            }else {
+                print "<select class='form form-control' name='' id=''>";
+                print "<option>Em Atendimento</option>>";
+                print "<option>Encerrado Atendimento</option>>";
+                print "</select>";
+            }
+        print "</td>";
     }
 }
 ?>

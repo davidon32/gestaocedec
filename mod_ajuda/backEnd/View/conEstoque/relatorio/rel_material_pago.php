@@ -132,7 +132,7 @@ if($_btn_enviar) {
 			
             print "</td>";
 			print "<td style='font-size: 10px; text-align: center;'>
-				<a href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=imprecibopg&nlib=".$_mat_pago[$i]['id_liberacao']."&m=12872\" class='btn btn-info imprimir' title='2º Via comprovante de Pagamento de Materiais Liberados'>2ª Via C.Pgto</a>
+				<a data-id_liberacao='".$_mat_pago[$i]['id_liberacao']."' class='btn btn-info imprimir' title='2º Via comprovante de Pagamento de Materiais Liberados' name='lk_recibo'>2ª Via C.Pgto</a>
 				<a href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=relatorio&action=visualizarRec&id=".$_mat_pago[$i]['id_liberacao']."&m=12872\" title='Visualizar recibo Digitalizado de Pagamento' class='imprimir'><img width='25' src='core/imagem/recibo.png'></a>
 			</td>";
 			
@@ -142,3 +142,22 @@ if($_btn_enviar) {
 
 	</table>
 </div>
+
+<?php include_once "template/page/rodapePage.php"; ?>
+<script>
+    
+    $(document).ready(function () {
+        
+        $("a[name=lk_recibo]").click(function(event){
+            var result = confirm('Deseja Visualizar o nome no Recibo ?');
+            event.preventDefault();
+            if(result) {
+                window.location.href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=ajuda&controller=conestoque&action=imprecibopg&nlib="+$(this).data('id_liberacao')+"&m=12872&nom=s";
+            }else {
+                window.location.href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=ajuda&controller=conestoque&action=imprecibopg&nlib="+$(this).data('id_liberacao')+"&m=12872";
+            }
+        });
+    
+    });
+</script>
+    
