@@ -801,6 +801,37 @@ class Pmda extends Comunidade {
 
         return true;
     }
+    /**
+     * Muda os ESTADO do PMDA
+     *
+     */
+    public static function atualizaEstado($array) {
+
+        if($array['estado'] == 7){
+            $data = isset($array['data']) ? $array['data'] : null;
+        }else {
+            $array['data'] = null;
+        }
+
+        $con = Conexao::getInstance();
+        
+        $data_agora = date('Y-m-d H:i:s');
+
+        $sql = "UPDATE pip_pmda
+	    				SET estado = :estado,
+    						resp_estado = :resp_estado,
+						dt_estado = :dt_estado
+		                        WHERE id_pmda = :id_pmda";
+
+        $result = $con->prepare($sql);
+        $result->bindParam(":id_pmda", $array['id_pmda']);
+        $result->bindParam(":resp_estado", $array['resp']);
+        $result->bindParam(":estado", $array['estado']);
+        $result->bindParam(":dt_estado", $data_agora);
+        $result->execute();
+
+        return true;
+    }
 
     /**
      * Grava Comentario / Nota
@@ -918,6 +949,33 @@ class Pmda extends Comunidade {
 
         $result = $con->prepare($sql);
         $result->bindParam(":id_pmda", $id_pmda);
+        $result->execute();
+
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+
+            $dados = $linha;
+        }
+
+        return $dados['status'];
+    }
+    /**
+     * 
+     * Busca pmda em edicao
+     * 
+     */
+    public static function existeEdicao($id_municipio) {
+
+        $dados = array();
+
+        $con = Conexao::getInstance();
+
+        $sql = "select status
+                    from pip_pmda
+                    where id_municipio = :id_municipio
+                    and status = 0";
+
+        $result = $con->prepare($sql);
+        $result->bindParam(":id_municipio", $id_municipio);
         $result->execute();
 
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {

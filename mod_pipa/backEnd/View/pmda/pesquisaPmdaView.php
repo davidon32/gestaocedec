@@ -175,6 +175,9 @@ if (!empty($dados)) {
 
         $pmdaLegado = ($dataCriacao > $dataLimite ? true : false);
 
+        $existe_edicao = ($pmda->buscaStatus($value['id_pmda']) == 0) ? true: false;
+        
+        var_dump($existe_edicao);
 
         $val = Log::buscaultimoAcesso($value['id_municipio']);
 
@@ -237,6 +240,11 @@ if (!empty($dados)) {
                 # atendido
                 if($value['status'] == 7){
                     print "<option value='8'>Cancelar</option>";
+                    
+                    #diretor
+                    if($_COOKIE['seguranca']['diretor'] == 1){
+                       print "<option value='4'>Aprovado</option>";   
+                    }
                 }
                 
                 print "</select></td>";
@@ -249,7 +257,7 @@ if (!empty($dados)) {
         
         # icone em Analise
         if($value['status'] == 2){
-            if($edicao) {
+            if(!$existe_edicao) {
             # enviar para Edição
                 print "<a class='btn btn-primary' >Enviar p/ COMPDEC</a>";
             }
@@ -295,9 +303,10 @@ if (!empty($dados)) {
             if($value['status'] != 7){
                 print $value['estado'];
             }else {
-                print "<select class='form form-control' name='' id=''>";
-                print "<option>Em Atendimento</option>>";
-                print "<option>Encerrado Atendimento</option>>";
+                print "<select class='form form-control' name='selEstado' id='selEstado' data-id_pmda='".$value['id_pmda']."'>";
+                print "<option value='".$value['estado']."'>".$value['estado']."</option>";
+                print "<option value='Em Atendimento'>Em Atendimento</option>";
+                print "<option value='Encerrado Atendimento'>Encerrado Atendimento</option>";
                 print "</select>";
             }
         print "</td>";
@@ -377,6 +386,10 @@ if (!empty($dados)) {
 
         $("[name=selStatus]").change(function () {
             alterarStatus($(this).data('id_pmda'));
+        });
+        
+        $("[name=selEstado]").change(function () {
+            alterarEstado($(this).data('id_pmda'));
         });
         
         $("[name=del_pmda]").click(function () {
@@ -567,12 +580,26 @@ if (!empty($dados)) {
      Alterar status pmda via CEDEC
      */
     function alterarStatus(id_pmda) {
-
+    
         var id_sel = "#selStatus" + id_pmda;
+        
+        var estado = ''
+        if($(id_sel).val() == 0){
+            estado = 'Em Edicao';
+        }else if($(id_sel).val() == 1){
+            estado = 'Completo';
+        }else if($(id_sel).val() == 2){
+            estado = 'Analista Cedec';
+        }else if($(id_sel).val() == 4){
+            estado = 'Aguard. Atendimento';
+        }else if($(id_sel).val() == 8){
+            estado = 'Cancelado';
+        }
 
         var dados = {
             "id_pmda": id_pmda,
             "status": $(id_sel).val(),
+            "estado": estado,
             "resp": $("#txtId_user").val(),
             "opcao": "gravar",
             "data": '<?=date('Y-m-d H:i:s')?>',
@@ -585,6 +612,37 @@ if (!empty($dados)) {
             success: function (response) {
                 console.log(response);
                 alert('Status Alterado com Sucesso !!')
+                //location.reload();
+                // console.log(response);
+            },
+            error: function (response) {
+                console.log(JSON.stringify(response));
+            }
+        });
+    }
+        
+    /*
+     Alterar ESTADO pmda via CEDEC
+     */
+    function alterarEstado(id_pmda) {
+
+        var id_sel = "#selEstado";
+
+        var dados = {
+            "id_pmda": id_pmda,
+            "estado": $(id_sel).val(),
+            "resp": $("#txtId_user").val(),
+            "opcao": "alterar_estado",
+            "data": '<?=date('Y-m-d H:i:s')?>'
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: 'mod_pipa/backEnd/View/pmda/funcAdm.php?v=<?= md5(VERSAO) ?>',
+            data: dados,
+            success: function (response) {
+                console.log(response);
+                alert('Estado Alterado com Sucesso !!')
                 //location.reload();
                 // console.log(response);
             },

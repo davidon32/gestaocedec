@@ -59,7 +59,8 @@ function logar($_login, $_senha, $redireciona = true) {
 		cedec_funcionario.nome as nome,
 		cedec_funcionario.num_masp,
                 cedec_funcionario.id_rpm,
-                cedec_funcionario.posto
+                cedec_funcionario.posto,
+                cedec_funcionario.diretor
 		FROM cedec_usuario
 		INNER JOIN cedec_funcionario
 		ON cedec_usuario.id_funcionario = cedec_funcionario.id_funcionario
@@ -137,6 +138,7 @@ static function SetCookieAdm($dados = ""){
 			setcookie("seguranca[matricula]",$_COOKIE['seguranca']['matricula'], time()+SESSAOADM);
 			setcookie("seguranca[rpm]",$_COOKIE['seguranca']['rpm'], time()+SESSAOADM);
 			setcookie("seguranca[posto]",$_COOKIE['seguranca']['posto'], time()+SESSAOADM);
+			setcookie("seguranca[diretor]",$_COOKIE['seguranca']['diretor'], time()+SESSAOADM);
 			ob_end_clean();
 
 			return true;
@@ -170,6 +172,7 @@ static function SetCookieAdm($dados = ""){
 		setcookie("seguranca[sess]", date('dmY'), time()+SESSAOADM);
 		setcookie("seguranca[rpm]", $dados['id_rpm'], time()+SESSAOADM);
 		setcookie("seguranca[posto]", $dados['posto'], time()+SESSAOADM);
+		setcookie("seguranca[diretor]", $dados['diretor'], time()+SESSAOADM);
 		
 		if(isset($_COOKIE['seguranca']['sessao_id'])){
 			session_regenerate_id();
@@ -215,6 +218,9 @@ static function UnsetCookieAdm(){
 		setcookie("seguranca[matricula]", null, - 3600);
 		setcookie("seguranca[sessao_id]", null, - 3600);
 		setcookie("seguranca[sess]", null, - 3600);
+		setcookie("seguranca[rpm]", null, - 3600);
+		setcookie("seguranca[posto]", null, - 3600);
+		setcookie("seguranca[diretor]", null, - 3600);
 	ob_end_clean();
 }
 
