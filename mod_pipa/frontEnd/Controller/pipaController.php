@@ -148,6 +148,16 @@
                     </script>";
        }
     }
+    
+    
+    /*
+    * Alterar as Comunidades do processo PMDA 
+    * Após ser atendido status 7
+    */
+    public function alt_com_proc(){
+            include_once "mod_pipa/frontEnd/View/pmda/altera_comunidade_processo.php";
+
+        }
         
  
     

@@ -26,6 +26,8 @@ if($opcao == "gravar"){
 	print $pmda->ler_mensagem($id_msg);
 }elseif($opcao == 'alterar_estado'){
     $pmda->atualizaEstado($post);
+}elseif($opcao == 'liberar_alterar'){
+    $pmda->liberarAtualizar($post);
 }
 
 print  "retorno";

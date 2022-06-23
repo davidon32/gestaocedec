@@ -67,6 +67,8 @@ print "<button type=\"button\" class=\"btn btn-primary\" title=\"Criar novo PMDA
                 
             </tr>
 <?php
+
+#lista de pmda do Compdec
 foreach ($dadosPmda as $value) {
     
     //var_dump($pmda->buscaStatus($value ['id_pmda']));
@@ -130,8 +132,12 @@ foreach ($dadosPmda as $value) {
         //print "&nbsp;<a data-toggle='modal' data-target='#modalMensagem' data-idpmda='".$value ['id_pmda']."' id='btnMensagem' title='Troca de Mensagens'><img src='core/imagem/msg_tr.png'></a>";
     }
 
-    print "|<a onclick=\"historicoMsg(" . $value['id_pmda'] . ")\" id='list_msg' name='list_msg' title='Historico de Mensagens do PMDA nº " . $protocolo . "'><img src='core/imagem/notas.png'></a></td>";
+    print "|<a onclick=\"historicoMsg(" . $value['id_pmda'] . ")\" id='list_msg' name='list_msg' title='Historico de Mensagens do PMDA nº " . $protocolo . "'><img src='core/imagem/notas.png'></a>";
 
+    # Alterar Comunidades do pmda apos Atendido ( se permitido )
+    if($value['alterar_com'] == 1 && $value['status'] == 7) {
+        print "| <a href='".FuncaoBase::geraLink("pipa", "pipa", "alt_com_proc", array('id_pmda'=>$value['id_pmda']))."' name='btnAlterarComunid' data-id_pmda='" . $value ['id_pmda'] . "' title='Altere as Comunidades do Pmda'> <img src='core/imagem/change.png'></a>";
+    }
     //print "<a href='#' id='btnDuplicarPmda' name='btnDuplicarPmda' data-idpmda='" . $value ['id_pmda'] . "' title='Cria um Clone deste PMDA para Edição'> <img src='core/imagem/duplicar.png'></a>";
     print "</td></tr>";
 }

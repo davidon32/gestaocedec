@@ -96,7 +96,8 @@ class Pmda extends Comunidade {
                 				resp_homolog,
                                                 dt_analise,
                                                 data_aprov,
-                                                estado
+                                                estado,
+                                                alterar_com
                                FROM pip_pmda
 							   WHERE id_municipio = :id_municipio
                                                            
@@ -832,6 +833,24 @@ class Pmda extends Comunidade {
 
         return true;
     }
+    /**
+     * Liberar pmda para alteraçoes de comunidades
+     *
+     */
+    public static function liberarAtualizar($array) {
+
+        $con = Conexao::getInstance();
+       
+        $sql = "UPDATE pip_pmda
+	    				SET alterar_com = 1
+		                        WHERE id_pmda = :id_pmda";
+
+        $result = $con->prepare($sql);
+        $result->bindParam(":id_pmda", $array['id_pmda']);
+        $result->execute();
+
+        return true;
+    }
 
     /**
      * Grava Comentario / Nota
@@ -980,10 +999,11 @@ class Pmda extends Comunidade {
 
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
 
-            $dados = $linha;
+            $dados[] = $linha;
         }
 
-        return $dados['status'];
+        
+        return (count($dados) > 0) ? true : false;
     }
 
     /**

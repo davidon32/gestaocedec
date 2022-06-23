@@ -81,6 +81,8 @@ $dados = array();
 $listagem = false;
 $alteraStatus = "";
 
+$dadosMun ="";
+
 if ($btn == 'Pesquisar') {
     $param = $pmda->extraiPmda($busca);
 
@@ -166,6 +168,8 @@ if (!empty($dados)) {
         
     }
     
+    $existe_edicao = $pmda->existeEdicao($dados[0]['id_municipio']);
+     
     /* lista de registros */
     foreach ($dados as $key => $value) {
 
@@ -175,9 +179,9 @@ if (!empty($dados)) {
 
         $pmdaLegado = ($dataCriacao > $dataLimite ? true : false);
 
-        $existe_edicao = ($pmda->buscaStatus($value['id_pmda']) == 0) ? true: false;
         
-        var_dump($existe_edicao);
+        
+        
 
         $val = Log::buscaultimoAcesso($value['id_municipio']);
 
@@ -185,18 +189,18 @@ if (!empty($dados)) {
 
         $protocolo = $value['id_pmda'] . str_replace("-", "", substr($value['data'], 0, 10));
 
+        # Aprovado
         if (($value['status'] == 4) && (!$listagem)) {
-            $homologado = " style='background-color:#BCF5A9; color:#A4A4A4' title='PMDA Vigente' ";
-        } elseif ($value['status'] == 3) {
-            $homologado = " style='background-color:#F5A9A9; color:#0B243B' title='PMDA Vigente' ";
-        } elseif ($value['status'] == 9) {
-            $homologado = " style='background-color:#FA5858; color:#FFFFFF' title='PMDA Encerrado' ";
+            $homologado = " style='background-color:#BCF5A9; color:#A4A4A4' title='PMDA Aguardando Liberar o Atendimento' ";
+        # 
+        } elseif ($value['status'] == 7) {
+            $homologado = " style='background-color:#FA5858; color:#FFFFFF' title='PMDA Atendido' ";
         } else {
             $homologado = "";
         }
 
         print "<tr>";
-        print "<td><img src='core\imagem\add1.png' width='30' id='versoesPmda' name='versoesPmda' title='versões PMDA'></td>";
+        print "<td><img onclick='alert();' src='core\imagem\add1.png' width='30' id='versoesPmda' name='versoesPmda' title='versões PMDA'></td>";
         print "<td " . $homologado . ">" . $protocolo . "</td>";
         print "<td " . $homologado . ">" . DataMysql::dataCompletaVisual($value['data']) . "</td>";
         print "<td " . $homologado . ">" . Municipio::PegaNomeMunicipio($value['id_municipio']) . "
@@ -219,35 +223,38 @@ if (!empty($dados)) {
                 if($value['status'] < 2) {
                     print "<span title ='Status sem Ações para o Operador / Aguardando Ação do COMPDEC'>".$pmda->status($value['status'])."</span>" ;  
                 }else {
+               
+                    if($value['status'] != 8) {
+                        # SELECT STATUS 
+                        print "<select class='form-control' id='selStatus" . $value['id_pmda'] . "' data-id_pmda='" . $value['id_pmda'] . "' name='selStatus'>";
+                        print "<option value='" . $value['status'] . "'>" . $pmda->status($value['status']) . "</option>";
                 
-                # SELECT STATUS 
-                print "<select class='form-control' id='selStatus" . $value['id_pmda'] . "' data-id_pmda='" . $value['id_pmda'] . "' name='selStatus'>";
-                
-                print "<option value='" . $value['status'] . "'>" . $pmda->status($value['status']) . "</option>";
-                
-                
-                # em analise
-                if($value['status'] == 2) {
-                    print "<option value='4'>Aprovado</option>";  
+                        # em analise
+                        if($value['status'] == 2) {
+                            print "<option value='4'>Aprovado</option>";  
+                        }
+
+                        # Aprovado
+                        if($value['status'] == 4){
+                            print "<option value='7'>Atendido</option>";
+                            print "<option value='8'>Cancelar</option>";
+                        }
+
+                        # atendido
+                        if($value['status'] == 7){
+                            print "<option value='8'>Cancelar</option>";
+
+                            #diretor
+                            if($_COOKIE['seguranca']['diretor'] == 1){
+                               print "<option value='4'>Aprovado</option>";   
+                            }
+                        }
+                        print "</select>";
+                }else {
+                    # opcao cancelado
+                    print $pmda->status($value['status']); 
                 }
-                 
-                # Aprovado
-                if($value['status'] == 4){
-                    print "<option value='7'>Atendido</option>";
-                    print "<option value='8'>Cancelar</option>";
-                }
-                
-                # atendido
-                if($value['status'] == 7){
-                    print "<option value='8'>Cancelar</option>";
-                    
-                    #diretor
-                    if($_COOKIE['seguranca']['diretor'] == 1){
-                       print "<option value='4'>Aprovado</option>";   
-                    }
-                }
-                
-                print "</select></td>";
+                print "</td>";
                 }
             }
         }
@@ -288,10 +295,15 @@ if (!empty($dados)) {
         print "|<a href='?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=pipa&controller=pipa&action=printView&param=" . $value['id_pmda'] . "&mun=" . $value['id_municipio'] . "' title='Impressão PMDA'><img src='core/imagem/printer.png'></a>";
         print $pmdaLegado ? ("|<a data-toggle='modal' data-target='#modalMensagem' id='btnMsg' name='TrocaMensagem' data-idpmda='" . $value['id_pmda'] . "' data-idusuario='" . $pageSession['session']['seguranca']['idUser'] . "' data-idmunicipio='" . $value['id_municipio'] . "' data-protocolo='" . $protocolo . "' ><img src='core/imagem/msg_tr.png' title='Troca de mensagens PMDA'></a>") : "";
         
-        
-        
         # visualizar Comentarios/Notas
-        print "|<a href='?ac=itn&modulo=pipa&controller=pipa&action=historicoMsg&id_pmda=" . $value['id_pmda'] . "' id='list_msg' name='list_msg' title='Historico de Mensagens do PMDA nº " . $protocolo . "'><img src='core/imagem/notas.png'></a></td>";
+        print "|<a href='?ac=itn&modulo=pipa&controller=pipa&action=historicoMsg&id_pmda=" . $value['id_pmda'] . "' id='list_msg' name='list_msg' title='Historico de Mensagens do PMDA nº " . $protocolo . "'><img src='core/imagem/notas.png'></a>";
+        
+        # Liberar Alteração comunidades PMDA
+        if($value['status'] == 7 && $value['estado'] == 'Em Atendimento'){
+            print "|<a href='#' data-id_pmda='".$value['id_pmda']."' name='liberar_alterar' title='Liberar Alteração de COMUNIDADES'><img src='core/imagem/change.png'></a>";
+        }
+        
+        print "</td>";
 
         print "<td " . $homologado . ">" . $ultimoAcesso . "</td>";
         print "<td " . $homologado . ">".$value['data_aprov']."</td>";
@@ -299,7 +311,7 @@ if (!empty($dados)) {
         print "<td " . $homologado . ">".$value['dt_analise']."</td>";
         
         # situacao atendido
-        print "<td>";
+        print "<td ".$homologado.">";
             if($value['status'] != 7){
                 print $value['estado'];
             }else {
@@ -391,6 +403,15 @@ if (!empty($dados)) {
         $("[name=selEstado]").change(function () {
             alterarEstado($(this).data('id_pmda'));
         });
+        
+        $("[name=liberar_alterar]").click(function(){
+           var result = confirm('Deseja Liberar este PMDA para Alterar as Comunidades  ? \nEstá ação é usada para alteração somente das comunidades a serem atendidas !');  
+           var id_pmda = $(this).data('id_pmda');
+           if(result){
+               liberar_alterar(id_pmda);
+           } 
+        });
+        
         
         $("[name=del_pmda]").click(function () {
             var result = confirm('Deseja apagar este PMDA  ? \nOperação irreversível !'); 
@@ -655,6 +676,29 @@ if (!empty($dados)) {
             alert('anulado');
         }
 
+    }
+    
+     /*
+     Liberar alterar Comunidades
+     */
+    function liberar_alterar(id_pmda) {
+        var dados = {
+            "id_pmda": id_pmda,
+            "opcao": "liberar_alterar"
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: 'mod_pipa/backEnd/View/pmda/funcAdm.php?v=<?= md5(VERSAO) ?>',
+            data: dados,
+            success: function (response) {
+                console.log(response);
+                alert('Pmda com permissao de alterar as Comunidades !')
+            },
+            error: function (response) {
+                console.log(JSON.stringify(response));
+            }
+        });
     }
 
 
