@@ -854,7 +854,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
 
 
         $("#idVoltarMenu").click(function () {
-            window.location.href = 'index.php?token=<?= hash('sha256', md5(VERSAO) . "-" . time()) ?>&modulo=index&controller=index&action=menue';
+            window.location.href = 'index.php?token=<?= hash('sha256', md5(VERSAO) . "-" . time()) ?>&modulo=pipa&controller=pipa&action=pmdaidx';
         })
 
         $("#tab_inicio").trigger('click');

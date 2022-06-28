@@ -57,13 +57,14 @@ print "<button type=\"button\" class=\"btn btn-primary\" title=\"Criar novo PMDA
         ?>
         <table style="width:90%; margin: auto;" class="table table-bordered table-responsive" id="tblListaPmda">
             <tr>
-                <th colspan="4" style="text-align: center"><h4>Histórico dos PMDA</h4></th>
+                <th colspan="5" style="text-align: center"><h4>Histórico dos PMDA</h4></th>
             </tr>
             <tr>
                 <th class="col-md-3 text-center" style="width: 30%;">Protocolo</th>
                 <th class="col-md-2 text-center" style="width: 20%;">Data Criação</th>
                 <th class="col-md-2 text-center" style="width: 20%;">Situação</th>
-                <th class="col-md-3 text-center" style="width: 30%;">Opção</th>
+                <th class="col-md-3 text-center" style="width: 30%;">Ação</th>
+                <th class="col-md-3 text-center" style="width: 30%;">Estado</th>
                 
             </tr>
 <?php
@@ -96,6 +97,10 @@ foreach ($dadosPmda as $value) {
     print "<td style='" . $fdo . "'>" . $novo . " " . $value ['id_pmda'] . str_replace("-", "", substr($value ['data'], 0, 10)) . "</td>";
     print "<td style='" . $fdo . "'>" . DataMysql::dataVisual($value ['data']) . "</td>";
     print "<td  style='" . $fdo . "' id='statusPmda'>" . $pmda->status($value ['status']) . "</td>";
+    
+
+    ##############  ACOES PMDA ############## 
+    
     print "<td style='" . $fdo . "'>";
 
     # remover PMDA
@@ -108,18 +113,14 @@ foreach ($dadosPmda as $value) {
     print "<a name=lk_impressao onclick='javascript:impressao(" . $value['id_pmda'] . ", " . $id_municipio . ")'><img width='30px' src='core/imagem/impressao.png' title='Impressao do PMDA'></a>";
     print ($pmda->opcao($value ['id_pmda']) == "2") ? (($pmdaLegado) ? "<a href='#'><img width='30px' src='core/imagem/request.png' title='Solicitar Alteração' id='lk_alteracao'></a>" :"") : "-";
     print ($pmda->buscaStatus($value ['id_pmda']) == '1') ? (($pmdaLegado) ? "<button value='btnEnviar' id='btnEnviarHom' class='btn btn-primary' onclick='javascrip:homologa(" . $value ['id_pmda'] . ")' title='Solicita a Homologação do PMDA'>Enviar p/ Homologação</button>" : "") : "";
-    print ($pmda->buscaStatus($value ['id_pmda']) < '2') ? (($pmdaLegado) ? "&nbsp;<a id='btnVerificar' onclick='javascrip:verificaPendencia(" . $value ['id_pmda'] . ")' title='Verifica o Status do PMDA'><img width='30px' src='core/imagem/atualizar.png'></a>" :"") : "";
+    print ($pmda->buscaStatus($value ['id_pmda']) < '2') ? (($pmdaLegado) ? "&nbsp;<a id='btnVerificar' onclick='javascrip:verificaPendencia(" . $value ['id_pmda'] . ")' title='Verifica Pendência deste PMDA'><img width='30px' src='core/imagem/atualizar.png'></a>" :"") : "";
     
     # duplicar pmda
-    if ($novoPmda == 0 ) {
-            if( ($pmda->buscaStatus($value ['id_pmda']) == '1') || 
-         ($pmda->buscaStatus($value ['id_pmda']) == '7') ||
-         ($pmda->buscaStatus($value ['id_pmda']) == '4') ) {
-            if($pmdaLegado) 
-                {
-                   print "&nbsp;<a id='btnVerificar' onclick='javascrip:duplicar(" . $value ['id_pmda'] . ")' title='Criar Cópia deste PMDA'><img width='30px' src='core/imagem/copia.png'></a>";
-                }
-         }
+    
+    $veri = $novoPmda == 0 && ($pmda->buscaStatus($value ['id_pmda']) == '7') && $pmdaLegado && ($pmda->buscaStatus($value ['id_pmda']) != '1');
+    var_dump($veri);
+    if ( ($novoPmda == 0) && ($pmda->buscaStatus($value ['id_pmda']) == '7') && $pmdaLegado )  {
+       print "&nbsp;<a id='btnVerificar' onclick='javascrip:duplicar(" . $value ['id_pmda'] . ")' title='Criar Cópia deste PMDA'><img width='30px' src='core/imagem/copia.png'></a>";   
     }
 
     # somente mensagem novas
@@ -139,7 +140,14 @@ foreach ($dadosPmda as $value) {
         print "| <a href='".FuncaoBase::geraLink("pipa", "pipa", "alt_com_proc", array('id_pmda'=>$value['id_pmda']))."' name='btnAlterarComunid' data-id_pmda='" . $value ['id_pmda'] . "' title='Altere as Comunidades do Pmda'> <img src='core/imagem/change.png'></a>";
     }
     //print "<a href='#' id='btnDuplicarPmda' name='btnDuplicarPmda' data-idpmda='" . $value ['id_pmda'] . "' title='Cria um Clone deste PMDA para Edição'> <img src='core/imagem/duplicar.png'></a>";
-    print "</td></tr>";
+    print "</td>";
+    
+    ##########  ESTADO PMDA ###############
+    print "<td style='" . $fdo . "'>";
+        print $value['estado'];
+    print "</td>";
+    
+    print "</tr>";
 }
 ?>
 
@@ -698,7 +706,7 @@ foreach ($dadosPmda as $value) {
                         "btnEnviar": "verifica",
                         "id_pmda": id_pmda,
                     };
-                    var result = confirm("Confirma a Verificação do Status do PMDA ?");
+                    var result = confirm("Confirma a Verificação de pendências deste PMDA ?");
 
                     if (result) {
 
@@ -709,8 +717,7 @@ foreach ($dadosPmda as $value) {
                             success: function (response) {
                                 //console.log(response);
                                 if (response == "0") {
-
-                                    alert("");
+                                    alert("Existem Pendências nesse PMDA:\n->Verifique se existe comunidades cadastradas \n->Os representantes das Comunidades !");
                                     location.reload();
                                 } else if (response == "1") {
                                     Swal.fire({

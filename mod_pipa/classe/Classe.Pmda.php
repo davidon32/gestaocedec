@@ -926,6 +926,8 @@ class Pmda extends Comunidade {
         $valStatus = Pmda::buscaStatus($array['id_pmda']);
 
         $dt_analise = null;
+        
+        # verifica se existem comunidades no pmda e se o total dos representantes é 3x o numero das comunidades
         if (($tot_comunidade == 0) || ($tot_representante < $tot_comunidade)) {
 
             $status = "0";
@@ -934,7 +936,6 @@ class Pmda extends Comunidade {
 
             $dt_analise = date('Y/m/d H:i:s');
             $status = "1";
-            //print "aqui";
         }
 
         //var_dump($status);
@@ -1532,6 +1533,69 @@ class Pmda extends Comunidade {
     
     }
     
+    /**
+     * 
+     * busca comunudades do pmda
+     */
+    public function buscaComunidadesAltera($id_pmda) {
+    
+        $con = Conexao::getInstance();
+
+        $dados = array();
+        
+        $sql = "SELECT id_com_pmda,
+                        id_pmda,
+                        id_comunidade,
+                        id_municipio,
+                        id_ponto,
+                        latitude,
+                        longitude,
+                        trecho_pav,
+                        trecho_n_pav,
+                        pop_atendida
+                        FROM pip_pmda_comun_altera
+                        where id_pmda = ".$id_pmda;
+        
+            $result = $con->query($sql);
+            //$result->execute();
+
+                while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+
+                    $dados[] = $linha;
+                }
+
+                return $dados;
+    
+    }
+    
+    
+      /**
+     * 
+     * busca representantes
+     */
+    public function buscaComunidadeAlteracao($id_comunidade) {
+    
+        $con = Conexao::getInstance();
+
+        $dados = array();
+        
+        $sql = "SELECT id_pmda,
+                        id_comunidade
+                        FROM pip_pmda_comun_altera
+                        where id_comunidade = ".$id_comunidade;
+        
+            $result = $con->query($sql);
+
+                while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+
+                    $dados[] = $linha;
+                }
+
+                return $dados;
+    
+    }
+    
+    
     /* duplica Comunidades */
     public function duplicaComunidades($id_pmda, $id_pmda_novo) {
         
@@ -1610,6 +1674,9 @@ class Pmda extends Comunidade {
                 return $dados;
     
     }
+    
+    
+    
     
     /* duplica Representantes */
     public function duplicaRepresentantes($id_pmda, $id_pmda_novo) {

@@ -102,14 +102,14 @@ $acesso1 = isset($_GET['externo']) ? $_GET['externo'] :"";
     } else if (!isset($_COOKIE['seguranca']['tipo'])) { # redireciona para pagina de login
     # acesso defesa civil agora
         if (
-                ($controller == 'agoraController') && ($action == 'listasite') ||
+                //($controller == 'agoraController') && ($action == 'listasite') ||
                 ($action == 'cadastro') ||
                 ($controller == "cceController" && $action == 'boletimsite') ||
-                ($action == "listacompdecativa") ||
-                ($controller == 'agoraController' && $action == 'view') ||
-                ($controller == 'agoraController' && $action == 'gravarComentario') ||
-                ($controller == 'agoraController' && $action == 'cadpost') ||
-                ($controller == 'agoraController' && $action == 'postagem')
+                ($action == "listacompdecativa") //||
+                //($controller == 'agoraController' && $action == 'view') ||
+                //($controller == 'agoraController' && $action == 'gravarComentario') ||
+                //($controller == 'agoraController' && $action == 'cadpost') ||
+               // ($controller == 'agoraController' && $action == 'postagem')
         ) 
         
          {   

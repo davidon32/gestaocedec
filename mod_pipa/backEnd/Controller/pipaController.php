@@ -182,5 +182,12 @@ class pipaController extends Controller {
     }
     
     
+    # Visualizar Alteraçao de comunidade
+    public function altera_com_view() {
+        include_once "mod_pipa/backEnd/View/pmda/altera_comunidade_processo.php";
+    }
+    
+    
+    
 
 }

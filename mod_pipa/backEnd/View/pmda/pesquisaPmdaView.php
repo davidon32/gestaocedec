@@ -224,9 +224,13 @@ if (!empty($dados)) {
                     print "<span title ='Status sem Ações para o Operador / Aguardando Ação do COMPDEC'>".$pmda->status($value['status'])."</span>" ;  
                 }else {
                
+                    ################### SELECT STATUS ####################
+                    
+                    
+                    # status não esteja cancelado 
                     if($value['status'] != 8) {
                         # SELECT STATUS 
-                        print "<select class='form-control' id='selStatus" . $value['id_pmda'] . "' data-id_pmda='" . $value['id_pmda'] . "' name='selStatus'>";
+                        print "<select class='form-control' id='selStatus" . $value['id_pmda'] . "' data-id_pmda='" . $value['id_pmda'] . "' data-status='".$value['status']."' name='selStatus'>";
                         print "<option value='" . $value['status'] . "'>" . $pmda->status($value['status']) . "</option>";
                 
                         # em analise
@@ -241,7 +245,7 @@ if (!empty($dados)) {
                         }
 
                         # atendido
-                        if($value['status'] == 7){
+                        if($value['status'] == 7 && $value['estado'] != 'Cancelado'){
                             print "<option value='8'>Cancelar</option>";
 
                             #diretor
@@ -258,6 +262,8 @@ if (!empty($dados)) {
                 }
             }
         }
+        
+        ############## icones ###########
         print "<td " . $homologado . " id='print'>";
         # pmda's que não estão atendidos 
         //if($pmdaLegado && $value['status'] !=7){
@@ -299,8 +305,12 @@ if (!empty($dados)) {
         print "|<a href='?ac=itn&modulo=pipa&controller=pipa&action=historicoMsg&id_pmda=" . $value['id_pmda'] . "' id='list_msg' name='list_msg' title='Historico de Mensagens do PMDA nº " . $protocolo . "'><img src='core/imagem/notas.png'></a>";
         
         # Liberar Alteração comunidades PMDA
-        if($value['status'] == 7 && $value['estado'] == 'Em Atendimento'){
+        if($value['status'] == 7 && $value['estado'] == 'Em Atendimento' && $value['alterar_com'] == 0) {
             print "|<a href='#' data-id_pmda='".$value['id_pmda']."' name='liberar_alterar' title='Liberar Alteração de COMUNIDADES'><img src='core/imagem/change.png'></a>";
+        
+        # verifica se esta em atendimento e liberado para alterações de comunidades    
+        }else if($value['status'] == 7 && $value['estado'] == 'Em Atendimento' && $value['alterar_com'] == 1) {
+            print "<a href='".FuncaoBase::geraLink("pipa", "pipa", "altera_com_view", array('id_pmda'=>$value['id_pmda'], 'id_mun'=>$value['id_municipio']))."' ><img class='imgCinza' src='core/imagem/change.png' title='Processo liberado para Alteração de Comunidades'></a>";
         }
         
         print "</td>";
@@ -310,11 +320,15 @@ if (!empty($dados)) {
         print "<td " . $homologado . ">" . (!isset($value['resp_homolog']) ? "-" : Usuario::getNomeId($value['resp_homolog']) ) . "</td>";
         print "<td " . $homologado . ">".$value['dt_analise']."</td>";
         
+        ###############  ESTADO ##############
         # situacao atendido
         print "<td ".$homologado.">";
-            if($value['status'] != 7){
+            if( $value['status'] == 4 || $value['status'] == 0 || $value['status'] == 1 ){
+                print $value['estado'];
+            }else if($value['status'] == 7 && $value['estado'] == "Cancelado") {
                 print $value['estado'];
             }else {
+            
                 print "<select class='form form-control' name='selEstado' id='selEstado' data-id_pmda='".$value['id_pmda']."'>";
                 print "<option value='".$value['estado']."'>".$value['estado']."</option>";
                 print "<option value='Em Atendimento'>Em Atendimento</option>";
@@ -397,7 +411,11 @@ if (!empty($dados)) {
     $(document).ready(function () {
 
         $("[name=selStatus]").change(function () {
-            alterarStatus($(this).data('id_pmda'));
+            if($(this).data('status') == 7){
+                alterarEstado($(this).data('id_pmda'), 'Cancelado');
+            }else {
+                alterarStatus($(this).data('id_pmda'));
+            }
         });
         
         $("[name=selEstado]").change(function () {
@@ -645,13 +663,20 @@ if (!empty($dados)) {
     /*
      Alterar ESTADO pmda via CEDEC
      */
-    function alterarEstado(id_pmda) {
+    function alterarEstado(id_pmda, estado =null) {
 
         var id_sel = "#selEstado";
+        var val_estado;
+        if(estado){
+            val_estado = estado;
+        }else {
+            val_estado = $(id_sel).val();
+        }
+        
 
         var dados = {
             "id_pmda": id_pmda,
-            "estado": $(id_sel).val(),
+            "estado": val_estado,
             "resp": $("#txtId_user").val(),
             "opcao": "alterar_estado",
             "data": '<?=date('Y-m-d H:i:s')?>'
