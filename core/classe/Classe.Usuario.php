@@ -2064,6 +2064,31 @@ class Usuario extends UsuarioModel {
 
         return $dados;
     }
+    /**
+     * get permissao ajuda humanitaria
+     * 
+     */
+    public static function getPermissaoPip($login) {
+
+        $con = Conexao::getInstance();
+
+        $dados = "";
+
+        $sql = "SELECT login,
+        pmda,
+        pmda_operador
+		FROM pip_permissao
+		WHERE login = '" . $login . "'";
+
+        $result = $con->query($sql);
+
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            $dados = $linha;
+        }
+
+
+        return $dados;
+    }
     
     /**
      * get permissao ajuda estoque novo

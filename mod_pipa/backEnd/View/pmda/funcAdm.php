@@ -29,6 +29,5 @@ if($opcao == "gravar"){
 }elseif($opcao == 'liberar_alterar'){
     $pmda->liberarAtualizar($post);
 }
-
 print  "retorno";
 ?>

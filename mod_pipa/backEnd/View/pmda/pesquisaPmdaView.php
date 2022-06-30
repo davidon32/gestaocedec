@@ -8,6 +8,7 @@
 <?php //include_once "template/page/menu.php";?>
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php";
+$permissaoOperador = $_COOKIE['seguranca']['pmdaoperador'];
 ?>
 <div class='col-md-12 text-center'>
 <a class="btn btn-success" href="?ac=itn&modulo=pipa&controller=pipa&action=index">Voltar</a>
@@ -15,7 +16,7 @@
 
 
 <!-- INICIO DO CORPO-->
-<legend>PMDA - Busca</legend>
+<legend>PMDA - Busca - <?=($permissaoOperador) ? "<span style='color:red'>Usuario Operador PMDA" :"Usuário SEM permissoes de Operador</span>"?></legend>
 <form action="#" method="post" id="form">
     
     <div class='col-md-6'>
@@ -82,6 +83,8 @@ $listagem = false;
 $alteraStatus = "";
 
 $dadosMun ="";
+
+
 
 if ($btn == 'Pesquisar') {
     $param = $pmda->extraiPmda($busca);
@@ -226,7 +229,8 @@ if (!empty($dados)) {
                
                     ################### SELECT STATUS ####################
                     
-                    
+                   # permissao operador
+                   if($permissaoOperador == 1){ 
                     # status não esteja cancelado 
                     if($value['status'] != 8) {
                         # SELECT STATUS 
@@ -258,6 +262,9 @@ if (!empty($dados)) {
                     # opcao cancelado
                     print $pmda->status($value['status']); 
                 }
+                }else {
+                    print $pmda->status($value['status']); 
+                }
                 print "</td>";
                 }
             }
@@ -269,7 +276,7 @@ if (!empty($dados)) {
         //if($pmdaLegado && $value['status'] !=7){
         
         # icone em Analise
-        if($value['status'] == 2){
+        if($value['status'] == 2 && $permissaoOperador == 1){
             if(!$existe_edicao) {
             # enviar para Edição
                 print "<a class='btn btn-primary' >Enviar p/ COMPDEC</a>";
@@ -288,7 +295,7 @@ if (!empty($dados)) {
         }
         
         # icone opcao aprovado
-        if($value['status'] == 4 && $edicao){
+        if($value['status'] == 4 && $edicao ==0 && $permissaoOperador ==1){
             # enviar para Edição ( não pode ter em edição )
             print "<a class='btn btn-primary' >Enviar p/ COMPDEC</a>";
             
@@ -304,6 +311,8 @@ if (!empty($dados)) {
         # visualizar Comentarios/Notas
         print "|<a href='?ac=itn&modulo=pipa&controller=pipa&action=historicoMsg&id_pmda=" . $value['id_pmda'] . "' id='list_msg' name='list_msg' title='Historico de Mensagens do PMDA nº " . $protocolo . "'><img src='core/imagem/notas.png'></a>";
         
+        # permissao Operador
+        if($permissaoOperador == 1){
         # Liberar Alteração comunidades PMDA
         if($value['status'] == 7 && $value['estado'] == 'Em Atendimento' && $value['alterar_com'] == 0) {
             print "|<a href='#' data-id_pmda='".$value['id_pmda']."' name='liberar_alterar' title='Liberar Alteração de COMUNIDADES'><img src='core/imagem/change.png'></a>";
@@ -311,6 +320,7 @@ if (!empty($dados)) {
         # verifica se esta em atendimento e liberado para alterações de comunidades    
         }else if($value['status'] == 7 && $value['estado'] == 'Em Atendimento' && $value['alterar_com'] == 1) {
             print "<a href='".FuncaoBase::geraLink("pipa", "pipa", "altera_com_view", array('id_pmda'=>$value['id_pmda'], 'id_mun'=>$value['id_municipio']))."' ><img class='imgCinza' src='core/imagem/change.png' title='Processo liberado para Alteração de Comunidades'></a>";
+        }
         }
         
         print "</td>";
@@ -322,8 +332,12 @@ if (!empty($dados)) {
         
         ###############  ESTADO ##############
         # situacao atendido
+        
         print "<td ".$homologado.">";
-            if( $value['status'] == 4 || $value['status'] == 0 || $value['status'] == 1 ){
+        
+        # acesso somente operador PMDA
+        if($permissaoOperador == 1){
+            if( $value['status'] == 4 || $value['status'] == 0 || $value['status'] == 1 || $value['status'] == 2 ){
                 print $value['estado'];
             }else if($value['status'] == 7 && $value['estado'] == "Cancelado") {
                 print $value['estado'];
@@ -335,6 +349,9 @@ if (!empty($dados)) {
                 print "<option value='Encerrado Atendimento'>Encerrado Atendimento</option>";
                 print "</select>";
             }
+        }else{
+            print $value['estado'];
+        }
         print "</td>";
     }
 }
@@ -631,6 +648,8 @@ if (!empty($dados)) {
             estado = 'Analista Cedec';
         }else if($(id_sel).val() == 4){
             estado = 'Aguard. Atendimento';
+        }else if($(id_sel).val() == 7){
+            estado = 'Aguard. Atendimento';
         }else if($(id_sel).val() == 8){
             estado = 'Cancelado';
         }
@@ -649,10 +668,8 @@ if (!empty($dados)) {
             url: 'mod_pipa/backEnd/View/pmda/funcAdm.php?v=<?= md5(VERSAO) ?>',
             data: dados,
             success: function (response) {
-                console.log(response);
                 alert('Status Alterado com Sucesso !!')
-                //location.reload();
-                // console.log(response);
+                location.reload();
             },
             error: function (response) {
                 console.log(JSON.stringify(response));
@@ -689,7 +706,7 @@ if (!empty($dados)) {
             success: function (response) {
                 console.log(response);
                 alert('Estado Alterado com Sucesso !!')
-                //location.reload();
+                location.reload();
                 // console.log(response);
             },
             error: function (response) {

@@ -776,6 +776,8 @@ class Pmda extends Comunidade {
      *
      */
     public static function atualizaStatus($array) {
+        
+        $dt_atual = date('Y-m-d H:i:s');
 
         if($array['status'] == 4){
             $data = isset($array['data']) ? $array['data'] : null;
@@ -796,7 +798,7 @@ class Pmda extends Comunidade {
         $result->bindParam(":id_pmda", $array['id_pmda']);
         $result->bindParam(":resp_homolog", $array['resp']);
         $result->bindParam(":status", $array['status']);
-        $result->bindParam(":dt_analise", date('Y-m-d H:i:s'));
+        $result->bindParam(":dt_analise", $dt_atual);
         $result->bindParam(":data_aprov", $array['data']);
         $result->execute();
 
@@ -807,7 +809,7 @@ class Pmda extends Comunidade {
      *
      */
     public static function atualizaEstado($array) {
-
+        
         if($array['estado'] == 7){
             $data = isset($array['data']) ? $array['data'] : null;
         }else {
@@ -1385,6 +1387,49 @@ class Pmda extends Comunidade {
                             from pip_pmda
                             where id_municipio = :id_municipio
                             and status in ('0','2')
+                            and data > '" . $dataCriacao . "'";
+
+                $result = $con->prepare($sql);
+                $result->bindParam(":id_municipio", $id_municipio);
+                $result->execute();
+
+                while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+
+                    $dados = $linha['num_pmda'];
+                }
+
+                return $dados;
+            } else {
+                return null;
+            }
+        } catch (Exception $e) {
+            
+        }
+    }
+
+    /**
+     *
+     * Verifica disponibilidade para Duplicar PMDA
+     * Tradução do status
+     * @return numero de registros
+     * @param $id_municipio 
+     */
+    public function verificaDuplicar($id_municipio) {
+
+        $dataCriacao = date('Y/m/d', strtotime(date('2021/03/04')));
+
+        try {
+
+            if (!empty($id_municipio)) {
+
+                $con = Conexao::getInstance();
+
+                $dados = "";
+
+                $sql = "select count(id_pmda) as num_pmda
+                            from pip_pmda
+                            where id_municipio = :id_municipio
+                            and status in ('1','0')
                             and data > '" . $dataCriacao . "'";
 
                 $result = $con->prepare($sql);

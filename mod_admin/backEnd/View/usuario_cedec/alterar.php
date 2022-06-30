@@ -12,7 +12,16 @@
 $id_usuario = isset($_GET['id']) ? $_GET['id'] : null;
 $usuario = Usuario::getDadoUsuario($id_usuario);
 
+
+/*
+ * id = campo tabela
+ * data-tabela = nome tabela
+ * data-chave = id_usuario
+    <input type="checkbox" id="it_m_pipa" data-tabela="cedec_usuario" data-chave="id_usuario" <?= ($permissaoModulo['it_m_pipa']) ? " checked='checked'" : ""; ?>>
+ */
+
 $permissaoModulo = Usuario::getPermissaoModulo($usuario['login']);
+$permissaoPipa = Usuario::getPermissaoPip($usuario['login']);
 $permissaoAjudaH = Usuario::getPermissaoAjudaH($usuario['login']);
 
 $permissaoEstoque = Usuario::getPermissaoEstoque($usuario['login']);
@@ -252,7 +261,7 @@ if(!empty($usuario)){
                 <div class="progress">
                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
                 </div>
-                <!-- MODULO TDAP pmda -->
+                <!-- ##################   CEDEC ###################### -->
                 <legend>CEDEC ( Adm )</legend>
                 <input type="checkbox" id="it_m_poco" data-tabela="cedec_usuario" data-chave="id_usuario" <?= ($permissaoModulo['it_m_poco']) ? " checked='checked'" : ""; ?>>
                 <label>Visualizar Icone CEDEC </label><br>
@@ -276,11 +285,13 @@ if(!empty($usuario)){
                 <div class="progress">
                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
                 </div>
-                <!-- MODULO TDAP pmda -->
+                <!-- ##################   MODULO TDAP pmda ###################### -->
                 <legend>TDAP Pmda</legend>
                 <br>
                 <input type="checkbox" id="it_m_pipa" data-tabela="cedec_usuario" data-chave="id_usuario" <?= ($permissaoModulo['it_m_pipa']) ? " checked='checked'" : ""; ?>>
                 <label>TDAP ( PMDA )</label><br>
+                <input type="checkbox" id="pmda_operador" data-tabela="pip_permissao" data-chave="id_permissao" <?= ($permissaoPipa['pmda_operador']) ? " checked='checked'" : ""; ?>>
+                <label>Operador ( PMDA )</label><br>
                 <br><br>
             </div>
 

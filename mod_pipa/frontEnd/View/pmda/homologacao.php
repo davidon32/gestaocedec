@@ -8,6 +8,7 @@ $post = isset($_POST) ? $_POST : "";
 
 if($opcao == "gravar") {
     $pmda->atualizaStatus($post);
+    $pmda->atualizaEstado($post);
 
 }elseif($opcao == 'verifica'){
 	

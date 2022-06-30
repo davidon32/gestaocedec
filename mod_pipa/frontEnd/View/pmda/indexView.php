@@ -69,6 +69,8 @@ print "<button type=\"button\" class=\"btn btn-primary\" title=\"Criar novo PMDA
             </tr>
 <?php
 
+$verificaDuplicar = $pmda->verificaDuplicar($id_municipio);
+
 #lista de pmda do Compdec
 foreach ($dadosPmda as $value) {
     
@@ -105,22 +107,19 @@ foreach ($dadosPmda as $value) {
 
     # remover PMDA
     if($pmdaLegado){
-        if($value['status'] <= 2){
+        if($value['status'] <= 1){
         print "|<a href='?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=pipa&controller=pipa&action=deletePmda&param=" . $value['id_pmda'] . "&idmun=".$value['id_municipio']."' title='Deletar PMDA'><img src='core/imagem/delete.png' name='del_pmda' data-id_pmda='".$value['id_pmda']."'></a>";
         }
     }
     print ($pmda->opcao($value ['id_pmda']) < "2") ? (($pmdaLegado) ? "<a name='lk_alterar' id='lk_alterarPmda' onclick='javascript:editar(" . $value['id_pmda'] . "," . $protocolo . ", " . $value['id_municipio'] . ")' title='Alterar PMDA'><img width='30px' src='core/imagem/editar.png'></button>" : "") : "-";
     print "<a name=lk_impressao onclick='javascript:impressao(" . $value['id_pmda'] . ", " . $id_municipio . ")'><img width='30px' src='core/imagem/impressao.png' title='Impressao do PMDA'></a>";
-    print ($pmda->opcao($value ['id_pmda']) == "2") ? (($pmdaLegado) ? "<a href='#'><img width='30px' src='core/imagem/request.png' title='Solicitar Alteração' id='lk_alteracao'></a>" :"") : "-";
-    print ($pmda->buscaStatus($value ['id_pmda']) == '1') ? (($pmdaLegado) ? "<button value='btnEnviar' id='btnEnviarHom' class='btn btn-primary' onclick='javascrip:homologa(" . $value ['id_pmda'] . ")' title='Solicita a Homologação do PMDA'>Enviar p/ Homologação</button>" : "") : "";
+    #print ($pmda->opcao($value ['id_pmda']) == "2") ? (($pmdaLegado) ? "<a href='#'><img width='30px' src='core/imagem/request.png' title='Solicitar Alteração' id='lk_alteracao'></a>" :"") : "-";
+    print ($pmda->buscaStatus($value ['id_pmda']) == '1') ? (($pmdaLegado) ? "<button value='btnEnviar' id='btnEnviarHom' class='btn btn-primary' onclick='javascrip:homologa(" . $value ['id_pmda'] . ", \"Analista Cedec\")' title='Solicita a Homologação do PMDA'>Enviar p/ Homologação</button>" : "") : "";
     print ($pmda->buscaStatus($value ['id_pmda']) < '2') ? (($pmdaLegado) ? "&nbsp;<a id='btnVerificar' onclick='javascrip:verificaPendencia(" . $value ['id_pmda'] . ")' title='Verifica Pendência deste PMDA'><img width='30px' src='core/imagem/atualizar.png'></a>" :"") : "";
     
-    # duplicar pmda
-    
-    $veri = $novoPmda == 0 && ($pmda->buscaStatus($value ['id_pmda']) == '7') && $pmdaLegado && ($pmda->buscaStatus($value ['id_pmda']) != '1');
-    var_dump($veri);
-    if ( ($novoPmda == 0) && ($pmda->buscaStatus($value ['id_pmda']) == '7') && $pmdaLegado )  {
-       print "&nbsp;<a id='btnVerificar' onclick='javascrip:duplicar(" . $value ['id_pmda'] . ")' title='Criar Cópia deste PMDA'><img width='30px' src='core/imagem/copia.png'></a>";   
+    # duplicar pmda ( somente pmda atendido )
+    if ($verificaDuplicar == 0){
+        "&nbsp;<a id='btnVerificar' onclick='javascrip:duplicar(" . $value ['id_pmda'] . ")' title='Criar Cópia deste PMDA'><img width='30px' src='core/imagem/copia.png'></a>";   
     }
 
     # somente mensagem novas
@@ -359,6 +358,8 @@ foreach ($dadosPmda as $value) {
             var result = confirm('Deseja enviar uma solicitação de Alteração do PMDA ?');
 
             if (result == true) {
+                
+                alert('');
             }
         });
 
@@ -552,7 +553,7 @@ foreach ($dadosPmda as $value) {
     });
 
     /* envia para homologação */
-    function homologa(id_pmda) {
+    function homologa(id_pmda, estado) {
 
         $.ajax({
             url: '/mod_index/app/login/ckLogin.php?v=<?=md5(VERSAO)?>',
@@ -564,6 +565,7 @@ foreach ($dadosPmda as $value) {
                         "btnEnviar": "gravar",
                         "id_pmda": id_pmda,
                         "status": "2",
+                        "estado": estado, 
                         "data": "<?= date('Y-m-d h:i:s'); ?>",
                     };
                     var result = confirm("Deseja enviar o PMDA para Homologação ?");
@@ -575,8 +577,7 @@ foreach ($dadosPmda as $value) {
                             url: '/mod_pipa/frontEnd/View/pmda/homologacao.php?v=<?=md5(VERSAO)?>',
                             data: dados,
                             success: function (response) {
-                                //location.reload();
-                                console.log(response);
+                                location.reload();
                             },
                             error: function (response) {
                                 console.log(JSON.stringify(response));
