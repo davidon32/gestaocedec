@@ -28,6 +28,9 @@ if($opcao == "gravar"){
     $pmda->atualizaEstado($post);
 }elseif($opcao == 'liberar_alterar'){
     $pmda->liberarAtualizar($post);
+# enviar para compdec alterações    
+}elseif($opcao == 'envia_compdec'){
+    $pmda->atualizaEstado($post);
+    $pmda->atualizaStatus($post);
 }
-print  "retorno";
 ?>

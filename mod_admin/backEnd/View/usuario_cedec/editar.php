@@ -31,13 +31,22 @@ $dados = $usuario->getDadoUsuario($id_usuario);
             <input type="hidden" name="situacao" id="situacao" value="<?= $dados['situacao']; ?>"></td>
     </tr>
     <tr>
-        <td>Senha:</td>
-        <td><input type="password" name="senha1" class="form-control" id="txtSenha1" style="wi50px" value="<?php print $dados['senha'] ?>">
+        <td>Mudar Senha</td>
+        <td><input type="checkbox" id="ck_tr_senha" name="ck_tr_senha"></td>
     </tr>
-    <tr>
-        <td>Repetir a Senha:</td>
-        <td><input type="password" name="senha" class="form-control" id="txtSenha" style="wi50px" value="<?php print $dados['senha'] ?>">
-    </tr>
+</table>
+<table id="dv_senha" class="table" align="center">
+    
+        <tr>
+            <td>Senha:</td>
+            <td><input type="password" name="senha1" class="form-control" id="txtSenha1" style="wi50px" value="">
+        </tr>
+        <tr>
+            <td>Repetir a Senha:</td>
+            <td><input type="password" name="senha" class="form-control" id="txtSenha" style="wi50px" value="">
+        </tr>
+</table>
+<table class="table" align="center">
     <tr>
         <td style="color:red">Email Recuperação Senha:</td>
         <td><input type="email" name="email_rec" class="form-control" size="40" value="<?php print $dados['email_rec']; ?>"></td>
@@ -50,7 +59,7 @@ $dados = $usuario->getDadoUsuario($id_usuario);
         <td>Email Informações 2:</td>
         <td><input type="email" name="txtEmailInfo2" class="form-control" size="40" value="<?php print $dados['email_info2']; ?>"></td>
     </tr>
-    
+</table> 
     <?php
     if(false){
 
@@ -136,9 +145,27 @@ $dados = $usuario->getDadoUsuario($id_usuario);
 <?php include_once "template/page/rodapePage.php"; ?>
 <script>
     $(document).ready(function () {
+        
+        $("#dv_senha").hide();
+        
+        /* */
+        $("#ck_tr_senha").click(function(){
+            if($("#ck_tr_senha").is(":checked")){
+                $("#dv_senha").show();
+                $("#txtSenha1").attr("required", "true");
+                $("#txtSenha").attr("required", "true");
+            }else{
+                $("#dv_senha").hide();
+                $("#txtSenha1").removeAttr('required');
+                $("#txtSenha").removeAttr('required');
+                $("#txtSenha").val("");
+                $("#txtSenha1").val("");
+            }
+            
+        });
 
         $('#enviar').hover(function () {
-            if ( $("#txtSenha").val() != $("#txtSenha1").val() ) {
+            if ( $("#txtSenha").val() != $("#txtSenha1").val() && $("#ck_tr_senha").is(":checked") == true ) {
                 alert('as Senhas não conferem !');
                 $("#enviar").prop('disable', true);
             }

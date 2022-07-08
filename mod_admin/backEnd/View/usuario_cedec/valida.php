@@ -31,6 +31,11 @@ $_nivel = isset($_POST['nivel']) ? $_POST['nivel'] : 0;
 #@ situacao do usuario
 $_situacao = isset($_POST['situacao']) ? $_POST['situacao'] : 0;
 
+#troca senha
+$troca_senha = isset($_POST['ck_tr_senha']) ? $_POST['ck_tr_senha'] : "";
+
+
+
 #@ modulos
 $_m_deposito = isset($_POST['ajuda']) ? $_POST['ajuda'] : 0;
 $_m_pipa = isset($_POST['pipa']) ? $_POST['pipa'] : 0;
@@ -47,15 +52,19 @@ $id = isset($_POST['id_usuario']) ? $_POST['id_usuario'] : "";
 
 
 if (($_COOKIE['seguranca']['adm']) && (!empty($id))) {
-
+    
+    
     $post = array('nome'=>$_nome,
-                  'senha'=>$_senha,
                   'email_rec'=>$_email,
                   'nivel' => $_nivel,
                   'id_usuario' =>$id );
     
-    $usuario = new Usuario();
+    if(!empty($troca_senha)) {
+        $post['senha'] = $_senha;
+    }
     
+    $usuario = new Usuario();
+
     
     $id_funcionario = $usuario->getIdFuncionario($_login);
     

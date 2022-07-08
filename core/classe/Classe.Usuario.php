@@ -1733,19 +1733,31 @@ class Usuario extends UsuarioModel {
     public static function AtualizarUsuario($dados) {
         
         $con = Conexao::getInstance();
-
-        $sql = "UPDATE cedec_usuario SET nome = :nome,
+        
+        if(isset($dados['senha'])){
+            $sql = "UPDATE cedec_usuario SET nome = :nome,
 					senha = :senha,
 					email_rec = :email,
 					nivel = :nivel
-					WHERE id_usuario = :id";
-
+					WHERE id_usuario = :id";  
         $result = $con->prepare($sql);
         $result->bindValue(":nome", $dados['nome']);
         $result->bindValue(":senha", $dados['senha']);
         $result->bindValue(":email", $dados['email_rec']);
         $result->bindValue(":nivel", $dados['nivel']);
         $result->bindValue(":id", $dados['id_usuario']);
+        }else {
+
+        $sql = "UPDATE cedec_usuario SET nome = :nome,
+					email_rec = :email,
+					nivel = :nivel
+					WHERE id_usuario = :id";
+        $result = $con->prepare($sql);
+        $result->bindValue(":nome", $dados['nome']);
+        $result->bindValue(":email", $dados['email_rec']);
+        $result->bindValue(":nivel", $dados['nivel']);
+        $result->bindValue(":id", $dados['id_usuario']);
+        }        
 
 
         $result->execute();

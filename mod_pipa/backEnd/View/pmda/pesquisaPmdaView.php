@@ -249,7 +249,7 @@ if (!empty($dados)) {
                         }
 
                         # atendido
-                        if($value['status'] == 7 && $value['estado'] != 'Cancelado'){
+                        if($value['status'] == 7 && $value['estado'] != 'Cancelado' && $value['estado'] != 'Encerrado Atendimento'){
                             print "<option value='8'>Cancelar</option>";
 
                             #diretor
@@ -279,7 +279,7 @@ if (!empty($dados)) {
         if($value['status'] == 2 && $permissaoOperador == 1){
             if(!$existe_edicao) {
             # enviar para Edição
-                print "<a class='btn btn-primary' >Enviar p/ COMPDEC</a>";
+                print "<a href='#' class='btn btn-primary' name='enviar_compdec' data-id_pmda='".$value['id_pmda']."' data-status='0' data-estado='Em Edicao' data-resp='".$pageSession['session']['seguranca']['idUser']."' >Enviar p/ COMPDEC</a>";
             }
             
             # deletar PMDA
@@ -296,8 +296,8 @@ if (!empty($dados)) {
         
         # icone opcao aprovado
         if($value['status'] == 4 && $edicao ==0 && $permissaoOperador ==1){
-            # enviar para Edição ( não pode ter em edição )
-            print "<a class='btn btn-primary' >Enviar p/ COMPDEC</a>";
+            # enviar para Edição ( não pode estar em edição )
+            print "<a href='#' class='btn btn-primary' name='enviar_compdec' data-id_pmda='".$value['id_pmda']."' data-status='0' data-estado='Em Edicao' >Enviar p/ COMPDEC</a>";
             
         }
         
@@ -339,7 +339,7 @@ if (!empty($dados)) {
         if($permissaoOperador == 1){
             if( $value['status'] == 4 || $value['status'] == 0 || $value['status'] == 1 || $value['status'] == 2 ){
                 print $value['estado'];
-            }else if($value['status'] == 7 && $value['estado'] == "Cancelado") {
+            }else if($value['status'] == 7 && $value['estado'] == "Cancelado" || $value['estado'] == "Encerrado Atendimento" ) {
                 print $value['estado'];
             }else {
             
@@ -435,9 +435,46 @@ if (!empty($dados)) {
             }
         });
         
+        
         $("[name=selEstado]").change(function () {
             alterarEstado($(this).data('id_pmda'));
         });
+        
+        
+        /* enviar para o compdec edição */
+        $("a[name='enviar_compdec']").click(function () {
+            var id_pmda = $(this).data('id_pmda');
+            var estado = $(this).data('estado');
+            var status = $(this).data('status');
+            var data_sit = '<?=date('Y-m-d H:i:s')?>';
+            var id_usuario = $(this).data('resp');;
+            
+            var dados = {
+                "id_pmda": id_pmda,
+                "opcao": "envia_compdec",
+                "estado": estado,
+                "status": status,
+                "dt_estado": data_sit,
+                "resp": id_usuario,
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: 'mod_pipa/backEnd/View/pmda/funcAdm.php?v=<?= md5(VERSAO) ?>',
+                data: dados,
+                success: function (response) {
+                    alert('Processo Enviado para o Compdec !!')
+                    location.reload();
+                },
+                error: function (response) {
+                    console.log(JSON.stringify(response));
+
+                }
+            });
+
+        });
+        
+        
         
         $("[name=liberar_alterar]").click(function(){
            var result = confirm('Deseja Liberar este PMDA para Alterar as Comunidades  ? \nEstá ação é usada para alteração somente das comunidades a serem atendidas !');  
