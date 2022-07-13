@@ -22,7 +22,8 @@ class Material {
 					$_validade = null,
 					$_nota,
                                         $_id_dep_destino,
-                                        $id_entrada = null) {
+                                        $id_entrada = null,
+                                        $_id_usuario) {
             
             								
 		$con = Conexao::getInstance();
@@ -36,7 +37,8 @@ class Material {
                                             validade,
                                             nota_fiscal,
                                             id_dep_destino,
-                                            id_entrada)
+                                            id_entrada,
+                                            id_usuario)
                                             VALUES (:id_produto,
 						:nome_produto,
 						:dt_entrada,
@@ -47,7 +49,8 @@ class Material {
 						:validade,
 						:nota_fiscal,
                                                 :id_dep_destino,
-                                                :id_entrada)";
+                                                :id_entrada,
+                                                :id_usuario)";
 		try {
 			$result = $con->prepare($sql);
 
@@ -62,6 +65,7 @@ class Material {
 			$result->bindValue(":nota_fiscal" , $_nota);
 			$result->bindValue(":id_dep_destino" , $_id_dep_destino);
 			$result->bindValue(":id_entrada" , $id_entrada);
+			$result->bindValue(":id_usuario" , $_id_usuario);
 			
 
 			$result->execute();
@@ -629,11 +633,49 @@ class Material {
 						aju_produto.nota_fiscal,
                                                 aju_produto.id_entrada,
                                                 aju_unidade.descricao,
-                                                aju_produto.cancelado
+                                                aju_produto.cancelado,
+                                                aju_produto.id_usuario
 					FROM gestaocedec.aju_produto
                                         inner join aju_unidade
                                         on aju_produto.codProd = aju_unidade.id_unidade
                                         order by dtEntradaSaida desc ".$filtro;
+
+		$result = $con->query($sql);
+
+		while($linha = $result->fetch(PDO::FETCH_ASSOC)){
+			$dados[] = $linha;
+		}
+
+		return $dados;
+	}
+        
+        
+        /**
+	 * Lista Materiais entrada de material
+	 */
+	public static function listaEntradaMaterialId($id){
+
+		$con = Conexao::getInstance();
+
+		$sql = "SELECT aju_produto.id_produto,
+						aju_produto.codProd,
+						aju_produto.nome,
+						aju_produto.dtEntradaSaida,
+						aju_produto.origem,
+						aju_produto.obs,
+						aju_produto.quantidade,
+						aju_produto.depDestino,
+						aju_produto.validade,
+						aju_produto.nota_fiscal,
+                                                aju_produto.id_entrada,
+                                                aju_unidade.descricao,
+                                                aju_produto.cancelado,
+                                                aju_produto.id_usuario
+					FROM gestaocedec.aju_produto
+                                        inner join aju_unidade
+                                        on aju_produto.codProd = aju_unidade.id_unidade
+                                        where aju_produto.id_produto = {$id}";
+                                        
 
 		$result = $con->query($sql);
 

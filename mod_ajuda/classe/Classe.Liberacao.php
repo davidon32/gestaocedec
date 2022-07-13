@@ -206,6 +206,7 @@ class Liberacao extends DataMysql{
 							aju_item.descricao, 
 							aju_item.quantidade, 
 							aju_item.cod, aju_item.evento,
+                                                        aju_item.id_entrada,
 							aju_unidade.nome
 									FROM aju_item
 									inner join aju_unidade

@@ -111,6 +111,7 @@ $dadosOrigem = Material::ListFonte(true);
 				<th class="text-center">Validade</th>
 				<th class="text-center">Nota F</th>
 				<th class="text-center">Entrada Vinculada</th>
+				<th class="text-center">Feito Por</th>
 				<th class="text-center">Opções</th>
 			
 			</tr>
@@ -137,6 +138,7 @@ $dadosOrigem = Material::ListFonte(true);
 								<td ".$cancelado.">".(empty($value['validade']) ? "n/a" : $value['validade'] )."</td>
                                                                 <td ".$cancelado.">-</td>
                                                                 <td ".$cancelado.">".$value['id_entrada']."</td>
+                                                                <td ".$cancelado.">".Usuario::getNomeId($value['id_usuario'])."</td>
                                                                 <td ".$cancelado.">";
                                                                     //$countSaida = (int)Liberacao::CountLibera($value['id_produto'])+(int)Liberacao::CountTransferencia($value['id_produto']);
                                                                     
@@ -257,14 +259,32 @@ $(document).ready(function(){
     }).attr('readonly', 'readonly');
     $("#txtValidade").datepicker({ dateFormat: 'dd/mm/yy' });
 
+
+    /* CADASTRO ENTRADA DE MATERIAIS */
 	$("#frm_Entrada_mat").submit(function(e) {
-		e.preventDefault();
+            
+            e.preventDefault();
+            
+            //if($("#txtOrigem").val().indexOf("DOACAO") == -1){
+                $("#fl_nota").rules("add", {
+                                            required: true,
+                                            messages: {
+                                                    required: "Esperado arquivo do Tipo PNG, JPEG or PDF, e até 1MB ! \n Você pode salvar um Email PA etc em pdf para comprovante de Entrada de Materiais !",
+                                                    extension: "png|jpeg|pdf",
+                                                    filesize: 1048576,
+                                                }
+                                            });
+            //}else {
+            //    $("#fl_nota").rules("remove");
+            //}
+		
 	}).validate({
 		rules: {
 				txtOrigem:{ required: true, minlength: 3}, 		
 				txtQtd:{ required: true, number: true, minlength: 1 }, 	
 				id_produto:{ required: true, minlength: 1}, 	
 				id_deposito:{ required: true, minlength: 1}, 	
+				
 
 			},
 			messages: {
@@ -272,6 +292,7 @@ $(document).ready(function(){
 				txtOrigem: { required: 'O campo Origem não pode ficar em Branco !'},
 				id_produto: { required: 'O campo Material não pode ficar em Branco !'},
 				id_deposito: { required: 'O campo Deposito não pode ficar em Branco !'}	,
+                                
 			},
 			
 		submitHandler: function(form) { 
@@ -286,7 +307,7 @@ $(document).ready(function(){
                         if(input_origem_ctr != input_form){
                             alert("Gentileza escolher uma origem que conste na lista !");
                         }else {
-
+                            
                                     form_data.append("fl_nota",        file_data);
                                     form_data.append("opcao",       "cad_material");
                                     form_data.append("id_produto",  $("#id_produto").val())
@@ -298,31 +319,34 @@ $(document).ready(function(){
                                     form_data.append("txObs",       $("#txObs").val())
                                     form_data.append("complnota",   $("#complnota").val())
 
-                            $.ajax({
-                                    type: 'POST',
-                                    url: 'mod_ajuda/backEnd/View/conEstoque/material/valida.php?v=<?=md5(VERSAO)?>',
-                                    cache: false,
-                                    contentType: false,
-                                    processData: false,
-                                    data: form_data,
-                                    success: function(response) {
-                                            if(response == 'sucesso'){
-                                            alert("Cadastro realizado com Sucesso !");
-                                            //console.log(response);
-                                            $("#id_origem").val("");
-                                            location.reload();
+                                    $.ajax({
+                                            type: 'POST',
+                                            url: 'mod_ajuda/backEnd/View/conEstoque/material/valida.php?v=<?=md5(VERSAO)?>',
+                                            cache: false,
+                                            contentType: false,
+                                            processData: false,
+                                            data: form_data,
+                                            success: function(response) {
+                                                    if(response == 'sucesso'){
+                                                    alert("Cadastro realizado com Sucesso !");
+                                                    //console.log(response);
+                                                    $("#id_origem").val("");
+                                                    location.reload();
+                                                    }
+                                            },
+                                            error: function(e){
+                                                    console.log(JSON.stringify(form_data));
+                                                    console.log(JSON.stringify(response));
+                                                    alert("Ocorreu um Erro !");
                                             }
-                                    },
-                                    error: function(e){
-                                            console.log(JSON.stringify(form_data));
-                                            console.log(JSON.stringify(response));
-                                            alert("Ocorreu um Erro !");
-                                    }
-                            });
+                                    });
+                            
                         }
+                }
+                        
 
-		}
-	});
+	
+        });
 
 
 	$("#add_fonte").click(function(){

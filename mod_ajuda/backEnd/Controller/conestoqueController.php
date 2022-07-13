@@ -323,6 +323,14 @@ class ConEstoqueController extends Controller {
     function diario1() {
         include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/diario.php';
     }
+    
+    
+    /**
+     * Visualização Entrada de material
+     */
+    function entrada_mat() {
+        include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/entrada_mat.php';
+    }
 
     
 }

@@ -63,6 +63,7 @@ $dados = $ajudaRelatorioController->relatorioCadastroMaterial($ajudaRelatorioMod
     <th style='font-size:10px; text-align:center;'>Depósito Destino</th>
     <th style='font-size:10px; text-align:center;'>Validade</th>
     <th style='font-size:10px; text-align:center;'>Obs</th>
+    <th style='font-size:10px; text-align:center;'>Usuario</th>
     <th style='font-size:10px; text-align:center;'>Dt.Entrada</th>
 
     <?php
@@ -78,6 +79,7 @@ $dados = $ajudaRelatorioController->relatorioCadastroMaterial($ajudaRelatorioMod
         print "<td style='font-size:10px;'>" . utf8_encode($dados[$i]['origem']) . "</td>";
         print "<td style='font-size:10px;'>" . $dados[$i]['depDestino'] . "</td>";
         print "<td style='font-size:10px;'>" . DataMysql::dataVisual($dados[$i]['validade']) . "</td>";
+        print "<td style='text-align:justify; font-size:10px;'>" . $dados[$i]['obs'] . "</td>";
         print "<td style='text-align:justify; font-size:10px;'>" . $dados[$i]['obs'] . "</td>";
         print "<td style='font-size:10px;'>" . DataMysql::dataVisual($dados[$i]['dtEntradaSaida']) . "</td>";
         print "</tr>";

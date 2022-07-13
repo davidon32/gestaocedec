@@ -104,7 +104,8 @@ $acesso1 = isset($_GET['externo']) ? $_GET['externo'] :"";
         if (
                 //($controller == 'agoraController') && ($action == 'listasite') ||
                 ($action == 'cadastro') ||
-                ($controller == "cceController" && $action == 'boletimsite') ||
+                //($controller == "cceController" && $action == 'boletimsite') || eleicao
+                ($controller == "cceController" && $action == 'boletimsite1') ||
                 ($action == "listacompdecativa") //||
                 //($controller == 'agoraController' && $action == 'view') ||
                 //($controller == 'agoraController' && $action == 'gravarComentario') ||

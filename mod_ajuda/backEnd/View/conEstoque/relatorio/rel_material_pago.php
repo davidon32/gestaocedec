@@ -127,7 +127,7 @@ if($_btn_enviar) {
 				print "<td>".$value['quantidade']."</td>";
 			}
 			print "</tr></table>";
-			print "<td style='font-size: 10px; text-align: center;'>".Liberacao::situacaoLib($_mat_pago[$i]['situacao'])."</td>";
+			print "<td style='font-size: 10px; text-align: center;'>".$_mat_pago[$i]['situacao']."</td>";
 			print "<td style='font-size: 10px; text-align: center;'>".$_mat_pago[$i]['motivo']."</td>";
 			
             print "</td>";

@@ -896,11 +896,19 @@ function lembreteLiberacao($_id_dep_destino = false){
                 $diasRestantePgto = DataMysql::diferencaData(DataMysql::dataVisual($linha['dtLimite']), date("d/m/Y"));
                 $diasRestantePgto = ($diasRestantePgto <= 5) ? "<span style='color:red;'>".$diasRestantePgto."</span>" : $diasRestantePgto;
                 
+                $data_hoje = new DateTime(date('Y-m-d'));
+                $data_libera = new DateTime($linha['dataLibera']);
+                $dif = $data_hoje->diff($data_libera);
     
-    			print "<a style=\"text-decoration:none;\" href=\"javascript:NovaJanela('index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=lembrete_liberacao&id=".$linha['id_liberacao']."', 600, 400)\">
+    			/*print "<a style=\"text-decoration:none;\" href=\"javascript:NovaJanela('index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=lembrete_liberacao&id=".$linha['id_liberacao']."', 600, 400)\">
     			             &nbsp;&nbsp;<img style=\"vertical-align:middle\" src=\"/mod_ajuda/imagem/".$_imagem."\">
     			             &nbsp;&nbsp;<span style='font-size:10px;'>
     			                             Libera&ccedil;&atilde;o Nº: ".$linha['id_liberacao']." - ".DataMysql::dataVisual($linha['dataLibera'])." - ".$diasRestantePgto." dia(s) restante(s)</a>
+                			             </span><br />";*/
+    			print "<a style=\"text-decoration:none;\" href=\"javascript:NovaJanela('index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=lembrete_liberacao&id=".$linha['id_liberacao']."', 700, 400)\">
+    			             &nbsp;&nbsp;<img style=\"vertical-align:middle\" src=\"/mod_ajuda/imagem/".$_imagem."\">
+    			             &nbsp;&nbsp;<span style='font-size:10px;'>
+    			                             Libera&ccedil;&atilde;o Nº: ".$linha['id_liberacao']." - ".$linha['dataLibera']." - liberado ha ".$dif->days."  dia(s)</a>
                 			             </span><br />";
     		}
     

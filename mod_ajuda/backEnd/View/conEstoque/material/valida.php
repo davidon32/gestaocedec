@@ -1,5 +1,8 @@
 <?php include_once $_SERVER['DOCUMENT_ROOT'].'/core/include.php';
 
+
+$_usuario = $_COOKIE['seguranca']['idUser'];
+
 /* Entrada de Materiais */
 if($_POST['opcao'] == 'cad_material') {
 
@@ -32,7 +35,8 @@ if($_POST['opcao'] == 'cad_material') {
 							Deposito::PegaNomeDeposito($_id_deposito),
 							DataMysql::dataForm($_txtValidade),
 							$_nota,
-                                                        $_id_deposito)) {
+                                                        $_id_deposito,
+                                                        $_usuario)) {
                                     
                                     Material::Complnota($_id_produto, $_complnota);
 
