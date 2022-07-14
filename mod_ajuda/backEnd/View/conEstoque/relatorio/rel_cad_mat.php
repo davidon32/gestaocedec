@@ -63,28 +63,35 @@ $dados = $ajudaRelatorioController->relatorioCadastroMaterial($ajudaRelatorioMod
     <th style='font-size:10px; text-align:center;'>Depósito Destino</th>
     <th style='font-size:10px; text-align:center;'>Validade</th>
     <th style='font-size:10px; text-align:center;'>Obs</th>
-    <th style='font-size:10px; text-align:center;'>Usuario</th>
+    <th style='font-size:10px; text-align:center;'>Lanc. Usuario</th>
     <th style='font-size:10px; text-align:center;'>Dt.Entrada</th>
 
     <?php
     $totalRegistro = 0;
 
     for ($i = 0; $i < count($dados); $i++) {
-
+        if($dados[$i]['cancelado'] == 1){
+            $cancela = "color:red;";
+            $title = "title='Entrada de Material Cancelada !'";
+        }
+        
+        $usuario = (!empty($dados[$i]['id_usuario'])) ? Usuario::getNomeId($dados[$i]['id_usuario']):"";
         $totalRegistro++;
         print "<tr>";
-        print "<td style='font-size:10px;'>" . $dados[$i]['id_produto'] . "</td>";
-        print "<td style='font-size:10px;'>" . $dados[$i]['codProd']."-".$dados[$i]['nome'] . "</td>";
-        print "<td style='font-size:10px;'>" . $dados[$i]['quantidade'] . "</td>";
-        print "<td style='font-size:10px;'>" . utf8_encode($dados[$i]['origem']) . "</td>";
-        print "<td style='font-size:10px;'>" . $dados[$i]['depDestino'] . "</td>";
-        print "<td style='font-size:10px;'>" . DataMysql::dataVisual($dados[$i]['validade']) . "</td>";
-        print "<td style='text-align:justify; font-size:10px;'>" . $dados[$i]['obs'] . "</td>";
-        print "<td style='text-align:justify; font-size:10px;'>" . $dados[$i]['obs'] . "</td>";
-        print "<td style='font-size:10px;'>" . DataMysql::dataVisual($dados[$i]['dtEntradaSaida']) . "</td>";
+        print "<td $title style='font-size:10px;{$cancela}'>" . $dados[$i]['id_produto'] . "</td>";
+        print "<td $title style='font-size:10px;{$cancela}'>" . $dados[$i]['codProd']."-".$dados[$i]['nome'] . "</td>";
+        print "<td $title style='font-size:10px;{$cancela}'>" . $dados[$i]['quantidade'] . "</td>";
+        print "<td $title style='font-size:10px;{$cancela}'>" . utf8_encode($dados[$i]['origem']). "- " .( ($dados[$i]['origem'] == 'Transferencia entre Depositos') ? " ID Entrada : <b>".$dados[$i]['id_entrada']."</b>" :  "" )."</td>";
+        print "<td $title style='font-size:10px;{$cancela}'>" . $dados[$i]['depDestino'] . "</td>";
+        print "<td $title style='font-size:10px;{$cancela}'>" . DataMysql::dataVisual($dados[$i]['validade']) . "</td>";
+        print "<td $title style='text-align:justify; font-size:10px;{$cancela}'>" . $dados[$i]['obs'] . "</td>";
+        print "<td $title style='text-align:justify; font-size:10px;{$cancela}'>" . $usuario . "</td>";
+        print "<td $title style='font-size:10px;'>" . DataMysql::dataVisual($dados[$i]['dtEntradaSaida']) . "</td>";
         print "</tr>";
+        $cancela = "";
+        $title="";
     }
-    print "<tr><td colspan='6'>&nbsp;</td><td style='text-align:right'>Total Registro</td><td>" . $totalRegistro . "</td></tr>";
+    print "<tr><td colspan='7'>&nbsp;</td><td style='text-align:right'>Total Registro</td><td>" . $totalRegistro . "</td></tr>";
     print "</table>";
     ?>
 

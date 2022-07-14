@@ -136,7 +136,7 @@ $dadosOrigem = Material::ListFonte(true);
 								<td ".$cancelado.">".$value['obs']."</td>
 								<td ".$cancelado.">".$value['quantidade']."</td>
 								<td ".$cancelado.">".(empty($value['validade']) ? "n/a" : $value['validade'] )."</td>
-                                                                <td ".$cancelado.">-</td>
+                                                                <td ".$cancelado."><a onclick=\"javascript:anexoView('anexo/entrada_nota/".$value['nota_fiscal']."')\" title='Visualizar a Nota/Documento de Origem de Material'>".$value['nota_fiscal']."</a></td>
                                                                 <td ".$cancelado.">".$value['id_entrada']."</td>
                                                                 <td ".$cancelado.">".Usuario::getNomeId($value['id_usuario'])."</td>
                                                                 <td ".$cancelado.">";
@@ -171,6 +171,7 @@ $dadosOrigem = Material::ListFonte(true);
 
 $(document).ready(function(){
     
+    /* REMOVER ENTRADA DE MATERIAIS */
     $("a[name='lk_del_entrada']").click(function(e){
         
         var result = confirm("Confirmar o Cancelamento desta Entrada de Materiais !");
@@ -217,6 +218,7 @@ $(document).ready(function(){
                         
     });
     
+    /* DEIXAR ABERTA PARA ENTRADA DE MATERIAIS NO MESMO PRODUTO*/
     $("#id_produto").change(function(){
         
         Swal.fire({
@@ -252,11 +254,13 @@ $(document).ready(function(){
     
     $("#id_origem").val("");
  
+    /* LIMITE NA DATA DE ENTRADA DE MATERIAIS */
     $("#txtDtEntrada").datepicker({ 
         dateFormat: 'dd/mm/yy',
         maxDate: 5,
         minDate: -10,
     }).attr('readonly', 'readonly');
+    
     $("#txtValidade").datepicker({ dateFormat: 'dd/mm/yy' });
 
 
@@ -400,5 +404,12 @@ $(document).ready(function(){
         $("#txtOrigem").easyAutocomplete(itemOrigem);
         
 
-});	
+    
+});
+
+function anexoView(url) {
+        window.location.href = url;
+    }
+
+
 </script>

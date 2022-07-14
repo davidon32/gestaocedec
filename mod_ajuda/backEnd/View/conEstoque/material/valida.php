@@ -36,6 +36,7 @@ if($_POST['opcao'] == 'cad_material') {
 							DataMysql::dataForm($_txtValidade),
 							$_nota,
                                                         $_id_deposito,
+                                                        null,
                                                         $_usuario)) {
                                     
                                     Material::Complnota($_id_produto, $_complnota);
@@ -56,13 +57,13 @@ if($_POST['opcao'] == 'cad_material') {
 						$result = Anexo::upload(PATH.'/anexo/entrada_nota',
 												 $_FILES,
 												 "fl_nota",
-												 $_id_produto,
+												 $_id_produto."-".$_txtQtd,
 												 'nota_entrada');
-						if($result) {
-							print "sucesso";
+						/*if($result) {
+							//print "sucesso";
 						}else {
-							print var_dump($result);
-						}
+							//print var_dump($result);
+						}*/
 					}
 					
 					Log::GravaLog("Cadastro de material id_produto:".$_id_produto." qtd:".$_txtQtd." dataEntrada: ".$_txtDtEntrada." validade: ".$_txtValidade. " depDestino:".$_id_deposito, "aju_log");

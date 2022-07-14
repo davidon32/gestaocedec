@@ -1003,6 +1003,7 @@ class RelatorioAju extends DataMysql {
 			FROM aju_produto
                             WHERE aju_produto.id_produto > 0
                             AND aju_produto.origem not like 'Correção Manual de Saldo%'
+                            AND aju_produto.cancelado = 0
                             {$id_material}{$deposito} 
                                 order by aju_produto.codProd, aju_produto.depDestino";
                             

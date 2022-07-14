@@ -242,7 +242,10 @@ class AjudaRelatorioController extends AppController {
                                             obs,
                                             quantidade,
                                             depDestino,
-                                            validade
+                                            validade,
+                                            id_entrada,
+                                            id_usuario,
+                                            cancelado
                                             from aju_produto
                                             where id_produto > 0 ".
                                             $filtro." order by ".self::SwOrder($ajudaRelatorioModel->getOrdem());
