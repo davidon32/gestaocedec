@@ -4,6 +4,7 @@
 <!-- =============== HEADER HTML PAGE ================= -->
 <?php include_once "template/page/headerPageSimples.php";?>
 <style type="text/css">
+    
 
 	@media print {
   		.imprimir {
@@ -12,10 +13,14 @@
 	}
 	
 	*{
-		font-family: Tahoma, Geneva, sans-serif;
+                font-family: monospace, Tahoma;
+		
 		font-size: 13px;
 		color:#666666;
 		vertical-align:text-top;
+                *{
+    
+}
 	}
 
 	body {
@@ -62,7 +67,7 @@
 
 ?>         
 		<br><br>			    
-	    <table border="0" align="center" width="600">
+	    <table border="0" align="center" width="700">
 	    	<tr>
 	    		<td>
 			    	<div class="rTopoImagem1">
@@ -125,14 +130,16 @@
 						<tr>
 							<!-- Listagem de produtos  -->
 							<td colspan="4" align="center">
-							
-							<table border="1" style="width: 50%">
+							 <br>
+                                                    <legend>Deposito Retirada: <?= Deposito::PegaNomeDeposito($dados['depDestino'])?></legend>
+							<table class='table table-bordered' style="width: 80%">
 								<tr>
-									<td>Codigo</td>
-									<td>Nome</td>
-									<td>Evento</td>
-									<td>Descricao</td>
-									<td>Quantidade</td>
+									<th>Cod</th>
+									<th>Nome</th>
+									<th>Cod.Entrada</th>
+									<th>Evento</th>
+									<th>Descr.</th>
+									<th>Qtd</th>
 
 								</tr>
 								<?php 
@@ -142,6 +149,7 @@
 										print "<tr>";
 										print "<td>".$value['cod']."</td>";
 										print "<td>".Unidade::PegaNomeId($value['cod'])."</td>";
+										print "<td>".$value['id_entrada']."</td>";
 										print "<td>".$value['evento']."</td>";
 										print "<td>".$value['descricao']."</td>";
 										print "<td>".$value['quantidade']."</td>";

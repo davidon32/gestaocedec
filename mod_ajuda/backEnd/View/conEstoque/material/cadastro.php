@@ -12,6 +12,7 @@
 <?php
 
 $dadosOrigem = Material::ListFonte(true);
+$dadosDeposito = Deposito::ListaDeposito();
 ?>
 <style>	
 	#frm_Entrada_mat .error {
@@ -60,7 +61,9 @@ $dadosOrigem = Material::ListFonte(true);
 				</div>
 				<div class="col-md-4">		
 					<label>Dep&oacute;sito Avan&ccedil;ado:</label>
-					<?php Deposito::pegaDeposito();?>
+                                        <input class="form col-md-12" type='text' name="name_deposito" id="name_deposito" >
+                                        <input type='hidden' name="id_deposito" id="id_deposito" >
+					
 				</div>
 			</div>
 			<div class="row">
@@ -206,7 +209,10 @@ $(document).ready(function(){
                             location.reload();
                         }else if(response == 'semsaldo') {
                             alert('Não foi possivel remover essa entrada pois não existe saldo para abatimento de materiais, \n gentileza cancelar alguma liberação para que o saldo seja suficiente !');
+                        }else if(response == 's_dep'){
+                            alert('Favor preencher corretamente o Deposito de Destino');
                         }
+                            
                     },
                     error: function(e){
                         console.log(JSON.stringify(form_data));
@@ -288,6 +294,7 @@ $(document).ready(function(){
 				txtQtd:{ required: true, number: true, minlength: 1 }, 	
 				id_produto:{ required: true, minlength: 1}, 	
 				id_deposito:{ required: true, minlength: 1}, 	
+                                name_deposito:{ required: true, minlength: 3},
 				
 
 			},
@@ -296,6 +303,7 @@ $(document).ready(function(){
 				txtOrigem: { required: 'O campo Origem não pode ficar em Branco !'},
 				id_produto: { required: 'O campo Material não pode ficar em Branco !'},
 				id_deposito: { required: 'O campo Deposito não pode ficar em Branco !'}	,
+				name_deposito: { required: 'O campo Deposito não pode ficar em Branco !'}	,
                                 
 			},
 			
@@ -310,6 +318,8 @@ $(document).ready(function(){
                         
                         if(input_origem_ctr != input_form){
                             alert("Gentileza escolher uma origem que conste na lista !");
+                        }else if($("id_deposito").val() == ""){
+                            alert("Favor Escolher o Deposito de Destino !")
                         }else {
                             
                                     form_data.append("fl_nota",        file_data);
@@ -384,6 +394,25 @@ $(document).ready(function(){
                 
 	});
         
+        
+        /* deposito avancado */
+        var itemDeposito = {
+            data:
+                <?php print json_encode($dadosDeposito); ?>, // array com os dados
+                getValue: "nome", /* alterar com nome do item BD */
+
+                list: {
+                    match: {
+                    enabled: true,
+                    },
+                onSelectItemEvent: function () {
+                    var id = $("#name_deposito").getSelectedItemData().id_deposito;
+                    $("#id_deposito").val(id);
+                },
+            }
+        };
+        /*********** autocomplete origem ***********/
+        $("#name_deposito").easyAutocomplete(itemDeposito);
         
         var itemOrigem = {
             data:

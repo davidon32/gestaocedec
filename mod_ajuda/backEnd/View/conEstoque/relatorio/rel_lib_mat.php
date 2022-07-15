@@ -41,6 +41,9 @@ table th {
     
 }
 
+.tbl_itens table, th, td {
+            border:1px solid;
+}
 </style>
 	<?php	
 	$_dt_inicial = isset($_POST['txtDtInicial']) ? DataMysql::dataForm($_POST['txtDtInicial']) : false;
@@ -191,7 +194,7 @@ table th {
 		print "</tr>";
                 print "<tr>";
 		print "<th width='5%'>#</th>";
-		print "<th width='10%'>Nr.Liberacao</th>";
+		print "<th width='10%'>Nr.Lib</th>";
 		print "<th width='10%'>Data Liberacao</th>";
 		print "<th width='35%'>Beneficiario</th>";
 		print "<th width='15%'>Dep Origem</th>";

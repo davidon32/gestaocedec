@@ -13,9 +13,10 @@ if($_POST['opcao'] == 'cad_material') {
 	$_txtQtd         = isset($_POST['txtQtd'])         ? $_POST['txtQtd']         : "";
 	$_id_deposito    = isset($_POST['id_deposito'])    ? $_POST['id_deposito']    : "";
 	$_txarObs        = isset($_POST['txObs'])          ? FuncaoBase::tirarAcentos($_POST['txObs'])        : "";
-	$_nota       = isset($_FILES['fl_nota']['name'])   ? $_id_produto."_nota_entrada.".Anexo::getExtensao($_FILES['fl_nota']['name']) : "";
+	$_nota       = isset($_FILES['fl_nota']['name'])   ? $_id_produto."-".$_txtQtd."_nota_entrada.".Anexo::getExtensao($_FILES['fl_nota']['name']) : "";
 	$_btnCadMaterial = isset($_POST['btnCadMaterial']) ? true 					  : "";
 	$_complnota      = isset($_POST['complnota'])      ? $_POST['complnota']      : "";
+        $hora = date('His');
 
 
 	$campos = array("Produto"        => $_id_produto,    
@@ -34,7 +35,7 @@ if($_POST['opcao'] == 'cad_material') {
 							$_txtQtd,
 							Deposito::PegaNomeDeposito($_id_deposito),
 							DataMysql::dataForm($_txtValidade),
-							$_nota,
+							$hora.$_nota,
                                                         $_id_deposito,
                                                         null,
                                                         $_usuario)) {
@@ -57,7 +58,7 @@ if($_POST['opcao'] == 'cad_material') {
 						$result = Anexo::upload(PATH.'/anexo/entrada_nota',
 												 $_FILES,
 												 "fl_nota",
-												 $_id_produto."-".$_txtQtd,
+												 $hora.$_id_produto."-".$_txtQtd,
 												 'nota_entrada');
 						/*if($result) {
 							//print "sucesso";
@@ -71,7 +72,9 @@ if($_POST['opcao'] == 'cad_material') {
 					print "sucesso";
 				}
 	
-			}
+			}else {
+                            print "s_dep";
+                        }
 }elseif ($_POST['opcao'] == 'editar_entrada'){
     
     //var_dump($_POST);

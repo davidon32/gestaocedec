@@ -19,6 +19,10 @@ if(empty($result)){
 ?>
 <style type="text/css">
 <!--
+
+*{
+    font-family: monospace;
+}
 body {
 	margin: auto !important;
 }
@@ -53,12 +57,12 @@ body {
 
 		<div class="layout">
 
-			<table align="center" border="0" width="600" class="tbl">
+			<table align="center" border="0" width="700" class="tbl">
 				<tr>
 					<td width="20%" align="center">
 						<img src="mod_ajuda/imagem/brasaoMG_80x77.png">
 					</td>
-					<td colspan="3" align="center">
+					<td width="60%" colspan="3" align="center">
 						Estado de Minas Gerais
 						<br />
 						Gabinete Militar do Governador
@@ -71,19 +75,13 @@ body {
 
 				</tr>
 				<tr>
-					<td></td>
-					<td>
-						<h4>Recibo n&#186; :__________</h4>
+					
+                                    <td colspan="5">
+                                        <div class='pull-left'><h4>Recibo n&#186; :__________</div>
+                                        
 
+                                        <div class='pull-right'><h4>Libera&ccedil;&atilde;o n&#186; :<?php print $result['id_liberacao'];?></h4></div><br><br>
 					</td>
-					<td><div style="min-width: 60%">&nbsp;</div></td>
-					<td align="right">
-					<h4>
-						Libera&ccedil;&atilde;o n&#186; <br>:<?php print $result['id_liberacao'];?></h4>
-					</td>
-					<td>
-					</td>
-
 				</tr>
 				<tr>
 					<td></td>
@@ -99,22 +97,28 @@ body {
 				<td></td>
 					<td colspan="3" style="text-align: center;">
 						<div class="col-md-12 text-center">
+                                                    <br>
+                                                    <legend>Deposito Retirada: <?= Deposito::PegaNomeDeposito($result['depDestino'])?></legend>
+                                           
 						<?php 
 						
 							$dados =Liberacao::listaProdutos($result['id_liberacao']);
-
-							print "<table class=\"table table-condensed\">";
+                                                        
+							print "<table class=\"table table-condensed table-bordered\">";
 							print "<tr>";
-							print "<th>Código</th>";
+							print "<th>Cód</th>";
 							print "<th>Material</th>";
-							print "<th>Descrição</th>";
-							print "<th>Quantidade</th>";
+							print "<th>Cód.Entrada</th>";
+							print "<th>Descr.</th>";
+							print "<th>Qtd</th>";
 							print "</tr>"; 
-
+                                                        print "<tr>";
+                                                        
 							foreach ($dados as $key => $value) {
 								print "<tr>"; 
 								print "<td>".$value['cod']."</td>";
 								print "<td>".Produto::PegaNomeProduto($value['cod'])."</td>";
+								print "<td>".$value['id_entrada']."</td>";
 								print "<td>".$value['descricao']."</td>";
 								print "<td>".$value['quantidade']."</td>";
 								print "</tr>"; 
@@ -164,7 +168,7 @@ body {
 
 				<tr>
 					<td></td>
-					<td colspan="3" align="center">Celular : ______________________  &nbsp;&nbsp;&nbsp;Telefone :____________________</td>
+					<td colspan="3" align="center">Celular :_____________________ Telefone :___________________</td>
 					</td>
 					<td></td>
 				</tr>
@@ -182,25 +186,28 @@ body {
 				</tr>
 				<tr>
 					<td></td>
-					<td colspan="3" align="center">	RG: ____________________________ &nbsp;&nbsp;&nbsp; CPF : _______________________</td>
+					<td colspan="3" align="center">	RG:_________________________ &nbsp; CPF : _______________________</td>
 					<td></td>
 					
 				</tr>
 				
 				<tr>
 					<td></td>
-					<td colspan="3" align="center"> Veículo:______________________ &nbsp;&nbsp;&nbsp;Placa:_____________________</td>
+					<td colspan="3" align="center"> Veículo:________________________&nbsp;Placa:_____________________</td>
 					
 					<td></td>
 				</tr>
 				<tr>
 
-					<td></td>
+                                    <td><br></td>
 					<td align="right" colspan="3">
-						________________________, _____ de _______________ de _____.
+                                            <br>
+						__________________,_____ de _____________ de _____.
 					</td>
 					<td>
-						<br />
+						<br/>
+                                                <br>
+                                                <br>
 					</td>
 				</tr>
 				<tr>

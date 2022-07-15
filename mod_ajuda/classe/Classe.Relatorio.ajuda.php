@@ -580,8 +580,8 @@ class RelatorioAju extends DataMysql {
 
         echo "<table border=\"0\" class=\"table table-bordered text-center table-condensed\">";
         echo '<tr>
-			<th><x-small><b>Nº Liberacao</b></small></th>
-			<th><x-small><b>Dt Liberacao       </b></small></th>
+			<th><x-small><b>NºLib</b></small></th>
+			<th><x-small><b>Dt Lib       </b></small></th>
 			<th><x-small><b>Dt Recibo       </b></small></th>
 			<th><x-small><b>Municipio            </b></small></th>
 			<th><x-small><b>Usuario Liberacao </b></small></th>
@@ -590,10 +590,10 @@ class RelatorioAju extends DataMysql {
 			<th><x-small><b>Evento               </b></small></th>
 			<th><x-small><b>Observacoes          </b></small></th>
 			<th><x-small><b>Dt Limite Pgto</b></small></th>
-			<th><x-small><b>Situacao             </b></small></th>
+			<th><x-small><b>Sit.             </b></small></th>
 			<th><x-small><b>Usuario Pgto </b></small></th>
 			<th><x-small><b>Materiais</b></small></th>
-			<th><x-small><b>Segunda Via</b></small></th>
+			<th><x-small><b>2º Via</b></small></th>
 						
 			</tr>';
 
@@ -606,7 +606,15 @@ class RelatorioAju extends DataMysql {
             #@ situacao ser� somente em aberto, 'relatorio de materiais esperando pagamento'
             $situacao = "em Aberto";
 
-            $sql_prod = "SELECT i.id_item, i.dataLibera, i.id_liberacao, i.descricao, i.quantidade, i.cod FROM aju_item i WHERE id_liberacao = {$linha['id_liberacao']}";
+            $sql_prod = "SELECT i.id_item, 
+                     i.dataLibera,
+                     i.id_liberacao,
+                     i.descricao,
+                     i.quantidade,
+                     i.cod,
+                     i.id_entrada
+                        FROM aju_item i
+                            WHERE id_liberacao = {$linha['id_liberacao']}";
 
             $r_prod = $con->query($sql_prod);
 
@@ -643,18 +651,20 @@ class RelatorioAju extends DataMysql {
 						<td style='font-size:11px; border-bottom:0.1em solid;' class='" . $background . "'> " . Usuario::getNomeId($linha['id_user_pgto']) . "</td>
 						<td style='font-size:10px; border-bottom:0.1em solid;' class='" . $background . "'>";
 
-            print "<table>
+            print "<table style='text-align:left' width='100%'>
                             <tr>
-                            <td width=\"150\"><small>Nome</small></td>
-                            <td><small>Descricao                 </small>       </td>
-                            <td><small>Quantidade                </small>       </td>
+                            <td width='150'><small>Nome</small></td>
+                            <td><small>Cod.Ent</small>       </td>
+                            <td><small>Descr.</small>       </td>
+                            <td><small>Qtde</small>       </td>
                             </tr>";
 
             while ($_prod = $r_prod->fetch(PDO::FETCH_ASSOC)) {
                 print "<tr>
-								<td style='font-size:10px;'><i>" . Produto::PegaNomeProduto($_prod['cod']) . "</i></td>
-								<td style='font-size:10px;'>" . $_prod['descricao'] . "</td>
-								<td style='font-size:10px;'>" . $_prod['quantidade'] . "</td>
+								<td style='font-size:10px;text-align:left'><i>" . Produto::PegaNomeProduto($_prod['cod']) . "</i></td>
+								<td style='font-size:10px;text-align:left'>" . $_prod['id_entrada'] . "</td>
+								<td style='font-size:10px;text-align:left'>" . $_prod['descricao'] . "</td>
+								<td style='font-size:10px;text-align:left'>" . $_prod['quantidade'] . "</td>
 							</tr>";
             }
 
@@ -662,7 +672,7 @@ class RelatorioAju extends DataMysql {
 
             print "</td>";
             print "<td style='font-size:11px; border-bottom:0.1em solid; vertical-align:middle' class=\"imprimir " . $background . "\">
-								<a class=\"btn btn-info\" href=\"index.php?token=" . hash('sha256', md5(VERSAO).date('dmY')) . "&ac=itn&modulo=ajuda&controller=relatorio&action=rel_liberacao_recibo&id=" . $linha['id_liberacao'] . "\" title=\"Segunda Via da Liberação\"><x-small>2º Liberacao<x-small></a>
+								<a href=\"index.php?token=" . hash('sha256', md5(VERSAO).date('dmY')) . "&ac=itn&modulo=ajuda&controller=relatorio&action=rel_liberacao_recibo&id=" . $linha['id_liberacao'] . "\" title=\"Segunda Via da Liberação\"><img width='25' src='core/imagem/print.png'></a>
 						</td>
 						</tr>";
         }
