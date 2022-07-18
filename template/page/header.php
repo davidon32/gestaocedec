@@ -67,6 +67,24 @@ print "</script>";
     }
 </script>
 <?php ?>
+<style>
+.overlay1 {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: rgba(70,20,15,0.3);
+    z-index: 2;
+    background-image: url(https://i.stack.imgur.com/BNGOI.gif);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100px;
+  }    
+</style>
+    
+<div class="overlay1"> <i class="fa fa-cog fa-spin fa-5x fa-fw"></i><span class="sr-only">Loading...</span> </div>
+
 <!-- BARRA SUPERIOR USUARIO  -->
 <header class="main-header print">
     <!-- Logo -->

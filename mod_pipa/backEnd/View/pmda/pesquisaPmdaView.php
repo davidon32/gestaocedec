@@ -9,6 +9,8 @@
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php";
 $permissaoOperador = $_COOKIE['seguranca']['pmdaoperador'];
+$permissaoDlog = $_COOKIE['seguranca']['pmdadlog'];
+
 ?>
 <div class='col-md-12 text-center'>
 <a class="btn btn-success" href="?ac=itn&modulo=pipa&controller=pipa&action=index">Voltar</a>
@@ -244,7 +246,11 @@ if (!empty($dados)) {
 
                         # Aprovado
                         if($value['status'] == 4){
-                            print "<option value='7'>Atendido</option>";
+                            
+                            # operador Dlog atendido PMDA
+                            if($permissaoDlog == 1){ 
+                                print "<option value='7'>Atendido</option>";
+                            }
                             print "<option value='8'>Cancelar</option>";
                         }
 

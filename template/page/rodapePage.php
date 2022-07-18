@@ -39,6 +39,7 @@
     include_once('ajuda_php.php');
 ?>
 
+
 <!-- barra debug --> 
 <div id="posiciona"> 
     <div id="fechar" align=right><a href="#">Fechar</a></div> 
@@ -50,8 +51,13 @@
     
 </div>
 
+
 <script>
+    
+    
     $(document).ready(function () {
+        
+        $(".overlay1").hide();
         
         /* barra debug */
         var url = window.location.host;

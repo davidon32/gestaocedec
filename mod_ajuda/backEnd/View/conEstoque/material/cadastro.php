@@ -18,7 +18,21 @@ $dadosDeposito = Deposito::ListaDeposito();
 	#frm_Entrada_mat .error {
     	color: red;
 	}
+        .loader {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: rgba(70,20,15,0.3);
+            background-position: center center;
+            background-size: 100px;
+
+        }
+                
 </style>
+<div class="loader" id='loader'> <i class="fa fa-cog fa-spin fa-5x fa-fw"></i><span class="sr-only">Loading...</span> </div>
 
 	<legend> Entrada de Materiais no Estoque</legend>
 	<div class="row">
@@ -121,9 +135,6 @@ $dadosDeposito = Deposito::ListaDeposito();
 				<?php
 
 					$material = Material::listaEntradaMaterial(50);
-                                        
-                                        
-                                        
 
 					foreach ($material as $key => $value) {
 
@@ -160,6 +171,7 @@ $dadosDeposito = Deposito::ListaDeposito();
 		<div class="col-md-1">
 		</div>	
 	</div>
+        
 	
 
 <!-- =================== RODAPE CORPO ==================== -->
@@ -172,6 +184,7 @@ $dadosDeposito = Deposito::ListaDeposito();
 
 <script type="text/javascript">
 
+   $("#loader").hide(); 
 $(document).ready(function(){
     
     /* REMOVER ENTRADA DE MATERIAIS */
@@ -194,6 +207,8 @@ $(document).ready(function(){
             form_data.append("id_produto",   id_produto);
             form_data.append("id_deposito",  id_deposito);
             form_data.append("quantidade",   quantidade);
+            
+            
 
                 $.ajax({
                     type: 'POST',
@@ -307,7 +322,9 @@ $(document).ready(function(){
                                 
 			},
 			
-		submitHandler: function(form) { 
+		submitHandler: function(form) {
+                    
+                        $("#loader").fadeIn();
 
 			var form_data = new FormData();
 
@@ -343,6 +360,7 @@ $(document).ready(function(){
                                             success: function(response) {
                                                     if(response == 'sucesso'){
                                                     alert("Cadastro realizado com Sucesso !");
+                                                    $("#loader").fadeOut();
                                                     //console.log(response);
                                                     $("#id_origem").val("");
                                                     location.reload();

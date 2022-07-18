@@ -20,7 +20,8 @@ class Anexo extends FuncaoBase  {
 			$ext = Anexo::getExtensao(basename($file[$inputName]['name']));
 			$nomeArquivo = (strlen($hash) > 0) ? $hash."_".$nome_arquivo.".".$ext : $nome_arquivo.".".$ext; 
 		}else {
-			$nomeArquivo = (strlen($hash) > 0) ? $hash."_".str_replace(" ", "_", basename($file[$inputName]['name'])) : str_replace(" ", "_", basename($file[$inputName]['name'])) ;
+                    $nome_regular = substr(FuncaoBase::sanitizeString(basename($file[$inputName]['name'])), 0, 20);
+			$nomeArquivo = (strlen($hash) > 0) ? $hash."_".str_replace(" ", "_", $nome_regular) : str_replace(" ", "_", $nome_regular) ;
 		}
 		 
 		$uploadFile = $caminho."/".$nomeArquivo;
