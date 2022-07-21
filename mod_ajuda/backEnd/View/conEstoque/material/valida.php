@@ -188,7 +188,11 @@ if($_POST['opcao'] == 'cad_material') {
         
     $saldo = Material::SaldoMaterial($_id_produto, $_id_deposito);
     
-    if($quantidade > $saldo) {
+    # verificar se existe liberação para o material
+    if( Material::buscaSaida($id_entrada) ) {
+        print "existeEntrada";
+    # não tem saldo 
+    }elseif( ($quantidade > $saldo) && (true) ) {
         print "semsaldo";
     }else {
         Material::CancelaEntrada($id_entrada);

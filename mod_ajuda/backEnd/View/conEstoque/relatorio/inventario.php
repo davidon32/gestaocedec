@@ -84,7 +84,7 @@
 
 <?php
 
-
+    var_dump($_POST);
     $id_deposito = isset($_POST['id_deposito']) ? $_POST["id_deposito"] : "";
     
     $dataInventario = isset($_POST['txtDtInicial']) ? DataMysql::dataForm($_POST["txtDtInicial"]) : "";
@@ -141,30 +141,32 @@ HTML;
 
             foreach ($dados as $key => $value) {
                 
+                //var_dump($value);die();
+                
                 if($value['saldo'] > 0){
                     //var_dump(strrpos($value['produto'], 'CESTA'));
                     $saldo = $value['saldo'];
                     $inventario .="<tr>\n";
-                    $inventario .= "<td>".$value['id_unidade']."</td>".$linha;
+                    $inventario .= "<td><a href='".FuncaoBase::geraLink('ajuda', 'relatorio', 'detalheInvent', array('id_deposito'=>$value['id_deposito'], 'id_unidade'=>$value['id_unidade']))."'>".$value['id_unidade']."</a></td>".$linha;
                     if(strrpos($value['produto'], 'CESTA') ===0){
                         $inventario .= "<td style='color:F13B0E'>";
-                        $inventario .= "<b><i>".$value['produto']."</i></b>"; 
+                        $inventario .= "<a href='#'><b><i>".$value['produto']."</i></b>"; 
                         $inventario .= (!empty($value['descricao'])) ? " - ".$value['descricao'] : "";
                     }else {
-                        $inventario .= "<td>";
+                        $inventario .= "<td><a href='#'>";
                         $inventario .= $value['produto'];
                         $inventario .= (!empty($value['descricao'])) ? " - ".$value['descricao'] : "";
                     }
-                    $inventario .= "</td>";
-                    $inventario .= "<td>".$value['uni_medida']."</td>";
+                    $inventario .= "</a></td>";
+                    $inventario .= "<td><a href='#'>".$value['uni_medida']."</td>";
                     $inventario .= "<td></td>";
-                    $inventario .= "<td>".$value['deposito']."</td>";
-                    $inventario .= "<td>".$value['abreviacao']."</td>";
-                    $inventario .= "<td>R$ ". FuncaoBase::real($value['valor'])."</td>";
-                    $inventario .= "<td>R$ ".FuncaoBase::real(($saldo * $value['valor']))."</td>";
-                    $inventario .= "<td>".$value['peso']."</td>";
-                    $inventario .= "<td>".($saldo * $value['peso'])."</td>";
-                    $inventario .= "<td>".$saldo."</td>";
+                    $inventario .= "<td><a href='#'>".$value['deposito']."</td>";
+                    $inventario .= "<td><a href='#'>".$value['abreviacao']."</td>";
+                    $inventario .= "<td><a href='#'>R$ ". FuncaoBase::real($value['valor'])."</td>";
+                    $inventario .= "<td><a href='#'>R$ ".FuncaoBase::real(($saldo * $value['valor']))."</td>";
+                    $inventario .= "<td><a href='#'>".$value['peso']."</td>";
+                    $inventario .= "<td><a href='#'>".($saldo * $value['peso'])."</td>";
+                    $inventario .= "<td><a href='#'>".$saldo."</td>";
                     $inventario .= "\n</tr>\n\n";
                     
                 }else{

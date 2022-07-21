@@ -27,9 +27,13 @@
 
 	$arquivos = Pagamento::getReciboDigPgto($id);
 
+            if(count($arquivos) > 0){
 		foreach ($arquivos as $key => $value) {
 			print "<li class='glyphicon glyphicon-asterisk'><a href='#' id='".$id."'>". $value."</a></li><br>";
 		}
+            }else {
+                print "Não Existe recibo Digitalizado";
+            }
 ?>
 </div>
 
@@ -54,3 +58,8 @@ $(document).ready(function(){
 });
 
 </script>
+
+
+
+
+

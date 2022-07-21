@@ -301,6 +301,30 @@ class Material {
 			print FuncaoBase::getError($e->getMessage(), 'Erro ao buscar Registro');
 		}
 	}
+	/**
+	 *  Pega saldo de material por id_unidade
+	 * 
+	 */
+	static function buscaSaida($_id_entrada){
+
+		try{
+
+			$dados = "";
+			$sql = "SELECT id_liberacao
+                                    FROM aju_item
+                                    WHERE situacao < 2
+                                    AND id_entrada = {$_id_entrada}";
+			
+			$con = Conexao::getInstance();
+
+			$result = $con->query($sql);
+                        
+			return $result->rowCount();
+			
+		}catch (Exception $e) {
+			print FuncaoBase::getError($e->getMessage(), 'Erro ao buscar Registro');
+		}
+	}
 
 	# @ verifica se tem produto na tabela estoque, se true, atualiza o saldo sen�o cria um saldo com valor 0 para o produto 
 	static function atualizarSaldo($_id_produto, $_id_deposito, $_quantidade){ 

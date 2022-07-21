@@ -26,6 +26,12 @@ include_once(MODEL_AJUDA_BACKEND.'/AjudaRelatorioModel.php');
             include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/inventario.php';
         }
         
+        /* DETALHE ITEM INVENTARIO */
+        public function detalheInvent(){
+            $dados = $_POST;
+            include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/detalhe_inventario.php';
+        }
+        
         /* INVENTARIO DE MATERIAIS ZERADO */
         public function inventariozerado(){
             include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/inventario.php';

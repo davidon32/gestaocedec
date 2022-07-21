@@ -220,12 +220,18 @@ $(document).ready(function(){
                     success: function(response) {
                         if(response == 'sucesso'){
                             alert("Entrada removida com Sucesso !");
-                            //console.log(response);
                             location.reload();
                         }else if(response == 'semsaldo') {
                             alert('Não foi possivel remover essa entrada pois não existe saldo para abatimento de materiais, \n gentileza cancelar alguma liberação para que o saldo seja suficiente !');
                         }else if(response == 's_dep'){
                             alert('Favor preencher corretamente o Deposito de Destino');
+                        }else if(response == 'existeEntrada'){
+                            Swal.fire({
+                                    icon: 'error',
+                                    title: 'Operação Não Realizada',
+                                    text: 'Existe liberações já realizadas !\n\n gentileza Cancelar as liberações relacionadas com essa entrada',
+                                    footer: '<a href="<?= FuncaoBase::geraLink("ajuda", "relatorio", "inventario")?>">Clique aqui e Verifique no Relatorio de Inventário Clicando no Material</a>'
+                                  });
                         }
                             
                     },
