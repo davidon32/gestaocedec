@@ -14,7 +14,7 @@
             <!-- CORPO -->
         <div class="row-fluid">
             <div class="col-md-6">
-            <a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=compdec&controller=compdec&action=buscarAlterar">Cadastro Compdec</a><br> <br>  
+            <a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=compdec&controller=compdec&action=buscarAlterar">Busca / Alteração dados Compdec</a><br> <br>  
             <a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=compdec&controller=compdec&action=filtroRelatorio">Relatórios</a><br> <br>  
             
             <a class="btn btn-primary" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=compdec&controller=compdec&action=email&">Envio Email / Lote</a><br> <br>  

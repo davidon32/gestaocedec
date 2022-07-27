@@ -63,9 +63,12 @@ $_readOnly = "";
 						$link = "<a id='cancela'><img width='35px' src='core/imagem/cancela.png'></a>";
 					}elseif($situacao == 'Pago'){
 						$css =" style='color:#FFFFFF;background:#088A29'";
-                                                $data_liberacao = $dados['dataLibera'];
-                                                $data_limite = date("d/m/Y", strtotime("+30 days", strtotime($data_liberacao)));
-                                                if($data_limite < date("d/m/Y")){
+                                                
+                                                $data_hoje = new DateTime(date('Y-m-d'));
+                                                $dias = new DateTime($dados['dataLibera']);
+                                                $interv = $dias->diff($data_hoje);
+                                                
+                                                if( $interv->days > 31 ){
                                                     
                                                     $link = "Fora da data Limite pra Cancelamento";
                                                 }else {

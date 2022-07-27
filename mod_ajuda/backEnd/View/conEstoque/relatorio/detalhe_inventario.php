@@ -84,7 +84,7 @@
     <?php if(isset($_GET['voltar'])) {
         print "<a class=\"btn btn-success imprimir\" href=\"".FuncaoBase::geraLink('index', 'index', 'index1')."\">Voltar</a>";				 
     }else {
-        print "<a class=\"btn btn-success imprimir\" href=\"?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=relIndex\">Voltar</a>";				 
+        print "<a class=\"btn btn-success imprimir\" href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=relIndex\">Voltar</a>";				 
     }
     ?>
     

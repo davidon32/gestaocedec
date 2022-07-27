@@ -42,6 +42,8 @@ if((int)$id_libera){
 	
         if(count($dado) > 0){
             $dados_municipio = Municipio::dadosMunicipio($dado['id_municipio']);
+            
+            $numero = filter_var(str_replace(array("-","."), "", $dados_municipio['endereco']), FILTER_SANITIZE_NUMBER_INT);
             //$pgto -> MosLibInd($_SESSION['seguranca']['idUser'], $_GET['idLibera']);
         }else {
             print "<script> alert(' Pagamento não disponivel, Verifique este lancamento');";
@@ -113,7 +115,7 @@ if((int)$id_libera){
 			<div class="col-md-4">
 				<label>N&uacute;mero:</label>
 				<span class="info">*</span>
-				<input  class="form-control" name="numero" type="text" value="" size="6" maxlength="6" required value="0">
+				<input  class="form-control" name="numero" type="text" size="6" maxlength="6" required value="<?=$numero?>">
 			</div>
 		</div>	
 		<div class="col-md-12">	
@@ -207,13 +209,16 @@ if((int)$id_libera){
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$("#cpfCnpj").mask('99.999.999/9999-99');
+                        $("#cpfCnpj").val('00.000.000.0000-00');
 
 			$("input[type='radio']").click(function(){
 				var pessoa = $("input[name='ck_pessoa']:checked").val();
 				if(pessoa == "pf"){
 				$("#cpfCnpj").mask('999.999.999-99');
+                                $("#cpfCnpj").val('000.000.000-00');
 				}else {
 				$("#cpfCnpj").mask('99.999.999.9999-99');
+                                $("#cpfCnpj").val('00.000.000.0000-00');
 				}
 				console.log(pessoa);
 			});
