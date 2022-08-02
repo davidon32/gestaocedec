@@ -85,7 +85,6 @@ function logar($_login, $_senha, $redireciona = true) {
 			$linha = $dados;
 		}
 
-		
 		if($linha){
 			self::$nivel = $linha['nivel'];
 			

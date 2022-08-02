@@ -23,13 +23,16 @@ class AnexoPref extends Anexo {
 					
 				$result = $con->prepare($sql);
 					
-				$nomeArquivo = str_replace(" ", "_", $arquivo['fileAnexoPref']['name']);
+				$nomeArquivo = substr(FuncaoBase::sanitizeString(basename($arquivo['fileAnexoPref']['name'])), 0, 20);
+                                $nomeArquivo = str_replace(" ", "_", $nomeArquivo);
+                                
+                                $ext = Anexo::getExtensao(basename($arquivo['fileAnexoPref']['name']));
 					
-				$nomeFoto = $dados['txtIdMunicipio']."_".$nomeArquivo;
+				$nomeFoto = $dados['txtIdMunicipio']."_".$nomeArquivo.".".$ext;
 
 				$result->bindParam(":id_municipio", $dados['txtIdMunicipio']);
 				$result->bindParam(":fotoPref", $nomeFoto);
-				$result->execute ();
+				$result->execute();
 
 				if(Anexo::upload($caminho, $arquivo, "fileAnexoPref", $dados['txtIdMunicipio'])){
 						

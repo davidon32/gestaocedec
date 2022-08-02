@@ -96,7 +96,12 @@
 							 l.id_municipio,
 							 l.datalibera,
 							 l.beneficiario,
-							 l.dtLimite 
+							 l.dtLimite,
+                                                         l.resp_receb,
+                                                         l.resp_receb_ci,
+                                                         l.resp_receb_cpf,
+                                                         l.resp_receb_veiculo,
+                                                         l.resp_receb_placa
 							 FROM aju_liberacao l ".
 							"WHERE l.id_liberacao = $_id_liberacao 
 							and l.situacao = 0";

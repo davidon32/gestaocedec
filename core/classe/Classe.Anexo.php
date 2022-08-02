@@ -14,14 +14,15 @@ class Anexo extends FuncaoBase  {
 	 */
 	public static function upload($caminho, $file, $inputName, $hash = false, $nome_arquivo = false){
 	
+                $ext = Anexo::getExtensao(basename($file[$inputName]['name']));
 		# verifica o hash para o novo nome do arquivo passado.
 		if(strlen($nome_arquivo) > 0) {
 			# verifica o hash para o nome original do arquivo 
-			$ext = Anexo::getExtensao(basename($file[$inputName]['name']));
 			$nomeArquivo = (strlen($hash) > 0) ? $hash."_".$nome_arquivo.".".$ext : $nome_arquivo.".".$ext; 
 		}else {
                     $nome_regular = substr(FuncaoBase::sanitizeString(basename($file[$inputName]['name'])), 0, 20);
-			$nomeArquivo = (strlen($hash) > 0) ? $hash."_".str_replace(" ", "_", $nome_regular) : str_replace(" ", "_", $nome_regular) ;
+			$nomeArquivo = (strlen($hash) > 0) ? $hash."_".str_replace(" ", "_", $nome_regular).".".$ext : str_replace(" ", "_", $nome_regular).".".$ext ;
+                        
 		}
 		 
 		$uploadFile = $caminho."/".$nomeArquivo;

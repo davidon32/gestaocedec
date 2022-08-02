@@ -145,7 +145,7 @@ if((int)$id_libera){
 				<!-- dados do responsavel pela liberacao-->
 				<label>Respons&aacute;vel:</label>
 				<span class="info">*</span>
-				<input class="form-control"  name="responsavel" type="text" id="responsavel" size="40" maxlength="40" required />
+				<input class="form-control"  name="responsavel" type="text" id="responsavel" size="40" maxlength="40" required value='<?=$dado['resp_receb']?>'/>
 			</div>
 		</div>	
 
@@ -153,7 +153,7 @@ if((int)$id_libera){
 			<div class="col-md-6">	
 				<label>Identidade:</label>
 				<span class="info">*</span>
-				<input class="form-control" name="nDoc" type="text" id="nDoc" size="40" maxlength="20" required />
+				<input class="form-control" name="nDoc" type="text" id="nDoc" size="40" maxlength="20" value='<?=$dado['resp_receb_ci']?>' required />
 			</div>
 			
 			<div class="col-md-6">
@@ -162,7 +162,7 @@ if((int)$id_libera){
 				<input type="hidden" name="municipio" value="<?php print Municipio::PegaNomeMunicipio($dado['id_municipio'])?>" />
 				<label>CPF</label>
 				<span class="info">*</span>
-				<input class="form-control" name="cpfResp" id="cpfResp" type="text" data-mask="999.999.999-99" size="40" required>
+				<input class="form-control" name="cpfResp" id="cpfResp" type="text" data-mask="999.999.999-99" size="40" value='<?=$dado['resp_receb_cpf']?>' required>
 			</div>
 		</div>
 
@@ -171,12 +171,12 @@ if((int)$id_libera){
 			<div class="col-md-6">
 				<label>Ve&iacute;culo:</label>
 				<span class="info">*</span>
-				<input class="form-control" name="veiculo" id="veiculo" type="text" size="40" maxlength="20" required >
+				<input class="form-control" name="veiculo" id="veiculo" type="text" size="40" maxlength="20" value='<?=$dado['resp_receb_veiculo']?>' required >
 			</div>	
 			<div class="col-md-6">	
 				<label>Placa:</label>
 				<span class="info">*</span>
-                                <input class="form-control" name="placa" id="placa" type="text" size="40" required maxlength="10">
+                                <input class="form-control" name="placa" id="placa" type="text" size="40" value='<?=$dado['placa_resp_receb']?>' required maxlength="10">
 			</div>
 		</div>
 				

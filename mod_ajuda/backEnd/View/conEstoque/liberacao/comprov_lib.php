@@ -13,11 +13,11 @@ if(!empty($_id)) {
 	print "<div class='cent text-center'>
 			<br />
 			<br />
-			<a class=\"btn btn-info\" href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=libpdf&id=".$_id."\">Salvar Libera&ccedil;&atilde;o em pdf</a>
+			<a class=\"btn\" href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=libpdf&id=".$_id."\"><img width='30' src='core/imagem/view1.png'>Salvar Libera&ccedil;&atilde;o em pdf</a>
 			<br /><br>
-			<a class=\"btn btn-info\" href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=relatorio&action=rel_liberacao_recibo&id=".$_id."\";>Impressao Recibo de Liberação</a>
+			<a class=\"btn\" href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=relatorio&action=rel_liberacao_recibo&id=".$_id."\";><img width='30' src='core/imagem/view1.png'>Impressao Recibo de Liberação</a>
 			<br /><br>
-			<a class=\"btn btn-info\" href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=relatorio&action=rec_pgto&id=".$_id."\";>Recibo Pagamento</a>
+			<a class=\"btn\" href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=relatorio&action=rec_pgto&id=".$_id."\";><img width='30' src='core/imagem/view1.png'>Recibo Pagamento em Branco</a>
 			<br /><br>
 			<a class=\"btn btn-success\" href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=liberacao\">Voltar</a>
 	</div>";	

@@ -52,6 +52,15 @@
 		$_entrega = isset($_POST['entrega']) ? $_POST['entrega'] : null;
 		
 		$fonte = isset($_POST['fonte']) ? $_POST['fonte'] : null;
+		
+                $resp_receb = isset($_POST['resp_receb']) ? $_POST['resp_receb'] : null;
+                $resp_receb_ci = isset($_POST['resp_receb_ci']) ? $_POST['resp_receb_ci'] : null;
+                $resp_receb_cpf = isset($_POST['resp_receb_cpf']) ? $_POST['resp_receb_cpf'] : null;
+                $resp_receb_veiculo = isset($_POST['resp_receb_veiculo']) ? $_POST['resp_receb_veiculo'] : null;
+                $resp_receb_placa = isset($_POST['pl_resp_receb']) ? $_POST['pl_resp_receb'] : null;
+                
+                
+                
 		if($fonte == "Selecione a Fonte"){
 			$fonte = null;
 		}
@@ -87,7 +96,24 @@
 				#@ testar se tem liberacao para executar 
 				if(count($_SESSION['cesta']) > 0) {
 					// Lancar Liberacao do Banco
-					$id_liberacao = $libera -> libera($_dataMysql->dataForm($datalibera), $id_municipio, $id_usuario, $depDestino, $beneficiario, Material::getNomeEvento($evento), $obs, $_dataMysql->dataForm($dtLimite), 0, 0, $resp, $_modo_entrega, $_dataMysql->dataForm($dataRecibo));
+					$id_liberacao = $libera -> libera($_dataMysql->dataForm($datalibera), 
+                                                                            $id_municipio,
+                                                                            $id_usuario,
+                                                                            $depDestino,
+                                                                            $beneficiario,
+                                                                            Material::getNomeEvento($evento),
+                                                                            $obs,
+                                                                            $_dataMysql->dataForm($dtLimite),
+                                                                            0,
+                                                                            0,
+                                                                            $resp,
+                                                                            $_modo_entrega,
+                                                                            $_dataMysql->dataForm($dataRecibo),
+                                                                            $resp_receb,
+                                                                            $resp_receb_ci,
+                                                                            $resp_receb_cpf,
+                                                                            $resp_receb_veiculo,
+                                                                            $resp_receb_placa);
                                         
                                         						#@ pega o id da ultima liberacao e joga na sessao
 						$_SESSION['idLibera'] = $id_liberacao[0];

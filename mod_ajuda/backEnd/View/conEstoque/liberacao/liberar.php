@@ -32,7 +32,12 @@
 	*
 	*******************************************************************************************/
 ?>
-
+<style>
+    .tile {
+        font-size: 9pt;
+        color: silver;
+    }
+</style>
 <div class="col-md-3"></div>
 <div class="col-md-6">
 	<div class="col-md-12">
@@ -62,8 +67,8 @@
 <div class="row"></div>
 <hr>
 
-<div class='col-md-3'>&nbsp;</div>
-<div class='col-md-6'>
+<div class='col-md-2'>&nbsp;</div>
+<div class='col-md-8'>
 
 		<form method="POST" action="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=fechar_liberacao" name="flibera" style="background: #F2F2F2;"/>
 
@@ -75,19 +80,13 @@
 				<!--<?php $_municipio->PegaMunicipio();?>-->
                                 <input type="hidden" name="id_municipio" id="id_municipio">
 			</div>
-								
-			<div class="col-md-6">
-				<label>Benefici&aacute;rio:</label>
-				<input type="text" class="form-control" name="beneficiario" id="beneficiario" maxlength="50" title="Nome do Benefici&aacute;rio ex. Prefeitura" required />
-			</div>
-
-			<div class="col-md-6">
+                
+                        <div class="col-md-6">
 				<label>Fonte de Origem<br/></label>
                                 <input type="text" class="form-control" name='fonte' id='fonte'>
                                 <input type="hidden" name='id_origem' id='id_origem'>
-
 			</div>
-					
+								
 			<div class="col-md-6">
 				<label>Evento</label>
 				<select name="evento" id="evento" class="form-control" required>
@@ -97,9 +96,39 @@
 					?>
 				</select>
 			</div>
-
+                
+                        <div class="col-md-12"><hr></div>
+                        
 			<div class="col-md-12">
-				<label>Responsável pela Liberação</label>
+                            <label>Benefici&aacute;rio : </label><span class='tile'>( Prefeitura / Órgao / Instituição Recebedora )</span>
+				<input type="text" class="form-control" name="beneficiario" id="beneficiario" maxlength="50" title="Nome do Benefici&aacute;rio ex. Prefeitura" required />
+			</div>
+					
+                        <div class="col-md-12">
+                            <label>Representante Beneficiario:</label><span class='tile'> ( Representante Prefeitura / Coordenador Municipal ) </span>
+				<input type="text" class="form-control" name="resp_receb" id="resp_receb" maxlength="50" title="Representante Prefeitura ou responsavel pela retirada do material" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label>C.I:</label>  <span class='tile'>( Identidade do Representante ) </span>
+				<input type="text" class="form-control" name="resp_receb_ci" id="resp_receb_ci" maxlength="15" title="Identidade do Representante" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label>CPF:</label>  <span class='tile'>( CPF do Representante ) </span>
+				<input type="text" class="form-control" name="resp_receb_cpf" data-mask='999.999.999-99' id="resp_receb_cpf" maxlength="20" title="CPF do Representante " required />
+                        </div>
+                        <div class="col-md-6">
+                            <label>Veículo:</label>  <span class='tile'>( VEÍCULO que vai fazer a retirada do Material ) </span>
+				<input type="text" class="form-control" name="resp_receb_veiculo" id="resp_receb_veiculo" maxlength="50" title="VEÍCULO que vai fazer a retirada do Material" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label>Placa:</label>  <span class='tile'>( PLACA veículo que vai fazer retirada do Material ) </span>
+				<input type="text" class="form-control" name="pl_resp_receb" id="pl_resp_receb" maxlength="15" title="PLACA veículo que vai fazer retirada do Material" required />
+                        </div>
+                        
+                        <div class="col-md-12"><hr></div>
+                        
+			<div class="col-md-6">
+				<label>Responsável pela Liberação:</label>
 								
 				<?php 
 
@@ -114,10 +143,10 @@
 								}
 									print "</select>";
 								?>
-						</div>
+			</div>
 								
 			<div class="col-md-6">	
-				<label>Data</label>
+				<label>Data:</label>
                                 <input type="text" name="dt_libera" id="dt_libera" size="15" class="mask-data form-control" value="<?php print date('d/m/Y');?>"  maxlength="10"/>
 			</div>
 				
@@ -128,7 +157,7 @@
 				
 			<div class="col-md-6">
 				<br>
-				<label>Vir&aacute; Buscar</label>
+				<label>Vir&aacute; Buscar ?</label>
 				<input type="checkbox" name="entrega" title="Modo de entrega" checked="checked"/>
 			</div>
 
@@ -139,7 +168,7 @@
 		
 	</form>
 </div>
-<div class="col-md-3"></div>
+<div class="col-md-2"></div>
 
     
     <div class="col-md-12 text-center">
@@ -155,6 +184,8 @@
 <?php include_once "template/page/rodapePage.php";?>
 <script type="text/javascript">
     $(document).ready(function(){
+        
+        $(".box").css('height', '1324');
         
         $('#btnAddMaterial').click(function(){
             var id_deposito = $("#id_deposito").val();

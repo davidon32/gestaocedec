@@ -35,7 +35,9 @@ if(empty($opcao) && (empty($qtd))){
                                             Deposito::PegaNomeDeposito($id_deposito),
                                             date("Y-m-d"),
                                             "-",
-                                            $id_deposito);
+                                            $id_deposito,
+                                            "",
+                                            $_COOKIE['seguranca']['idUser']);
             }
             if($result){
                 print "sucesso";
@@ -56,7 +58,8 @@ if(empty($opcao) && (empty($qtd))){
                                             date("Y-m-d"),
                                             "-",
                                             $id_deposito,
-                                            $id_entrada);
+                                            $id_entrada,
+                                            $_COOKIE['seguranca']['idUser']);
             }
             if($result){
                 print "sucesso";

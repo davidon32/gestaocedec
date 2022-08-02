@@ -94,7 +94,7 @@
 					    <tr>
 							<td width="100"></td>	
 							<td style="text-align:left;">Em:</td>
-							<td style="text-align:left;"><?php print DataMysql::DataVisual($dados['dataLibera'])?></td>
+							<td style="text-align:left;"><?php print DataMysql::DataVisual($dados['dataLibera'])?> as <?=$dados['hora_libera']?></td>
 							<td style="text-align:left;">Libera&ccedil;&atilde;o : <?php print $dados["id_liberacao"];?></td>
 						</tr>
 						<tr>
@@ -158,10 +158,41 @@
 
 								?>
 							</table>
-							<br>
+							
 								
 							</td>
 						</tr>
+                                                <tr>
+                                                    <td colspan="3"><hr></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="100"></td>
+                                                    <td>Representante</td>
+                                                    <td>Retirada de Material: <b><?php print $dados['resp_receb'];?></b></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="100"></td>
+                                                    <td>C.I :</td>
+                                                    <td><b><?php print $dados['resp_receb_ci'];?></b></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="100"></td>
+                                                    <td>C.P.F :</td>
+                                                    <td><b><?php print $dados['resp_receb_cpf'];?></b></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="100"></td>
+                                                    <td>Veículo :</td>
+                                                    <td><b><?php print $dados['resp_receb_veiculo'];?></b></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="100"></td>
+                                                    <td>Placa :</td>
+                                                    <td><b><?php print $dados['resp_receb_placa'];?></b></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3"><hr></td>
+                                                </tr>
 						 <tr>
 							<td width="100"></td>
 							<td width="100" style="text-align:left;">Observa&ccedil;&atilde;o:</td>
@@ -171,6 +202,11 @@
 							<td width="50"></td>
 							<td width="100" style="text-align:left;">Modo Entrega:</td>
 							<td style="text-align:left; font-style: italic;"><?php print $dados['entrega'];?></td>
+						</tr>
+                                                
+						 <tr>
+                                                     <td width="50"></td>
+                                                     <td colspan="2" style="text-align:left; font-style: italic;"><br><?=Municipio::PegaNomeMunicipio($dados['id_municipio']).",   ".DataMysql::dataExtensoDocumento(DataMysql::dataVisual($dados['dt_recibo']));?></td>
 						</tr>
 					</table>
 					<br />

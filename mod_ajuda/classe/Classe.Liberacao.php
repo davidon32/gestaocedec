@@ -32,7 +32,24 @@ class Liberacao extends DataMysql{
 	private static $dados;
 	
 	# @ adiciona a liberacao na tabela 'liberacao' do banco.
-	function libera($nDatalibera, $nIdMunicipio, $nid_usuario, $nDepDestino, $nBeneficiario, $nEvento, $nObservacoes, $nDtLimite, $nSituacao, $nid_user_pgto, $_resp, $_entrega, $_dataRecibo) {
+	function libera($nDatalibera,
+                        $nIdMunicipio,
+                        $nid_usuario,
+                        $nDepDestino,
+                        $nBeneficiario,
+                        $nEvento,
+                        $nObservacoes,
+                        $nDtLimite,
+                        $nSituacao,
+                        $nid_user_pgto,
+                        $_resp,
+                        $_entrega,
+                        $_dataRecibo,
+                        $resp_receb,
+                        $resp_receb_ci,
+                        $resp_receb_cpf,
+                        $resp_receb_veiculo,
+                        $resp_receb_placa) {
 		
 		$this -> datalibera = $nDatalibera;
 		$this -> idMunicipio = $nIdMunicipio;
@@ -63,7 +80,12 @@ class Liberacao extends DataMysql{
                                     		responsavel,
                                     		entrega,
                                                 dt_recibo,
-                                                hora_libera)
+                                                hora_libera,
+                                                resp_receb,
+                                                resp_receb_ci,
+                                                resp_receb_cpf,
+                                                resp_receb_veiculo,
+                                                resp_receb_placa)
                                     		      VALUES (:nDatalibera,
                                                     	  :nIdMunicipio,
                                                     	  :nid_usuario,
@@ -77,7 +99,12 @@ class Liberacao extends DataMysql{
                                                     	  :resp,
                                                     	  :entrega,
                                                           :dt_recibo,
-                                                          :hora_libera)";
+                                                          :hora_libera,
+                                                          :resp_receb,
+                                                          :resp_receb_ci,
+                                                          :resp_receb_cpf,
+                                                          :resp_receb_veiculo,
+                                                          :resp_receb_placa)";
 
         try {
             
@@ -97,6 +124,12 @@ class Liberacao extends DataMysql{
             $result->bindValue(":entrega",      $_entrega);
             $result->bindValue(":dt_recibo",    $_dataRecibo);
             $result->bindValue(":hora_libera",  date('H:i:s'));
+            $result->bindValue(":resp_receb"        , $resp_receb);
+            $result->bindValue(":resp_receb_ci"     , $resp_receb_ci);
+            $result->bindValue(":resp_receb_cpf"    , $resp_receb_cpf);
+            $result->bindValue(":resp_receb_veiculo", $resp_receb_veiculo);
+            $result->bindValue(":resp_receb_placa"  , $resp_receb_placa);
+
             $result->execute();
             
     
@@ -360,7 +393,14 @@ class Liberacao extends DataMysql{
 		situacao,
 		id_user_pgto,
 		responsavel,
-		entrega
+		entrega,
+                dt_recibo,
+                hora_libera,
+                resp_receb,
+                resp_receb_ci,
+                resp_receb_cpf,
+                resp_receb_veiculo,
+                resp_receb_placa
 		FROM aju_liberacao
 		WHERE id_liberacao = '.$_id_liberacao;
 
@@ -567,7 +607,8 @@ class Liberacao extends DataMysql{
 							observacao,
 							dtLimite,
 							responsavel,
-							entrega
+							entrega,
+                                                        id_usuario
 							FROM aju_liberacao
 							WHERE situacao = 0
 							ORDER BY dataLibera";

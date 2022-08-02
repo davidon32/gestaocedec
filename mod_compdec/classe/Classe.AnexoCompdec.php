@@ -34,6 +34,7 @@ class AnexoCompdec extends Anexo {
                 $result->bindParam(":fotoCompdec", $nomeFoto);
                 $result->execute();
 
+                
                 if (Anexo::upload($caminho, $arquivo, $campo, $dados['txtIdMunicipio'])) {
 
                     return true;
