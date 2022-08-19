@@ -705,9 +705,12 @@ class Compdec {
         $con = Conexao::getInstance();
 
         try {
-            $sql = "select id_municipio, doc_aprov from com_comdec  
-                            where doc_aprov = ".$situacao." 
-                            and id_municipio != 7221
+            $sql = "select com_comdec.id_municipio, com_comdec.doc_aprov from com_comdec  
+                inner join cedec_municipio
+                on com_comdec.id_municipio = cedec_municipio.id_municipio
+                            where com_comdec.doc_aprov = ".$situacao." 
+                            and com_comdec.id_municipio != 7221
+                            order by cedec_municipio.nome
                             ";
 
             $result = $con->query($sql);

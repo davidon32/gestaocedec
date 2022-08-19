@@ -24,13 +24,11 @@ if(empty($id_municipio)){
     
 }
 
-$dados = H_pedido_pedidajuda_hModel::lista($id_municipio);
+$dados = H_pedido_pedidajuda_hModel::listaPedidos($id_municipio);
 
 $pedido_h = new H_pedido_pedidajuda_hModel();
 
 $pedido_h_item = new H_pedido_itensajuda_hModel();
-
-var_dump($dados);
 
 
 ?>	
@@ -93,6 +91,7 @@ var_dump($dados);
 
             </tr>
 <?php
+
 foreach ($dados as $key => $value) {
     $cor = $pedido_h->getCorStatus($value['status']);
     print "<tr style='background-color:" . $cor['fdo'] . "'>
@@ -177,10 +176,10 @@ $(document).ready(function() {
         formData.append('opcao', 'envia_pedido');
         formData.append('id_pedido', id_pedido);
         formData.append('data_hora_envio', '<?=date('Y-m-d H:i:s')?>');
-        formData.append('tramit', 'analise_drd');
+        formData.append('tramit', 'analise_dlog');
         formData.append('status', '2');
         
-        var result = confirm('Deseja enviar este pedido para analse ?');
+        var result = confirm('Deseja enviar este pedido para Analise Dlog ?');
         
         if(result){
     

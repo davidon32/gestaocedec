@@ -28,7 +28,8 @@
             <p class="text-center"><a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&&modulo=index&controller=index&action=menu">Voltar</a></p><br> <br>  
             </div>
             <div class="col-md-6">
-                <legend>Lista</legend>  
+                <legend>Lista para alteração de dados do COMPDEC</legend>  
+                
                 <?php
                 
                 $compdecs = Compdec::listaCompdecAtualiza(0);

@@ -579,6 +579,33 @@ aju_h_pedido_prest.total_familia_at
         
     }
     
+    /* id´s prestação de contas */
+    public static function id_prest_conta($id_pedido){
+        
+        $con = Conexao::getInstance();
+
+        $dados = array();
+
+        
+        $sql = "SELECT id FROM aju_h_pedido_prest
+                    WHERE id_pedido = ".$id_pedido;
+         try {
+
+            $result = $con->query($sql);
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dados[] = $linha['id'];
+            }
+            
+           
+            return implode("','", $dados);
+
+        } catch (Exception $e) {
+            
+        }
+        
+    }
+    
     
     /**
      *  Total de materiais para prestação de contas 
@@ -619,10 +646,13 @@ aju_h_pedido_prest.total_familia_at
 
         $dados = "";
 
+        $ids_prest = self::id_prest_conta($id_pedido);
         
         $sql = "select SUM(aju_h_pedido_benef.qtd) as qtd_benef
                             FROM aju_h_pedido_benef
-                            where aju_h_pedido_benef.id_pedido = ".$id_pedido;
+                            where aju_h_pedido_benef.id_prest_conta in ('".$ids_prest."')";
+                            
+        
          try {
 
             $result = $con->query($sql);
@@ -645,6 +675,9 @@ aju_h_pedido_prest.total_familia_at
      * @param id_pedido
      */
     public static function homologar($dados){
+        
+        var_dump($dados);
+        die();
         
         $con = Conexao::getInstance();
        

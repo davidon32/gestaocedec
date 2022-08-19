@@ -24,10 +24,10 @@
 	<br>
 </div>
 <div class='col-md-6 tex-center'>
-    <a class="btn btn-primary" title="Busca Plano dce Contigencia" >Busca PC</a><br><br>
+    <!--<a class="btn btn-primary" title="Busca Plano dce Contigencia" >Busca PC</a><br><br>-->
     <a class="btn btn-primary" title="Relatorios" href="<?=FuncaoBase::geraLink("compdec", "plano", "listacomplano")?>">Lista de Municípios <span>com</span> Plano de Contingencia</a><br><br>
     <a class="btn btn-primary" title="Relatorios" href="<?=FuncaoBase::geraLink("compdec", "plano", "listasemplano")?>">Lista de Municípios <span>sem</span> Plano de Contingencia</a><br><br>    
-    <a class="btn btn-primary" title="Relatorios" href="<?=FuncaoBase::geraLink("compdec", "plano", "listageral")?>">Lista de <span>Todos</span> Municípios com Plano de Contingencia</a><br>
+    <!--<a class="btn btn-primary" title="Relatorios" href="<?=FuncaoBase::geraLink("compdec", "plano", "listageral")?>">Lista de <span>Todos</span> Municípios com Plano de Contingencia</a><br>-->
     
 </div>
 <div class='col-md-6'>

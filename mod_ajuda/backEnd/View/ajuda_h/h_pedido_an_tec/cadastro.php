@@ -68,9 +68,9 @@ if ($secao == 'analise_drd') {
     # status 2 dlog
     # status 3 Coord
     if($dado_pedido[0]['status'] < 3) {
-        print '<option value="analise_drd" data-status="1">Analise DRD</option>';
-        print '<option value="analise_dlog" data-status="2">Analise DLOG</option>';
-        print "<option value=\"analise_coord\" data-status=\"3\">Coordenador Adjunto</option>";
+        //print '<option value="analise_drd" data-status="1">Analise DRD</option>';
+        //print '<option value="analise_dlog" data-status="2">Analise DLOG</option>';
+        print "<option value=\"analise_coord\" data-status=\"3\">Diretor DLOG</option>";
     }
     
     if($dado_pedido[0]['status'] == 3) {

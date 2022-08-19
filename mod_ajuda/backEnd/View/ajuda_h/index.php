@@ -31,27 +31,27 @@ $id_usuario = $_COOKIE['seguranca']['idUser']
             </div>
             <div class="col-md-3">
                 <h3>Legenda</h3>
-                <img width="25" src='/core/imagem/cedec.png'>     
-                &nbsp; Permissão de Despacho DRD. <br>
+<!--                <img width="25" src='/core/imagem/cedec.png'>     
+                &nbsp; Permissão de Despacho DRD. <br>-->
                 
                 <img width="25" src='/core/imagem/dlog.png'>     
                 &nbsp; Permissão de Despacho DLOG. <br>
                 
-                <img width="25" src='/core/imagem/boss.png'>     
-                &nbsp; Permissão de Despacho do Coord. Adjunto. <br>
+<!--                <img width="25" src='/core/imagem/boss.png'>     
+                &nbsp; Permissão de Despacho do Coord. Adjunto. <br>-->
             </div>
             <div class="col-md-3 text-left"><br>
                 <span style="background-color: #F3E2A9;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
                 &nbsp; Em edição COMPDEC.<br>
                 
-                <span style="background-color: #D8D8D8;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-                &nbsp; Análise DRD.<br>
+<!--                <span style="background-color: #D8D8D8;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+                &nbsp; Análise DRD.<br>-->
                 
                 <span style="background-color: #2E64FE;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
                 &nbsp; Análise DLOG.<br>
                 
                 <span style="background-color: #FE642E">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-                &nbsp; Coord. Adjunto(a).<br>
+                &nbsp; Diretor DLOG.<br>
                 
                 <span style="background-color: #9F81F7;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
                 &nbsp; Aguardando Disponibilidade Material.<br>
@@ -139,7 +139,7 @@ foreach ($listaPedido as $key => $pedid) {
     
     $cor = $pedido_h->getCorStatus($pedid['status']);
     $percent = ( ( H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedid['id']) * 100 ) != 0 ) ? (H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedid['id']) * 100) /  H_pedido_prestajuda_hModel::totalMaterialPrestConta($pedid['id']) : 0 ;
-    
+       
     if($pedid['status'] == 6){
         $prazo = $pedido_h->prazo_presta_conta($pedid['data_aprovacao']);
         if (strtotime(date('Y-m-d')) > strtotime($prazo) && $pedid['status'] == 6) {
@@ -188,9 +188,9 @@ foreach ($listaPedido as $key => $pedid) {
         }
 
         # visualizar 
-        print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "view", array('id' => $pedid['id'], 'voltar'=>'idx_recente')) . "' title='Visualiação e Impressa do Pedido'><img width='25px' src='/core/imagem/view1.png'></a> |";
+        print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "view", array('id' => $pedid['id'], 'voltar'=>'idx_recente')) . "' title='Visualiação e Impressão do Pedido'><img width='25px' src='/core/imagem/view1.png'></a> |";
 
-        #prestação de contas
+        # prestação de contas
         if ($pedid['status'] == 6) {
             
             print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_prest', 'index',array('id' => $pedid['id'])) . "' title='Presatação de contas'><img width='25' src='/core/imagem/relatorio.png'></a>|";
@@ -198,11 +198,11 @@ foreach ($listaPedido as $key => $pedid) {
         }
 
         # analise DRD
-        if ($permissao[0]['analista_drd'] == 1 
+        /*if ($permissao[0]['analista_drd'] == 1 
                 && $pedid['status'] <= 3) {
 
             print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar' => 'idx_recente', 'an' => 'analise_drd')) . "' title='Analise DRD'><img width='25' src='/core/imagem/cedec.png'></a>";
-        }
+        }*/
 
         # analise_dlog
         if ($permissao[0]['analista_dlog'] == 1 
@@ -213,9 +213,16 @@ foreach ($listaPedido as $key => $pedid) {
 
         # analise_coord
         if ( ($permissao[0]['analista_coord'] == 1) 
-                && ($pedid['status'] < 6 ) )  {
+                && ($pedid['status'] == 3 ) )  {
             print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar' => 'idx_recente', 'an' => 'analise_coord')) . "' title='Despacho Coordenador Adjunto'><img width='25' src='/core/imagem/boss.png'></a>";
         }
+
+        # Apos despacho do Chefe Dlog 
+        if ( ($pedid['status'] >= 4 ) && ($pedid['status'] <=5 ) ){
+            print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar' => 'idx_recente', 'an' => 'analise_coord')) . "' title='Despacho Dlog'><img width='25' src='/core/imagem/dlog.png'></a>";
+        }
+        
+        
         
         print "</td>";
         print "</tr>";

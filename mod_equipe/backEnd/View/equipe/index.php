@@ -69,3 +69,4 @@
             <p><a href='<?= FuncaoBase::geraLink("index", "index", "menu")?>' class='btn btn-success' >Voltar</a>
     </div>
 </div>
+<?php include_once "template/page/rodapePage.php" ?>

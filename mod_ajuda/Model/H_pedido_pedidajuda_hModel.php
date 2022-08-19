@@ -1,4 +1,5 @@
 <?php
+
 //require_once(PATH . '/core/classe/Classe.Data.php');
 /* * *********************************************************************************
  * 	CEDEC-MG - Coordenadoria Estadual de Defesa Civil de Minas Gerais			  	*
@@ -15,113 +16,106 @@
 
 class H_pedido_pedidajuda_hModel extends Model {
 
-    
     private $table = "aju_h_pedido_pedid";
     public static $model;
     private static $mod;
     private $marca;
     private static $con;
-    
-    
-private $id = null;
-private $numero = null;
-private $data_entrada_sistema = null;
-private $despachante_analista = null;
-private $despachante_dlog = null;
-private $id_municipio = null;
-private $id_regiao = null;
-private $nome_coordenador = null;
-private $tel_coordenador = null;
-private $cel_coordenador = null;
-private $email_coordenador = null;
-private $nome_prefeito = null;
-private $tel_prefeito = null;
-private $cel_prefeito = null;
-private $email_prefeito = null;
-private $id_cobrade = null;
-private $pop_atendida = null;
-private $decreto_se_ecp_vig = null;
-private $numero_decreto = null;
-private $data_vigencia = null;
-private $tipo_decreto = null;
-private $esforcos_realizados = null;
-private $data_hora_envio = null;
+    private $id = null;
+    private $numero = null;
+    private $data_entrada_sistema = null;
+    private $despachante_analista = null;
+    private $despachante_dlog = null;
+    private $id_municipio = null;
+    private $id_regiao = null;
+    private $nome_coordenador = null;
+    private $tel_coordenador = null;
+    private $cel_coordenador = null;
+    private $email_coordenador = null;
+    private $nome_prefeito = null;
+    private $tel_prefeito = null;
+    private $cel_prefeito = null;
+    private $email_prefeito = null;
+    private $id_cobrade = null;
+    private $pop_atendida = null;
+    private $decreto_se_ecp_vig = null;
+    private $numero_decreto = null;
+    private $data_vigencia = null;
+    private $tipo_decreto = null;
+    private $esforcos_realizados = null;
+    private $data_hora_envio = null;
 
     #################  CONSTRUTOR ##################
-     function __construct() {
 
-         self::$model = $this->Tabela('aju_h_pedido_pedid');
+    function __construct() {
 
-         self::$mod = "aju";
-         
-         self::$con = Conexao::getInstance();
-     }
-     
-     
-     public function getData_hora_envio(){
+        self::$model = $this->Tabela('aju_h_pedido_pedid');
+
+        self::$mod = "aju";
+
+        self::$con = Conexao::getInstance();
+    }
+
+    public function getData_hora_envio() {
         return $this->data_hora_envio;
     }
 
-            
-    public function setData_hora_envio($data_hora_envio){
-            $this->data_hora_envio = $data_hora_envio;
+    public function setData_hora_envio($data_hora_envio) {
+        $this->data_hora_envio = $data_hora_envio;
     }
-   
+
     #################  LISTA  ##################
-   # lista {$model}
-  
+    # lista {$model}
+
     public static function lista($id = null) {
-           
-         
-         $dados = array();
- 
+
+
+        $dados = array();
+
         $sql = "SELECT id, ";
-        $sql .= " ".implode(", ",self::$model['dados']['campos'])."";
-        
+        $sql .= " " . implode(", ", self::$model['dados']['campos']) . "";
+
         if (empty($id)) {
 
-            $sql .= " FROM ".self::$model['tabela']->TABLE_NAME." ORDER By ".self::$model['dados']['id'];
+            $sql .= " FROM " . self::$model['tabela']->TABLE_NAME . " ORDER By " . self::$model['dados']['id'];
 
-            $result =  self::$con->query($sql);
+            $result = self::$con->query($sql);
         } else {
 
-            $sql .= " FROM ".self::$model['tabela']->TABLE_NAME."  
+            $sql .= " FROM " . self::$model['tabela']->TABLE_NAME . "  
                             WHERE id = :id
                             ORDER BY id";
-                     
+
             $result = self::$con->prepare($sql);
             $result->bindValue(":id", $id);
             $result->execute();
         }
-            
+
 
         try {
-         
-            while($linha = $result->fetch(PDO::FETCH_ASSOC)){
-         
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+
                 $dados[] = $linha;
             }
 
             return $dados;
-
         } catch (Exception $e) {
             return $e->getMessage() . "Erro lista registros";
         }
     }
-         
-         
+
     #####################  Busca nome do ID do Fk  ######################
-       
-     /** Busca nome do ID Fk 
+
+    /** Busca nome do ID Fk 
 
      * 
 
-     */ 
-
+     */
     public function getNomeIdFk($nome_tabela, $id_tabela, $id) {
 
-        if(!is_null($id)){
-        
+        if (!is_null($id)) {
+
             $con = Conexao::getInstance();
 
             $dados = "";
@@ -130,67 +124,62 @@ private $data_hora_envio = null;
                                   FROM {$nome_tabela}
                                   WHERE {$id_tabela} = $id";
 
-                                  
+
             try {
-                
+
                 $result = $con->query($sql);
 
                 while ($linha = $result->fetch(PDO::FETCH_OBJ)) {
                     $dados = $linha;
                 }
-                
+
                 return $dados;
-            
-        
-        
             } catch (Exception $e) {
                 return $e->getMessage();
                 var_dump($sql);
             }
-        }else {
+        } else {
             $dados = new \stdClass();
             $dados->nome = '-';
             return $dados;
         }
-        
     }
-    
+
     #################  LISTA NOME ##################
     # lista nome {$model}
-  
+
     public static function listaNome($nome = null) {
-         
-         try {
-         
-         $dados = array();
- 
-        $sql = "SELECT ";
-        $sql .= " ".self::$model['dados']['id'].", ";
-        $sql .= " ".implode(", ",self::$model['dados']['campos'])."";
-        
-        if (empty($nome)) {
 
-            $sql .= " FROM ".self::$model['tabela']->TABLE_NAME." ORDER By ".self::$model['dados']['id'];
+        try {
 
-            $result =  self::$con->query($sql);
-        } else {
+            $dados = array();
 
-            $sql .= " FROM ".self::$model['tabela']->TABLE_NAME."  
-                            WHERE ".self::$model['dados']['campos'][0]." LIKE :nome
+            $sql = "SELECT ";
+            $sql .= " " . self::$model['dados']['id'] . ", ";
+            $sql .= " " . implode(", ", self::$model['dados']['campos']) . "";
+
+            if (empty($nome)) {
+
+                $sql .= " FROM " . self::$model['tabela']->TABLE_NAME . " ORDER By " . self::$model['dados']['id'];
+
+                $result = self::$con->query($sql);
+            } else {
+
+                $sql .= " FROM " . self::$model['tabela']->TABLE_NAME . "  
+                            WHERE " . self::$model['dados']['campos'][0] . " LIKE :nome
                             ORDER BY nome";
-            $result = self::$con->prepare($sql);
-            $result->bindValue(":nome", '%'.$nome.'%');
-            $result->execute();
-        }
-         
-         while ($linha = $result->fetch(PDO::FETCH_ASSOC)){
+                $result = self::$con->prepare($sql);
+                $result->bindValue(":nome", '%' . $nome . '%');
+                $result->execute();
+            }
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
                 $dados[] = $linha;
             }
 
-        
+
 
             return $dados;
-
         } catch (Exception $e) {
             return $e->getMessage() . "Erro lista registros";
         }
@@ -201,7 +190,7 @@ private $data_hora_envio = null;
 
     public static function gravar(array $dados) {
 
-       $sql = "INSERT INTO aju_h_pedido_pedid (numero,
+        $sql = "INSERT INTO aju_h_pedido_pedid (numero,
 data_entrada_sistema,
 despachante_analista,
 despachante_dlog,
@@ -252,50 +241,47 @@ ano) VALUES (:numero,
             $result = self::$con->prepare($sql);
 
             $result->bindValue(":numero", $dados['numero']);
-$result->bindValue(":data_entrada_sistema", DataMysql::dataForm($dados['data_entrada_sistema'])." ".date('H:i:s'));
-$result->bindValue(":despachante_analista", $dados['despachante_analista']);
-$result->bindValue(":despachante_dlog", $dados['despachante_dlog']);
-$result->bindValue(":id_municipio", $dados['id_municipio']);
-$result->bindValue(":id_regiao", $dados['id_regiao']);
-$result->bindValue(":nome_coordenador", $dados['nome_coordenador']);
-$result->bindValue(":tel_coordenador", $dados['tel_coordenador']);
-$result->bindValue(":cel_coordenador", $dados['cel_coordenador']);
-$result->bindValue(":email_coordenador", $dados['email_coordenador']);
-$result->bindValue(":nome_prefeito", $dados['nome_prefeito']);
-$result->bindValue(":tel_prefeito", $dados['tel_prefeito']);
-$result->bindValue(":cel_prefeito", $dados['cel_prefeito']);
-$result->bindValue(":email_prefeito", $dados['email_prefeito']);
-$result->bindValue(":id_cobrade", $dados['id_cobrade']);
-$result->bindValue(":pop_atendida", $dados['pop_atendida']);
-$result->bindValue(":decreto_se_ecp_vig", $dados['decreto_se_ecp_vig']);
-$result->bindValue(":numero_decreto", $dados['numero_decreto']);
-$result->bindValue(":data_vigencia", DataMysql::dataForm($dados['data_vigencia']));
-$result->bindValue(":tipo_decreto", $dados['tipo_decreto']);
-$result->bindValue(":esforcos_realizados", $dados['esforcos_realizados']);
-$result->bindValue(":tramit", "analise_drd");
-$result->bindValue(":ano", date('Y'));
+            $result->bindValue(":data_entrada_sistema", DataMysql::dataForm($dados['data_entrada_sistema']) . " " . date('H:i:s'));
+            $result->bindValue(":despachante_analista", $dados['despachante_analista']);
+            $result->bindValue(":despachante_dlog", $dados['despachante_dlog']);
+            $result->bindValue(":id_municipio", $dados['id_municipio']);
+            $result->bindValue(":id_regiao", $dados['id_regiao']);
+            $result->bindValue(":nome_coordenador", $dados['nome_coordenador']);
+            $result->bindValue(":tel_coordenador", $dados['tel_coordenador']);
+            $result->bindValue(":cel_coordenador", $dados['cel_coordenador']);
+            $result->bindValue(":email_coordenador", $dados['email_coordenador']);
+            $result->bindValue(":nome_prefeito", $dados['nome_prefeito']);
+            $result->bindValue(":tel_prefeito", $dados['tel_prefeito']);
+            $result->bindValue(":cel_prefeito", $dados['cel_prefeito']);
+            $result->bindValue(":email_prefeito", $dados['email_prefeito']);
+            $result->bindValue(":id_cobrade", $dados['id_cobrade']);
+            $result->bindValue(":pop_atendida", $dados['pop_atendida']);
+            $result->bindValue(":decreto_se_ecp_vig", $dados['decreto_se_ecp_vig']);
+            $result->bindValue(":numero_decreto", $dados['numero_decreto']);
+            $result->bindValue(":data_vigencia", DataMysql::dataForm($dados['data_vigencia']));
+            $result->bindValue(":tipo_decreto", $dados['tipo_decreto']);
+            $result->bindValue(":esforcos_realizados", $dados['esforcos_realizados']);
+            $result->bindValue(":tramit", "analise_drd");
+            $result->bindValue(":ano", date('Y'));
 
-        if($result->execute()){
-            $id = self::$con->lastInsertId();
-            $result1['result'] = true;
-            $result1['id'] = $id;
+            if ($result->execute()) {
+                $id = self::$con->lastInsertId();
+                $result1['result'] = true;
+                $result1['id'] = $id;
+            } else {
+                return $result1['result'] = false;
+                ;
+            }
 
-        }else {
-            return $result1['result'] = false;;
-        }
-            
             return $result1;
 
             #Log::GravaLog("Cadastro de marca : " . $dados['nome'] . " " . $_COOKIE['seguranca']['login'], "aju_log");
-
         } catch (Exception $e) {
             return $e->getMessage() . "Erro ao inserir marca";
         }
     }
 
     #################  EDIT ##################
-            
-            
     ################  Atualizar dados h_pedido_pedid  ###################
 
     public static function edit(array $dados) {
@@ -329,30 +315,30 @@ esforcos_realizados= :esforcos_realizados
         try {
 
             $result = $con->prepare($sql);
-            
+
             $result->bindValue(":id", $dados['id']);
             $result->bindValue(":numero", $dados['numero']);
-$result->bindValue(":data_entrada_sistema", DataMysql::dataForm($dados['data_entrada_sistema']));
-$result->bindValue(":despachante_analista", $dados['despachante_analista']);
-$result->bindValue(":despachante_dlog", $dados['despachante_dlog']);
-$result->bindValue(":id_municipio", $dados['id_municipio']);
-$result->bindValue(":id_regiao", $dados['id_regiao']);
-$result->bindValue(":nome_coordenador", $dados['nome_coordenador']);
-$result->bindValue(":tel_coordenador", $dados['tel_coordenador']);
-$result->bindValue(":cel_coordenador", $dados['cel_coordenador']);
-$result->bindValue(":email_coordenador", $dados['email_coordenador']);
-$result->bindValue(":nome_prefeito", $dados['nome_prefeito']);
-$result->bindValue(":tel_prefeito", $dados['tel_prefeito']);
-$result->bindValue(":cel_prefeito", $dados['cel_prefeito']);
-$result->bindValue(":email_prefeito", $dados['email_prefeito']);
-$result->bindValue(":id_cobrade", $dados['id_cobrade']);
-$result->bindValue(":pop_atendida", $dados['pop_atendida']);
-$result->bindValue(":decreto_se_ecp_vig", $dados['decreto_se_ecp_vig']);
-$result->bindValue(":numero_decreto", $dados['numero_decreto']);
-$result->bindValue(":data_vigencia", DataMysql::dataForm($dados['data_vigencia']));
-$result->bindValue(":tipo_decreto", $dados['tipo_decreto']);
-$result->bindValue(":esforcos_realizados", nl2br($dados['esforcos_realizados']));
-            
+            $result->bindValue(":data_entrada_sistema", DataMysql::dataForm($dados['data_entrada_sistema']));
+            $result->bindValue(":despachante_analista", $dados['despachante_analista']);
+            $result->bindValue(":despachante_dlog", $dados['despachante_dlog']);
+            $result->bindValue(":id_municipio", $dados['id_municipio']);
+            $result->bindValue(":id_regiao", $dados['id_regiao']);
+            $result->bindValue(":nome_coordenador", $dados['nome_coordenador']);
+            $result->bindValue(":tel_coordenador", $dados['tel_coordenador']);
+            $result->bindValue(":cel_coordenador", $dados['cel_coordenador']);
+            $result->bindValue(":email_coordenador", $dados['email_coordenador']);
+            $result->bindValue(":nome_prefeito", $dados['nome_prefeito']);
+            $result->bindValue(":tel_prefeito", $dados['tel_prefeito']);
+            $result->bindValue(":cel_prefeito", $dados['cel_prefeito']);
+            $result->bindValue(":email_prefeito", $dados['email_prefeito']);
+            $result->bindValue(":id_cobrade", $dados['id_cobrade']);
+            $result->bindValue(":pop_atendida", $dados['pop_atendida']);
+            $result->bindValue(":decreto_se_ecp_vig", $dados['decreto_se_ecp_vig']);
+            $result->bindValue(":numero_decreto", $dados['numero_decreto']);
+            $result->bindValue(":data_vigencia", DataMysql::dataForm($dados['data_vigencia']));
+            $result->bindValue(":tipo_decreto", $dados['tipo_decreto']);
+            $result->bindValue(":esforcos_realizados", nl2br($dados['esforcos_realizados']));
+
             $result->execute();
 
             #Log::GravaLog("Atualizar Cadastro de H_pedido_pedid : " . $dados['nome'] . " " . $_COOKIE['seguranca']['login'], "aju_log");
@@ -364,6 +350,7 @@ $result->bindValue(":esforcos_realizados", nl2br($dados['esforcos_realizados']))
     }
 
     #################  VIEW  ##################
+
     /**
      * View Marca
      */
@@ -421,19 +408,20 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
                 $h_pedido_pedid = $linha;
             }
 
-           $model = self::$model;
+            $model = self::$model;
             return array($h_pedido_pedid, $model);
         } catch (Exception $e) {
             return $e->getMessage() . "Erro ao inserir H_pedido_pedid";
         }
     }
-    
+
     #################  PAGINACAO  ##################
-    /* paginacao*/
-    public function paginacao($start, $regPorPagina){
+    /* paginacao */
+
+    public function paginacao($start, $regPorPagina) {
         $con = Conexao::getInstance();
 
-            $stmt = $con->prepare("SELECT aju_h_pedido_pedid.id,
+        $stmt = $con->prepare("SELECT aju_h_pedido_pedid.id,
 aju_h_pedido_pedid.numero,
 aju_h_pedido_pedid.data_entrada_sistema,
 aju_h_pedido_pedid.despachante_analista,
@@ -471,12 +459,11 @@ LEFT JOIN dec_cobrade
 ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
 
                                 ORDER By aju_h_pedido_pedid.id DESC LIMIT $start, $regPorPagina");
-            $stmt->execute();
+        $stmt->execute();
 
-            $result = $stmt->fetchAll();
-            
-            return $result;
-            
+        $result = $stmt->fetchAll();
+
+        return $result;
     }
 
     #################  DELETAR  ##################
@@ -497,12 +484,12 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
             return $e->getMessage() . "Erro Deletar H_pedido_pedid !";
         }
     }
-        
 
     #####################  Iten pedido  ######################
+
     public static function item_pedido($id_pedido, $tipo = "P") {
 
-        
+
         $con = Conexao::getInstance();
 
         $dados = array();
@@ -514,8 +501,8 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
                 aju_h_pedido_itens.qtd_familia_atendida,
                 aju_h_pedido_itens.id_pedido
                 from aju_h_pedido_itens
-                where aju_h_pedido_itens.id_pedido = ".$id_pedido."
-                And tp_item = '".$tipo."'";
+                where aju_h_pedido_itens.id_pedido = " . $id_pedido . "
+                And tp_item = '" . $tipo . "'";
 
         try {
 
@@ -528,17 +515,16 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
             return $dados;
         } catch (Exception $e) {
             return $e->getMessage();
-        }    
-        
-}
-   
+        }
+    }
+
     /**
      * 
      * Lista dos materiais originais do pedido
      */
     public static function item_pedido_original($id_pedido) {
 
-        
+
         $con = Conexao::getInstance();
 
         $dados = array();
@@ -550,7 +536,7 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
                 aju_h_pedido_itens_original.qtd_familia_atendida
                 from 
                 aju_h_pedido_itens_original
-                where aju_h_pedido_itens_original.id_pedido = ".$id_pedido;
+                where aju_h_pedido_itens_original.id_pedido = " . $id_pedido;
 
         try {
 
@@ -563,23 +549,19 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
             return $dados;
         } catch (Exception $e) {
             return $e->getMessage();
-        }    
-        
-}
-     
+        }
+    }
 
+    #####################  lista autocomplete ######################
 
-     #####################  lista autocomplete ######################
-       
-     /** lista autocomplete 
+    /** lista autocomplete 
 
      * 
 
-     */ 
-
+     */
     public function listaid_municipioAutocomplete() {
 
-        
+
         $con = Conexao::getInstance();
 
         $dados = array();
@@ -599,18 +581,18 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
         } catch (Exception $e) {
             return $e->getMessage();
         }
-        
-    }#####################  lista autocomplete ######################
-       
-     /** lista autocomplete 
+    }
+
+#####################  lista autocomplete ######################
+
+    /** lista autocomplete 
 
      * 
 
-     */ 
-
+     */
     public function listaid_regiaoAutocomplete() {
 
-        
+
         $con = Conexao::getInstance();
 
         $dados = array();
@@ -630,18 +612,18 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
         } catch (Exception $e) {
             return $e->getMessage();
         }
-        
-    }#####################  lista autocomplete ######################
-       
-     /** lista autocomplete 
+    }
+
+#####################  lista autocomplete ######################
+
+    /** lista autocomplete 
 
      * 
 
-     */ 
-
+     */
     public function listaid_cobradeAutocomplete() {
 
-        
+
         $con = Conexao::getInstance();
 
         $dados = array();
@@ -661,11 +643,7 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
         } catch (Exception $e) {
             return $e->getMessage();
         }
-        
     }
-     
-
-
 
     /**
      * Lista h_pedido_pedid
@@ -702,139 +680,46 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
     }
 
     /**
-     * Lista Fornecedoress
+     * Busca Pedidos lista Index
+     * @return int
+     * 
      */
-    public static function listaFornecedor($id) {
+    public static function listaPedidos($id_municipio) {
 
         $con = Conexao::getInstance();
 
         $dados = array();
 
-        $sql = "SELECT pip_fornecedor.id,
-                        pip_fornecedor.nome,
-                        pip_fornecedor.cpfcnpj,
-                        pip_fornecedor.tel, 
-                        pip_fornecedor.cel
-                              FROM pip_fornecedor
-                              WHERE id =" . $id;
+        $sql = "SELECT * FROM aju_h_pedido_pedid WHERE id_municipio = {$id_municipio}";
 
         try {
 
             $result = $con->query($sql);
 
             while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-                $dados = $linha;
+                $dados[] = $linha;
             }
 
             return $dados;
         } catch (Exception $e) {
-            return $e->getMessage() . "Erro ao inserir Fornecedor";
+            return $e->getMessage() . "Ocorreu um erro !";
         }
     }
 
-    
-
-    /**
-     * Cadastro Dispositivos
-     */
-    public static function cDispositivo(array $dados) {
-
-
-        $con = Conexao::getInstance();
-        $sql = "INSERT INTO pip_dispositivo (cel,
-                                                fornecedor_id)
-                                    		      VALUES (:cel,
-                                                    	  :fornecedor_id)";
-
-        try {
-
-            $result = $con->prepare($sql);
-            $result->bindValue(":cel", $dados['cel']);
-            $result->bindValue(":fornecedor_id", $dados['fornecedor_id']);
-            $result->execute();
-
-            Log::GravaLog("Cadastro de Dispositivo: " . $dados['cel'] . " " . $_COOKIE['seguranca']['login'], "aju_log");
-
-            return true;
-        } catch (Exception $e) {
-            return $e->getMessage() . "Erro ao inserir Fornecedor";
-        }
-    }
-
-    /**
-     * Cadastro Dispositivos
-     */
-    public static function qrCode(array $dados) {
-
-
-        $con = Conexao::getInstance();
-        $sql = "INSERT INTO pip_dispositivo (telefone,
-                                                fornecedor_id,
-                                                hash,
-                                                dt_leitura)
-                                    		      VALUES (:telefone,
-                                                    	  :fornecedor_id,
-                                                    	  :hash,
-                                                          :dt_leitura)";
-
-        try {
-
-            $result = $con->prepare($sql);
-            $result->bindValue(":telefone", $dados['telefone']);
-            $result->bindValue(":fornecedor_id", $dados['fornecedor']);
-            $result->bindValue(":hash", $dados['hash']);
-            $result->bindValue(":dt_leitura", $dados['dt_leitura']);
-            $result->execute();
-
-            Log::GravaLog("Cadastro de Dispositivo: " . $dados['telefone'] . " " . $_COOKIE['seguranca']['login'], "aju_log");
-
-            return true;
-        } catch (Exception $e) {
-            return $e->getMessage() . "Erro ao inserir Fornecedor";
-        }
-    }
-
-    /**
-     * Get nome fornecedor
-     */
-    public static function getFornecedorNome($id) {
-
-        $con = Conexao::getInstance();
-
-        $dados = array();
-
-        $sql = "SELECT nome"
-                . " FROM pip_fornecedor"
-                . " WHERE id = " . $id;
-
-        try {
-
-            $result = $con->query($sql);
-
-            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-                $dados = $linha['nome'];
-            }
-
-            return $dados;
-        } catch (Exception $e) {
-            return $e->getMessage() . "Erro ao inserir Fornecedor";
-        }
-    }
-    
-    
     /* gerar numeração 
-        numeração pedido por ano
-    */
-    public function gerarNumero(){
-        
+      numeração pedido por ano
+     */
+
+    public function gerarNumero() {
+
         $con = Conexao::getInstance();
-        
+
         $dado = "";
-        
+
         $sql = "select max(aju_h_pedido_pedid.numero) as numero
                 from aju_h_pedido_pedid
                 where year(data_entrada_sistema) = year(CURDATE())";
-        
+
         try {
 
             $result = $con->query($sql);
@@ -842,29 +727,27 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
             while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
                 $dado = $linha['numero'];
             }
-            
-            if(is_null($dado)){
+
+            if (is_null($dado)) {
                 return 1;
-            }else {
-                return (int)($dado+1);
+            } else {
+                return (int) ($dado + 1);
             }
         } catch (Exception $e) {
             return $e->getMessage() . "Ocorreu um erro !";
         }
     }
-    
-    
-    
+
     /*
 
      *      */
-    
+
     public function buscaDadosPedido($id_municipio) {
-        
+
         $con = Conexao::getInstance();
-        
+
         $dado = "";
-        
+
         $sql = "select com_eq_comdec.nome as nome_coordenador,
  com_eq_comdec.funcao as funcao_coordenador, 
  com_eq_comdec.telefone as tel_coordenador,
@@ -882,9 +765,9 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
  on cedec_municipio.id_municipio = com_eq_comdec.id_municipio
  inner join cedec_meso
  on cedec_municipio.id_meso = cedec_meso.id_meso
- where cedec_municipio.id_municipio = '".$id_municipio."' 
+ where cedec_municipio.id_municipio = '" . $id_municipio . "' 
  and com_eq_comdec.funcao = 'COORDENADOR'";
-                
+
         try {
 
             $result = $con->query($sql);
@@ -892,29 +775,28 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
             while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
                 $dado = $linha;
             }
-            
+
             return $dado;
-            
         } catch (Exception $e) {
             return $e->getMessage() . "Ocorreu um erro !";
         }
     }
-    
-    
+
     /* enumStatus get status 
      * 
      * 0 - Edição Compdec
      * 1 - Analise DRD
      * 2 - Analise DLOG
-     * 3 - Analise Coord
+     * 3 - Analise Diretor DLOG
      * 4 - Aguardando Disponibilidade Mat
      * 5 - Aguardando Retirada Mat
      * 6 - Atendido
      * 7 - Cancelado
      * 
      */
+
     public static function enumStatus($status) {
-        
+
         switch ($status) {
             case 0:
                 return 'Edição Compdec';
@@ -926,12 +808,12 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
                 return 'Analise DLOG';
                 break;
             case 3:
-                return 'Analise Coord.';
+                return 'Analise Diretor DLOG.';
                 break;
             case 4:
                 return 'Aguardando Disponibilidade Mat.';
                 break;
-             case 5:
+            case 5:
                 return 'Aguardando Retirada Mat.';
                 break;
             case 6:
@@ -944,12 +826,12 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
                 return 'Opção Inválida !';
                 break;
         }
-        
     }
-    
+
     /* enumStatus get status */
+
     public function enumFase($fase) {
-        
+
         switch ($fase) {
             case 'edicao_compdec':
                 return 'Processo em Edição pelo Compdec';
@@ -961,7 +843,7 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
                 return 'em Análise DLOG';
                 break;
             case 'analise_coord':
-                return 'em Análise Coord. Adjunto CEDEC';
+                return 'em Análise Diretor Logistica';
                 break;
             case 'aguard_disp':
                 return 'Aguard. Disponibilidade Material';
@@ -976,20 +858,19 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
                 return 'Processo Cancelado !';
                 break;
             default:
-                return 'Fase Inválida !' ;
+                return 'Fase Inválida !';
                 break;
         }
-        
     }
-    
-    
-    /* busca material para pedido ajuda*/
-    public static function MaterialPedido($situacao = 1){
-        
+
+    /* busca material para pedido ajuda */
+
+    public static function MaterialPedido($situacao = 1) {
+
         $con = Conexao::getInstance();
-        
+
         $dado = array();
-        
+
         $sql = "select id_unidade, singular, descricao, nome from aju_unidade
                 where pedido_h = {$situacao}
                     and singular is not null
@@ -1001,69 +882,65 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
             while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
                 $dado[] = $linha;
             }
-            
+
             return $dado;
-            
         } catch (Exception $e) {
             return $e->getMessage() . "Ocorreu um erro !";
         }
-        
     }
-    
-    
+
     /**
      * 
      * 
      */
     public function getCorStatus($status) {
-        
+
         switch ($status) {
             case 0:
                 # edição compdec / amarelo
-                return array('fdo'=>'#F3E2A9', 'fonte'=>'#2E2E2E', 'title' => '');
+                return array('fdo' => '#F3E2A9', 'fonte' => '#2E2E2E', 'title' => '');
                 break;
             case 1:
                 # analise_drd / cinza
-                return array('fdo'=>'#D8D8D8', 'fonte'=>'#000000', 'title' => '');
+                return array('fdo' => '#D8D8D8', 'fonte' => '#000000', 'title' => '');
                 break;
             case 2:
                 # analise dlog / azul
-                return array('fdo'=>'#2E64FE', 'fonte'=>'#FFFFFF', 'title' => '');
+                return array('fdo' => '#2E64FE', 'fonte' => '#FFFFFF', 'title' => '');
                 break;
             case 3:
                 # analise_coord / laranja
-                return array('fdo'=>'#FE642E', 'fonte'=>'#151515', 'title' => '');
+                return array('fdo' => '#FE642E', 'fonte' => '#151515', 'title' => '');
                 break;
             case 4:
                 # Aguardando Disponibilidade
-                return array('fdo'=>'#9F81F7', 'fonte'=>'#FFFFFF', 'title' => '');
+                return array('fdo' => '#9F81F7', 'fonte' => '#FFFFFF', 'title' => '');
                 break;
             case 5:
                 # Aguardando retirada  / amarelo
-                return array('fdo'=>'#FFD700', 'fonte'=>'#000000', 'title' => '');
+                return array('fdo' => '#FFD700', 'fonte' => '#000000', 'title' => '');
                 break;
             case 6:
                 # Atendido / verde
-                return array('fdo'=>'#4B8A08', 'fonte'=>'#2E2E2E', 'title' => '');
+                return array('fdo' => '#4B8A08', 'fonte' => '#2E2E2E', 'title' => '');
                 break;
             case 7:
                 # Cancelado / nulo
-                return array('fdo'=>'#B40404', 'fonte'=>'#FFFFFF', 'title' => 'Processo Cancelado');
+                return array('fdo' => '#B40404', 'fonte' => '#FFFFFF', 'title' => 'Processo Cancelado');
                 break;
             default:
                 break;
         }
-                
     }
-    
+
     /**
      * Lista de usuario cadastrados como analista
      */
-    public static function listaAnalistaPedidoAjuda(){
-        
+    public static function listaAnalistaPedidoAjuda() {
+
         $con = Conexao::getInstance();
         $dado = array();
-        
+
         $sql = "SELECT id_permissao,
                     login,
                     id_usuario,
@@ -1078,30 +955,26 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
             while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
                 $dado[] = $linha;
             }
-            
+
             return $dado;
-            
         } catch (Exception $e) {
             return $e->getMessage() . "erro ao selecionar as permissões !";
         }
-        
-        
     }
-    
-    
+
     /**
      * Busca analista 
      */
     public function buscaAnalista($id_usuario) {
-        
+
         $con = Conexao::getInstance();
-        
+
         $dado = array();
         $sql = "select analista_drd,
                 analista_dlog,
                 analista_coord
                 from aju_h_permissao
-                where id_usuario = ".$id_usuario;
+                where id_usuario = " . $id_usuario;
         try {
 
             $result = $con->query($sql);
@@ -1109,20 +982,18 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
             while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
                 $dado[] = $linha;
             }
-            
+
             return $dado;
-            
         } catch (Exception $e) {
             return $e->getMessage() . "erro ao selecionar as permissões !";
         }
     }
-        
-        
-        /**
+
+    /**
      * Adicionar permissao usuario
      */
     public function AddPermissao(array $dados) {
-        
+
         $con = Conexao::getInstance();
         $sql = "INSERT INTO aju_h_permissao (login,
                                                 id_usuario,
@@ -1148,15 +1019,13 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
         } catch (Exception $e) {
             return $e->getMessage() . "Erro ao inserir Permissao";
         }
-        
     }
-        
-        
-     /**
+
+    /**
      * atualizar permissao usuario
      */
     public function AtualizarPermissao(array $dados) {
-        
+
         $con = Conexao::getInstance();
         $sql = "update aju_h_permissao set analista_drd = :analista_drd,
                                            analista_dlog = :analista_dlog,
@@ -1175,15 +1044,13 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
         } catch (Exception $e) {
             return $e->getMessage() . "Erro ao inserir Permissao";
         }
-        
-            
     }
-    
-        /**
+
+    /**
      * Remover permissao usuario 
      */
     public function removerPermissao($dados) {
-        
+
         $con = Conexao::getInstance();
         $sql = "update aju_h_permissao set analista_drd = 0,
                                            analista_dlog = 0,
@@ -1193,25 +1060,24 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
         try {
             $result = $con->prepare($sql);
             $result->bindValue(":id_usuario", $dados);
-            
+
             $result->execute();
 
             return true;
         } catch (Exception $e) {
             return $e->getMessage() . "Erro ao remover Permissao";
-        }      
+        }
     }
-    
-    
+
     /**
      *  busca dados do pedido
      * 
      */
     public function buscaPedidoH() {
-        
+
         $con = Conexao::getInstance();
         $dados = array();
-        
+
         $sql = "SELECT aju_h_pedido_pedid.id,
                             aju_h_pedido_pedid.numero,
                             aju_h_pedido_pedid.data_entrada_sistema,
@@ -1240,7 +1106,7 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
                             aju_h_pedido_pedid.data_aprovacao
                             FROM gestaocedec.aju_h_pedido_pedid
                             where status > 1 and status < 5";
-        
+
         try {
 
             $result = $con->query($sql);
@@ -1248,29 +1114,25 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
             while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
                 $dados[] = $linha;
             }
-            
+
             return $dados;
-            
         } catch (Exception $e) {
             return $e->getMessage() . "erro ao selecionar as perdidos !";
         }
-        
-        
     }
-    
-    
+
     /**
      * 
      * verifica pedido estado de envio para analise
      */
-    public static function compdecVerificaPedido($id_municipio){
-        
+    public static function compdecVerificaPedido($id_municipio) {
+
         $con = Conexao::getInstance();
         $dados = array();
-        
+
         $sql = "select count(id) from aju_h_pedido_pedid
-                where status < 4 and id_municipio =".$id_municipio;
-        
+                where status < 4 and id_municipio =" . $id_municipio;
+
         try {
 
             $result = $con->query($sql);
@@ -1278,47 +1140,42 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
             while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
                 $dados = $linha;
             }
-            
+
             return (count($dados) > 0) ? true : false;
-            
         } catch (Exception $e) {
             return $e->getMessage() . "erro ao selecionar as perdidos !";
         }
-        
     }
-    
-    
-    
+
     /**
      *  inicia prestação de contas
      * 
      */
-    public function iniciaPrestContas($id_pedido){
-        
-        
+    public function iniciaPrestContas($id_pedido) {
+
+
         $h_pedido_pedid = new H_pedido_pedidajuda_hModel();
-        
+
         # Busca materiais Pedido
         $dados = $h_pedido_pedid->item_pedido($id_pedido);
-        
-        try{
+
+        try {
             # lanca materiais perestaçao de contas
-            foreach ($dados as $key => $value) {  
-                $h_pedido_pedid->lancaMaterialPrest($value); 
+            foreach ($dados as $key => $value) {
+                $h_pedido_pedid->lancaMaterialPrest($value);
             }
         } catch (Exception $e) {
             $e->getMessage();
         }
-        
+
         return true;
     }
-    
-    
+
     /**
      * Lancamento de materiais para prestação de contas
      * 
      */
-    public function lancaMaterialPrest($dados){
+    public function lancaMaterialPrest($dados) {
 
         $con = Conexao::getInstance();
         $sql = "INSERT INTO aju_h_pedido_prest (id_pedido,
@@ -1345,22 +1202,20 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
         } catch (Exception $e) {
             return $e->getMessage() . "Erro ao inserir material em prestacao de contas";
         }
-        
     }
-    
-    
+
     /**
      *  busca status em edição para novo pedido
      * 
-     */ 
-    public static function buscaStatus($id_municipio){
-        
+     */
+    public static function buscaStatus($id_municipio) {
+
         $con = Conexao::getInstance();
         $dados = "";
-        
+
         $sql = "select count(id) as id from aju_h_pedido_pedid
-                where status = '0' and id_municipio =".$id_municipio;
-        
+                where status = '0' and id_municipio =" . $id_municipio;
+
         try {
 
             $result = $con->query($sql);
@@ -1368,23 +1223,20 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
             while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
                 $dados = $linha;
             }
-            
+
             return ($dados['id'] > 0) ? true : false;
-            
         } catch (Exception $e) {
             return $e->getMessage() . "erro ao selecionar as perdidos !";
         }
-        
     }
-    
-    
-     /**
+
+    /**
      * Envia pedido para analise
-      * @param id_pedido
-      * @param tramit
+     * @param id_pedido
+     * @param tramit
      */
     public function envia_pedido(array $dados) {
-        
+
         $con = Conexao::getInstance();
         $sql = "update aju_h_pedido_pedid set tramit = :tramit,
                                            status = :status,
@@ -1397,22 +1249,21 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
             $result->bindValue(":data_hora_envio", $dados['data_hora_envio']);
             $result->bindValue(":tramit", $dados['tramit']);
             $result->bindValue(":status", $dados['status']);
-            
+
             $result->execute();
 
             return true;
         } catch (Exception $e) {
             return $e->getMessage() . "-";
-        }      
+        }
     }
-    
-    
-     /**
+
+    /**
      * remove permissao de pedir material
-      * 
+     * 
      */
     public function PermissaoMaterial($dados) {
-        
+
         $con = Conexao::getInstance();
         $sql = "update aju_unidade set pedido_h = :pedido_h
                                            where id_unidade = :id_unidade";
@@ -1421,31 +1272,29 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
             $result = $con->prepare($sql);
             $result->bindValue(":pedido_h", $dados['func']);
             $result->bindValue(":id_unidade", $dados['id_unidade']);
-            
+
             $result->execute();
 
             return true;
         } catch (Exception $e) {
             return $e->getMessage() . "-";
-        }      
+        }
     }
-    
-    
+
     /**
      *  prazo Prestacao d contas
      */
     public static function prazo_presta_conta($dt_aprovacao) {
-        
+
         //var_dump($dt_aprovacao);
 
         $config = Config::getConfig();
-        
-        $prazo_prest_conta = '+'.$config['aju_prazo_prest_conta'].' day';
-        
+
+        $prazo_prest_conta = '+' . $config['aju_prazo_prest_conta'] . ' day';
+
         $data_aprovacao = date("d/m/Y", strtotime($prazo_prest_conta, strtotime($dt_aprovacao)));
 
         return $data_aprovacao;
     }
-    
 
 }

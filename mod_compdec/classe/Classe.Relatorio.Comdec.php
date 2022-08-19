@@ -322,7 +322,7 @@ Class RelatorioComdec {
         $con = Conexao::getInstance();
         $_dados = array();
 
-        $sql = "select distinct cedec_municipio.nome,
+        $sql = "select distinct cedec_municipio.id_municipio, cedec_municipio.nome,
                     com_plano_upload.file_plano,
                     com_plano_upload.dt_upload,
                     count(com_plano_upload.file_plano) as qtd_plano
