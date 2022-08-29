@@ -195,11 +195,14 @@ $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
             </div>
 
             <div class="col-md-12 text-center">
-                <legend>Material Pedido</legend>
+                
+<!-- MATERIAIS DO PEDIDO -->
+                <legend>Material Pedido Pelo Municipio</legend>
                 <table class="table table-bordered table-condensed">
 
                     <tr><!-- comment -->
                         <th>Código</th>
+                        <th>Cód. MAt</th>
                         <th>Material</th>
                         <th>Qtd</th>
                         <th>Qtd Familias Atend.</th>
@@ -212,6 +215,7 @@ if (count($materiaisPedido) > 0) {
     foreach ($materiaisPedido as $key => $material) {
 
         print "<tr>";
+        print "<td>" . $material['id'] . "</td>";
         print "<td>" . $material['codigo'] . "</td>";
         print "<td>" . $material['descricao_item'] . "</td>";
         print "<td>" . $material['qtd'] . "</td>";
@@ -225,12 +229,14 @@ if (count($materiaisPedido) > 0) {
                 </table>
             </div>
             
+        <!-- ###############  MATERIAIS LIBERADOS ################ -->
             <div class="col-md-12 text-center">
                 <legend>Material Liberado</legend>
                 <table class="table table-bordered table-condensed">
 
                     <tr><!-- comment -->
                         <th>Código</th>
+                        <th>Cód. Mat</th>
                         <th>Material</th>
                         <th>Qtd</th>
                         <th>Qtd Familias Atend.</th>
@@ -241,16 +247,17 @@ if (count($materiaisPedido) > 0) {
 $materiaisLiberado = H_pedido_pedidajuda_hModel::item_pedido($view[0]['id'], "L");
 
 if (count($materiaisLiberado) > 0) {
-    foreach ($materiaisLiberado as $key => $material) {
+    foreach ($materiaisLiberado as $key => $material1) {
 
         print "<tr>";
-        print "<td>" . $material['codigo'] . "</td>";
-        print "<td>" . $material['descricao_item'] . "</td>";
-        print "<td>" . $material['qtd'] . "</td>";
-        print "<td>" . $material['qtd_familia_atendida'] . "</td>";
+        print "<td>" . $material1['id'] . "</td>";
+        print "<td>" . $material1['codigo'] . "</td>";
+        print "<td>" . $material1['descricao_item'] . "</td>";
+        print "<td>" . $material1['qtd'] . "</td>";
+        print "<td>" . $material1['qtd_familia_atendida'] . "</td>";
         print "<td>";
-        print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'add_itens', array('id' => $view[0]['id'], 'id_material' => $material['id'])) . "'><img src='/core/imagem/editar.png'></a>";
-        print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_itens', 'delete', array('id' => $material['id'], 'action1' => 'edit', 'id_pedido' => $view[0]['id'])) . "'><img src='/core/imagem/delete.png'></a>";
+        print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit_itens', array('id' => $view[0]['id'], 'id_item' => $material1['id'])) . "'><img src='/core/imagem/editar.png'></a>";
+        print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_itens', 'delete', array('id' => $material1['id'], 'action1' => 'edit', 'id_pedido' => $view[0]['id'])) . "'><img src='/core/imagem/delete.png'></a>";
 
         print "</td>";
         print "</tr>";

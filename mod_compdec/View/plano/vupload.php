@@ -27,16 +27,16 @@ $id = isset($_GET['id']) ? $_GET['id'] : "";
 
 ?>	
 
-	  	<div class="container iframe">
+	  	<div class="container iframe text-center">
 		  <?php 
 		  	if($tp_acesso == "e"){
 				  print "<p style='text-align:center'><a href='?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=etn&modulo=compdec&controller=plano&action=index' class='btn btn-success'>Voltar</a></p>";
 			}  else {
 				print "<p style='text-align:center'><a href='#' onclick='history.back();' class='btn btn-primary'>Voltar</a></p>";
 			}
-                        
-		  	if($anexo->getExtensao($plano->visualizarDoc($_GET['id']))){
-				  print "<embed style='width:900px;' src=\"/anexo/planoCont/".$plano->visualizarDoc($_GET['id'])."\">";
+
+		  	if($anexo->getExtensao($plano->visualizarDoc($_GET['id'])) == 'pdf'){
+				  print "<embed type='application/pdf' style='width:900px;' src=\"/anexo/planoCont/".$plano->visualizarDoc($_GET['id'])."\">";
 			}else {
 				print "<br><br><span class=\"alert alert-success\"><b>Fazendo download do Documento Aguarde...</b></span><br><br>";
 				print "<span class=\"glyphicon glyphicon-arrow-down\" aria-hidden=\"true\"></span>";

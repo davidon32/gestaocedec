@@ -1183,6 +1183,7 @@ static function acessoModulo($_login){
 	it_m_apoio,
 	it_m_poco,
 	it_m_escola,
+        it_m_registro
 	cedec_admin			
 	FROM cedec_usuario
 	WHERE login = :login";
@@ -1213,6 +1214,7 @@ static function mostraModulos($_acesso){
 		 * 5 - modulo equipe apoio
 		 * 6 - modulo cedec
 		 * 7 - modulo escola
+                 * 8 - modulo registro desastre
 		 * */
 		
 		
@@ -1224,7 +1226,8 @@ static function mostraModulos($_acesso){
 						 	  '5'=>'<a href="?token='.hash("sha256", md5(VERSAO).date('dmY')).'&ac=itn&modulo=equipe&controller=index&action=index" title="Módulo Equipe de Apoio"><img src="core/imagem/equipe.png"><br />Equipe de Apoio</a>',
 							  '6'=>'<a href="?token='.hash("sha256", md5(VERSAO).date('dmY')).'&ac=itn&modulo=cedec&controller=index&action=index" title="Módulo CEDEC"><img src="core/imagem/cedec.png"><br />CEDEC</a>',
 							  '7'=>'<a href="?token='.hash("sha256", md5(VERSAO).date('dmY')).'&ac=itn&modulo=escola&secao=menu" title="Módulo Escola de Defesa Civil"><img src="core/imagem/escola.png"><br />Escola de Defesa Civil</a>',
-							  '8'=>'<a href="?token='.hash("sha256", md5(VERSAO).date('dmY')).'&ac=itn&modulo=admin&controller=index&action=index" title="Configurações"><img src="core/imagem/config.png"><br />Configurações</a>');
+							  '8'=>'<a href="?token='.hash("sha256", md5(VERSAO).date('dmY')).'&ac=itn&modulo=registro&controller=index&action=index" title="Registro de Desastre"><img src="core/imagem/registro.png"><br />Registro Desastre</a>',
+							  '9'=>'<a href="?token='.hash("sha256", md5(VERSAO).date('dmY')).'&ac=itn&modulo=admin&controller=index&action=index" title="Configurações"><img src="core/imagem/config.png"><br />Configurações</a>');
 
 
 		$acesso = array();

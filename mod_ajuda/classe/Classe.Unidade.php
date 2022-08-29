@@ -54,6 +54,37 @@
                 print FuncaoBase::getError($e->getMessage());
             }
         }
+        
+        
+         /**
+        *  @return nome e id material 
+        */
+        static function getUnidadeById($id_unidade) {
+
+            $con = Conexao::getInstance();
+
+            $sql = "select id_unidade, nome, descricao, uni_medida, peso, valor 
+                                from aju_unidade
+                                WHERE id_unidade = ".$id_unidade."
+                                 ORDER BY NOME";
+
+ 
+            $dados = array();
+
+            try {
+
+                $result = $con->query($sql);
+                $result->execute();
+
+                while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                    $dados = $linha;
+                }
+                return $dados; 
+                
+            }catch (Exception $e){
+                print FuncaoBase::getError($e->getMessage());
+            }
+        }
 
 
         /**

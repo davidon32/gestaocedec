@@ -130,6 +130,8 @@ class h_pedido_itensController extends Controller {
     # editar registro
 
     public function edit() {
+        
+        
 
         $h_pedido_itensModel = new H_pedido_itensajuda_hModel;
 
@@ -139,15 +141,11 @@ class h_pedido_itensController extends Controller {
 
             if (!empty($result)) {
                 FuncaoBase::alert("Registro Atualizado com Sucesso !");
-                if($_POST['add_pedido'] = 1){
-                   $param = array('id'=> $_POST['id_pedido']);
-                   $this->redirect("ajuda", "h_pedido_pedid", "add_itens", $param);
-                }else {
-                FuncaoBase::alert("Registro Atualizado com Sucesso !");
-                $view = $h_pedido_itensModel->view($_POST['id']);
-                $param = array('id'=> $_POST['id']);
-                $this->redirect("ajuda", "h_pedido_itens", "view", $param);
-                }
+
+                $param = array('id'=> $_POST['id_pedido'], 'id_item'=> $_POST['id']);
+
+                $this->redirect("ajuda", "h_pedido_pedid", "edit_itens", $param);
+                
             }
         } else {
 

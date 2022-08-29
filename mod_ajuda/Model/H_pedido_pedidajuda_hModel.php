@@ -485,7 +485,7 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
         }
     }
 
-    #####################  Iten pedido  ######################
+    #####################  Itens pedido  ######################
 
     public static function item_pedido($id_pedido, $tipo = "P") {
 
@@ -503,13 +503,47 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
                 from aju_h_pedido_itens
                 where aju_h_pedido_itens.id_pedido = " . $id_pedido . "
                 And tp_item = '" . $tipo . "'";
-
+        
         try {
 
             $result = $con->query($sql);
 
             while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
                 $dados[] = $linha;
+            }
+
+            return $dados;
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+    
+    #####################  Itens pedido  ######################
+
+    public static function get_item_pedido($id_item, $id_pedido, $tipo) {
+
+
+        $con = Conexao::getInstance();
+
+        $dados = array();
+
+        $sql = "select aju_h_pedido_itens.id,
+                aju_h_pedido_itens.codigo,
+                aju_h_pedido_itens.descricao_item,
+                aju_h_pedido_itens.qtd,
+                aju_h_pedido_itens.qtd_familia_atendida,
+                aju_h_pedido_itens.id_pedido
+                from aju_h_pedido_itens
+                where aju_h_pedido_itens.id_pedido = " . $id_pedido . "
+                And tp_item = '" . $tipo . "'"
+                . " AND aju_h_pedido_itens.id = ".$id_item;
+
+        try {
+
+            $result = $con->query($sql);
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dados = $linha;
             }
 
             return $dados;

@@ -72,7 +72,7 @@ class Upload2mb {
             $tamanho = $arquivo[$input]['size'];
 
             # verifica tamanho arquivo
-            if ($tamanho <= "2097152") {
+            if ($tamanho <= "20971520") {
 
                 #retricao tipo arquivo
                 if (is_null($extensao)) {
@@ -90,13 +90,16 @@ class Upload2mb {
                     if (is_null($nome)) {
 
                         $nome_arquivo = self::normalizacao($_FILES[$input]['name'], 15);
-
+                        $nome_arquivo = $nome_arquivo . "_Upload_file_" . date('dmys') . "." . $ext;
+                        
                         # remomeando, , nome do arquivo conterá "_Upload_file_dia mes ano segundo"
                     } else {
                         $nome_arquivo = self::normalizacao($nome);
                     }
+                    
+                    $nome_arquivo = $nome_arquivo.".".$ext; 
 
-                    $nome_arquivo = $nome_arquivo . "_Upload_file_" . date('dmys') . "." . $ext;
+                    
 
                     # sucesso no upload
                     if (move_uploaded_file($arquivo[$input]['tmp_name'], PATH . "/" . $path . "/" . $nome_arquivo)) {

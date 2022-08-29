@@ -1,9 +1,3 @@
-<?php
-//var_dump(get_defined_vars())    ;
-//var_dump($view[0]);
-
-//var_dump($materiaisPedido);
-?>
 <style>
     * { font-size: 12pt; }
     
@@ -211,21 +205,7 @@
                 <b><?=$view[0]['esforcos_realizados']?></b>
             </td>
         </tr>
-        <tr>
-            <td colspan="11" width="705">
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-            </td>
-        </tr>
+        
         <tr>
             <td colspan="11" width="705">
                 <p>Local <?=$view[0]['nome_cedec_municipio']?>, Data <?= DataMysql::dataExtensoDocumento(DataMysql::dataCompletaVisual($view[0]['data_entrada_sistema']))?>.</p>
@@ -278,74 +258,14 @@
         </tr>
         <tr>
             <td colspan="6" width="705">
-                <p>PARECER DA DIRETORIA DE CONTROLE DE EMERG&Ecirc;NCIAS (DCE)</p>
+                <p>PARECER TÉCNICO ALALISTA DO PROCESSO</p>
+                <b><?=$view[0]['esforcos_realizados']?></b>
                 
             </td>
         </tr>
-        <tr>
-            <td colspan="6" width="705">
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-            </td>
-        </tr>
-        <tr>
-<!--            <td colspan="6" width="705">
-                <p>&nbsp;</p>
-                <p>Data: ____/____/____&nbsp;&nbsp; Ass. do Diretor com Carimbo: ________________________________________</p>
-                <p>&nbsp;</p>
-            </td>-->
-        </tr>
-        <tr>
-            <td colspan="6" width="705">
-                <p>PARECER DA DIRETORIA DE LOG&Iacute;STICA (DLog)</p>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="6" width="705">
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-            </td>
-        </tr>
-        <tr>
-<!--            <td colspan="6" width="705">
-                <p>&nbsp;</p>
-                <p>Data: ____/____/____&nbsp;&nbsp; Ass. do Diretor com Carimbo: ________________________________________</p>
-                <p>&nbsp;</p>
-            </td>-->
-        </tr>
-        <tr>
-            <td colspan="6" width="705">
-                <p>DESPACHO DO COORDENADOR ADJUNTO DE DEFESA CIVIL</p>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="6" width="705">
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-            </td>
-        </tr>
-        <tr>
-<!--            <td colspan="6" width="705">
-                <p>&nbsp;</p>
-                <p>Data: ____/____/____ Ass. do Coordenador Adjunto de Defesa Civil com Carimbo: ______________________________</p>
-                <p>&nbsp;</p>
-            </td>-->
-        </tr>
+        
+       
+       
     </tbody>
 </table>
 

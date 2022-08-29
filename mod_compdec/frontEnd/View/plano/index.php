@@ -112,6 +112,7 @@ $plano = new Plano();
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
                 <button type="button" class="btn btn-primary" name="btnUpload" id="btnUpload">Upload</button>
+                <div id="progressbar"></div>
             </div>
         </div>
     </div>
@@ -124,7 +125,7 @@ $plano = new Plano();
 <!-- =============== HEADER HTML PAGE ================= -->
 <?php include_once "template/page/rodapePage.php"; ?>
 <script>
-
+    
     Swal.fire({
         title: '<strong>UPLOAD arquivos SDC</u></strong>',
         width: 600,
@@ -217,6 +218,8 @@ $plano = new Plano();
 
     /* Upload arquivo  */
     $('#btnUpload').on('click', function () {
+        
+        
 
         if ($("#descricao").val() == "") {
             alert('O campo descrição não pode ficar em branco !');
@@ -231,14 +234,18 @@ $plano = new Plano();
             var tamanho_size = $('#tamanho_size').val();
 
             var form_data = new FormData();
+            
 
             form_data.append('file', file_data);
             form_data.append('identificador', 'upload')
             form_data.append('id', id);
             form_data.append('dt_upload', dt);
             form_data.append('descricao', descricao);
-            form_data.append('tamanho', file_data.size);
-            //alert(form_data);                             
+            form_data.append('tamanho', file_data.size);    
+            
+            $('.overlay1').show();
+            $('.overlay1').css('z-index', 3000);
+            $('.overlay1').css('position', 'absolute');
             $.ajax({
                 url: 'mod_compdec/View/plano/process.php?v=<?= md5(VERSAO) ?>', // point to server-side PHP script 
                 dataType: 'text', // what to expect back from the PHP script, if anything
@@ -248,8 +255,14 @@ $plano = new Plano();
                 data: form_data,
                 type: 'post',
                 success: function (response) {
-                    alert(response);
-                    $("#myModal").modal('hide');
+                   
+                    if(response == 'sucesso'){
+                        $("#myModal").modal('hide');
+                        
+                    }else {
+                                              
+                    }
+                    $('.overlay1').hide();
                     //window.location.reload();
                 }
             });
@@ -291,6 +304,8 @@ $plano = new Plano();
             return false;
 
         }
+        
+        
 
     })(jQuery);
 

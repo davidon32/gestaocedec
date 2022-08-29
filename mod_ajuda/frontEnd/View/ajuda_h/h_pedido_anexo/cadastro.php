@@ -41,7 +41,7 @@ if(empty($id)){
     </div>
 <div class='col-md-6'>
 <label>Nome do Arquivo</label>
-<input type="file" class='col-md-6 form form-control' name='nome_arquivo' id='nome_arquivo' maxlength='44' required >
+<input type="file" class='col-md-6 form form-control' name='nome_arquivo' id='nome_arquivo' maxlength='44' >
 <img id='tamanho_ok' style="float: right" width="25" src="/core/imagem/checar_comunidade.png">
 <img id='tamanho_erro' style="float: right" width="25" src="/core/imagem/remove.png">
 <span id='spAlerta' class='alert-danger'>Arquivo Maior que Permitido ! ( Máximo 2 Mb)</span>
@@ -81,6 +81,13 @@ if(empty($id)){
 <script>
         
     $(document).ready(function () {
+        
+        $("#btnGravar").hover(function(){
+            if($("#nome_arquivo").val() == ""){
+                $("#linkGdrive").prop('required', true);
+            }
+            
+        });
         
          $("#spAlerta, #tamanho_erro, #tamanho_ok").hide();
 

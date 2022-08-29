@@ -31,7 +31,7 @@
         };
         
     /*   UPLOAD DO PLANO */
-    }elseif($identificador == 'upload'){      
+    }elseif($identificador == 'upload'){
 
         if(!isset($_FILES['file'])){
             print "Favor Carregar o arquivo !";
@@ -39,29 +39,28 @@
             
             $extensao = $anexo->getExtensao($_FILES['file']['name']);
 
-            $data_upload = isset($_POST['dt_upload']) ? $_POST['dt_upload'] :""; # DATA HORA
+            $data_upload = date('Y-m-d H:i:s');
+            //isset($_POST['dt_upload']) ? $_POST['dt_upload'] :""; # DATA HORA
             
             $descricao = isset($_POST['descricao']) ? $_POST['descricao'] : "";
                     
-            $arquivo = "placon_".$_COOKIE['seguranca']['nome_usuario']."_".$descricao."_".$data_upload;
+            $arquivo = "PLACON_". FuncaoBase::slug($_COOKIE['seguranca']['nome_usuario'])."_".$descricao."_". FuncaoBase::slug($data_upload);
 
             $id_municipio = isset($_POST['id']) ? $_POST['id'] :"";
             
-            $tamanho_size = isset($_POST['tamanho_size']) ? $_POST['tamanho_size'] :"";
+            $tamanho_size = isset($_POST['tamanho']) ? $_POST['tamanho'] :"";
  
             # dados para gravar registro upload
             $dados = array('id_municipio'=>$id_municipio,
                             'id_plano'=> "0",
-                            'filePlano'=> $arquivo.".".$extensao,
-                            'versao' => $versao,
+                            'filePlano'=> strtoupper($arquivo).".".$extensao,
+                            'versao' => '-',
                             'dt_upload' => $data_upload,
                             'tamanho_size' => $tamanho_size
             );
 
-            
 
             $result = Upload2mb::upload("/anexo/planoCont", $arquivo, array("pdf", "doc", "docx"));
-            
             if($result){
                 if($plano->gravaUpload($dados)) {
                     print "sucesso";

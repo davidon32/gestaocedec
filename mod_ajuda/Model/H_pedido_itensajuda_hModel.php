@@ -182,7 +182,7 @@ tp_item
     ################  Atualizar dados h_pedido_itens  ###################
 
     public static function edit(array $dados) {
-
+        
         $con = Conexao::getInstance();
 
         $sql = "UPDATE aju_h_pedido_itens SET 

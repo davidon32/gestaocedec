@@ -23,7 +23,7 @@ if (isset($_GET['id'])) {
 
 ?>
 
-<legend>Lancamento de Item de Pedido</legend>
+<legend>Lancamento de Materiais no Pedido de Ajuda Humanitária</legend>
 <form action="<?= FuncaoBase::geraLink("ajuda", "h_pedido_itens", "gravar", array('voltar'=>'idx_recente')); ?>" method="post" accept-charset="utf-8" name="frmH_pedido_itens" id="frmH_pedido_itens">
 
 <div class='row'>
@@ -81,7 +81,7 @@ if (isset($_GET['id'])) {
 </form>
 <?php 
     $materiais = H_pedido_pedidajuda_hModel::item_pedido($id_pedido);
-    var_dump($materiais);
+    //var_dump($materiais);
 ?>
 
 <!- tabela de materiais do pedido -->

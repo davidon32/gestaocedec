@@ -62,19 +62,21 @@
     public function redirect($modulo, $controller, $action, $param = null) {
         
         if(!is_null($param)){
-        $param_array= "";
+        $param_array= array();
         foreach ($param as $key => $value) {
             $param_array[$key] = $value;
         }
+        
+        
+       
+        
         
             $link = FuncaoBase::geraLink($modulo, $controller, $action, $param_array);
         }else {
             $link = FuncaoBase::geraLink($modulo, $controller, $action);
         }
         
-        
-        
-        
+
         print "<script>
                  window.location.href = '".$link."';
                 </script>";

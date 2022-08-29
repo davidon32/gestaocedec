@@ -167,9 +167,14 @@ class h_pedido_pedidController extends Controller {
         
     }
     
-    /* add pedido sesssion*/
+    /* add ITENS pedido*/
     public function add_itens() {
         include_once 'mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/add_itens.php';
+    }
+    
+    /* EDIT ITENS pedido*/
+    public function edit_itens() {
+        include_once 'mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/edit_itens.php';
     }
     
     /**

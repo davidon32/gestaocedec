@@ -14,7 +14,7 @@
 $materiais = H_pedido_pedidajuda_hModel::MaterialPedido(1);
 
 if(isset($_GET['id'])){
-    $id_pedido = (int)$_GET['id'];
+    $id_pedido = (int)$_GET['id'];   
 }else {
     print "erro de acesso a pagina !";
     die();
@@ -96,7 +96,7 @@ if(isset($_GET['id'])){
         </tr>
         <?php
         
-            $materiais = H_pedido_pedidajuda_hModel::item_pedido($id_pedido);
+            $materiais = H_pedido_pedidajuda_hModel::item_pedido($id_pedido, "P");
                        
             foreach ($materiais as $key => $material) {
                 
@@ -107,7 +107,7 @@ if(isset($_GET['id'])){
                 print "<td>".$material['qtd']."</td>";
                 print "<td>".$material['qtd_familia_atendida']."</td>";
                 print "<td>";
-                    print "<img id='editar' src='/core/imagem/editar.png'>";
+                    //print "<img id='editar' src='/core/imagem/editar.png'>";
                     print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_itens', 'delete', array('id'=> $material['id'], 'id_pedido' => $material['id_pedido']))."'><img src='/core/imagem/delete.png'></a>";
                 print "</td>";
                 print "</tr>";

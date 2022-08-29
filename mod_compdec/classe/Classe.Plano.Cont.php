@@ -170,7 +170,9 @@ class Plano {
     /**
      *  Gravar vias de Acesso 
      */
-    public function gravaUpload($dados) {
+    public function gravaUpload($dados) {      
+       
+       
         $con = Conexao::getInstance();
 
         $sql = "INSERT INTO com_plano_upload (id_municipio, id_plano, file_plano, versao, dt_upload, tamanho)
@@ -187,7 +189,7 @@ class Plano {
             $result->bindValue(":id_plano", $dados['id_plano']);
             $result->bindValue(":filePlano", $dados['filePlano']);
             $result->bindValue(":versao", $dados['versao']);
-            $result->bindValue(":dt_upload", $dados['dt_upload']);
+            $result->bindValue(":dt_upload", date('Y-m-d H:i:s', strtotime($dados['dt_upload'])) );
             $result->bindValue(":tamanho", $dados['tamanho_size']);
             $result->execute();
 
