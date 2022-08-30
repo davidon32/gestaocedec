@@ -576,7 +576,7 @@ foreach ($materiais as $key => $material) {
 
                                 onSelectItemEvent: function () {
                                     var id = $("#searcid_cobrade").getSelectedItemData().id_cobrade;
-                                    var nome = $("#searcid_cobrade").getSelectedItemData().descricao;
+                                    var descricao = $("#searcid_cobrade").getSelectedItemData().descricao;
 
                                     $("#nomeCobrade_fk").val(descricao); // Mudar
                                     $("#id_cobrade").val(id);

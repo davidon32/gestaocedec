@@ -20,15 +20,12 @@
         <div class="col-md-6">
             
             <!--####################### PEDIDO DE AJUDA HUMANITARIO ###########################-->
-            <?php
-            $permissao = Usuario::getPermissao('cedec_usuario', 'it_m_registro');
-            if ($permissao == "1") {
-            ?>
                 
             <form action="<?= FuncaoBase::geraLink('registro', 'index', 'desabrigado')?>" method="POST" name="frmRegistra" id='frmRegistro'>
+                
                 <label>Data de Lancamento</label>
                 <input class='form form-control' type="date" name="dt_registro" id="dt_registro" required value="<?=date('Y-m-d')?>" max="<?= date('Y-m-d')?>">
-                
+                <br>
                 <label>Números de Desabrigados :</label><br>
                 <span>
                     <b>Desabrigado</b>: Pessoa cuja habitação foi afetada por dano ou ameaça de dano que necessita
@@ -50,9 +47,7 @@
                 <input class='btn btn-primary' type="submit" name="btnGravar" id="btnGravar" value="Gravar">
                 
             </form>
-          <?php 
-         }
-         ?>
+         
         </div>
 
 
@@ -61,7 +56,7 @@
             <?php
             $registro = new Registro;
             
-            $registros = $registro->listaGeral();
+            $registros = $registro->listaGeral($_COOKIE['seguranca']['id_municipio']);
             
             
             print "<table class='table table-condensed'>";
@@ -84,7 +79,14 @@
  
         </div>
         <div class="col-md-12 text-center">
-            <a class='btn btn-success' href='<?= FuncaoBase::geraLink('index', 'index', 'menu')?>'>Voltar</a>
+            <a class='btn btn-success' href='<?= FuncaoBase::geraLink('index', 'index', 'menue')?>'>Voltar</a>
+        </div>
+        <div class="col-md-12 text-center">
+            <div class="card-body">
+                <div class="chart">
+                <canvas id="barChart" style="height: 230px; width: 547px;" height="230" width="547"></canvas>
+                </div>
+            </div>
         </div>
 
         
@@ -100,3 +102,86 @@
 <?php include_once "template/page/barra_config_template.php"; ?>
 <!-- =============== HEADER HTML PAGE ================= -->
 <?php include_once "template/page/rodapePage.php"; ?>
+<script>
+
+  $(function () {
+    /* ChartJS
+     * -------
+     * Here we will create a few charts using ChartJS
+     */
+
+     
+    var areaChartData = {
+      labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      datasets: [
+        {
+          label               : 'Desabrigados',
+          backgroundColor     : 'rgba(60,141,188,0.9)',
+          borderColor         : 'rgba(60,141,188,0.8)',
+          pointRadius          : false,
+          pointColor          : '#3b8bba',
+          pointStrokeColor    : 'rgba(60,141,188,1)',
+          pointHighlightFill  : '#fff',
+          pointHighlightStroke: 'rgba(60,141,188,1)',
+          data                : [28, 48, 40, 19, 86, 27, 90]
+        },
+        {
+          label               : 'Desalojados',
+          backgroundColor     : 'rgba(210, 214, 222, 1)',
+          borderColor         : 'rgba(210, 214, 222, 1)',
+          pointRadius         : false,
+          pointColor          : 'rgba(210, 214, 222, 1)',
+          pointStrokeColor    : '#c1c7d1',
+          pointHighlightFill  : '#fff',
+          pointHighlightStroke: 'rgba(220,220,220,1)',
+          data                : [65, 59, 80, 81, 56, 55, 40]
+        },
+      ]
+    }
+
+    var areaChartOptions = {
+      maintainAspectRatio : false,
+      responsive : true,
+      legend: {
+        display: false
+      },
+      scales: {
+        xAxes: [{
+          gridLines : {
+            display : false,
+          }
+        }],
+        yAxes: [{
+          gridLines : {
+            display : false,
+          }
+        }]
+      }
+    }
+
+    //-------------
+    //- BAR CHART -
+    //-------------
+    var barChartCanvas = $('#barChart').get(0).getContext('2d')
+    var barChartData = $.extend(true, {}, areaChartData)
+    var temp0 = areaChartData.datasets[0]
+    var temp1 = areaChartData.datasets[1]
+    barChartData.datasets[0] = temp1
+    barChartData.datasets[1] = temp0
+
+    var barChartOptions = {
+      responsive              : true,
+      maintainAspectRatio     : false,
+      datasetFill             : false
+    }
+
+    new Chart(barChartCanvas, {
+      type: 'bar',
+      data: barChartData,
+      options: barChartOptions
+    })
+
+    
+  })
+
+</script>

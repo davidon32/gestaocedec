@@ -159,10 +159,12 @@ class h_pedido_itensController extends Controller {
 
        if($this->h_pedido_itens->delete($_GET['id'])){
            FuncaoBase::alert("Registro Apagado com Sucesso !");
-           $this->redirect("ajuda", "h_pedido_pedid", "add_itens", array('id'=> $_GET['id_pedido']));
        }
-
-            $this->redirect("ajuda", "h_pedido_itens", "index");
+           if($_GET['voltar'] == 'idx_recente'){
+            $this->redirect("ajuda", "h_pedido_pedid", "add_itens", array('id_pedido'=>$_GET['id_pedido'], 'voltar'=>'idx_recente'));
+       }elseif($_GET['voltar']== 'edit_ped') {
+            $this->redirect("ajuda", "h_pedido_pedid", "edit", array('id'=>$_GET['id_pedido'], 'voltar'=> 'idx_recente'));
+       }   
         
     }
     

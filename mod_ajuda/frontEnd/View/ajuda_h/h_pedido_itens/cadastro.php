@@ -81,7 +81,6 @@ if (isset($_GET['id'])) {
 </form>
 <?php 
     $materiais = H_pedido_pedidajuda_hModel::item_pedido($id_pedido);
-    //var_dump($materiais);
 ?>
 
 <!- tabela de materiais do pedido -->

@@ -42,6 +42,12 @@ $_loginEx = new LoginExterno();
                         '<td align="center">
 	  							<a class="" href="?token=' . hash("sha256", md5(VERSAO)."-".time()) . '&ac=etn&modulo=ajuda&controller=h_pedido_index&action=index" title="Ajuda Humanitária"><img width="128" alt="core/imagem/ajuda.png" src="core/imagem/pedido_cesta.png"><br><b>Ajuda Humanitária</b></a>
 								</td>' : '';
+        
+         # Registro desastre
+        print ($acessoModulo['mod_registro'] == '1') ?
+                        '<td align="center">
+	  							<a class="" href="?token=' . hash("sha256", md5(VERSAO)."-".time()) . '&ac=etn&modulo=registro&controller=index&action=index" title="Registro de Danos Humanos"><img width="128" alt="core/imagem/ajuda.png" src="core/imagem/registro.png"><br><b>Registro Danos Humanos</b></a>
+								</td>' : '';
         # plano de contingencia	
         if($acessoModulo['mod_plano'] == '1'){
             print '<td align="center">

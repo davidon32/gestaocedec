@@ -108,7 +108,7 @@ if(isset($_GET['id'])){
                 print "<td>".$material['qtd_familia_atendida']."</td>";
                 print "<td>";
                     //print "<img id='editar' src='/core/imagem/editar.png'>";
-                    print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_itens', 'delete', array('id'=> $material['id'], 'id_pedido' => $material['id_pedido']))."'><img src='/core/imagem/delete.png'></a>";
+                    print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_itens', 'delete', array('id'=> $material['id'], 'id_pedido' => $material['id_pedido'], 'voltar'=> 'edit_ped'))."'><img src='/core/imagem/delete.png'></a>";
                 print "</td>";
                 print "</tr>";
                 

@@ -132,11 +132,11 @@ class H_pedido_pedidajuda_hModel extends Model {
                 while ($linha = $result->fetch(PDO::FETCH_OBJ)) {
                     $dados = $linha;
                 }
-
-                return $dados;
+                
+               return $dados;
             } catch (Exception $e) {
                 return $e->getMessage();
-                var_dump($sql);
+                
             }
         } else {
             $dados = new \stdClass();

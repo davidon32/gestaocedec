@@ -967,7 +967,8 @@ function acessoModulo($id_login){
 	$sql = "SELECT mod_pipa,
 					mod_compdec,
 					mod_ajuda,
-					mod_plano
+					mod_plano,
+                                        mod_registro
 						FROM cedec_user_ex
 							WHERE id = :id_user";
 

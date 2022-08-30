@@ -257,7 +257,7 @@ if (count($materiaisLiberado) > 0) {
         print "<td>" . $material1['qtd_familia_atendida'] . "</td>";
         print "<td>";
         print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit_itens', array('id' => $view[0]['id'], 'id_item' => $material1['id'])) . "'><img src='/core/imagem/editar.png'></a>";
-        print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_itens', 'delete', array('id' => $material1['id'], 'action1' => 'edit', 'id_pedido' => $view[0]['id'])) . "'><img src='/core/imagem/delete.png'></a>";
+        print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_itens', 'delete', array('id' => $material1['id'], 'id_pedido' => $view[0]['id'], 'voltar' => 'edit_ped')) . "'><img src='/core/imagem/delete.png'></a>";
 
         print "</td>";
         print "</tr>";

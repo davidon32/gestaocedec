@@ -116,7 +116,7 @@ foreach ($materiaisItens as $key => $material) {
     print "<td class='col-md-2'>" . $material['qtd_familia_atendida'] . "</td>";
     print "<td class='col-md-1'>";
     print "<img id='editar' src='/core/imagem/editar.png'>";
-    print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_itens', 'delete', array('id' => $material['id'], 'id_pedido' => $id_pedido, 'voltar'=>'idx_recente')) . "'><img src='/core/imagem/delete.png'></a>";
+    print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_itens', 'delete', array('id' => $material['id'], 'id_pedido' => $id_pedido, 'voltar'=>'edit_ped')) . "'><img src='/core/imagem/delete.png'></a>";
     print "</td>";
     print "</tr>";
 }
