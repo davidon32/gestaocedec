@@ -102,12 +102,10 @@ class h_pedido_itensController extends Controller {
     public function gravar() {
 
         $h_pedido_itens = new H_pedido_itensajuda_hModel;
-        
-        var_dump($h_pedido_itens->gravar($_POST));
-        die();
+
         if ($h_pedido_itens->gravar($_POST)) {
-            FuncaoBase::alert("Material Adicionado com Sucesso !");
-            //$this->redirect("ajuda", "h_pedido_pedid", "add_itens", array('id'=> $_POST['id_pedido']));
+            FuncaoBase::alert("Material Adicionado com Sucesso -");
+            $this->redirect("ajuda", "h_pedido_pedid", "add_itens", array('id'=> $_POST['id_pedido']));
         }
     }
             
@@ -141,16 +139,12 @@ class h_pedido_itensController extends Controller {
 
             if (!empty($result)) {
                 FuncaoBase::alert("Registro Atualizado com Sucesso !");
-
-                $param = array('id'=> $_POST['id_pedido'], 'id_item'=> $_POST['id']);
-
-                $this->redirect("ajuda", "h_pedido_pedid", "edit_itens", $param);
-                
+                $this->redirect("ajuda", "h_pedido_pedid", "edit_itens", array('id'=> $_POST['id_pedido'], 'id_item'=> $_POST['id']) );                
             }
         } else {
 
             $view = $h_pedido_itensModel->view($_GET['id']);
-            include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_itens/edit.php';
+            include_once 'mod_ajuda/backend/View/ajuda_h/h_pedido_itens/edit.php';
         }
     }
     
@@ -161,7 +155,7 @@ class h_pedido_itensController extends Controller {
            FuncaoBase::alert("Registro Apagado com Sucesso !");
        }
            if($_GET['voltar'] == 'idx_recente'){
-            $this->redirect("ajuda", "h_pedido_pedid", "add_itens", array('id_pedido'=>$_GET['id_pedido'], 'voltar'=>'idx_recente'));
+            $this->redirect("ajuda", "h_pedido_pedid", "add_itens", array('id'=>$_GET['id_pedido'], 'voltar'=>'idx_recente'));
        }elseif($_GET['voltar']== 'edit_ped') {
             $this->redirect("ajuda", "h_pedido_pedid", "edit", array('id'=>$_GET['id_pedido'], 'voltar'=> 'idx_recente'));
        }   

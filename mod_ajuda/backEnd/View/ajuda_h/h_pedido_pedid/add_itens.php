@@ -33,7 +33,7 @@ if(isset($_GET['id'])){
             <option>Selecione o Material</option>
             <?php
             foreach ($materiais as $material) {
-                print "<option id='".$material['id_unidade']."'>".$material['nome'].$material['descricao']."</option>";
+                print "<option value='".$material['id_unidade']."'>".$material['nome'].$material['descricao']."</option>";
             }
             
             ?>
@@ -42,7 +42,7 @@ if(isset($_GET['id'])){
             <!-- id itens_pedido -->
             <input type="hidden" name="id" id="id">
             
-            <input type="hidden" name="tipo" id="tipo" value='P'>
+            <input type="hidden" name="tipo" id="tipo" value='L'>
             <input type="hidden" name="add_pedido" id="add_pedido" value='1'>
             
         </select>
@@ -68,11 +68,10 @@ if(isset($_GET['id'])){
     <div class="col-md-6">
         <br>
         <input class="btn btn-primary" type="submit" name="btn_add" id="btn_add" value="Adicionar">    
-        <input class="btn btn-primary" type="submit" name="btn_update" id="btn_update" value="Atualizar">    
     </div>
     <div class="col-md-6 text-right">
         <br>
-        <a class="btn btn-success" href='<?= FuncaoBase::geraLink("ajuda", "h_pedido_index", "index");?>'>Voltar</a>  
+        <a class="btn btn-success" href='<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit", array('id'=>$id_pedido, 'voltar'=>'idx_recente'));?>'>Voltar</a>  
     </div>
     
 </div>
@@ -96,7 +95,7 @@ if(isset($_GET['id'])){
         </tr>
         <?php
         
-            $materiais = H_pedido_pedidajuda_hModel::item_pedido($id_pedido, "P");
+            $materiais = H_pedido_pedidajuda_hModel::item_pedido($id_pedido, "L");
                        
             foreach ($materiais as $key => $material) {
                 
@@ -108,7 +107,7 @@ if(isset($_GET['id'])){
                 print "<td>".$material['qtd_familia_atendida']."</td>";
                 print "<td>";
                     //print "<img id='editar' src='/core/imagem/editar.png'>";
-                    print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_itens', 'delete', array('id'=> $material['id'], 'id_pedido' => $material['id_pedido'], 'voltar'=> 'edit_ped'))."'><img src='/core/imagem/delete.png'></a>";
+                    print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_itens', 'delete', array('id'=> $material['id'], 'id_pedido' => $material['id_pedido'], 'voltar'=> 'idx_recente'))."'><img src='/core/imagem/delete.png'></a>";
                 print "</td>";
                 print "</tr>";
                 
@@ -129,31 +128,12 @@ if(isset($_GET['id'])){
 <!-- =============== HEADER HTML PAGE ================= -->
 <?php include_once "template/page/rodapePage.php"; ?>
 <script>
-    
-    $(document).ready(function() {
-        
-        $('#btn_update').hide();
 
-       $("#descricao_item").change(function(){  
-          var selected = $(this).children(":selected").attr("id");
-          $("#codigo").val(selected);          
+    $(document).ready(function(){
+       
+       $("#descricao_item").change(function(){
+          $('#codigo').val($("#descricao_item :selected").val());
        });
         
-        $("#editar").click(function(){
-            
-            var id = $("#id").val();
-          
-            $("#id").val($(this).closest('tr').find('td')[0].innerText).change();
-            $("#descricao_item").val($(this).closest('tr').find('td')[2].innerText).change();
-            $('#qtd').val($(this).closest('tr').find('td')[3].innerText);
-            $('#qtd_familia_atendida').val($(this).closest('tr').find('td')[4].innerText);
-            
-            $("#btn_add").hide();
-            $("#btn_update").show();
-            $('#frmAdd').attr('action', 'index.php?modulo=ajuda&controller=h_pedido_itens&action=edit&id='+ id +'"');
-            
-        });
-    
     });
-
 </script>

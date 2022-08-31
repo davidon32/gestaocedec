@@ -138,7 +138,7 @@ private $qtd_familia_atendida = null;
     #################  GRAVAR  ##################
     # @ grava {$model} em banco
 
-    public static function gravar(array $dados) {
+    public static function gravar(array $dados, $duplo=false) {
 
         $sql = "INSERT INTO aju_h_pedido_itens (codigo,
 descricao_item,
@@ -155,6 +155,7 @@ tp_item
 )";
 
         try {
+            
 
             $result = self::$con->prepare($sql);
 
@@ -165,8 +166,11 @@ tp_item
             $result->bindValue(":id_pedido", $dados['id_pedido']);
             $result->bindValue(":tp_item", $dados['tipo']);
             $result->execute();
-            $result->bindValue(":tp_item", "L");
-            $result->execute();
+            
+            if($duplo) {
+                $result->bindValue(":tp_item", "L");
+                $result->execute();
+            }
 
             #Log::GravaLog("Cadastro de marca : " . $dados['nome'] . " " . $_COOKIE['seguranca']['login'], "aju_log");
 

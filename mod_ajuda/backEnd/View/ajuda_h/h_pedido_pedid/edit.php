@@ -201,11 +201,12 @@ $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
                 <table class="table table-bordered table-condensed">
 
                     <tr><!-- comment -->
-                        <th>Código</th>
-                        <th>Cód. MAt</th>
-                        <th>Material</th>
-                        <th>Qtd</th>
-                        <th>Qtd Familias Atend.</th>
+                        <th style="width:10%">Código</th>
+                        <th style="width:10%">Cód. MAt</th>
+                        <th style="width:30%">Material</th>
+                        <th style="width:10%">Qtd</th>
+                        <th style="width:30%">Qtd Familias Atend.</th>
+                        <th style="width:10%">Opção</th>
                     </tr>
 
 <?php
@@ -220,6 +221,7 @@ if (count($materiaisPedido) > 0) {
         print "<td>" . $material['descricao_item'] . "</td>";
         print "<td>" . $material['qtd'] . "</td>";
         print "<td>" . $material['qtd_familia_atendida'] . "</td>";
+        print "<td>-</td>";
         print "</tr>";
     }
 }
@@ -235,12 +237,12 @@ if (count($materiaisPedido) > 0) {
                 <table class="table table-bordered table-condensed">
 
                     <tr><!-- comment -->
-                        <th>Código</th>
-                        <th>Cód. Mat</th>
-                        <th>Material</th>
-                        <th>Qtd</th>
-                        <th>Qtd Familias Atend.</th>
-                        <th>Opção</th>
+                        <th style="width:10%">Código</th>
+                        <th style="width:10%">Cód. Mat</th>
+                        <th style="width:30%">Material</th>
+                        <th style="width:10%">Qtd</th>
+                        <th style="width:30%">Qtd Familias Atend.</th>
+                        <th style="width:10%">Opção</th>
                     </tr>
 
 <?php
