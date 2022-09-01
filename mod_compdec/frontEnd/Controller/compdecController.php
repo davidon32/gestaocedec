@@ -6,6 +6,11 @@
 
         public function index() {
             
+            include_once "mod_compdec/frontEnd/View/compdec/index.php";
+        }
+        
+        public function compdec() {
+            
             include_once "mod_compdec/frontEnd/View/compdec/alterarCompdec.php";
         }
 
@@ -23,6 +28,17 @@
         # visualiza plano de Contigência
         public function plano(){
             include_once "mod_compdec/frontEnd/View/plano/plancont.php";
+        }
+        
+        
+        ################# vistoria ##################
+        public function vistoria(){
+            include_once "mod_compdec/frontEnd/View/vistoria/index.php";
+        }
+        
+        ################# download ##################
+        public function download(){
+            return FuncaoBase::download($_GET['arquivo']);
         }
 
    
