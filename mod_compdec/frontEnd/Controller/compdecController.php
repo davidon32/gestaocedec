@@ -31,10 +31,7 @@
         }
         
         
-        ################# vistoria ##################
-        public function vistoria(){
-            include_once "mod_compdec/frontEnd/View/vistoria/index.php";
-        }
+        
         
         ################# download ##################
         public function download(){
