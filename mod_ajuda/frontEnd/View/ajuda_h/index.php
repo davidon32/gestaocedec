@@ -93,6 +93,9 @@ $pedido_h_item = new H_pedido_itensajuda_hModel();
 <?php
 
 foreach ($dados as $key => $value) {
+    
+    $percent = number_format( ((H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($value['id']) * 100 ) != 0 ) ? (H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($value['id']) * 100) / H_pedido_prestajuda_hModel::totalMaterialPrestConta($value['id']) : 0, '2','.', ' ');
+
     $cor = $pedido_h->getCorStatus($value['status']);
     print "<tr style='background-color:" . $cor['fdo'] . "'>
             <td title='".$value['id']."'>" . $value['numero'] . "-" . substr($value['data_entrada_sistema'], 0, 4) . "</td>
@@ -120,17 +123,21 @@ foreach ($dados as $key => $value) {
 
     
     # Visualizar 
-    print " <a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "view", array('id' => $value['id'], 'voltar'=> 'idx_recente')) . "' title='Visualiação e Impressa do Pedido'><img src='/core/imagem/view.png'></a> | ";
+    print " <a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "view", array('id' => $value['id'], 'voltar'=> 'idx_recente')) . "' title='Visualização e Impressão do Pedido'><img src='/core/imagem/view.png'></a> | ";
     
 
     # prestação de  contas somente status atendido
     if ($value['status'] == 6) {
-        print " <a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_prest", "index", array('id' => $value['id'], 'voltar'=> 'idx_recente')) . "' title='Presatação de contas'><img width='25' src='/core/imagem/relatorio.png'></a> |";
+        # percentual perstacao de contas
+        if(true) {
+            print " <a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_prest", "index", array('id' => $value['id'], 'voltar'=> 'idx_recente')) . "' title='Presatação de contas'><img width='25' src='/core/imagem/relatorio.png'></a> ";
+            print "&nbsp;<span title='Percentual de Prestação de Contas' style='color:#ffffff; font-size:14pt;'>{$percent}%</span>&nbsp;|";
+        }
         
     }
 
-    # deletar somente pedido status 0=edicao e 6=cancelado pode ser deletado
-    if (( $value['status'] == 0 ) || ($value['status'] == 6 )) {
+    # deletar somente pedido status 0=edicao e 7=cancelado pode ser deletado
+    if (( $value['status'] == 0 ) || ($value['status'] == 7 )) {
         print " <a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "delete", array('id' => $value['id'], 'voltar'=>'idx_recente')) . "' onclick=\"return confirm('Deseja Deletar esse Registro ?')\"><img src='/core/imagem/delete.png' title='Deletar Registro'></a>";
     }
 

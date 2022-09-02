@@ -17,12 +17,14 @@ $numero = vistoriaController::geraNumero($id_municipio, date('Y'));
 ?>
 
 <div class="col-md-12 text-center">
-    <a class="btn btn-success" href="<?= FuncaoBase::geraLink('index', 'index', 'menue') ?>">Voltar</a>
+    <a class="btn btn-success" href="<?= FuncaoBase::geraLink('compdec', 'compdec', 'index') ?>">Voltar</a>   
 </div>
+
+
 
 <legend>Novo Termo de Vistoria</legend>
 
-<legend>RELATÓRIO DE VISTORIA DE ATENDIMENTO EMERGENCIAL Nº <?=$numero;?>/<?=date('Y')?></legend>
+<legend>RELATÓRIO DE VISTORIA DE ATENDIMENTO EMERGENCIAL Nº <b><?=$numero;?>/<?=date('Y')?></b></legend>
 
 <legend> 1) - DADOS GERAIS </legend>
 
@@ -33,7 +35,7 @@ $numero = vistoriaController::geraNumero($id_municipio, date('Y'));
         <label>Proprietário/Morador:</label>
         <input class='form form-control' type="text" name="prop" id="prop" maxlength="110" placeholder="Nome do Proprietário do Imóvel">
         <input type="hidden" name="municipio_id" id="municipio_id" value='<?=$id_municipio;?>'>
-        <input type="hidden" name="numero" id="numero" value='<?=$numero;?>'>
+        <input type="hidden" name="numero" id="numero" value='<?=$numero."-".date('Y');?>'>
     </div>     
     <div class="col-md-6">
         <label>Endereço do Imóvel:</label>

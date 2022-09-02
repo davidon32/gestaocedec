@@ -11,7 +11,7 @@
 <?php include_once "template/page/corpoHeader.php"; ?>
 
 <a class="btn btn-success" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_index", "index") ?>">Voltar</a>
-<a class="btn btn-info" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "pesquisa") ?>" title="Busca Registro">Pesquisa</a>
+<!--<a class="btn btn-info" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "pesquisa") ?>" title="Busca Registro">Pesquisa</a>-->
 <a class="btn btn-info" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "exportar") ?>" title="Exportar dados Excel">Exportar Excel</a>
    <br>
 <br>
@@ -82,8 +82,8 @@ print "<tr>
                 print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'pcont')."' id='prestConta' title='Presatação de contas'><img width='25' src='/core/imagem/relatorio.png'></a>";
             }
             
-            # deletar somente pedido status 0=edicao e 6=cancelado pode ser deletado
-            if( ( $h_pedido_pedid['status'] == 0 ) || ($h_pedido_pedid['status'] == 6 ) ){
+            # deletar somente pedido status 0=edicao e 7=cancelado pode ser deletado
+            if( ( $h_pedido_pedid['status'] == 0 ) || ($h_pedido_pedid['status'] == 7 ) ){
                 print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "delete", array('id' => $h_pedido_pedid['id'])) . "' onclick=\"return confirm('Deseja Deletar esse Registro ?')\"><img src='/core/imagem/delete.png' title='Deletar Registro'></a>";
             }
 

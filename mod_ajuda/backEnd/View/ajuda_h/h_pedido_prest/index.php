@@ -14,6 +14,7 @@
     <a class="btn btn-success" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_index", "index") ?>">Voltar</a>
 </div>
 <div class="col-md-6 text-right">
+    <a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_prest", "homologar", array('id'=>$_GET['id']) ) ?>">Homologar</a>
     <a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_prest", "visualizar", array('id'=>$_GET['id'])) ?>">Visualizar</a>
     
 </div>
@@ -59,9 +60,9 @@ foreach ($materiais as $material) {
 ";
 
     print "<td>";
-    print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_prest", "view", array('id' => $material['id'])) . "'><img src='/core/imagem/view.png' title='Visualizar Prestação de Contas'></a>|";
+    print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_prest", "view", array('id' => $material['id'])) . "'><img src='/core/imagem/view.png' title='Visualizar Prestação de Contas'></a>";
     #print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_prest", "homologar", array('id' => $material['id'], 'id_pedido' => $material['id_pedido'])) . "'><img src='/core/imagem/contas.png' title='Fazer Prestação de Contas'></a>|";
-    print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_prest", "homologa", array('id'=>$_GET['id'],'id_material' => $material['id']))."' ><img src='/core/imagem/check.png' width='30' title='Homologar Material de Pedido'></a>";
+    #print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_prest", "homologa", array('id'=>$_GET['id'],'id_material' => $material['id']))."' ><img src='/core/imagem/check.png' width='30' title='Homologar Material de Pedido'></a>";
 
     print
             "</td>";

@@ -18,7 +18,7 @@
 
             $con = Conexao::getInstance();
 
-            $sql = "INSERT INTO gestaocedec.com_vistoria (prop,
+            $sql = "INSERT INTO com_vistoria (prop,
                                                             dt_vistoria,
                                                             endereco,
                                                             municipio_id, 
@@ -83,7 +83,7 @@
 
             $result->bindValue(':prop',                    $dados['prop']);
             $result->bindValue(':endereco',                $dados['endereco']);
-            $result->bindValue(':tel',                     $dados['tel']);
+            $result->bindValue(':tel',                     $dados['cel']);
             $result->bindValue(':dt_vistoria',             $dados['dt_vistoria']);
             $result->bindValue(':tp_ocorrencia',           $dados['tp_ocorrencia']);
             $result->bindValue(':tp_imovel',               $dados['tp_imovel']);
@@ -112,28 +112,43 @@
             $result->bindValue(':municipio_id',            $dados['municipio_id']);
             $result->bindValue(':numero',                  $dados['numero']);
 
-            $result->execute();
 
-            return true;
+            if($result->execute()){
+                
+                print "<script>alert('Registro gravado com Sucesso');";
+                print "window.location.href = '".FuncaoBase::geraLink('compdec', 'vistoria', 'novo')."';</script>";
+            }
 
+            
             }catch(Exception $e){
-                return $e->getMessage();
+                print $e->getMessage();
             }
         }
 
 
-        public static function listagem_geral()
+        public static function listagem_geral($filtro = false)
         {
 
             $con = Conexao::getInstance();
+            
+            if( !empty($filtro) ) {
+                $sql = "SELECT *FROM com_vistoria WHERE
+                        prop LIKE '%{$filtro}%' OR
+                        endereco LIKE '%{$filtro}%' OR
+                        numero LIKE '%{$filtro}%'";
+            }else {
+                $sql = "select *from com_vistoria";
+            }
 
-            $sql = "select *from com_vistoria";
-
+            
+            
+            
             $result = $con->query($sql);
 
             return $result->fetchAll(PDO::FETCH_ASSOC);
            
         }
+
 
         /**
          * busca laudo
@@ -153,10 +168,24 @@
                     and YEAR(dt_vistoria) = {$ano} group by municipio_id";
 
             $result = $con->query($sql);
-
+            
             $numero = $result->fetch(PDO::FETCH_OBJ);
+            
+            
+            return (!$numero) ? 1 : ++$numero->numero;
+            
+        }
+        public static function visualizar()
+        {
+            $id_vistoria = isset($_GET['id']) ? $_GET['id'] : "";
+            $con = Conexao::getInstance();
 
-            return !$numero ? 1 : ++$numero;
+            $sql = "select *from com_vistoria where id = ".$id_vistoria;
+
+            $result = $con->query($sql);
+
+            $dados = $result->fetch(PDO::FETCH_OBJ);
+            include_once "mod_compdec/frontEnd/View/vistoria/visualizar.php";
             
         }
         

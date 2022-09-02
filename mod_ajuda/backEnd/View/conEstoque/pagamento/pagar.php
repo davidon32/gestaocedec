@@ -176,7 +176,7 @@ if((int)$id_libera){
 			<div class="col-md-6">	
 				<label>Placa:</label>
 				<span class="info">*</span>
-                                <input class="form-control" name="placa" id="placa" type="text" size="40" value='<?=$dado['placa_resp_receb']?>' required maxlength="10">
+                                <input class="form-control" name="placa" id="placa" type="text" size="40" value='<?=$dado['resp_receb_placa']?>' required maxlength="10">
 			</div>
 		</div>
 				

@@ -13,8 +13,6 @@
 
 <?php
 
-    var_dump($_GET);
-
 ?>
 <legend><?=$view[1]['tabela']->TABLE_COMMENT?></legend>
 <table class="table table-bordered table-striped">

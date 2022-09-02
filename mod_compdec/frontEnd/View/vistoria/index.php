@@ -21,15 +21,20 @@ $vistorias = vistoriaController::listagem_geral();
 
 <div class="col-md-12 text-center">
     <a class="btn btn-success" href="<?= FuncaoBase::geraLink('index', 'index', 'menue')?>">Voltar</a>
+    <br><br>
+</div>
+<div class="col-md-6">     
+     <a class="btn btn-primary" href="<?= FuncaoBase::geraLink('compdec', 'vistoria', 'novo')?>">Novo Termo</a>
 </div>
 <div class="col-md-6">
-    <a class="" href="<?= FuncaoBase::geraLink('compdec', 'compdec', 'download', array('arquivo'=>'anexo/modelo/RELATORIO_VISTORIA_ATENDIMENTO_EMERGENCIAL.docx'))?>">baixar Modelo de Termo de Vistoria </a><br><br>
-     <a class="btn btn-primary" href="<?= FuncaoBase::geraLink('compdec', 'vistoria', 'novo')?>">Novo Termo</a>
-     <form>
-         <label>Buscar</label>
+    <a class="" href="<?= FuncaoBase::geraLink('compdec', 'compdec', 'download', array('arquivo'=>'anexo/modelo/RELATORIO_VISTORIA_ATENDIMENTO_EMERGENCIAL.docx'))?>">Modelo de Termo de Vistoria </a><br><br>
+</div>
+<div class='col-md-6'>
+     <br><br>   
+     <form action="#" method="POST" name="frmBusca" id="frmBusca">
+         <label>Buscar (busca por Endereco ou proprietário)</label>
          <input class='form form-control' type="text" name="txtBusca" id="txtBusca">
-         <br>
-         <input class='btn btn-primary' type="submit" name="btnBusca" id="btnBusca">
+         <br><input class='btn btn-primary' type="submit" name="btnBusca" id="btnBusca" value="Buscar">
          
      </form>
 
@@ -58,18 +63,54 @@ $vistorias = vistoriaController::listagem_geral();
         print "</tr>";
        
     }
-
-
-        
-        
+      
     ?>
 
-
-        <?php
-        
-        ?>
     </table>
 
+</div>
+<div class="col-md-12">
+    <?php
+        $buscaTexto = isset($_POST['txtBusca']) ? $_POST['txtBusca'] : "";
+        $btnBusca = isset($_POST['btnBusca']) ? $_POST['btnBusca'] : "";
+        
+        if( ($btnBusca == 'Buscar') && (!empty($buscaTexto)) ){
+            
+            $busca_vistorias = vistoriaController::listagem_geral($buscaTexto);
+            
+            
+                print "<table class='table table-bordered table-condensed table-striped' >";
+                print "<tr>";
+                print "<th class='col-md-2'>Número</th>";
+                print "<th class='col-md-1'>Data Vistoria</th>";
+                print "<th class='col-md-4'>Proprietario</th>";
+                print "<th class='col-md-4'>Endereço</th>";
+                print "<th class='col-md-1'>Opções</th>";
+                print "</tr>";
+
+            if(count($busca_vistorias) > 0) {
+                foreach ($busca_vistorias as $key => $busca_vistoria) {
+                    print "<tr>";
+                    print "<td>".$busca_vistoria['numero']."</td>";
+                    print "<td>".$busca_vistoria['dt_vistoria']."</td>";
+                    print "<td>".$busca_vistoria['prop']."</td>";
+                    print "<td>".$busca_vistoria['endereco']."</td>";
+                    print "<td><a href='".FuncaoBase::geraLink('compdec', 'vistoria', 'visualizar', array('id'=>$busca_vistoria['id']))."'><img src='/core/imagem/view.png'></a></td>";
+                    print "</tr>";
+
+                }
+            }else {
+                
+                print "<tr>";
+                print "<td colspan='5' align='center'>Não foi encontrado nenhum registro !</td>";
+                print "</tr>";
+                
+            }
+            print "</table>";
+            
+        }
+    
+    ?>
 </div>
 
 
