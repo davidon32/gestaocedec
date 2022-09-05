@@ -137,6 +137,13 @@ private $qtd_familia_atendida = null;
 
     #################  GRAVAR  ##################
     # @ grava {$model} em banco
+    /**
+     * 
+     * @param array $dados
+     * @param type $duplo gera os itens do pedido original e os itens q será efetivamente liberados.
+     * @return boolean
+     * 
+     */
 
     public static function gravar(array $dados, $duplo=false) {
 
@@ -167,6 +174,9 @@ tp_item
             $result->bindValue(":tp_item", $dados['tipo']);
             $result->execute();
             
+            /* tipo P - pedido lavado pelo municipio
+               tipo L - a ser liberado / alterado pelo pelo analista
+             *              */
             if($duplo) {
                 $result->bindValue(":tp_item", "L");
                 $result->execute();

@@ -503,7 +503,8 @@ aju_h_pedido_prest.total_familia_at
                     total_familia_at,
                     qtd
                 FROM aju_h_pedido_prest
-                where id_pedido = ".$id_pedido;
+                where id_pedido = '".$id_pedido."'
+                    and tipo = ;
         
          try {
 

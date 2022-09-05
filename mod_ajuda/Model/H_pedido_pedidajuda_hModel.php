@@ -261,7 +261,7 @@ ano) VALUES (:numero,
             $result->bindValue(":data_vigencia", DataMysql::dataForm($dados['data_vigencia']));
             $result->bindValue(":tipo_decreto", $dados['tipo_decreto']);
             $result->bindValue(":esforcos_realizados", $dados['esforcos_realizados']);
-            $result->bindValue(":tramit", "analise_drd");
+            $result->bindValue(":tramit", "edicao_compdec");
             $result->bindValue(":ano", date('Y'));
 
             if ($result->execute()) {
@@ -465,6 +465,25 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
 
         return $result;
     }
+    
+    
+    #################  DELETAR itens pedido  ##################
+    # @ deletar itens pedido
+
+    public static function deleteItemPedido($id) {
+
+        $con = Conexao::getInstance();
+        
+        
+        $sql = "DELETE FROM aju_h_pedido_itens WHERE id_pedido = " . $id;
+
+        try {
+            $con->query($sql);
+            return true;
+        } catch (Exception $e) {
+            return $e->getMessage() . "Erro Deletar itens!";
+        }
+    }
 
     #################  DELETAR  ##################
     # @ deletar o h_pedido_pedid
@@ -472,18 +491,19 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
     public static function delete($id) {
 
         $con = Conexao::getInstance();
-
+        
+        self::deleteItemPedido($id);
+        
         $sql = "DELETE FROM aju_h_pedido_pedid WHERE id = " . $id;
 
         try {
-
             $con->query($sql);
-
             return true;
         } catch (Exception $e) {
             return $e->getMessage() . "Erro Deletar H_pedido_pedid !";
         }
     }
+    
 
     #####################  Itens pedido  ######################
 

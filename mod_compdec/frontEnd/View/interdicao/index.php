@@ -12,26 +12,26 @@
 <?php
 $id_municipio = isset($pageSession['session']['seguranca']['id_municipio']) ? $pageSession['session']['seguranca']['id_municipio'] : "";
 
-$busca_vistorias = vistoriaController::listagem_geral();
+$interdicoes = interdicaoController::listagem_geral();
 
 ?>
 
 
-<legend>Termo de Vistoria</legend>
+<legend>Termo de Interdição</legend>
 
 <div class="col-md-12 text-center">
     <a class="btn btn-success" href="<?= FuncaoBase::geraLink('index', 'index', 'menue')?>">Voltar</a>
     <br><br>
 </div>
 <div class="col-md-6">     
-     <a class="btn btn-primary" href="<?= FuncaoBase::geraLink('compdec', 'vistoria', 'novo')?>">Novo Termo</a>
+     <a class="btn btn-primary" href="<?= FuncaoBase::geraLink('compdec', 'interdicao', 'novo')?>">Novo Termo Interdição</a>
 </div>
 <div class="col-md-6">
-    <a class="" href="<?= FuncaoBase::geraLink('compdec', 'compdec', 'download', array('arquivo'=>'anexo/modelo/RELATORIO_VISTORIA_ATENDIMENTO_EMERGENCIAL.docx'))?>">Modelo de Termo de Vistoria </a><br><br>
+    <a class="" href="<?= FuncaoBase::geraLink('compdec', 'compdec', 'download', array('arquivo'=>'anexo/modelo/MODELO_DE_NOTIFICACAO_DE_INTERDICAO.docx'))?>">MODELO DE NOTIFICAÇÃO DE INTERDIÇÃO</a><span>&nbsp;&nbsp;&nbsp;( Clique aqui para baixar ! )</span><br><br>
 </div>
 <div class='col-md-6'>
      <br><br>   
-     <form action="<?= FuncaoBase::geraLink('compdec', 'vistoria', 'index')?>" method="POST" name="frmBusca" id="frmBusca">
+     <form action="#" method="POST" name="frmBusca" id="frmBusca">
          <label>Buscar (busca por Endereco ou proprietário)</label>
          <input class='form form-control' type="text" name="txtBusca" id="txtBusca">
          <br><input class='btn btn-primary' type="submit" name="btnBusca" id="btnBusca" value="Buscar">
@@ -40,7 +40,35 @@ $busca_vistorias = vistoriaController::listagem_geral();
 
 </div>
 <div class="col-md-6">
-   
+    
+
+    <legend>Listagem Termo de Interdição</legend>
+
+    <table class="table table-bordered table-condensed table-striped" >
+        <tr>
+            <th class="col-md-1">Número</th>
+            <th class="col-md-1">Data Interdição</th>
+            <th class="col-md-1">Proprietario</th>
+            <th class="col-md-5">Endereço</th>
+            <th class="col-md-5">-</th>
+        </tr>
+    <?php
+
+    foreach ($interdicoes as $key => $interdicao) {
+
+        print "<tr>";
+        print "<td>".$interdicao['numero']."</td>";
+        print "<td>".$interdicao['dt_vistoria']."</td>";
+        print "<td>".$interdicao['prop']."</td>";
+        print "<td>".$interdicao['endereco']."</td>";
+        print "<td>-</td>";
+        print "</tr>";
+       
+    }
+      
+    ?>
+
+    </table>
 
 </div>
 <div class="col-md-12">
@@ -48,14 +76,9 @@ $busca_vistorias = vistoriaController::listagem_geral();
         $buscaTexto = isset($_POST['txtBusca']) ? $_POST['txtBusca'] : "";
         $btnBusca = isset($_POST['btnBusca']) ? $_POST['btnBusca'] : "";
         
-        if( $btnBusca == 'Buscar' ){
+        if( ($btnBusca == 'Buscar') && (!empty($buscaTexto)) ){
             
-            if(!empty($buscaTexto)) {
-                $busca_vistorias = vistoriaController::listagem_geral($buscaTexto);
-            }else {
-                $busca_vistorias = vistoriaController::listagem_geral();
-            }
-        }
+            $busca_vistorias = vistoriaController::listagem_geral($buscaTexto);
             
             
                 print "<table class='table table-bordered table-condensed table-striped' >";
@@ -87,7 +110,7 @@ $busca_vistorias = vistoriaController::listagem_geral();
             }
             print "</table>";
             
-        
+        }
     
     ?>
 </div>

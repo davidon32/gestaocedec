@@ -108,6 +108,17 @@
 		
 	$anexoFoto->gravar($post, $files, PATH.'/anexo/compdec', 'fileAnexo');
 
+}/* Alterar Imagem Brasao */
+elseif($opcao == 'alterarImagemBrasao'){
+	
+	$files = isset($_FILES) ? $_FILES : "";
+	$post  = isset($_POST)  ? $_POST  : "";
+
+
+	if(file_exists(PATH.'/anexo/brasao/'.$post['txtIdMunicipio']."_brasao.png")) {
+            unlink(PATH.'/anexo/brasao/'.$post['txtIdMunicipio']."_brasao.png");
+        }	
+	Anexo::uploadRen(PATH.'/anexo/brasao', $files, 'fileAnexo', $_POST['txtIdMunicipio']."_brasao.png");
 
 /* ALTERACAO DE COMPDEC */
 }elseif (is_int($_id) && ($opcao == "")) {

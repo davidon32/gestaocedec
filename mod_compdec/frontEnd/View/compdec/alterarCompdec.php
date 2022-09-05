@@ -33,10 +33,20 @@ $_dados = $_compdec->buscaCompdec($id_municipio);
 $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 ?>
 
-<div class="col-md-12 text-center">
+<div class="col-md-3">
+    <div class="card card-block">
+        &nbsp;&nbsp;<img class="img-rounded" src="/anexo/brasao/<?=$_dados[0]['id_municipio']."_brasao.png"; ?>" width="115px;">
+        &nbsp;&nbsp;
+        <a class="btn btn-link" onClick="uploadModal('brasao')" title="Anexar Brasao" id="btnAlterarBrasao" name="btnAlterarBrasao">Alterar</a>
+        <br><br>
+    </div>
+</div>
+<div class="col-md-9 text-center">
     <a class="btn btn-success" href="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')) ?>&ac=etn&modulo=index&controller=index&action=menue">Voltar</a>
     </br></br>
 </div>
+
+
 
 <h4>
     <p style="text-align: center"><?php print $_municipio->PegaNomeMunicipio($_dados[0]['id_municipio']); ?></p>
@@ -85,10 +95,10 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 
         <div class="row">
             <div class="col-md-3">
-<?php
+                <?php
 # possui compdec
-Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, array(array($_dados[0]['com_const'], ($_dados[0]['com_const'] == '1' ? 'Sim' : 'Não'))), "");
-?>
+                Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, array(array($_dados[0]['com_const'], ($_dados[0]['com_const'] == '1' ? 'Sim' : 'Não'))), "");
+                ?>
             </div>
             <div class="col-md-6">
                 <!--possui efetivo -->
@@ -499,9 +509,9 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
                     <div class="modal-body">
                         <input class="form-control btn" type="file" name="fileAnexo" accept=".jpg,.png" id="fileAnexo" /> <br> <br>
                         <p style='color:red; font-size:15pt' id='sp_size_comp'>&nbsp;</p>
-                            <p>Tipos de Imagem válidas  <b style="color:red">"JPG", "PNG"</b></p>
-                            <p>Tamanho máximo da imágem :  <b style="color:red">400kb</b></p>
-                        
+                        <p>Tipos de Imagem válidas  <b style="color:red">"JPG", "PNG"</b></p>
+                        <p>Tamanho máximo da imágem :  <b style="color:red">400kb</b></p>
+
 
                     </div>
                     <div class="modal-footer">
@@ -534,6 +544,29 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
                     </div>
                 </div>
             </div>
+            
+            <!-- Modal Adicionar brasao -->
+            <div class="modal fade" id="modalWindowBrasao">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Upload Brasão</h4>
+                        </div>
+                        <div class="modal-body">
+                            <input class="form-control btn" type="file" accept=".jpg,.png" name="fileAnexoBrasao" id="fileAnexoBrasao" /> <br> <br>
+                            <p style='color:red; font-size:15pt' id='sp_size_pref'>&nbsp;</p>
+                            <p>Tipos de Imagem válidas  <b style="color:red">"PNG"</b></p>
+                            <p>Tamanho máximo da imágem :  <b style="color:red">400kb</b></p>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                            <button class="btn btn-info" type="button" name="btnGravarBrasao" id="btnGravarBrasao" value="salvar">Salvar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
 
@@ -547,45 +580,46 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
         </p>
 
         <div class="col-md-12">
-                <h4><p style="text-align:center;">LEIS E DECRETOS</p></h4>
-                <br>
-                <!--<span class="alert alert-danger">OBS: Quando as três opções abaixo estiverem marcadas não será possível anexar os documentos</span></br> </br> </br> -->
-                
-                <table class="table table-bordered table-striped table-condensed tbl">
-                    <tr>
-                        <td>
-                            <input type="checkbox" name="ckSemDoc" id="sem_decreto" value="1" <?= ($_dados[0]['sem_decreto']) == "1" ? "checked='ckecked'" : ""; ?>> Não possui Decreto de Regulamentação da Lei de Criação do COMPDEC <br><br>
-                            <input type="checkbox" name="ckSemDoc" id="sem_portaria" value="1" <?= ($_dados[0]['sem_portaria']) == "1" ? "checked='ckecked'" : ""; ?>> Não possui Portaria de Nomeação do Coordenado Municipal de Defesa Civil<br><br>
-                            <input type="checkbox" name="ckSemDoc" id="sem_lei" value="1" <?= ($_dados[0]['sem_lei']) == "1" ? "checked='ckecked'" : ""; ?>> Não possui Lei de Criação do COMPDEC
-                        </td>
-                    </tr>
-                </table>
-            </div>
+            <h4><p style="text-align:center;">LEIS E DECRETOS</p></h4>
+            <br>
+            <!--<span class="alert alert-danger">OBS: Quando as três opções abaixo estiverem marcadas não será possível anexar os documentos</span></br> </br> </br> -->
+
+            <table class="table table-bordered table-striped table-condensed tbl">
+                <tr>
+                    <td>
+                        <input type="checkbox" name="ckSemDoc" id="sem_decreto" value="1" <?= ($_dados[0]['sem_decreto']) == "1" ? "checked='ckecked'" : ""; ?>> Não possui Decreto de Regulamentação da Lei de Criação do COMPDEC <br><br>
+                        <input type="checkbox" name="ckSemDoc" id="sem_portaria" value="1" <?= ($_dados[0]['sem_portaria']) == "1" ? "checked='ckecked'" : ""; ?>> Não possui Portaria de Nomeação do Coordenado Municipal de Defesa Civil<br><br>
+                        <input type="checkbox" name="ckSemDoc" id="sem_lei" value="1" <?= ($_dados[0]['sem_lei']) == "1" ? "checked='ckecked'" : ""; ?>> Não possui Lei de Criação do COMPDEC
+                    </td>
+                </tr>
+            </table>
+        </div>
         <div class="col-md-12" id="tblAnexoLeis">
             <span class="alert alert-danger">Favor NÃO anexar documento fora do conteúdo solicitado. !</span></br></br>
-            
 
-            <?php include PATH . '/mod_compdec/frontEnd/View/compdec/anexo.php'; 
-            /*print "<table class='table table-bordered'>";
-                    # linha informando q nao tem lei de criacao
-                    if ($_dados[0]['sem_lei'] == 1) {
-                        print "<tr>
-                                    <td style='background-color:#00FF80;text-align:center' title='' colspan='7'>Não possui Lei de Criação da COMPDEC</td>";
-                    }
 
-                    # linha informando q nao tem decreto 
-                    if ($_dados[0]['sem_decreto'] == 1) {
-                        print "<tr>
-                                    <td style='background-color:#00FF80;text-align:center' title='' colspan='7'>Não possui Decreto de Regulamentação da Lei de Criação do Compdec</td>";
-                    }
+            <?php
+            include PATH . '/mod_compdec/frontEnd/View/compdec/anexo.php';
+            /* print "<table class='table table-bordered'>";
+              # linha informando q nao tem lei de criacao
+              if ($_dados[0]['sem_lei'] == 1) {
+              print "<tr>
+              <td style='background-color:#00FF80;text-align:center' title='' colspan='7'>Não possui Lei de Criação da COMPDEC</td>";
+              }
 
-                    # linha informando q nao tem Portaria de nomeação compdec 
-                    if ($_dados[0]['sem_portaria'] == 1) {
-                        print "<tr>
-                                    <td style='background-color:#00FF80;text-align:center' title='' colspan='7'>Não possui Portaria de Nomeação do Coordenador Municipal de Defesa Civil </td>";
-                    }
-                print '</table>';*/
-                ?>
+              # linha informando q nao tem decreto
+              if ($_dados[0]['sem_decreto'] == 1) {
+              print "<tr>
+              <td style='background-color:#00FF80;text-align:center' title='' colspan='7'>Não possui Decreto de Regulamentação da Lei de Criação do Compdec</td>";
+              }
+
+              # linha informando q nao tem Portaria de nomeação compdec
+              if ($_dados[0]['sem_portaria'] == 1) {
+              print "<tr>
+              <td style='background-color:#00FF80;text-align:center' title='' colspan='7'>Não possui Portaria de Nomeação do Coordenador Municipal de Defesa Civil </td>";
+              }
+              print '</table>'; */
+            ?>
         </div>
         <!-- Modal Adicionar Anexo Leis  -->
         <div class="modal fade" id="modal-default">
@@ -639,93 +673,93 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
 <?php include_once "template/page/rodapePage.php"; ?>
 <script type="text/javascript">
     $(document).ready(function () {
-        
+
         $("#sp_email").hide();
         $("#sp_email2").hide();
         $("#sp_email3").hide();
-        
-        $("#txt_email").blur(function(){
+
+        $("#txt_email").blur(function () {
             var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-            if($("#txt_email").val().length >0){
+            if ($("#txt_email").val().length > 0) {
                 var email = $("#txt_email").val();
-                if(!email.match(validRegex)){ 
+                if (!email.match(validRegex)) {
                     $("#sp_email").css('color', 'red');
                     $("#sp_email").show();
                     $("#txt_email").focus();
                     return true;
-                }else {
+                } else {
                     $("#sp_email").hide();
                 }
-            }else {
+            } else {
                 $("#sp_email").hide();
             }
         });
-        
-        $("#txt_email2").blur(function(){
+
+        $("#txt_email2").blur(function () {
             var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-            if($("#txt_email2").val().length >0){
+            if ($("#txt_email2").val().length > 0) {
                 var email = $("#txt_email2").val();
-                
-                if(!email.match(validRegex)){ 
+
+                if (!email.match(validRegex)) {
                     $("#sp_email2").css('color', 'red');
                     $("#sp_email2").show();
                     $("#txt_email2").focus();
                     return true;
-                }else {
+                } else {
                     $("#sp_email2").hide();
                 }
-            }else{
+            } else {
                 $("#sp_email2").hide();
             }
         });
-        
-        $("#txt_email3").blur(function(){
+
+        $("#txt_email3").blur(function () {
             var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-            if($("#txt_email3").val().length >0){
+            if ($("#txt_email3").val().length > 0) {
                 var email = $("#txt_email3").val();
-                if(!email.match(validRegex)){ 
+                if (!email.match(validRegex)) {
                     $("#sp_email3").css('color', 'red');
                     $("#sp_email3").show();
                     $("#txt_email3").focus();
                     return true;
-                }else {
+                } else {
                     $("#sp_email3").hide();
                 }
-            }else {
+            } else {
                 $("#sp_email3").hide();
             }
         });
-        
+
         /*Swal.fire({
-        icon: 'error',
-            title: 'Mudanças para Atualização de Anexos de Leis',
-            text: 'Apartir do dia 18/08/2021, foi mudado a forma de hospedagem de documentos, será necessária a aprovação dos Anexos de Lei de Criação, Decreto de Regulamentação da Lei e Portaria de Nomeação do Coordenador por um Analista da CEDEC. \n O processo será feito Gradualmente'
-            });*/
+         icon: 'error',
+         title: 'Mudanças para Atualização de Anexos de Leis',
+         text: 'Apartir do dia 18/08/2021, foi mudado a forma de hospedagem de documentos, será necessária a aprovação dos Anexos de Lei de Criação, Decreto de Regulamentação da Lei e Portaria de Nomeação do Coordenador por um Analista da CEDEC. \n O processo será feito Gradualmente'
+         });*/
 
         $("#btn_anexo").click(function () {
             $("#btnDados2").trigger('click', [false]);
 
         });
-        
-        $("#fileAnexoPref").change(function(){
+
+        $("#fileAnexoPref").change(function () {
             var size = $("#fileAnexoPref")[0].files[0].size;
-            if(size > 419430){
+            if (size > 419430) {
                 alert('Seu arquivo é maior que 400Kb')
-                $("#sp_size_pref").text('Seu arquivo é maior que o recomendado !\n Gentileza verificá-lo !' );
-                $("#btnGravarFotoPref").hide();   
-            }else {
-                $("#btnGravarFotoPref").show();   
+                $("#sp_size_pref").text('Seu arquivo é maior que o recomendado !\n Gentileza verificá-lo !');
+                $("#btnGravarFotoPref").hide();
+            } else {
+                $("#btnGravarFotoPref").show();
             }
         });
-        
-        $("#fileAnexo").change(function(){
+
+        $("#fileAnexo").change(function () {
             var size = $("#fileAnexo")[0].files[0].size;
-            if(size > 419430){
+            if (size > 419430) {
                 alert('Seu arquivo é maior que 400Kb')
-                $("#sp_size_comp").text('Seu arquivo é maior que o recomendado !\n Gentileza verificá-lo !' );
-                $("#btnGravarFoto").hide();   
-            }else {
-                $("#btnGravarFoto").show();   
+                $("#sp_size_comp").text('Seu arquivo é maior que o recomendado !\n Gentileza verificá-lo !');
+                $("#btnGravarFoto").hide();
+            } else {
+                $("#btnGravarFoto").show();
             }
         });
 
@@ -746,7 +780,7 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
         $("#fileAnexoLeis").change(function () {
             tamanho = this.files;
             console.log(tamanho);
-            $('#sp_size_lei').text('Tamanho : '+ Math.round(tamanho[0].size /1024)+' Mb');
+            $('#sp_size_lei').text('Tamanho : ' + Math.round(tamanho[0].size / 1024) + ' Mb');
             if (tamanho[0]['size'] > 1999353) {
                 $("#btnGravarLeis").attr("disabled", true);
                 $("#btnGravarLeis").attr("title", "Seu arquivo é maior que 2mb tente reescanear com a opção compactar !");
@@ -1091,7 +1125,7 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
         /* grava checkebox sem DEcreto */
         $("input[name=ckSemDoc]").click(function () {
 
-            var valor = ($(this).is(":checked")) ? 1:0; 
+            var valor = ($(this).is(":checked")) ? 1 : 0;
             var campo = $(this).attr('id');
 
             var dados = {
@@ -1100,14 +1134,14 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
                 "valor": valor,
                 "id_municipio": $("#txtIdMunicipio").val(),
             };
-            
+
             /*if(valor == 1){ 
-                Swal.fire({
-                icon: 'error',
-                    title: 'Declaro que não possuo Lei de Criação da COMPDEC',
-                    text: 'Ao marcar esta opção você, usuario, \n não conseguirá enviar o documento marcando-o como Lei de Criação do COMPDEC'
-                    });
-                }*/
+             Swal.fire({
+             icon: 'error',
+             title: 'Declaro que não possuo Lei de Criação da COMPDEC',
+             text: 'Ao marcar esta opção você, usuario, \n não conseguirá enviar o documento marcando-o como Lei de Criação do COMPDEC'
+             });
+             }*/
 
             $.ajax({
                 type: 'POST',
@@ -1126,7 +1160,7 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
 
         });
 
-         /*********** Alterar dados Membro Equipe ***********/
+        /*********** Alterar dados Membro Equipe ***********/
         $("#btnAlterarMembro").click(function () {
             var dados = {
                 "opcao": "alterar",
@@ -1174,9 +1208,73 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
                     $("#modalWindowFotoCompdec").modal('show');
                 } else if (param == "prefeito") {
                     $("#modalWindowFotoPrefeito").modal('show');
-                }
+                } else if (param == "brasao") {
+                    $("#modalWindowBrasao").modal('show');
+                } 
             }
         })(jQuery);
+        
+        /* gravar imagem brasao */
+        $("#btnGravarBrasao").click(function () {
+
+            $.ajax({
+                url: '/mod_index/app/login/ckLogin.php?v=<?= md5(VERSAO) ?>',
+                type: 'POST',
+                success: function (response) {
+
+                    // inicio
+                    if (response == "sucesso") {
+                        // codigo
+                        if ($('#fileAnexoBrasao').val() == "") {
+
+                            alert("Favor escolher uma foto ! ");
+
+                        } else {
+
+                            var formData = new FormData();
+                            var fileData = $('#fileAnexoBrasao').prop('files')[0];
+                            formData.append('btnGravarBrasao', $('#btnGravarBrasao').val());
+                            formData.append('fileAnexo', fileData);
+                            formData.append('opcao', 'alterarImagemBrasao');
+                            formData.append('txtIdMunicipio', <?= (isset($_COOKIE['seguranca']['id_municipio'])) ? $_COOKIE['seguranca']['id_municipio'] : $_GET['mun']; ?>);
+
+                            var extensao = getExtensao($("#fileAnexoBrasao").val());
+
+                            if (extensao.toLowerCase() == 'png') {
+
+                                $.ajax({
+                                    url: 'mod_compdec/frontEnd/View/compdec/valida.php?v=<?= md5(VERSAO) ?>',
+                                    type: 'POST',
+                                    enctype: 'multipart/form-data',
+                                    data: formData,
+                                    processData: false, // tell jQuery not to process the data
+                                    contentType: false, // tell jQuery not to set contentType 
+                                    success: function (response) {
+                                        alert('-Foto Anexada com Sucesso !');
+                                        console.log(response);
+                                        //location.reload();
+                                    },
+                                    error: function (e) {
+                                        //alert(data);
+                                        console.log(JSON.stringify(e));
+                                    }
+                                });
+
+                            } else {
+                                alert('Formatos de arquivos permitidos PNG !');
+                            }
+                        }
+                    } else {
+                        alert('Sessão expirada !')
+                        window.location.href = 'index2.php';
+                    }
+                },
+                error: function (response) {
+                    console.log(JSON.stringify(response));
+                }
+            });
+
+        });
 
         /* gravar imagem compdec */
         $("#btnGravarFoto").click(function () {
@@ -1489,5 +1587,5 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
         var regex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
         return regex.test(email);
     }
-    
+
 </script>

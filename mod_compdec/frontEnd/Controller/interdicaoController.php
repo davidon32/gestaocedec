@@ -1,20 +1,23 @@
 <?php
 
-    class vistoriaController extends Controller {
+    class interdicaoController extends Controller {
 
         ################# vistoria ##################
         public function index(){
-            include_once "mod_compdec/frontEnd/View/vistoria/index.php";
+            include_once "mod_compdec/frontEnd/View/interdicao/index.php";
         }
 
         ################# vistoria ##################
         public function novo(){
-            include_once "mod_compdec/frontEnd/View/vistoria/vistoria.php";
+            include_once "mod_compdec/frontEnd/View/interdicao/interdicao.php";
         }
 
         public function gravar(){
 
             $dados = $_POST;
+            
+            var_dump($dados);
+            die();
 
             $con = Conexao::getInstance();
 
@@ -132,11 +135,10 @@
             $con = Conexao::getInstance();
             
             if( !empty($filtro) ) {
-                $sql = "SELECT *FROM com_vistoria WHERE
+                $sql = "SELECT *FROM com_interdicao WHERE
                         prop LIKE '%{$filtro}%' OR
                         endereco LIKE '%{$filtro}%' OR
-                        numero LIKE '%{$filtro}%'"
-                        . " order by id desc";
+                        numero LIKE '%{$filtro}%'";
             }else {
                 $sql = "select *from com_vistoria";
             }
@@ -149,8 +151,6 @@
             return $result->fetchAll(PDO::FETCH_ASSOC);
            
         }
-        
-       
 
 
         /**
@@ -167,8 +167,8 @@
         {
             $con = Conexao::getInstance();
 
-            $sql = "select count(id) as numero from com_vistoria where municipio_id = {$id_municipio} 
-                    and YEAR(dt_vistoria) = {$ano} group by municipio_id";
+            $sql = "select count(id) as numero from com_interdicao where municipio_id = {$id_municipio} 
+                    and YEAR(dt_registro) = {$ano} group by municipio_id";
 
             $result = $con->query($sql);
             
@@ -190,6 +190,24 @@
             $dados = $result->fetch(PDO::FETCH_OBJ);
             include_once "mod_compdec/frontEnd/View/vistoria/visualizar.php";
             
+        }
+        
+        
+         public static function listagem_geral_Autocomplete($id_municipio)
+        {
+            
+            $con = Conexao::getInstance();
+
+                $sql = "SELECT id, numero, prop, endereco, dt_vistoria, tel, dt_vistoria, resp_vistoriador
+                            FROM com_vistoria WHERE
+                            municipio_id =".$id_municipio;
+            
+
+            
+            $result = $con->query($sql);
+
+            return $result->fetchAll(PDO::FETCH_ASSOC);
+           
         }
         
     }
