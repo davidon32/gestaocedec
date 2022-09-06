@@ -272,7 +272,7 @@
 <!-- MATERIAL LIBERADO -->
 <table class="table table-bordered">
         <tr>
-            <th colspan="6" width="705" class="text-center">
+            <th colspan="7" width="705" class="text-center">
                 <p>RETIRADA/DISTRIBUI&Ccedil;&Atilde;O (MATERIAL LIBERADO)</p>
             </th>
         </tr>
@@ -280,14 +280,17 @@
             <th width="83">
                 <p>C&oacute;d.</p>
             </th>
-            <th colspan="2" width="251">
+            <th colspan="2" width="175">
                 <p>Descri&ccedil;&atilde;o do Item</p>
-            </th>
-            <th width="113">
-                <p>Data</p>
             </th>
             <th width="76">
                 <p>Quant.</p>
+            </th>
+            <th width="76">
+                <p>Familias Atend.</p>
+            </th>
+            <th width="113">
+                <p>Data</p>
             </th>
             <th width="183">
                 <p>Respons&aacute;vel pela Entrega (CEDEC)</p>
@@ -302,14 +305,17 @@
                     <td width='83'>
                         <p>".$material['codigo']."</p>
                     </td>
-                    <td colspan='2' width='251'>
+                    <td colspan='2' width='175'>
                         <p>".$material['descricao_item']."</p>
-                    </td>
-                    <td width='113'>
-                        
                     </td>
                     <td width='76'>
                         <p>".$material['qtd']."</p>
+                    </td>
+                    <td width='76'>
+                        <p>".$material['qtd_familia_atendida']."</p>
+                    </td>
+                    <td width='113'>
+                        
                     </td>
                     <td width='76'>
                        

@@ -1211,7 +1211,7 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
         $h_pedido_pedid = new H_pedido_pedidajuda_hModel();
 
         # Busca materiais Pedido
-        $dados = $h_pedido_pedid->item_pedido($id_pedido);
+        $dados = $h_pedido_pedid->item_pedido($id_pedido, "L");
 
         try {
             # lanca materiais perestaçao de contas
