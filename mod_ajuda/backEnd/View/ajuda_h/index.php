@@ -9,13 +9,29 @@
 <?php //include_once "template/page/menuExterno.php";?>
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php"; ?>
+<link rel="stylesheet" href="template/bower_components/datatables.net-bs/css/dataTables.bootstrap.css">
 <?php
 $id_municipio = isset($pageSession['session']['seguranca']['id_municipio']) ? $pageSession['session']['seguranca']['id_municipio'] : "";
 
 
 $pedido_h = new H_pedido_pedidajuda_hModel();
 
-$id_usuario = $_COOKIE['seguranca']['idUser']
+$id_usuario = $_COOKIE['seguranca']['idUser'];
+
+//$listaPedido = $pedido_h->lista();
+
+
+$listaPedido1 = $pedido_h->listaPedidosTodos();
+
+$data = array();
+
+foreach ($listaPedido1 as $key => $pedido) {
+    $data[] = $pedido;
+}
+
+
+//$data = array('data'=> $data);
+$response = json_encode($data);
 ?>	
 <div class="col-md-12 text-center">
     <a class="btn btn-success" href="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')) ?>&modulo=ajuda&controller=index&action=index">Voltar</a>
@@ -66,191 +82,272 @@ $id_usuario = $_COOKIE['seguranca']['idUser']
 
             </div>
         </div>
+        <hr>
     </div>
     <div class="row">
-        <form action="<?= FuncaoBase::geraLink('ajuda', 'h_pedido_index', 'index')?>" method="POST" name="frmSearch" id="frmSearch">
-            <label>Pesquisa</label>
-            <input class='form form-control' type="text" name="txtSearch" id="txtSearch" ><br>
-            <input class='btn btn-primary' type="submit" name="btnSearch" id="btnSearch" value="Pesquisar">
-            <br>
-        </form>
-    </div>
-
-    <?php
-    $btn = isset($_POST['btnSearch']) ? $_POST['btnSearch'] : "";
-    $municip = isset($_POST['txtSearch']) ? $_POST['txtSearch'] : "";
-
-    $tituloForm = "Resultado de Pesquisa";
-
-    /* Pesquisa */
-    if (($btn == 'Pesquisar') && (!empty($municip))) {
-        $listaPedido = H_ajuda::BuscaPedidoMunicipio($municip);
-
-        ?>
+        <hr>
         <br>
-        <legend><?= $tituloForm; ?></legend>
-        Total Registros : <span id='total_registro'></span>
-
-        <table class="table table-condensed">
-
-
-            <tbody>
+        <div class="col-md-12 table-responsive">
+        <table id="pedidos" class="table-bordered table-condensed table-responsive dataTable" >
+            <thead>
                 <tr>
-                    <th>Nr</th>
-                    <th>Municipio</th>
+                    <th>Número</th>
+                    <th>Município</th>
                     <th>Data Criação</th>
                     <th>Tipo</th>
                     <th>Status</th>
                     <th>Fase do Processo</th>
-                    <th>Data Envio Analise</th>
-                    <th title='data em que o processo foi alterado para Atendido'>Dt Aprov/Cancelamento</th>
-                    <th>Ações</th>
-
+                    <th>Data Envio Análise</th>
                 </tr>
-    <?php
-    $dadosConfig = Config::getConfig();
+            </thead>
+            <tbody>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Número</th>
+                    <th>Município</th>
+                    <th>Data Criação</th>
+                    <th>Tipo</th>
+                    <th>Status</th>
+                    <th>Fase do Processo</th>
+                    <th>Data Envio Análise</th>
+                </tr>
+            </tfoot>
 
-    $permissao[] = array('analista_drd' => 0, 'analista_dlog' => 0, 'analista_coord' => 0);
+        </table>
+        </div>
+    </div>
 
-    if ($dadosConfig['aju_h_alta_perf'] == 1) {
+    <!--<?php
+    /*
+      $dadosConfig = Config::getConfig();
 
-        $permissao[0]['analista_drd'] = '1';
-        $permissao[0]['analista_dlog'] = '1';
-        $permissao[0]['analista_coord'] = '1';
-    } else {
-        $permissao = $pedido_h->buscaAnalista($id_usuario);
-    }
+      $permissao[] = array('analista_drd' => 0, 'analista_dlog' => 0, 'analista_coord' => 0);
 
-    $total_reg = 0;
+      if ($dadosConfig['aju_h_alta_perf'] == 1) {
 
-    foreach ($listaPedido as $key => $pedid) {
-        # get permissao
+      $permissao[0]['analista_drd'] = '1';
+      $permissao[0]['analista_dlog'] = '1';
+      $permissao[0]['analista_coord'] = '1';
+      } else {
+      $permissao = $pedido_h->buscaAnalista($id_usuario);
+      }
 
-        $cor = $pedido_h->getCorStatus($pedid['status']);
-        $percent = number_format( ((H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedid['id']) * 100 ) != 0 ) ? (H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedid['id']) * 100) / H_pedido_prestajuda_hModel::totalMaterialPrestConta($pedid['id']) : 0, '2','.', ' ');
+      $total_reg = 0;
 
-        if ($pedid['status'] == 6) {
-            $prazo = $pedido_h->prazo_presta_conta($pedid['data_aprovacao']);
-            if (strtotime(date('Y-m-d')) > strtotime($prazo) && $pedid['status'] == 6) {
-                $cor = array('fonte' => '#FFFFFF',
-                    'fdo' => '#FF0000',
-                    'title' => 'Prestação de Contas Vencido');
-            }
-        } else {
-            $prazo = "";
-            $cor['title'] = "";
-        }
+      if(false){
+      foreach ($listaPedido as $key => $pedid) {
+      # get permissao
 
-        if (($pedid['tramit'] == 'analise_drd' && $permissao[0]['analista_drd'] == '1') ||
-                ($pedid['tramit'] == 'analise_dlog' && $permissao[0]['analista_dlog'] == '1') ||
-                ($pedid['tramit'] == 'analise_coord' && $permissao[0]['analista_coord'] == '1') ||
-                ($pedid['tramit'] == 'atendido') ||
-                ($pedid['tramit'] == 'aguard_disp') ||
-                ($pedid['tramit'] == 'aguard_ret') ||
-                ($pedid['tramit'] == 'atendido') ||
-                ($pedid['tramit'] == 'cancelado')
-        ) {
+      $cor = $pedido_h->getCorStatus($pedid['status']);
+      $percent = number_format(((H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedid['id']) * 100 ) != 0 ) ? (H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedid['id']) * 100) / H_pedido_prestajuda_hModel::totalMaterialPrestConta($pedid['id']) : 0, '2', '.', ' ');
 
-            $total_reg++;
+      if ($pedid['status'] == 6) {
+      $prazo = $pedido_h->prazo_presta_conta($pedid['data_aprovacao']);
+      if (strtotime(date('Y-m-d')) > strtotime($prazo) && $pedid['status'] == 6) {
+      $cor = array('fonte' => '#FFFFFF',
+      'fdo' => '#FF0000',
+      'title' => 'Prestação de Contas Vencido');
+      }
+      } else {
+      $prazo = "";
+      $cor['title'] = "";
+      }
 
-            print "<tr style='color:" . $cor['fonte'] . "; background-color:" . $cor['fdo'] . "'>
-                    <td title='id " . $pedid['id'] . "'>" . $pedid['numero'] . "-" . substr($pedid['data_entrada_sistema'], 0, 4) . "</td>
-                    <td title='" . $cor['title'] . "'>" . Municipio::PegaNomeMunicipio($pedid['id_municipio']) . "</td>
-                    <td title='" . $cor['title'] . "'>" . DataMysql::dataCompletaVisual($pedid['data_entrada_sistema']) . "</td>
-                    <td title='" . $cor['title'] . "'>" . Decreto::getNomeCobrade($pedid['id_cobrade']) . "</td>
-                    <td title='" . $cor['title'] . "'>" . $pedido_h->enumStatus($pedid['status']) . "</td>
-                    <td title='" . $cor['title'] . "'>" . $pedido_h->enumFase($pedid['tramit']) . ( ($pedid['status'] == 6) ? " <br>Prazo : " . ($prazo) : "") . "</td>
-                    <td title='" . $cor['title'] . "'>" . DataMysql::dataCompletaVisual($pedid['data_hora_envio']) . "</td>
-                    <td title='" . $cor['title'] . "'>" . DataMysql::dataCompletaVisual($pedid['data_aprovacao']) . "</td>
-                    <td>";
+      if (($pedid['tramit'] == 'analise_drd' && $permissao[0]['analista_drd'] == '1') ||
+      ($pedid['tramit'] == 'analise_dlog' && $permissao[0]['analista_dlog'] == '1') ||
+      ($pedid['tramit'] == 'analise_coord' && $permissao[0]['analista_coord'] == '1') ||
+      ($pedid['tramit'] == 'atendido') ||
+      ($pedid['tramit'] == 'aguard_disp') ||
+      ($pedid['tramit'] == 'aguard_ret') ||
+      ($pedid['tramit'] == 'atendido') ||
+      ($pedid['tramit'] == 'cancelado')
+      ) {
 
-            # EDITAR
-            if ($pedid['status'] < 4) {
-                print "<a href='" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit', array('id' => $pedid['id'], 'voltar' => 'idx_recente')) . "' title='Editar Pedido'><img src='/core/imagem/editar.png'></a> |";
+      $total_reg++;
 
-                # devolver para ediçao
-                print "<button id='btnEdicao' name='btnEdicao' type='button' data-enviar_edicao=" . $pedid['id'] . " class='btn btn-primart'>Enviar para Edição</button>";
-            }
+      print "<tr style='color:" . $cor['fonte'] . "; background-color:" . $cor['fdo'] . "'>
+      <td title='id " . $pedid['id'] . "'>" . $pedid['numero'] . "-" . substr($pedid['data_entrada_sistema'], 0, 4) . "</td>
+      <td title='" . $cor['title'] . "'>" . Municipio::PegaNomeMunicipio($pedid['id_municipio']) . "</td>
+      <td title='" . $cor['title'] . "'>" . DataMysql::dataCompletaVisual($pedid['data_entrada_sistema']) . "</td>
+      <td title='" . $cor['title'] . "'>" . Decreto::getNomeCobrade($pedid['id_cobrade']) . "</td>
+      <td title='" . $cor['title'] . "'>" . $pedido_h->enumStatus($pedid['status']) . "</td>
+      <td title='" . $cor['title'] . "'>" . $pedido_h->enumFase($pedid['tramit']) . ( ($pedid['status'] == 6) ? " <br>Prazo : " . ($prazo) : "") . "</td>
+      <td title='" . $cor['title'] . "'>" . DataMysql::dataCompletaVisual($pedid['data_hora_envio']) . "</td>
+      <td title='" . $cor['title'] . "'>" . DataMysql::dataCompletaVisual($pedid['data_aprovacao']) . "</td>
+      <td>";
 
-            # visualizar 
-            print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "view", array('id' => $pedid['id'], 'voltar' => 'idx_recente')) . "' title='Visualiação e Impressão do Pedido'><img width='25px' src='/core/imagem/view1.png'></a> |";
+      # EDITAR
+      if ($pedid['status'] < 4) {
+      print "<a href='" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit', array('id' => $pedid['id'], 'voltar' => 'idx_recente')) . "' title='Editar Pedido'><img src='/core/imagem/editar.png'></a> |";
 
-            # prestação de contas
-            if ($pedid['status'] == 6) {
+      # devolver para ediçao
+      print "<button id='btnEdicao' name='btnEdicao' type='button' data-enviar_edicao=" . $pedid['id'] . " class='btn btn-primart'>Enviar para Edição</button>";
+      }
 
-                print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_prest', 'index', array('id' => $pedid['id'])) . "' title='Presatação de contas'><img width='25' src='/core/imagem/relatorio.png'></a>|";
-                print "&nbsp;&nbsp;<a href='' style='color:" . $cor['fonte'] . "; font-size:14pt;' title='Percentual de Conclusão da Prestação de Contas do Pedido'>" . $percent . "%</a> |";
-            }
+      # visualizar
+      print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "view", array('id' => $pedid['id'], 'voltar' => 'idx_recente')) . "' title='Visualiação e Impressão do Pedido'><img width='25px' src='/core/imagem/view1.png'></a> |";
 
-            # analise DRD
-            /* if ($permissao[0]['analista_drd'] == 1 
-              && $pedid['status'] <= 3) {
+      # prestação de contas
+      if ($pedid['status'] == 6) {
 
-              print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar' => 'idx_recente', 'an' => 'analise_drd')) . "' title='Analise DRD'><img width='25' src='/core/imagem/cedec.png'></a>";
-              } */
+      print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_prest', 'index', array('id' => $pedid['id'])) . "' title='Presatação de contas'><img width='25' src='/core/imagem/relatorio.png'></a>|";
+      print "&nbsp;&nbsp;<a href='' style='color:" . $cor['fonte'] . "; font-size:14pt;' title='Percentual de Conclusão da Prestação de Contas do Pedido'>" . $percent . "%</a> |";
+      }
 
-            # analise_dlog
-            if ($permissao[0]['analista_dlog'] == 1 && $pedid['status'] < 3) {
+      # analise DRD
+      #if ($permissao[0]['analista_drd'] == 1
+      #  && $pedid['status'] <= 3) {
 
-                print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar' => 'idx_recente', 'an' => 'analise_dlog')) . "' title='Despacho DLOG'><img width='25' src='/core/imagem/dlog.png'></a>";
-            }
+      #  print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar' => 'idx_recente', 'an' => 'analise_drd')) . "' title='Analise DRD'><img width='25' src='/core/imagem/cedec.png'></a>";
+      #  }
 
-            # analise_coord
-            if (($permissao[0]['analista_coord'] == 1) && ($pedid['status'] == 3 )) {
-                print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar' => 'idx_recente', 'an' => 'analise_coord')) . "' title='Despacho Coordenador Adjunto'><img width='25' src='/core/imagem/boss.png'></a>";
-            }
+      # analise_dlog
+      if ($permissao[0]['analista_dlog'] == 1 && $pedid['status'] < 3) {
 
-            # Apos despacho do Chefe Dlog 
-            if (($pedid['status'] >= 4 ) && ($pedid['status'] <= 5 )) {
-                print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar' => 'idx_recente', 'an' => 'analise_coord')) . "' title='Despacho Dlog'><img width='25' src='/core/imagem/dlog.png'></a>";
-            }
+      print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar' => 'idx_recente', 'an' => 'analise_dlog')) . "' title='Despacho DLOG'><img width='25' src='/core/imagem/dlog.png'></a>";
+      }
+
+      # analise_coord
+      if (($permissao[0]['analista_coord'] == 1) && ($pedid['status'] == 3 )) {
+      print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar' => 'idx_recente', 'an' => 'analise_coord')) . "' title='Despacho Coordenador Adjunto'><img width='25' src='/core/imagem/boss.png'></a>";
+      }
+
+      # Apos despacho do Chefe Dlog
+      if (($pedid['status'] >= 4 ) && ($pedid['status'] <= 5 )) {
+      print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar' => 'idx_recente', 'an' => 'analise_coord')) . "' title='Despacho Dlog'><img width='25' src='/core/imagem/dlog.png'></a>";
+      }
 
 
 
-            print "</td>";
-            print "</tr>";
-        } else if ($pedid['tramit'] == 'edicao_compdec') {
-            $total_reg++;
-            print "<tr style='color:" . $cor['fonte'] . "; background-color:" . $cor['fdo'] . "'>
-                    <td title='id " . $pedid['id'] . "'>" . $pedid['numero'] . "-" . substr($pedid['data_entrada_sistema'], 0, 4) . "</td>
-                    <td title='" . $cor['title'] . "'>" . Municipio::PegaNomeMunicipio($pedid['id_municipio']) . "</td>
-                    <td title='" . $cor['title'] . "'>" . DataMysql::dataCompletaVisual($pedid['data_entrada_sistema']) . "</td>
-                    <td title='" . $cor['title'] . "'>" . Decreto::getNomeCobrade($pedid['id_cobrade']) . "</td>
-                    <td title='" . $cor['title'] . "'>" . $pedido_h->enumStatus($pedid['status']) . "</td>
-                    <td title='" . $cor['title'] . "'>" . $pedido_h->enumFase($pedid['tramit']) . ( ($pedid['status'] == 6) ? " <br>Prazo : " . ($prazo) : "") . "</td>
-                    <td title='" . $cor['title'] . "'>" . DataMysql::dataCompletaVisual($pedid['data_hora_envio']) . "</td>
-                    <td title='" . $cor['title'] . "'>" . DataMysql::dataCompletaVisual($pedid['data_aprovacao']) . "</td>
-                    <td>";
-            print "</td>";
-            print "</tr>";
-        }
-    }
-}
-?>
+      print "</td>";
+      print "</tr>";
+      } else if ($pedid['tramit'] == 'edicao_compdec') {
+      $total_reg++;
+      print "<tr style='color:" . $cor['fonte'] . "; background-color:" . $cor['fdo'] . "'>
+      <td title='id " . $pedid['id'] . "'>" . $pedid['numero'] . "-" . substr($pedid['data_entrada_sistema'], 0, 4) . "</td>
+      <td title='" . $cor['title'] . "'>" . Municipio::PegaNomeMunicipio($pedid['id_municipio']) . "</td>
+      <td title='" . $cor['title'] . "'>" . DataMysql::dataCompletaVisual($pedid['data_entrada_sistema']) . "</td>
+      <td title='" . $cor['title'] . "'>" . Decreto::getNomeCobrade($pedid['id_cobrade']) . "</td>
+      <td title='" . $cor['title'] . "'>" . $pedido_h->enumStatus($pedid['status']) . "</td>
+      <td title='" . $cor['title'] . "'>" . $pedido_h->enumFase($pedid['tramit']) . ( ($pedid['status'] == 6) ? " <br>Prazo : " . ($prazo) : "") . "</td>
+      <td title='" . $cor['title'] . "'>" . DataMysql::dataCompletaVisual($pedid['data_hora_envio']) . "</td>
+      <td title='" . $cor['title'] . "'>" . DataMysql::dataCompletaVisual($pedid['data_aprovacao']) . "</td>
+      <td>";
+      print "</td>";
+      print "</tr>";
+      }
+      }
+      }
 
-        </tbody>
-    </table>
+     */
+    ?>-->
+
+</table>
 
 </div>
 
 <!-- =================== RODAPE CORPO ==================== -->
-            <?php include_once "template/page/corpoRodape.php"; ?>
+<?php include_once "template/page/corpoRodape.php"; ?>
 <!-- =================== RODAPE  ======================== -->
-            <?php include_once "template/page/rodape.php" ?>
-            <?php include_once "template/page/barra_config_template.php"; ?>
+<?php include_once "template/page/rodape.php" ?>
+<?php include_once "template/page/barra_config_template.php"; ?>
 <!-- =============== HEADER HTML PAGE ================= -->
 <?php include_once "template/page/rodapePage.php"; ?>
 <script>
 
     $(document).ready(function () {
 
-        $("#btnSearch").click(function () {
+        var data = <?= $response ?>;
 
-            console.log($('#txtSearch').length);
-            if ($('#txtSearch').length <= 1) {
-                //alert('Gentileza digitar um nome ou parte de um nome de Municipio para pesquisa');
-            }
+        $('#pedidos thead tr')
+                .clone(true)
+                .addClass('filters')
+                .appendTo('#pedidos thead');
+
+        var table = $('#pedidos').DataTable({
+            orderCellsTop: true,
+            fixedHeader: true,
+            bFilter: true,
+            responsive: true,
+            data: data,
+            initComplete: function () {
+                var api = this.api();
+
+                // For each column
+                api.columns()
+                        .eq(0)
+                        .each(function (colIdx) {
+                            // Set the header cell to contain the input element
+                            var cell = $('.filters th').eq(
+                                    $(api.column(colIdx).header()).index()
+                                    );
+                            var title = $(cell).text();
+
+                            $(cell).html('<input type="text" placeholder="' + title + '" />');
+                            if ($(api.column(colIdx).header()).index() >= 0) {
+                                $(cell).html('<input type="text" name="notNormaliza" placeholder="' + title + '"/>');
+                            }
+
+                            // On every keypress in this input
+                            $(
+                                    'input',
+                                    $('.filters th').eq($(api.column(colIdx).header()).index())
+                                    )
+                                    .off('keyup change')
+                                    .on('change', function (e) {
+                                        // Get the search value
+                                        $(this).attr('title', $(this).val());
+                                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                                        //var cursorPosition = this.selectionStart;
+                                        // Search the column for that value
+                                        api
+                                                .column(colIdx)
+                                                .search(
+                                                        this.value != ''
+                                                        ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                                        : '',
+                                                        this.value != '',
+                                                        this.value == ''
+                                                        )
+                                                .draw();
+                                    })
+                                    .on('keyup', function (e) {
+                                        e.stopPropagation();
+
+                                        $(this).trigger('change');
+                                        $(this)
+                                                .focus()[0];
+                                                //.setSelectionRange(cursorPosition, cursorPosition);
+                                    });
+                        });
+            },
+            'columns': [
+                {data: 'numero'},
+                {data: 'nome'},
+                {data: 'data_entrada_sistema'},
+                {data: 'tipo_decreto'},
+                {data: 'status'},
+                {data: 'tramit'},
+                {data: 'data_hora_envio'},
+            ],
+            "columnDefs": [
+                {   
+                    "targets": -1,
+                    "data": null,
+                    "defaultContent": "<input id='btnDetails' class='btn btn-success' width='25px' value='Get Details' />"
+                }
+            ],
         });
+
 
         $("#btnEdicao").click(function () {
             var result = confirm('Deseja enviar processo para COMPDEC ?');
@@ -279,14 +376,9 @@ $id_usuario = $_COOKIE['seguranca']['idUser']
                 console.log(result);
             }
         });
+
+
     });
-
-    /* Criar novo plano de contingencia */
-    (function ($) {
-
-        $("#total_registro").text(<?= $total_reg; ?>);
-
-    })(jQuery);
 
 </script>
 </body>

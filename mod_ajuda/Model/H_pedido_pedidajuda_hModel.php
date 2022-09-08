@@ -105,6 +105,35 @@ class H_pedido_pedidajuda_hModel extends Model {
         }
     }
 
+    public static function listaPedidosTodos() {
+
+        $con = Conexao::getInstance();
+
+        $sql = "SELECT aju_h_pedido_pedid.numero,
+                aju_h_pedido_pedid.id_municipio,
+                aju_h_pedido_pedid.data_entrada_sistema,
+                aju_h_pedido_pedid.tipo_decreto,
+                aju_h_pedido_pedid.status,
+                aju_h_pedido_pedid.tramit,
+                aju_h_pedido_pedid.data_hora_envio,
+                aju_h_pedido_pedid.data_aprovacao,
+                cedec_municipio.nome
+                FROM aju_h_pedido_pedid
+                INNER JOIN cedec_municipio
+                ON aju_h_pedido_pedid.id_municipio = cedec_municipio.id_municipio";
+
+        try {
+
+            $result = $con->query($sql);
+
+            return $result->fetchAll(PDO::FETCH_ASSOC);
+
+           
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
     #####################  Busca nome do ID do Fk  ######################
 
     /** Busca nome do ID Fk 
@@ -132,11 +161,10 @@ class H_pedido_pedidajuda_hModel extends Model {
                 while ($linha = $result->fetch(PDO::FETCH_OBJ)) {
                     $dados = $linha;
                 }
-                
-               return $dados;
+
+                return $dados;
             } catch (Exception $e) {
                 return $e->getMessage();
-                
             }
         } else {
             $dados = new \stdClass();
@@ -465,16 +493,15 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
 
         return $result;
     }
-    
-    
+
     #################  DELETAR itens pedido  ##################
     # @ deletar itens pedido
 
     public static function deleteItemPedido($id) {
 
         $con = Conexao::getInstance();
-        
-        
+
+
         $sql = "DELETE FROM aju_h_pedido_itens WHERE id_pedido = " . $id;
 
         try {
@@ -491,9 +518,9 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
     public static function delete($id) {
 
         $con = Conexao::getInstance();
-        
+
         self::deleteItemPedido($id);
-        
+
         $sql = "DELETE FROM aju_h_pedido_pedid WHERE id = " . $id;
 
         try {
@@ -503,7 +530,6 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
             return $e->getMessage() . "Erro Deletar H_pedido_pedid !";
         }
     }
-    
 
     #####################  Itens pedido  ######################
 
@@ -523,7 +549,7 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
                 from aju_h_pedido_itens
                 where aju_h_pedido_itens.id_pedido = " . $id_pedido . "
                 And tp_item = '" . $tipo . "'";
-        
+
         try {
 
             $result = $con->query($sql);
@@ -537,7 +563,7 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
             return $e->getMessage();
         }
     }
-    
+
     #####################  Itens pedido  ######################
 
     public static function get_item_pedido($id_item, $id_pedido, $tipo) {
@@ -556,7 +582,7 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
                 from aju_h_pedido_itens
                 where aju_h_pedido_itens.id_pedido = " . $id_pedido . "
                 And tp_item = '" . $tipo . "'"
-                . " AND aju_h_pedido_itens.id = ".$id_item;
+                . " AND aju_h_pedido_itens.id = " . $id_item;
 
         try {
 
