@@ -11,6 +11,7 @@ if($opcao == 'dados_compdec') {
     $dados = $h_pedido_pedid->buscaDadosPedido($id_municipio);
     print json_encode($dados);
 
+/* Adicionar Permissao */ 
 }elseif($opcao == 'add_permissao'){
 
     #busca permissao
@@ -22,18 +23,21 @@ if($opcao == 'dados_compdec') {
         
        $h_pedido_pedid->AtualizarPermissao($_POST);  
     }
-    
+ 
+// Remover Permissao
 }elseif($opcao == 'remover_permissao'){
     
     $h_pedido_pedid->removerPermissao($_POST);
-    
+  
+// Alta Performance
 }elseif($opcao == 'ck_alta_perf'){
       
     if(Config::AtualizaConfig('aju_h_alta_perf', $_POST['aju_h_alta_perf']) && 
         Config::AtualizaConfig('aju_prazo_prest_conta', $_POST['aju_prazo_prest_conta'])){
         print 'sucesso';
     }
-    
+
+// Enviar processo para edição
 }elseif($opcao == 'envia_edicao') {
     
     $dados = array('tramit' => 'edicao_compdec',
@@ -43,9 +47,25 @@ if($opcao == 'dados_compdec') {
     $h_pedido_pedid->envia_pedido($dados);
     
     print 'sucesso';
+
+// Permissao pedir material
 }elseif ($opcao == 'permis_material_pedido') {
     
     if($h_pedido_pedid->PermissaoMaterial($_POST)){
+        print 'sucesso';
+    }
+    
+}elseif( $opcao =='alterar_material') {
+
+    $dados = $_POST;
+    if(H_pedido_itensajuda_hModel::edit($dados)) {
+        print 'sucesso';
+    }
+    
+}elseif( $opcao =='salvar_novo_mat') {
+
+    $dados = $_POST;
+    if(H_pedido_itensajuda_hModel::gravar($dados)) {
         print 'sucesso';
     }
     

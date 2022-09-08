@@ -25,7 +25,8 @@
                 
                 try {
                 //self::$instance = new PDO('mysql:host=10.180.216.68;port=3306;dbname=gestaocedec', 'usuario', 'usuario', array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
-                self::$instance = new PDO('mysql:host=localhost;port=3306;dbname=gestaocedec', 'usuario', 'usuario', array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+                //self::$instance = new PDO('mysql:host=localhost;port=3306;dbname=gestaocedec', 'usuario', 'usuario', array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+                self::$instance = new PDO('mysql:host=localhost;port=3307;dbname=gestaocedec', 'root', '', array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
                 } catch (Exception $e){
                     print "erro ao Conectar !"; 
                 }

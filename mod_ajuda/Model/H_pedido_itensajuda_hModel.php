@@ -147,6 +147,8 @@ private $qtd_familia_atendida = null;
 
     public static function gravar(array $dados, $duplo=false) {
 
+        $con = Conexao::getInstance();
+
         $sql = "INSERT INTO aju_h_pedido_itens (codigo,
 descricao_item,
 qtd,
@@ -164,7 +166,7 @@ tp_item
         try {
             
 
-            $result = self::$con->prepare($sql);
+            $result = $con->prepare($sql);
 
             $result->bindValue(":codigo", $dados['codigo']);
             $result->bindValue(":descricao_item", $dados['descricao_item']);
@@ -212,12 +214,12 @@ tp_item
             
             $result->bindValue(":id", $dados['id']);
             $result->bindValue(":codigo", $dados['codigo']);
-$result->bindValue(":descricao_item", $dados['descricao_item']);
-$result->bindValue(":qtd", $dados['qtd']);
-$result->bindValue(":qtd_familia_atendida", $dados['qtd_familia_atendida']);
+            $result->bindValue(":descricao_item", $dados['descricao_item']);
+            $result->bindValue(":qtd", $dados['qtd']);
+            $result->bindValue(":qtd_familia_atendida", $dados['qtd_familia_atendida']);
 
             
-            $result->execute();
+            var_dump($result->execute());
 
             #Log::GravaLog("Atualizar Cadastro de H_pedido_itens : " . $dados['nome'] . " " . $_COOKIE['seguranca']['login'], "aju_log");
 
