@@ -88,40 +88,39 @@ $response = json_encode($data);
         <hr>
         <br>
         <div class="col-md-12 table-responsive">
-        <table id="pedidos" class="table-bordered table-condensed table-responsive dataTable" >
-            <thead>
-                <tr>
-                    <th>Número</th>
-                    <th>Município</th>
-                    <th>Data Criação</th>
-                    <th>Tipo</th>
-                    <th>Status</th>
-                    <th>Fase do Processo</th>
-                    <th>Data Envio Análise</th>
-                </tr>
-            </thead>
-            <tbody>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th>Número</th>
-                    <th>Município</th>
-                    <th>Data Criação</th>
-                    <th>Tipo</th>
-                    <th>Status</th>
-                    <th>Fase do Processo</th>
-                    <th>Data Envio Análise</th>
-                </tr>
-            </tfoot>
+            <table id="pedidos" class="table table-bordered table-condensed table-responsive dataTable" >
+                <thead>
+                    <tr>
+                        <th>Número</th>
+                        <th>Município</th>
+                        <th>Data Criação</th>
+                        <th>Tipo</th>
+                        <th>Fase do Processo</th>
+                        <th>Data Envio Análise</th>
+                        <th>-</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Número</th>
+                        <th>Município</th>
+                        <th>Data Criação</th>
+                        <th>Tipo</th>
+                        <th>Fase do Processo</th>
+                        <th>Data Envio Análise</th>
+                        <th>-</th>
+                    </tr>
+                </tfoot>
 
-        </table>
+            </table>
         </div>
     </div>
 
@@ -250,6 +249,9 @@ $response = json_encode($data);
      */
     ?>-->
 
+
+
+
 </table>
 
 </div>
@@ -265,119 +267,156 @@ $response = json_encode($data);
 
     $(document).ready(function () {
 
-        var data = <?= $response ?>;
-
-        $('#pedidos thead tr')
-                .clone(true)
-                .addClass('filters')
-                .appendTo('#pedidos thead');
-
-        var table = $('#pedidos').DataTable({
-            orderCellsTop: true,
+    var data1 = <?= $response ?>;
+    $('#pedidos thead tr')
+            .clone(true)
+            .addClass('filters')
+            .appendTo('#pedidos thead');
+    var table = $('#pedidos').DataTable({
+    orderCellsTop: true,
             fixedHeader: true,
             bFilter: true,
             responsive: true,
-            data: data,
+            data: data1,
             initComplete: function () {
-                var api = this.api();
+            var api = this.api();
+            // For each column
+            api.columns()
+                    .eq(0)
+                    .each(function (colIdx) {
+                    // Set the header cell to contain the input element
+                    var cell = $('.filters th').eq(
+                            $(api.column(colIdx).header()).index()
+                            );
+                    var title = $(cell).text();
+                    //$(cell).html('<input type="text" placeholder="' + title + '" />');
+                    if ($(api.column(colIdx).header()).index() >= 0) {
+                        if(colIdx <= 5){
+                           $(cell).html('<input type="text" name="notNormaliza" placeholder="' + title + '"/>');
+                        }
+                    }
 
-                // For each column
-                api.columns()
-                        .eq(0)
-                        .each(function (colIdx) {
-                            // Set the header cell to contain the input element
-                            var cell = $('.filters th').eq(
-                                    $(api.column(colIdx).header()).index()
-                                    );
-                            var title = $(cell).text();
+                    // On every keypress in this input
+                    $(
+                            'input',
+                            $('.filters th').eq($(api.column(colIdx).header()).index())
+                            )
+                            .off('keyup change')
+                            .on('change', function (e) {
+                            // Get the search value
+                            $(this).attr('title', $(this).val());
+                            var regexr = '({search})'; //$(this).parents('th').find('select').val();
 
-                            $(cell).html('<input type="text" placeholder="' + title + '" />');
-                            if ($(api.column(colIdx).header()).index() >= 0) {
-                                $(cell).html('<input type="text" name="notNormaliza" placeholder="' + title + '"/>');
-                            }
-
-                            // On every keypress in this input
-                            $(
-                                    'input',
-                                    $('.filters th').eq($(api.column(colIdx).header()).index())
-                                    )
-                                    .off('keyup change')
-                                    .on('change', function (e) {
-                                        // Get the search value
-                                        $(this).attr('title', $(this).val());
-                                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
-
-                                        //var cursorPosition = this.selectionStart;
-                                        // Search the column for that value
-                                        api
-                                                .column(colIdx)
-                                                .search(
-                                                        this.value != ''
-                                                        ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                                        : '',
-                                                        this.value != '',
-                                                        this.value == ''
-                                                        )
-                                                .draw();
-                                    })
-                                    .on('keyup', function (e) {
-                                        e.stopPropagation();
-
-                                        $(this).trigger('change');
-                                        $(this)
-                                                .focus()[0];
-                                                //.setSelectionRange(cursorPosition, cursorPosition);
-                                    });
-                        });
+                            //var cursorPosition = this.selectionStart;
+                            // Search the column for that value
+                            api
+                                    .column(colIdx)
+                                    .search(
+                                            this.value != ''
+                                            ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                            : '',
+                                            this.value != '',
+                                            this.value == ''
+                                            )
+                                    .draw();
+                            })
+                            .on('keyup', function (e) {
+                            e.stopPropagation();
+                            $(this).trigger('change');
+                            $(this)
+                                    .focus()[0];
+                            //.setSelectionRange(cursorPosition, cursorPosition);
+                            });
+                    });
             },
             'columns': [
-                {data: 'numero'},
-                {data: 'nome'},
-                {data: 'data_entrada_sistema'},
-                {data: 'tipo_decreto'},
-                {data: 'status'},
-                {data: 'tramit'},
-                {data: 'data_hora_envio'},
-            ],
-            "columnDefs": [
-                {   
-                    "targets": -1,
-                    "data": null,
-                    "defaultContent": "<input id='btnDetails' class='btn btn-success' width='25px' value='Get Details' />"
-                }
-            ],
-        });
-
-
-        $("#btnEdicao").click(function () {
-            var result = confirm('Deseja enviar processo para COMPDEC ?');
-            var id_pedido = $(this).data('enviar_edicao');
-            if (result) {
-                var formData = new FormData();
-                formData.append('opcao', 'envia_edicao');
-                formData.append('id_pedido', id_pedido);
-                $.ajax({
-                    url: '/mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/ajax.php',
-                    type: 'POST',
-                    data: formData,
-                    processData: false, // tell jQuery not to process the data
-                    contentType: false, // tell jQuery not to set contentType
-                    success: function (response) {
-                        if (response == 'sucesso') {
-                            Swal.fire('Pedido enviado para Edição !');
-                            window.location.reload();
+            {data: 'numero'},
+            {data: 'nome'},
+            {data: 'data_entrada_sistema'},
+            {data: 'tipo_decreto'},
+            {data: 'tramit'},
+            {data: 'data_hora_envio'},
+            {
+            'className':      '',
+                    orderable:      false,
+                    data:           null,
+                    defaultContent: '',
+                    render: function (data, type, row) {
+                        
+                        /*
+                        ##### EDITAR
+                                if ($pedid['status'] < 4) {
+                        print "<a href='".FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit', array('id' => $pedid['id'], 'voltar' => 'idx_recente'))."' title='Editar Pedido'><img src='/core/imagem/editar.png'></a> |";
+                        ##### devolver para ediçao
+                                print "<button id='btnEdicao' name='btnEdicao' type='button' data-enviar_edicao=".$pedid['id']." class='btn btn-primart'>Enviar para Edição</button>";
                         }
 
+                        ##### visualizar
+                                print "<a href='".FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "view", array('id' => $pedid['id'], 'voltar' => 'idx_recente'))."' title='Visualiação e Impressão do Pedido'><img width='25px' src='/core/imagem/view1.png'></a> |";
+                        
+                        ##### prestação de contas
+                                if ($pedid['status'] == 6) {
+
+                        print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_prest', 'index', array('id' => $pedid['id']))."' title='Presatação de contas'><img width='25' src='/core/imagem/relatorio.png'></a>|";
+                        print "&nbsp;&nbsp;<a href='' style='color:".$cor['fonte']."; font-size:14pt;' title='Percentual de Conclusão da Prestação de Contas do Pedido'>".$percent."%</a> |";
+                        }
+
+                        ##### analise DRD
+                                #if ($permissao[0]['analista_drd'] == 1
+                                        # && $pedid['status'] <= 3) {
+
+                        #  print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar' => 'idx_recente', 'an' => 'analise_drd'))."' title='Analise DRD'><img width='25' src='/core/imagem/cedec.png'></a>";
+                        #  }
+
+                        ##### analise_dlog
+                                if ($permissao[0]['analista_dlog'] == 1 && $pedid['status'] < 3) {
+
+                        print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar' => 'idx_recente', 'an' => 'analise_dlog'))."' title='Despacho DLOG'><img width='25' src='/core/imagem/dlog.png'></a>";
+                        }
+
+                        # analise_coord
+                                if (($permissao[0]['analista_coord'] == 1) && ($pedid['status'] == 3)) {
+                        print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar' => 'idx_recente', 'an' => 'analise_coord'))."' title='Despacho Coordenador Adjunto'><img width='25' src='/core/imagem/boss.png'></a>";
+                        }
+
+                        # Apos despacho do Chefe Dlog
+                                if (($pedid['status'] >= 4) && ($pedid['status'] <= 5)) {
+                        print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar' => 'idx_recente', 'an' => 'analise_coord'))."' title='Despacho Dlog'><img width='25' src='/core/imagem/dlog.png'></a>";
+                        }*/
+                        return '<a href=\'index.php?token='+stringToHash('<?=VERSAO?>')+'&modulo=ajuda&controller=h_pedido_pedid&action=edit&id='+data.id+'&voltar=idx_recente\' title=\'Editar Pedido\'><img src=\'/core/imagem/editar.png\'></a>';
+    
                     },
-                    error: function (response) {
-                    }
-                });
-            } else {
-                console.log(result);
+                    width: "15px"
             }
+            ],
+    });
+    $("#btnEdicao").click(function () {
+        var result = confirm('Deseja enviar processo para COMPDEC ?');
+        var id_pedido = $(this).data('enviar_edicao');
+        if (result) {
+        var formData = new FormData();
+        formData.append('opcao', 'envia_edicao');
+        formData.append('id_pedido', id_pedido);
+        $.ajax({
+        url: '/mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/ajax.php',
+                type: 'POST',
+                data: formData,
+                processData: false, // tell jQuery not to process the data
+                contentType: false, // tell jQuery not to set contentType
+                success: function (response) {
+                if (response == 'sucesso') {
+                Swal.fire('Pedido enviado para Edição !');
+                    window.location.reload();
+                }
+
+                },
+                error: function (response) {
+                }
         });
-
-
+        } else {
+        console.log(result);
+        }
+    });
     });
 
 </script>

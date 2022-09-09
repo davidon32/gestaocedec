@@ -140,6 +140,8 @@ private $tramit_parecer = null;
     # @ grava {$model} em banco
 
     public static function gravar(array $dados) {
+        
+        $con = Conexao::getInstance();
 
 
         $sql = "INSERT INTO aju_h_pedido_an_tec (id_usuario,
@@ -156,13 +158,13 @@ tramit_parecer
 
         try {
 
-            $result = self::$con->prepare($sql);
+            $result = $con->prepare($sql);
 
             $result->bindValue(":id_usuario", $dados['id_usuario']);
-$result->bindValue(":id_pedido", $dados['id_pedido']);
-$result->bindValue(":data_parecer", DataMysql::dataForm($dados['data_parecer']));
-$result->bindValue(":parecer", nl2br($dados['parecer']));
-$result->bindValue(":tramit_parecer", $dados['tramit_parecer']);
+            $result->bindValue(":id_pedido", $dados['id_pedido']);
+            $result->bindValue(":data_parecer", DataMysql::dataCompletaForm($dados['data_parecer']));
+            $result->bindValue(":parecer", nl2br($dados['parecer']));
+            $result->bindValue(":tramit_parecer", $dados['tramit_parecer']);
 
  
             $result->execute();
@@ -337,29 +339,20 @@ aju_h_pedido_an_tec.tramit_parecer
     /**
      * Lista Fornecedoress
      */
-    public static function listaFornecedor($id) {
+    public static function listaDespacho($id_pedido) {
 
         $con = Conexao::getInstance();
 
-        $dados = array();
-
-        $sql = "SELECT pip_fornecedor.id,
-                        pip_fornecedor.nome,
-                        pip_fornecedor.cpfcnpj,
-                        pip_fornecedor.tel, 
-                        pip_fornecedor.cel
-                              FROM pip_fornecedor
-                              WHERE id =" . $id;
+        $sql = "SELECT *FROM aju_h_pedido_an_tec 
+                    WHERE id_pedido =" . $id_pedido;
 
         try {
 
             $result = $con->query($sql);
 
-            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-                $dados = $linha;
-            }
+            return $result->fetchAll(PDO::FETCH_ASSOC);
+             
 
-            return $dados;
         } catch (Exception $e) {
             return $e->getMessage() . "Erro ao inserir Fornecedor";
         }

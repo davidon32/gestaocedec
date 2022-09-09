@@ -117,7 +117,8 @@ class H_pedido_pedidajuda_hModel extends Model {
                 aju_h_pedido_pedid.tramit,
                 aju_h_pedido_pedid.data_hora_envio,
                 aju_h_pedido_pedid.data_aprovacao,
-                cedec_municipio.nome
+                cedec_municipio.nome,
+                aju_h_pedido_pedid.id
                 FROM aju_h_pedido_pedid
                 INNER JOIN cedec_municipio
                 ON aju_h_pedido_pedid.id_municipio = cedec_municipio.id_municipio";

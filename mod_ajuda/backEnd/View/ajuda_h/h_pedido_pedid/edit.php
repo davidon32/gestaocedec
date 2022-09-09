@@ -14,6 +14,7 @@
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script src="/vendor/jstree/dist/jstree.js"></script>
+
 <?php
 $cedec_municipio = new H_pedido_pedidajuda_hModel();
 
@@ -32,7 +33,10 @@ foreach ($dadosMaterial as $key => $material) {
     $option .= "<option value='" . $material['id_unidade'] . "'>" . $material['singular'] . "</option>";
 }
 
+$id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['idUser'] : null;
+
 ?>
+
 <div class='col-md-12 text-center'>
 
     <br>
@@ -47,13 +51,16 @@ foreach ($dadosMaterial as $key => $material) {
 
 </div>
 <div class='col-md-12'>
+    <legend>Pedido Ajuda Humanitária nº:
+            <?= $view[0]['numero'] . " / " . substr($view[0]['data_entrada_sistema'], 0, 4) ?> - <?= Municipio::PegaNomeMunicipio($view[0]['id_municipio'])?></legend>
+            
 
 
     <!-- jstree -->
     <div class="col-md-3" data-spy="scroll">
         <div id="html1">
             <ul>
-                <li data-jstree='{"opened":true,"selected":true}'> Processo Nº -
+                <li data-jstree='{"opened":true,"selected":true}' id='processo'> Processo Nº -
                     <?= $view[0]['numero'] . "/" . substr($view[0]['data_entrada_sistema'], 0, 4) ?> -
                     <?= DataMysql::dataVisual($view[0]['data_entrada_sistema']) ?>
                     <ul>
@@ -70,11 +77,11 @@ foreach ($dadosMaterial as $key => $material) {
             </ul>
         </div>
     </div>
+    
 
     <!-- Dados Gerais -->
     <div class="col-md-9" id="dados_gerais">
-        <legend>Editar Pedido Ajuda Humanitaria nº:
-            <?= $view[0]['numero'] . "-" . substr($view[0]['data_entrada_sistema'], 0, 4) ?></legend>
+        
 
         <form action="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit"); ?>" method="post" accept-charset="utf-8" name="frmH_pedido_pedid" id="frmH_pedido_pedid">
 
@@ -224,7 +231,8 @@ foreach ($dadosMaterial as $key => $material) {
             </div>
             <div class='row'>
                 <div class='col-md-12'>
-                    <label>Esforços Realizados: </label> <span style="color: silver" id='caracteres'></span>
+                    <label>Esforços Realizados: </label>
+                    <span style="color: silver" id='caracteres'></span>
                     <textarea class='form form-control' name='esforcos_realizados' id='esforcos_realizados' maxlength='65534' rows="8" required>
                                 <?= $view[0]['esforcos_realizados'] ?>
                             </textarea>
@@ -297,12 +305,13 @@ foreach ($dadosMaterial as $key => $material) {
 
 
         <!-- ###############  MATERIAIS LIBERADOS ################ -->
+        
         <div class="col-md-12">
-            <p class="text-center">
+            <p class="">
                 <legend>Material a ser Liberado</legend>
             </p>
 
-            <img title="Adicionar Material" src="/core/imagem/add.png" name="add_material">Adicionar Material<br><br>
+            <img title="Adicionar Material" src="/core/imagem/add.png" name="add_material"> Adicionar Material<br><br>
             <table class="table table-bordered table-condensed" id="tbl_material_liberado">
 
                 <tr>
@@ -343,6 +352,34 @@ foreach ($dadosMaterial as $key => $material) {
 
 
             </table>
+        
+            <p>
+            <legend>Despacho</legend></p>
+                <img title="Novo Despacho" src="/core/imagem/icon_app/new.png" name="add_despacho" id="add_despacho"> Novo Despacho<br><br>
+            <div class="row" id='novoDespacho'>
+                <div class="col-md-9">
+                    <label>Despacho :</label><span id="span_caracteres">Caracteres Restantes : 255</span>
+                    <textarea rows='5' id="text_despacho" class='form form-control' maxlength="255"></textarea>
+                
+                </div>
+                <div class="col-md-3">
+                    <label>Parecer :</label><br>
+                    Favorável : <input type='radio'><br>
+                    Desfavorável : <input type='radio'><br>
+                    Enviar Analista : <input type='radio'><br>
+                    <br>
+                </div><br>
+                <p class="text-left">Salvar <img src='/core/imagem/save.png' id="save_despacho"></p>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12" id='lista_despacho'>
+                        <?php
+                            include_once 'ajax_lista_despacho.php';
+                        ?>
+                </div>
+            </div>
+                
         </div>
     </div>
 
@@ -487,9 +524,54 @@ foreach ($dadosMaterial as $key => $material) {
 
 <script>
     $(document).ready(function() {
+        
+        
+        
+        $("#text_despacho").keyup(function(){
+           var caracteres =  $("#text_despacho").val().length;
+           var restante = 255-caracteres;
+           $("#span_caracteres").text('Caracteres restantes : '+restante);
+        });
 
+        /* SALVAR DESPACHO */
+        $("#save_despacho").click(function(){
+            
+            var id_usuario = '<?=$id_usuario?>';
+            var id_pedido = '<?=$view[0]['id']?>';
+            var text_despacho = $("#text_despacho").val();
+            
+            var formData = new FormData();
+            formData.append('opcao', 'gravar_despacho');
+            formData.append('id_pedido', id_pedido);
+            formData.append('parecer', text_despacho);
+            formData.append('id_usuario', id_usuario);
 
+            $.ajax({
+                url: '/mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/ajax.php',
+                type: 'POST',
+                data: formData,
+                processData: false, // tell jQuery not to process the data
+                contentType: false, // tell jQuery not to set contentType
+                success: function(response) {
+                    if(response.trim() == 'sucesso') {
+                        Swal.fire('Despacho gravado com sucesso !').then(function() {
+                            $('#lista_despacho').load('/mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/ajax_lista_despacho.php?id='+id_pedido);
+                        });
+                    }
+                },
+                error: function(e) {
+                    //console.log(JSON.stringify(e));
+                }
+            });
+        });
+
+        $('#novoDespacho').hide();
         $('img[name=salvar]').hide();
+        
+        $('#add_despacho').click(function(){
+            $('#novoDespacho').show();  
+            $("#text_despacho").focus();
+        });
 
         /* editar form material */
         $('img[name=edit]').click(function() {
@@ -855,4 +937,6 @@ foreach ($dadosMaterial as $key => $material) {
 
 
     });
+    
+    
 </script>

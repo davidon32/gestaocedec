@@ -218,8 +218,9 @@
             }
 
             var nomeCampo = $(this).attr("name");
+ 
             /* nao normaliza campos com nome val_ (monetario )*/
-            if (nomeCampo.indexOf("val_") !== 0) {
+            if ( typeof(nomeCampo) !="undefined" && nomeCampo.indexOf("val_") !== 0 ) {
                 $(this).val(retira_acentos($(this).val()));
             }
 
