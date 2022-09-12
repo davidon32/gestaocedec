@@ -28,7 +28,7 @@ $data = array();
 foreach ($listaPedido1 as $key => $pedido) {
     $data[] = $pedido;
     
-    $percent = number_format(((H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedid['id']) * 100 ) != 0 ) ? (H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedid['id']) * 100) / H_pedido_prestajuda_hModel::totalMaterialPrestConta($pedid['id']) : 0, '2', '.', ' ');
+    $percent = number_format(((H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedido['id']) * 100 ) != 0 ) ? (H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedid['id']) * 100) / H_pedido_prestajuda_hModel::totalMaterialPrestConta($pedido['id']) : 0, '2', '.', ' ');
 }
 
 
@@ -99,10 +99,11 @@ $response = json_encode($data);
                         <th>Tipo</th>
                         <th>Fase do Processo</th>
                         <th>Data Envio Análise</th>
-                        <th>-</th>
+                        <th>Opções</th>
                     </tr>
                 </thead>
                 <tbody>
+                <td>-</td>
                 <td>-</td>
                 <td>-</td>
                 <td>-</td>
@@ -118,7 +119,7 @@ $response = json_encode($data);
                         <th>Tipo</th>
                         <th>Fase do Processo</th>
                         <th>Data Envio Análise</th>
-                        <th>-</th>
+                        <th>Opções</th>
                     </tr>
                 </tfoot>
 
@@ -344,7 +345,7 @@ $response = json_encode($data);
                     data:           null,
                     defaultContent: '',
                     render: function (data, type, row) {
-
+                    
                         var links_opcoes = '<a href=\''+geraLink('ajuda', 'h_pedido_pedid', 'view', '<?=VERSAO?>', {id :data.id, voltar :'idx_recente'})+'\' title=\'Visualiação e Impressão do Pedido\'><img width=\'25px\' src=\'/core/imagem/view1.png\'></a>|';
                          //return '-'+geraLink('ajuda', 'pedido', 'view', '123', {offset: 5, limit: 10 });
                         
@@ -356,13 +357,13 @@ $response = json_encode($data);
                         
                         /*    ##### prestação de contas */
                         if(data.status == 6 ) {
-                            links_opcoes += '<a href=\''+geraLink('ajuda', 'h_pedido_prest', 'index', '<?=VERSAO?>', {id: data.id}])+'\' title=\'Presatação de contas\'><img width=\'25\' src=\'/core/imagem/relatorio.png\'></a>|';
-                            links_opcoes += '&nbsp;&nbsp;<a href=\'\' style=\'color:#ffffff; font-size:14pt\' title=\'Percentual de Conclusão da Prestação de Contas do Pedido\'>".$percent."%</a> |";
+                            links_opcoes += '<a href=\''+geraLink('ajuda', 'h_pedido_prest', 'index', '<?=VERSAO?>', {id: data.id})+'\' title=\'Presatação de contas\'><img width=\'25\' src=\'/core/imagem/relatorio.png\'></a>';
+                            links_opcoes += '&nbsp;&nbsp;<a href=\'\' style=\'color:#ffffff; font-size:14pt\' title=\'Percentual de Conclusão da Prestação de Contas do Pedido\'><?=$percent?>%</a> ';
                         }
                        
                         
                                
-
+/*
                         ##### analise DRD
                                 #if ($permissao[0]['analista_drd'] == 1
                                         # && $pedid['status'] <= 3) {

@@ -27,7 +27,7 @@
 <!--<script src="js/jasny-bootstrap_bs3.js"></script>-->
 <script src="js/jquery.easy-autocomplete.js"></script>
 <script src="js/lib/thickbox.js"></script>
-<script src="js/funcaobase.js"></script>
+<script src="js/funcaobase.js?v=<?=md5(VERSAO);?>"></script>
 <script src="/js/jquery-ui.js"></script>
 <script src="/js/jquery.mask.js"></script>
 <script src="/js/chartjs/Chart.js"></script>
