@@ -68,8 +68,14 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
                         asas
                         <li data-jstree='{"icon":"//jstree.com/tree.png"}' id='show_material_pedido'>
                             Material do Pedido</li>
-                        <li data-jstree='{"icon":"glyphicon glyphicon-leaf"}' id='show_despachos'>
-                            Despachos</li>
+                            <?php
+                                if($_COOKIE['seguracao']['secao'] != 'CHEFIA') {
+                            ?>
+                                <li data-jstree='{"icon":"glyphicon glyphicon-leaf"}' id='show_tramitar'>
+                                    Tramitação de Pedido</li>
+                            <?php
+                                }
+                            ?>
                         <li data-jstree='{"icon":"glyphicon glyphicon-leaf"}' id='show_anexos'>
                             Arquivo Anexados</li>
                     </ul>
@@ -362,13 +368,17 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
                     <textarea rows='5' id="text_despacho" class='form form-control' maxlength="255"></textarea>
                 
                 </div>
+                <!-- Diretores poderão dar o parecer -->
+                
                 <div class="col-md-3">
                     <label>Parecer :</label><br>
-                    Favorável : <input type='radio'><br>
-                    Desfavorável : <input type='radio'><br>
-                    Enviar Analista : <input type='radio'><br>
+                    Favorável : <input type='radio' value="1" name="rb_parecer" id="rb_favoravel" checked><br>
+                    Desfavorável : <input type='radio' value="0" name="rb_parecer" id="rb_desfavoravel"><br>
+                    Enviar p Analista : <input type='radio' value="2" name="rb_parecer" id="rb_analista"><br>
                     <br>
-                </div><br>
+                </div>
+                
+                <br>
                 <p class="text-left">Salvar <img src='/core/imagem/save.png' id="save_despacho"></p>
             </div>
             <br>
@@ -381,6 +391,23 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
             </div>
                 
         </div>
+    </div>
+
+    <!-- #################  tramitar processo #################### -->
+    
+    <div class="col-md-9" id="tramitar">
+            <select class="form form-control" name="sel_tramitar" id="sel_tramitar">
+                <option value=''><?=H_pedido_pedidajuda_hModel::enumFase($view[0]['tramit'])?></option>
+                <option value='analise_dlog'>Analista CEDEC</option>
+                <option value='analise_coord'>Coordenador Adjunto</option>
+                <option value='edicao_compdec'>Enviar para COMPDEC</option>
+                <option value='atendido'>Atendido</option>
+                <option value='aguard_disp'>Aguardando Disponibilidade</option>
+                <option value='aguard_ret'>Aguardando Retirada</option>
+                <option value='cancelado'>Cancelar</option>
+            </select>
+
+        
     </div>
 
     <!-- #################  arquivos anexos #################### -->
@@ -539,12 +566,24 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
             var id_usuario = '<?=$id_usuario?>';
             var id_pedido = '<?=$view[0]['id']?>';
             var text_despacho = $("#text_despacho").val();
+            var parecer;
             
+            if ( $("#rb_favoravel").is(":checked") ){
+                parecer = 1; 
+            }else if ( $("#rb_desfavoravel").is(":checked") ){
+                parecer = 0; 
+            }else if ( $("#rb_analista").is(":checked") ){
+                parecer = 2; 
+            }
+
+
+                        
             var formData = new FormData();
             formData.append('opcao', 'gravar_despacho');
             formData.append('id_pedido', id_pedido);
             formData.append('parecer', text_despacho);
             formData.append('id_usuario', id_usuario);
+            formData.append('parecer_sit', parecer);
 
             $.ajax({
                 url: '/mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/ajax.php',
@@ -688,6 +727,7 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
         $("#dados_gerais").hide();
         $("#material_pedido").hide();
         $("#anexos").hide();
+        $("#tramitar").hide();
 
 
         $('#html1').on("select_node.jstree", function(e, data) {
@@ -695,16 +735,25 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
                 $("#dados_gerais").fadeToggle();
                 $("#material_pedido").hide();
                 $("#anexos").hide();
+                $("#tramitar").hide();
             }
             if (data.node.id == 'show_material_pedido') {
                 $("#material_pedido").fadeToggle();
                 $("#dados_gerais").hide();
                 $("#anexos").hide();
+                $("#tramitar").hide();
             }
             if (data.node.id == 'show_anexos') {
                 $("#anexos").fadeToggle();
                 $("#dados_gerais").hide();
                 $("#material_pedido").hide();
+                $("#tramitar").hide();
+            }
+            if (data.node.id == 'show_tramitar') {
+                $("#tramitar").fadeToggle();
+                $("#dados_gerais").hide();
+                $("#material_pedido").hide();
+                $("#anexos").hide();
             }
         });
 

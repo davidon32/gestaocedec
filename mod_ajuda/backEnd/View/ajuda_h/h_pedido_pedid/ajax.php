@@ -71,7 +71,11 @@ if($opcao == 'dados_compdec') {
 }elseif( $opcao =='gravar_despacho') {
     $dados = $_POST;
     $dados['data_parecer'] = date('d-m-Y H:i:s');
+    if($dados['parecer_sit'] == 2){
+        $dados['tramit_parecer'] = '0';
+    }
     $dados['tramit_parecer'] = '0';
+
 
     if(H_pedido_an_tecajuda_hModel::gravar($dados)) {
         print 'sucesso';

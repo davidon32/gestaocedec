@@ -88,9 +88,6 @@ function dataVisual(data){
     return dia+"/"+mes+"/"+ano;  
 }
 
-function geraLink(){
-    
-}
 
 function checkmobile(){
     const toMatch = [

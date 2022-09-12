@@ -416,7 +416,8 @@ aju_h_pedido_pedid.tipo_decreto,
 aju_h_pedido_pedid.esforcos_realizados,
 aju_h_pedido_pedid.data_hora_envio,
 aju_h_pedido_pedid.status,
-aju_h_pedido_pedid.ano
+aju_h_pedido_pedid.ano,
+aju_h_pedido_pedid.tramit
 
 
                               FROM aju_h_pedido_pedid
@@ -911,7 +912,7 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
 
     /* enumStatus get status */
 
-    public function enumFase($fase) {
+    public static function enumFase($fase) {
 
         switch ($fase) {
             case 'edicao_compdec':

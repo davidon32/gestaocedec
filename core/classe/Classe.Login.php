@@ -61,6 +61,7 @@ function logar($_login, $_senha, $redireciona = true) {
                 cedec_funcionario.id_rpm,
                 cedec_funcionario.posto,
                 cedec_funcionario.diretor,
+				cedec_funcionario.secao,
                 pip_permissao.pmda_operador as pmdaoperador,
                 pip_permissao.pmda_dlog as pmdadlog
 		FROM cedec_usuario
@@ -144,6 +145,7 @@ static function SetCookieAdm($dados = ""){
 			setcookie("seguranca[diretor]",$_COOKIE['seguranca']['diretor'], time()+SESSAOADM);
 			setcookie("seguranca[pmdaoperador]",$_COOKIE['seguranca']['pmdaoperador'], time()+SESSAOADM);
 			setcookie("seguranca[pmdadlog]",$_COOKIE['seguranca']['pmdadlog'], time()+SESSAOADM);
+			setcookie("seguranca[secao]",$_COOKIE['seguranca']['secao'], time()+SESSAOADM);
 			ob_end_clean();
 
 			return true;
@@ -180,6 +182,7 @@ static function SetCookieAdm($dados = ""){
 		setcookie("seguranca[diretor]", $dados['diretor'], time()+SESSAOADM);
 		setcookie("seguranca[pmdaoperador]", $dados['pmdaoperador'], time()+SESSAOADM);
 		setcookie("seguranca[pmdadlog]", $dados['pmdadlog'], time()+SESSAOADM);
+		setcookie("seguranca[secao]", $dados['secao'], time()+SESSAOADM);
 		
 		if(isset($_COOKIE['seguranca']['sessao_id'])){
 			session_regenerate_id();
@@ -230,6 +233,7 @@ static function UnsetCookieAdm(){
 		setcookie("seguranca[diretor]", null, - 3600);
 		setcookie("seguranca[pmdaoperador]", null, - 3600);
 		setcookie("seguranca[pmdadlog]", null, - 3600);
+		setcookie("seguranca[secao]", null, - 3600);
 	ob_end_clean();
 }
 
@@ -908,11 +912,30 @@ function lembreteLiberacao($_id_dep_destino = false){
     			             &nbsp;&nbsp;<span style='font-size:10px;'>
     			                             Libera&ccedil;&atilde;o Nº: ".$linha['id_liberacao']." - ".DataMysql::dataVisual($linha['dataLibera'])." - ".$diasRestantePgto." dia(s) restante(s)</a>
                 			             </span><br />";*/
-    			print "<a style=\"text-decoration:none;\" href=\"javascript:NovaJanela('index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=lembrete_liberacao&id=".$linha['id_liberacao']."', 700, 400)\">
+				print "<ul class=\"todo-lis\">
+										 <li>
+								 
+											 <span class=\"handle\">
+												 <i class=\"fa fa-ellipsis-v\"></i>
+												 <i class=\"fa fa-ellipsis-v\"></i>
+											 </span>
+											 <span class=\"text\">
+											 
+												<a style=\"text-decoration:none;\" href=\"javascript:NovaJanela('index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=lembrete_liberacao&id=".$linha['id_liberacao']."', 700, 400)\">
+														&nbsp;&nbsp;<img style=\"vertical-align:middle\" src=\"/mod_ajuda/imagem/".$_imagem."\">
+														&nbsp;&nbsp;<span style='font-size:12px;'>
+														Libera&ccedil;&atilde;o Nº: ".$linha['id_liberacao']." - ".DataMysql::dataVisual($linha['dataLibera'])."</a>
+                			             	</span>
+											 </span>
+											 <small class=\"label label-danger\"><i class=\"fa fa-clock-o\"></i> - liberado ha ".$dif->days."  dia(s)</small>
+											 
+										 </li>
+									 </ul>";
+    			/*print "<a style=\"text-decoration:none;\" href=\"javascript:NovaJanela('index.php?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=lembrete_liberacao&id=".$linha['id_liberacao']."', 700, 400)\">
     			             &nbsp;&nbsp;<img style=\"vertical-align:middle\" src=\"/mod_ajuda/imagem/".$_imagem."\">
     			             &nbsp;&nbsp;<span style='font-size:10px;'>
     			                             Libera&ccedil;&atilde;o Nº: ".$linha['id_liberacao']." - ".$linha['dataLibera']." - liberado ha ".$dif->days."  dia(s)</a>
-                			             </span><br />";
+                			             </span><br />";*/
     		}
     
     	

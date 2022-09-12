@@ -119,3 +119,19 @@ function stringToHash(string) {
 }
 
 
+function geraLink(modulo, controller, action, hash, param=false) {
+    
+    var searchParams = "";
+    if(param) {
+        searchParams = "&" +new URLSearchParams(param).toString();
+    }
+    //console.log(searchParams);
+
+    var link = 'index.php?token='+stringToHash(hash)+'&modulo='+modulo+'&controller='+controller+'&action='+action+searchParams; 
+
+    return link;
+
+}
+
+
+

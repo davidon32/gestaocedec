@@ -903,7 +903,7 @@ class Usuario extends UsuarioModel {
 
         $sql = 'SELECT cedec_usuario.id_usuario,
                     cedec_usuario.id_deposito,
-                    cedec_usuario.nome,
+                    cedec_usuario.nome as nome,
                     cedec_usuario.senha,
                     cedec_usuario.email_rec,
                     cedec_usuario.nivel,
@@ -920,7 +920,8 @@ class Usuario extends UsuarioModel {
                     cedec_usuario.id_funcionario,
                     cedec_funcionario.email as email_info1,
                     cedec_funcionario.email2 as email_info2,
-                    cedec_funcionario.num_masp
+                    cedec_funcionario.num_masp,
+                    cedec_funcionario.secao as secao
                         FROM cedec_usuario
                             inner join cedec_funcionario
                             on cedec_usuario.id_funcionario = cedec_funcionario.id_funcionario

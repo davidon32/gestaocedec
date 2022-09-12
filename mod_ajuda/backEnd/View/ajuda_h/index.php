@@ -27,6 +27,8 @@ $data = array();
 
 foreach ($listaPedido1 as $key => $pedido) {
     $data[] = $pedido;
+    
+    $percent = number_format(((H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedid['id']) * 100 ) != 0 ) ? (H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedid['id']) * 100) / H_pedido_prestajuda_hModel::totalMaterialPrestConta($pedid['id']) : 0, '2', '.', ' ');
 }
 
 
@@ -266,7 +268,7 @@ $response = json_encode($data);
 <script>
 
     $(document).ready(function () {
-
+               
     var data1 = <?= $response ?>;
     $('#pedidos thead tr')
             .clone(true)
@@ -342,24 +344,24 @@ $response = json_encode($data);
                     data:           null,
                     defaultContent: '',
                     render: function (data, type, row) {
-                        
-                        /*
-                        ##### EDITAR
-                                if ($pedid['status'] < 4) {
-                        print "<a href='".FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit', array('id' => $pedid['id'], 'voltar' => 'idx_recente'))."' title='Editar Pedido'><img src='/core/imagem/editar.png'></a> |";
-                        ##### devolver para ediçao
-                                print "<button id='btnEdicao' name='btnEdicao' type='button' data-enviar_edicao=".$pedid['id']." class='btn btn-primart'>Enviar para Edição</button>";
-                        }
 
-                        ##### visualizar
-                                print "<a href='".FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "view", array('id' => $pedid['id'], 'voltar' => 'idx_recente'))."' title='Visualiação e Impressão do Pedido'><img width='25px' src='/core/imagem/view1.png'></a> |";
+                        var links_opcoes = '<a href=\''+geraLink('ajuda', 'h_pedido_pedid', 'view', '<?=VERSAO?>', {id :data.id, voltar :'idx_recente'})+'\' title=\'Visualiação e Impressão do Pedido\'><img width=\'25px\' src=\'/core/imagem/view1.png\'></a>|';
+                         //return '-'+geraLink('ajuda', 'pedido', 'view', '123', {offset: 5, limit: 10 });
                         
-                        ##### prestação de contas
-                                if ($pedid['status'] == 6) {
-
-                        print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_prest', 'index', array('id' => $pedid['id']))."' title='Presatação de contas'><img width='25' src='/core/imagem/relatorio.png'></a>|";
-                        print "&nbsp;&nbsp;<a href='' style='color:".$cor['fonte']."; font-size:14pt;' title='Percentual de Conclusão da Prestação de Contas do Pedido'>".$percent."%</a> |";
+                         /*##### EDITAR */
+                            if (data.status > 0 && data.status <= 4) {
+                                links_opcoes += '<a href=\''+geraLink('ajuda', 'h_pedido_pedid', 'edit', '<?=VERSAO?>', {id:data.id, voltar:'idx_recente'})+'\' title=\'Editar Pedido\'><img src=\'/core/imagem/editar.png\'></a>';
+                                //links_opcoes +='<button id=\'btnEdicao\' name=\'btnEdicao\' type=\'button\' data-enviar_edicao='+data.id+' class=\'btn btn-primart\'>Enviar Edição</button>';
+                            }
+                        
+                        /*    ##### prestação de contas */
+                        if(data.status == 6 ) {
+                            links_opcoes += '<a href=\''+geraLink('ajuda', 'h_pedido_prest', 'index', '<?=VERSAO?>', {id: data.id}])+'\' title=\'Presatação de contas\'><img width=\'25\' src=\'/core/imagem/relatorio.png\'></a>|';
+                            links_opcoes += '&nbsp;&nbsp;<a href=\'\' style=\'color:#ffffff; font-size:14pt\' title=\'Percentual de Conclusão da Prestação de Contas do Pedido\'>".$percent."%</a> |";
                         }
+                       
+                        
+                               
 
                         ##### analise DRD
                                 #if ($permissao[0]['analista_drd'] == 1
@@ -383,8 +385,8 @@ $response = json_encode($data);
                                 if (($pedid['status'] >= 4) && ($pedid['status'] <= 5)) {
                         print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar' => 'idx_recente', 'an' => 'analise_coord'))."' title='Despacho Dlog'><img width='25' src='/core/imagem/dlog.png'></a>";
                         }*/
-                        return '<a href=\'index.php?token='+stringToHash('<?=VERSAO?>')+'&modulo=ajuda&controller=h_pedido_pedid&action=edit&id='+data.id+'&voltar=idx_recente\' title=\'Editar Pedido\'><img src=\'/core/imagem/editar.png\'></a>';
-    
+                        
+                        return links_opcoes;
                     },
                     width: "15px"
             }

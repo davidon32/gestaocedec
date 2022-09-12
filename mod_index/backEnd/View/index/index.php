@@ -1,136 +1,142 @@
 <?php include_once "core/Model/indexModel.php"; ?>
-<?php include_once "mod_index/Model/indexModel.php"; ?>  
+<?php include_once "mod_index/Model/indexModel.php"; ?>
 <!-- =============== HEADER HTML PAGE ================= -->
 <?php include_once "template/page/headerPage.php"; ?>
 <!-- =================== HEADER ============================ -->
 <?php include_once "template/page/header.php"; ?>
 <!-- =================== MENU  ============================ -->
-<?php //include_once "template/page/menu.php";?>
+<?php //include_once "template/page/menu.php";
+?>
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php"; ?>
 
 <div id='continuar_sistema' class="col-md-6 text-left">
-    <a class="btn btn-success btn-lg" href='index.php?token=<?= hash('sha256', md5(VERSAO) . "-" . time()) ?>&modulo=index&controller=index&action=menu'> Continuar a usar o Sistema !</a>  
+    <a class="btn btn-success btn-lg" href='index.php?token=<?= hash('sha256', md5(VERSAO) . "-" . time()) ?>&modulo=index&controller=index&action=menu'> Continuar a usar o Sistema !</a>
 </div>
 <p id="espaco_menu"></p>
 <div id='info_rapido' class="col-md-6 text-right">
-    <a class="btn btn-success" title='Informações Rápidas' href='<?= FuncaoBase::geraLink("index", "index", "info")?>'> Informações Rápidas</a>  
-</div> 
+    <a class="btn btn-success" title='Informações Rápidas' href='<?= FuncaoBase::geraLink("index", "index", "info") ?>'> Informações Rápidas</a>
+</div>
 <div class="col-md-12">
     <br>
     
-    <div class="col-md-4 text-center"> 
+    <div class="col-md-4">
+        <legend>Últimas Liberações MAH</legend>
         <?php
         $login = new Login();
         $login->acessoLembrete($_COOKIE['seguranca']['login'], $_COOKIE['seguranca']['id_deposito']);
         $login->acessoLembreteTransito($_COOKIE['seguranca']['login'], $_COOKIE['seguranca']['id_deposito']);
         $dash = new Dashboard();
-        
+
         /* periodo Chuvoso 2021 */
         $dados_mah_chuva_2021 = Ajuda::liberacoesPeriodoChuva("2021");
         $dados_mah_chuva_2021_qtd = Ajuda::QuantidadeMatePeriodoChuva("2021");
 
         $total_chuva_mat = 0;
-        $quantidade_cesta_chuva =0;
+        $quantidade_cesta_chuva = 0;
         foreach ($dados_mah_chuva_2021_qtd as $key => $value) {
             $total_chuva_mat += $value['qtd'];
-            if($value['singular'] == 'CESTA'){
+            if ($value['singular'] == 'CESTA') {
                 $quantidade_cesta_chuva += $value['qtd'];
             }
-        } 
-        
-        
+        }
+
+
         /* periodo Estiagem 2021 */
         $dados_mah_estiagem_2021 = Ajuda::liberacoesPeriodoEstiagem("2021");
         $dados_mah_estiagem_2021_qtd = Ajuda::QuantidadeMatePeriodoEstiagem("2021");
-        
+
         $total_estiagem_mat = 0;
-        $quantidade_cesta_estiagem =0;
+        $quantidade_cesta_estiagem = 0;
         foreach ($dados_mah_estiagem_2021_qtd as $key => $value) {
             $total_estiagem_mat += $value['qtd'];
-            if($value['singular'] == 'CESTA'){
+            if ($value['singular'] == 'CESTA') {
                 $quantidade_cesta_estiagem += $value['qtd'];
             }
-        } 
-        
-        
+        }
+
+
         ?>
     </div>
     <!-- aJUDA HUMANITÁRIA -->
     <div class="col-md-12">
         <br>
         <div class="alert alert-info" role="alert">nota: Os números abaixo relacionados a Ajuda Humanitária, são baseados nos atendimentos sobre o período de 01/10/2021 a 31/03/2022, para as liberações baseadas em decretos intempestivos, consulte o relatorio "Resumo de liberações" marque a opção "Resumo Distribuição de Materiais".</div>
-        <p style="text-align:center"><legend>AJUDA HUMANITÁRIA</legend></p>
+        <p style="text-align:center">
+            <legend>AJUDA HUMANITÁRIA</legend>
+        </p>
         <div class='col-md-6'>
-            
+
             <table class="table table-bordered">
                 <tr>
                     <th colspan="2" class='text-center'>PERÍODO DE CHUVA 2021</th>
                 </tr>
                 <tr>
                     <td>MUNICÍPIOS ATENDIDOS</td>
-                    <td><?=count($dados_mah_chuva_2021)?></td>
+                    <td><?= count($dados_mah_chuva_2021) ?></td>
                 </tr>
                 <tr>
                     <td>MATERIAIS DISTRIBUIDOS</td>
-                    <td><?=$total_chuva_mat;?></td>
+                    <td><?= $total_chuva_mat; ?></td>
                 </tr>
                 <tr>
                     <td>CESTA BÁSICAS</td>
-                    <td><?=$quantidade_cesta_chuva;?></td>
+                    <td><?= $quantidade_cesta_chuva; ?></td>
                 </tr>
             </table>
         </div>
-    <div class='col-md-6'>
-            
+        <div class='col-md-6'>
+
             <table class="table table-bordered">
                 <tr>
                     <th colspan="2" class='text-center'>PERÍODO DE ESTIAGEM 2021</th>
                 </tr>
                 <tr>
                     <td><a href='#' title='Clique aqui e veja quais municipios foram atenditos'>MUNICÍPIOS ATENDIDOS</a></td>
-                    <td><?=count($dados_mah_estiagem_2021)?></td>
+                    <td><?= count($dados_mah_estiagem_2021) ?></td>
                 </tr>
                 <tr>
                     <td>MATERIAIS DISTRIBUIDOS</td>
-                    <td><?=$total_estiagem_mat;?></td>
+                    <td><?= $total_estiagem_mat; ?></td>
                 </tr>
                 <tr>
                     <td>CESTA BÁSICAS</td>
-                    <td><?=$quantidade_cesta_estiagem;?></td>
+                    <td><?= $quantidade_cesta_estiagem; ?></td>
                 </tr>
             </table>
         </div>
     </div>
     <!-- pmda -->
-    <div class="col-md-6"> 
-        <p style="text-align:center"><legend>RESUMO PROCESSOS PMDA</legend></p>
+    <div class="col-md-6">
+        <p style="text-align:center">
+            <legend>RESUMO PROCESSOS PMDA</legend>
+        </p>
         <!-- quantidade por mes ano atual -->
         <div class='col-md-6'>
-            <legend>PMDA <?=date('Y')?></legend>
+            <legend>PMDA <?= date('Y') ?></legend>
             <?php
-                $totalPmdaPorMes = dashboardModel::qtdPmdaMes(date('Y'));
+            $totalPmdaPorMes = dashboardModel::qtdPmdaMes(date('Y'));
 
-                print "<table class='table table-bordered'>";
-                print "<tr><th colspan='2' style='text-align:center'>PMDA ATENDIDO</th></tr>";
-                print "<tr><td style='text-align:center'>Mês</td><td>QTD</td></tr>";
-                foreach ($totalPmdaPorMes as $key => $value) {
-                    print "<tr>";
-                    print "<td>" . $value['mes'] . "</td>";
-                    print "<td>" . $value['qtd'] . "</td>";
-                    print "</tr>";
-                }
-                print "</table>";
+            print "<table class='table table-bordered'>";
+            print "<tr><th colspan='2' style='text-align:center'>PMDA ATENDIDO</th></tr>";
+            print "<tr><td style='text-align:center'>Mês</td><td>QTD</td></tr>";
+            foreach ($totalPmdaPorMes as $key => $value) {
+                print "<tr>";
+                print "<td>" . $value['mes'] . "</td>";
+                print "<td>" . $value['qtd'] . "</td>";
+                print "</tr>";
+            }
+            print "</table>";
 
             ?>
-            
+
         </div>
-        
+
         <!-- grafico por mes ano atual -->
         <div class='col-md-6'>
-                <legend>PMDA <?=date('Y')?> Mês</legend>
+            <legend>PMDA <?= date('Y') ?> Mês</legend>
             <?php
-                $dash->qtdPmdaPorMes("2021");
+            $dash->qtdPmdaPorMes("2021");
             ?>
         </div>
     </div>
@@ -153,24 +159,24 @@
             print "</table>";
             ?>
         </div>
-        
+
         <!-- grafico pmDA-->
         <div class='col-md-6'>
             <legend>PMDA Últimos Anos</legend>
             <?php
-                $dash->qtdPmda();
+            $dash->qtdPmda();
             ?>
         </div>
     </div>
 
-    <div class="col-md-12 text-center"> 
+    <div class="col-md-12 text-center">
         <?php
         $dash->pmdaAno(date("Y"));
         //$dash->atualizado();
         //$dash->ajudaHumanitaria();
         //$dash->pmdaAnoMes("2017");
         //$dash->decreto();
-        ?>        
+        ?>
     </div>
 
 </div>
@@ -183,13 +189,12 @@
 <!-- =============== HEADER HTML PAGE ================= -->
 <?php include_once "template/page/rodapePage.php"; ?>
 <script>
+    $(document).ready(function() {
 
-    $(document).ready(function () {
-
-        if(checkmobile()){
+        if (checkmobile()) {
             $("#continuar_sistema").removeClass('text-left');
             $("#info_rapido").removeClass('text-right');
-            
+
             $("#continuar_sistema").addClass('text-center');
             $("#info_rapido").addClass('text-center');
         }
@@ -209,8 +214,7 @@
 
     var lineChartData = {
         labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Agos", "Set", "Out", "Nov", "Dez"],
-        datasets: [
-            {
+        datasets: [{
                 label: "Cesta",
                 fillColor: "rgba(220,220,220,0.2)",
                 strokeColor: "rgba(220,220,220,1)",
@@ -224,7 +228,8 @@
                     10,
                     0,
                     15,
-                    7]
+                    7
+                ]
             },
             {
                 label: "Kit Higiene",
@@ -239,7 +244,4 @@
         ]
 
     }
-
-
-
 </script>
