@@ -63,6 +63,14 @@ class usuarioController extends Controller {
         
 <p style='font-size:15pt'> Att.</p>
 <p style='font-size:15pt'> Equipe de Suporte ADS.</p>
+<div>
+    SDC - Sistema de Defesa Civil<br>
+Administrador | Suporte e Desenvolvimento<br>
+Coordenadoria Estadual de Defesa Civil<br>
+sdc@defesacivil.mg.gov.br<br>
+http://www.defesacivil.mg.gov.br
+</div>
+
 MSG;
 
 
@@ -73,8 +81,9 @@ MSG;
                                 print FuncaoBase::mensagem(FuncaoBase::geraLink("index", "index", "index"), "alert alert-success", "Senha Resetada com Sucesso !<br><br> Foi enviado um email para : <span style='font-weight:bolder; font-size:18pt;'>" . $quebraEmail . " 
                                         <p>Por questões de segurança parte do seu email de recuperação de senha foi <u><b>ocultado</b></u>.<p>
                                         Se voçê reconhece o inicio e o final do email mostrado acima :
-                                        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Aguarde alguns minutos</li>
+                                        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Aguarde alguns minutos.</li>
                                         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Consulte sua sua caixa de entrada e siga as instruçoes para alterar a senha !</li>
+                                        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red'>Verifique também sua caixa de spam (Lixo Eletrônico), pois seu provedor pode direcionado para a caixa de Spam.</span></li>
                                         <br>Caso não reconheça, envie um email para:<br><br> 
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sdc@defesacivil.mg.gov.br");
                             }else {

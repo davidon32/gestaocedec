@@ -11,6 +11,17 @@
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php"; ?>
 <link rel="stylesheet" href="/vendor/jstree/dist/themes/default/style.min.css" />
+<style>
+
+    my-actions { margin: 0 2em; }
+    .order-1 { order: 1; }
+    .order-2 { order: 2; }
+    .order-3 { order: 3; }
+
+    .right-gap {
+        margin-right: auto;
+    }
+</style>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script src="/vendor/jstree/dist/jstree.js"></script>
@@ -34,7 +45,6 @@ foreach ($dadosMaterial as $key => $material) {
 }
 
 $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['idUser'] : null;
-
 ?>
 
 <div class='col-md-12 text-center'>
@@ -52,8 +62,8 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
 </div>
 <div class='col-md-12'>
     <legend>Pedido Ajuda Humanitária nº:
-            <?= $view[0]['numero'] . " / " . substr($view[0]['data_entrada_sistema'], 0, 4) ?> - <?= Municipio::PegaNomeMunicipio($view[0]['id_municipio'])?></legend>
-            
+        <?= $view[0]['numero'] . " / " . substr($view[0]['data_entrada_sistema'], 0, 4) ?> - <?= Municipio::PegaNomeMunicipio($view[0]['id_municipio']) ?></legend>
+
 
 
     <!-- jstree -->
@@ -68,14 +78,14 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
                         asas
                         <li data-jstree='{"icon":"//jstree.com/tree.png"}' id='show_material_pedido'>
                             Material do Pedido</li>
-                            <?php
-                                if($_COOKIE['seguracao']['secao'] != 'CHEFIA') {
+                        <?php
+                        if ($_COOKIE['seguranca']['secao'] != 'CHEFIA') {
                             ?>
-                                <li data-jstree='{"icon":"glyphicon glyphicon-leaf"}' id='show_tramitar'>
-                                    Tramitação de Pedido</li>
+                            <li data-jstree='{"icon":"glyphicon glyphicon-leaf"}' id='show_tramitar'>
+                                Tramitação de Pedido</li>
                             <?php
-                                }
-                            ?>
+                        }
+                        ?>
                         <li data-jstree='{"icon":"glyphicon glyphicon-leaf"}' id='show_anexos'>
                             Arquivo Anexados</li>
                     </ul>
@@ -83,11 +93,11 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
             </ul>
         </div>
     </div>
-    
+
 
     <!-- Dados Gerais -->
     <div class="col-md-9" id="dados_gerais">
-        
+
 
         <form action="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit"); ?>" method="post" accept-charset="utf-8" name="frmH_pedido_pedid" id="frmH_pedido_pedid">
 
@@ -240,8 +250,8 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
                     <label>Esforços Realizados: </label>
                     <span style="color: silver" id='caracteres'></span>
                     <textarea class='form form-control' name='esforcos_realizados' id='esforcos_realizados' maxlength='65534' rows="8" required>
-                                <?= $view[0]['esforcos_realizados'] ?>
-                            </textarea>
+                        <?= $view[0]['esforcos_realizados'] ?>
+                    </textarea>
                 </div>
             </div>
             <div class='row'>
@@ -311,10 +321,10 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
 
 
         <!-- ###############  MATERIAIS LIBERADOS ################ -->
-        
+
         <div class="col-md-12">
             <p class="">
-                <legend>Material a ser Liberado</legend>
+            <legend>Material a ser Liberado</legend>
             </p>
 
             <img title="Adicionar Material" src="/core/imagem/add.png" name="add_material"> Adicionar Material<br><br>
@@ -358,18 +368,18 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
 
 
             </table>
-        
+
             <p>
             <legend>Despacho</legend></p>
-                <img title="Novo Despacho" src="/core/imagem/icon_app/new.png" name="add_despacho" id="add_despacho"> Novo Despacho<br><br>
+            <img title="Novo Despacho" src="/core/imagem/icon_app/new.png" name="add_despacho" id="add_despacho"> Novo Despacho<br><br>
             <div class="row" id='novoDespacho'>
                 <div class="col-md-9">
                     <label>Despacho :</label><span id="span_caracteres">Caracteres Restantes : 255</span>
                     <textarea rows='5' id="text_despacho" class='form form-control' maxlength="255"></textarea>
-                
+
                 </div>
                 <!-- Diretores poderão dar o parecer -->
-                
+
                 <div class="col-md-3">
                     <label>Parecer :</label><br>
                     Favorável : <input type='radio' value="1" name="rb_parecer" id="rb_favoravel" checked><br>
@@ -377,37 +387,43 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
                     Enviar p Analista : <input type='radio' value="2" name="rb_parecer" id="rb_analista"><br>
                     <br>
                 </div>
-                
+
                 <br>
                 <p class="text-left">Salvar <img src='/core/imagem/save.png' id="save_despacho"></p>
             </div>
             <br>
             <div class="row">
                 <div class="col-md-12" id='lista_despacho'>
-                        <?php
-                            include_once 'ajax_lista_despacho.php';
-                        ?>
+                    <?php
+                    include_once 'ajax_lista_despacho.php';
+                    ?>
                 </div>
             </div>
-                
+
         </div>
     </div>
 
     <!-- #################  tramitar processo #################### -->
-    
-    <div class="col-md-9" id="tramitar">
-            <select class="form form-control" name="sel_tramitar" id="sel_tramitar">
-                <option value=''><?=H_pedido_pedidajuda_hModel::enumFase($view[0]['tramit'])?></option>
-                <option value='analise_dlog'>Analista CEDEC</option>
-                <option value='analise_coord'>Coordenador Adjunto</option>
-                <option value='edicao_compdec'>Enviar para COMPDEC</option>
-                <option value='atendido'>Atendido</option>
-                <option value='aguard_disp'>Aguardando Disponibilidade</option>
-                <option value='aguard_ret'>Aguardando Retirada</option>
-                <option value='cancelado'>Cancelar</option>
-            </select>
 
-        
+    <div class="col-md-9" id="tramitar">
+        <select class="form form-control" name="sel_tramitar" id="sel_tramitar">
+            <option value='<?= $view[0]['status'] ?>' data-status='<?= $view[0]['tramit'] ?>'><?= H_pedido_pedidajuda_hModel::enumFase($view[0]['tramit']) ?></option>
+            <option value='2' data-status='analise_dlog' >Analista DLOG</option>
+            <option value='4' data-status='aguard_disp'>Aguardando Disponibilidade</option>
+            <?php
+            if ($view[0]['status'] >= 4) {
+                print "<option value='5' data-status='aguard_ret'>Aguardando Retirada</option>";
+                print "<option value='6' data-status='atendido'>Atendido</option>";
+                print "<option value='7' data-status='cancelado'>Cancelar</option>";
+            }
+
+            if ($view[0]['status'] == 2) {
+                print "<option value='0' data-status='edicao_compdec'>Enviar para COMPDEC</option>";
+            }
+            ?>
+        </select>
+
+
     </div>
 
     <!-- #################  arquivos anexos #################### -->
@@ -550,34 +566,83 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
 
 
 <script>
-    $(document).ready(function() {
-        
-        
-        
-        $("#text_despacho").keyup(function(){
-           var caracteres =  $("#text_despacho").val().length;
-           var restante = 255-caracteres;
-           $("#span_caracteres").text('Caracteres restantes : '+restante);
+    $(document).ready(function () {
+
+        /* tramitar processo */
+        $("#sel_tramitar").change(function () {
+            Swal.fire({
+                title: 'Deseja Alterar o Status do Processo ?',
+                showDenyButton: true,
+                showCancelButton: true,
+                showCloseButton: true,
+                confirmButtonText: 'Sim',
+                denyButtonText: 'Não',
+                customClass: {
+                    actions: 'my-actions',
+                    cancelButton: 'order-1 right-gap',
+                    confirmButton: 'order-2',
+                    denyButton: 'order-3',
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var formData = new FormData();
+                    formData.append('opcao', 'gravar_despacho');
+                    formData.append('id_pedido', id_pedido);
+                    formData.append('parecer', text_despacho);
+                    formData.append('id_usuario', id_usuario);
+                    formData.append('parecer_sit', parecer);
+
+                    $.ajax({
+                        url: '/mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/ajax.php',
+                        type: 'POST',
+                        data: formData,
+                        processData: false, // tell jQuery not to process the data
+                        contentType: false, // tell jQuery not to set contentType
+                        success: function (response) {
+                            if (response.trim() == 'sucesso') {
+                                Swal.fire('Despacho gravado com sucesso !').then(function () {
+                                    $('#lista_despacho').load('/mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/ajax_lista_despacho.php?id=' + id_pedido);
+                                });
+                            }
+                        },
+                        error: function (e) {
+                            //console.log(JSON.stringify(e));
+                        }
+                    });
+                    Swal.fire('Status do Processo Alterado !', '', 'success')
+                } else if (result.isDenied) {
+                    Swal.fire('Changes are not saved', '', 'info')
+                }
+            })
+
+        });
+
+
+        /* controle de caracteres texto despacho*/
+        $("#text_despacho").keyup(function () {
+            var caracteres = $("#text_despacho").val().length;
+            var restante = 255 - caracteres;
+            $("#span_caracteres").text('Caracteres restantes : ' + restante);
         });
 
         /* SALVAR DESPACHO */
-        $("#save_despacho").click(function(){
-            
-            var id_usuario = '<?=$id_usuario?>';
-            var id_pedido = '<?=$view[0]['id']?>';
+        $("#save_despacho").click(function () {
+
+            var id_usuario = '<?= $id_usuario ?>';
+            var id_pedido = '<?= $view[0]['id'] ?>';
             var text_despacho = $("#text_despacho").val();
             var parecer;
-            
-            if ( $("#rb_favoravel").is(":checked") ){
-                parecer = 1; 
-            }else if ( $("#rb_desfavoravel").is(":checked") ){
-                parecer = 0; 
-            }else if ( $("#rb_analista").is(":checked") ){
-                parecer = 2; 
+
+            if ($("#rb_favoravel").is(":checked")) {
+                parecer = 1;
+            } else if ($("#rb_desfavoravel").is(":checked")) {
+                parecer = 0;
+            } else if ($("#rb_analista").is(":checked")) {
+                parecer = 2;
             }
 
 
-                        
+
             var formData = new FormData();
             formData.append('opcao', 'gravar_despacho');
             formData.append('id_pedido', id_pedido);
@@ -591,14 +656,14 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
                 data: formData,
                 processData: false, // tell jQuery not to process the data
                 contentType: false, // tell jQuery not to set contentType
-                success: function(response) {
-                    if(response.trim() == 'sucesso') {
-                        Swal.fire('Despacho gravado com sucesso !').then(function() {
-                            $('#lista_despacho').load('/mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/ajax_lista_despacho.php?id='+id_pedido);
+                success: function (response) {
+                    if (response.trim() == 'sucesso') {
+                        Swal.fire('Despacho gravado com sucesso !').then(function () {
+                            $('#lista_despacho').load('/mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/ajax_lista_despacho.php?id=' + id_pedido);
                         });
                     }
                 },
-                error: function(e) {
+                error: function (e) {
                     //console.log(JSON.stringify(e));
                 }
             });
@@ -606,14 +671,14 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
 
         $('#novoDespacho').hide();
         $('img[name=salvar]').hide();
-        
-        $('#add_despacho').click(function(){
-            $('#novoDespacho').show();  
+
+        $('#add_despacho').click(function () {
+            $('#novoDespacho').show();
             $("#text_despacho").focus();
         });
 
         /* editar form material */
-        $('img[name=edit]').click(function() {
+        $('img[name=edit]').click(function () {
 
             var qtd = $(this).data('qtd');
             /* quantidade itens */
@@ -628,7 +693,7 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
         });
 
         /* salvar edição material */
-        $('img[name=salvar]').click(function() {
+        $('img[name=salvar]').click(function () {
 
             var id_material = $(this).data('id');
             var codigo = $(this).data('codigo');
@@ -648,41 +713,41 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
                 data: formData,
                 processData: false, // tell jQuery not to process the data
                 contentType: false, // tell jQuery not to set contentType
-                success: function(response) {
+                success: function (response) {
                     Swal.fire('Registro Editado com Sucesso !')
                 },
-                error: function(e) {
+                error: function (e) {
                     //console.log(JSON.stringify(e));
                 }
             });
         });
 
         /* adicionar material form  */
-        $('img[name=add_material]').click(function() {
+        $('img[name=add_material]').click(function () {
 
             var linha = "<tr>" +
-                "<td>-</td>" +
-                "<td><select class='form form-control col-md-6 descricao_item_novo' name='descricao_item_novo'>" +
-                "<?= $option ?>" +
-                "</select>" +
-                "</td>" +
-                "<input type='hidden' name='id_material_novo'></td>" +
-                "<td><input class='form form-control col-md-6' type='text' name='qtd_novo' required></td>" +
-                "<td><input class='form form-control col-md-6' type='text' name='familias_at_novo' required></td>" +
-                "<td><img src='/core/imagem/save.png' class='salvar_novo_mat'></td>";
+                    "<td>-</td>" +
+                    "<td><select class='form form-control col-md-6 descricao_item_novo' name='descricao_item_novo'>" +
+                    "<?= $option ?>" +
+                    "</select>" +
+                    "</td>" +
+                    "<input type='hidden' name='id_material_novo'></td>" +
+                    "<td><input class='form form-control col-md-6' type='text' name='qtd_novo' required></td>" +
+                    "<td><input class='form form-control col-md-6' type='text' name='familias_at_novo' required></td>" +
+                    "<td><img src='/core/imagem/save.png' class='salvar_novo_mat'></td>";
 
             $("#tbl_material_liberado").append(linha);
 
         });
 
         /* setar id do material campo hidden */
-        $('#tbl_material_liberado').on('chance', '.descricao_item_novo', function() {
+        $('#tbl_material_liberado').on('chance', '.descricao_item_novo', function () {
             $("select[name=descricao_item_novo] option:selected").text()
         });
 
 
         /* salvar novo material */
-        $('#tbl_material_liberado').on('click', '.salvar_novo_mat', function() {
+        $('#tbl_material_liberado').on('click', '.salvar_novo_mat', function () {
 
 
             var id_material = $("select[name=descricao_item_novo]").val();
@@ -708,13 +773,13 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
                 data: formData,
                 processData: false, // tell jQuery not to process the data
                 contentType: false, // tell jQuery not to set contentType
-                success: function(response) {
+                success: function (response) {
                     console.log(response);
-                    Swal.fire('Registro Salvo com Sucesso !').then(function() {
+                    Swal.fire('Registro Salvo com Sucesso !').then(function () {
                         $('#html1').jstree("select_node", show_material_pedido, true);
                     });
                 },
-                error: function(e) {
+                error: function (e) {
                     //console.log(JSON.stringify(e));
                 }
             });
@@ -730,7 +795,7 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
         $("#tramitar").hide();
 
 
-        $('#html1').on("select_node.jstree", function(e, data) {
+        $('#html1').on("select_node.jstree", function (e, data) {
             if (data.node.id == 'show_dados_gerais') {
                 $("#dados_gerais").fadeToggle();
                 $("#material_pedido").hide();
@@ -757,41 +822,41 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
             }
         });
 
-        $("#add_material").click(function() {
+        $("#add_material").click(function () {
             window.location.href =
-                '<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "add_itens", array('id' => $view[0]['id'])) ?>';
+                    '<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "add_itens", array('id' => $view[0]['id'])) ?>';
         });
 
-        $("#upload_arquivos").hover(function() {
+        $("#upload_arquivos").hover(function () {
             setInterval(
-                [].forEach.bind($("#btnGravar"),
-                    function(a) {
+                    [].forEach.bind($("#btnGravar"),
+                    function (a) {
                         a.style.outline = "5px solid #" + (~~(Math.random() * (1 << 24))).toString(
-                            16)
+                                16)
                     },
                     5),
-                1000);
+                    1000);
         });
 
-        $("#upload_arquivos").click(function() {
+        $("#upload_arquivos").click(function () {
             //$("#btnGravar").addClass("animacao");
 
             var result = confirm(
-                'Atenção \n Antes de Fazer o upload de arquivos salve as alterações nos dados do pedido\n deseja continuar mesmo assim ?'
-            )
+                    'Atenção \n Antes de Fazer o upload de arquivos salve as alterações nos dados do pedido\n deseja continuar mesmo assim ?'
+                    )
 
 
             if (result) {
                 window.location.href =
-                    '<?= FuncaoBase::geraLink("ajuda", "h_pedido_anexo", "cadastro", array('id' => $view[0]['id'], 'voltar' => $_GET['voltar'])) ?>';
+                        '<?= FuncaoBase::geraLink("ajuda", "h_pedido_anexo", "cadastro", array('id' => $view[0]['id'], 'voltar' => $_GET['voltar'])) ?>';
             }
         });
 
         /* conta os caracteres */
         $("#caracteres").text($("#esforcos_realizados").val().length + " / 65534 ( Caracteres restantes )");
-        $("#esforcos_realizados").keyup(function() {
+        $("#esforcos_realizados").keyup(function () {
             $("#caracteres").text($("#esforcos_realizados").val().length +
-                " / 65534 ( Caracteres restantes )");
+                    " / 65534 ( Caracteres restantes )");
         });
 
         if ($("#nao").is(":checked")) {
@@ -806,7 +871,7 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
 
         }
 
-        $("[name=decreto_se_ecp_vig]").change(function() {
+        $("[name=decreto_se_ecp_vig]").change(function () {
             if ($("#nao").is(":checked")) {
                 $("#nao").attr("checked", true);
                 $("#sim").attr("checked", false);
@@ -829,7 +894,7 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
             }
         });
 
-        $("[name=tipo_decreto]").change(function() {
+        $("[name=tipo_decreto]").change(function () {
             if ($("#ECP").is(":checked")) {
                 $("#ECP").attr("checked", true);
                 $("#SE").attr("checked", false);
@@ -843,55 +908,55 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
 
 
         /* clic form campo FK  */
-        $("#nomeRegiao").click(function() {
+        $("#nomeRegiao").click(function () {
             $("#modal_id_regiao").modal({
                 backdrop: 'static',
                 keyboard: false
             });
         });
         /* focus no campo pesquisa fornecedor */
-        $('#modal_id_regiao').on('shown.bs.modal', function(e) {
+        $('#modal_id_regiao').on('shown.bs.modal', function (e) {
             $("#searcid_regiao").focus();
         });
         /* clic form campo FK  */
-        $("#nomeCobrade").click(function() {
+        $("#nomeCobrade").click(function () {
             $("#modal_id_cobrade").modal({
                 backdrop: 'static',
                 keyboard: false
             });
         });
         /* focus no campo pesquisa fornecedor */
-        $('#modal_id_cobrade').on('shown.bs.modal', function(e) {
+        $('#modal_id_cobrade').on('shown.bs.modal', function (e) {
             $("#searcid_cobrade").focus();
         });
         /* clic form campo FK  */
-        $("#nomeMunicipio").click(function() {
+        $("#nomeMunicipio").click(function () {
             $("#modal_id_municipio").modal('show');
         });
         /* focus no campo pesquisa  */
-        $('#modal_id_municipio').on('shown.bs.modal', function(e) {
+        $('#modal_id_municipio').on('shown.bs.modal', function (e) {
             $("#searcid_municipio").focus();
         });
         /* clic form campo FK  */
-        $("#nomeRegiao").click(function() {
+        $("#nomeRegiao").click(function () {
             $("#modal_id_regiao").modal('show');
         });
         /* focus no campo pesquisa fornecedor */
-        $('#modal_id_regiao').on('shown.bs.modal', function(e) {
+        $('#modal_id_regiao').on('shown.bs.modal', function (e) {
             $("#searcid_regiao").focus();
         });
         /* clic form campo FK fornecedor */
-        $("#nomeCobrade").click(function() {
+        $("#nomeCobrade").click(function () {
             $("#modal_id_cobrade").modal('show');
         });
         /* focus no campo pesquisa fornecedor */
-        $('#modal_id_cobrade').on('shown.bs.modal', function(e) {
+        $('#modal_id_cobrade').on('shown.bs.modal', function (e) {
             $("#searcid_cobrade").focus();
         });
 
 
         /* ###################  fk_cedec_municipio ####################*/
-        $('#btnBuscaid_municipio').click(function() {
+        $('#btnBuscaid_municipio').click(function () {
             $('#modal_id_municipio').modal('show');
         });
 
@@ -904,14 +969,14 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
                     enabled: true
                 },
 
-                onSelectItemEvent: function() {
+                onSelectItemEvent: function () {
                     var id = $("#searcid_municipio").getSelectedItemData().id_municipio;
                     var nome = $("#searcid_municipio").getSelectedItemData().nome;
 
                     $("#nomeMunicipio_fk").val(nome); // Mudar
                     $("#id_municipio").val(id);
                 },
-                onClickEvent: function() {
+                onClickEvent: function () {
                     $('#modal_id_municipio').modal('hide');
                 }
             }
@@ -923,7 +988,7 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
         /*###########################  final cedec_municipio #####################*/
 
         /* ###################  fk_com_regiao ####################*/
-        $('#btnBuscaid_regiao').click(function() {
+        $('#btnBuscaid_regiao').click(function () {
             $('#modal_id_regiao').modal('show');
         });
 
@@ -936,14 +1001,14 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
                     enabled: true
                 },
 
-                onSelectItemEvent: function() {
+                onSelectItemEvent: function () {
                     var id = $("#searcid_regiao").getSelectedItemData().id_regiao;
                     var nome = $("#searcid_regiao").getSelectedItemData().nome;
 
                     $("#nomeRegiao_fk").val(nome); // Mudar
                     $("#id_regiao").val(id);
                 },
-                onClickEvent: function() {
+                onClickEvent: function () {
                     $('#modal_id_regiao').modal('hide');
                 }
             }
@@ -954,7 +1019,7 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
         /*###########################  final com_regiao #####################*/
 
         /* ###################  fk_dec_cobrade ####################*/
-        $('#btnBuscaid_cobrade').click(function() {
+        $('#btnBuscaid_cobrade').click(function () {
             $('#modal_id_cobrade').modal('show');
         });
 
@@ -967,14 +1032,14 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
                     enabled: true
                 },
 
-                onSelectItemEvent: function() {
+                onSelectItemEvent: function () {
                     var id = $("#searcid_cobrade").getSelectedItemData().id_cobrade;
                     var nome = $("#searcid_cobrade").getSelectedItemData().descricao;
 
                     $("#nomeCobrade_fk").val(descricao); // Mudar
                     $("#id_cobrade").val(id);
                 },
-                onClickEvent: function() {
+                onClickEvent: function () {
                     $('#modal_id_cobrade').modal('hide');
                 }
             }
@@ -986,6 +1051,6 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
 
 
     });
-    
-    
+
+
 </script>

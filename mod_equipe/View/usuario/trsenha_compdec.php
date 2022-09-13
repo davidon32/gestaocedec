@@ -88,6 +88,7 @@
             # troca de senha 
             if (isset($param[md5('use70')]) && (isset($dados))) {
                 if (isset($dados['reset'])) {
+                    
                     if ($agora <= $expira) {
                         #interno
                         if (empty($externo)) {
@@ -113,7 +114,7 @@
                     } else {
                         print "<script>";
                         print "alert('Link Expirado !');";
-                        print "window.location.href ='" . FuncaoBase::geraLink("index", "index", "index") . "'";
+                        //print "window.location.href ='" . FuncaoBase::geraLink("index", "index", "index") . "'";
                         print "</script>";
                         die();
                     }
