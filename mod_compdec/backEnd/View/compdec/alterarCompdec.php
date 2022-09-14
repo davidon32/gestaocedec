@@ -91,10 +91,10 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 
             <div class="row">
                 <div class="col-md-3">
-<?php
+                    <?php
 # possui compdec
-Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, array(array($_dados[0]['com_const'], ($_dados[0]['com_const'] == '1' ? 'Sim' : 'Não'))), "");
-?>
+                    Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, array(array($_dados[0]['com_const'], ($_dados[0]['com_const'] == '1' ? 'Sim' : 'Não'))), "");
+                    ?>
                 </div>
                 <div class="col-md-6">
                     <!--possui efetivo -->
@@ -106,9 +106,9 @@ Html::inputSelect("compdec", "compdec", "Possui Compdec ?", Config::$SIMNAO, arr
                     </select>
                 </div>
                 <div class="col-md-3">
-<?php
-Html::inputSelect("ativo", "ativo", "Situação do Compdec ?", Config::$ATIVOINATIVO, array(array($_dados[0]['com_ativa'], ($_dados[0]['com_ativa'] == '1' ? 'Ativo' : 'Inativo'))), "");
-?>
+                    <?php
+                    Html::inputSelect("ativo", "ativo", "Situação do Compdec ?", Config::$ATIVOINATIVO, array(array($_dados[0]['com_ativa'], ($_dados[0]['com_ativa'] == '1' ? 'Ativo' : 'Inativo'))), "");
+                    ?>
                 </div>
             </div>
             <br>
@@ -118,27 +118,27 @@ Html::inputSelect("ativo", "ativo", "Situação do Compdec ?", Config::$ATIVOINA
                     <label>Região Desenvolvimento :</label>
                     <select class="form-control" name="selTerritorioDesenv" id="selTerritorioDesenv" >
                         <option value='<?= $_dados[0]['id_territorio']; ?>'>
-<?php
-$nomTerritorio = $_territorio->pegaNomeTerritorio($_dados [0] ['id_territorio']);
-print $nomTerritorio ['nome'];
-?>
-                        </option>
                             <?php
-                            $_dados_territorio = $_territorio->dadosCombo();
-                            foreach ($_dados_territorio as $key => $value) {
-                                print "<option value='" . $value [0] . "'>" . $value [1] . "</option>";
-                            }
+                            $nomTerritorio = $_territorio->pegaNomeTerritorio($_dados [0] ['id_territorio']);
+                            print $nomTerritorio ['nome'];
                             ?>
+                        </option>
+                        <?php
+                        $_dados_territorio = $_territorio->dadosCombo();
+                        foreach ($_dados_territorio as $key => $value) {
+                            print "<option value='" . $value [0] . "'>" . $value [1] . "</option>";
+                        }
+                        ?>
                     </select>
                 </div>
                 <div class="col-md-4">
                     <!--regioes de planejamento do governo estadual -->
                     <label>Região :</label>
-<?php $_regiao->ComboRegiao($_dados[0]['regiao'], ""); ?>
+                    <?php $_regiao->ComboRegiao($_dados[0]['regiao'], ""); ?>
                 </div>
                 <div class="col-md-4">
                     <label>Associação</label>
-<?php $_associacao->ComboAssociacao($_dados[0]['associacao'], ""); ?>
+                    <?php $_associacao->ComboAssociacao($_dados[0]['associacao'], ""); ?>
                 </div>
             </div>
 
@@ -392,25 +392,25 @@ print $nomTerritorio ['nome'];
             <div class="span11" id="tblMembroEquipe">
                 Coordenador Municipal de Proteção e Defesa Civil<br>
                 <img class="img-polaroid" src="/anexo/compdec/<?= AnexoCompdec::Foto($_dados[0]['id_municipio']); ?>" width="115px;">
-<?php
-$compdec = new MembroEqCompdec();
+                <?php
+                $compdec = new MembroEqCompdec();
 
-$membros = $compdec->listaMembro($_dados[0]['id_municipio']);
+                $membros = $compdec->listaMembro($_dados[0]['id_municipio']);
 
-foreach ($membros as $value) {
-    if (($value['funcao'] == 'Coordenador') || ($value['funcao'] == 'COORDENADOR')) {
-        print $value['nome'];
-    }
-}
-?>
+                foreach ($membros as $value) {
+                    if (($value['funcao'] == 'Coordenador') || ($value['funcao'] == 'COORDENADOR')) {
+                        print $value['nome'];
+                    }
+                }
+                ?>
                 <br>
                 <a class="btn btn-info" onClick="uploadModal('compdec')" title="Alterar Foto Compdec" id="btnAlterarFoto" name="btnAlterarFoto">Alterar Foto</a>
-<?php
-print '<h4><p style="text-align:center;">EQUIPE COMPDEC</p></h4>';
-$pageSession['session']['seguranca']['id_municipio'] = $_dados [0] ['id_municipio'];
+                <?php
+                print '<h4><p style="text-align:center;">EQUIPE COMPDEC</p></h4>';
+                $pageSession['session']['seguranca']['id_municipio'] = $_dados [0] ['id_municipio'];
 
-include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
-?>
+                include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
+                ?>
 
             </div>
 
@@ -442,32 +442,32 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
                 </div>
             </div>
 
-            
+
 
         </div>
-        
-            <!-- Modal Adicionar Foto Prefeito-->
-            <div class="modal fade" id="modalWindowFotoPrefeito">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title">Upload Foto Prefeito</h4>
-                        </div>
-                        <div class="modal-body">
-                            <input class="form-control btn" type="file" name="fileAnexoPref" id="fileAnexoPref" /> <br> <br>
-                            <br>
 
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                            <button class="btn" type="button" name="btnGravarFotoPref" id="btnGravarFotoPref" value="salvar">Salvar</button>
-                        </div>
+        <!-- Modal Adicionar Foto Prefeito-->
+        <div class="modal fade" id="modalWindowFotoPrefeito">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Upload Foto Prefeito</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input class="form-control btn" type="file" name="fileAnexoPref" id="fileAnexoPref" /> <br> <br>
+                        <br>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        <button class="btn" type="button" name="btnGravarFotoPref" id="btnGravarFotoPref" value="salvar">Salvar</button>
                     </div>
                 </div>
             </div>
+        </div>
 
-        
+
         <div role="tabpanel" class="tab-pane" id="panel-anexo">
 
             <div class="col-md-12">
@@ -484,49 +484,48 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
                     </tr>
                 </table>
             </div>
-<!--upload documento -->
-<div class="col-md-6">
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default" title="Clique para Anexar Leis e Decretos">Upload</button>
-</div>
-<div class="col-md-6 text-right">
-    <!--<label title="Aprovação Documentos Compdec">
-        <input type="radio" name="rb_aprova" id="rb_aprova_1" value="1" <?=($_dados[0]['doc_aprov'] == 1) ? "checked": ""?> >
-        Aprovação Documentação Compdec
-    </label>
-    <br>
-    <label title="Libera para o Compdec Incluir Documentação">
-        <input type="radio" name="rb_aprova" id="rb_aprova_0" value="0" <?=($_dados[0]['doc_aprov'] == 0) ? "checked": ""?>>
-        Liberar Edição Compdec
-    </label>-->
-</div>
+            <!--upload documento -->
+            <div class="col-md-6">
+                <button type="button" onClick="uploadModal('leis')" class="btn btn-primary" title="Clique para Anexar Leis e Decretos">Upload</button>
+            </div>
+            <div class="col-md-6 text-right">
+                <!--<label title="Aprovação Documentos Compdec">
+                    <input type="radio" name="rb_aprova" id="rb_aprova_1" value="1" <?= ($_dados[0]['doc_aprov'] == 1) ? "checked" : "" ?> >
+                    Aprovação Documentação Compdec
+                </label>
+                <br>
+                <label title="Libera para o Compdec Incluir Documentação">
+                    <input type="radio" name="rb_aprova" id="rb_aprova_0" value="0" <?= ($_dados[0]['doc_aprov'] == 0) ? "checked" : "" ?>>
+                    Liberar Edição Compdec
+                </label>-->
+            </div>
             <div class="col-md-12 table-responsive" id="tblAnexoLeis">
-                
-                <?php 
-                        include_once PATH . '/mod_compdec/backEnd/View/compdec/anexo.php'; 
-                  
-                    /*print "<table class='table table-bordered'>";
-                    # linha informando q nao tem lei de criacao
-                    if ($_dados[0]['sem_lei'] == 1) {
-                        print "<tr>
-                                    <td style='background-color:#00FF80;text-align:center' title='' colspan='7'>Não possui Lei de Criação da COMPDEC</td>";
-                    }
 
-                    # linha informando q nao tem decreto 
-                    if ($_dados[0]['sem_decreto'] == 1) {
-                        print "<tr>
-                                    <td style='background-color:#00FF80;text-align:center' title='' colspan='7'>Não possui Decreto de Regulamentação da Lei de Criação do Compdec</td>";
-                    }
+                <?php
+                include_once PATH . '/mod_compdec/backEnd/View/compdec/anexo.php';
 
-                    # linha informando q nao tem Portaria de nomeação compdec 
-                    if ($_dados[0]['sem_portaria'] == 1) {
-                        print "<tr>
-                                    <td style='background-color:#00FF80;text-align:center' title='' colspan='7'>Não possui Portaria de Nomeação do Coordenador Municipal de Defesa Civil </td>";
-                    }
-                print '</table>';
-                     * 
-                     */
+                /* print "<table class='table table-bordered'>";
+                  # linha informando q nao tem lei de criacao
+                  if ($_dados[0]['sem_lei'] == 1) {
+                  print "<tr>
+                  <td style='background-color:#00FF80;text-align:center' title='' colspan='7'>Não possui Lei de Criação da COMPDEC</td>";
+                  }
 
-?>
+                  # linha informando q nao tem decreto
+                  if ($_dados[0]['sem_decreto'] == 1) {
+                  print "<tr>
+                  <td style='background-color:#00FF80;text-align:center' title='' colspan='7'>Não possui Decreto de Regulamentação da Lei de Criação do Compdec</td>";
+                  }
+
+                  # linha informando q nao tem Portaria de nomeação compdec
+                  if ($_dados[0]['sem_portaria'] == 1) {
+                  print "<tr>
+                  <td style='background-color:#00FF80;text-align:center' title='' colspan='7'>Não possui Portaria de Nomeação do Coordenador Municipal de Defesa Civil </td>";
+                  }
+                  print '</table>';
+                 * 
+                 */
+                ?>
             </div>
             <!-- Modal Adicionar Anexo Leis  -->
             <div class="modal fade" id="modal-default">
@@ -539,20 +538,23 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
                         </div>
                         <div class="modal-body">
                             <form name="frmAnexoLeis" enctype="multipart/form-data">
-                                <input class="form-control" type="file" name="fileAnexoLeis" id="fileAnexoLeis" /><span class="obs"> (Formato PDF ou JPEG)</span><br><span class="obs">Tamanho máximo Arquivo: 2Mb (mega bytes) ou 2.000 KB (kilo bytes) </span> <br>
+                                <input class="form-control" type="file" name="fileAnexoLeis" id="fileAnexoLeis" />
+                                <br>
+                                <span class="obs" id="formato_file"> (Formato PDF / JPEG / PDF)</span><br>
+                                <span class="obs" id="tamanho_file">Tamanho máximo Arquivo: 2Mb (mega bytes) ou 2.000 KB (kilo bytes) </span> <br>
+                                <span class="obs" id="nome_arquivo_file"></span> <br>
                                 <label>Descrição</label>
                                 <input class="form-control" type='text' name='txtDescricao' id='txtDescricao' maxlength="40">
                                 <label>Tipo Doc</label>
                                 <select class="form-control" name="selTipo" id="selTipo">
                                     <option value="0">Decreto de Regulamentação da Lei de Criação do COMPDEC</option>
-                                <option value="1">Lei Criação do Compdec</option>
-                                <option value="2">Portaria Nomeação do Coordenado da COMPDEC</option>
-                                    <?php 
-                                        
-                                        /*print ($_dados[0]['sem_lei'] == 0) ? "<option value=\"1\">Lei Criação do Compdec</option>" :"";
-                                        print ($_dados[0]['sem_decreto'] == 0) ? "<option value=\"0\">Decreto de Regulamentação da Lei de Criação do COMPDEC</option>" : "";
-                                        print ($_dados[0]['sem_portaria'] == 0) ? "<option value=\"2\">Portaria Nomeação do Coordenado da COMPDEC</option>" : "" ;
-                                        */
+                                    <option value="1">Lei Criação do Compdec</option>
+                                    <option value="2">Portaria Nomeação do Coordenado da COMPDEC</option>
+                                    <?php
+                                    /* print ($_dados[0]['sem_lei'] == 0) ? "<option value=\"1\">Lei Criação do Compdec</option>" :"";
+                                      print ($_dados[0]['sem_decreto'] == 0) ? "<option value=\"0\">Decreto de Regulamentação da Lei de Criação do COMPDEC</option>" : "";
+                                      print ($_dados[0]['sem_portaria'] == 0) ? "<option value=\"2\">Portaria Nomeação do Coordenado da COMPDEC</option>" : "" ;
+                                     */
                                     ?>
                                 </select>
                                 <br>
@@ -561,7 +563,8 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-info" type="button" name="btnGravarLeis" id="btnGravarLeis">Salvar</button>
+                            <button class="btn btn-info" type="button" name="btnGravarLeis" id="btnGravarLeis">Upload</button>
+                            <button class="btn btn-disabled" type="button" id="btnGravarLeis_fake" title="">Sem Condições de fazer Upload</button>
                             <button type="button" class="btn btn-success pull-left" data-dismiss="modal">Close</button>
                         </div>
                     </div>
@@ -606,126 +609,126 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
         $("#sp_email").hide();
         $("#sp_email2").hide();
         $("#sp_email3").hide();
-        
-        $("#txt_email").blur(function(){
+
+        $("#txt_email").blur(function () {
             var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-            if($("#txt_email").val().length >0){
+            if ($("#txt_email").val().length > 0) {
                 var email = $("#txt_email").val();
-                if(!email.match(validRegex)){ 
+                if (!email.match(validRegex)) {
                     $("#sp_email").css('color', 'red');
                     $("#sp_email").show();
                     $("#txt_email").focus();
                     return true;
-                }else {
+                } else {
                     $("#sp_email").hide();
                 }
-            }else {
+            } else {
                 $("#sp_email").hide();
             }
         });
-        
-        $("#txt_email2").blur(function(){
+
+        $("#txt_email2").blur(function () {
             var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-            if($("#txt_email2").val().length >0){
+            if ($("#txt_email2").val().length > 0) {
                 var email = $("#txt_email2").val();
-                
-                if(!email.match(validRegex)){ 
+
+                if (!email.match(validRegex)) {
                     $("#sp_email2").css('color', 'red');
                     $("#sp_email2").show();
                     $("#txt_email2").focus();
                     return true;
-                }else {
+                } else {
                     $("#sp_email2").hide();
                 }
-            }else{
+            } else {
                 $("#sp_email2").hide();
             }
         });
-        
-        $("#txt_email3").blur(function(){
+
+        $("#txt_email3").blur(function () {
             var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-            if($("#txt_email3").val().length >0){
+            if ($("#txt_email3").val().length > 0) {
                 var email = $("#txt_email3").val();
-                if(!email.match(validRegex)){ 
+                if (!email.match(validRegex)) {
                     $("#sp_email3").css('color', 'red');
                     $("#sp_email3").show();
                     $("#txt_email3").focus();
                     return true;
-                }else {
+                } else {
                     $("#sp_email3").hide();
                 }
-            }else {
+            } else {
                 $("#sp_email3").hide();
             }
         });
-        
+
         $('input[type="checkbox"]:not("#sem_decreto, #sem_portaria, #ckSemDoc")').each(function () {
-            $(this).is(":checked") ? $(this).val(1): $(this).val(0); 
+            $(this).is(":checked") ? $(this).val(1) : $(this).val(0);
         });
-        
+
         $('input[type="checkbox"]:not("#sem_decreto, #sem_portaria, #ckSemDoc")').click(function () {
-            $(this).is(":checked") ? $(this).val(1): $(this).val(0); 
+            $(this).is(":checked") ? $(this).val(1) : $(this).val(0);
         });
         /*ck_sede
-        ck_viatura
-        ck_computador
-        ck_curso_gestao
-        ck_curso_sco
-        ck_particip_workshop
-        ck_exp_dc*/
-        
-        /* validar documento compdec */
-        $("button[name='valida_doc']").click(function(){
-           var id_anexo = $(this).data('id_anexo');
-           var dados = {
-                    "opcao": "valida_anexo",
-                    "id_anexo": id_anexo,
-            };
-            if(confirm('Deseja Homologar este documento ?')){
-                $.ajax({
-                         type: 'POST',
-                         url: 'mod_compdec/backEnd/View/compdec/anexo.php?v=<?= md5(VERSAO) ?>&mun=<?=$_GET['mun']?>',
-                         data: dados,
-                         //dataType: 'json',
-                         success: function (response) {
-                             alert("Documento Validado com Sucesso");
-                             location.reload();
-                             console.log(response);
-                         },
-                         error: function (e) {
-                             console.log(JSON.stringify(e));
-                         }
-                     });
-            }
-           
-        });
-        
-        /* aprovar documentação */
-        $("input[name=rb_aprova").click(function(){
-           var id_municipio = '<?=$id_municipio?>';
-           var valor = $(this).val();
-           var dados = {
-                    "opcao": "aprovar_compdec",
-                    "id_municipio": id_municipio,
-                    "valor" : valor,
-            };
-            if(confirm('Deseja Confirmar a Aprovação da Documentação ?')){
-                $.ajax({
-                         type: 'POST',
-                         url: 'mod_compdec/backEnd/View/compdec/anexo.php?v=<?= md5(VERSAO) ?>&mun=<?=$_GET['mun']?>',
-                         data: dados,
-                         //dataType: 'json',
-                         success: function (response) {
-                             alert("Procedimento Realizado com Sucesso !");
-                             //location.reload();
-                         },
-                         error: function (e) {
-                             console.log(JSON.stringify(e));
-                         }
+         ck_viatura
+         ck_computador
+         ck_curso_gestao
+         ck_curso_sco
+         ck_particip_workshop
+         ck_exp_dc*/
 
-                     });
+        /* validar documento compdec */
+        $("button[name='valida_doc']").click(function () {
+            var id_anexo = $(this).data('id_anexo');
+            var dados = {
+                "opcao": "valida_anexo",
+                "id_anexo": id_anexo,
+            };
+            if (confirm('Deseja Homologar este documento ?')) {
+                $.ajax({
+                    type: 'POST',
+                    url: 'mod_compdec/backEnd/View/compdec/anexo.php?v=<?= md5(VERSAO) ?>&mun=<?= $_GET['mun'] ?>',
+                    data: dados,
+                    //dataType: 'json',
+                    success: function (response) {
+                        alert("Documento Validado com Sucesso");
+                        location.reload();
+                        console.log(response);
+                    },
+                    error: function (e) {
+                        console.log(JSON.stringify(e));
+                    }
+                });
             }
-           
+
+        });
+
+        /* aprovar documentação */
+        $("input[name=rb_aprova").click(function () {
+            var id_municipio = '<?= $id_municipio ?>';
+            var valor = $(this).val();
+            var dados = {
+                "opcao": "aprovar_compdec",
+                "id_municipio": id_municipio,
+                "valor": valor,
+            };
+            if (confirm('Deseja Confirmar a Aprovação da Documentação ?')) {
+                $.ajax({
+                    type: 'POST',
+                    url: 'mod_compdec/backEnd/View/compdec/anexo.php?v=<?= md5(VERSAO) ?>&mun=<?= $_GET['mun'] ?>',
+                    data: dados,
+                    //dataType: 'json',
+                    success: function (response) {
+                        alert("Procedimento Realizado com Sucesso !");
+                        //location.reload();
+                    },
+                    error: function (e) {
+                        console.log(JSON.stringify(e));
+                    }
+
+                });
+            }
+
         });
 
         $('#tabs-166211 a').click(function (e) {
@@ -921,7 +924,7 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
          *
          */
         $("#btnDados2").click(function () {
-        
+
             validaEmail()
 
             if (false) {
@@ -974,9 +977,9 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
             }
         });
 
-       /* grava checkebox sem DEcreto */
+        /* grava checkebox sem DEcreto */
         $("input[name=ckSemDoc]").click(function () {
-            var valor = ($(this).is(":checked")) ? 1:0; 
+            var valor = ($(this).is(":checked")) ? 1 : 0;
             var campo = $(this).attr('id');
 
             var dados = {
@@ -1051,9 +1054,13 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
                     $("#modalWindowFotoCompdec").modal('show');
                 } else if (param == "prefeito") {
                     $("#modalWindowFotoPrefeito").modal('show');
-                }else if(param == 'validar') {
+                } else if (param == 'validar') {
                     $("#modal-validar").modal('show');
+                } else if (param == 'leis') {
+                    $("#modal-default").modal('show');
                 }
+
+
             }
         })(jQuery);
 
@@ -1224,6 +1231,9 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
 
                                 $.ajax({
                                     url: 'mod_compdec/backEnd/View/compdec/anexo.php',
+                                    beforeSend: function (xhr) {
+                                        //$('.overlay1').show();
+                                    },
                                     type: 'POST',
                                     data: formData,
                                     processData: false, // tell jQuery not to process the data
@@ -1231,9 +1241,9 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
                                     success: function (response) {
                                         //if(response == "sucesso"){
                                         //console.log(response);
-
-                                        $("#modal-default").modal('hide');
+                                        //$("#modal-default").modal('hide');
                                         //$("#tblAnexoLeis").html(response);
+
                                         location.reload();
                                         //}else{
                                         //console.log(response);
@@ -1264,6 +1274,54 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
             });
 
         });
+        
+        
+
+        /* verifica o tamanho do arquivo */
+        
+        $('#btnGravarLeis_fake').hide();
+        $('#nome_arquivo_file').hide();
+        $('input[type=file]').change(function () {
+        
+            const regex = /[?!ÁÉÍÓÚáéíóúÂÊÔâêôÀàÜüÇçÑñÃÕãõ()!@#$%¨&*+§ªº°?;:¹²³£¢¬'"?/<>,\| ´`]/gm;
+                   
+            $('#tamanho_file').text('Tamanho máximo Arquivo: 2Mb (mega bytes) ou 2.000 KB (kilo bytes)');
+            $('#tamanho_file').removeClass('alert alert-danger');
+            $('#formato_file').text('Formatos permitidos PNG / JPG / PDF');
+            $('#formato_file').removeClass('alert alert-danger');
+
+            if (this.files[0].size > 2000000) {
+                $('#tamanho_file').text('O arquivo é maior que 2MB, gentileza verificar !');
+                $('#tamanho_file').addClass('alert alert-danger');
+                $('#btnGravarLeis').hide();
+                $('#btnGravarLeis_fake').show();
+                
+            }else if(this.files[0].type != 'application/pdf' && this.files[0].type != 'image/png' && this.files[0].type != 'image/jpg'){
+                $('#formato_file').text('O arquivo não está no formato aceito : PNG / JPG / PDF');
+                $('#formato_file').addClass('alert alert-danger');
+                $('#btnGravarLeis').hide();
+                $('#btnGravarLeis_fake').show();
+                
+            }else if(this.files[0].name.length > 39){
+                $('#nome_arquivo_file').text('O nome do arquivo está muito grande');
+                $('#nome_arquivo_file').addClass('alert alert-danger');
+                $('#btnGravarLeis').hide();
+                $('#btnGravarLeis_fake').show();
+            
+            }else if( regex.test(this.files[0].name) ){
+                $('#nome_arquivo_file').text('O nome do arquivo contem carecteres especiais, favor renomeá-lo !' + regex.test(this.files[0].name));
+                $('#nome_arquivo_file').addClass('alert alert-danger');
+                $('#btnGravarLeis').hide();
+                $('#btnGravarLeis_fake').show();
+            }else {
+                $('#tamanho_file').text('Tamanho máximo Arquivo: 2Mb (mega bytes) ou 2.000 KB (kilo bytes)');
+                $('#tamanho_file').removeClass('alert alert-danger');
+                $('#formato_file').text('Formatos permitidos PNG / JPG / PDF');
+                $('#formato_file').removeClass('alert alert-danger');
+                $('#btnGravarLeis').show();
+                $('#btnGravarLeis_fake').hide();
+            }
+        })
 
 
     });
@@ -1307,13 +1365,13 @@ include_once PATH . '/mod_pipa/backEnd/View/pmda/membroEquipe.php';
 
 
     /*
-             
+     
      Deletar Membro equipe
      @param id - identidicador do registro
      @param contexto - pagina envio
      @param view - atualizar tabela sem refresh
-             
-             
+     
+     
      */
     function deletarMembro(id) {
 

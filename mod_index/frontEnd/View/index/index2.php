@@ -28,7 +28,7 @@ $_loginEx = new LoginExterno();
         # pmda
         print ($acessoModulo['mod_pipa'] == '1') ?
                         '<td align="center">
-	  						<a class="" href="?token=' . hash("sha256", md5(VERSAO)."-".time()) . '&ac=etn&modulo=pipa&controller=pipa&action=pmdaidx" title="Acesso ao PMDA on-line"><img alt="core/imagem/pipa.png" src="core/imagem/pipa.png"><br><b>PMDA on-line</b></a>
+	  						<a class="" href="?token=' . hash("sha256", md5(VERSAO)."-".time()) . '&ac=etn&modulo=pipa&controller=pipa&action=pmdaidx" title="Acesso ao PMDA on-line"><img alt="core/imagem/pipa.png" src="core/imagem/pipa.png"><br><b>PMDA</b></a>
 	  					</td>' : '';
 
         # compdec
@@ -51,7 +51,7 @@ $_loginEx = new LoginExterno();
         # plano de contingencia	
         if($acessoModulo['mod_plano'] == '1'){
             print '<td align="center">
-                    <a class="" href="?token=' . hash("sha256", md5(VERSAO)."-".time()) . '&ac=etn&modulo=compdec&controller=plano&action=index" title="Confecção do Plano de Contingencia"><img alt="core/imagem/plano.png" src="core/imagem/plano.png"><br><b>Plano de Contingencia</b></a>
+                    <a class="" href="?token=' . hash("sha256", md5(VERSAO)."-".time()) . '&ac=etn&modulo=compdec&controller=plano&action=index" title="Confecção do Plano de Contingencia"><img alt="core/imagem/plano.png" src="core/imagem/plano.png"><br><b>Plano de Contingência</b></a>
                 </td>';
         }else {
              print '<td align="center">

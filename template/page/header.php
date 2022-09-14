@@ -67,7 +67,7 @@ print "</script>";
     }
 </script>
 <?php ?>
-<style>
+<!--<style>
 .overlay1 {
     position: fixed;
     width: 100%;
@@ -81,7 +81,7 @@ print "</script>";
     background-position: center center;
     background-size: 100px;
   }    
-</style>
+</style>-->
     
 <div class="overlay1"> <i class="fa fa-cog fa-spin fa-5x fa-fw"></i><span class="sr-only">Loading...</span> </div>
 

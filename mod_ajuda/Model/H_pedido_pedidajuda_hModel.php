@@ -1378,5 +1378,30 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
 
         return $data_aprovacao;
     }
+    
+    
+    /**
+     * Tramitar Pedido
+     */
+    public static function tramitar($dados) {
+
+        $con = Conexao::getInstance();
+        $sql = "update aju_pedido_pedid set status = :status,
+                                            tramit = :tramit
+                                            where id_pedido = :id_unidade";
+
+        try {
+            $result = $con->prepare($sql);
+            $result->bindValue(":status",   $dados['status']);
+            $result->bindValue(":tramit",   $dados['tramit']);
+            $result->bindValue(":id_pedido",$dados['id_pedido']);
+
+            $result->execute();
+
+            return true;
+        } catch (Exception $e) {
+            return $e->getMessage() . "-";
+        }
+    }
 
 }

@@ -586,11 +586,11 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
             }).then((result) => {
                 if (result.isConfirmed) {
                     var formData = new FormData();
-                    formData.append('opcao', 'gravar_despacho');
-                    formData.append('id_pedido', id_pedido);
-                    formData.append('parecer', text_despacho);
-                    formData.append('id_usuario', id_usuario);
-                    formData.append('parecer_sit', parecer);
+                    formData.append('opcao', 'tamitar_pedido');
+                    formData.append('id_pedido', $("#id_pedido").val());
+                    formData.append('id_usuario', $("#id_usuario").val());
+                    formData.append('status', $("#status").val());
+                    formData.append('tramit', $("#tramit").val());
 
                     $.ajax({
                         url: '/mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/ajax.php',
@@ -600,8 +600,8 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
                         contentType: false, // tell jQuery not to set contentType
                         success: function (response) {
                             if (response.trim() == 'sucesso') {
-                                Swal.fire('Despacho gravado com sucesso !').then(function () {
-                                    $('#lista_despacho').load('/mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/ajax_lista_despacho.php?id=' + id_pedido);
+                                Swal.fire('Pedido Tramitado com sucesso !').then(function () {
+                                    //$('#lista_despacho').load('/mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/ajax_lista_despacho.php?id=' + id_pedido);
                                 });
                             }
                         },

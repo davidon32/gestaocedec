@@ -20,9 +20,9 @@
             <div class="col-md-4 text-center"> 
             <legend>Notificações</legend>
               <?php
-                //$login = new Login();
-                //$login->acessoLembrete($_COOKIE['seguranca']['login'], $_COOKIE['seguranca']['id_deposito']);
-                //$login->acessoLembreteTransito($_COOKIE['seguranca']['login'], $_COOKIE['seguranca']['id_deposito'])
+                $login = new Login();
+                $login->acessoLembreteCompdec($_COOKIE['seguranca']['login'], $_COOKIE['seguranca']['id_deposito']);
+                $login->acessoLembreteTransito($_COOKIE['seguranca']['login'], $_COOKIE['seguranca']['id_deposito'])
                 
               ?>
             </div> 

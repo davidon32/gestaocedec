@@ -503,7 +503,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
                 <div class="modal-content">
 
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <button type="button" class="close" aria-hidden="true">&times;</button>
                         <h4 class="modal-title">Upload</h4>
                     </div>
                     <div class="modal-body">
@@ -634,7 +634,11 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
                         <form name="frmAnexoLeis" enctype="multipart/form-data">
                             <input class="form-control" type="file" accept=".jpg,.pdf,.png" name="fileAnexoLeis" id="fileAnexoLeis" >
                             <br>
-                            <p style='color:red' id='sp_size_lei'>&nbsp;</p>
+                            <span id='sp_size' class="col-md-12">
+                                <span style='color:red' class="col-md-11" id='sp_size_lei'>&nbsp;</span>
+                                <img id='sp_size_img' width="25px;" class="pull-right" src="/core/imagem/check.png"><br>
+                            </span>
+                            <br><br>
                             <p>Tipos de Imagem válidas : <b style="color:red">"JPG", "PDF", "PNG"</b></p>
                             <span>Tamanho máximo da imágem :  <b style="color:red">2 MB</b></span><br>
                             <label>Descrição</label>
@@ -777,10 +781,21 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
          
          }); */
 
+        $('#sp_size_img').hide();
         $("#fileAnexoLeis").change(function () {
             tamanho = this.files;
-            console.log(tamanho);
-            $('#sp_size_lei').text('Tamanho : ' + Math.round(tamanho[0].size / 1024) + ' Mb');
+            
+            $('#sp_size_lei').text('Tamanho : ' + Number.parseFloat(tamanho[0].size / 1000000).toFixed(2) + ' Mb');
+            
+            
+            if(tamanho[0].size < 1999353){
+                $('#sp_size_lei').addClass('alert alert-info');
+                $('#sp_size_lei, #sp_size_img').show();
+            }else {
+                $('#sp_size_lei').addClass('alert alert-danger');
+                $('#sp_size_img').attr("src", '/core/imagem/remove.png');
+                $('#sp_size_img').show();
+            }
             if (tamanho[0]['size'] > 1999353) {
                 $("#btnGravarLeis").attr("disabled", true);
                 $("#btnGravarLeis").attr("title", "Seu arquivo é maior que 2mb tente reescanear com a opção compactar !");
@@ -1200,7 +1215,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 
         /*********** Gravar Foto compdec ************************/
         /* abrir modal*/
-        /* upload foto compdec */
+        /* defoto compdec */
         (function ($) {
 
             uploadModal = function (param) {
@@ -1210,6 +1225,8 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
                     $("#modalWindowFotoPrefeito").modal('show');
                 } else if (param == "brasao") {
                     $("#modalWindowBrasao").modal('show');
+                } else if (param == 'leis') {
+                    $("#modal-default").modal('show');
                 } 
             }
         })(jQuery);

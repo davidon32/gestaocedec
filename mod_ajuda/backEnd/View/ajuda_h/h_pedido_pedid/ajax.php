@@ -67,7 +67,8 @@ if($opcao == 'dados_compdec') {
     $dados = $_POST;
     if(H_pedido_itensajuda_hModel::gravar($dados)) {
         print 'sucesso';
-    }    
+    } 
+/* gravar despacho */
 }elseif( $opcao =='gravar_despacho') {
     $dados = $_POST;
     $dados['data_parecer'] = date('d-m-Y H:i:s');
@@ -80,5 +81,15 @@ if($opcao == 'dados_compdec') {
     if(H_pedido_an_tecajuda_hModel::gravar($dados)) {
         print 'sucesso';
     }   
+//tramitar pedido
+}elseif(true){
+    $dados = $_POST;
+    
+
+    if(H_pedido_pedidajuda_hModel::tramitar($dados)) {
+        print 'sucesso';
+    }   
+    
+    
 }
 

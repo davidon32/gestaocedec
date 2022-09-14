@@ -43,7 +43,7 @@ $doc_aprova = Compdec::getDocAprov($id_municipio);
 
 $dados = $anexo->listaAnexo($id_municipio);
         if($doc_aprova == 0){
-            print '<button type="button" id="btn_anexo" class="btn btn-primary" data-toggle="modal" data-target="#modal-default" title="Clique para Anexar Leis e Decretos">Upload</button>';
+            print '<button type="button" id="btn_anexo" onclick="uploadModal(\'leis\')" class="btn btn-primary" title="Clique para Anexar Leis e Decretos">Upload</button>';
 
 	}
         #print "<br><br><span class='alert alert-success'> Seus documentos estão atualizados, em caso de mudança entre em contato com a CEDEC </span><br><br>";
