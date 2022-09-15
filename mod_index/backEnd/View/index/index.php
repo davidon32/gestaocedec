@@ -31,11 +31,15 @@
 
             if(count($ped_ajuda_parecer_coord) ) {
         ?>
-        <legend>Liberador</legend>
-        <span> ( Pedido de Ajuda Humanitária Aguardando Parever Chefia )</span>
+        <legend>Autorizador</legend>
+        <span> ( Pedidos pendentes de Autorização )</span>
         <?php
             
             foreach ($ped_ajuda_parecer_coord as $key => $pedido) {
+                
+                $data_hoje = new DateTime(date('Y-m-d'));
+                $data_pedido = new DateTime($pedido['data_entrada_sistema']);
+                $dif = $data_hoje->diff($data_pedido);
 
                 print "<ul class=\"todo-lis\">
 										 <li>
@@ -44,15 +48,21 @@
 												 ".($key+1).") - <i class=\"fa fa-ellipsis-v\"></i>
 												 <i class=\"fa fa-ellipsis-v\"></i>
 											 </span>
-											 <span class=\"text\">
-											 
-												<a style=\"text-decoration:none;\" href=\"javascript:NovaJanela('index.php?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=ajuda&controller=conestoque&action=lembrete_liberacao&id=" . $pedido['id'] . "', 700, 400)\">
+											 <span class=\"text\">";
+                                                                                                if($secao == "CHEFIA"){
+												print "<a style=\"text-decoration:none;\" href=\"".FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit', array('id'=> $pedido['id'], 'voltar'=>'idx_recente'))."\" title=\'Editar Pedido\'>
 														&nbsp;&nbsp;<img style=\"vertical-align:middle\" width='15px;' src=\"/core/imagem/pedido_cesta.png\">
 														&nbsp;&nbsp;<span style='font-size:12px;'>
-														Pedido de Ajuda Humanitária Nº: " . $pedido['numero'] . "/" . substr($pedido['data_entrada_sistema'],0,4) ." - " . DataMysql::dataVisual($pedido['data_entrada_sistema']). "</a>
-                			             	</span>
+														Pedido de Ajuda Humanitária Nº: " . $pedido['numero'] . "/" . substr($pedido['data_entrada_sistema'],0,4) ." - " . DataMysql::dataVisual($pedido['data_entrada_sistema']). "</a>";
+                                                                                                        }else {
+                                                                                                            print "<a style=\"text-decoration:none;\" href=\"".FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'view', array('id'=> $pedido['id'], 'voltar'=>'idx_recente'))."\" title=\'Editar Pedido\'>
+														&nbsp;&nbsp;<img style=\"vertical-align:middle\" width='15px;' src=\"/core/imagem/pedido_cesta.png\">
+														&nbsp;&nbsp;<span style='font-size:12px;'>
+														Pedido de Ajuda Humanitária Nº: " . $pedido['numero'] . "/" . substr($pedido['data_entrada_sistema'],0,4) ." - " . DataMysql::dataVisual($pedido['data_entrada_sistema']). "</a>";
+                                                                                                        }
+                                                                                        print "</span>
 											 </span>
-											 <small class=\"label label-danger\"><i class=\"fa fa-clock-o\"></i> - liberado ha   dia(s)</small>
+											 <small class=\"label label-danger\"><i class=\"fa fa-clock-o\"></i> - liberado ha ".$dif->days."  dia(s)</small>
 											 
 										 </li>
 									 </ul>";                 

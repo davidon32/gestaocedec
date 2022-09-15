@@ -11,39 +11,39 @@
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php"; ?>
 <style>
-    
+
     @media print {
         .print {
             display:none;
         }
     }
-    
-    
+
+
 </style>
 
 <p class="text-center">
-<button class="btn btn-primary print" id='btn_print' type="button">Impressão</button>
-<a href='<?= FuncaoBase::geraLink("ajuda", "h_pedido_index", "index")?>' class="btn btn-success print" id='btn_voltar'>Voltar</a>
+    <button class="btn btn-primary print" id='btn_print' type="button">Impressão</button>
+    <a href='<?= FuncaoBase::geraLink("ajuda", "h_pedido_index", "index") ?>' class="btn btn-success print" id='btn_voltar'>Voltar</a>
 </p>
 
 <div class='col-md-12' id='view'>
-<div class='col-md-12 text-center'>
-<legend><?= $view[1]['tabela']->TABLE_COMMENT ?></legend>
-<?php    
-if ($_GET['voltar'] == 'idx_recente') {
-    print "<a class=\"btn btn-success\" href=\"" . FuncaoBase::geraLink("ajuda", "h_pedido_index", "index") . "\">Voltar</a>";
-} else {
-    print "<a class=\"btn btn-success\" href=\"" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "index") . "\">Voltar</a>";
-}
-?>
-    <br><br>
-</div>
-    <legend>Número : <?=$view[0]['id'].$view[0]['ano']?></legend>
-<table class="table table-bordered table-striped">
+    <div class='col-md-12 text-center'>
+        <legend><?= $view[1]['tabela']->TABLE_COMMENT ?></legend>
+        <?php
+        if ($_GET['voltar'] == 'idx_recente') {
+            print "<a class=\"btn btn-success\" href=\"" . FuncaoBase::geraLink("ajuda", "h_pedido_index", "index") . "\">Voltar</a>";
+        } else {
+            print "<a class=\"btn btn-success\" href=\"" . FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "index") . "\">Voltar</a>";
+        }
+        ?>
+        <br><br>
+    </div>
+    <legend>Número : <?= $view[0]['id'] . $view[0]['ano'] ?></legend>
+    <table class="table table-bordered table-striped">
 
-    <tr>
-        <td class="col-md-3">Identificador do Pedido :</td><td><?= $view[0]['id']; ?></td>
-    </tr></div>
+        <tr>
+            <td class="col-md-3">Identificador do Pedido :</td><td><?= $view[0]['id']; ?></td>
+        </tr></div>
 
 <tr>
     <td class="col-md-3">Número Pedido :</td><td><?= $view[0]['numero']; ?></td>
@@ -330,15 +330,14 @@ if (count($analise_coord) > 0) {
         print "</div><hr>";
     }
 }
-
 ?>
 </div>
 <div id='print_pedido'>
     <?php
-        include('view_pedido.php');
+    include('view_pedido.php');
     ?>
-    
-    
+
+
 </div>
 
 <!--<a class="btn btn-info" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit", array('id' => $view[0]['id'])) ?>">Editar</a>-->
@@ -356,14 +355,14 @@ if (count($analise_coord) > 0) {
 <script>
 
     $(document).ready(function () {
-        
+
         $('#print_pedido').show();
         $("#view").hide();  //
-        $("#btn_print").click(function(){
-            $("#view").hide();  
+        $("#btn_print").click(function () {
+            $("#view").hide();
             $('#print_pedido').show();
             //window.print();
-            $("#btn_print").hide(); 
+            $("#btn_print").hide();
         });
 
     });

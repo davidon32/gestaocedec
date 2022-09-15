@@ -2,30 +2,30 @@
     * { font-size: 12pt; }
     
 </style>
-<table width="0" class='table table-bordered'>
+<table width="0" class='table table-bordered table-condensed'>
     <tbody>
         <tr>
-            <td align='center' colspan="2" width="155">
+            <td align='center' colspan="2" width="15%">
                 <img src="/core/imagem/brasao.png"> </td>
-            <td colspan="8" width="422">
+            <td colspan="8" width="70%">
                 <p style="text-align: center"><strong>GOVERNO DO ESTADO DE MINAS GERAIS</strong></p>
                 <p style="text-align: center"><strong>GABINETE MILITAR DO GOVERNADOR COORDENADORIA ESTADUAL DE DEFESA CIVIL (CEDEC)</strong></p>
                 <p><strong>&nbsp;</strong></p>
             </td>
-            <td width="128">
+            <td width="15%">
                 <p><strong>Pedido n&ordm;</strong></p>
                 <p>&nbsp;</p>
                 <p class=''><h1><?=$view['0']['numero']."-".$view[0]['ano']?></h1></p>
             </td>
         </tr>
         <tr>
-            <td colspan="11" width="705">
+            <td colspan="11" width="" class="text-center">
                 <p><strong>FORMUL&Aacute;RIO DE SOLICITA&Ccedil;&Atilde;O DE AJUDA HUMANIT&Aacute;RIA</strong></p>
                 <p><strong>(EXCETO &Aacute;GUA PARA CONSUMO HUMANO)</strong></p>
             </td>
         </tr>
         <tr>
-            <td colspan="11" width="705">
+            <td colspan="11" width="" class="text-center">
                 <p>DADOS DO SOLICITANTE</p>
             </td>
         </tr>
@@ -34,7 +34,7 @@
                 <p>Nome do Munic&iacute;pio: </p>
             </td>
             <td colspan="7" width="322">
-                <p>Mesorregi&atilde;o</p>
+                <p>Mesorregi&atilde;o :</p>
             </td>
         </tr>
         <tr>
@@ -47,15 +47,15 @@
         </tr>
         <tr>
             <td colspan="4" width="383">
-                <p>Nome do(a) Coordenador(a) Municipal de Prote&ccedil;&atilde;o e Defesa Civil</p>
+                <p>Nome do(a) Coordenador(a) Municipal de Prote&ccedil;&atilde;o e Defesa Civil :</p>
                 
             </td>
             <td colspan="3" width="123">
-                <p>Telefone</p>
+                <p>Telefone :</p>
                 
             </td>
             <td colspan="4" width="199">
-                <p>E-mail</p>
+                <p>E-mail :</p>
                 
             </td>
         </tr>
@@ -72,15 +72,15 @@
         </tr>
         <tr>
             <td colspan="4" width="383">
-                <p>Nome do(a) Prefeito(a)</p>
+                <p>Nome do(a) Prefeito(a) :</p>
                 
             </td>
             <td colspan="3" width="123">
-                <p>Telefone</p>
+                <p>Telefone :</p>
                 
             </td>
             <td colspan="4" width="199">
-                <p>E-mail</p>
+                <p>E-mail :</p>
                 
             </td>
         </tr>
@@ -96,21 +96,21 @@
             </td>
         </tr>
         <tr>
-            <td colspan="11" width="705">
+            <td colspan="11" width="" class="text-center">
                 <p>DADOS SOBRE O DESASTRE</p>
             </td>
         </tr>
         <tr>
             <td colspan="4" width="383">
-                <p>Tipo de Desastre (C&oacute;digo do FIDE<a href="#_ftn1" name="_ftnref1">[1]</a>)</p>
+                <p>Tipo de Desastre (C&oacute;digo do FIDE<a href="#_ftn1" name="_ftnref1">[1]</a>) :</p>
                 
             </td>
             <td colspan="4" width="170">
-                <p>Popula&ccedil;&atilde;o afetada</p>
+                <p>Popula&ccedil;&atilde;o afetada :</p>
                 
             </td>
             <td colspan="3" width="152">
-                <p>Decreto de SE ou ECP vigente?</p>
+                <p>Decreto de SE ou ECP vigente? :</p>
                 
             </td>
         </tr>
@@ -127,15 +127,15 @@
         </tr>
         <tr>
             <td colspan="3" width="261">
-                <p>N&uacute;mero do Decreto</p>
+                <p>N&uacute;mero do Decreto :</p>
                 
             </td>
             <td colspan="3" width="179">
-                <p>Data de Vig&ecirc;ncia</p>
+                <p>Data de Vig&ecirc;ncia :</p>
                 
             </td>
             <td colspan="5" width="265">
-                <p>Tipo de Decreto</p>
+                <p>Tipo de Decreto :</p>
                 
             </td>
         </tr>
@@ -154,23 +154,23 @@
 </table>
 
 <!-- MATERIAL  DO PEDIDO -->
-<table class='table table-bordered'>
+<table class='table table-bordered table-condensed-super'>
     <tr>
-            <th colspan="11" width="705" style="text-align: center">
+            <th colspan="11" width="" style="text-align: center">
                 <p><b>MATERIAL PEDIDO</b></p>
             </th>
         </tr>
         </tr>
-            <th width="83">
+            <th width="5%">
                 <p>C&oacute;d.</p>
             </th>
-            <th colspan="4" width="338">
+            <th colspan="4" width="35%">
                 <p>Descri&ccedil;&atilde;o do Item</p>
             </th>
-            <th colspan="4" width="141">
+            <th colspan="4" width="30%">
                 <p>Quantidade</p>
             </th>
-            <th colspan="2" width="144">
+            <th colspan="2" width="30%">
                 <p>Quantidade de Fam&iacute;lias a serem atendidas</p>
             </th>
         </tr>
@@ -218,24 +218,11 @@
                 <p>Assinatura do Prefeito ou substituto legal</p>
             </td>-->
         </tr>
-        <tr>
-            <td width="83">&nbsp;</td>
-            <td width="72">&nbsp;</td>
-            <td width="107">&nbsp;</td>
-            <td width="122">&nbsp;</td>
-            <td width="38">&nbsp;</td>
-            <td width="19">&nbsp;</td>
-            <td width="66">&nbsp;</td>
-            <td width="47">&nbsp;</td>
-            <td width="9">&nbsp;</td>
-            <td width="15">&nbsp;</td>
-            <td width="128">&nbsp;</td>
-        </tr>
+        
     </tbody>
 </table>
 
-<p><strong><br /> </strong></p>
-<p><strong>&nbsp;</strong></p>
+<p style="page-break-after:always">&nbsp;</p>
 <p><strong>ANEXO B &ndash; Formul&aacute;rio de solicita&ccedil;&atilde;o de ajuda humanit&aacute;ria (exceto &aacute;gua para consumo humano) &ndash; Fl. 02/02</strong></p>
 <p>&nbsp;</p>
 <table width="0" class='table table-bordered'>
@@ -258,7 +245,7 @@
         </tr>
         <tr>
             <td colspan="6" width="705">
-                <p>PARECER TÉCNICO ALALISTA DO PROCESSO</p>
+                <p>PARECER TÉCNICO ALALISTA DO PROCESSO :</p>
                 <b><?=$view[0]['esforcos_realizados']?></b>
                 
             </td>
@@ -325,10 +312,13 @@
             }
         ?>
 </table>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p><strong><br /> </strong></p>
+<p style="page-break-after:always">&nbsp;</p>
+<?php 
+
+    if(true) {
+        ?>
+    }
+
 <p><strong>ANEXO C &ndash; Formul&aacute;rio para presta&ccedil;&atilde;o de contas de fornecimento de ajuda humanit&aacute;ria (exceto &aacute;gua para consumo humano) &ndash; Fl. 01</strong></p>
 <table width="0">
     <tbody>
@@ -369,7 +359,7 @@
                 <p>Nome do(a) Coordenador(a) Municipal de Prote&ccedil;&atilde;o e Defesa Civil</p>
             </td>
             <td width="142">
-                <p>Telefone</p>
+                <p>Telefone:</p>
             </td>
             <td colspan="3" width="364">
                 <p>E-mail</p>
@@ -398,7 +388,7 @@
         </tr>
         <tr>
             <td colspan="5" width="458">
-                <p>Tipo de material distribu&iacute;do</p>
+                <p>Tipo de material distribu&iacute;do :</p>
                 <p>(dever&aacute; ser usada uma ficha para tipo de material)&THORN;</p>
             </td>
             <td colspan="4" width="506">&nbsp;</td>
@@ -667,6 +657,9 @@
         </tr>
     </tbody>
 </table>
+
+<p style="page-break-after:always">&nbsp;</p>
+
 <p>Primeira folha</p>
 <p>&nbsp;</p>
 <p><strong>ANEXO C &ndash; Formul&aacute;rio para presta&ccedil;&atilde;o de contas de fornecimento de ajuda humanit&aacute;ria (exceto &aacute;gua para consumo humano) &ndash; Demais folhas, quando necess&aacute;rio</strong></p>
@@ -1194,3 +1187,7 @@
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p><a href="#_ftnref1" name="_ftn1">[1]</a> Formul&aacute;rio de Informa&ccedil;&otilde;es de Desastre</p>
+
+<?php
+    }
+    ?>

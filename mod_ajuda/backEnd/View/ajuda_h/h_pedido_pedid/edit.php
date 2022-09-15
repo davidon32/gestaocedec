@@ -47,16 +47,23 @@ foreach ($dadosMaterial as $key => $material) {
 $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['idUser'] : null;
 $secao =  isset($_COOKIE['seguranca']['secao']) ? $_COOKIE['seguranca']['secao'] : null;
 
+####### PERMISSOES DE EDICAO E DESPACHO #######
 $permissao_ajuda_h = "false";
 if( $secao == 'DLOG' || $secao == "CHEFIA" || $id_usuario == 1 &&  $view[0]['status'] < 3) {
     $permissao_ajuda_h = true;
 }
 
-$parecer_favoravel = ($view[0]['status'] == 3) ? "Parecer Favorável do Coordenador Adjunto" : "";
+$parecer_favoravel = "";
+$aviso_sit ="";
+    if($view[0]['status'] == 3){
+        $parecer_favoravel = "Parecer Favorável do Coordenador Adjunto";
+        $aviso_sit = "<p class='alert alert-danger'>PROCESSO APROVADO PELO(S) GESTORES DA CEDEC.<br> clique em <span id='aviso_sit'>\"Material do Pedido\"</span> para verificar os despachos</p>";
+    }
 
 ?>
 
-<div class='col-md-12 text-center'>
+<div class='col-md-3'></div>
+<div class='col-md-6 text-center'>
 
     <br>
     <?php
@@ -67,8 +74,12 @@ $parecer_favoravel = ($view[0]['status'] == 3) ? "Parecer Favorável do Coordena
     }
     ?>
     <br><br>
+    <div class="col-md-12">
+        <?=$aviso_sit?>
+    </div>
 
 </div>
+<div class='col-md-3'></div>
 <div class='col-md-12' id='editar_pedido'>
     <legend>Pedido Ajuda Humanitária nº:
         <?= $view[0]['numero'] . " / " . substr($view[0]['data_entrada_sistema'], 0, 4) ?> - <?= Municipio::PegaNomeMunicipio($view[0]['id_municipio']) ?></legend>
@@ -203,7 +214,7 @@ $parecer_favoravel = ($view[0]['status'] == 3) ? "Parecer Favorável do Coordena
             </div>
             <div class='row'>
                 <div class='col-md-2'>
-                    <label>População Atendida</label>
+                    <label>População a ser Atendida</label>
                     <input type="text" class='form form-control' name='pop_atendida' id='pop_atendida' value='<?= $view[0]['pop_atendida'] ?>' maxlength='-1' required>
                 </div>
             </div>
@@ -615,7 +626,10 @@ $parecer_favoravel = ($view[0]['status'] == 3) ? "Parecer Favorável do Coordena
         var status = <?=$view[0]['status']?>;
         if(status == 3) {
             $('#editar_pedido').css('color', '#27AE60');
-            //$('#processo').text($('#processo').text().substring(0, $('#processo').text().search(":"))+" (Processo com Parecer Favorável pelo Coordenador Adjunto)");
+            $('img[name=add_material]').hide();
+            $('#add_despacho').hide();
+            $('img[name=edit]').hide();
+            
         }
 
         /* tramitar processo */
@@ -710,10 +724,19 @@ $parecer_favoravel = ($view[0]['status'] == 3) ? "Parecer Favorável do Coordena
                 contentType: false, // tell jQuery not to set contentType
                 success: function (response) {
 
-                    console.log(response);
+                    //console.log(response);
                     if (response.trim() == 'sucesso') {
                         Swal.fire('Despacho gravado com sucesso !').then(function () {
+                            //$('#html1').jstree("select_node", show_material_pedido, true);
+                            var status = <?=$view[0]['status']?>;
+                            console.log(status);
+                            if(status == 3) {
+                                $('#editar_pedido').css('color', '#27AE60');
+                                //$('#processo').text($('#processo').text().substring(0, $('#processo').text().search(":"))+" (Processo com Parecer Favorável pelo Coordenador Adjunto)");
+                            }
+                            
                             $('#lista_despacho').load('/mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/ajax_lista_despacho.php?id=' + id_pedido);
+                            
                             $('#novoDespacho').hide();
                         });
                     }
