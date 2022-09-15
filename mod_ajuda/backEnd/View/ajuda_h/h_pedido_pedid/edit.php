@@ -45,6 +45,15 @@ foreach ($dadosMaterial as $key => $material) {
 }
 
 $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['idUser'] : null;
+$secao =  isset($_COOKIE['seguranca']['secao']) ? $_COOKIE['seguranca']['secao'] : null;
+
+$permissao_ajuda_h = "false";
+if( $secao == 'DLOG' || $secao == "CHEFIA" || $id_usuario == 1 &&  $view[0]['status'] < 3) {
+    $permissao_ajuda_h = true;
+}
+
+$parecer_favoravel = ($view[0]['status'] == 3) ? "Parecer Favorável do Coordenador Adjunto" : "";
+
 ?>
 
 <div class='col-md-12 text-center'>
@@ -60,7 +69,7 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
     <br><br>
 
 </div>
-<div class='col-md-12'>
+<div class='col-md-12' id='editar_pedido'>
     <legend>Pedido Ajuda Humanitária nº:
         <?= $view[0]['numero'] . " / " . substr($view[0]['data_entrada_sistema'], 0, 4) ?> - <?= Municipio::PegaNomeMunicipio($view[0]['id_municipio']) ?></legend>
 
@@ -72,21 +81,20 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
             <ul>
                 <li data-jstree='{"opened":true,"selected":true}' id='processo'> Processo Nº -
                     <?= $view[0]['numero'] . "/" . substr($view[0]['data_entrada_sistema'], 0, 4) ?> -
-                    <?= DataMysql::dataVisual($view[0]['data_entrada_sistema']) ?>
+                    <?= DataMysql::dataVisual($view[0]['data_entrada_sistema']) ?> - <?=$parecer_favoravel;?>
                     <ul>
                         <li data-jstree='{"disabled":false}' id='show_dados_gerais'> Dados Gerais</li>
-                        asas
-                        <li data-jstree='{"icon":"//jstree.com/tree.png"}' id='show_material_pedido'>
+                        <li data-jstree='{"icon":"glyphicon glyphicon-hdd"}' id='show_material_pedido'>
                             Material do Pedido</li>
                         <?php
-                        if ($_COOKIE['seguranca']['secao'] != 'CHEFIA') {
+                        if ($secao == "DLOG") {
                             ?>
-                            <li data-jstree='{"icon":"glyphicon glyphicon-leaf"}' id='show_tramitar'>
+                            <li data-jstree='{"icon":"glyphicon glyphicon-transfer"}' id='show_tramitar'>
                                 Tramitação de Pedido</li>
                             <?php
                         }
                         ?>
-                        <li data-jstree='{"icon":"glyphicon glyphicon-leaf"}' id='show_anexos'>
+                        <li data-jstree='{"icon":"glyphicon glyphicon-paperclip"}' id='show_anexos'>
                             Arquivo Anexados</li>
                     </ul>
                 </li>
@@ -97,7 +105,7 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
 
     <!-- Dados Gerais -->
     <div class="col-md-9" id="dados_gerais">
-
+                        <br><br>
 
         <form action="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit"); ?>" method="post" accept-charset="utf-8" name="frmH_pedido_pedid" id="frmH_pedido_pedid">
 
@@ -280,9 +288,10 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
 
     <!-- #################  Materiais do pedido ##################### -->
     <div class="col-md-9" id="material_pedido">
+        <br><br>
         <div class="col-md-12">
             <!-- MATERIAIS DO PEDIDO -->
-            <legend>Material Pedido pelo Município</legend>
+            <legend>Materiais</legend>
             <table class="table table-bordered table-condensed">
 
                 <tr>
@@ -324,10 +333,20 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
 
         <div class="col-md-12">
             <p class="">
-            <legend>Material a ser Liberado</legend>
+            <legend>Materiais a serem Liberados</legend>
             </p>
 
-            <img title="Adicionar Material" src="/core/imagem/add.png" name="add_material"> Adicionar Material<br><br>
+            <!-- #### USUARIOS DLOG ADICIONAR MATERIAL  ##### -->
+            <?php
+
+                if($permissao_ajuda_h) {            
+                    print "<img title=\"Adicionar Material\" src=\"/core/imagem/add.png\" name=\"add_material\"> Adicionar Material<br><br>";
+                }else {
+                    print "<img src=\"/core/imagem/add.png\" class=\"imgCinza\" title=\"Somene Usuários da DLOG, tem permissões de executar esta ação\"> Adicionar Material<br><br>";
+                }
+            
+                
+            ?>
             <table class="table table-bordered table-condensed" id="tbl_material_liberado">
 
                 <tr>
@@ -356,9 +375,12 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
                         print "<td>" . $material1['qtd_familia_atendida'] . "</td>";
                         print "<td>";
                         #print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit_itens', array('id' => $view[0]['id'], 'id_item' => $material1['id'])) . "'><img src='/core/imagem/editar.png'></a>";
-                        print "<img src='/core/imagem/editar.png' name='edit' data-id='" . $view[0]['id'] . "' data-qtd='" . $material1['qtd'] . "' data-familias_at='" . $material1['qtd_familia_atendida'] . "'>
-                        <img src='/core/imagem/save.png' name='salvar' data-id='" . $material1['id'] . "' data-codigo='" . $material1['codigo'] . "' data-descricao_item='" . $material1['descricao_item'] . "'>";
-                        print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_itens', 'delete', array('id' => $material1['id'], 'id_pedido' => $view[0]['id'], 'voltar' => 'edit_ped')) . "'><img src='/core/imagem/delete.png'></a>";
+                        # EDITAR MATERIAL
+                        if($permissao_ajuda_h){
+                            print "<img src='/core/imagem/editar.png' name='edit' data-id='" . $view[0]['id'] . "' data-qtd='" . $material1['qtd'] . "' data-familias_at='" . $material1['qtd_familia_atendida'] . "'>
+                            <img src='/core/imagem/save.png' name='salvar' data-id='" . $material1['id'] . "' data-codigo='" . $material1['codigo'] . "' data-descricao_item='" . $material1['descricao_item'] . "'>";
+                            print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_itens', 'delete', array('id' => $material1['id'], 'id_pedido' => $view[0]['id'], 'voltar' => 'edit_ped')) . "'><img src='/core/imagem/delete.png'></a>";
+                        }
 
                         print "</td>";
                         print "</tr>";
@@ -371,11 +393,16 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
 
             <p>
             <legend>Despacho</legend></p>
-            <img title="Novo Despacho" src="/core/imagem/icon_app/new.png" name="add_despacho" id="add_despacho"> Novo Despacho<br><br>
+            <?php
+                if($permissao_ajuda_h) {
+                    print "<img title=\"Novo Despacho\" src=\"/core/imagem/icon_app/new.png\" name=\"add_despacho\" id=\"add_despacho\"> Novo Despacho<br><br>";
+                }
+            ?>
             <div class="row" id='novoDespacho'>
                 <div class="col-md-9">
                     <label>Despacho :</label><span id="span_caracteres">Caracteres Restantes : 255</span>
                     <textarea rows='5' id="text_despacho" class='form form-control' maxlength="255"></textarea>
+                    <input type="hidden" id="secao" value="<?=$secao?>">
 
                 </div>
                 <!-- Diretores poderão dar o parecer -->
@@ -406,6 +433,7 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
     <!-- #################  tramitar processo #################### -->
 
     <div class="col-md-9" id="tramitar">
+        <br><br>
         <select class="form form-control" name="sel_tramitar" id="sel_tramitar">
             <option value='<?= $view[0]['status'] ?>' data-status='<?= $view[0]['tramit'] ?>'><?= H_pedido_pedidajuda_hModel::enumFase($view[0]['tramit']) ?></option>
             <option value='2' data-status='analise_dlog' >Analista DLOG</option>
@@ -430,10 +458,25 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
     <div class="col-md-9" id="anexos">
         <br>
         <div class="row">
-            <div class="col-md-12 text-left">
-                <br>
-                <button type="button" class="btn btn-warning glyphicon glyphicon-upload" name="upload_arquivos" id="upload_arquivos" title="Fazer upload de arquivos"> Upload Arquivos</button>
-            </div>
+
+        <!-- SOMENTE ANALISTA DLOG -->
+            <?php
+                if($secao == "DLOG") {
+            ?>
+                <div class="col-md-12 text-left">
+                    <br>
+                    <button type="button" class="btn btn-warning glyphicon glyphicon-upload" name="upload_arquivos" id="upload_arquivos" title="Fazer upload de arquivos"> Upload Arquivos</button>
+                </div>
+                <?php   
+                }else {
+                ?>
+                    <br>
+                    <button type="button" class="btn btn-warning glyphicon glyphicon-upload imgCinza" title="Usuario sem permissão de Anexar Arquivos"> Upload Arquivos</button>
+
+                <?php
+                }
+                ?>
+            
         </div>
         <div class="col-md-12 text-center">
             <legend>Lista de Arquivos Anexados</legend>
@@ -459,7 +502,9 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
                     print "<td>" . DataMysql::dataCompletaVisual($arquivo['data_envio']) . "</td>";
                     print "<td><a href='" . FuncaoBase::geraLink("cedec", "app", "visualiza", array('file' => $arquivo['nome_arquivo'], 'fl' => 'pedido_h')) . "'>" . $arquivo['nome_arquivo'] . "</a></td>";
                     print "<td>" . $arquivo['descricao'] . "</td>";
-                    print "<td><a name='deletar_anexo' data-nome_arquivo='" . $arquivo['nome_arquivo'] . "' data-id='" . $arquivo['id'] . "' title='Apagar Arquivo'><img src='/core/imagem/delete.png'></a></td>";
+                    if($permissao_ajuda_h) {
+                        print "<td><a name='deletar_anexo' data-nome_arquivo='" . $arquivo['nome_arquivo'] . "' data-id='" . $arquivo['id'] . "' title='Apagar Arquivo'><img src='/core/imagem/delete.png'></a></td>";
+                    }
                     print "</tr>";
                 }
                 ?>
@@ -567,6 +612,11 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
 
 <script>
     $(document).ready(function () {
+        var status = <?=$view[0]['status']?>;
+        if(status == 3) {
+            $('#editar_pedido').css('color', '#27AE60');
+            //$('#processo').text($('#processo').text().substring(0, $('#processo').text().search(":"))+" (Processo com Parecer Favorável pelo Coordenador Adjunto)");
+        }
 
         /* tramitar processo */
         $("#sel_tramitar").change(function () {
@@ -631,6 +681,7 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
             var id_usuario = '<?= $id_usuario ?>';
             var id_pedido = '<?= $view[0]['id'] ?>';
             var text_despacho = $("#text_despacho").val();
+            var secao = $("#secao").val();
             var parecer;
 
             if ($("#rb_favoravel").is(":checked")) {
@@ -649,6 +700,7 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
             formData.append('parecer', text_despacho);
             formData.append('id_usuario', id_usuario);
             formData.append('parecer_sit', parecer);
+            formData.append('secao', secao);
 
             $.ajax({
                 url: '/mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/ajax.php',
@@ -657,9 +709,12 @@ $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['id
                 processData: false, // tell jQuery not to process the data
                 contentType: false, // tell jQuery not to set contentType
                 success: function (response) {
+
+                    console.log(response);
                     if (response.trim() == 'sucesso') {
                         Swal.fire('Despacho gravado com sucesso !').then(function () {
                             $('#lista_despacho').load('/mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/ajax_lista_despacho.php?id=' + id_pedido);
+                            $('#novoDespacho').hide();
                         });
                     }
                 },

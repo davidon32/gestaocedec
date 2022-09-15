@@ -148,13 +148,11 @@ private $tramit_parecer = null;
 id_pedido,
 data_parecer,
 parecer,
-tramit_parecer,
 parecer_sit 
 ) VALUES (:id_usuario,
 :id_pedido,
 :data_parecer,
 :parecer,
-:tramit_parecer,
 :parecer_sit 
 )";
 
@@ -166,7 +164,6 @@ parecer_sit
             $result->bindValue(":id_pedido", $dados['id_pedido']);
             $result->bindValue(":data_parecer", DataMysql::dataCompletaForm($dados['data_parecer']));
             $result->bindValue(":parecer", nl2br($dados['parecer']));
-            $result->bindValue(":tramit_parecer", $dados['tramit_parecer']);
             $result->bindValue(":parecer_sit", $dados['parecer_sit']);
 
  

@@ -135,6 +135,33 @@ class H_pedido_pedidajuda_hModel extends Model {
         }
     }
 
+    public static function listaPedidosParaDespachoCmdo() {
+
+        $con = Conexao::getInstance();
+
+        $sql = "SELECT aju_h_pedido_pedid.numero,
+                aju_h_pedido_pedid.id_municipio,
+                aju_h_pedido_pedid.data_entrada_sistema,
+                aju_h_pedido_pedid.tipo_decreto,
+                cedec_municipio.nome,
+                aju_h_pedido_pedid.id
+                FROM aju_h_pedido_pedid
+                INNER JOIN cedec_municipio
+                ON aju_h_pedido_pedid.id_municipio = cedec_municipio.id_municipio
+                WHERE aju_h_pedido_pedid.status = 3";
+
+        try {
+
+            $result = $con->query($sql);
+
+            return $result->fetchAll(PDO::FETCH_ASSOC);
+
+           
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
     #####################  Busca nome do ID do Fk  ######################
 
     /** Busca nome do ID Fk 
@@ -1386,9 +1413,9 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
     public static function tramitar($dados) {
 
         $con = Conexao::getInstance();
-        $sql = "update aju_pedido_pedid set status = :status,
+        $sql = "update aju_h_pedido_pedid set status = :status,
                                             tramit = :tramit
-                                            where id_pedido = :id_unidade";
+                                            where id = :id_pedido";
 
         try {
             $result = $con->prepare($sql);

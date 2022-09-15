@@ -28,7 +28,7 @@ $data = array();
 foreach ($listaPedido1 as $key => $pedido) {
     $data[] = $pedido;
     
-    $percent = number_format(((H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedido['id']) * 100 ) != 0 ) ? (H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedid['id']) * 100) / H_pedido_prestajuda_hModel::totalMaterialPrestConta($pedido['id']) : 0, '2', '.', ' ');
+    $percent = number_format(((H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedido['id']) * 100 ) != 0 ) ? (H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedido['id']) * 100) / H_pedido_prestajuda_hModel::totalMaterialPrestConta($pedido['id']) : 0, '2', '.', ' ');
 }
 
 
@@ -47,22 +47,22 @@ $response = json_encode($data);
                 <a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "config_ajuda") ?>" title="Cadastro Analistas">Configurações</a>
             </div>
             <div class="col-md-3">
-                <h3>Legenda</h3>
-<!--                <img width="25" src='/core/imagem/cedec.png'>     
-                    &nbsp; Permissão de Despacho DRD. <br>-->
+ <!--               <h3>Legenda</h3>
+                <img width="25" src='/core/imagem/cedec.png'>     
+                    &nbsp; Permissão de Despacho DRD. <br>
 
                 <img width="25" src='/core/imagem/dlog.png'>     
                 &nbsp; Permissão de Despacho DLOG. <br>
 
 <!--                <img width="25" src='/core/imagem/boss.png'>     
-&nbsp; Permissão de Despacho do Coord. Adjunto. <br>-->
+&nbsp; Permissão de Despacho do Coord. Adjunto. <br>
             </div>
             <div class="col-md-3 text-left"><br>
                 <span style="background-color: #F3E2A9;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
                 &nbsp; Em edição COMPDEC.<br>
 
-<!--                <span style="background-color: #D8D8D8;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-&nbsp; Análise DRD.<br>-->
+               <span style="background-color: #D8D8D8;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+&nbsp; Análise DRD.<br>
 
                 <span style="background-color: #2E64FE;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
                 &nbsp; Análise DLOG.<br>
@@ -82,7 +82,7 @@ $response = json_encode($data);
                 <span style="background-color: #B40404;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
                 &nbsp; Cancelado / Nulo.<br>
 
-            </div>
+            </div>-->
         </div>
         <hr>
     </div>

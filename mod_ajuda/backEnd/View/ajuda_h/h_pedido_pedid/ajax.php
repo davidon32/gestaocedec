@@ -70,21 +70,32 @@ if($opcao == 'dados_compdec') {
     } 
 /* gravar despacho */
 }elseif( $opcao =='gravar_despacho') {
+
     $dados = $_POST;
     $dados['data_parecer'] = date('d-m-Y H:i:s');
-    if($dados['parecer_sit'] == 2){
-        $dados['tramit_parecer'] = '0';
-    }
-    $dados['tramit_parecer'] = '0';
-
+    // if($dados['parecer_sit'] == 2){
+    //     $dados['tramit_parecer'] = '0';
+    // }
 
     if(H_pedido_an_tecajuda_hModel::gravar($dados)) {
-        print 'sucesso';
-    }   
+
+        /* DESPACHO FAVORAVEL DO ANALISTA */
+        if($dados['parecer_sit'] == 1 && $dados['secao'] == "DLOG" || $dados['id_usuario'] == 1) {
+            $dados['status'] = '3';
+            $dados['tramit'] = 'analise_coord';
+            /* tramitar para coord adj */
+
+            if(H_pedido_pedidajuda_hModel::tramitar($dados)){
+                print 'sucesso';
+            }
+
+        }
+
+    }
+ 
 //tramitar pedido
-}elseif(true){
+}elseif( $opcao == 'tramitar'){
     $dados = $_POST;
-    
 
     if(H_pedido_pedidajuda_hModel::tramitar($dados)) {
         print 'sucesso';

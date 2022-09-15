@@ -9,6 +9,11 @@
 ?>
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php"; ?>
+<?php
+
+    $secao = isset($_COOKIE['seguranca']['secao']) ? $_COOKIE['seguranca']['secao'] : "" ;
+
+?>
 
 <div id='continuar_sistema' class="col-md-6 text-left">
     <a class="btn btn-success btn-lg" href='index.php?token=<?= hash('sha256', md5(VERSAO) . "-" . time()) ?>&modulo=index&controller=index&action=menu'> Continuar a usar o Sistema !</a>
@@ -20,7 +25,43 @@
 <div class="col-md-12">
     <br>
     
-    <div class="col-md-4">
+    <div class="col-md-6">
+        <?php 
+            $ped_ajuda_parecer_coord = H_pedido_pedidajuda_hModel::listaPedidosParaDespachoCmdo();
+
+            if(count($ped_ajuda_parecer_coord) ) {
+        ?>
+        <legend>Liberador</legend>
+        <span> ( Pedido de Ajuda Humanitária Aguardando Parever Chefia )</span>
+        <?php
+            
+            foreach ($ped_ajuda_parecer_coord as $key => $pedido) {
+
+                print "<ul class=\"todo-lis\">
+										 <li>
+								 
+											 <span class=\"handle\">
+												 ".($key+1).") - <i class=\"fa fa-ellipsis-v\"></i>
+												 <i class=\"fa fa-ellipsis-v\"></i>
+											 </span>
+											 <span class=\"text\">
+											 
+												<a style=\"text-decoration:none;\" href=\"javascript:NovaJanela('index.php?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=ajuda&controller=conestoque&action=lembrete_liberacao&id=" . $pedido['id'] . "', 700, 400)\">
+														&nbsp;&nbsp;<img style=\"vertical-align:middle\" width='15px;' src=\"/core/imagem/pedido_cesta.png\">
+														&nbsp;&nbsp;<span style='font-size:12px;'>
+														Pedido de Ajuda Humanitária Nº: " . $pedido['numero'] . "/" . substr($pedido['data_entrada_sistema'],0,4) ." - " . DataMysql::dataVisual($pedido['data_entrada_sistema']). "</a>
+                			             	</span>
+											 </span>
+											 <small class=\"label label-danger\"><i class=\"fa fa-clock-o\"></i> - liberado ha   dia(s)</small>
+											 
+										 </li>
+									 </ul>";                 
+                
+            }
+        }
+        ?>
+    </div>
+    <div class="col-md-6">
         <legend>Últimas Liberações MAH</legend>
         <?php
         $login = new Login();
@@ -58,6 +99,7 @@
 
         ?>
     </div>
+    <div class="col-md-4"></div>
     <!-- aJUDA HUMANITÁRIA -->
     <div class="col-md-12">
         <br>

@@ -832,7 +832,9 @@ class Login extends Liberacao {
 
             $result = Conexao::getInstance()->query($sql);
 
+            $key1 = 0;
             while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $key1++;
 
                 // icone de material liberado como verde e vermelho quando faltar
                 // 5 dias para vencer o prazo de pagamento
@@ -854,7 +856,7 @@ class Login extends Liberacao {
 										 <li>
 								 
 											 <span class=\"handle\">
-												 <i class=\"fa fa-ellipsis-v\"></i>
+                                             ".($key1).") - <i class=\"fa fa-ellipsis-v\"></i>
 												 <i class=\"fa fa-ellipsis-v\"></i>
 											 </span>
 											 <span class=\"text\">
