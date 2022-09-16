@@ -84,11 +84,16 @@ if($opcao == 'dados_compdec') {
             $dados['status'] = '3';
             $dados['tramit'] = 'analise_coord';
             /* tramitar para coord adj */
-
             if(H_pedido_pedidajuda_hModel::tramitar($dados)){
                 print 'sucesso';
             }
-
+        }elseif ( $dados['parecer_sit'] == 1 && $dados['secao'] == "CHEFIA" ) {
+            $dados['status'] = '4';
+            $dados['tramit'] = 'aguard_disp';
+            /* tramitar para aguardar disponibilidade */
+            if(H_pedido_pedidajuda_hModel::tramitar($dados)){
+                print 'sucesso';
+            }
         }
 
     }

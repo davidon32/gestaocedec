@@ -135,7 +135,7 @@ class H_pedido_pedidajuda_hModel extends Model {
         }
     }
 
-    public static function listaPedidosParaDespachoCmdo() {
+    public static function listaPedidosParaDespacho() {
 
         $con = Conexao::getInstance();
 
@@ -147,8 +147,7 @@ class H_pedido_pedidajuda_hModel extends Model {
                 aju_h_pedido_pedid.id
                 FROM aju_h_pedido_pedid
                 INNER JOIN cedec_municipio
-                ON aju_h_pedido_pedid.id_municipio = cedec_municipio.id_municipio
-                WHERE aju_h_pedido_pedid.status = 3";
+                ON aju_h_pedido_pedid.id_municipio = cedec_municipio.id_municipio";
 
         try {
 

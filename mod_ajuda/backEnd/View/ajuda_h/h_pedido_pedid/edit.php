@@ -56,8 +56,11 @@ if( $secao == 'DLOG' || $secao == "CHEFIA" || $id_usuario == 1 &&  $view[0]['sta
 $parecer_favoravel = "";
 $aviso_sit ="";
     if($view[0]['status'] == 3){
+        $parecer_favoravel = "Parecer Favorável do Analista da DLOG";
+        $aviso_sit = "<p class='alert alert-danger'>PROCESSO COM PARECER FAVORÁVEL DO ANALISTA DA DLOG.<br> clique em \"Material do Pedido\" para verificar os despachos.</p>";
+    }elseif($view[0]['status'] == 4){
         $parecer_favoravel = "Parecer Favorável do Coordenador Adjunto";
-        $aviso_sit = "<p class='alert alert-danger'>PROCESSO APROVADO PELO(S) GESTORES DA CEDEC.<br> clique em <span id='aviso_sit'>\"Material do Pedido\"</span> para verificar os despachos</p>";
+        $aviso_sit = "<p class='alert alert-danger'>PROCESSO APROVADO PELO(S) GESTORES DA CEDEC.<br> clique em <a id='aviso_sit'>\"Material do Pedido\"</span> para verificar os despachos</p>";
     }
 
 ?>
@@ -353,7 +356,7 @@ $aviso_sit ="";
                 if($permissao_ajuda_h) {            
                     print "<img title=\"Adicionar Material\" src=\"/core/imagem/add.png\" name=\"add_material\"> Adicionar Material<br><br>";
                 }else {
-                    print "<img src=\"/core/imagem/add.png\" class=\"imgCinza\" title=\"Somene Usuários da DLOG, tem permissões de executar esta ação\"> Adicionar Material<br><br>";
+                    print "<img src=\"/core/imagem/add.png\" class=\"imgCinza\" title=\"Somene Usuários da DLOG, tem permissões de executar esta ação\"><br><br>";
                 }
             
                 
@@ -626,7 +629,7 @@ $aviso_sit ="";
         var status = <?=$view[0]['status']?>;
         if(status == 3) {
             $('#editar_pedido').css('color', '#27AE60');
-            $('img[name=add_material]').hide();
+            //$('img[name=add_material]').hide();
             $('#add_despacho').hide();
             $('img[name=edit]').hide();
             

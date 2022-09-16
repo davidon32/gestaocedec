@@ -10,9 +10,7 @@
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php"; ?>
 <?php
-
-    $secao = isset($_COOKIE['seguranca']['secao']) ? $_COOKIE['seguranca']['secao'] : "" ;
-
+$secao = isset($_COOKIE['seguranca']['secao']) ? $_COOKIE['seguranca']['secao'] : "";
 ?>
 
 <div id='continuar_sistema' class="col-md-6 text-left">
@@ -24,90 +22,86 @@
 </div>
 <div class="col-md-12">
     <br>
-    
+
     <div class="col-md-6">
-        <?php 
-            $ped_ajuda_parecer_coord = H_pedido_pedidajuda_hModel::listaPedidosParaDespachoCmdo();
+<?php
 
-            if(count($ped_ajuda_parecer_coord) ) {
-        ?>
-        <legend>Autorizador</legend>
-        <span> ( Pedidos pendentes de Autorização )</span>
-        <?php
-            
-            foreach ($ped_ajuda_parecer_coord as $key => $pedido) {
-                
-                $data_hoje = new DateTime(date('Y-m-d'));
-                $data_pedido = new DateTime($pedido['data_entrada_sistema']);
-                $dif = $data_hoje->diff($data_pedido);
+    $ped_ajuda = H_pedido_pedidajuda_hModel::listaPedidosParaDespacho();
+    
 
-                print "<ul class=\"todo-lis\">
-										 <li>
-								 
-											 <span class=\"handle\">
-												 ".($key+1).") - <i class=\"fa fa-ellipsis-v\"></i>
-												 <i class=\"fa fa-ellipsis-v\"></i>
-											 </span>
-											 <span class=\"text\">";
-                                                                                                if($secao == "CHEFIA"){
-												print "<a style=\"text-decoration:none;\" href=\"".FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit', array('id'=> $pedido['id'], 'voltar'=>'idx_recente'))."\" title=\'Editar Pedido\'>
-														&nbsp;&nbsp;<img style=\"vertical-align:middle\" width='15px;' src=\"/core/imagem/pedido_cesta.png\">
-														&nbsp;&nbsp;<span style='font-size:12px;'>
-														Pedido de Ajuda Humanitária Nº: " . $pedido['numero'] . "/" . substr($pedido['data_entrada_sistema'],0,4) ." - " . DataMysql::dataVisual($pedido['data_entrada_sistema']). "</a>";
-                                                                                                        }else {
-                                                                                                            print "<a style=\"text-decoration:none;\" href=\"".FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'view', array('id'=> $pedido['id'], 'voltar'=>'idx_recente'))."\" title=\'Editar Pedido\'>
-														&nbsp;&nbsp;<img style=\"vertical-align:middle\" width='15px;' src=\"/core/imagem/pedido_cesta.png\">
-														&nbsp;&nbsp;<span style='font-size:12px;'>
-														Pedido de Ajuda Humanitária Nº: " . $pedido['numero'] . "/" . substr($pedido['data_entrada_sistema'],0,4) ." - " . DataMysql::dataVisual($pedido['data_entrada_sistema']). "</a>";
-                                                                                                        }
-                                                                                        print "</span>
-											 </span>
-											 <small class=\"label label-danger\"><i class=\"fa fa-clock-o\"></i> - liberado ha ".$dif->days."  dia(s)</small>
-											 
-										 </li>
-									 </ul>";                 
-                
-            }
+    if (count($ped_ajuda)) {
+        if($secao == "DLOG" ){
+            $titulo = "<legend>Pedidos Pendentes</legend><span> ( Pedidos Pendentes para Análise DLOG )</span>";
+        }elseif($secao == "CHEFIA"){
+            $titulo = "<legend>Autorizador</legend><span> ( Pedidos pendentes de Autorização )</span>";
         }
-        ?>
+        print $titulo;
+        foreach ($ped_ajuda as $key => $pedido) {
+            $data_hoje = new DateTime(date('Y-m-d'));
+            $data_pedido = new DateTime($pedido['data_entrada_sistema']);
+            $dif = $data_hoje->diff($data_pedido);
+            print "<ul class=\"todo-lis\">
+                            <li>
+                                <span class=\"handle\">" . ($key + 1) . ") - <i class=\"fa fa-ellipsis-v\"></i>
+                                    <i class=\"fa fa-ellipsis-v\"></i>
+                                </span>
+                            <span class=\"text\">";
+            if ($secao == "CHEFIA") {
+                print "<a style=\"text-decoration:none;\" href=\"" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit', array('id' => $pedido['id'], 'voltar' => 'idx_recente')) . "\" title='Despachar Pedido'>
+                                                                                                                        &nbsp;&nbsp;<img style=\"vertical-align:middle\" width='15px;' src=\"/core/imagem/pedido_cesta.png\">
+                                                                                                                        &nbsp;&nbsp;<span style='font-size:12px;'>
+                                                                                                                        Pedido de Ajuda Humanitária Nº: " . $pedido['numero'] . "/" . substr($pedido['data_entrada_sistema'], 0, 4) . " - " . DataMysql::dataVisual($pedido['data_entrada_sistema']) . "</a>";
+            } else {
+                print "<a style=\"text-decoration:none;\" href=\"" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'view', array('id' => $pedido['id'], 'voltar' => 'idx_recente')) . "\" title='Visualizar Pedido'>
+                                                                                                                        &nbsp;&nbsp;<img style=\"vertical-align:middle\" width='15px;' src=\"/core/imagem/pedido_cesta.png\">
+                                                                                                                        &nbsp;&nbsp;<span style='font-size:12px;'>
+                                                                                                                        Pedido de Ajuda Humanitária Nº: " . $pedido['numero'] . "/" . substr($pedido['data_entrada_sistema'], 0, 4) . " - " . DataMysql::dataVisual($pedido['data_entrada_sistema']) . "</a>";
+            }
+            print "</span>
+                                                                                                 </span>
+                                                                                                 <small class=\"label label-danger\"><i class=\"fa fa-clock-o\"></i> - liberado ha " . $dif->days . "  dia(s)</small>
+                                                                                         </li>
+                                                                                 </ul>";
+        }
+    }
+
+?>
     </div>
     <div class="col-md-6">
         <legend>Últimas Liberações MAH</legend>
-        <?php
-        $login = new Login();
-        $login->acessoLembrete($_COOKIE['seguranca']['login'], $_COOKIE['seguranca']['id_deposito']);
-        $login->acessoLembreteTransito($_COOKIE['seguranca']['login'], $_COOKIE['seguranca']['id_deposito']);
-        $dash = new Dashboard();
+<?php
+$login = new Login();
+$login->acessoLembrete($_COOKIE['seguranca']['login'], $_COOKIE['seguranca']['id_deposito']);
+$login->acessoLembreteTransito($_COOKIE['seguranca']['login'], $_COOKIE['seguranca']['id_deposito']);
+$dash = new Dashboard();
 
-        /* periodo Chuvoso 2021 */
-        $dados_mah_chuva_2021 = Ajuda::liberacoesPeriodoChuva("2021");
-        $dados_mah_chuva_2021_qtd = Ajuda::QuantidadeMatePeriodoChuva("2021");
+/* periodo Chuvoso 2021 */
+$dados_mah_chuva_2021 = Ajuda::liberacoesPeriodoChuva("2021");
+$dados_mah_chuva_2021_qtd = Ajuda::QuantidadeMatePeriodoChuva("2021");
 
-        $total_chuva_mat = 0;
-        $quantidade_cesta_chuva = 0;
-        foreach ($dados_mah_chuva_2021_qtd as $key => $value) {
-            $total_chuva_mat += $value['qtd'];
-            if ($value['singular'] == 'CESTA') {
-                $quantidade_cesta_chuva += $value['qtd'];
-            }
-        }
-
-
-        /* periodo Estiagem 2021 */
-        $dados_mah_estiagem_2021 = Ajuda::liberacoesPeriodoEstiagem("2021");
-        $dados_mah_estiagem_2021_qtd = Ajuda::QuantidadeMatePeriodoEstiagem("2021");
-
-        $total_estiagem_mat = 0;
-        $quantidade_cesta_estiagem = 0;
-        foreach ($dados_mah_estiagem_2021_qtd as $key => $value) {
-            $total_estiagem_mat += $value['qtd'];
-            if ($value['singular'] == 'CESTA') {
-                $quantidade_cesta_estiagem += $value['qtd'];
-            }
-        }
+$total_chuva_mat = 0;
+$quantidade_cesta_chuva = 0;
+foreach ($dados_mah_chuva_2021_qtd as $key => $value) {
+    $total_chuva_mat += $value['qtd'];
+    if ($value['singular'] == 'CESTA') {
+        $quantidade_cesta_chuva += $value['qtd'];
+    }
+}
 
 
-        ?>
+/* periodo Estiagem 2021 */
+$dados_mah_estiagem_2021 = Ajuda::liberacoesPeriodoEstiagem("2021");
+$dados_mah_estiagem_2021_qtd = Ajuda::QuantidadeMatePeriodoEstiagem("2021");
+
+$total_estiagem_mat = 0;
+$quantidade_cesta_estiagem = 0;
+foreach ($dados_mah_estiagem_2021_qtd as $key => $value) {
+    $total_estiagem_mat += $value['qtd'];
+    if ($value['singular'] == 'CESTA') {
+        $quantidade_cesta_estiagem += $value['qtd'];
+    }
+}
+?>
     </div>
     <div class="col-md-4"></div>
     <!-- aJUDA HUMANITÁRIA -->
@@ -115,7 +109,7 @@
         <br>
         <div class="alert alert-info" role="alert">nota: Os números abaixo relacionados a Ajuda Humanitária, são baseados nos atendimentos sobre o período de 01/10/2021 a 31/03/2022, para as liberações baseadas em decretos intempestivos, consulte o relatorio "Resumo de liberações" marque a opção "Resumo Distribuição de Materiais".</div>
         <p style="text-align:center">
-            <legend>AJUDA HUMANITÁRIA</legend>
+        <legend>AJUDA HUMANITÁRIA</legend>
         </p>
         <div class='col-md-6'>
 
@@ -161,35 +155,34 @@
     <!-- pmda -->
     <div class="col-md-6">
         <p style="text-align:center">
-            <legend>RESUMO PROCESSOS PMDA</legend>
+        <legend>RESUMO PROCESSOS PMDA</legend>
         </p>
         <!-- quantidade por mes ano atual -->
         <div class='col-md-6'>
             <legend>PMDA <?= date('Y') ?></legend>
-            <?php
-            $totalPmdaPorMes = dashboardModel::qtdPmdaMes(date('Y'));
+<?php
+$totalPmdaPorMes = dashboardModel::qtdPmdaMes(date('Y'));
 
-            print "<table class='table table-bordered'>";
-            print "<tr><th colspan='2' style='text-align:center'>PMDA ATENDIDO</th></tr>";
-            print "<tr><td style='text-align:center'>Mês</td><td>QTD</td></tr>";
-            foreach ($totalPmdaPorMes as $key => $value) {
-                print "<tr>";
-                print "<td>" . $value['mes'] . "</td>";
-                print "<td>" . $value['qtd'] . "</td>";
-                print "</tr>";
-            }
-            print "</table>";
-
-            ?>
+print "<table class='table table-bordered'>";
+print "<tr><th colspan='2' style='text-align:center'>PMDA ATENDIDO</th></tr>";
+print "<tr><td style='text-align:center'>Mês</td><td>QTD</td></tr>";
+foreach ($totalPmdaPorMes as $key => $value) {
+    print "<tr>";
+    print "<td>" . $value['mes'] . "</td>";
+    print "<td>" . $value['qtd'] . "</td>";
+    print "</tr>";
+}
+print "</table>";
+?>
 
         </div>
 
         <!-- grafico por mes ano atual -->
         <div class='col-md-6'>
             <legend>PMDA <?= date('Y') ?> Mês</legend>
-            <?php
-            $dash->qtdPmdaPorMes("2021");
-            ?>
+<?php
+$dash->qtdPmdaPorMes("2021");
+?>
         </div>
     </div>
     <br>
@@ -197,19 +190,19 @@
         <!-- linha 2 quantidade pmda todos anos -->
         <div class='col-md-6'>
             <legend>PMDA ANOS ANTERIORES</legend>
-            <?php
-            $totalPmda = dashboardModel::QtdPmdaAno();
-            print "<table class='table table-bordered'>";
-            print "<tr><th colspan='2' style='text-align:center'>PMDA ATENDIDO</th></tr>";
-            print "<tr><td style='text-align:center'>ANO</td><td>QTD</td></tr>";
-            foreach ($totalPmda as $key => $value) {
-                print "<tr>";
-                print "<td>" . $value['ano'] . "</td>";
-                print "<td>" . $value['qtd'] . "</td>";
-                print "</tr>";
-            }
-            print "</table>";
-            ?>
+<?php
+$totalPmda = dashboardModel::QtdPmdaAno();
+print "<table class='table table-bordered'>";
+print "<tr><th colspan='2' style='text-align:center'>PMDA ATENDIDO</th></tr>";
+print "<tr><td style='text-align:center'>ANO</td><td>QTD</td></tr>";
+foreach ($totalPmda as $key => $value) {
+    print "<tr>";
+    print "<td>" . $value['ano'] . "</td>";
+    print "<td>" . $value['qtd'] . "</td>";
+    print "</tr>";
+}
+print "</table>";
+?>
         </div>
 
         <!-- grafico pmDA-->
@@ -222,26 +215,26 @@
     </div>
 
     <div class="col-md-12 text-center">
-        <?php
-        $dash->pmdaAno(date("Y"));
-        //$dash->atualizado();
-        //$dash->ajudaHumanitaria();
-        //$dash->pmdaAnoMes("2017");
-        //$dash->decreto();
-        ?>
+            <?php
+            $dash->pmdaAno(date("Y"));
+            //$dash->atualizado();
+            //$dash->ajudaHumanitaria();
+            //$dash->pmdaAnoMes("2017");
+            //$dash->decreto();
+            ?>
     </div>
 
 </div>
 <div></div>
 <!-- =================== RODAPE CORPO ==================== -->
-<?php include_once "template/page/corpoRodape.php"; ?>
+        <?php include_once "template/page/corpoRodape.php"; ?>
 <!-- =================== RODAPE  ======================== -->
 <?php include_once "template/page/rodape.php" ?>
 <?php include_once "template/page/barra_config_template.php"; ?>
 <!-- =============== HEADER HTML PAGE ================= -->
 <?php include_once "template/page/rodapePage.php"; ?>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
 
         if (checkmobile()) {
             $("#continuar_sistema").removeClass('text-left');

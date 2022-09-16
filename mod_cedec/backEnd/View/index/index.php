@@ -13,6 +13,7 @@
 <div class='row'>
     <div class="col-md-4 text-center">
     <?php
+    
         $permissao = Usuario::getPermissao('cedec_permissao', 'cad_prefeitura');
             if ($permissao == "1") {
     ?>
