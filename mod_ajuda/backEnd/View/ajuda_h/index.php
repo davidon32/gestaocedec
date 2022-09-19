@@ -17,6 +17,7 @@ $id_municipio = isset($pageSession['session']['seguranca']['id_municipio']) ? $p
 $pedido_h = new H_pedido_pedidajuda_hModel();
 
 $id_usuario = $_COOKIE['seguranca']['idUser'];
+$secao = $_COOKIE['seguranca']['secao'];
 
 //$listaPedido = $pedido_h->lista();
 
@@ -275,6 +276,13 @@ $response = json_encode($data);
             .clone(true)
             .addClass('filters')
             .appendTo('#pedidos thead');
+    
+    var users = [
+                {id_usuario:'<?=$id_usuario?>'},
+                {secao:'<?=$secao?>'},
+                ];
+    
+    /* LISTA DE PROCESSOS INDEX */
     var table = $('#pedidos').DataTable({
     orderCellsTop: true,
             fixedHeader: true,
@@ -350,7 +358,7 @@ $response = json_encode($data);
                          //return '-'+geraLink('ajuda', 'pedido', 'view', '123', {offset: 5, limit: 10 });
                         
                          /*##### EDITAR */
-                            if (data.status > 0 && data.status <= 4) {
+                            if (data.status > 0 && data.status <= 4 || users.id_usuario == 1 || users.secao == 'CHEFIA' || users.secao == 'DLOG') {
                                 links_opcoes += '<a href=\''+geraLink('ajuda', 'h_pedido_pedid', 'edit', '<?=VERSAO?>', {id:data.id, voltar:'idx_recente'})+'\' title=\'Editar Pedido\'><img src=\'/core/imagem/editar.png\'></a>';
                                 //links_opcoes +='<button id=\'btnEdicao\' name=\'btnEdicao\' type=\'button\' data-enviar_edicao='+data.id+' class=\'btn btn-primart\'>Enviar Edição</button>';
                             }

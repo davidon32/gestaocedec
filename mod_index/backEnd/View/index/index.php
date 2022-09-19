@@ -27,13 +27,15 @@ $secao = isset($_COOKIE['seguranca']['secao']) ? $_COOKIE['seguranca']['secao'] 
 <?php
 
     $ped_ajuda = H_pedido_pedidajuda_hModel::listaPedidosParaDespacho();
-    
+    $titulo = "";
 
     if (count($ped_ajuda)) {
         if($secao == "DLOG" ){
             $titulo = "<legend>Pedidos Pendentes</legend><span> ( Pedidos Pendentes para Análise DLOG )</span>";
         }elseif($secao == "CHEFIA"){
             $titulo = "<legend>Autorizador</legend><span> ( Pedidos pendentes de Autorização )</span>";
+        }else {
+            $titulo = "<legend>Pedidos Ajuda Humanitária para análise</legend><span> Visualização</span>";
         }
         print $titulo;
         foreach ($ped_ajuda as $key => $pedido) {
@@ -59,7 +61,7 @@ $secao = isset($_COOKIE['seguranca']['secao']) ? $_COOKIE['seguranca']['secao'] 
             }
             print "</span>
                                                                                                  </span>
-                                                                                                 <small class=\"label label-danger\"><i class=\"fa fa-clock-o\"></i> - liberado ha " . $dif->days . "  dia(s)</small>
+                                                                                                 <small class=\"label label-danger\"><i class=\"fa fa-clock-o\"></i> - liberado há " . $dif->days . "  dia(s)</small>
                                                                                          </li>
                                                                                  </ul>";
         }

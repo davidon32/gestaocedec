@@ -867,7 +867,7 @@ class Login extends Liberacao {
 														Libera&ccedil;&atilde;o Nº: " . $linha['id_liberacao'] . " - " . DataMysql::dataVisual($linha['dataLibera']) . "</a>
                 			             	</span>
 											 </span>
-											 <small class=\"label label-danger\"><i class=\"fa fa-clock-o\"></i> - liberado ha " . $dif->days . "  dia(s)</small>
+											 <small class=\"label label-danger\"><i class=\"fa fa-clock-o\"></i> - liberado há " . $dif->days . "  dia(s)</small>
 											 
 										 </li>
 									 </ul>";
@@ -932,13 +932,20 @@ class Login extends Liberacao {
 
     function acessoLembreteCompdec($id_municipio) {
 
+            $con = Conexao::getInstance();
         try {
 
-            $sql = "";
+            $sql = "select *FROM aju_liberacao WHERE id_municipio = :id_municipio";
 
-            $result = Conexao::getInstance()->prepare($sql);
-            $result->bindValue(":id_municipio", $id_municipio);
-            $result->execute();
+            $statemant = $con->prepare($sql);
+            $statemant->bindValue(":id_municipio", $id_municipio);      
+            $statemant->execute();
+                    
+            $result = $statemant->fetchAll(PDO::FETCH_ASSOC);
+            
+            return $result;
+            
+            
         } catch (Exception $e) {
 
             return $e->getMessage();
@@ -1133,7 +1140,7 @@ class Login extends Liberacao {
 	it_m_apoio,
 	it_m_poco,
 	it_m_escola,
-        it_m_registro
+        it_m_registro,
 	cedec_admin			
 	FROM cedec_usuario
 	WHERE login = :login";
@@ -1155,8 +1162,8 @@ class Login extends Liberacao {
     #@ mostra Modulos
 
     static function mostraModulos($_acesso) {
-
-        /* 0 - modulo central
+        
+        /* 0 - ajuda humanitaria
          * 1 - modulo pipa
          * 2 - modulo cce
          * 3 - modulo decretacao

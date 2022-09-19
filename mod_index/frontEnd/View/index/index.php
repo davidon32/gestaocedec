@@ -21,8 +21,31 @@
             <legend>Notificações</legend>
               <?php
                 $login = new Login();
-                $login->acessoLembreteCompdec($_COOKIE['seguranca']['login'], $_COOKIE['seguranca']['id_deposito']);
-                $login->acessoLembreteTransito($_COOKIE['seguranca']['login'], $_COOKIE['seguranca']['id_deposito'])
+                $liberacoes = $login->acessoLembreteCompdec($_COOKIE['seguranca']['id_municipio']);          
+                
+                foreach ($liberacoes as $key1 => $liberacao) {
+                    
+                    print "<ul class=\"todo-lis\">
+										 <li>
+								 
+											 <span class=\"handle\">
+                                             ".($key1+1).") - <i class=\"fa fa-ellipsis-v\"></i>
+												 <i class=\"fa fa-ellipsis-v\"></i>
+											 </span>
+											 <span class=\"text\">
+											 
+												<a style=\"text-decoration:none;\" href=\"javascript:NovaJanela('index.php?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=ajuda&controller=conestoque&action=lembrete_liberacao&id=" . $liberacao['id_liberacao'] . "', 700, 400)\">
+														&nbsp;&nbsp;
+														&nbsp;&nbsp;<span style='font-size:12px;'>
+														Libera&ccedil;&atilde;o Nº: " . $liberacao['id_liberacao'] . " - " . DataMysql::dataVisual($liberacao['dataLibera']) . "</a>
+                			             	</span>
+											 </span>
+											 <small class=\"label label-danger\"><i class=\"fa fa-clock-o\"></i> - liberado há " . '$dif->days' . "  dia(s)</small>
+											 
+										 </li>
+									 </ul>";
+                 }
+                //$login->acessoLembreteTransito($_COOKIE['seguranca']['login'], $_COOKIE['seguranca']['id_deposito'])
                 
               ?>
             </div> 
