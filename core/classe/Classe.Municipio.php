@@ -1,4 +1,5 @@
 <?php
+
 /* * *********************************************************************************
  * 	CEDEC-MG - Coordenadoria Estadual de Defesa Civil de Minas Gerais			  	*
  * 																					*
@@ -153,21 +154,22 @@ class Municipio extends DataMysql {
     }
 
     # dados para select nome de municipios
+
     function dadosSelectMunicipio($rpm = "") {
-        
-        if(!empty($rpm) && ($rpm != 1)) {
+
+        if (!empty($rpm) && ($rpm != 1)) {
             $sql = "select cedec_municipio.id_municipio, 
                     cedec_municipio.nome
                     from cedec_municipio
                     inner join cedec_rpm_mun
                     on cedec_municipio.id_municipio = cedec_rpm_mun.id_municipio
-                    where cedec_rpm_mun.id_rpm = ".$rpm;
-        }else {
+                    where cedec_rpm_mun.id_rpm = " . $rpm;
+        } else {
             $sql = "SELECT id_municipio, nome  FROM cedec_municipio ORDER BY nome";
         }
 
         $con = Conexao::getInstance();
-        
+
         $_dados = array();
 
 
@@ -233,16 +235,15 @@ class Municipio extends DataMysql {
         $result->bindParam(':id_municipio', $id);
         $result->execute();
 
-        try{
+        try {
             while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
 
                 $dados = $linha;
             }
             return $dados;
-        } catch (Exception $e){
-            print "error".$e;
+        } catch (Exception $e) {
+            print "error" . $e;
         }
-
     }
 
     /**
@@ -361,39 +362,43 @@ class Municipio extends DataMysql {
             echo $e->getMessage();
         }
     }
-    
+
     public static function rel_email($param = 'todos') {
-        
+
         $con = Conexao::getInstance();
-        
+
         $dados = array();
-        
-        
+
+
         $sql = "select id_municipio, nome, email from cedec_municipio "
                 . "where id_municipio != 7221";
-        
+
         $result = $con->query($sql);
-        
+
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-            if($param == 'existente'){
-                if(strlen($linha['email']) > 0){
-                    $dados[] = $linha;            
+            if ($param == 'existente') {
+                if (strlen($linha['email']) > 0) {
+                    $dados[] = $linha;
                 }
-            }else {
-                $dados[] = $linha;            
+            } else {
+                $dados[] = $linha;
             }
         }
 
         return $dados;
     }
-    
-    public static function listaMunicipioRegional($id_rpm){
-        
+
+    public static function listaMunicipioRegional($id_rpm) {
+
         $con = Conexao::getInstance();
+
+        $id = $id_rpm;
         
-        $dados = array();
-        
-        $sql = "select cedec_rpm_mun.id_municipio, cedec_municipio.nome,
+        try {
+
+            if ($id != 0) {
+                
+                $sql = "select cedec_rpm_mun.id_municipio, cedec_municipio.nome,
                 com_comdec.com_const,
                 cedec_user_ex.situacao
                 from cedec_rpm_mun
@@ -403,45 +408,47 @@ class Municipio extends DataMysql {
                 on cedec_municipio.id_municipio = com_comdec.id_municipio 
                 inner join cedec_user_ex
                 on cedec_municipio.id_municipio = cedec_user_ex.id_municipio
-                where cedec_rpm_mun.id_rpm = ".$id_rpm;
+                where cedec_rpm_mun.id_rpm = :id_rpm";
 
-        $result = $con->query($sql);
-        
-        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-            $dados[] = $linha;            
+                $result = $con->prepare($sql);
+                $result->bindParam(":id_rpm", $id_rpm);
+                $result->execute();
+                
+                return $result->fetchAll(PDO::FETCH_ASSOC);
+            
+            } else {
+                FuncaoBase::BloqueioIP('parametro errado');
+            }
+        } catch (Exception $e) {
+            FuncaoBase::BloqueioIP($e->getMessage());
         }
-
-        return $dados;
-        
     }
-    
-    
-    public static function listaRDC(){
-        
+
+    public static function listaRDC() {
+
         $con = Conexao::getInstance();
-        
+
         $dados = array();
-        
+
         $sql = "select id, nome
                 from cedec_rpm";
 
         $result = $con->query($sql);
-        
+
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-            $dados[] = $linha;            
+            $dados[] = $linha;
         }
 
         return $dados;
-        
     }
-    
+
     /**
      * 
      *  Lista municipio para busca id
      */
     public static function listaid_municipioAutocomplete() {
 
-        
+
         $con = Conexao::getInstance();
 
         $dados = array();
@@ -461,10 +468,8 @@ class Municipio extends DataMysql {
         } catch (Exception $e) {
             return $e->getMessage();
         }
-        
     }
-    
 
-    
-    
-}?>
+}
+
+?>

@@ -198,7 +198,7 @@ $secao_usuario = $_COOKIE['seguranca']['secao'];
             if (($value['status'] == 4) && (!$listagem)) {
                 $homologado = " style='background-color:#BCF5A9; color:#A4A4A4' title='PMDA Aguardando Liberar o Atendimento' ";
                 # 
-            } elseif ($value['status'] == 7) {
+            } elseif ($value['status'] == 7 && $value['estado'] != "Encerrado Atendimento") {
                 $homologado = " style='background-color:#FA5858; color:#FFFFFF' title='PMDA Atendido' ";
             } else {
                 $homologado = "";
@@ -242,7 +242,9 @@ $secao_usuario = $_COOKIE['seguranca']['secao'];
                             # permissao operador
                             if ($permissaoOperador == 1) {
                                 # status não esteja cancelado 
-                                if ($value['status'] != 8) {
+                                if($value['status'] == 7 && $value['estado'] == "Encerrado Atendimento") {
+                                    print $pmda->status($value['status']);
+                                }elseif ($value['status'] != 8) {
                                     # SELECT STATUS 
                                     print "<select class='form-control' id='selStatus" . $value['id_pmda'] . "' data-id_pmda='" . $value['id_pmda'] . "' data-status='" . $value['status'] . "' name='selStatus'>";
                                     print "<option value='" . $value['status'] . "'>" . $pmda->status($value['status']) . "</option>";
@@ -256,7 +258,7 @@ $secao_usuario = $_COOKIE['seguranca']['secao'];
                                     if ($value['status'] == 4) {
 
                                         # operador Dlog atendido PMDA
-                                        if ($permissaoDlog == 1) {
+                                        if ( $permissaoDlog == 1) {
                                             print "<option value='7'>Atendido</option>";
                                         }
                                         print "<option value='8'>Cancelar</option>";

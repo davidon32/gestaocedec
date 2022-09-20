@@ -31,7 +31,7 @@ $post_recente = $agora->post_recente();
 //var_dump($ultimas_postagens);
 
 
-$id = isset($_GET['id']) ? $_GET['id'] : "";
+$id = isset($_GET['id']) ? (int)$_GET['id'] : "";
 
 $categorias = $agora->listaCategoria();
 

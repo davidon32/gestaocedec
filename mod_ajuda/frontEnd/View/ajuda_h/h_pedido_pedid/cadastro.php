@@ -180,7 +180,8 @@ $dados = Municipio::dadosMunicipio($id_municipio);
     <div class="col-md-12 text-center">
         <br>
         <a class="btn btn-success" href="<?=FuncaoBase::geraLink("ajuda", "h_pedido_index", "index")?>">Voltar</a>
-        <input type="submit" class="btn btn-info" name="btnGravar" id="btnGravar" value="Prosseguir >>">
+        <input type="submit" class="btn btn-info" name="btnGravar" id="btnGravar" value="Prosseguir >>"><br><br>
+        <span id="msg" class="alert alert-danger">Campo "Tipo de Desastre é Obrigatório !"</span>
     </div>
     
     </form>
@@ -231,7 +232,7 @@ $dados = Municipio::dadosMunicipio($id_municipio);
                 <div class="modal-footer">
                   <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
                   <div class="col-md-6 text-left">
-                      <a href="<?=FuncaoBase::geraLink("ajuda", "cobrade", "cadastro");?>" class="btn btn-success text-left" >Cadastrar Novo</a>
+                      <!--<a href="<?=FuncaoBase::geraLink("ajuda", "cobrade", "cadastro");?>" class="btn btn-success text-left" >Cadastrar Novo</a>-->
                   </div>
                   <div class="col-md-6 text-right">
                       <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
@@ -254,6 +255,21 @@ $dados = Municipio::dadosMunicipio($id_municipio);
 <script>
         
     $(document).ready(function () {
+        
+        $("#msg").hide();
+        
+        $("#btnGravar").hover(function(){
+           if($('#nomeCobrade_fk').val() == "") {
+               $("#btnGravar").attr("type", "button");
+               $("#msg").show();
+               $("#nomeCobrade_fk").addClass('alert alert-danger');
+           }else {
+               $("#btnGravar").attr("type", "submit");
+               $("#msg").hide();
+               $("#nomeCobrade_fk").removeClass('alert alert-danger');
+           }
+            
+        });
 
         $("#numero_decreto,#data_vigencia").val("");
         $("#numero_decreto,#data_vigencia").attr('readonly', 'readonly');

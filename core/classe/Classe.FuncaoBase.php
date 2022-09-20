@@ -174,7 +174,7 @@ class FuncaoBase extends Exception {
             print '<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript">
 		alert ("' . $msg . '");
 		</SCRIPT>';
-            //FuncaoBase::vd($msg);
+//FuncaoBase::vd($msg);
         }
     }
 
@@ -260,10 +260,10 @@ class FuncaoBase extends Exception {
         $result = $con->query($sql);
 
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-            //self::static_var[] = $linha;
+//self::static_var[] = $linha;
         }
 
-        //return self::static_var$;
+//return self::static_var$;
     }
 
 ######################################################################################
@@ -314,13 +314,13 @@ class FuncaoBase extends Exception {
     }
 
 ######################################################################################
+
     /**
      * Funcao para pular linhas, default uma linha quebrada
      * 
      * @param $nrLinha - inteiro opcional quantidade de linhas para espaco, 
      * @return elemento HTML "<br>" conforme quantidade passada no parametro
      */
-
     function linha($nr_linha = 1) {
         for ($i = 0; $i < $nr_linha; $i++) {
             print '<br />';
@@ -406,7 +406,7 @@ class FuncaoBase extends Exception {
             }
         }
 
-        // Total campos em branco
+// Total campos em branco
         $totCampoBranco = count($mensagem);
 
         if ($totCampoBranco > 0) {
@@ -432,7 +432,7 @@ class FuncaoBase extends Exception {
             }
         }
 
-        //var_dump($mensagem)  ;
+//var_dump($mensagem)  ;
         $totCampoBranco = count($mensagem);
         if ($totCampoBranco == 0) {
             return true;
@@ -480,13 +480,13 @@ class FuncaoBase extends Exception {
     }
 
 ######################################################################################
+
     /**
      * Espacos para texto em html
      * @param $tamanho integer
      * @return elemento html espaco &nbsp
      * 
      */
-
     function TamanhoCampo($tamanho) {
         for ($i = 0; $i <= $tamanho; $i++) {
             print "&nbsp;";
@@ -560,16 +560,16 @@ class FuncaoBase extends Exception {
      */
     function validaCPF($cpf) {
 
-        // Verifiva se o número digitado contém todos os digitos
+// Verifiva se o número digitado contém todos os digitos
         $cpf = str_pad(preg_replace('[^0-9]', '', $cpf), 11, '0', STR_PAD_LEFT);
 
-        // Verifica se nenhuma das sequências abaixo foi digitada, caso seja, retorna falso
+// Verifica se nenhuma das sequências abaixo foi digitada, caso seja, retorna falso
         if (strlen($cpf) != 11 || $cpf == '00000000000' || $cpf == '11111111111' || $cpf == '22222222222' || $cpf == '33333333333' || $cpf == '44444444444' || $cpf == '55555555555' || $cpf == '66666666666' || $cpf == '77777777777' || $cpf == '88888888888' || $cpf == '99999999999') {
 
             return false;
         } else {
 
-            // Calcula os números para verificar se o CPF é verdadeiro
+// Calcula os números para verificar se o CPF é verdadeiro
             for ($t = 9; $t < 11; $t++) {
 
                 for ($d = 0, $c = 0; $c < $t; $c++) {
@@ -629,10 +629,10 @@ class FuncaoBase extends Exception {
 
         $result = self::sanitizeString($string);
 
-        //$result = preg_replace('/\'|"|´|`/', ' ', $string);
-        //$result = trim(preg_replace('/[\\\|\/]/', '_', $result));
-        //$result = strtoupper($result);
-        //return preg_replace(array("/(á|à|ã|â|ä)/","/(Á|À|Ã|Â|Ä)/","/(é|è|ê|ë)/","/(É|È|Ê|Ë)/","/(í|ì|î|ï)/","/(Í|Ì|Î|Ï)/","/(ó|ò|õ|ô|ö)/","/(Ó|Ò|Õ|Ô|Ö)/","/(ú|ù|û|ü)/","/(Ú|Ù|Û|Ü)/","/(ñ)/","/(Ñ)/","/(ç)/","/(Ç)/"),explode(" ","a A e E i I o O u U n N c C"),$result);
+//$result = preg_replace('/\'|"|´|`/', ' ', $string);
+//$result = trim(preg_replace('/[\\\|\/]/', '_', $result));
+//$result = strtoupper($result);
+//return preg_replace(array("/(á|à|ã|â|ä)/","/(Á|À|Ã|Â|Ä)/","/(é|è|ê|ë)/","/(É|È|Ê|Ë)/","/(í|ì|î|ï)/","/(Í|Ì|Î|Ï)/","/(ó|ò|õ|ô|ö)/","/(Ó|Ò|Õ|Ô|Ö)/","/(ú|ù|û|ü)/","/(Ú|Ù|Û|Ü)/","/(ñ)/","/(Ñ)/","/(ç)/","/(Ç)/"),explode(" ","a A e E i I o O u U n N c C"),$result);
         return $result;
     }
 
@@ -640,12 +640,12 @@ class FuncaoBase extends Exception {
 
     static function sanitizeString($string) {
 
-        // matriz de entrada
+// matriz de entrada
         $what = array('ä', 'ã', 'à', 'á', 'â', 'ê', 'ë', 'è', 'é', 'ï', 'ì', 'í', 'ö', 'õ', 'ò', 'ó', 'ô', 'ü', 'ù', 'ú', 'û', 'À', 'Á', 'É', 'Í', 'Ó', 'Ú', 'ñ', 'Ñ', 'ç', 'Ç', '-', '(', ')', ',', ';', ':', '|', '!', '"', '#', '$', '%', '&', '/', '=', '?', '~', '^', '>', '<', 'ª', 'º');
-        // matriz de saída
+// matriz de saída
         $by = array('a', 'a', 'a', 'a', 'a', 'e', 'e', 'e', 'e', 'i', 'i', 'i', 'o', 'o', 'o', 'o', 'o', 'u', 'u', 'u', 'u', 'A', 'A', 'E', 'I', 'O', 'U', 'n', 'n', 'c', 'C', '_', '', '', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_');
 
-        // devolver a string
+// devolver a string
         return str_replace($what, $by, $string);
     }
 
@@ -657,8 +657,8 @@ class FuncaoBase extends Exception {
     static function maiusculoAcento($_campo) {
 
         return strtoupper(preg_replace(array("/(á|à|ã|â|ä)/", "/(Á|À|Ã|Â|Ä)/", "/(é|è|ê|ë)/", "/(É|È|Ê|Ë)/", "/(í|ì|î|ï)/", "/(Í|Ì|Î|Ï)/", "/(ó|ò|õ|ô|ö)/", "/(Ó|Ò|Õ|Ô|Ö)/", "/(ú|ù|û|ü)/", "/(Ú|Ù|Û|Ü)/", "/(ñ)/", "/(Ñ)/"), explode(" ", "a A e E i I o O u U n N"), $_campo));
-        //$_campo = preg_replace( '/[`^~\'"]/', null, iconv( 'UTF-8', 'ASCII//TRANSLIT', $_campo) );
-        //return strtoupper($_campo);
+//$_campo = preg_replace( '/[`^~\'"]/', null, iconv( 'UTF-8', 'ASCII//TRANSLIT', $_campo) );
+//return strtoupper($_campo);
     }
 
     static function getModulo($_modulo) {
@@ -890,6 +890,31 @@ class FuncaoBase extends Exception {
             }
         } else
             echo "Filename is not defined.";
+    }
+
+    public static function BloqueioIP($obs) {
+
+        $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['idUser'] : "";
+        $tp_usuario = isset($_COOKIE['seguranca']['externo']) ? $_COOKIE['seguranca']['externo'] : "";
+        $obs1 = "";
+
+        if ($tp_usuario == 1 && !empty($id_usuario)) {
+
+            $obs1 = " - id_usuario " . $id_usuario . " - Externo - Nome " . Usuario::getEmailUsuarioExterno($id_usuario);
+        } elseif ($tp_usuario == 0 && !empty($id_usuario)) {
+            $obs1 = " - id_usuario " . $id_usuario . " - Interno - Nome " . Usuario::getNomeId($id_usuario);
+        }
+
+        $con = Conexao::getInstance();
+
+        $sql = "insert into cedec_bloqueio (ip, data_hora, obs) values (:ip, :data_hora, :obs)";
+
+        $result = $con->prepare($sql);
+
+        $result->bindValue(":ip", $_SERVER['REMOTE_ADDR']);
+        $result->bindValue(":data_hora", date("Y-m-d H:i:s"));
+        $result->bindValue(":obs", htmlspecialchars($obs.$obs1));
+        $result->execute();
     }
 
 }
