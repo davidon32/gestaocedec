@@ -103,7 +103,7 @@ foreach ($dados as $key => $value) {
             <td>" . Decreto::getNomeCobrade($value['id_cobrade']) . "</td>
             <td>" . (($value['despachante_analista'] == "") ? "-   " : $value['despachante_analista']) . "</td>
             <td>" . $pedido_h->enumStatus($value['status']) . "</td>
-            <td>" . $value['data_hora_envio'] . "</td>
+            <td>" . DataMysql::dataCompletaVisual($value['data_hora_envio']) . "</td>
             <td>";
     
     # editar pedido 

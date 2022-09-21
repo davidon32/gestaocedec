@@ -40,7 +40,7 @@
 														Libera&ccedil;&atilde;o Nº: " . $liberacao['id_liberacao'] . " - " . DataMysql::dataVisual($liberacao['dataLibera']) . "</a>
                 			             	</span>
 											 </span>
-											 <small class=\"label label-danger\"><i class=\"fa fa-clock-o\"></i> - liberado há " . '$dif->days' . "  dia(s)</small>
+											 <small class=\"label label-danger\"><i class=\"fa fa-clock-o\"></i> - liberado há " . FuncaoBase::DiferencaDt(date('Y-m-d'), date('Y-m-d'), 'd'). "  dia(s)</small>
 											 
 										 </li>
 									 </ul>";

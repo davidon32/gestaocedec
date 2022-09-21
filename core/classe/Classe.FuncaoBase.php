@@ -913,8 +913,32 @@ class FuncaoBase extends Exception {
 
         $result->bindValue(":ip", $_SERVER['REMOTE_ADDR']);
         $result->bindValue(":data_hora", date("Y-m-d H:i:s"));
-        $result->bindValue(":obs", htmlspecialchars($obs.$obs1));
+        $result->bindValue(":obs", htmlspecialchars($obs . $obs1));
         $result->execute();
+    }
+    
+    
+    /**
+     * Calculo diferenca dadas
+     * @param type $dt_hoje
+     * @param type $dt_dif
+     * @param type $tipo d = dias, m = meses, Y = anos
+     * 
+     */
+
+    public function DiferencaDt($dt_hoje, $dt_dif, $tipo) {
+
+        $data_hoje = new DateTime($dt_hoje);
+        $data_diferenca = new DateTime($dt_dif);
+        $dif = $data_hoje->diff($data_diferenca);
+        
+        if($tipo == 'd'){
+            return $dif->days();
+        }elseif($tipo == 'm'){
+            return $dif->m();
+        }elseif($tipo == 'Y'){
+            return $dif->y();
+        }
     }
 
 }

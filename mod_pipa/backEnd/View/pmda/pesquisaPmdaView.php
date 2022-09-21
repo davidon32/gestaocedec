@@ -118,7 +118,7 @@ $secao_usuario = $_COOKIE['seguranca']['secao'];
             }
             print "</table>";
         } elseif ($opcao == "pmda") { //busca protocolo
-            $dados = $pmda->buscaPmda($param['id_pmda']);
+            //$dados = $pmda->buscaPmda();
         } elseif ($opcao == "geral") { /* geral */
 
             $dados = $pmda->buscaSituacaoPmda($situacao);
@@ -193,18 +193,24 @@ $secao_usuario = $_COOKIE['seguranca']['secao'];
             $ultimoAcesso = isset($val['dt_user']) ? DataMysql::dataCompletaVisual($val['dt_user']) : "";
 
             $protocolo = $value['id_pmda'] . str_replace("-", "", substr($value['data'], 0, 10));
+            
+            $homologado = "";
 
             # Aprovado
             if (($value['status'] == 4) && (!$listagem)) {
                 $homologado = " style='background-color:#BCF5A9; color:#A4A4A4' title='PMDA Aguardando Liberar o Atendimento' ";
-                # 
-            } elseif ($value['status'] == 7 && $value['estado'] != "Encerrado Atendimento") {
+            
+            // Atendido / Em Atendimento
+            } elseif ($value['status'] == 7 && $value['estado'] == "Em Atendimento") {
                 $homologado = " style='background-color:#FA5858; color:#FFFFFF' title='PMDA Atendido' ";
-            } else {
-                $homologado = "";
+            
+            // Atendido / Encerrado 
+            } elseif($value['status'] == 7 && $value['estado'] == "Encerrado Atendimento") {
+                $homologado = " style='background-color:#F2F5A9; color:#0B610B' title='PMDA Foi Atendido e já se encontra encerrado' ";
+            }else {
+                
             }
 
-            
             if ($value['status'] < 2 && $secao_usuario != "DRRD" ) {
                 print "<tr>
                         <td colspan='13'>Registro Suprimido !</td>
@@ -238,13 +244,18 @@ $secao_usuario = $_COOKIE['seguranca']['secao'];
                             print "<span title ='Status sem Ações para o Operador / Aguardando Ação do COMPDEC'>" . $pmda->status($value['status']) . "</span>";
                         } else {
 
-                            ################### SELECT STATUS ####################
+   ############################### SELECT STATUS ##################################
                             # permissao operador
                             if ($permissaoOperador == 1) {
-                                # status não esteja cancelado 
-                                if($value['status'] == 7 && $value['estado'] == "Encerrado Atendimento") {
+                                # status CANCELADO
+                                if($value['status'] >= 8) {
                                     print $pmda->status($value['status']);
-                                }elseif ($value['status'] != 8) {
+                                    
+                                } elseif ($value['status'] == 7 && $value['estado'] == "Encerrado Atendimento" || $value['status'] == 5) {
+                                    print $pmda->status($value['status']);
+                                
+                                # status não esteja cancelado     
+                                } elseif ($value['status'] == 7 && $value['estado'] != "Cancelado" || $value['status'] != 8 || $value['status'] != 9) {
                                     # SELECT STATUS 
                                     print "<select class='form-control' id='selStatus" . $value['id_pmda'] . "' data-id_pmda='" . $value['id_pmda'] . "' data-status='" . $value['status'] . "' name='selStatus'>";
                                     print "<option value='" . $value['status'] . "'>" . $pmda->status($value['status']) . "</option>";
@@ -256,7 +267,6 @@ $secao_usuario = $_COOKIE['seguranca']['secao'];
 
                                     # Aprovado
                                     if ($value['status'] == 4) {
-
                                         # operador Dlog atendido PMDA
                                         if ( $permissaoDlog == 1) {
                                             print "<option value='7'>Atendido</option>";
@@ -267,10 +277,11 @@ $secao_usuario = $_COOKIE['seguranca']['secao'];
                                     # atendido
                                     if ($value['status'] == 7 && $value['estado'] != 'Cancelado' && $value['estado'] != 'Encerrado Atendimento') {
                                         print "<option value='8'>Cancelar</option>";
+                                        print "<option value='9'>Encerrado</option>";
 
                                         #diretor
                                         if ($_COOKIE['seguranca']['diretor'] == 1) {
-                                            print "<option value='4'>Aprovado</option>";
+                                            print "<option value='4' title='Usuario com Permissoes de Diretor'>Aprovado - Usuario com Permissoes de Diretor</option>";
                                         }
                                     }
                                     print "</select>";
@@ -341,16 +352,26 @@ $secao_usuario = $_COOKIE['seguranca']['secao'];
                 print "<td " . $homologado . ">" . (!isset($value['resp_homolog']) ? "-" : Usuario::getNomeId($value['resp_homolog']) ) . "</td>";
                 print "<td " . $homologado . ">" . $value['dt_analise'] . "</td>";
 
-                ###############  ESTADO ##############
+                
+##############################  ESTADO ###################################
                 # situacao atendido
 
                 print "<td " . $homologado . ">";
 
                 # acesso somente operador PMDA
                 if ($permissaoOperador == 1) {
-                    if ($value['status'] == 4 || $value['status'] == 0 || $value['status'] == 1 || $value['status'] == 2) {
+                    if ($value['status'] == 4 ||
+                            $value['status'] == 0 ||
+                            $value['status'] == 1 ||
+                            $value['status'] == 2 ||
+                            $value['status'] == 5){
                         print $value['estado'];
-                    } else if ($value['status'] == 7 && $value['estado'] == "Cancelado" || $value['estado'] == "Encerrado Atendimento") {
+                        
+                    } else if ($value['status'] == 7 ||
+                                $value['status'] == 8 ||
+                                $value['status'] == 9 &&
+                                $value['estado'] == "Cancelado" ||
+                                $value['estado'] == "Encerrado Atendimento") {
                         print $value['estado'];
                     } else {
 
@@ -701,8 +722,8 @@ $secao_usuario = $_COOKIE['seguranca']['secao'];
         } else if ($(id_sel).val() == 4) {
             estado = 'Aguard. Atendimento';
         } else if ($(id_sel).val() == 7) {
-            estado = 'Aguard. Atendimento';
-        } else if ($(id_sel).val() == 8) {
+            estado = 'Em Atendimento';
+        } else if ($(id_sel).val() == 9) {
             estado = 'Cancelado';
         }
 

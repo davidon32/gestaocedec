@@ -659,7 +659,7 @@ class Pmda extends Comunidade {
         				em_analise,
         				resp_homolog,
                                         dt_analise,
-                                        situacao
+                                        estado
         				FROM pip_pmda
         					WHERE id_pmda = :id_pmda";
 
