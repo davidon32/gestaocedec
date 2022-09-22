@@ -55,6 +55,8 @@ if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
     # Acesso sem login
     # Acesso Comun (raiz modulo)
     # acesso externo
+    
+
 
 $acesso1 = isset($_GET['externo']) ? $_GET['externo'] :"";
 

@@ -105,7 +105,7 @@ class h_pedido_itensController extends Controller {
         
         
         if ($h_pedido_itens->gravar($_POST, true)) {
-            FuncaoBase::alert("Produto Adicionado ao Pedido !");
+            FuncaoBase::alert("Material Adicionado ao Pedido !");
 
             if($_GET['voltar']== 'idx_recente'){
                 $this->redirect("ajuda", "h_pedido_pedid", "add_itens", array('id_pedido'=>$_POST['id_pedido'], 'voltar'=>'idx_recente'));

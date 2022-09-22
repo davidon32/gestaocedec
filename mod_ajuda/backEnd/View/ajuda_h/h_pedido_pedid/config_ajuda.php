@@ -55,7 +55,6 @@ $configuracao = Config::getConfig();
                     <td class="text-center">#</td>
                     <td class="text-center">Código</td>
                     <td class="text-center">Nome</td>
-                    <td class="text-center">Descrição</td>
                     <td class="text-center">Ação</td>
                 </tr>
                 <?php
@@ -69,7 +68,6 @@ $configuracao = Config::getConfig();
                         <td class='text-center'>".($key+1)."</td>
                         <td class='text-center'>".$value['id_unidade']."</td>
                         <td class='text-center'>".$value['singular']."</td>
-                        <td class='text-center'>".$value['nome']." ".$value['descricao']."</td>
                         <td class='text-center'><a onclick='permissaoMaterial(".$value['id_unidade'].", 0)'><img src='/core/imagem/delete.png'></a></td>
                     </tr>";
                         
@@ -189,6 +187,7 @@ if (!empty($id_usuario)) {
     print "</script>";
 }
 
+# lista de materiais q não estão liberados para pedidos
 $listMateriais = $h_pedido_pedid->MaterialPedido(0);
 ?>
 

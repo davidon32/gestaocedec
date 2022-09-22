@@ -94,10 +94,8 @@ if($opcao == 'dados_compdec') {
             if(H_pedido_pedidajuda_hModel::tramitar($dados)){
                 print 'sucesso';
             }
-        }else {
-            print 'sucesso';
         }
-
+            print 'sucesso';
     }
  
 //tramitar pedido

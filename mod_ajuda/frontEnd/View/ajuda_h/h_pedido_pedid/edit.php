@@ -163,13 +163,13 @@ $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
                     <div class="radio">
                         <label>
                             <input type="radio" name="tipo_decreto" id="ECP" value="ECP" checked>
-                            ECP
+                            ECP - Estado de Calamidade Pública
                         </label>
                     </div>
                     <div class="radio">
                         <label>
                             <input type="radio" name="tipo_decreto" id="SE" value="SE">
-                            SE
+                            SE - Situação de Emergência
                         </label>
                     </div>
                 </div>
@@ -230,7 +230,11 @@ foreach ($materiais as $key => $material) {
     <div class="row">
     <div class="col-md-12 text-left">
         <br>
+        <p>É necessário anexar o DMAT, somente quando o decreto for <span style='color:red; font-weight: bold'>Municipal</span>. </p>
         <button type="button" class="btn btn-warning glyphicon glyphicon-upload" name="upload_arquivos" id="upload_arquivos" title="Fazer upload de arquivos"> Upload Arquivos</button>
+        <br>
+        <span style='color:red; font-weight: bold'>Tamanho máximo 2Mb</span>
+
     </div>
     </div>
     <div class="col-md-12 text-center">

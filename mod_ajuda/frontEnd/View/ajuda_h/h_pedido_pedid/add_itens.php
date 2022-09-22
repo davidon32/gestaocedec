@@ -41,7 +41,7 @@ $materiaisItens = H_pedido_pedidajuda_hModel::item_pedido($id_pedido);
         <div class='row'>
 
             <div class="col-md-6">
-                <label>Material de Ajuda Humanitária7</label>
+                <label>Material de Ajuda Humanitária</label>
                 <select class="form form-control" name="descricao_item" id="descricao_item" required="required">
                     <option <?=isset($dados_editar[0]['codigo']) ? "id='".$dados_editar[0]['codigo']."'> ".$dados_editar[0]['descricao_item']  : "Selecione o Material";?> </option>
 <?php

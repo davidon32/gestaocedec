@@ -106,6 +106,10 @@ $dadosVistoria = interdicaoController::listagem_geral_Autocomplete($id_municipio
             
     </div>
     <br>
+    <label>Observações : </label><span id='restante' style="font-size: 9pt"> Caracteres Restantes :16776997</span>
+    <textarea class="form form-control" maxlength="16777000" id='obs' rows="8"></textarea>
+    <br>
+        
 
     <input class='btn btn-primary' type="submit" name="btnGravar" id="btnGravar" value="Gravar">
 </form>
@@ -121,7 +125,9 @@ $dadosVistoria = interdicaoController::listagem_geral_Autocomplete($id_municipio
 <script>
 
     $(document).ready(function () {
-
+              
+        caracterestante( $('#obs').attr('id'), $('#restante').attr('id'), $('#obs').attr('maxlength') );
+        
         /* auto complete deposito */
         var vistoria = {
             data:
@@ -155,10 +161,14 @@ $dadosVistoria = interdicaoController::listagem_geral_Autocomplete($id_municipio
 
         /*********** autocomplete origem ***********/
         $("#vistoria").easyAutocomplete(vistoria);
-
+        
+        
+        
 
 
     });
+    
+    
 
 </script>
 </body>

@@ -23,7 +23,7 @@ if (isset($_GET['id'])) {
 
 ?>
 
-<legend>Lancamento de Materiais no Pedido de Ajuda Humanitária</legend>
+<legend>Material Solicitado</legend>
 <form action="<?= FuncaoBase::geraLink("ajuda", "h_pedido_itens", "gravar", array('voltar'=>'idx_recente')); ?>" method="post" accept-charset="utf-8" name="frmH_pedido_itens" id="frmH_pedido_itens">
 
 <div class='row'>

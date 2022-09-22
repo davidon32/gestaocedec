@@ -25,7 +25,7 @@ include_once "template/page/header.php";
                 }
             }
             
-            p { 
+            p.dest { 
                 color: black;
                 font-family:Calibri,
                 sans-serif; font-style: normal;
@@ -61,24 +61,25 @@ include_once "template/page/header.php";
         <div class="container">
             <br>
             <div class="col-md-12 text-center voltar"><a class='btn btn-success' href='<?= FuncaoBase::geraLink('compdec', 'vistoria', 'index')?>'>Voltar</a></div>
-            <div class="col-md-6 pull-left"><img src="/anexo/brasao/7221_brasao.png"></div>
-            <div class="col-md-6 text-right"><img src="/anexo/brasao/7221_brasao.png"></div>
+            <div class="col-md-6 pull-left"><img width="100" src="/anexo/brasao/7221_brasao.png"></div>
+            <div class="col-md-6 text-right"><!--<img width="100" src="/anexo/brasao/7221_brasao.png">--></div>
             <br>
             <div class="col-md-12">
                 
 
-            <p style="padding-top: 2pt;padding-left: 71pt;text-indent: 0pt;text-align: center;">RELATÓRIO DE VISTORIA DE ATENDIMENTO EMERGENCIAL Nº <span style=" color: #F00;"><?= $dados->numero ?></span></p>
-            <p style="text-indent: 0pt;text-align: left;"><br/></p>
-            <p style="padding-left: 5pt;text-indent: 0pt;line-height: 189%;text-align: left;">
+            <p class='dest' style="padding-top: 2pt;padding-left: 71pt;text-indent: 0pt;text-align: center;">RELATÓRIO DE VISTORIA DE ATENDIMENTO EMERGENCIAL Nº <span style=" color: #F00;"><?= $dados->numero ?></span></p>
+            <p class='dest' style="text-indent: 0pt;text-align: left;"><br/></p>
+            <p class='dest' style="padding-left: 5pt;text-indent: 0pt;line-height: 189%;text-align: left;">
                 1. Proprietário/Morador: <i><?= $dados->prop ?></i><br>
                     Endereço do local da vistoria: Município: <i><?= $dados->endereco ?></i><br>
-                        Contato/Telefone:</p><i><?= $dados->tel ?></i><br>
-                            <p style="padding-left: 5pt;text-indent: 0pt;line-height: 190%;text-align: left;">Data da vistoria: Tipo da Ocorrência: Tipo de Imóvel:</p>
-                            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;"/>
-                            <p style="text-indent: 0pt;text-align: left;"><br/></p>
-                            <p style="padding-top: 2pt;padding-left: 11pt;text-indent: 0pt;text-align: left;">2. CONDIÇÃO DO LOCAL (marcar sim ou não para cada anomalia visualizada)</p>
-                            <p style="text-indent: 0pt;text-align: left;"><br/></p>
-                            <table style="border-collapse:collapse;margin-left:5.594pt" cellspacing="0">
+                        Contato/Telefone: <i><?= $dados->tel ?></i></p><br>
+                            <p class='dest' style="padding-left: 5pt;text-indent: 0pt;line-height: 190%;text-align: left;">Data da vistoria: Tipo da Ocorrência: Tipo de Imóvel:</p>
+                            <p class='dest' style="padding-left: 5pt;text-indent: 0pt;text-align: left;"/>
+                            <p class='dest' style="text-indent: 0pt;text-align: left;"><br/></p>
+                            <p class='dest' style="padding-top: 2pt;padding-left: 11pt;text-indent: 0pt;text-align: left;">2. CONDIÇÃO DO LOCAL (marcar sim ou não para cada anomalia visualizada)</p>
+                            <p class='dest' style="text-indent: 0pt;text-align: left;"><br/></p>
+                            
+                            <table style="border-collapse:collapse;margin:auto" cellspacing="0">
                                 <tr style="height:21pt">
                                     <td style="width:204pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                                         <p class="s1" style="padding-left: 5pt;text-indent: 0pt;line-height: 13pt;text-align: left;">Trincas nos elementos estruturais</p>
@@ -94,7 +95,7 @@ include_once "template/page/header.php";
                                         <p class="s2" style="padding-left: 5pt;text-indent: 0pt;line-height: 13pt;text-align: left;">Pilar</p>
                                     </td>
                                     <td style="width:128pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                                        <p style="text-indent: 0pt;text-align: center;"><?= ($dados->tr_pilar == 1) ? "X" : "" ?><br/></p>
+                                        <p style="text-indent: 0pt;text-align: center;"><?= ($dados->tr_pilar == 1) ? "X" : "" ?></p>
                                     </td>
                                     <td style="width:134pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                                         <p style="text-indent: 0pt;text-align: center;"><?= ($dados->tr_pilar == 0) ? "X" : "" ?><br/></p>

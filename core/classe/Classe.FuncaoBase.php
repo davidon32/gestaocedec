@@ -926,21 +926,22 @@ class FuncaoBase extends Exception {
      * 
      */
 
-    public function DiferencaDt($dt_hoje, $dt_dif, $tipo) {
+    public static function DiferencaDt($dt_hoje, $dt_dif, $tipo) {
 
         $data_hoje = new DateTime($dt_hoje);
         $data_diferenca = new DateTime($dt_dif);
         $dif = $data_hoje->diff($data_diferenca);
         
         if($tipo == 'd'){
-            return $dif->days();
+            return $dif->days;
         }elseif($tipo == 'm'){
-            return $dif->m();
+            return $dif->m;
         }elseif($tipo == 'Y'){
-            return $dif->y();
+            return $dif->y;
         }
     }
+    
+    
+    
 
-}
-
-?>
+}?>
