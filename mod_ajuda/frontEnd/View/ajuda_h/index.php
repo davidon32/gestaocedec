@@ -168,7 +168,7 @@ $(document).ready(function() {
     $("a[name=novo_pedido]").hover(function(){
 
         if($("a[name=novo_pedido]").data('destaque')){
-            Swal.fire('Existe um pedido em fase de edição, \nvocê pode editar esete pedido, ou excluir para criar um novo  !');
+            Swal.fire('Existe um pedido em fase de edição, \nvocê pode editar este pedido, ou excluir para criar um novo  !');
             
         }
     });

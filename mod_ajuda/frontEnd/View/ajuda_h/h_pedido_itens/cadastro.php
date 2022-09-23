@@ -27,13 +27,13 @@ if (isset($_GET['id'])) {
 <form action="<?= FuncaoBase::geraLink("ajuda", "h_pedido_itens", "gravar", array('voltar'=>'idx_recente')); ?>" method="post" accept-charset="utf-8" name="frmH_pedido_itens" id="frmH_pedido_itens">
 
 <div class='row'>
-        <div class="col-md-6">
+        <div class="col-md-3">
             <label>Material de Ajuda Humanitária</label>
             <select class="form form-control" name="descricao_item" id="descricao_item">
                 <option>Selecione o Material</option>
                 <?php
                 foreach ($materiais as $material) {
-                    print "<option id='" . $material['id_unidade'] . "'>" . $material['nome'] . $material['descricao'] . "</option>";
+                    print "<option id='" . $material['id_unidade'] . "'>" . $material['singular'] . "</option>";
                 }
                 ?>
                 <input type="hidden" name="id_pedido" id="id_pedido" value="<?= $id_pedido; ?>">

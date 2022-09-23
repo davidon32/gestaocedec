@@ -26,6 +26,8 @@ class indexController extends Controller {
             print "<script style='text/javascript'>";
             print "window.location = 'index.php?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=itn&ac=&modulo=index&controller=index&action=index1'";
             print "</script>";
+        
+        # troca senha se necessario    
         } else if ($logar == "trsenha") {
 
             print "<script type='text/javascript'>";

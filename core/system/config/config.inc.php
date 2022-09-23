@@ -147,7 +147,7 @@ define("MODOACESSO", 0);
     define('ODESPESA', 'GIOVANI DE SOUZA SILVA, Ten Cel PM');
     
     define('NUMODESPESA', '100476-1');
-      
+    
 
     //define("PATH_PIPA","");
     

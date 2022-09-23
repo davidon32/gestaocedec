@@ -346,15 +346,17 @@ class Login extends Liberacao {
                               reset = :reset
 		              WHERE login = :login";
         try {
+            
 
-            $result = Conexao::getInstance()->prepare($sql);
-            $result->bindValue(":senha_nova", md5($senha_nova));
-            $result->bindValue(":trsenha", 0);
-            $result->bindValue(":reset", null);
-            $result->bindValue(":login", $login);
-            $result->execute();
+                $result = Conexao::getInstance()->prepare($sql);
+                $result->bindValue(":senha_nova", md5($senha_nova));
+                $result->bindValue(":trsenha", 0);
+                $result->bindValue(":reset", null);
+                $result->bindValue(":login", $login);
+                $result->execute();
 
-            return true;
+                return true;
+            
         } catch (Exception $e) {
 
             return $e->getMessage() . "Código: 15.1";

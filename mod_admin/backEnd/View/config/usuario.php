@@ -15,12 +15,12 @@
 
 <div class="col-md-12">
 
-    <div class="col-md-6 text-center">
+    <div class="col-md-12 text-center">
         <br>
-        <a href='?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=&modulo=admin&controller=adm&action=caduser' class="btn btn-primary">Cadastro Usuario</a>
+        <a href='?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=&modulo=admin&controller=adm&action=caduser' class="btn btn-primary">Novo Usuario</a>
     </div>
     
-    <div class="col-md-6 text-center">
+    <div class="col-md-12 text-center">
         <br>
         <a href='?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=&modulo=admin&controller=adm&action=pesquisa' class="btn btn-primary">Editar Usuario</a>
     </div>

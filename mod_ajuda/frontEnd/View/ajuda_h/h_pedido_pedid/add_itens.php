@@ -40,14 +40,14 @@ $materiaisItens = H_pedido_pedidajuda_hModel::item_pedido($id_pedido);
         <!-- material -->
         <div class='row'>
 
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <label>Material de Ajuda Humanitária</label>
                 <select class="form form-control" name="descricao_item" id="descricao_item" required="required">
                     <option <?=isset($dados_editar[0]['codigo']) ? "id='".$dados_editar[0]['codigo']."'> ".$dados_editar[0]['descricao_item']  : "Selecione o Material";?> </option>
 <?php
 
 foreach ($materiais as $material) {
-    print "<option id='" . $material['id_unidade'] . "'>" . $material['nome'] . $material['descricao'] . "</option>";
+    print "<option id='" . $material['id_unidade'] . "'>" . $material['singular'] . "</option>";
 }
 ?>
  </select>
@@ -65,14 +65,14 @@ foreach ($materiais as $material) {
 
         <!-- qtd -->
         <div class='row'>
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <label>Quantidade de Material</label>
                 <input class="form form-control" type="number" name="qtd" id="qtd" min="1" max="999" value="<?= isset($dados_editar[0]['qtd']) ? $dados_editar[0]['qtd'] : ""; ?>" required="required" >
             </div>
         </div>
         <!-- Familias atendidas -->
         <div class='row'>
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <label>Qtd Familias Atentidas</label>
                 <input class="form form-control" type="number" name="qtd_familia_atendida" id="qtd_familia_atendida" min="1" max="500" value="<?= isset($dados_editar[0]['qtd_familia_atendida']) ? $dados_editar[0]['qtd_familia_atendida'] :"" ?>" required="required">    
             </div>

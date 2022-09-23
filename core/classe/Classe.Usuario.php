@@ -180,7 +180,7 @@ class Usuario extends UsuarioModel {
      * 
      */
     public static function atuaUsuarioExterno($dados) {
-        
+
         try {
 
             $con = Conexao::getInstance();
@@ -210,7 +210,6 @@ class Usuario extends UsuarioModel {
 
             return true;
             //return Log::Log_reg("email_rec ".$dados['email_rec']." id_user_ex ".$dados['id_usuario']." reset senha");
-            
         } catch (Exception $e) {
             print FuncaoBase::getError($e->getMessage(), 'Mensagem');
         }
@@ -239,8 +238,7 @@ class Usuario extends UsuarioModel {
             print FuncaoBase::getError($e->getMessage(), 'Mensagem');
         }
     }
-    
-       
+
     /**
      * desativa registro tabela funcionario 
      *
@@ -252,7 +250,7 @@ class Usuario extends UsuarioModel {
             $con = Conexao::getInstance();
 
             $sql = "UPDATE cedec_funcionario SET
-			situacao  = ".$dados['situacao']."
+			situacao  = " . $dados['situacao'] . "
                             WHERE id_funcionario = " . $dados['id_funcionario'];
 
             $result = $con->query($sql);
@@ -581,7 +579,7 @@ class Usuario extends UsuarioModel {
             
         }
     }
-    
+
     /**
      * Monta um dropbox com nome dos usuarios e retorna o id do usuario
      * @param 
@@ -589,8 +587,8 @@ class Usuario extends UsuarioModel {
      * 
      */
     function getIdNome($situacao = "") {
-        
-        $filtro = ($situacao != "") ? "'".$situacao."'" : "";
+
+        $filtro = ($situacao != "") ? "'" . $situacao . "'" : "";
         $dados = array();
         try {
 
@@ -598,7 +596,7 @@ class Usuario extends UsuarioModel {
 
             $sql = 'select id_usuario, nome, login
                     from cedec_usuario 
-                    where situacao = '.$filtro.' order by nome';
+                    where situacao = ' . $filtro . ' order by nome';
 
             $result = $con->query($sql);
 
@@ -606,7 +604,7 @@ class Usuario extends UsuarioModel {
                 $dados[] = $linha;
             }
 
-           return $dados;
+            return $dados;
         } catch (Exception $e) {
             
         }
@@ -1089,7 +1087,7 @@ class Usuario extends UsuarioModel {
     static function getEmailFuncEmail($email) {
 
         $dados = array();
-        
+
         $email_low = strtolower($email);
 
         try {
@@ -1151,6 +1149,30 @@ class Usuario extends UsuarioModel {
         }
     }
 
+    public function reset_senha($login) {
+        
+        $con = Conexao::getInstance();
+
+        $sql = "UPDATE cedec_usuario
+                       SET senha = '32efe320d4a241dec1268bf3a8a0557d', #//gmgcedec199
+                           trsenha = '1',
+                           reset = null
+                           WHERE login = '" . $login . "'";
+
+        try {
+
+            $result = $con->query($sql);
+
+            if ($result->execute()) {
+
+                return true;
+            }
+            
+        } catch (Exception $e) {
+            print FuncaoBase::getError($e->getMessage(), 'Mensagem');
+        }
+    }
+
     /**
      * Resetar Senha usuário, interno
      */
@@ -1159,13 +1181,13 @@ class Usuario extends UsuarioModel {
         $con = Conexao::getInstance();
         $retorno = array();
         $senhaTemp = "";
-        
+
         # busca pelo email 
-        if ( (!empty($email)) && (empty($idFuncionario)) ) {  
+        if ((!empty($email)) && (empty($idFuncionario))) {
 
             // busca usuario interno
             if ($emailCad = Usuario::getEmailFuncEmail($email)) {
-                
+
                 // busca email cadastrado no sistema
                 if ($email == $emailCad[0]['email_rec']) { // reseta com senha aleatoria
                     $senhaTemp = Usuario::gerarSenha();
@@ -1175,7 +1197,7 @@ class Usuario extends UsuarioModel {
                         $reset = strtotime(date('Y-m-d H:i:s'));
 
                         $sql = "UPDATE cedec_usuario
-		                     SET reset = '".$reset."'
+		                     SET reset = '" . $reset . "'
 		                     WHERE id_usuario = '" . $emailCad[0]['id_usuario'] . "'";
 
 
@@ -1183,10 +1205,10 @@ class Usuario extends UsuarioModel {
 
                         if ($result->execute()) {
                             return array(true,
-                                        $senhaTemp,
-                                        $emailCad[0]['email_rec'],
-                                        $emailCad[0]['login'],
-                                        $reset);
+                                $senhaTemp,
+                                $emailCad[0]['email_rec'],
+                                $emailCad[0]['login'],
+                                $reset);
                         } else {
                             return array(false, "");
                         }
@@ -1202,8 +1224,6 @@ class Usuario extends UsuarioModel {
                     print "<img width='100px' src='/core/imagem/maozinha.png'>";
                     print '<br>Obs: seu email cadastrado no sistema !!! <br><br><span class="alert alert-info" style="font-size:15pt;">' . $emailCad['email'] . '</span>';
                 }
-
-                
             }
 
 
@@ -1353,8 +1373,9 @@ class Usuario extends UsuarioModel {
             print $e->getMessage();
         }
     }
-    
+
     # dados para select nome de municipios
+
     function dadosSelectUsuario() {
 
         $con = Conexao::getInstance();
@@ -1399,10 +1420,9 @@ class Usuario extends UsuarioModel {
 
                 $reset = strtotime(date('Y-m-d H:i:s'));
                 $sql = "UPDATE cedec_user_ex
-                     SET reset = '" .$reset. "'
+                     SET reset = '" . $reset . "'
                      WHERE id = '" . $id . "'";
-
-            } 
+            }
 
             // administrador reseta senha para usuário
         } else if ($email == false) {
@@ -1732,41 +1752,40 @@ class Usuario extends UsuarioModel {
      * 
      */
     public static function AtualizarUsuario($dados) {
-        
+
         $con = Conexao::getInstance();
-        
-        if(isset($dados['senha'])){
+
+        if (isset($dados['senha'])) {
             $sql = "UPDATE cedec_usuario SET nome = :nome,
 					senha = :senha,
 					email_rec = :email,
 					nivel = :nivel
-					WHERE id_usuario = :id";  
-        $result = $con->prepare($sql);
-        $result->bindValue(":nome", $dados['nome']);
-        $result->bindValue(":senha", $dados['senha']);
-        $result->bindValue(":email", $dados['email_rec']);
-        $result->bindValue(":nivel", $dados['nivel']);
-        $result->bindValue(":id", $dados['id_usuario']);
-        }else {
+					WHERE id_usuario = :id";
+            $result = $con->prepare($sql);
+            $result->bindValue(":nome", $dados['nome']);
+            $result->bindValue(":senha", $dados['senha']);
+            $result->bindValue(":email", $dados['email_rec']);
+            $result->bindValue(":nivel", $dados['nivel']);
+            $result->bindValue(":id", $dados['id_usuario']);
+        } else {
 
-        $sql = "UPDATE cedec_usuario SET nome = :nome,
+            $sql = "UPDATE cedec_usuario SET nome = :nome,
 					email_rec = :email,
 					nivel = :nivel
 					WHERE id_usuario = :id";
-        $result = $con->prepare($sql);
-        $result->bindValue(":nome", $dados['nome']);
-        $result->bindValue(":email", $dados['email_rec']);
-        $result->bindValue(":nivel", $dados['nivel']);
-        $result->bindValue(":id", $dados['id_usuario']);
-        }        
+            $result = $con->prepare($sql);
+            $result->bindValue(":nome", $dados['nome']);
+            $result->bindValue(":email", $dados['email_rec']);
+            $result->bindValue(":nivel", $dados['nivel']);
+            $result->bindValue(":id", $dados['id_usuario']);
+        }
 
 
         $result->execute();
 
         return true;
     }
-    
-    
+
     /**
      * atualiza nome
      * 
@@ -1807,7 +1826,6 @@ class Usuario extends UsuarioModel {
         return true;
     }
 
-    
     /**
      * Atualiza email1 informacao, email2 informação, situacao
      * 
@@ -1830,7 +1848,6 @@ class Usuario extends UsuarioModel {
         return true;
     }
 
-    
     /**
      *  Mensagem do Suporte do menu usuario
      *  $dados
@@ -1891,7 +1908,7 @@ class Usuario extends UsuarioModel {
 
         $sql = "Select * from cedec_usuario 
 			where nome like '%" . $nome . "%'";
-        
+
         $result = $con->query($sql);
 
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -1968,7 +1985,7 @@ class Usuario extends UsuarioModel {
 
             print "<div " . $div . ">";
 
-            print "<a href=\"?token=" . hash('sha256', md5(VERSAO).date('dmY')) . $link . "\" title=\"" . $texto . "\">
+            print "<a href=\"?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . $link . "\" title=\"" . $texto . "\">
                 <img src=\"/core/imagem/" . $imagem . "\" width=\"80px\"><br>Entrada de Materiais
             </a>";
         } else {
@@ -2077,6 +2094,7 @@ class Usuario extends UsuarioModel {
 
         return $dados;
     }
+
     /**
      * get permissao ajuda humanitaria
      * 
@@ -2102,7 +2120,7 @@ class Usuario extends UsuarioModel {
 
         return $dados;
     }
-    
+
     /**
      * get permissao ajuda estoque novo
      * 
@@ -2229,10 +2247,11 @@ class Usuario extends UsuarioModel {
     /* permissao escola */
 
     /* permissao poco */
-    
+
     /* get usuario com opcao reset */
+
     public function getResetUsuario($reset) {
-        
+
         $con = Conexao::getInstance();
 
         $dados = null;
@@ -2241,8 +2260,8 @@ class Usuario extends UsuarioModel {
                 login,
                 reset
                 from cedec_usuario
-                where reset = '".$reset."'";
-        
+                where reset = '" . $reset . "'";
+
         $result = $con->query($sql);
 
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -2250,11 +2269,10 @@ class Usuario extends UsuarioModel {
         }
 
         return $dados;
-        
     }
-        
+
     public function getResetUsuarioEx($reset) {
-        
+
         $con = Conexao::getInstance();
 
         $dados = null;
@@ -2263,8 +2281,8 @@ class Usuario extends UsuarioModel {
                 usuario,
                 reset
                 from cedec_user_ex
-                where reset = '".$reset."'";
-        
+                where reset = '" . $reset . "'";
+
         $result = $con->query($sql);
 
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -2272,11 +2290,10 @@ class Usuario extends UsuarioModel {
         }
 
         return $dados;
-        
     }
-    
+
     public function getDadosUsuarioEx($id_usuario) {
-        
+
         $con = Conexao::getInstance();
 
         $dados = null;
@@ -2284,8 +2301,8 @@ class Usuario extends UsuarioModel {
         $sql = "select id, 
                 usuario
                 from cedec_user_ex
-                where id = '".$id_usuario."'";
-        
+                where id = '" . $id_usuario . "'";
+
         $result = $con->query($sql);
 
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -2293,21 +2310,19 @@ class Usuario extends UsuarioModel {
         }
 
         return $dados;
-        
     }
-    
-    
+
     /**
      * Dados usuario
      * 
      */
     public static function dadosUsuarios($agente = false) {
-        
+
         $con = Conexao::getInstance();
 
         $dados = array();
-        
-        $filtro = ($agente) ? " and cedec_funcionario.funcao = 'REDEC'": ""; 
+
+        $filtro = ($agente) ? " and cedec_funcionario.funcao = 'REDEC'" : "";
 
         $sql = "SELECT cedec_usuario.nome,
 cedec_usuario.email_rec,
@@ -2324,9 +2339,9 @@ from cedec_usuario
 inner join cedec_funcionario
 on cedec_usuario.id_funcionario = cedec_funcionario.id_funcionario
 where cedec_usuario.situacao = 1 
-and cedec_usuario.nome not in('SUPORTE') ".$filtro." 
+and cedec_usuario.nome not in('SUPORTE') " . $filtro . " 
  order by cedec_admin desc ";
-        
+
         $result = $con->query($sql);
 
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -2334,46 +2349,41 @@ and cedec_usuario.nome not in('SUPORTE') ".$filtro."
         }
 
         return $dados;
-        
-
     }
-    
-    
+
     /*
      *
      */
-    public static function gravarLogin($dados){
-      
-        
+
+    public static function gravarLogin($dados) {
+
+
         $con = Conexao::getInstance();
-        
+
         $sql = "insert into com_log (login,
                                      dt_user,
                                      acao,
-                                     ip) values ( '". $dados['login']."',
-                                                  '". date("Y-m-d H:i:s")."',
-                                                  '".$dados['acao']."',
-                                                  '".$_SERVER['REMOTE_ADDR']."')" ;
-                
+                                     ip) values ( '" . $dados['login'] . "',
+                                                  '" . date("Y-m-d H:i:s") . "',
+                                                  '" . $dados['acao'] . "',
+                                                  '" . $_SERVER['REMOTE_ADDR'] . "')";
+
         $result = $con->query($sql);
-        
-        
     }
-    
-    
+
     /**
      * lista tentativa usuarios
      * 
      */
     public static function listaTentativaAcesso($limite = 20) {
-        
+
         $con = Conexao::getInstance();
 
         $dados = array();
 
         $sql = "SELECT * from com_log
-            order by id_log desc limit ".$limite;
-       
+            order by id_log desc limit " . $limite;
+
         $result = $con->query($sql);
 
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -2381,22 +2391,21 @@ and cedec_usuario.nome not in('SUPORTE') ".$filtro."
         }
 
         return $dados;
-        
-
     }
-    
+
     /*
-       Pega o login do usuario usando o hash de reset senha 
+      Pega o login do usuario usando o hash de reset senha
      */
-    public static function getUsuarioHash($hash){
-        
+
+    public static function getUsuarioHash($hash) {
+
         $con = Conexao::getInstance();
 
         $dados = array();
 
         $sql = "SELECT login from cedec_usuario
-            where reset = '".$hash."'";
-       
+            where reset = '" . $hash . "'";
+
         $result = $con->query($sql);
 
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -2404,21 +2413,19 @@ and cedec_usuario.nome not in('SUPORTE') ".$filtro."
         }
 
         return $dados['login'];
-        
     }
-    
-    
+
     /**
      * Lista de informações de usuarios 
      */
     public static function listaUsuario($param = false) {
-        
+
         $con = Conexao::getInstance();
 
         $dados = array();
-        
-        $filtro = (!empty($_GET['tipo'])) ? " and desc_funcao = 'Agente Regional de DC' " :"";
- 
+
+        $filtro = (!empty($_GET['tipo'])) ? " and desc_funcao = 'Agente Regional de DC' " : "";
+
         $sql = "select 
 cedec_usuario.id_usuario,
 cedec_usuario.nome,
@@ -2451,9 +2458,9 @@ inner join aju_deposito
 on cedec_rpm.id = aju_deposito.id_rpm
 where cedec_usuario.situacao = 1
 and cedec_usuario.id_usuario != 79
-".$filtro."
+" . $filtro . "
 order by cedec_rpm.id";
-       
+
         $result = $con->query($sql);
 
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -2461,10 +2468,8 @@ order by cedec_rpm.id";
         }
 
         return $dados;
-        
     }
-    
-    
+
     /**
      * 
      *  Lista municipio para busca id
@@ -2489,7 +2494,8 @@ order by cedec_rpm.id";
         } catch (Exception $e) {
             return $e->getMessage();
         }
-        
     }
-    
-}?>
+
+}
+
+?>

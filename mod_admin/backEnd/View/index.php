@@ -12,7 +12,7 @@
  
     <!-- configuracoes do sistema -->
     <div class="col-md-2">
-        <a href='<?=FuncaoBase::geraLink("admin","adm", "usuario")?>' class="btn btn-primary">Cadastro Usuario</a>
+        <a href='<?=FuncaoBase::geraLink("admin","adm", "pesquisa")?>' class="btn btn-primary">Cadastro Usuario</a>
     </div>
     <div class="col-md-2">
         <a href='<?=FuncaoBase::geraLink("admin","adm", "config")?>' class="btn btn-primary">Configurações Gerais</a>

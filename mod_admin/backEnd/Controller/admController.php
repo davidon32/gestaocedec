@@ -293,6 +293,26 @@
         
     }
     
+    /**
+     * Resetar senha via Configurações de sistema
+     * @return boolean
+     */
+    public static function reset_senha_via_admin(){
+        
+        $usuario = new Usuario();
+        
+        try {
+            $login = isset($_POST['txtUsuario']) ? $_POST['txtUsuario'] : "";
+            
+            if( $usuario->reset_senha($login) ){
+                print 'sucesso';
+            }
+            
+        } catch (Exception $ex) {
+            return false;
+        }             
+    }
+    
     
     # resetar senha usuario cedec, envio de email para mudança
     public function resetar_user_cedec() {

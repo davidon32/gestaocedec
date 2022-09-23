@@ -48,7 +48,6 @@ if(!empty($usuario)){
 
 <div class="col-md-12">
     <legend>Cadastro de Usuario</legend>
-    <p style="text-align: right"><button class='btn btn-success' id='resetarSenha'>Resetar Senha </button>&nbsp;Envio de email com instruções !</p>   
     <form action="?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=&modulo=admin&controller=adm&action=cad_user_valida" method="POST" name="frmCadUserRapido" id="frmCadUserRapido">
         <label>Numero Policia</label>
         <input class="form-control" type="text" name="txtNumPol" id="txtNumPol" maxlenght="9" readonly='readonly' value='<?= $maspNumPol[0]['num_masp']; ?>'>
@@ -447,30 +446,5 @@ if(!empty($usuario)){
 
             });
 
-            // resetar senha interno
-            $("#resetarSenha").click(function () {
-
-                var dados = {
-                    "btnResetar": "btnResetar",
-                    "txtEmail": "<?= $usuario['email_rec'] ?>",
-                    "txtUsuario": "<?= $usuario['login'] ?>",
-                    "ajax": true,
-                };
-
-                $.ajax({
-                    type: 'POST',
-                    url: '<?= FuncaoBase::geraLink("admin", "adm", "resetar_user_cedec") ?>',
-                    data: dados,
-                    success: function (response) {
-                        if(response.trim() == 'sucesso'){
-                            alert('Procedimento Realizado com Sucesso ! \n Aguarde o email para mudança de senha');
-                        }else {
-                            alert('erro');
-                        }
-                    }
-                });
-
-            });
         });
-
     </script>

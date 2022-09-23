@@ -30,31 +30,31 @@
         <!--removido Google Fontes-->
     </head>
     <?php
-    
-    //var_dump($_REQUEST);
     $param = isset($_GET[md5('use70')]) ? $_GET[md5('use70')] : "";
 
+    //$user = isset($_POST['usuario']) ? $_POST['usuario'] : "";
+
     $usuario = new Usuario();
-    
-    /*if (isset($param[md5('use70')])) {
-        $dados = $usuario->getResetUsuario($param);
-        $dataBanco = new DateTime();
-        $dataBanco->setTimestamp($dados['reset']);
-        echo "Data Banco ".$dataBanco->format('d/m/Y H:i:s')."<br>";
 
-        $expira = new DateTime();
-        $expira->setTimestamp($dados['reset']);
-        $expira->modify('+4 hours');
-        $expira->getTimestamp();
-        print "Data Prazo Expira " .$expira->format('d/m/Y H:i:s')."<br>";
+    /* if (isset($param[md5('use70')])) {
+      $dados = $usuario->getResetUsuario($param);
+      $dataBanco = new DateTime();
+      $dataBanco->setTimestamp($dados['reset']);
+      echo "Data Banco ".$dataBanco->format('d/m/Y H:i:s')."<br>";
 
-        $agora = new DateTime();
-        $agora->getTimestamp();
-        echo "Data agora " . $agora->format('d/m/Y H:i:s') . "<br>";
+      $expira = new DateTime();
+      $expira->setTimestamp($dados['reset']);
+      $expira->modify('+4 hours');
+      $expira->getTimestamp();
+      print "Data Prazo Expira " .$expira->format('d/m/Y H:i:s')."<br>";
 
-        print "<br>";
-    }*/
-    
+      $agora = new DateTime();
+      $agora->getTimestamp();
+      echo "Data agora " . $agora->format('d/m/Y H:i:s') . "<br>";
+
+      print "<br>";
+      } */
+
     /* MUDANCA DE SENHA VIA email com link  */
     if (isset($param[md5('use70')]) && (isset($dados))) {
 
@@ -68,7 +68,7 @@
                 print "</script>";
             }
         }
-    /*  */
+        /*  */
     } else {
         ?>
         <br>
@@ -85,6 +85,7 @@
                 <label>Confirmar Nova Senha</label>
                 <input type="password" name="conf_senha_nova" id="conf_senha_nova" placeholder="Máximo de 15 caracteres"  class="form-control" maxlength="15">
                 <input type="hidden" name="txtExterno" id="txtExterno" value="<?= isset($_GET['p']) ? $_GET['p'] : ""; ?>" >
+
                 <br />
                 <button type="submit" class="btn btn-primary" name="btn_trocasenha" id="btn_trocasenha" value="trocar">Trocar Senha</button>
                 <?= FuncaoBase::voltar(false, FuncaoBase::geraLink("index", "index", "index")); ?>
@@ -95,10 +96,6 @@
         $envia_troca = isset($_POST['btn_trocasenha']) ? $_POST['btn_trocasenha'] : "";
         $externo = isset($_POST['txtExterno']) ? $_POST['txtExterno'] : "";
         //$hashReset = isset($param) ? $_POST['hashReset'] :"";
-
-
-        $login = Usuario::getUsuarioHash($param);
-        
         //$login = (empty($externo) ? buscaLoginReset())
 
         $campo = array("Senha Nova" => $senha_nova);
@@ -106,13 +103,15 @@
         if ($envia_troca == "trocar") {
 
             # troca de senha via link 
-            if (empty($externo)) {
+            if (!empty($externo)) {
+
+                $login = Usuario::getUsuarioHash($param);
 
                 $campo_branco = FuncaoBase::CampoBranco($campo);
 
                 if ($campo_branco) {
                     $_login = new Login();
-                 
+
                     if ($_login->TrocaSenha($login, $senha_nova)) {
 
                         print "<script type='text/javascript'>";
@@ -125,14 +124,14 @@
                     }
                 }
             } else { # resetar usuario via admin
-
                 $campo_branco = FuncaoBase::CampoBranco($campo);
 
                 if ($campo_branco) {
                     $_login = new Login();
 
-                    if ($_login->TrocaSenha($_COOKIE['seguranca']['login'], $senha_nova)) {
+                        $result = $_login->TrocaSenha($_COOKIE['seguranca']['login'], $senha_nova);
 
+                    if ($result) {
                         print "<script type='text/javascript'>";
 
                         print "alert('Troca de Senha Realizada Com Sucesso !');";
