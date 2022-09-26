@@ -84,8 +84,13 @@ $acesso1 = isset($_GET['externo']) ? $_GET['externo'] :"";
             ($action === 'lista_munic_reg_site')
                    
     ) {
-
-        include_once "mod_" . $modulo . "/Controller/" . $controller . ".php";
+        /* não exist Controller */
+        if( file_exists("mod_" . $modulo . "/Controller/" . $controller . ".php") ){
+            include_once "mod_" . $modulo . "/Controller/" . $controller . ".php";
+        }else {
+            include_once "template/page/login.php";
+        }
+        
     } else if ((isset($caminho[1]) && $caminho[1] == "tdap")) { # TDAP
         $controller = (isset($caminho[2])) ? ucfirst($caminho[2]) : "";
         $action = (isset($caminho[3])) ? $caminho[3] : "";
@@ -100,7 +105,9 @@ $acesso1 = isset($_GET['externo']) ? $_GET['externo'] :"";
         } elseif ($acesso === "i") {
             $ac = "backEnd/";
         }
-        include_once "mod_" . $modulo . "/" . $ac . "Controller/" . $controller . ".php";
+        
+            include_once "mod_" . $modulo . "/" . $ac . "Controller/" . $controller . ".php";
+        
     } else if (!isset($_COOKIE['seguranca']['tipo'])) { # redireciona para pagina de login
     # acesso defesa civil agora
         if (

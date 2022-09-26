@@ -141,14 +141,14 @@
                 $sql = "select *from com_vistoria";
             }
 
-            
-            
-            
             $result = $con->query($sql);
 
             return $result->fetchAll(PDO::FETCH_ASSOC);
            
         }
+        
+        
+        
         
        
 

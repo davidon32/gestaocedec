@@ -60,9 +60,9 @@
                     <option>OUTROS</option>
                     <!-- 
                    <?php
-                        foreach ($NOME_BASICO_MAT as $key => $value) {
+                        /*foreach ($NOME_BASICO_MAT as $key => $value) {
                             print "<option>".$value."</option>";  
-                        }
+                        }*/
                    ?>-->
                 </select>
             </div>

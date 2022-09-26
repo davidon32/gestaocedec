@@ -14,6 +14,7 @@ $id_municipio = isset($pageSession['session']['seguranca']['id_municipio']) ? $p
 
 $numero = interdicaoController::geraNumero($id_municipio, date('Y'));
 
+
 $dadosVistoria = interdicaoController::listagem_geral_Autocomplete($id_municipio);
 ?>
 
@@ -25,7 +26,7 @@ $dadosVistoria = interdicaoController::listagem_geral_Autocomplete($id_municipio
 
 <legend>Novo Termo de Notificação de Interdição</legend>
 
-<legend>NOTIFICAÇÃO DE INTERDIÇÃO Nº <b><?= $numero; ?>/<?= date('Y') ?></b></legend>
+<legend>Nº <b><?= $numero; ?>/<?= date('Y') ?></b></legend>
 
 <form action="<?= FuncaoBase::geraLink('compdec', 'interdicao', 'gravar') ?>" method="POST" name="frmInterdicao" id="frmInterdicao">
     <div class="row">

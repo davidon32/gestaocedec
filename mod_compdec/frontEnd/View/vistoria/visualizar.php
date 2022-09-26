@@ -23,6 +23,9 @@ include_once "template/page/header.php";
                 .voltar{
                     display: none;
                 }
+                #impressao {
+                    display: none;
+                }
             }
             
             p.dest { 
@@ -53,6 +56,8 @@ include_once "template/page/header.php";
             #l2> li>*:first-child:before {counter-increment: c2; content: counter(c1, decimal)"."counter(c2, decimal)" "; color: black; font-family:Calibri, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 11pt; }
             #l2> li:first-child>*:first-child:before {counter-increment: c2 0;  }
             table, tbody {vertical-align: top; overflow: visible; }
+            
+            
         </style>
     </head>
     <body>
@@ -60,7 +65,7 @@ include_once "template/page/header.php";
 
         <div class="container">
             <br>
-            <div class="col-md-12 text-center voltar"><a class='btn btn-success' href='<?= FuncaoBase::geraLink('compdec', 'vistoria', 'index')?>'>Voltar</a></div>
+                <div class="col-md-12 text-center voltar"><a class='btn btn-success' href='<?= FuncaoBase::geraLink('compdec', 'vistoria', 'index')?>'>Voltar</a>&nbsp;<button class="btn btn-primary" id="impressao" onclick="window.print();">Imprimir</button></div>
             <div class="col-md-6 pull-left"><img width="100" src="/anexo/brasao/7221_brasao.png"></div>
             <div class="col-md-6 text-right"><!--<img width="100" src="/anexo/brasao/7221_brasao.png">--></div>
             <br>

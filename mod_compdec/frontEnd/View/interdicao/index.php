@@ -27,19 +27,19 @@ $interdicoes = interdicaoController::listagem_geral();
      <a class="btn btn-primary" href="<?= FuncaoBase::geraLink('compdec', 'interdicao', 'novo')?>">Novo Termo Interdição</a>
 </div>
 <div class="col-md-6">
-    <a class="" href="<?= FuncaoBase::geraLink('compdec', 'compdec', 'download', array('arquivo'=>'anexo/modelo/MODELO_DE_NOTIFICACAO_DE_INTERDICAO.docx'))?>">MODELO DE NOTIFICAÇÃO DE INTERDIÇÃO</a><span>&nbsp;&nbsp;&nbsp;( Clique aqui para baixar ! )</span><br><br>
+    <a class="btn btn-linkedin" href="<?= FuncaoBase::geraLink('compdec', 'compdec', 'download', array('arquivo'=>'anexo/modelo/MODELO_DE_NOTIFICACAO_DE_INTERDICAO.docx'))?>">Baixar Modelo de Notificação de Interdição</a><br><br>
 </div>
-<div class='col-md-6'>
+<div class='col-md-12'>
      <br><br>   
      <form action="#" method="POST" name="frmBusca" id="frmBusca">
-         <label>Buscar (busca por Endereco ou proprietário)</label>
+         <label>Buscar</label> <span>(busca por Endereco ou proprietário)</span>
          <input class='form form-control' type="text" name="txtBusca" id="txtBusca">
          <br><input class='btn btn-primary' type="submit" name="btnBusca" id="btnBusca" value="Buscar">
          
      </form>
 
 </div>
-<div class="col-md-6">
+<div class="col-md-12">
     
 
     <legend>Listagem Termo de Interdição</legend>
@@ -47,10 +47,10 @@ $interdicoes = interdicaoController::listagem_geral();
     <table class="table table-bordered table-condensed table-striped" >
         <tr>
             <th class="col-md-1">Número</th>
-            <th class="col-md-1">Data Interdição</th>
-            <th class="col-md-1">Proprietario</th>
-            <th class="col-md-5">Endereço</th>
-            <th class="col-md-5">-</th>
+            <th class="col-md-2">Data Interdição</th>
+            <th class="col-md-2">Proprietario</th>
+            <th class="col-md-3">Endereço</th>
+            <th class="col-md-2">Opções</th>
         </tr>
     <?php
 
@@ -58,10 +58,25 @@ $interdicoes = interdicaoController::listagem_geral();
 
         print "<tr>";
         print "<td>".$interdicao['numero']."</td>";
-        print "<td>".$interdicao['dt_vistoria']."</td>";
-        print "<td>".$interdicao['prop']."</td>";
+        print "<td>".$interdicao['dt_registro']."</td>";
+        print "<td>".$interdicao['notificado']."</td>";
         print "<td>".$interdicao['endereco']."</td>";
-        print "<td>-</td>";
+            if($interdicao['publicacao'] == 1){
+        print "<td title='Copie o código e incorpore em sua plataforma de divulgação !'>";
+                print "<a class='btn btn-primary' href='".FuncaoBase::geraLink('compdec', 'interdicao', 'visualizar', array('id'=>$interdicao['id']))."'>Copie o código para publicação</a>
+                    ";
+            }else {
+                //print "<tr>";
+            }
+                print "</td>";
+        print "<td><a href='".FuncaoBase::geraLink("compdec", "interdicao", "visualizar", array('id' => $interdicao['id']))."'><img src='/core/imagem/view.png'></a>";
+
+            if($interdicao['publicacao'] == 0) {
+                print "<a name='publicar' data-id='".$interdicao['id']."' title='Publicar Termo de Interdição'><img width='35' src='/core/imagem/www.png'></a>";
+            }else {
+                print "<a name='publicar' data-id='".$interdicao['id']."' title='Remover autorização de Publicação Termo de Interdição'><img width='35' src='/core/imagem/www_remove.png'></a>";
+            }
+            print "</td>";
         print "</tr>";
        
     }
@@ -78,7 +93,7 @@ $interdicoes = interdicaoController::listagem_geral();
         
         if( ($btnBusca == 'Buscar') && (!empty($buscaTexto)) ){
             
-            $busca_vistorias = vistoriaController::listagem_geral($buscaTexto);
+            $busca_interdicoes = interdicaoController::listagem_geral($buscaTexto);
             
             
                 print "<table class='table table-bordered table-condensed table-striped' >";
@@ -87,17 +102,19 @@ $interdicoes = interdicaoController::listagem_geral();
                 print "<th class='col-md-1'>Data Vistoria</th>";
                 print "<th class='col-md-4'>Proprietario</th>";
                 print "<th class='col-md-4'>Endereço</th>";
+                print "<th class='col-md-4'>-</th>";
                 print "<th class='col-md-1'>Opções</th>";
                 print "</tr>";
 
-            if(count($busca_vistorias) > 0) {
-                foreach ($busca_vistorias as $key => $busca_vistoria) {
+            if(count($busca_interdicoes) > 0) {
+                foreach ( $busca_interdicoes as $key => $busca_interdicao ) {
                     print "<tr>";
-                    print "<td>".$busca_vistoria['numero']."</td>";
-                    print "<td>".$busca_vistoria['dt_vistoria']."</td>";
-                    print "<td>".$busca_vistoria['prop']."</td>";
-                    print "<td>".$busca_vistoria['endereco']."</td>";
-                    print "<td><a href='".FuncaoBase::geraLink('compdec', 'vistoria', 'visualizar', array('id'=>$busca_vistoria['id']))."'><img src='/core/imagem/view.png'></a></td>";
+                    print "<td>".$busca_interdicao['numero']."</td>";
+                    print "<td>".$busca_interdicao['dt_vistoria']."</td>";
+                    print "<td>".$busca_interdicao['prop']."</td>";
+                    print "<td>".$busca_interdicao['endereco']."</td>";
+                    print "";
+                    print "<td ".$title."><a href='".FuncaoBase::geraLink('compdec', 'vistoria', 'visualizar', array('id'=>$busca_interdicao['id']))."'><img src='/core/imagem/view.png'></a></td>";
                     print "</tr>";
 
                 }
@@ -113,6 +130,8 @@ $interdicoes = interdicaoController::listagem_geral();
         }
     
     ?>
+    
+    
 </div>
 
 
@@ -124,6 +143,19 @@ $interdicoes = interdicaoController::listagem_geral();
 <!-- =============== HEADER HTML PAGE ================= -->
 <?php include_once "template/page/rodapePage.php"; ?>
 <script>
+    
+    $(document).ready(function(){
+       
+       $("a[name=publicar]").click(function(event){
+           event.preventDefault(); 
+           var result = confirm("Deseja liberar a publicação on line deste documento !");
+           if(result) {
+               $('#incorporar_termo').show();
+                alert($(this).data('id'));
+           }
+       })
+        
+    });
     
 
 </script>
