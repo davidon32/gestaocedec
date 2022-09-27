@@ -70,7 +70,13 @@ $acesso1 = isset($_GET['externo']) ? $_GET['externo'] :"";
     
     /* acesso externo sem login */
     }else if($acesso1 == md5('externo')){
-        include_once "mod_" . $modulo . "/Controller/" . $controller . ".php";
+        
+        /* não exist Controller */
+        if( file_exists("mod_" . $modulo . "/Controller/" . $controller . ".php") ){
+            include_once "mod_" . $modulo . "/Controller/" . $controller . ".php";
+        }else {
+            header('Location:index.php');
+        }
     } else if (  
             ($action === 'recsenha') ||
             ($action === 'recsenha_compdec') ||
@@ -88,16 +94,23 @@ $acesso1 = isset($_GET['externo']) ? $_GET['externo'] :"";
         if( file_exists("mod_" . $modulo . "/Controller/" . $controller . ".php") ){
             include_once "mod_" . $modulo . "/Controller/" . $controller . ".php";
         }else {
-            include_once "template/page/login.php";
+            header('Location:index.php');
         }
         
     } else if ((isset($caminho[1]) && $caminho[1] == "tdap")) { # TDAP
         $controller = (isset($caminho[2])) ? ucfirst($caminho[2]) : "";
         $action = (isset($caminho[3])) ? $caminho[3] : "";
         $id = (isset($caminho[4])) ? $caminho[4] : "";
-        include_once("/plugins/api-rest-php/view/" . ucfirst($controller) . "/" . $action . ".php");
+
+        if(file_exists("/plugins/api-rest-php/view/" . ucfirst($controller) . "/" . $action . ".php")){
+            include_once("/plugins/api-rest-php/view/" . ucfirst($controller) . "/" . $action . ".php");
+        }else {
+            header('Location:index.php');
+        }
     //$app = new $controller();
     //$app->$action($id);
+
+
     } else if (isset($_COOKIE['seguranca']['tipo'])) {
 
         if ($acesso === "e") {
@@ -105,8 +118,13 @@ $acesso1 = isset($_GET['externo']) ? $_GET['externo'] :"";
         } elseif ($acesso === "i") {
             $ac = "backEnd/";
         }
-        
+
+        /* não exist Controller */
+        if( file_exists("mod_" . $modulo . "/" . $ac . "Controller/" . $controller . ".php") ){
             include_once "mod_" . $modulo . "/" . $ac . "Controller/" . $controller . ".php";
+        }else {
+            header('Location:index.php');
+        }
         
     } else if (!isset($_COOKIE['seguranca']['tipo'])) { # redireciona para pagina de login
     # acesso defesa civil agora
@@ -124,18 +142,25 @@ $acesso1 = isset($_GET['externo']) ? $_GET['externo'] :"";
         
          {   
 
-            
             $ac = 'backEnd/';
-
-            include_once "mod_" . $modulo . "/" . $ac . "Controller/" . $controller . ".php";
+            if(file_exists("mod_" . $modulo . "/" . $ac . "Controller/" . $controller . ".php")){
+                include_once "mod_" . $modulo . "/" . $ac . "Controller/" . $controller . ".php";   
+            }else {
+                header('Location:index.php');    
+            }
         } else {
             if (isset($_COOKIE['SEGURANCA'])) {
-                include_once "mod_" . $modulo . "/Controller/" . $controller . ".php";
+                if(file_exists("mod_" . $modulo . "/Controller/" . $controller . ".php")){
+                    include_once "mod_" . $modulo . "/Controller/" . $controller . ".php";
+                }else {
+                    header('Location:index.php');        
+                }
                 include_once "template/page/login.php";
             } else {
-                print "<script>";
-                print "window.location.href='index.php'";
-                print "</script>";
+                header('Location:index.php');    
+                // print "<script>";
+                // print "window.location.href='index.php'";
+                // print "</script>";
                 //include_once "template/page/login.php";
             }
         }
