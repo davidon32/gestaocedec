@@ -59,6 +59,9 @@
             $registros = $registro->listaGeral($_COOKIE['seguranca']['id_municipio']);
             
             
+            
+            
+            
             print "<table class='table table-condensed'>";
             print "<tr>";
             print "<th>Data Registro</th>";
@@ -68,6 +71,7 @@
           
             foreach ($registros as $key => $registro) {
                 
+                
                 print "<tr>";
                 print "<th>".date("d/m/Y", strtotime($registro['dt_desalojado']))."</th>";
                 print "<th>{$registro['desalojado']}</th>";
@@ -75,16 +79,43 @@
                 print "</tr>";
                
             }
-            print "</table>";?>
- 
+            print "</table>";
+            
+            
+            $gr_registros = $registro->listaPorAno($_COOKIE['seguranca']['id_municipio'], "2022");
+            
+            var_dump($gr_registros);
+            $gr_desabrigado = "";
+            $gr_desalojado = "";
+            
+            foreach ($gr_registros as $key => $registro) {
+                $gr_desabrigado[] = $registro['desabrigado'];
+                $gr_desalojado[] = $registro['desalojado']; 
+            }
+            
+            
+        ?>
         </div>
         <div class="col-md-12 text-center">
             <a class='btn btn-success' href='<?= FuncaoBase::geraLink('index', 'index', 'menue')?>'>Voltar</a>
         </div>
+        <br>
+        <br>
         <div class="col-md-12 text-center">
+            <br>
+        <br>
+        <div class="col-md-6">
+        <legend>Situação de Desabrigados e Desalojados <?= Municipio::PegaNomeMunicipio($_COOKIE['seguranca']['id_municipio']);?></legend>
             <div class="card-body">
                 <div class="chart">
                 <canvas id="barChart" style="height: 230px; width: 547px;" height="230" width="547"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card-body">
+                <div class="chart">
+                <canvas id="barChart1" style="height: 230px; width: 547px;" height="230" width="547"></canvas>
                 </div>
             </div>
         </div>
@@ -94,6 +125,14 @@
     </div>
 
 </div>
+    <?php
+    
+    $json_desabrigado = json_encode($gr_desabrigado);
+    $json_desalojado = json_encode($gr_desalojado);
+    
+    var_dump($json_desalojado);
+    
+    ?>
 
 <!-- =================== RODAPE CORPO ==================== -->
 <?php include_once "template/page/corpoRodape.php"; ?>
@@ -112,29 +151,42 @@
 
      
     var areaChartData = {
-      labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      labels  : [
+                    'Janeiro',
+                    'Fevereiro',
+                    'Março',
+                    'Abril',
+                    'Maio',
+                    'Junto',
+                    'Julho',
+                    'Agosto',
+                    'Setembro',
+                    'Outubro',
+                    'Novembro',
+                    'Dezembro'
+                ],
       datasets: [
         {
           label               : 'Desabrigados',
-          backgroundColor     : 'rgba(60,141,188,0.9)',
+          //backgroundColor     : 'rgba(60,141,188,0.9)',
           borderColor         : 'rgba(60,141,188,0.8)',
-          pointRadius          : false,
+          pointRadius          : true,
           pointColor          : '#3b8bba',
           pointStrokeColor    : 'rgba(60,141,188,1)',
           pointHighlightFill  : '#fff',
           pointHighlightStroke: 'rgba(60,141,188,1)',
-          data                : [28, 48, 40, 19, 86, 27, 90]
+          data                : <?=$json_desabrigado?>
         },
         {
           label               : 'Desalojados',
-          backgroundColor     : 'rgba(210, 214, 222, 1)',
+          //backgroundColor     : 'rgba(210, 214, 222, 1)',
           borderColor         : 'rgba(210, 214, 222, 1)',
-          pointRadius         : false,
+          pointRadius         : true,
           pointColor          : 'rgba(210, 214, 222, 1)',
           pointStrokeColor    : '#c1c7d1',
           pointHighlightFill  : '#fff',
           pointHighlightStroke: 'rgba(220,220,220,1)',
-          data                : [65, 59, 80, 81, 56, 55, 40]
+          data                : <?=$json_desalojado;?>
         },
       ]
     }
@@ -176,7 +228,7 @@
     }
 
     new Chart(barChartCanvas, {
-      type: 'bar',
+      type: 'line',
       data: barChartData,
       options: barChartOptions
     })
