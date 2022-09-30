@@ -39,6 +39,8 @@ $h_pedido_prest = new H_pedido_prestajuda_hModel();
 $materiais = $h_pedido_prest::listaPrestContasporPedido($id);
 
 
+var_dump($materiais);
+
 foreach ($materiais as $material) {
     
     $percent = ( $h_pedido_prest->percBenef($material['id']) / $material['qtd']) * 100;

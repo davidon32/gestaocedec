@@ -910,13 +910,13 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
                 return 'Edição Compdec';
                 break;
             case 1:
-                return 'Analise DRD';
-                break;
-            case 2:
                 return 'Analise DLOG';
                 break;
-            case 3:
+            case 2:
                 return 'Analise Diretor DLOG.';
+                break;
+            case 3:
+                return 'Aprovado';
                 break;
             case 4:
                 return 'Aguardando Disponibilidade Mat.';
@@ -944,14 +944,14 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
             case 'edicao_compdec':
                 return 'Processo em Edição pelo Compdec';
                 break;
-            case 'analise_drd':
-                return 'em Análise DRD';
-                break;
             case 'analise_dlog':
                 return 'em Análise DLOG';
                 break;
             case 'analise_coord':
                 return 'em Análise Diretor Logistica';
+                break;
+            case 'aprovado':
+                return 'Processo Aprovado';
                 break;
             case 'aguard_disp':
                 return 'Aguard. Disponibilidade Material';
@@ -1259,7 +1259,7 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
      *  inicia prestação de contas
      * 
      */
-    public function iniciaPrestContas($id_pedido) {
+    public static function iniciaPrestContas($id_pedido) {
 
 
         $h_pedido_pedid = new H_pedido_pedidajuda_hModel();

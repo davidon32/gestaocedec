@@ -408,8 +408,9 @@ $aviso_sit ="";
             <p>
             <legend>Despacho</legend></p>
             <?php
+            
                 if($permissao_ajuda_h) {
-                    print "<img title=\"Novo Despacho\" src=\"/core/imagem/icon_app/new.png\" name=\"add_despacho\" id=\"add_despacho\"> Novo Despacho<br><br>";
+                    print "<img src='core/imagem/icon_app/new.png' title='Novo Despacho' name='add_despacho' id='add_despacho'> Novo Despacho<br><br>";
                 }
             ?>
             <div class="row" id='novoDespacho'>
@@ -449,19 +450,28 @@ $aviso_sit ="";
     <div class="col-md-9" id="tramitar">
         <br><br>
         <select class="form form-control" name="sel_tramitar" id="sel_tramitar">
-            <option value='<?= $view[0]['status'] ?>' data-status='<?= $view[0]['tramit'] ?>'><?= H_pedido_pedidajuda_hModel::enumFase($view[0]['tramit']) ?></option>
-            <option value='2' data-status='analise_dlog' >Analista DLOG</option>
-            <option value='4' data-status='aguard_disp'>Aguardando Disponibilidade</option>
+            
             <?php
-            if ($view[0]['status'] >= 4) {
-                print "<option value='5' data-status='aguard_ret'>Aguardando Retirada</option>";
-                print "<option value='6' data-status='atendido'>Atendido</option>";
-                print "<option value='7' data-status='cancelado'>Cancelar</option>";
-            }
-
-            if ($view[0]['status'] == 2) {
+            
+            if($view[0]['status'] == 2){
                 print "<option value='0' data-status='edicao_compdec'>Enviar para COMPDEC</option>";
+            }elseif($view[0]['status'] == 3){
+                print "<option value='".$view[0]['status']."' data-status='".$view[0]['tramit']."'>".H_pedido_pedidajuda_hModel::enumFase($view[0]['tramit'])."</option>";
+                print "<option value='4' data-status='aguard_disp'>Aguard. Disponibilidade Material</option>";
+                print "<option value='1' data-status='analise_dlog' >Analista DLOG</option>";
+                print "<option value='7' data-status='cancelado'>Cancelar Processo</option>";
+            } elseif ($view[0]['status'] >= 4) {
+                if($view[0]['status'] == 6) {
+                    print "<option value='".$view[0]['status']."' data-status='".$view[0]['tramit']."'>".H_pedido_pedidajuda_hModel::enumFase($view[0]['tramit'])."</option>";
+                    print "<option value='7' data-status='cancelado'>Cancelar</option>";
+                }else {
+                    print "<option value='4' data-status='aguard_disp'>Aguard. Disponibilidade Material</option>";
+                    print "<option value='5' data-status='aguard_ret'>Aguardando Retirada</option>";
+                    print "<option value='6' data-status='atendido'>Atendido</option>";
+                    print "<option value='7' data-status='cancelado'>Cancelar</option>";
+                }
             }
+            
             ?>
         </select>
 
@@ -627,7 +637,8 @@ $aviso_sit ="";
 <script>
     $(document).ready(function () {
         var status = <?=$view[0]['status']?>;
-        if(status == 3) {
+        var secao = '<?=$secao;?>';
+        if(status == 3 && secao != "CHEFIA") {
             $('#editar_pedido').css('color', '#27AE60');
             //$('img[name=add_material]').hide();
             $('#add_despacho').hide();
@@ -653,12 +664,12 @@ $aviso_sit ="";
             }).then((result) => {
                 if (result.isConfirmed) {
                     var formData = new FormData();
-                    formData.append('opcao', 'tamitar_pedido');
-                    formData.append('id_pedido', $("#id_pedido").val());
-                    formData.append('id_usuario', $("#id_usuario").val());
-                    formData.append('status', $("#status").val());
-                    formData.append('tramit', $("#tramit").val());
-
+                    formData.append('opcao', 'tramitar');
+                    formData.append('id_pedido', $("#id").val());
+                    formData.append('id_usuario', <?=$id_usuario?>);
+                    formData.append('status', $("#sel_tramitar").val());
+                    formData.append('tramit', $("#sel_tramitar option:selected").data('status'));
+                    
                     $.ajax({
                         url: '/mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/ajax.php',
                         type: 'POST',
@@ -669,6 +680,7 @@ $aviso_sit ="";
                             if (response.trim() == 'sucesso') {
                                 Swal.fire('Pedido Tramitado com sucesso !').then(function () {
                                     //$('#lista_despacho').load('/mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/ajax_lista_despacho.php?id=' + id_pedido);
+                                    //window.location.reload();
                                 });
                             }
                         },

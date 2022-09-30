@@ -20,7 +20,25 @@
     <body>
         <div class="container">
             
-           
+            
+            <div class="col-md-12 text-center">
+                <br>
+                <img width="150" src="/core/imagem/DEFESACIVILMG_400.png">
+            </div>
+            <div class="col-md-12">
+                <br>
+                <h1 style="text-align: center">
+                    No momento não temos eventos Agendados !<br>
+                    Aguarde em breve !
+                </h1>
+                
+            </div>
+            <p class="text-center">
+                <br>
+            <a class="btn btn-success" href='http://defesacivil.mg.gov.br'>voltar</a>
+            </p>
+            
+            <!--
             <div class="col-md-12">
                 
                 <h1 style="text-align: justify">A Coordenadoria Estadual de Defesa Civil de Minas Gerais (CEDEC/MG) convida a todos para participarem do</h1>
@@ -40,7 +58,7 @@
              <div class="col-md-12 text-center">
                 <br>
                 <img src="/anexo/banner.jpeg" width="800">
-            </div>
+            </div>-->
         </div>
 
 
