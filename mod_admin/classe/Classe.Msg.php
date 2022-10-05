@@ -34,18 +34,16 @@
 
 			try { 
 				$result = Conexao::getInstance()->query($sql);
-				while ($linha = $result->fetch(PDO::FETCH_NUM)) {   
-					$dados = $linha;
+				while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {   
+					$dados[] = $linha;
 				}
+                                foreach ($dados as $key => $value) {
+        				print "<ul class='list-group'>";
+                                        print "<li class='list-group-item' align='justify'>".$value['mensagem']."</li>";
+                                        print "</ul>";
+                                    
+                                }
 			
-				print "<table width=\"100%\" border=\"0\" align=\"center\">
-				<tr>
-				<td align=\"center\">".$dados[1]."</td>
-				</tr>
-				<tr>
-				<td class=\"aviso\" align=\"justify\">".$dados[2]."</td>
-				</tr>
-				</table>";
 				
 			} catch (Exception $e) { 
 				return $e->getMessage()."Código 3";

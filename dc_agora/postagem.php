@@ -257,25 +257,28 @@
                             <hr class="invis1">
 
                             <div class="custombox clearfix">
-                                <h4 class="small-title"><?= isset($comentarios) ? count($comentarios) : 0 ?> Comentário(s)</h4>
+                                <h4 class="small-title">
+                                        <?=is_array($comentarios) ? count($comentarios) : 0 ?> Comentário(s)</h4>
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="comments-list">
 
                                             <?php
-                                            foreach ($comentarios as $key => $comentario) {
+                                            if(is_array($comentarios)) {
+                                                foreach ($comentarios as $key => $comentario) {
 
 
-                                                print "<div class=\"media\">
-                                                <a class=\"media-left\" href=\"#\">
-                                                    <img src=\"/core/imagem/user_icon.png\" alt=\"\" class=\"rounded-circle\">
-                                                </a>
-                                                <div class=\"media-body\">
-                                                    <h4 class=\"media-heading user_name\">" . $comentario['nome'] . "<small>" . DataMysql::dataCompletaVisual($comentario['data_coment']) . "</small></h4>
-                                                    <p>" . $comentario['texto'] . "</p>
-                                                    <!--<a href=\"#\" class=\"btn btn-primary btn-sm\">Responder</a>-->
-                                                </div>
-                                            </div>";
+                                                    print "<div class=\"media\">
+                                                    <a class=\"media-left\" href=\"#\">
+                                                        <img src=\"/core/imagem/user_icon.png\" alt=\"\" class=\"rounded-circle\">
+                                                    </a>
+                                                    <div class=\"media-body\">
+                                                        <h4 class=\"media-heading user_name\">" . $comentario['nome'] . "<small>" . DataMysql::dataCompletaVisual($comentario['data_coment']) . "</small></h4>
+                                                        <p>" . $comentario['texto'] . "</p>
+                                                        <!--<a href=\"#\" class=\"btn btn-primary btn-sm\">Responder</a>-->
+                                                    </div>
+                                                </div>";
+                                            }
                                             }
                                             ?>
                                         </div>

@@ -17,15 +17,12 @@ class interdicaoController extends Controller {
 
         $dados = $_POST;
 
-        var_dump($dados);
-        die();
-
         $con = Conexao::getInstance();
 
         $sql = "INSERT INTO com_interdicao (numero,
                                                 municipio_id,
                                                 dt_registro,
-                                                endereco
+                                                endereco,
                                                 notificado,
                                                 rg_notificado,
                                                 endereco_not,
@@ -36,7 +33,7 @@ class interdicaoController extends Controller {
                                                 obs) VALUES (:numero,
                                                                 :municipio_id,
                                                                 :dt_registro,
-                                                                :endereco
+                                                                :endereco,
                                                                 :notificado,
                                                                 :rg_notificado,
                                                                 :endereco_not,
@@ -49,24 +46,24 @@ class interdicaoController extends Controller {
         try {
             $result = $con->prepare($sql);
 
+            $result->bindValue(':ids_vistoria', $dados['id_vistoria']);
             $result->bindValue(':numero', $dados['numero']);
             $result->bindValue(':municipio_id', $dados['municipio_id']);
-            $result->bindValue(':dt_registro', $dados['dt_registro']);
             $result->bindValue(':endereco', $dados['endereco']);
-            $result->bindValue(':notificado', $dados['notificado']);
-            $result->bindValue(':rg_notificado', $dados['rg_notificado']);
+            $result->bindValue(':dt_registro', $dados['dt_registro']);
+            $result->bindValue(':notificado', $dados['nome_not']);
+            $result->bindValue(':rg_notificado', $dados['rg_not']);
             $result->bindValue(':endereco_not', $dados['endereco_not']);
             $result->bindValue(':cel_not', $dados['cel_not']);
             $result->bindValue(':vistoriador', $dados['vistoriador']);
             $result->bindValue(':vistoriador_mat', $dados['vistoriador_mat']);
-            $result->bindValue(':ids_vistoria', $dados['ids_vistoria']);
             $result->bindValue(':obs', $dados['obs']);
 
 
             if ($result->execute()) {
 
                 print "<script>alert('Registro gravado com Sucesso');";
-                print "window.location.href = '" . FuncaoBase::geraLink('compdec', 'interdicao', 'novo') . "';</script>";
+                print "window.location.href = '" . FuncaoBase::geraLink('compdec', 'interdicao', 'index') . "';</script>";
             }
         } catch (Exception $e) {
             print $e->getMessage();
@@ -173,5 +170,8 @@ class interdicaoController extends Controller {
 
         return $result->fetchAll(PDO::FETCH_ASSOC);
     }
+    
+    
+    
 
 }

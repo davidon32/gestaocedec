@@ -118,7 +118,7 @@ if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
             $ac = "backEnd/";
         }
 
-        include_once "mod_" . $modulo . "/" . $ac . "Controller/" . $controller . ".php";
+        //include_once "mod_" . $modulo . "/" . $ac . "Controller/" . $controller . ".php";
         /* não exist Controller */
         if (file_exists("mod_" . $modulo . "/" . $ac . "Controller/" . $controller . ".php")) {
             include_once "mod_" . $modulo . "/" . $ac . "Controller/" . $controller . ".php";
@@ -130,13 +130,13 @@ if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
         if (
                 //($controller == 'agoraController') && ($action == 'listasite') ||
                 ($action == 'cadastro') ||
-                //($controller == "cceController" && $action == 'boletimsite') || eleicao
-                ($controller == "cceController" && $action == 'boletimsite1') ||
-                ($action == "listacompdecativa") //||
-                //($controller == 'agoraController' && $action == 'view') ||
-                //($controller == 'agoraController' && $action == 'gravarComentario') ||
-                //($controller == 'agoraController' && $action == 'cadpost') ||
-                // ($controller == 'agoraController' && $action == 'postagem')
+                ($controller == "cceController" && $action == 'boletimsite') || 
+                //($controller == "cceController" && $action == 'boletimsite1') ||
+                ($action == "listacompdecativa") ||
+                ($controller == 'agoraController' && $action == 'view') ||
+                ($controller == 'agoraController' && $action == 'gravarComentario') ||
+                ($controller == 'agoraController' && $action == 'cadpost') ||
+                ($controller == 'agoraController' && $action == 'postagem')
         ) {
 
             //($controller == 'agoraController' && $action == 'view') ||

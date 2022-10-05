@@ -44,7 +44,7 @@ public static function AnexoBoletim($dados, $arquivo, $caminho) {
 					
 					$horaDt = date("Hs");
 						
-					$nomeFile = $dados['txtIdUser']."-".$horaDt."_".$nomeArquivo;
+					$nomeFile = $dados['txtIdUser']."-".$horaDt."_".substr($nomeArquivo, 0, 20).".".substr($nomeArquivo, -3);
 
 					$dataUpload = DataMysql::dataForm($dados['txtData']).' '.date('H:i:s');
 					

@@ -414,7 +414,7 @@ class DefesaCivilAgoraModel {
      */
     public function gravarPost($dados) {
         
-        var_dump($dados);
+        //var_dump($dados);
 
         $con = Conexao::getInstance();
 

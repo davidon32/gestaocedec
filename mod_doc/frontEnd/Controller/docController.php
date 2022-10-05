@@ -24,6 +24,11 @@ class docController extends Controller
         include_once "mod_doc/frontEnd/View/compdec.php";
     }
     
+    ################# download ##################
+        public function download(){
+            return FuncaoBase::download($_GET['arquivo']);
+        }
+    
 }
 
 

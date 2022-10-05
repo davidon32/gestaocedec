@@ -11,6 +11,17 @@
 <?php include_once "template/page/corpoHeader.php"; ?>
 
 <div class="panel panel-default">
+    <div class="panel-heading"><img src='core/imagem/help.png' width="25"> &nbsp;&nbsp;&nbsp;&nbsp;NOVIDADES E RELEASES DE VERSÕES</div>
+    <div class="panel-body">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <a href="<?= FuncaoBase::geraLink("doc", "doc", "download", array('arquivo'=>'doc/NovasFuncionalidadesSDC.pdf')) ?>" class="alert" style="text-decoration:none">NOVAS FUNCIONALIDADES (03/10/2022)</a>
+            </li> 
+        </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
     <div class="panel-heading"><img src='core/imagem/help.png' width="25"> &nbsp;&nbsp;&nbsp;&nbsp;MÓDULO AJUDA HUMANITÁRIA</div>
     
     <div class="panel-body">
@@ -20,7 +31,31 @@
                 <a href="<?= FuncaoBase::geraLink("doc", "doc", "ajuda") ?>" class="alert" style="text-decoration:none">PMDA - PLANO MUNICIPAL DE DISTRIBUIÇÃO DE ÁGUA</a>
             </li>
             <li class="list-group-item">
-                <a href="<?= FuncaoBase::geraLink("doc", "doc", "ajuda") ?>" class="alert" style="text-decoration:none">PEDIDO DE AJUDA HUMANIÁRIA</a>
+                <a href="<?= FuncaoBase::geraLink("doc", "doc", "download", array('arquivo'=>'doc/AJUDA HUMANITARIA_30.09.2022_parte1.pdf')) ?>" class="alert" style="text-decoration:none">PEDIDO DE AJUDA HUMANIÁRIA PARTE 1(03/10/2022)</a>
+            </li>
+            <li class="list-group-item">
+                <a href="" class="alert" style="text-decoration:none">PEDIDO DE AJUDA HUMANIÁRIA - PARTE 2 - PRESTAÇÃO DE CONTAS </a><i class="alert">( EM BREVE )</i>    
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading"><img src='core/imagem/help.png' width="25"> &nbsp;&nbsp;&nbsp;&nbsp;MÓDULO AJUDA HUMANITÁRIA</div>
+    
+    <div class="panel-body">
+        
+        <ul class="list-group">
+            <li class="list-group-item">
+                <a href="<?= FuncaoBase::geraLink("doc", "doc", "ajuda") ?>" class="alert" style="text-decoration:none">PMDA - PLANO MUNICIPAL DE DISTRIBUIÇÃO DE ÁGUA</a>
+            </li>
+            <li class="list-group-item">
+                <a href="<?= FuncaoBase::geraLink("doc", "doc", "download", array('arquivo'=>'doc/AJUDA HUMANITARIA_30.09.2022_parte1.pdf')) ?>" class="alert" style="text-decoration:none">PEDIDO DE AJUDA HUMANIÁRIA PARTE 1(03/10/2022)</a>
+            </li>
+            <li class="list-group-item">
+                <a href="" class="alert" style="text-decoration:none">PEDIDO DE AJUDA HUMANIÁRIA - PARTE 2 - PRESTAÇÃO DE CONTAS </a><i class="alert">( EM BREVE )</i>    
             </li>
             
         </ul>

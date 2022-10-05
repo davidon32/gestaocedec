@@ -9,6 +9,11 @@
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php"; ?>
 
+<div class="col-md-12 text-center">
+    <a class="btn btn-success" href="<?= FuncaoBase::geraLink("index", "index", "menue")?>">Voltar</a>
+    </br></br>
+</div>
+
 
 <div class="col-md-12">
     <div class="col-md-4 text-center">

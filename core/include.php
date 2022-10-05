@@ -101,6 +101,7 @@ include_once PATH . '/mod_compdec/classe/Classe.Associacao.php';
 include_once PATH . '/mod_compdec/classe/Classe.Regiao.php';
 include_once PATH . '/mod_compdec/classe/Classe.Territorio.php';
 include_once PATH . '/mod_compdec/classe/Classe.AnexoCompdec.php';
+include_once PATH . '/mod_compdec/classe/Classe.Vistoria.php';
 
 
 #@ modulo Equipe de Apoio

@@ -42,7 +42,8 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
     </div>
 </div>
 <div class="col-md-9 text-center">
-    <a class="btn btn-success" href="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')) ?>&ac=etn&modulo=index&controller=index&action=menue">Voltar</a>
+    <a class="btn btn-success" href="<?= FuncaoBase::geraLink("compdec", "compdec", "index")?>">Voltar</a>
+    </br></br>
     </br></br>
 </div>
 

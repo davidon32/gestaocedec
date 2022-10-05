@@ -30,9 +30,6 @@
             include_once "mod_compdec/frontEnd/View/plano/plancont.php";
         }
         
-        
-        
-        
         ################# download ##################
         public function download(){
             return FuncaoBase::download($_GET['arquivo']);

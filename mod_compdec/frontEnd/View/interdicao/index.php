@@ -20,7 +20,7 @@ $interdicoes = interdicaoController::listagem_geral();
 <legend>Termo de Interdição</legend>
 
 <div class="col-md-12 text-center">
-    <a class="btn btn-success" href="<?= FuncaoBase::geraLink('index', 'index', 'menue')?>">Voltar</a>
+    <a class="btn btn-success" href="<?= FuncaoBase::geraLink('compdec', 'compdec', 'index')?>">Voltar</a>
     <br><br>
 </div>
 <div class="col-md-6">     
@@ -58,7 +58,7 @@ $interdicoes = interdicaoController::listagem_geral();
 
         print "<tr>";
         print "<td>".$interdicao['numero']."</td>";
-        print "<td>".$interdicao['dt_registro']."</td>";
+        print "<td>". DataMysql::dataCompletaVisual($interdicao['dt_registro'])."</td>";
         print "<td>".$interdicao['notificado']."</td>";
         print "<td>".$interdicao['endereco']."</td>";
             if($interdicao['publicacao'] == 1){
@@ -72,9 +72,9 @@ $interdicoes = interdicaoController::listagem_geral();
         print "<td><a href='".FuncaoBase::geraLink("compdec", "interdicao", "visualizar", array('id' => $interdicao['id']))."'><img src='/core/imagem/view.png'></a>";
 
             if($interdicao['publicacao'] == 0) {
-                print "<a name='publicar' data-id='".$interdicao['id']."' title='Publicar Termo de Interdição'><img width='35' src='/core/imagem/www.png'></a>";
+                print "<a name='publicar' data-publicar='1' data-id='".$interdicao['id']."' title='Publicar Termo de Interdição'><img width='35' src='/core/imagem/www.png'></a>";
             }else {
-                print "<a name='publicar' data-id='".$interdicao['id']."' title='Remover autorização de Publicação Termo de Interdição'><img width='35' src='/core/imagem/www_remove.png'></a>";
+                print "<a name='publicar' data-publicar='0' data-id='".$interdicao['id']."' title='Remover autorização de Publicação Termo de Interdição'><img width='35' src='/core/imagem/www_remove.png'></a>";
             }
             print "</td>";
         print "</tr>";
@@ -148,10 +148,34 @@ $interdicoes = interdicaoController::listagem_geral();
        
        $("a[name=publicar]").click(function(event){
            event.preventDefault(); 
-           var result = confirm("Deseja liberar a publicação on line deste documento !");
+           
+           var publicar = "";
+           if($(this).data('publicar') == 1){
+               publicar = "Deseja liberar a publicação on-line deste documento ?"
+           }else if ($(this).data('publicar') == 0) {
+               publicar = "Deseja remover publicação para este documento ?"
+           }
+           
+           var result = confirm(publicar);
            if(result) {
                $('#incorporar_termo').show();
-                alert($(this).data('id'));
+                var dados = {
+                            "opcao": 'publicar',
+                            "id_interdicao": $(this).data('id'),
+                            "publicar": $(this).data('publicar'),
+                        };
+            $.ajax({
+                type: 'POST',
+                url: 'mod_compdec/frontEnd/View/interdicao/ajax.php?v=<?= md5(VERSAO) ?>',
+                data: dados,
+                success: function (response) {
+                    if(response == 'sucesso'){
+                        alert('Registro alterado a sua visibilidade !');
+                        location.reload();
+                    }
+                }
+            });
+
            }
        })
         

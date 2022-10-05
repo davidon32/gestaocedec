@@ -11,13 +11,22 @@ include_once 'core/Model/indexModel.php';
 <?php //include_once "template/page/menu.php"; ?>
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php"; ?>
+    
 <?php
+
+include_once ('core/system/config/param.php');
+
 if (isset($_GET['debug'])) {
     
 }
 
+$id_municipio = $_COOKIE['seguranca']['id_municipio'];
+
+
 $_loginEx = new LoginExterno();
+
 ?>
+
 <table class="table">
     <tr>
         <?php
@@ -35,19 +44,26 @@ $_loginEx = new LoginExterno();
         # compdec
         print ($acessoModulo['mod_compdec'] == '1') ?
                         '<td align="center">
-	  							<a class="" href="?token=' . hash("sha256", md5(VERSAO) . "-" . time()) . '&ac=etn&modulo=compdec&controller=compdec&action=index" title="Acesso Cadastro de Compdecs"><img alt="core/imagem/comdec.png" src="core/imagem/comdec.png"><br><b>Dados Compdec</b></a>
+	  							<a class="" href="?token=' . hash("sha256", md5(VERSAO) . "-" . time()) . '&ac=etn&modulo=compdec&controller=compdec&action=index" title="Acesso Cadastro de Compdecs"><img alt="core/imagem/comdec.png" src="core/imagem/comdec.png"><br><b>Compdec</b></a>
 	  						</td>' : '';
 
         # ajuda humanitaria
+        if(!in_array($id_municipio, $lista_devedores)){
         print ($acessoModulo['mod_ajuda'] == '1') ?
                         '<td align="center">
-	  							<a class="" href="?token=' . hash("sha256", md5(VERSAO) . "-" . time()) . '&ac=etn&modulo=ajuda&controller=h_pedido_index&action=index" title="Ajuda Humanitária"><img width="128" alt="core/imagem/ajuda.png" src="core/imagem/pedido_cesta.png"><br><b>Ajuda Humanitária</b></a>
-								</td>' : '';
+                            <a class="" href="?token=' . hash("sha256", md5(VERSAO) . "-" . time()) . '&ac=etn&modulo=ajuda&controller=h_pedido_index&action=index" title="Ajuda Humanitária"><img height="128" alt="core/imagem/ajuda.png" src="core/imagem/pedido_cesta.png"><br><b>Ajuda Humanitária</b></a>
+			</td>' : '';
 
+        }else {
+            print '<td align="center">
+                        <img height="128" class="dev_prest" src="core/imagem/dev_prest.png" title="Municipio com Prestação de Contas em Atraso"><br><b>Ajuda Humanitária</b>
+                    </td>';
+            
+        }
         # Registro desastre
         print ($acessoModulo['mod_registro'] == '1') ?
                         '<td align="center">
-	  							<a class="" href="?token=' . hash("sha256", md5(VERSAO) . "-" . time()) . '&ac=etn&modulo=registro&controller=index&action=index" title="Registro de Danos Humanos"><img width="128" alt="core/imagem/ajuda.png" src="core/imagem/evento.png"><br><b>Registro Danos Humanos</b></a>
+	  							<a class="" href="?token=' . hash("sha256", md5(VERSAO) . "-" . time()) . '&ac=etn&modulo=registro&controller=index&action=index" title="Registro de Danos Humanos"><img width="128" alt="core/imagem/evento.png" src="core/imagem/evento.png"><br><b>Registro Danos Humanos</b></a>
 								</td>' : '';
         # plano de contingencia	
         if ($acessoModulo['mod_plano'] == '1') {

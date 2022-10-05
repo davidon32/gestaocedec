@@ -33,15 +33,16 @@ $dadosVistoria = interdicaoController::listagem_geral_Autocomplete($id_municipio
         <br><br>
         <div class="col-md-12">
             <label>Anexar Vistoria nº:</label>
-            <input class='form form-control' type="text" name="vistoria" id="vistoria" maxlength="10" placeholder="Digite o Número da Vistoria Realizada">
+            <input class='form form-control' type="text" id="vistoria" maxlength="10" placeholder="Digite o Número da Vistoria Realizada">
             <input type="hidden" name="id_vistoria" id="id_vistoria" >
+            <input type="hidden" name="numero" id="numero" value="<?= $numero; ?>/<?= date('Y') ?>" >
             <br>
         </div>     
         <div class="col-md-6">
             <label>Proprietário/Morador:</label>
-            <input class='form form-control' type="text" name="prop" id="prop" maxlength="110" placeholder="Nome do Proprietário do Imóvel">
+            <input class='form form-control' type="text" id="prop" maxlength="110" placeholder="Nome do Proprietário do Imóvel">
             <input type="hidden" name="municipio_id" id="municipio_id" value='<?= $id_municipio; ?>'>
-            <input type="hidden" name="numero" id="numero" value='<?= $numero . "-" . date('Y'); ?>'>
+            
         </div>     
         <div class="col-md-6">
             <label>Endereço do Imóvel:</label>
@@ -53,11 +54,11 @@ $dadosVistoria = interdicaoController::listagem_geral_Autocomplete($id_municipio
         <br><br>
         <div class="col-md-6">
             <label>Contato/Telefone:</label>
-            <input class='form form-control' type='text' name='cel' id='tel' required maxlength="15" placehold='Telefone de Contato'>
+            <input class='form form-control' type='text' id='tel' required maxlength="15" placehold='Telefone de Contato'>
         </div>     
         <div class="col-md-6">
             <label>Data da vistoria:</label>
-            <input class='form form-control' type='date' name='dt_vistoria' id='dt_vistoria' required value=''>
+            <input class='form form-control' type='date' name='dt_registro' id='dt_registro' required value=''>
         </div>     
     </div>
 
@@ -108,7 +109,7 @@ $dadosVistoria = interdicaoController::listagem_geral_Autocomplete($id_municipio
     </div>
     <br>
     <label>Observações : </label><span id='restante' style="font-size: 9pt"> Caracteres Restantes :16776997</span>
-    <textarea class="form form-control" maxlength="16777000" id='obs' rows="8"></textarea>
+    <textarea class="form form-control" maxlength="16777000" id='obs' name="obs" rows="8"></textarea>
     <br>
         
 

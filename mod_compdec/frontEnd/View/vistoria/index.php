@@ -20,7 +20,7 @@ $busca_vistorias = vistoriaController::listagem_geral();
 <legend>Termo de Vistoria</legend>
 
 <div class="col-md-12 text-center">
-    <a class="btn btn-success" href="<?= FuncaoBase::geraLink('index', 'index', 'menue')?>">Voltar</a>
+    <a class="btn btn-success" href="<?= FuncaoBase::geraLink('compdec', 'compdec', 'index')?>">Voltar</a>
     <br><br>
 </div>
 <div class="col-md-6">     
