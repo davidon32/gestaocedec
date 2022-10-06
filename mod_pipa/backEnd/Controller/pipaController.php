@@ -2,6 +2,7 @@
 
 include_once PATH . "/core/Controller/Controller.php";
 include_once "core/Model/Model.php";
+#include_once PATH. "/template/page/only_header.php";
 
 class pipaController extends Controller {
 
@@ -142,11 +143,59 @@ class pipaController extends Controller {
                        
             if (Usuario::atuaUsuarioExterno($_POST)) {
 
-                print "<script>
+                print 
+                    "<script>
 	 			alert('Usuario atualizado com Sucesso !');
-                                window.location.href = '".FuncaoBase::geraLink("pipa", "pipa", "pesquisaUsuario", array("volta"=>"compdec"))."';
                                 
 	 		</script>";
+                
+                
+                
+                    print "<style>
+                        body {
+                        background-color: #F79A86 ;
+                        }
+                        .message{
+                            width: 600px;
+                            margin: 0 auto;
+                            
+                            padding: 10px;
+                            font-size: 15pt;
+                            text-align:justify;
+                            border-radius: 13px;
+                            border:0.1 solid;
+                            background-color: #AACCF3;
+                            font-family: 'calibri';
+                        }
+                        b {
+                            color:red;
+                        }
+                    </style>
+                        <br>
+                        <br>
+                        <div class='container message'>
+                        <div class='col alert alert-success'>
+                        <p style='text-align:center'><img width='80' src='/core/imagem/DEFESACIVILMG_400'></p>
+                            <br>
+                            <h4>Prezado Coordenador,<br><br>
+                            Sua senha foi resetada, acesse : <br>
+                            http://sistema.defesacivil.mg.gov.br
+                            <br>
+                            <br>
+                            Usuario : <b>".$_POST['email_rec']."</b> 
+                            <br>
+                            <br>
+                            Senha   : <b>defesa199</b>
+                            <br>
+                            <br>
+                            Efetue a Troca de Senha !
+                            <br><br></h4>
+                            <h3><p style='color:#35231F'>Obs:<br> <i>O usuario de acesso, é o email que usamos para resetar a senha, fique atento pois alterar o email de resetar senha é também alterado o usuario de acesso.</i></p></h3>
+                            
+                        </div>
+                        <p class='text-center'><a class='btn btn-primary' href='".FuncaoBase::geraLink('pipa', 'pipa', 'pesquisaUsuario')."' >Voltar</a></p>
+                        </div>";
+                
             } else {
 
                 print "oi";

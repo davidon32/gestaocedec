@@ -67,7 +67,7 @@ if($_POST['opcao'] == 'cad_material') {
 						}*/
 					}
 					
-					Log::GravaLog("Cadastro de material id_produto:".$_id_produto." qtd:".$_txtQtd." dataEntrada: ".$_txtDtEntrada." validade: ".$_txtValidade. " depDestino:".$_id_deposito, "aju_log");
+					//Log::GravaLog("Cadastro de material id_produto:".$_id_produto." qtd:".$_txtQtd." dataEntrada: ".$_txtDtEntrada." validade: ".$_txtValidade. " depDestino:".$_id_deposito, "aju_log");
 							
 					print "sucesso";
 				}

@@ -364,10 +364,13 @@ $(document).ready(function(){
                                             processData: false,
                                             data: form_data,
                                             success: function(response) {
+                                                
+                                                //console.log(response);
                                                     if(response == 'sucesso'){
+                                                        
                                                     alert("Cadastro realizado com Sucesso !");
                                                     $("#loader").fadeOut();
-                                                    //console.log(response);
+                                                    
                                                     $("#id_origem").val("");
                                                     location.reload();
                                                     }

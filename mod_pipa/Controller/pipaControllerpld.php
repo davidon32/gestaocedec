@@ -121,10 +121,10 @@
         }
 
         # termo compromisso
-        public function declaracaoiss()
+        /*public function declaracaoiss()
         {
             include_once "mod_pipa/View/pmda/declaracao.php";
-        }
+        }*/
         
         
         public function declaracaoiss()
