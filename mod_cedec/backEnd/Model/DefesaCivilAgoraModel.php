@@ -463,12 +463,16 @@ class DefesaCivilAgoraModel {
     /* incrementar visualizacao de post*/
     public function viewPost($id) {
         
-        $con = Conexao::getInstance();
+        if(is_numeric($id)){
+        
+            $con = Conexao::getInstance();
 
-        $sql = "update cedec_def_agora
-                    set views = (views+1)
-                    where id = ".$id;
-        $result = $con->query($sql);
+            $sql = "update cedec_def_agora
+                        set views = (views+1)
+                        where id = ".$id;
+            $result = $con->query($sql);
+        
+        }
         
     }
 

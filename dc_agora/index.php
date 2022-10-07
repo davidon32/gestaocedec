@@ -214,7 +214,7 @@ foreach ($paginacao->dados as $value) {
     print "<span class=\"bg-aqua\">" . $value['categoria'] . "</span>";
     print "<h4><a href=\"postagem.php?id=" . $value['id'] . "\" title=\"\">" . (isset($value['titulo']) ? $value['titulo'] : substr($value['texto'], 0, 40)."...") . "</a></h4>";
     print "<p>" . substr($value['texto'], 0, 200) . " <span>Leia mais...</span></p>";
-    print "<small><a href=\"garden-category.html\" title=\"\"><i class=\"fa fa-eye\"></i> " . $value['views'] . "</a></small>";
+    print "<small><a href=\"\" title=\"\"><i class=\"fa fa-eye\"></i> " . $value['views'] . "</a></small>";
     print "<small><a href=\"postagem.php?id=" . $value['id'] . "\" title=\"\">" . $value['orgao'] . "</a></small>";
     print "<small><a href=\"postagem.php?id=" . $value['id'] . "\" title=\"\">" . DataMysql::dataExtensoDocumento(DataMysql::dataVisual($value['data_hora'])) . "</a></small>";
     /*print "<small>" . $value['autor'] . "</small>";*/
