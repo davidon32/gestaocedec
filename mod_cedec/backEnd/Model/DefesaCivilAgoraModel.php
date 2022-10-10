@@ -144,7 +144,7 @@ class DefesaCivilAgoraModel {
     }
 
     public static function count($sql) {
-
+        
         $conexao = Conexao::getInstance()->query($sql);
 
         $dados = $conexao->rowCount();
@@ -164,9 +164,11 @@ class DefesaCivilAgoraModel {
 
         if (!empty($dados['dados'])) {
             $result->dados = $dados['dados'];
+            
             $registros = count($dados['dados']);
         } else {
             $tabela = $dados['tabela'];
+
             $registros = self::count("select *from " . $tabela);
             $sql = "select *from " . $tabela . " where status1 = 1 order by data_hora desc" . $limit;
             $result->dados = self::select($sql);
@@ -195,8 +197,6 @@ class DefesaCivilAgoraModel {
 
     public function postagem($id) {
 
-        $dados = "";
-
         $con = Conexao::getInstance();
 
         $sql = "select id,
@@ -210,15 +210,16 @@ class DefesaCivilAgoraModel {
                         views,
                         nota
                         from cedec_def_agora
-                        where id = " . $id;
+                        where id = :id";
 
-        $result = $con->query($sql);
+       
+        $result = $con->prepare($sql);
 
-        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-            $dados = $linha;
-        }
+        $result->bindValue(":id", $id);
+        
+        $result->execute();
 
-        return $dados;
+        return $result->fetch(PDO::FETCH_ASSOC);
     }
 
     /* postagem com ID */

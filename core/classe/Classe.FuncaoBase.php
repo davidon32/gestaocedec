@@ -941,6 +941,17 @@ class FuncaoBase extends Exception {
         }
     }
     
+    /**
+     * Volta pagina inicial
+     */
+    public function pgInicio($page) {
+        
+        print "<script>";
+         print "window.location = '".$page."'";
+         print "</script>";
+        
+    }
+    
     
     
 

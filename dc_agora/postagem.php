@@ -70,8 +70,21 @@
 <body>
 
     <?php
+    $id = isset($_GET['id']) ? (int) $_GET['id'] : null;
+    
+    if($id == 0) {
+        print "<script>";
+    print "window.location = 'http://sistema.defesacivil.mg.gov.br/dc_agora'";
+    print "</script>";
+    
+    }
+
     require('dados.php');
-    $comentarios = $agora->getComentarios($_GET['id']);
+       
+    
+    $comentarios = $agora->getComentarios($id);
+    
+    
     ?>
 
     <div id="wrapper">
@@ -258,7 +271,15 @@
 
                             <div class="custombox clearfix">
                                 <h4 class="small-title">
-                                        <?=is_array($comentarios) ? count($comentarios) : 0 ?> Comentário(s)</h4>
+                                        <?php 
+                                            //var_dump($comentarios);
+                                           // die();
+                                            //if( isset($comentarios) && (count($comentarios > 0)))
+                                            //{
+                                            //    count($comentarios)."  Comentário(s)";
+                                            //}
+                                ?>        
+                                </h4>
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="comments-list">

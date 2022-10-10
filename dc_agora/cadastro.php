@@ -168,6 +168,7 @@
                                             <option>Elogios/Sugestões</option>
                                             <option>Mapeamento de Área de Risco</option>
                                             <option>Programa Agua Doce</option>
+                                            <!-- validação -->
                                         </select>
                                         <textarea name="txt_texto" id="txt_texto"  class="form-control" placeholder="Texto" title="Texto da Postagem" maxlength="254"></textarea>
                                         <input name="fl_image" id="fl_image" onchange="loadImageFile()" accept="image/jpg,image/jpeg" type="file" class="form-control" placeholder="Imagem ( opcional )" title="Imagem para a postagem ( opcional )" >

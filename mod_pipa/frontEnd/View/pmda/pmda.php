@@ -2199,17 +2199,18 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
         $("#txtCpfRep").blur(function () {
 
             var cpf = $("#txtCpfRep").val();
-            var result = TestaCPF(cpf);
+            var result = validaCPF(cpf.replace(/\.|-/gm,""));
+
 
             if (result) {
                 $("#txtCpfRep").css('background-color', '#66CDAA');
-                $("#txtCpfRep").css('color', '#ffffff');
+                $("#txtCpfRep").css('color', '#388C23');
                 $("#txtCpfRep").attr('title', 'Cpf Válido !');
 
             } else {
                 $("#txtCpfRep").css('background-color', '#FF6347');
                 $("#txtCpfRep").attr('title', 'Cpf Inválido !');
-                $("#txtCpfRep").css('color', '#ffffff');
+                $("#txtCpfRep").css('color', '#D41111');
                 $("#txtCpfRep").val("");
             }
 
