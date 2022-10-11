@@ -200,13 +200,13 @@ $plano = new Plano();
         var size = this.files[0].size;
         var tamanho, bytes, limite = "";
         $("#tamanho").css("color", "blue");
-        if (size < 1048576) {
+        if (size <= 1048576) {
             bytes = " Kb";
             tamanho = size / 1024;
-        } else if (size > 2097152) {
+        } else if (size > 1048576) {
             bytes = " MB";
             tamanho = (size / 1024 / 1024);
-        } else if (size > 20971520) {
+        } else if (size >= 20971520) {
             bytes = " MB";
             tamanho = (size / 1024 / 1024);
             limite = "Tamanho de Arquivo Excedido !, favor reduzi-lo ou dividi-lo !";
@@ -244,6 +244,8 @@ $plano = new Plano();
             form_data.append('tamanho', file_data.size);    
             
             $('.overlay1').show();
+            
+            
             $('.overlay1').css('z-index', 3000);
             $('.overlay1').css('position', 'absolute');
             $.ajax({
@@ -255,15 +257,13 @@ $plano = new Plano();
                 data: form_data,
                 type: 'post',
                 success: function (response) {
-                   
-                    if(response == 'sucesso'){
+                    if(response == 'sucesso'){  
                         $("#myModal").modal('hide');
+                        $('.overlay1').hide();
                         
-                    }else {
-                                              
                     }
                     $('.overlay1').hide();
-                    //window.location.reload();
+                    window.location.reload();
                 }
             });
         }
