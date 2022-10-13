@@ -12,7 +12,7 @@ class indexController extends Controller {
     public function desabrigado() {
         
         $registro = new Registro;
-
+        
         $result = $registro->reg_danos_humanos($_POST);
         if(is_bool($result) ) {
             FuncaoBase::alert('Registro gravado com Sucesso !');

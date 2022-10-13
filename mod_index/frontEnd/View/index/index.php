@@ -20,7 +20,7 @@
     <legend>Notificações</legend>
     <?php
     $login = new Login();
-    $liberacoes = $login->acessoLembreteCompdec($_COOKIE['seguranca']['id_municipio']);
+    /*$liberacoes = $login->acessoLembreteCompdec($_COOKIE['seguranca']['id_municipio']);
 
 
         foreach ($liberacoes as $key1 => $liberacao) {
@@ -46,7 +46,7 @@
 									 </ul>";
         }
 
-    //$login->acessoLembreteTransito($_COOKIE['seguranca']['login'], $_COOKIE['seguranca']['id_deposito'])
+    //$login->acessoLembreteTransito($_COOKIE['seguranca']['login'], $_COOKIE['seguranca']['id_deposito'])*/
     ?>
 </div> 
 <div class="col-md-4 text-center" style='color:red'> 

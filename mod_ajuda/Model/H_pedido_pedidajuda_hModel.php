@@ -105,6 +105,51 @@ class H_pedido_pedidajuda_hModel extends Model {
         }
     }
 
+    public static function listaProcessos($id_municipio) {
+
+
+        try {
+            $sql = "SELECT id,
+                            numero,
+                            data_entrada_sistema,
+                            despachante_analista,
+                            despachante_dlog,
+                            id_municipio,
+                            id_regiao,
+                            nome_coordenador,
+                            tel_coordenador,
+                            cel_coordenador,
+                            email_coordenador,
+                            nome_prefeito,
+                            tel_prefeito,
+                            cel_prefeito,
+                            email_prefeito,
+                            id_cobrade,
+                            pop_atendida,
+                            decreto_se_ecp_vig,
+                            numero_decreto,
+                            data_vigencia,
+                            tipo_decreto,
+                            esforcos_realizados,
+                            data_hora_envio,
+                            status, tramit,
+                            ano,
+                            data_aprovacao,
+                            status_prest,
+                            parecer_prest,
+                            usuario_homolog
+                            FROM aju_h_pedido_pedid
+                            WHERE id_municipio = {$id_municipio}
+                            ORDER By id";
+
+            $result = self::$con->query($sql);
+
+            return $result->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            return $e->getMessage() . "Erro lista registros";
+        }
+    }
+
     public static function listaPedidosTodos() {
 
         $con = Conexao::getInstance();
@@ -128,8 +173,6 @@ class H_pedido_pedidajuda_hModel extends Model {
             $result = $con->query($sql);
 
             return $result->fetchAll(PDO::FETCH_ASSOC);
-
-           
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -154,8 +197,6 @@ class H_pedido_pedidajuda_hModel extends Model {
             $result = $con->query($sql);
 
             return $result->fetchAll(PDO::FETCH_ASSOC);
-
-           
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -474,7 +515,7 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
     #################  PAGINACAO  ##################
     /* paginacao */
 
-    public function paginacao($start, $regPorPagina) {
+    public function paginacao($start, $regPorPagina, $id_municipio) {
         $con = Conexao::getInstance();
 
         $stmt = $con->prepare("SELECT aju_h_pedido_pedid.id,
@@ -513,6 +554,7 @@ LEFT JOIN com_regiao
 ON aju_h_pedido_pedid.id_regiao = com_regiao.id_regiao
 LEFT JOIN dec_cobrade
 ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
+WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
 
                                 ORDER By aju_h_pedido_pedid.id DESC LIMIT $start, $regPorPagina");
         $stmt->execute();
@@ -1404,8 +1446,7 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
 
         return $data_aprovacao;
     }
-    
-    
+
     /**
      * Tramitar Pedido
      */
@@ -1418,9 +1459,9 @@ ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
 
         try {
             $result = $con->prepare($sql);
-            $result->bindValue(":status",   $dados['status']);
-            $result->bindValue(":tramit",   $dados['tramit']);
-            $result->bindValue(":id_pedido",$dados['id_pedido']);
+            $result->bindValue(":status", $dados['status']);
+            $result->bindValue(":tramit", $dados['tramit']);
+            $result->bindValue(":id_pedido", $dados['id_pedido']);
 
             $result->execute();
 

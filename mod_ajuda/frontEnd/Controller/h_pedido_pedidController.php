@@ -24,33 +24,39 @@ class h_pedido_pedidController extends Controller {
 
     public function __construct() {
         $this->h_pedido_pedid = new H_pedido_pedidajuda_hModel;
-        $this->h_pedido_pedids = $this->h_pedido_pedid->lista();
+        $this->h_pedido_pedids = $this->h_pedido_pedid->listaProcessos($_COOKIE['seguranca']['id_municipio']);
     }
 
     # index h_pedido_pedid
 
     public function index() {
         $h_pedido_pedidModel = $this->h_pedido_pedid;
+        
         include_once 'mod_ajuda/frontEnd/View/ajuda_h/h_pedido_pedid/index.php';
     }
 
     /* paginacao */
 
-    public function paginacao($page, $numPage) {
+    /*public function paginacao($page, $numPage) {
 
         $this->numPage = $numPage;
 
         $totalRegistro = count($this->h_pedido_pedids);
+        
         $regPorPagina = $numPage;
 
         $totPag = ceil($totalRegistro / $numPage);
 
         $start = ($page - 1) * $regPorPagina;
 
-        $paginacao = $this->h_pedido_pedid->paginacao($start, $regPorPagina);
+        $paginacao = $this->h_pedido_pedid->paginacao($start, $regPorPagina, $_COOKIE['seguranca']['id_municipio']);
+        
+        
 
         return array($paginacao, $totPag);
     }
+     
+    */
 
     ################  EXPORTAR ##################    
     # Exportar dados excel

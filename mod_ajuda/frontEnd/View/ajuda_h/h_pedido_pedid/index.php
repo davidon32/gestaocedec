@@ -19,16 +19,18 @@
 <?php
 
 
-$page = (!isset($_GET['page'])) ? 1 : $_GET['page'];
+//$page = (!isset($_GET['page'])) ? 1 : $_GET['page'];
 
-$numRegPorPagina = 10;
-$pag = new H_pedido_pedidController();
-$paginacao= $pag->paginacao($page, $numRegPorPagina);
+//$numRegPorPagina = 10;
+//$pag = new H_pedido_pedidController();
+//$paginacao= $pag->paginacao($page, $numRegPorPagina );
 
 $no = ($page >1) ? 1: 1;
 $nr = 0;
 
 $pedido_pedid = new H_pedido_pedidajuda_hModel();
+
+$paginacao = $pedido_pedid::listaProcessos($_COOKIE['seguranca']['id_municipio']);
 
 print "<legend>Pedidos de Ajuda Humanitária</legend>";
 
@@ -47,7 +49,8 @@ print "<div class=\"table-responsive\"><table class=\"table table-striped\">
 </thead>
 <tbody>";
 
-foreach ($paginacao[0] as $h_pedido_pedid) {
+//foreach ($paginacao[0] as $h_pedido_pedid) {
+foreach ($paginacao as $h_pedido_pedid) {
 
 print "<tr>
        <td>".$h_pedido_pedid['id']."</td> 
@@ -98,7 +101,7 @@ print "<tr>
 
         print " </tbody></table></div>";
         
-        print "<div class=\"col-md-12 text-center\">";
+        /*print "<div class=\"col-md-12 text-center\">";
 
         print "<ul class=\"pagination\">";
 
@@ -114,7 +117,7 @@ print "<tr>
         }
         print "<li><a href=\"" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'index', array('page' => $paginacao[1])) . "\">Último</a></li>";
         print "</ul>";
-        print "</div>";
+        print "</div>";*/
 
 ?>
 

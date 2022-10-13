@@ -15,30 +15,48 @@ class Registro {
     public function reg_danos_humanos($registro) {
 
         $con = Conexao::getInstance();
-
-        $registro['id_municipio'] = $_COOKIE['seguranca']['id_municipio'];
+        
+        if(!isset($registro['cedec']) ) {
+            $registro['id_municipio'] = $_COOKIE['seguranca']['id_municipio'];        
+        }
 
 
         try {
 
-            $sql = "INSERT INTO reg_danos_humanos (desalojado, dt_desalojado, desabrigado, municipio_id)
-                     value (:desalojado, :dt_desalojado, :desabrigado, :id_municipio)";
+            /* nao existir registro ja lancado */
+            if(self::buscaLancamento($registro)){
 
-            $result = $con->prepare($sql);
-            $result->bindValue(":desalojado", $registro['desalojado']);
-            $result->bindValue(":dt_desalojado", $registro['dt_registro']);
-            $result->bindValue(":desabrigado", $registro['desabrigado']);
-            $result->bindValue(":id_municipio", $registro['id_municipio']);
+                $sql = "INSERT INTO reg_danos_humanos (desalojado, dt_desalojado, desabrigado, municipio_id)
+                         value (:desalojado, :dt_desalojado, :desabrigado, :id_municipio)";
 
-            return $result->execute();
-        } catch (Exception $e) {
+                $result = $con->prepare($sql);
+                $result->bindValue(":desalojado", $registro['desalojado']);
+                $result->bindValue(":dt_desalojado", $registro['dt_registro']);
+                $result->bindValue(":desabrigado", $registro['desabrigado']);
+                $result->bindValue(":id_municipio", $registro['id_municipio']);
 
-            if (strpos($e->getMessage(), 'Duplicate')) {
+                return $result->execute();
+            }else {
                 return 'duplicado';
-            } else {
-                return $e->getMessage();
             }
+        } catch (Exception $e) {
+                return $e->getMessage();
         }
+    }
+    
+    /**
+     * Busca registro ja lancado
+     * @param type $id_municipio
+     * @return type
+     */
+    public static function buscaLancamento($registro){
+        $con = Conexao::getInstance();
+        $sql ="SELECT count(*) FROM reg_danos_humanos
+               WHERE dt_desalojado = '{$registro['dt_registro']}'
+                AND municipio_id = {$registro['id_municipio']}";
+                
+        $result = $con->query($sql);
+        return ($result->fetchColumn() == 0) ? true : false;
     }
 
     public function listaGeral($id_municipio = 0) {
@@ -60,6 +78,44 @@ class Registro {
             print $e->getMessage();
         }
     }
+    
+    /**
+     * Lista de ultima posição dos afetados por municipio
+     * @param type $id_municipio
+     * @return type
+     */
+    public function listaPorMunicipio($id_municipio = 0) {
+
+        $con = Conexao::getInstance();
+
+        try {
+            if ($id_municipio == 0) {
+                $sql = "SELECT cedec_municipio.nome, max(dt_desalojado) as dt, municipio_id, desalojado, desabrigado
+                        FROM reg_danos_humanos
+                        INNER JOIN cedec_municipio
+                        ON reg_danos_humanos.municipio_id = cedec_municipio.id_municipio
+                        GROUP BY municipio_id
+                        ORDER BY cedec_municipio.nome";
+            } elseif ((int) $id_municipio) {
+                $sql = "SELECT cedec_municipio.nome, max(dt_desalojado), municipio_id, desalojado, desabrigado
+                            FROM reg_danos_humanos
+                            INNER JOIN cedec_municipio
+                            ON reg_danos_humanos.municipio_id = cedec_municipio.id_municipio
+                            where reg_danos_humanos = {$id_municipio}
+                            GROUP BY municipio_id
+                            ORDER BY cedec_municipio.nome";
+            }
+
+            $result = $con->query($sql);
+            $result->execute();
+
+            return $result->fetchAll();
+        } catch (Exception $e) {
+            print $e->getMessage();
+        }
+    }
+    
+    
 
     /**
      * Lista por ano
