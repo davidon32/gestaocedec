@@ -24,50 +24,85 @@ $secao = isset($_COOKIE['seguranca']['secao']) ? $_COOKIE['seguranca']['secao'] 
     <br>
 
     <div class="col-md-6">
-<?php
+        <?php
+        $ped_ajuda = H_pedido_pedidajuda_hModel::listaPedidosParaDespacho();
+        $titulo = "";
 
-    $ped_ajuda = H_pedido_pedidajuda_hModel::listaPedidosParaDespacho();
-    $titulo = "";
-
-    if (count($ped_ajuda)) {
-        if($secao == "DLOG" ){
-            $titulo = "<legend>Pedidos Pendentes</legend><span> ( Pedidos Pendentes para Análise DLOG )</span>";
-        }elseif($secao == "CHEFIA"){
-            $titulo = "<legend>Autorizador</legend><span> ( Pedidos pendentes de Autorização )</span>";
-        }else {
-            $titulo = "<legend>Pedidos Ajuda Humanitária para análise</legend><span> Visualização</span>";
-        }
-        print $titulo;
-        foreach ($ped_ajuda as $key => $pedido) {
-            $data_hoje = new DateTime(date('Y-m-d'));
-            $data_pedido = new DateTime($pedido['data_entrada_sistema']);
-            $dif = $data_hoje->diff($data_pedido);
-            print "<ul class=\"todo-lis\">
-                            <li>
-                                <span class=\"handle\">" . ($key + 1) . ") - <i class=\"fa fa-ellipsis-v\"></i>
-                                    <i class=\"fa fa-ellipsis-v\"></i>
-                                </span>
-                            <span class=\"text\">";
-            if ($secao == "CHEFIA") {
-                print "<a style=\"text-decoration:none;\" href=\"" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit', array('id' => $pedido['id'], 'voltar' => 'idx_recente')) . "\" title='Despachar Pedido'>
-                                                                                                                        &nbsp;&nbsp;<img style=\"vertical-align:middle\" width='15px;' src=\"/core/imagem/pedido_cesta.png\">
-                                                                                                                        &nbsp;&nbsp;<span style='font-size:12px;'>
-                                                                                                                        Pedido de Ajuda Humanitária Nº: " . $pedido['numero'] . "/" . substr($pedido['data_entrada_sistema'], 0, 4) . " - " . DataMysql::dataVisual($pedido['data_entrada_sistema']) . "</a>";
+        if (count($ped_ajuda)) {
+            if ($secao == "DLOG") {
+                $titulo = "<legend>Pedidos Pendentes</legend><span> ( Pedidos Pendentes para Análise DLOG )</span>";
+            } elseif ($secao == "CHEFIA") {
+                $titulo = "<legend>Autorizador</legend><span> ( Pedidos pendentes de Autorização )</span>";
             } else {
-                print "<a style=\"text-decoration:none;\" href=\"" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'view', array('id' => $pedido['id'], 'voltar' => 'idx_recente')) . "\" title='Visualizar Pedido'>
-                                                                                                                        &nbsp;&nbsp;<img style=\"vertical-align:middle\" width='15px;' src=\"/core/imagem/pedido_cesta.png\">
-                                                                                                                        &nbsp;&nbsp;<span style='font-size:12px;'>
-                                                                                                                        Pedido de Ajuda Humanitária Nº: " . $pedido['numero'] . "/" . substr($pedido['data_entrada_sistema'], 0, 4) . " - " . DataMysql::dataVisual($pedido['data_entrada_sistema']) . "</a>";
+                $titulo = "<legend>Pedidos Ajuda Humanitária para análise</legend><span> Visualização</span>";
             }
-            print "</span>
-                                                                                                 </span>
-                                                                                                 <small class=\"label label-danger\"><i class=\"fa fa-clock-o\"></i> - liberado há " . $dif->days . "  dia(s)</small>
-                                                                                         </li>
-                                                                                 </ul>";
+            $count = 0;
+            print $titulo;
+            
+            foreach ($ped_ajuda as $key => $pedido) {
+                $data_hoje = new DateTime(date('Y-m-d'));
+                $data_pedido = new DateTime($pedido['data_entrada_sistema']);
+                $dif = $data_hoje->diff($data_pedido);
+                
+                /* PEDIDO STATUS PARA ANALISE DLOG  */
+                if ($secao == "DLOG" && $pedido['status'] == 1) {
+                    $count ++;
+                    
+                    print "<ul class=\"todo-lis\">
+                            <li>
+                                <span class=\"handle\">" . ($count) . ") - <i class=\"fa fa-ellipsis-v\"></i>
+                                <i class=\"fa fa-ellipsis-v\"></i>
+                                </span>
+                                <span class=\"text\">
+                                    <a style=\"text-decoration:none;\" href=\"" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit', array('id' => $pedido['id'], 'voltar' => 'idx_recente')) . "\" title='Despachar Pedido'>
+                                    &nbsp;&nbsp;<img style=\"vertical-align:middle\" width='15px;' src=\"/core/imagem/pedido_cesta.png\">
+                                    &nbsp;&nbsp;<span style='font-size:12px;'>
+                                    Pedido de Ajuda Humanitária Nº: " . $pedido['numero'] . "/" . substr($pedido['data_entrada_sistema'], 0, 4) . " - " . DataMysql::dataVisual($pedido['data_entrada_sistema']) . "</a>
+                                </span>
+                                <small class=\"label label-danger\"><i class=\"fa fa-clock-o\"></i> - liberado há " . $dif->days . "  dia(s)</small>
+                            </li>
+                          </ul>";
+                }
+                /* PEDIDOS EM ANALISE DIRETOR  */
+                elseif ($secao == "CHEFIA" && $pedido['status'] == 2) {
+                    $count ++;
+                    
+                    print "<ul class=\"todo-lis\">
+                            <li>
+                                <span class=\"handle\">" . ($count) . ") - <i class=\"fa fa-ellipsis-v\"></i>
+                                <i class=\"fa fa-ellipsis-v\"></i>
+                                </span>
+                                <span class=\"text\">
+                                    <a style=\"text-decoration:none;\" href=\"" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit', array('id' => $pedido['id'], 'voltar' => 'idx_recente')) . "\" title='Despachar Pedido'>
+                                    &nbsp;&nbsp;<img style=\"vertical-align:middle\" width='15px;' src=\"/core/imagem/pedido_cesta.png\">
+                                    &nbsp;&nbsp;<span style='font-size:12px;'>
+                                    Pedido de Ajuda Humanitária Nº: " . $pedido['numero'] . "/" . substr($pedido['data_entrada_sistema'], 0, 4) . " - " . DataMysql::dataVisual($pedido['data_entrada_sistema']) . "</a>
+                                </span>
+                                <small class=\"label label-danger\"><i class=\"fa fa-clock-o\"></i> - liberado há " . $dif->days . "  dia(s)</small>
+                            </li>
+                          </ul>";
+                }
+                /* STATUS PROVADO */
+                elseif ($secao != "CHEFIA" && $pedido['status'] == 3) {
+                    $count ++;
+                    print "<ul class=\"todo-lis\">
+                            <li>
+                                <span class=\"handle\">" . ($count) . ") - <i class=\"fa fa-ellipsis-v\"></i>
+                                <i class=\"fa fa-ellipsis-v\"></i>
+                                </span>
+                                <span class=\"text\">
+                                    <a style=\"text-decoration:none;\" href=\"" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'view', array('id' => $pedido['id'], 'voltar' => 'idx_recente')) . "\" title='Visualizar Pedido'>
+                                    &nbsp;&nbsp;<img style=\"vertical-align:middle\" width='15px;' src=\"/core/imagem/pedido_cesta.png\">
+                                    &nbsp;&nbsp;<span style='font-size:12px;'>
+                                    Pedido de Ajuda Humanitária Nº: " . $pedido['numero'] . "/" . substr($pedido['data_entrada_sistema'], 0, 4) . " - " . DataMysql::dataVisual($pedido['data_entrada_sistema']) . "</a>
+                                </span>
+                                <small class=\"label label-danger\"><i class=\"fa fa-clock-o\"></i> - liberado há " . $dif->days . "  dia(s)</small>
+                            </li>
+                          </ul>";
+                }
+            }
         }
-    }
-
-?>
+        ?>
     </div>
     <div class="col-md-6">
         <legend>Últimas Liberações MAH</legend>
@@ -210,26 +245,26 @@ print "</table>";
         <!-- grafico pmDA-->
         <div class='col-md-6'>
             <legend>PMDA Últimos Anos</legend>
-            <?php
-            $dash->qtdPmda();
-            ?>
+<?php
+$dash->qtdPmda();
+?>
         </div>
     </div>
 
     <div class="col-md-12 text-center">
-            <?php
-            $dash->pmdaAno(date("Y"));
-            //$dash->atualizado();
-            //$dash->ajudaHumanitaria();
-            //$dash->pmdaAnoMes("2017");
-            //$dash->decreto();
-            ?>
+<?php
+$dash->pmdaAno(date("Y"));
+//$dash->atualizado();
+//$dash->ajudaHumanitaria();
+//$dash->pmdaAnoMes("2017");
+//$dash->decreto();
+?>
     </div>
 
 </div>
 <div></div>
 <!-- =================== RODAPE CORPO ==================== -->
-        <?php include_once "template/page/corpoRodape.php"; ?>
+<?php include_once "template/page/corpoRodape.php"; ?>
 <!-- =================== RODAPE  ======================== -->
 <?php include_once "template/page/rodape.php" ?>
 <?php include_once "template/page/barra_config_template.php"; ?>

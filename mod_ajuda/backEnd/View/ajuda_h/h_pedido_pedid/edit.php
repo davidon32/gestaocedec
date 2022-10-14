@@ -55,10 +55,10 @@ if( $secao == 'DLOG' || $secao == "CHEFIA" || $id_usuario == 1 &&  $view[0]['sta
 
 $parecer_favoravel = "";
 $aviso_sit ="";
-    if($view[0]['status'] == 3){
+    if($view[0]['status'] == 2){
         $parecer_favoravel = "Parecer Favorável do Analista da DLOG";
         $aviso_sit = "<p class='alert alert-danger'>PROCESSO COM PARECER FAVORÁVEL DO ANALISTA DA DLOG.<br> clique em \"Material do Pedido\" para verificar os despachos.</p>";
-    }elseif($view[0]['status'] == 4){
+    }elseif($view[0]['status'] == 3){
         $parecer_favoravel = "Parecer Favorável do Coordenador Adjunto";
         $aviso_sit = "<p class='alert alert-danger'>PROCESSO APROVADO PELO(S) GESTORES DA CEDEC.<br> clique em <a id='aviso_sit'>\"Material do Pedido\"</span> para verificar os despachos</p>";
     }
@@ -453,14 +453,18 @@ $aviso_sit ="";
             
             <?php
             
-            if($view[0]['status'] == 2){
+            /* status (ANALISE DLOG) enviar para o compdec*/
+            if($view[0]['status'] == 1){
                 print "<option value='0' data-status='edicao_compdec'>Enviar para COMPDEC</option>";
+            /*status ( APROVADO ) */    
             }elseif($view[0]['status'] == 3){
                 print "<option value='".$view[0]['status']."' data-status='".$view[0]['tramit']."'>".H_pedido_pedidajuda_hModel::enumFase($view[0]['tramit'])."</option>";
                 print "<option value='4' data-status='aguard_disp'>Aguard. Disponibilidade Material</option>";
                 print "<option value='1' data-status='analise_dlog' >Analista DLOG</option>";
                 print "<option value='7' data-status='cancelado'>Cancelar Processo</option>";
+            /* status ( AGUARDAR DISPONIBILIDADE)  */    
             } elseif ($view[0]['status'] >= 4) {
+                
                 if($view[0]['status'] == 6) {
                     print "<option value='".$view[0]['status']."' data-status='".$view[0]['tramit']."'>".H_pedido_pedidajuda_hModel::enumFase($view[0]['tramit'])."</option>";
                     print "<option value='7' data-status='cancelado'>Cancelar</option>";
@@ -638,7 +642,7 @@ $aviso_sit ="";
     $(document).ready(function () {
         var status = <?=$view[0]['status']?>;
         var secao = '<?=$secao;?>';
-        if(status == 3 && secao != "CHEFIA") {
+        if(status == 2 && secao != "CHEFIA") {
             $('#editar_pedido').css('color', '#27AE60');
             //$('img[name=add_material]').hide();
             $('#add_despacho').hide();
@@ -739,7 +743,7 @@ $aviso_sit ="";
                 contentType: false, // tell jQuery not to set contentType
                 success: function (response) {
 
-                    //console.log(response);
+                    console.log(response);
                     if (response.trim() == 'sucesso') {
                         Swal.fire('Despacho gravado com sucesso !').then(function () {
                             //$('#html1').jstree("select_node", show_material_pedido, true);

@@ -186,6 +186,7 @@ class H_pedido_pedidajuda_hModel extends Model {
                 aju_h_pedido_pedid.id_municipio,
                 aju_h_pedido_pedid.data_entrada_sistema,
                 aju_h_pedido_pedid.tipo_decreto,
+                aju_h_pedido_pedid.status,
                 cedec_municipio.nome,
                 aju_h_pedido_pedid.id
                 FROM aju_h_pedido_pedid
@@ -971,6 +972,9 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
                 break;
             case 7:
                 return 'Cancelado';
+                break;
+            case 8:
+                return 'Pedido Reprovado';
                 break;
             default:
                 return 'Opção Inválida !';

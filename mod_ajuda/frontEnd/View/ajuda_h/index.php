@@ -184,7 +184,7 @@ $(document).ready(function() {
         formData.append('id_pedido', id_pedido);
         formData.append('data_hora_envio', '<?=date('Y-m-d H:i:s')?>');
         formData.append('tramit', 'analise_dlog');
-        formData.append('status', '2');
+        formData.append('status', '1');
         
         var result = confirm('Deseja enviar este pedido para Analise Dlog ?');
         

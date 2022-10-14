@@ -76,21 +76,26 @@ if($opcao == 'dados_compdec') {
 
     if(H_pedido_an_tecajuda_hModel::gravar($dados)) {
         
+        /* PARECER DESFAVORAVEL */
+        if ($dados['parecer_sit'] == 0) {
+            $dados['status'] = '8';
+            $dados['tramit'] = 'reprovado';
+            /* tramitar para aguardar disponibilidade */
+            H_pedido_pedidajuda_hModel::tramitar($dados);
+            
         /* DESPACHO FAVORAVEL DO ANALISTA */
-        if($dados['parecer_sit'] == 1 && $dados['secao'] == "DLOG" || $dados['id_usuario'] == 1) {
+        }elseif($dados['parecer_sit'] == 1 && $dados['secao'] == "DLOG" || $dados['id_usuario'] == 1) {
             $dados['status'] = '2';
             $dados['tramit'] = 'analise_coord';
             /* tramitar para coord adj */
-            if(H_pedido_pedidajuda_hModel::tramitar($dados)){
-                print 'sucesso';
-            }
+            H_pedido_pedidajuda_hModel::tramitar($dados);
+            
         }elseif ( $dados['parecer_sit'] == 1 && $dados['secao'] == "CHEFIA" ) {
             $dados['status'] = '3';
             $dados['tramit'] = 'aprovado';
             /* tramitar para aguardar disponibilidade */
-            if(H_pedido_pedidajuda_hModel::tramitar($dados)){
-                print 'sucesso';
-            }
+            H_pedido_pedidajuda_hModel::tramitar($dados);
+            
         }
             print 'sucesso';
     }
