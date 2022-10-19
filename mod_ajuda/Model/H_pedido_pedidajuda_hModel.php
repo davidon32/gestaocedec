@@ -733,6 +733,32 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
             return $e->getMessage();
         }
     }
+    
+    /** lista autocomplete 
+
+     * 
+
+     */
+    public function parecer_favoravel() {
+
+        $con = Conexao::getInstance();
+
+        $dados = array();
+
+        $sql = "SELECT id_regiao, nome
+                              FROM com_regiao";
+
+        try {
+            $result = $con->query($sql);
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dados[] = $linha;
+            }
+
+            return $dados;
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
 
 #####################  lista autocomplete ######################
 
@@ -1010,6 +1036,9 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
                 break;
             case 'cancelado':
                 return 'Processo Cancelado !';
+                break;
+            case 'reprovado':
+                return 'Processo Reprovado !';
                 break;
             default:
                 return 'Fase Inválida !';

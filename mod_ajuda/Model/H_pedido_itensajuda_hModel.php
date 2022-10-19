@@ -150,37 +150,42 @@ private $qtd_familia_atendida = null;
         $con = Conexao::getInstance();
 
         $sql = "INSERT INTO aju_h_pedido_itens (codigo,
-descricao_item,
-qtd,
-qtd_familia_atendida,
-id_pedido,
-tp_item
-) VALUES (:codigo,
-:descricao_item,
-:qtd,
-:qtd_familia_atendida,
-:id_pedido,
-:tp_item
-)";
+                                                descricao_item,
+                                                qtd,
+                                                qtd_familia_atendida,
+                                                id_pedido,
+                                                tp_item
+                                                ) VALUES (:codigo,
+                                                :descricao_item,
+                                                :qtd,
+                                                :qtd_familia_atendida,
+                                                :id_pedido,
+                                                :tp_item
+                                                )";
 
         try {
-            
-
-            $result = $con->prepare($sql);
-
-            $result->bindValue(":codigo", $dados['codigo']);
-            $result->bindValue(":descricao_item", $dados['descricao_item']);
-            $result->bindValue(":qtd", $dados['qtd']);
-            $result->bindValue(":qtd_familia_atendida", $dados['qtd_familia_atendida']);
-            $result->bindValue(":id_pedido", $dados['id_pedido']);
-            $result->bindValue(":tp_item", $dados['tipo']);
-            $result->execute();
             
             /* tipo P - pedido lavado pelo municipio
                tipo L - a ser liberado / alterado pelo pelo analista
              *              */
             if($duplo) {
+                $result = $con->prepare($sql);
+                $result->bindValue(":codigo", $dados['codigo']);
+                $result->bindValue(":descricao_item", $dados['descricao_item']);
+                $result->bindValue(":qtd", $dados['qtd']);
+                $result->bindValue(":qtd_familia_atendida", $dados['qtd_familia_atendida']);
+                $result->bindValue(":id_pedido", $dados['id_pedido']);
+                $result->bindValue(":tp_item", $dados['tipo']);
                 $result->bindValue(":tp_item", "L");
+                $result->execute();
+            }else {
+                $result = $con->prepare($sql);
+                $result->bindValue(":codigo", $dados['codigo']);
+                $result->bindValue(":descricao_item", $dados['descricao_item']);
+                $result->bindValue(":qtd", $dados['qtd']);
+                $result->bindValue(":qtd_familia_atendida", $dados['qtd_familia_atendida']);
+                $result->bindValue(":id_pedido", $dados['id_pedido']);
+                $result->bindValue(":tp_item", $dados['tipo']);
                 $result->execute();
             }
 

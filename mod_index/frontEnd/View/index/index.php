@@ -20,41 +20,41 @@
     <legend>Notificações</legend>
     <?php
     $login = new Login();
-    /*$liberacoes = $login->acessoLembreteCompdec($_COOKIE['seguranca']['id_municipio']);
+    /* $liberacoes = $login->acessoLembreteCompdec($_COOKIE['seguranca']['id_municipio']);
 
 
-        foreach ($liberacoes as $key1 => $liberacao) {
+      foreach ($liberacoes as $key1 => $liberacao) {
 
-            print "<ul class=\"todo-lis\">
-										 <li>
-								 
-											 <span class=\"handle\">
-                                             " . ($key1 + 1) . ") - <i class=\"fa fa-ellipsis-v\"></i>
-												 <i class=\"fa fa-ellipsis-v\"></i>
-											 </span>
-											 <span class=\"text\">
-											 
-												<a style=\"text-decoration:none;\" href=\"javascript:NovaJanela('index.php?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=ajuda&controller=conestoque&action=lembrete_liberacao&id=" . $liberacao['id_liberacao'] . "', 700, 400)\">
-														&nbsp;&nbsp;
-														&nbsp;&nbsp;<span style='font-size:12px;'>
-														Libera&ccedil;&atilde;o Nº: " . $liberacao['id_liberacao'] . " - " . DataMysql::dataVisual($liberacao['dataLibera']) . "</a>
-                			             	</span>
-											 </span>
-											 <small class=\"label label-danger\"><i class=\"fa fa-clock-o\"></i> - liberado há " . FuncaoBase::DiferencaDt(date('Y-m-d'), $liberacao['dataLibera'], 'd') . "  dia(s)</small>
-											 
-										 </li>
-									 </ul>";
-        }
+      print "<ul class=\"todo-lis\">
+      <li>
 
-    //$login->acessoLembreteTransito($_COOKIE['seguranca']['login'], $_COOKIE['seguranca']['id_deposito'])*/
+      <span class=\"handle\">
+      " . ($key1 + 1) . ") - <i class=\"fa fa-ellipsis-v\"></i>
+      <i class=\"fa fa-ellipsis-v\"></i>
+      </span>
+      <span class=\"text\">
+
+      <a style=\"text-decoration:none;\" href=\"javascript:NovaJanela('index.php?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=ajuda&controller=conestoque&action=lembrete_liberacao&id=" . $liberacao['id_liberacao'] . "', 700, 400)\">
+      &nbsp;&nbsp;
+      &nbsp;&nbsp;<span style='font-size:12px;'>
+      Libera&ccedil;&atilde;o Nº: " . $liberacao['id_liberacao'] . " - " . DataMysql::dataVisual($liberacao['dataLibera']) . "</a>
+      </span>
+      </span>
+      <small class=\"label label-danger\"><i class=\"fa fa-clock-o\"></i> - liberado há " . FuncaoBase::DiferencaDt(date('Y-m-d'), $liberacao['dataLibera'], 'd') . "  dia(s)</small>
+
+      </li>
+      </ul>";
+      }
+
+      //$login->acessoLembreteTransito($_COOKIE['seguranca']['login'], $_COOKIE['seguranca']['id_deposito']) */
     ?>
 </div> 
 <div class="col-md-4 text-center" style='color:red'> 
     <legend>AVISOS / MENSAGENS</legend>
 
-<?php
-MensagemSistema::mostraMensagem();
-?>
+    <?php
+    MensagemSistema::mostraMensagem();
+    ?>
 
 
 </div> 
@@ -83,23 +83,41 @@ MensagemSistema::mostraMensagem();
          }*/
 
 
+        /*Swal.fire({
+         title: '<strong>UPLOAD arquivos SDC</u></strong>',
+         icon: 'info',
+         html:
+         'Antes de salvar seu documento WORD no formato PDF, faça a Compressão da Imagens, ' +
+         '<br>' +
+         '<a href="<?= FuncaoBase::geraLink('doc', 'doc', 'compdec') ?>">Clique aqui e Consulte o Manual</a>',
+         showCloseButton: true,
+         showCancelButton: true,
+         focusConfirm: false,
+         confirmButtonText:
+         '',
+         confirmButtonAriaLabel: 'Thumbs up, great!',
+         cancelButtonText:
+         '',
+         cancelButtonAriaLabel: 'Thumbs down'
+         });*/
+
         Swal.fire({
-            title: '<strong>UPLOAD arquivos SDC</u></strong>',
-            icon: 'info',
-            html:
-                    'Antes de salvar seu documento WORD no formato PDF, faça a Compressão da Imagens, ' +
-                    '<br>' +
-                    '<a href="<?= FuncaoBase::geraLink('doc', 'doc', 'compdec') ?>">Clique aqui e Consulte o Manual</a>',
-            showCloseButton: true,
-            showCancelButton: true,
-            focusConfirm: false,
-            confirmButtonText:
-                    '',
-            confirmButtonAriaLabel: 'Thumbs up, great!',
-            cancelButtonText:
-                    '',
-            cancelButtonAriaLabel: 'Thumbs down'
-        });
+         title: '<strong>PEDIDOS DE AJUDA HUMANITÁRIA</u></strong>',
+         width: 700,
+         icon: 'info',
+         html:
+         'PREZADOS COORDENADORES, AGORA OS PEDIDOS DE AJUDA HUMANITÁRIA DEVERÃO SER ENVIADOS SOMENTE PELO SDC,  ' +
+         '<br>' +
+         ' ACESSE O MODULO <b>"PEDIDO DE AJUDA HUMANITÁRIA"</b> ' +
+         '<br>'+
+         '<a href="<?= FuncaoBase::geraLink('doc', 'doc', 'index') ?>">Clique aqui e Consulte o Manual </a>',
+         showCloseButton: true,
+         returnFocus: true,
+         confirmButtonAriaLabel: 'Thumbs up, great!',
+         cancelButtonText: 'Cancelar',
+         cancelButtonAriaLabel: 'Thumbs down'
+         });
+
 
     });
 </script>

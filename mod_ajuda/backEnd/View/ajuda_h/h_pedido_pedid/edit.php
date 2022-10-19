@@ -55,10 +55,10 @@ if( $secao == 'DLOG' || $secao == "CHEFIA" || $id_usuario == 1 &&  $view[0]['sta
 
 $parecer_favoravel = "";
 $aviso_sit ="";
-    if($view[0]['status'] == 2){
+    /*if($view[0]['status'] == 1 && ($ped)){
         $parecer_favoravel = "Parecer Favorável do Analista da DLOG";
         $aviso_sit = "<p class='alert alert-danger'>PROCESSO COM PARECER FAVORÁVEL DO ANALISTA DA DLOG.<br> clique em \"Material do Pedido\" para verificar os despachos.</p>";
-    }elseif($view[0]['status'] == 3){
+    }else*/if($view[0]['status'] == 2){
         $parecer_favoravel = "Parecer Favorável do Coordenador Adjunto";
         $aviso_sit = "<p class='alert alert-danger'>PROCESSO APROVADO PELO(S) GESTORES DA CEDEC.<br> clique em <a id='aviso_sit'>\"Material do Pedido\"</span> para verificar os despachos</p>";
     }
@@ -418,6 +418,7 @@ $aviso_sit ="";
                     <label>Despacho :</label><span id="span_caracteres">Caracteres Restantes : 255</span>
                     <textarea rows='5' id="text_despacho" class='form form-control' maxlength="255"></textarea>
                     <input type="hidden" id="secao" value="<?=$secao?>">
+                    <input type="hidden" id="tramit_parecer" value="<?=($secao == 'CHEFIA') ? 'analise_coord' : 'analise_dlog' ?>">
 
                 </div>
                 <!-- Diretores poderão dar o parecer -->
@@ -450,14 +451,14 @@ $aviso_sit ="";
     <div class="col-md-9" id="tramitar">
         <br><br>
         <select class="form form-control" name="sel_tramitar" id="sel_tramitar">
-            
+            <option>Selecione a Seção para Tramitar</option>
             <?php
             
             /* status (ANALISE DLOG) enviar para o compdec*/
             if($view[0]['status'] == 1){
                 print "<option value='0' data-status='edicao_compdec'>Enviar para COMPDEC</option>";
             /*status ( APROVADO ) */    
-            }elseif($view[0]['status'] == 3){
+            }elseif($view[0]['status'] == 2){
                 print "<option value='".$view[0]['status']."' data-status='".$view[0]['tramit']."'>".H_pedido_pedidajuda_hModel::enumFase($view[0]['tramit'])."</option>";
                 print "<option value='4' data-status='aguard_disp'>Aguard. Disponibilidade Material</option>";
                 print "<option value='1' data-status='analise_dlog' >Analista DLOG</option>";
@@ -714,6 +715,7 @@ $aviso_sit ="";
             var id_usuario = '<?= $id_usuario ?>';
             var id_pedido = '<?= $view[0]['id'] ?>';
             var text_despacho = $("#text_despacho").val();
+            var tramit_parecer = $("#tramit_parecer").val();
             var secao = $("#secao").val();
             var parecer;
 
@@ -733,6 +735,7 @@ $aviso_sit ="";
             formData.append('parecer', text_despacho);
             formData.append('id_usuario', id_usuario);
             formData.append('parecer_sit', parecer);
+            formData.append('tramit_parecer', tramit_parecer);
             formData.append('secao', secao);
 
             $.ajax({
@@ -748,7 +751,7 @@ $aviso_sit ="";
                         Swal.fire('Despacho gravado com sucesso !').then(function () {
                             //$('#html1').jstree("select_node", show_material_pedido, true);
                             var status = <?=$view[0]['status']?>;
-                            console.log(status);
+                            
                             if(status == 3) {
                                 $('#editar_pedido').css('color', '#27AE60');
                                 //$('#processo').text($('#processo').text().substring(0, $('#processo').text().search(":"))+" (Processo com Parecer Favorável pelo Coordenador Adjunto)");
@@ -873,6 +876,7 @@ $aviso_sit ="";
                 success: function (response) {
                     console.log(response);
                     Swal.fire('Registro Salvo com Sucesso !').then(function () {
+                        window.location.reload();
                         $('#html1').jstree("select_node", show_material_pedido, true);
                     });
                 },

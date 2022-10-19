@@ -148,12 +148,14 @@ private $tramit_parecer = null;
 id_pedido,
 data_parecer,
 parecer,
-parecer_sit 
+parecer_sit,
+tramit_parecer
 ) VALUES (:id_usuario,
 :id_pedido,
 :data_parecer,
 :parecer,
-:parecer_sit 
+:parecer_sit,
+:tramit_parecer
 )";
 
         try {
@@ -165,8 +167,7 @@ parecer_sit
             $result->bindValue(":data_parecer", DataMysql::dataCompletaForm($dados['data_parecer']));
             $result->bindValue(":parecer", nl2br($dados['parecer']));
             $result->bindValue(":parecer_sit", $dados['parecer_sit']);
-
- 
+            $result->bindValue(":tramit_parecer", $dados['tramit_parecer']);
             $result->execute();
 
             #Log::GravaLog("Cadastro de marca : " . $dados['nome'] . " " . $_COOKIE['seguranca']['login'], "aju_log");
@@ -453,8 +454,8 @@ aju_h_pedido_an_tec.tramit_parecer
 *
 * Lista de pareceer tecnido dos pedidos 
 */
-    public static function listAnalise($id_pedido){
-        
+    public static function listAnalise($id_pedido, $secao = null){
+       
         $con = Conexao::getInstance();
         
         $dado = array();
@@ -546,6 +547,36 @@ aju_h_pedido_an_tec.tramit_parecer
                 $result->execute();
 
                 return true;
+            } catch (Exception $e) {
+                return $e->getMessage() . "Erro lancamento de historico de tramit !";
+            }
+    
+    
+    }
+    
+    
+    /**
+     * BUSCAR SECAO DE USUARIO DO PARECER
+     * @param data_tramit - 
+     * @param id_pedido   -
+     * @param id_usuario  -
+     * @param tipo        -
+     */
+    public static function getSecaoUser($id_usuario){
+    
+        $con = Conexao::getInstance();
+        
+        $sql = "select cedec_funcionario.secao from
+                    cedec_funcionario 
+                    inner join cedec_usuario
+                    on cedec_funcionario.id = cedec_usuario.id_funcionario
+                    and cedec_usuario.id_usuario = {$id_usuario}";
+
+            try {
+
+                $result = $con->query($sql);
+                
+                return $result->fecthAll();
             } catch (Exception $e) {
                 return $e->getMessage() . "Erro lancamento de historico de tramit !";
             }

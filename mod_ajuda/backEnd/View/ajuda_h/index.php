@@ -10,6 +10,12 @@
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php"; ?>
 <link rel="stylesheet" href="template/bower_components/datatables.net-bs/css/dataTables.bootstrap.css">
+<style>
+    .removeStyle{
+        all:revert;
+    }
+    
+</style>
 <?php
 $id_municipio = isset($pageSession['session']['seguranca']['id_municipio']) ? $pageSession['session']['seguranca']['id_municipio'] : "";
 
@@ -27,11 +33,13 @@ $listaPedido1 = $pedido_h->listaPedidosTodos();
 $data = array();
 
 foreach ($listaPedido1 as $key => $pedido) {
-    $data[] = $pedido;
+    $data[$key] = $pedido;
+    $data[$key]['tramit'] = $pedido_h->enumFase($pedido['tramit']);
+    $data[$key]['data_entrada_sistema'] = DataMysql::dataCompletaVisual($pedido['data_entrada_sistema']);
+    $data[$key]['data_hora_envio'] = DataMysql::dataCompletaVisual($pedido['data_hora_envio']);
     
     $percent = number_format(((H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedido['id']) * 100 ) != 0 ) ? (H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedido['id']) * 100) / H_pedido_prestajuda_hModel::totalMaterialPrestConta($pedido['id']) : 0, '2', '.', ' ');
 }
-
 
 //$data = array('data'=> $data);
 $response = json_encode($data);
@@ -295,6 +303,7 @@ $response = json_encode($data);
             api.columns()
                     .eq(0)
                     .each(function (colIdx) {
+                        
                     // Set the header cell to contain the input element
                     var cell = $('.filters th').eq(
                             $(api.column(colIdx).header()).index()
@@ -303,7 +312,7 @@ $response = json_encode($data);
                     //$(cell).html('<input type="text" placeholder="' + title + '" />');
                     if ($(api.column(colIdx).header()).index() >= 0) {
                         if(colIdx <= 5){
-                           $(cell).html('<input type="text" name="notNormaliza" placeholder="' + title + '"/>');
+                           $(cell).html('<input type="text" name="notNormaliza" class="removeStyle" placeholder="' + title + '"/>');
                         }
                     }
 

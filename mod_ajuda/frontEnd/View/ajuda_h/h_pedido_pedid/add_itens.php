@@ -130,7 +130,7 @@ foreach ($materiaisItens as $key => $material) {
     </div>
     <div class="col-md-12 text-right">
                 <br>
-                <a class="btn btn-success" href='<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit", array('id' => $id_pedido, 'voltar'=>'idx_recente')); ?>'>Voltar</a>  
+                <a class="btn btn-success" href='<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit", array('id' => $id_pedido, 'voltar'=>'idx_recente', 'final' =>'final')); ?>'>Prosseguir</a>  
             </div>
 </div>
 <?php include_once "template/page/corpoRodape.php"; ?>

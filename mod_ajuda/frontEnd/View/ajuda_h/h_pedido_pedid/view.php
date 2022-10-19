@@ -225,8 +225,8 @@ if (count($analise_drd) > 0) {
     foreach ($analise_drd as $key => $an_drd) {
 
         print "<div class='row'>";
-        print "<div class='col-md-1'>";
-        print "#" . ($key + 1) . "<p>" . DataMysql::dataVisual($an_drd['data_parecer']) . "</p>";
+        print "<div class='col-md-1 border'>";
+        print "#" . ($key + 1) .  ") " . DataMysql::dataVisual($an_drd['data_parecer']);
         print "</div>";
 
         print "<div class='col-md-11'>";
@@ -244,7 +244,7 @@ if (count($analise_dlog) > 0) {
 
         print "<div class='row'>";
         print "<div class='col-md-1'>";
-        print "#" . ($key + 1) . "<p>" . DataMysql::dataVisual($an_dlog['data_parecer']) . "</p>";
+        print "#" . ($key + 1) .  ") ".DataMysql::dataVisual($an_dlog['data_parecer']);
         print "</div>";
 
         print "<div class='col-md-11'>";
@@ -261,8 +261,8 @@ if (count($analise_coord) > 0) {
     foreach ($analise_coord as $key => $an_coord) {
 
         print "<div class='row'>";
-        print "#" . ($key + 1) . "<div class='col-md-1'>";
-        print "<p>" . DataMysql::dataVisual($an_coord['data_parecer']) . "</p>";
+        print "<div class='col-md-1'>";
+        print "#" . ($key + 1) . ") " . DataMysql::dataVisual($an_coord['data_parecer']);
         print "</div>";
 
         print "<div class='col-md-11'>";

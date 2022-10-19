@@ -177,7 +177,6 @@ $(document).ready(function() {
     $("a[name=envia_analise]").click(function(){
 
         var formData = new FormData();
-        
         var id_pedido = $(this).data('id_pedido');
               
         formData.append('opcao', 'envia_pedido');

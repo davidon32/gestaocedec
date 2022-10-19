@@ -126,8 +126,11 @@ class h_pedido_pedidController extends Controller {
     #visualizar registro
 
     public function view() {
-         $h_pedido_pedidModel = $this->h_pedido_pedid;
+        $h_pedido_pedidModel = $this->h_pedido_pedid;
+        
         $view = $this->h_pedido_pedid->view($_GET['id']);
+              
+        
         include_once 'mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/view.php';
     }
 
@@ -192,7 +195,10 @@ class h_pedido_pedidController extends Controller {
     public function view_pedido(){
         
         $view = $this->h_pedido_pedid->view($_GET['id']);
+        $parecer_tec = H_pedido_an_tecajuda_hModel::lista($$_GET['id']);
         
+        var_dump($parecer_tec);
+
         include_once 'mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/view_pedido.php';
         
     }

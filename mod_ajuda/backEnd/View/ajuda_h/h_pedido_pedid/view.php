@@ -156,6 +156,8 @@
             </tr>
             <?php
             $materiais_original = H_pedido_pedidajuda_hModel::item_pedido_original($view[0]['id']);
+            
+            if(is_array($materiais_original)){
 
             foreach ($materiais_original as $key => $material) {
 
@@ -165,6 +167,7 @@
                 print "<td class='col-md-5'>" . $material['descricao_item'] . "</td>";
                 print "<td class='col-md-1'>" . $material['qtd'] . "</td>";
                 print "<td class='col-md-2'>" . $material['qtd_familia_atendida'] . "</td>";
+            }
             }
             ?>
 
@@ -334,6 +337,7 @@ if (count($analise_coord) > 0) {
 </div>
 <div id='print_pedido'>
     <?php
+    
     include('view_pedido.php');
     ?>
 
