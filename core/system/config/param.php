@@ -24,6 +24,7 @@
   
   
   $lista_devedores = array(
+
 "40"  , //ACAIACA",
 "100" , //AGUAS VERMELHAS",
 "170" , //ALMENARA",

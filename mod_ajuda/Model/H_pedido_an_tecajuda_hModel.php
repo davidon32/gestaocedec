@@ -145,18 +145,16 @@ private $tramit_parecer = null;
 
 
         $sql = "INSERT INTO aju_h_pedido_an_tec (id_usuario,
-id_pedido,
-data_parecer,
-parecer,
-parecer_sit,
-tramit_parecer
-) VALUES (:id_usuario,
-:id_pedido,
-:data_parecer,
-:parecer,
-:parecer_sit,
-:tramit_parecer
-)";
+                                                id_pedido,
+                                                data_parecer,
+                                                parecer,
+                                                parecer_sit,
+                                                tramit_parecer) VALUES (:id_usuario,
+                                                                        :id_pedido,
+                                                                        :data_parecer,
+                                                                        :parecer,
+                                                                        :parecer_sit,
+                                                                        :tramit_parecer)";
 
         try {
 

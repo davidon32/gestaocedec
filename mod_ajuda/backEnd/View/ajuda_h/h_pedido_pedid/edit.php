@@ -59,8 +59,8 @@ $aviso_sit ="";
         $parecer_favoravel = "Parecer Favorável do Analista da DLOG";
         $aviso_sit = "<p class='alert alert-danger'>PROCESSO COM PARECER FAVORÁVEL DO ANALISTA DA DLOG.<br> clique em \"Material do Pedido\" para verificar os despachos.</p>";
     }else*/if($view[0]['status'] == 2){
-        $parecer_favoravel = "Parecer Favorável do Coordenador Adjunto";
-        $aviso_sit = "<p class='alert alert-danger'>PROCESSO APROVADO PELO(S) GESTORES DA CEDEC.<br> clique em <a id='aviso_sit'>\"Material do Pedido\"</span> para verificar os despachos</p>";
+        $parecer_favoravel = "Parecer Favorável do Analista DLOG";
+        $aviso_sit = "<p class='alert alert-danger'>PROCESSO FAVORÁVEL PELO(S) ANALISTA DA DLOG .<br> clique em <a id='aviso_sit'>\"Material do Pedido\"</span> para verificar os despachos</p>";
     }
 
 ?>
@@ -874,7 +874,7 @@ $aviso_sit ="";
                 processData: false, // tell jQuery not to process the data
                 contentType: false, // tell jQuery not to set contentType
                 success: function (response) {
-                    console.log(response);
+                    //console.log(response);
                     Swal.fire('Registro Salvo com Sucesso !').then(function () {
                         window.location.reload();
                         $('#html1').jstree("select_node", show_material_pedido, true);
