@@ -123,7 +123,7 @@ $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
             <div class='row'>
                 <div class='col-md-2'>
                     <label>População Atendida</label>
-                    <input type="text" class='form form-control' name='pop_atendida' id='pop_atendida' value='<?= $view[0]['pop_atendida'] ?>'  maxlength='-1' required>
+                    <input type="number" class='form form-control' name='pop_atendida' id='pop_atendida' value='<?= $view[0]['pop_atendida'] ?>'  max='1000' required>
                 </div>
             </div>
             <div class='row'>
@@ -212,8 +212,8 @@ $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
                         print "<td>" . $material['qtd'] . "</td>";
                         print "<td>" . $material['qtd_familia_atendida'] . "</td>";
                         print "<td>";
-                        print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'add_itens', array('id_pedido' => $view[0]['id'], 'id_material' => $material['id'], 'voltar' => 'idx_recente')) . "'><img src='/core/imagem/editar.png'></a>";
-                        print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_itens', 'delete', array('id' => $material['id'], 'action1' => 'edit', 'id_pedido' => $view[0]['id'], 'voltar' => 'edit_ped')) . "'><img src='/core/imagem/delete.png'></a>";
+                        print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'add_itens', array('id' => $view[0]['id'], 'id_material' => $material['id'], 'voltar' => 'idx_recente')) . "'><img src='/core/imagem/editar.png'></a>";
+                        print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_itens', 'delete', array('id' => $material['id'], 'action1' => 'edit', 'id' => $view[0]['id'], 'voltar' => 'edit_ped')) . "'><img src='/core/imagem/delete.png'></a>";
 
                         print "</td>";
                         print "</tr>";
@@ -430,7 +430,7 @@ $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
             $("#data_entrada_sistema").datepicker("destroy");
 
             $("#add_material").click(function () {
-                window.location.href = '<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "add_itens", array('id_pedido' => $view[0]['id'], 'voltar' => 'idx_recente')) ?>';
+                window.location.href = '<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "add_itens", array('id' => $view[0]['id'], 'voltar' => 'idx_recente')) ?>';
             });
 
             $("#upload_arquivos").hover(function () {

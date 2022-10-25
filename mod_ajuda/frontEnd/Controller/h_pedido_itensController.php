@@ -102,13 +102,12 @@ class h_pedido_itensController extends Controller {
     public function gravar() {     
         
         $h_pedido_itens = new H_pedido_itensajuda_hModel;
-        
-        
+               
         if ($h_pedido_itens->gravar($_POST, true)) {
             FuncaoBase::alert("Material Adicionado ao Pedido !");
 
             if($_GET['voltar']== 'idx_recente'){
-                $this->redirect("ajuda", "h_pedido_pedid", "add_itens", array('id_pedido'=>$_POST['id_pedido'], 'voltar'=>'idx_recente'));
+                $this->redirect("ajuda", "h_pedido_pedid", "add_itens", array('id'=>$_POST['id_pedido'], 'voltar'=>'idx_recente'));
             }else {
                 //$this->redirect("ajuda", "h_pedido_itens", "cadastro", array('id'=>$_POST['id']));
             }

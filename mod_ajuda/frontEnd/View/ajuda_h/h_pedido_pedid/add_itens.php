@@ -22,17 +22,7 @@ if(isset($_GET['id_material'])){
     $id_material = "edit";
 }
 
-
-if (isset($id)) {
-    $id_pedido = (int) $_GET['id_pedido'];
-} else {
-    print "erro de acesso a pagina !";
-    die();
-}
-
-
-
-$materiaisItens = H_pedido_pedidajuda_hModel::item_pedido($id_pedido);
+$materiaisItens = H_pedido_pedidajuda_hModel::item_pedido($id);
 
 ?>    
 <div class="container-fluid">
@@ -52,7 +42,7 @@ foreach ($materiais as $material) {
 ?>
  </select>
                     <input type="hidden" name="codigo" id="codigo" value="<?= isset($dados_editar[0]['codigo']) ? $dados_editar[0]['codigo'] : "" ?>">
-                    <input type="hidden" name="id_pedido" id="id_pedido" value="<?= $id_pedido; ?>">
+                    <input type="hidden" name="id_pedido" id="id_pedido" value="<?= $id; ?>">
                     
                     <!-- id itens_pedido -->
                     <input type="hidden" name="id" id="id" value="<?= isset($dados_editar[0]['id']) ? $dados_editar[0]['id'] :"" ?>">
@@ -116,7 +106,7 @@ foreach ($materiaisItens as $key => $material) {
     print "<td class='col-md-2'>" . $material['qtd_familia_atendida'] . "</td>";
     print "<td class='col-md-1'>";
     print "<img id='editar' src='/core/imagem/editar.png'>";
-    print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_itens', 'delete', array('id' => $material['id'], 'id_pedido' => $id_pedido, 'voltar'=>'edit_ped')) . "'><img src='/core/imagem/delete.png'></a>";
+    print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_itens', 'delete', array('id' => $material['id'], 'id_pedido' => $id, 'voltar'=>'edit_ped')) . "'><img src='/core/imagem/delete.png'></a>";
     print "</td>";
     print "</tr>";
 }
@@ -130,7 +120,7 @@ foreach ($materiaisItens as $key => $material) {
     </div>
     <div class="col-md-12 text-right">
                 <br>
-                <a class="btn btn-success" href='<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit", array('id' => $id_pedido, 'voltar'=>'idx_recente', 'final' =>'final')); ?>'>Prosseguir</a>  
+                <a class="btn btn-success" href='<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit", array('id' => $id, 'voltar'=>'idx_recente', 'final' =>'final')); ?>'>Prosseguir</a>  
             </div>
 </div>
 <?php include_once "template/page/corpoRodape.php"; ?>

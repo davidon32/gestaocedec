@@ -119,7 +119,7 @@ $dados = Municipio::dadosMunicipio($id_municipio);
 <div class='row'>
 <div class='col-md-2'>
 <label>População a ser Atendida</label>
-<input type="text" class='form form-control' name='pop_atendida' id='pop_atendida' maxlength='' required >
+<input type="number" class='form form-control' name='pop_atendida' id='pop_atendida' max='1000' required >
 </div>
 </div>
 <div class='row'>

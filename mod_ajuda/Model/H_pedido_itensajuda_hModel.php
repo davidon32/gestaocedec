@@ -165,7 +165,7 @@ private $qtd_familia_atendida = null;
 
         try {
             
-            /* tipo P - pedido lavado pelo municipio
+            /* tipo P - pedido lancado pelo municipio
                tipo L - a ser liberado / alterado pelo pelo analista
              *              */
             if($duplo) {
@@ -176,8 +176,11 @@ private $qtd_familia_atendida = null;
                 $result->bindValue(":qtd_familia_atendida", $dados['qtd_familia_atendida']);
                 $result->bindValue(":id_pedido", $dados['id_pedido']);
                 $result->bindValue(":tp_item", $dados['tipo']);
+                $result->execute();
+                
                 $result->bindValue(":tp_item", "L");
                 $result->execute();
+                
             }else {
                 $result = $con->prepare($sql);
                 $result->bindValue(":codigo", $dados['codigo']);

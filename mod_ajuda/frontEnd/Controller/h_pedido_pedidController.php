@@ -118,7 +118,7 @@ class h_pedido_pedidController extends Controller {
         if($result['result']){
             FuncaoBase::alert("Registro Gravado com Sucesso !");
             print "<script>";
-            print "window.location.href = '". FuncaoBase::geraLink("ajuda", "h_pedido_itens", "cadastro", array("id" => $result['id'], "voltar"=>"idx_recente"))."'";
+            print "window.location.href = '". FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "add_itens", array("id" => $result['id'], "voltar"=>"idx_recente"))."'";
             print "</script>";
         }else {
             FuncaoBase::alert("Ocorreu um erro ao gravar o Pedido !");
