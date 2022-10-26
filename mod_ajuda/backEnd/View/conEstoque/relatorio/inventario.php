@@ -84,7 +84,6 @@
 
 <?php
 
-    var_dump($_POST);
     $id_deposito = isset($_POST['id_deposito']) ? $_POST["id_deposito"] : "";
     
     $dataInventario = isset($_POST['txtDtInicial']) ? DataMysql::dataForm($_POST["txtDtInicial"]) : "";
@@ -98,12 +97,16 @@
     
     $_relatorioAjuda = new RelatorioAju();
 
+    /* relatorio deposito especifico */
     if(empty($dataInventario) || $dataInventario == date('Y/m/d')){
         $dados = $_relatorioAjuda->inventarioGeral($id_deposito);
+        //var_dump($dados[0]);
     }else {
+        
         $linha = "<td>". DataMysql::dataVisual($dataInventario)."</td>";
         $dados = $_relatorioAjuda->inventarioGeralSaldoAnterior($id_deposito, $dataInventario);
     }
+    
     
     
 

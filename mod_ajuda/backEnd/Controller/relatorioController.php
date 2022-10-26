@@ -21,6 +21,16 @@ include_once(MODEL_AJUDA_BACKEND.'/AjudaRelatorioModel.php');
         public function form_busca_invet_libera(){
             include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/form_busca_invet_libera.php';
         }
+        
+        /* FILTRO INVENTARIO DE MATERIAIS RELATORIO GERENCIAL */
+        public function form_busca_invet_libera_gerencial(){
+            include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/form_busca_invet_libera_gerencial.php';
+        }
+        /* INVENTARIO DE MATERIAIS  GERENCIAL */
+        public function inventario_gerencial(){
+            include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/inventario_gerencial.php';
+        }
+        
         /* INVENTARIO DE MATERIAIS */
         public function inventario(){
             include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/inventario.php';

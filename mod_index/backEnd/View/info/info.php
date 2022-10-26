@@ -15,7 +15,7 @@
 
     <div class="col-md-4">
        
-        <p><a href='<?=FuncaoBase::geraLink("ajuda", "relatorio", "form_busca_invet_libera", array('voltar'=>'menu'))?>' title='Saldo de MAH'><img width="45px" src='core/imagem/estoque/estoque.png'>&nbsp Estoque MAH</a></p>
+        <p><a href='<?=FuncaoBase::geraLink("ajuda", "relatorio", "form_busca_invet_libera_gerencial", array('voltar'=>'menu'))?>' title='Saldo de MAH'><img width="45px" src='core/imagem/estoque/estoque.png'>&nbsp Estoque MAH</a></p>
         
     </div>
     <div class="col-md-4">
