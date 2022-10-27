@@ -200,7 +200,10 @@
                 $("table tr[name='lk_material']").click(function(){
                     var key1 = $(this).data('key');
                     $(this).addClass('danger');
-                    $("table tr[name='lk_material']").css({"font-style": "normal", "font-weight": "normal"})
+                    $("table tr[name='lk_material']").css({"font-style": "normal", "font-weight": "normal"}).addClass('info');
+                    $("table tr[name='lk_material']").removeClass('danger');
+                    $("table tr[name='lk_material']").addClass('info');
+
                     $(this).css({"font-style": "italic", "font-weight": "bold"});
                     $('#tes'+key1).addClass('danger');
                     $('#tes'+key1).toggle();
