@@ -66,7 +66,7 @@ $pedido_h_item = new H_pedido_itensajuda_hModel();
                 <span style="background-color: #FE642E">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
                 &nbsp; Coord. Adjunto(a).<br>
                 
-                <span style="background-color: #4B8A08;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+                <span style="background-color: #90EE90;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
                 &nbsp; Atendido ( Aguardando Prestação de Contas ).<br>
                 
                 <span style="background-color: #B40404;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>

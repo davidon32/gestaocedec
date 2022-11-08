@@ -149,8 +149,7 @@ class h_pedido_pedidController extends Controller {
 
         if ($this->isPost()) {
 
-            $result = $h_pedido_pedidModel->edit($_POST);
-            
+            $result = $h_pedido_pedidModel->edit($_POST);         
 
             //var_dump($result);
             if (!empty($result)) {

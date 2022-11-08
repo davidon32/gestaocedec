@@ -14,7 +14,7 @@
     .removeStyle{
         all:revert;
     }
-    
+
 </style>
 <?php
 $id_municipio = isset($pageSession['session']['seguranca']['id_municipio']) ? $pageSession['session']['seguranca']['id_municipio'] : "";
@@ -37,16 +37,30 @@ foreach ($listaPedido1 as $key => $pedido) {
     $data[$key]['tramit'] = $pedido_h->enumFase($pedido['tramit']);
     $data[$key]['data_entrada_sistema'] = DataMysql::dataCompletaVisual($pedido['data_entrada_sistema']);
     $data[$key]['data_hora_envio'] = DataMysql::dataCompletaVisual($pedido['data_hora_envio']);
-    
+
     $percent = number_format(((H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedido['id']) * 100 ) != 0 ) ? (H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedido['id']) * 100) / H_pedido_prestajuda_hModel::totalMaterialPrestConta($pedido['id']) : 0, '2', '.', ' ');
 }
 
 //$data = array('data'=> $data);
 $response = json_encode($data);
 ?>	
-<div class="col-md-12 text-center">
+<div class="col-md-6 text-center">
     <a class="btn btn-success" href="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')) ?>&modulo=ajuda&controller=index&action=index">Voltar</a>
 </div>
+<div class="col-md-6 text-center">
+    <?php
+    include('core/system/config/param.php');
+    $lista = "<i class=\"fa fa-thumbs-down\"></i>";
+
+    foreach ($lista_devedores as $key => $value) {
+        $lista .= "<i class=\"fa fa-thumbs-down\">&nbsp;&nbsp;".($key+1)."&nbsp;</i>".Municipio::PegaNomeMunicipio($value) . "<br>";
+    }
+    ?>
+    <input type="button" class='btn btn-success' id='btn_lista' value="Lista de Municípios Impedidos" />
+
+
+</div>
+
 <div class="col-md-12">
     <div class="row">
         <div class="col-md-12">
@@ -56,87 +70,87 @@ $response = json_encode($data);
                 <a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "config_ajuda") ?>" title="Cadastro Analistas">Configurações</a>
             </div>
             <div class="col-md-3">
- <!--               <h3>Legenda</h3>
-                <img width="25" src='/core/imagem/cedec.png'>     
-                    &nbsp; Permissão de Despacho DRD. <br>
-
-                <img width="25" src='/core/imagem/dlog.png'>     
-                &nbsp; Permissão de Despacho DLOG. <br>
-
-<!--                <img width="25" src='/core/imagem/boss.png'>     
-&nbsp; Permissão de Despacho do Coord. Adjunto. <br>
+                <!--               <h3>Legenda</h3>
+                               <img width="25" src='/core/imagem/cedec.png'>     
+                                   &nbsp; Permissão de Despacho DRD. <br>
+               
+                               <img width="25" src='/core/imagem/dlog.png'>     
+                               &nbsp; Permissão de Despacho DLOG. <br>
+               
+               <!--                <img width="25" src='/core/imagem/boss.png'>     
+               &nbsp; Permissão de Despacho do Coord. Adjunto. <br>
+                           </div>
+                           <div class="col-md-3 text-left"><br>
+                               <span style="background-color: #F3E2A9;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+                               &nbsp; Em edição COMPDEC.<br>
+               
+                              <span style="background-color: #D8D8D8;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+               &nbsp; Análise DRD.<br>
+               
+                               <span style="background-color: #2E64FE;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+                               &nbsp; Análise DLOG.<br>
+               
+                               <span style="background-color: #FE642E">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+                               &nbsp; Diretor DLOG.<br>
+               
+                               <span style="background-color: #9F81F7;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+                               &nbsp; Aguardando Disponibilidade Material.<br>
+               
+                               <span style="background-color: #FFD700;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+                               &nbsp; Aguardando Retirada  .<br>
+               
+                               <span style="background-color: #4B8A08;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+                               &nbsp; Atendido ( Aguardando Prestação de Contas ).<br>
+               
+                               <span style="background-color: #B40404;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+                               &nbsp; Cancelado / Nulo.<br>
+               
+                           </div>-->
             </div>
-            <div class="col-md-3 text-left"><br>
-                <span style="background-color: #F3E2A9;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-                &nbsp; Em edição COMPDEC.<br>
-
-               <span style="background-color: #D8D8D8;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-&nbsp; Análise DRD.<br>
-
-                <span style="background-color: #2E64FE;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-                &nbsp; Análise DLOG.<br>
-
-                <span style="background-color: #FE642E">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-                &nbsp; Diretor DLOG.<br>
-
-                <span style="background-color: #9F81F7;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-                &nbsp; Aguardando Disponibilidade Material.<br>
-
-                <span style="background-color: #FFD700;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-                &nbsp; Aguardando Retirada  .<br>
-
-                <span style="background-color: #4B8A08;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-                &nbsp; Atendido ( Aguardando Prestação de Contas ).<br>
-
-                <span style="background-color: #B40404;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-                &nbsp; Cancelado / Nulo.<br>
-
-            </div>-->
+            <hr>
         </div>
-        <hr>
-    </div>
-    <div class="row">
-        <hr>
-        <br>
-        <div class="col-md-12 table-responsive">
-            <table id="pedidos" class="table table-bordered table-condensed table-responsive dataTable" >
-                <thead>
-                    <tr>
-                        <th>Número</th>
-                        <th>Município</th>
-                        <th>Data Criação</th>
-                        <th>Tipo</th>
-                        <th>Fase do Processo</th>
-                        <th>Data Envio Análise</th>
-                        <th>Opções</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>Número</th>
-                        <th>Município</th>
-                        <th>Data Criação</th>
-                        <th>Tipo</th>
-                        <th>Fase do Processo</th>
-                        <th>Data Envio Análise</th>
-                        <th>Opções</th>
-                    </tr>
-                </tfoot>
+        <div class="row">
+            <hr>
+            <br>
+            <div class="col-md-12 table-responsive">
+                <table id="pedidos" class="table table-bordered table-condensed table-responsive dataTable" >
+                    <thead>
+                        <tr>
+                            <th>Número</th>
+                            <th>Município</th>
+                            <th>Data Criação</th>
+                            <th>Tipo</th>
+                            <th>Fase do Processo</th>
+                            <th>Data Envio Análise</th>
+                            <th>Opções</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Número</th>
+                            <th>Município</th>
+                            <th>Data Criação</th>
+                            <th>Tipo</th>
+                            <th>Fase do Processo</th>
+                            <th>Data Envio Análise</th>
+                            <th>Opções</th>
+                        </tr>
+                    </tfoot>
 
-            </table>
+                </table>
+            </div>
         </div>
-    </div>
 
-    <!--<?php
+        <!--<?php
     /*
       $dadosConfig = Config::getConfig();
 
@@ -264,182 +278,198 @@ $response = json_encode($data);
 
 
 
-</table>
+        </table>
 
-</div>
+    </div>
 
-<!-- =================== RODAPE CORPO ==================== -->
+    <!-- =================== RODAPE CORPO ==================== -->
 <?php include_once "template/page/corpoRodape.php"; ?>
-<!-- =================== RODAPE  ======================== -->
-<?php include_once "template/page/rodape.php" ?>
-<?php include_once "template/page/barra_config_template.php"; ?>
-<!-- =============== HEADER HTML PAGE ================= -->
-<?php include_once "template/page/rodapePage.php"; ?>
-<script>
+    <!-- =================== RODAPE  ======================== -->
+    <?php include_once "template/page/rodape.php" ?>
+    <?php include_once "template/page/barra_config_template.php"; ?>
+    <!-- =============== HEADER HTML PAGE ================= -->
+    <?php include_once "template/page/rodapePage.php"; ?>
+    <script>
 
-    $(document).ready(function () {
-               
-    var data1 = <?= $response ?>;
-    $('#pedidos thead tr')
-            .clone(true)
-            .addClass('filters')
-            .appendTo('#pedidos thead');
-    
-    var users = [
-                {id_usuario:'<?=$id_usuario?>'},
-                {secao:'<?=$secao?>'},
-                ];
-    
-    /* LISTA DE PROCESSOS INDEX */
-    var table = $('#pedidos').DataTable({
-    orderCellsTop: true,
-            fixedHeader: true,
-            bFilter: true,
-            responsive: true,
-            data: data1,
-            initComplete: function () {
-            var api = this.api();
-            // For each column
-            api.columns()
-                    .eq(0)
-                    .each(function (colIdx) {
-                        
-                    // Set the header cell to contain the input element
-                    var cell = $('.filters th').eq(
-                            $(api.column(colIdx).header()).index()
-                            );
-                    var title = $(cell).text();
-                    //$(cell).html('<input type="text" placeholder="' + title + '" />');
-                    if ($(api.column(colIdx).header()).index() >= 0) {
-                        if(colIdx <= 5){
-                           $(cell).html('<input type="text" name="notNormaliza" class="removeStyle" placeholder="' + title + '"/>');
-                        }
-                    }
+        $(document).ready(function () {
 
-                    // On every keypress in this input
-                    $(
-                            'input',
-                            $('.filters th').eq($(api.column(colIdx).header()).index())
-                            )
-                            .off('keyup change')
-                            .on('change', function (e) {
-                            // Get the search value
-                            $(this).attr('title', $(this).val());
-                            var regexr = '({search})'; //$(this).parents('th').find('select').val();
+            $("#btn_lista").click(function () {
+                Swal.fire({
+                    title: '<strong>Lista de Municípios Impedidos de Realizar Pedidos de Ajuda Humanitária</strong>',
+                    icon: 'info',
+                    html:'<div class="text-left"'+
+                            '<?=$lista;?>'+
+                            '</div>',
+                    showCloseButton: true,
+                    focusConfirm: false,
+                    confirmButtonText:
+                            'Fechar',
+                    confirmButtonAriaLabel: 'Thumbs up, great!',
+                    cancelButtonAriaLabel: 'Thumbs down'
+                })
+            });
 
-                            //var cursorPosition = this.selectionStart;
-                            // Search the column for that value
-                            api
-                                    .column(colIdx)
-                                    .search(
-                                            this.value != ''
-                                            ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                            : '',
-                                            this.value != '',
-                                            this.value == ''
-                                            )
-                                    .draw();
-                            })
-                            .on('keyup', function (e) {
-                            e.stopPropagation();
-                            $(this).trigger('change');
-                            $(this)
-                                    .focus()[0];
-                            //.setSelectionRange(cursorPosition, cursorPosition);
+            var data1 = <?= $response ?>;
+            $('#pedidos thead tr')
+                    .clone(true)
+                    .addClass('filters')
+                    .appendTo('#pedidos thead');
+
+            var users = [
+                {id_usuario: '<?= $id_usuario ?>'},
+                {secao: '<?= $secao ?>'},
+            ];
+
+            /* LISTA DE PROCESSOS INDEX */
+            var table = $('#pedidos').DataTable({
+                orderCellsTop: true,
+                fixedHeader: true,
+                bFilter: true,
+                responsive: true,
+                data: data1,
+                initComplete: function () {
+                    var api = this.api();
+                    // For each column
+                    api.columns()
+                            .eq(0)
+                            .each(function (colIdx) {
+
+                                // Set the header cell to contain the input element
+                                var cell = $('.filters th').eq(
+                                        $(api.column(colIdx).header()).index()
+                                        );
+                                var title = $(cell).text();
+                                //$(cell).html('<input type="text" placeholder="' + title + '" />');
+                                if ($(api.column(colIdx).header()).index() >= 0) {
+                                    if (colIdx <= 5) {
+                                        $(cell).html('<input type="text" name="notNormaliza" class="removeStyle" placeholder="' + title + '"/>');
+                                    }
+                                }
+
+                                // On every keypress in this input
+                                $(
+                                        'input',
+                                        $('.filters th').eq($(api.column(colIdx).header()).index())
+                                        )
+                                        .off('keyup change')
+                                        .on('change', function (e) {
+                                            // Get the search value
+                                            $(this).attr('title', $(this).val());
+                                            var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                                            //var cursorPosition = this.selectionStart;
+                                            // Search the column for that value
+                                            api
+                                                    .column(colIdx)
+                                                    .search(
+                                                            this.value != ''
+                                                            ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                                            : '',
+                                                            this.value != '',
+                                                            this.value == ''
+                                                            )
+                                                    .draw();
+                                        })
+                                        .on('keyup', function (e) {
+                                            e.stopPropagation();
+                                            $(this).trigger('change');
+                                            $(this)
+                                                    .focus()[0];
+                                            //.setSelectionRange(cursorPosition, cursorPosition);
+                                        });
                             });
-                    });
-            },
-            'columns': [
-            {data: 'numero'},
-            {data: 'nome'},
-            {data: 'data_entrada_sistema'},
-            {data: 'tipo_decreto'},
-            {data: 'tramit'},
-            {data: 'data_hora_envio'},
-            {
-            'className':      '',
-                    orderable:      false,
-                    data:           null,
-                    defaultContent: '',
-                    render: function (data, type, row) {
-                    
-                        var links_opcoes = '<a href=\''+geraLink('ajuda', 'h_pedido_pedid', 'view', '<?=VERSAO?>', {id :data.id, voltar :'idx_recente'})+'\' title=\'Visualiação e Impressão do Pedido\'><img width=\'25px\' src=\'/core/imagem/view1.png\'></a>|';
-                         //return '-'+geraLink('ajuda', 'pedido', 'view', '123', {offset: 5, limit: 10 });
-                        
-                         /*##### EDITAR */
+                },
+                'columns': [
+                    {data: 'numero'},
+                    {data: 'nome'},
+                    {data: 'data_entrada_sistema'},
+                    {data: 'tipo_decreto'},
+                    {data: 'tramit'},
+                    {data: 'data_hora_envio'},
+                    {
+                        'className': '',
+                        orderable: false,
+                        data: null,
+                        defaultContent: '',
+                        render: function (data, type, row) {
+
+                            var links_opcoes = '<a href=\'' + geraLink('ajuda', 'h_pedido_pedid', 'view', '<?= VERSAO ?>', {id: data.id, voltar: 'idx_recente'}) + '\' title=\'Visualiação e Impressão do Pedido\'><img width=\'25px\' src=\'/core/imagem/view1.png\'></a>|';
+                            //return '-'+geraLink('ajuda', 'pedido', 'view', '123', {offset: 5, limit: 10 });
+
+                            /*##### EDITAR */
                             if (data.status > 0 && data.status <= 4 || users.id_usuario == 1 || users.secao == 'CHEFIA' || users.secao == 'DLOG') {
-                                links_opcoes += '<a href=\''+geraLink('ajuda', 'h_pedido_pedid', 'edit', '<?=VERSAO?>', {id:data.id, voltar:'idx_recente'})+'\' title=\'Editar Pedido\'><img src=\'/core/imagem/editar.png\'></a>';
+                                links_opcoes += '<a href=\'' + geraLink('ajuda', 'h_pedido_pedid', 'edit', '<?= VERSAO ?>', {id: data.id, voltar: 'idx_recente'}) + '\' title=\'Editar Pedido\'><img src=\'/core/imagem/editar.png\'></a>';
                                 //links_opcoes +='<button id=\'btnEdicao\' name=\'btnEdicao\' type=\'button\' data-enviar_edicao='+data.id+' class=\'btn btn-primart\'>Enviar Edição</button>';
                             }
-                        
-                        /*    ##### prestação de contas */
-                        if(data.status == 6 ) {
-                            links_opcoes += '<a href=\''+geraLink('ajuda', 'h_pedido_prest', 'index', '<?=VERSAO?>', {id: data.id})+'\' title=\'Presatação de contas\'><img width=\'25\' src=\'/core/imagem/relatorio.png\'></a>';
-                            links_opcoes += '&nbsp;&nbsp;<a href=\'\' style=\'color:#ffffff; font-size:14pt\' title=\'Percentual de Conclusão da Prestação de Contas do Pedido\'><?=$percent?>%</a> ';
+
+                            /*    ##### prestação de contas */
+                            if (data.status == 6) {
+                                links_opcoes += '<a href=\'' + geraLink('ajuda', 'h_pedido_prest', 'index', '<?= VERSAO ?>', {id: data.id}) + '\' title=\'Presatação de contas\'><img width=\'25\' src=\'/core/imagem/relatorio.png\'></a>';
+                                links_opcoes += '&nbsp;&nbsp;<a href=\'\' style=\'color:#ffffff; font-size:14pt\' title=\'Percentual de Conclusão da Prestação de Contas do Pedido\'><?= $percent ?>%</a> ';
+                            }
+
+
+
+                            /*
+                             ##### analise DRD
+                             #if ($permissao[0]['analista_drd'] == 1
+                             # && $pedid['status'] <= 3) {
+                             
+                             #  print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar' => 'idx_recente', 'an' => 'analise_drd'))."' title='Analise DRD'><img width='25' src='/core/imagem/cedec.png'></a>";
+                             #  }
+                             
+                             ##### analise_dlog
+                             if ($permissao[0]['analista_dlog'] == 1 && $pedid['status'] < 3) {
+                             
+                             print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar' => 'idx_recente', 'an' => 'analise_dlog'))."' title='Despacho DLOG'><img width='25' src='/core/imagem/dlog.png'></a>";
+                             }
+                             
+                             # analise_coord
+                             if (($permissao[0]['analista_coord'] == 1) && ($pedid['status'] == 3)) {
+                             print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar' => 'idx_recente', 'an' => 'analise_coord'))."' title='Despacho Coordenador Adjunto'><img width='25' src='/core/imagem/boss.png'></a>";
+                             }
+                             
+                             # Apos despacho do Chefe Dlog
+                             if (($pedid['status'] >= 4) && ($pedid['status'] <= 5)) {
+                             print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar' => 'idx_recente', 'an' => 'analise_coord'))."' title='Despacho Dlog'><img width='25' src='/core/imagem/dlog.png'></a>";
+                             }*/
+
+                            return links_opcoes;
+                        },
+                        width: "15px"
+                    }
+                ],
+            });
+            $("#btnEdicao").click(function () {
+                var result = confirm('Deseja enviar processo para COMPDEC ?');
+                var id_pedido = $(this).data('enviar_edicao');
+                if (result) {
+                    var formData = new FormData();
+                    formData.append('opcao', 'envia_edicao');
+                    formData.append('id_pedido', id_pedido);
+                    $.ajax({
+                        url: '/mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/ajax.php',
+                        type: 'POST',
+                        data: formData,
+                        processData: false, // tell jQuery not to process the data
+                        contentType: false, // tell jQuery not to set contentType
+                        success: function (response) {
+                            if (response == 'sucesso') {
+                                Swal.fire('Pedido enviado para Edição !');
+                                window.location.reload();
+                            }
+
+                        },
+                        error: function (response) {
                         }
-                       
-                        
-                               
-/*
-                        ##### analise DRD
-                                #if ($permissao[0]['analista_drd'] == 1
-                                        # && $pedid['status'] <= 3) {
-
-                        #  print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar' => 'idx_recente', 'an' => 'analise_drd'))."' title='Analise DRD'><img width='25' src='/core/imagem/cedec.png'></a>";
-                        #  }
-
-                        ##### analise_dlog
-                                if ($permissao[0]['analista_dlog'] == 1 && $pedid['status'] < 3) {
-
-                        print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar' => 'idx_recente', 'an' => 'analise_dlog'))."' title='Despacho DLOG'><img width='25' src='/core/imagem/dlog.png'></a>";
-                        }
-
-                        # analise_coord
-                                if (($permissao[0]['analista_coord'] == 1) && ($pedid['status'] == 3)) {
-                        print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar' => 'idx_recente', 'an' => 'analise_coord'))."' title='Despacho Coordenador Adjunto'><img width='25' src='/core/imagem/boss.png'></a>";
-                        }
-
-                        # Apos despacho do Chefe Dlog
-                                if (($pedid['status'] >= 4) && ($pedid['status'] <= 5)) {
-                        print "<a href='index.php".FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar' => 'idx_recente', 'an' => 'analise_coord'))."' title='Despacho Dlog'><img width='25' src='/core/imagem/dlog.png'></a>";
-                        }*/
-                        
-                        return links_opcoes;
-                    },
-                    width: "15px"
-            }
-            ],
-    });
-    $("#btnEdicao").click(function () {
-        var result = confirm('Deseja enviar processo para COMPDEC ?');
-        var id_pedido = $(this).data('enviar_edicao');
-        if (result) {
-        var formData = new FormData();
-        formData.append('opcao', 'envia_edicao');
-        formData.append('id_pedido', id_pedido);
-        $.ajax({
-        url: '/mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/ajax.php',
-                type: 'POST',
-                data: formData,
-                processData: false, // tell jQuery not to process the data
-                contentType: false, // tell jQuery not to set contentType
-                success: function (response) {
-                if (response == 'sucesso') {
-                Swal.fire('Pedido enviado para Edição !');
-                    window.location.reload();
+                    });
+                } else {
+                    console.log(result);
                 }
-
-                },
-                error: function (response) {
-                }
+            });
         });
-        } else {
-        console.log(result);
-        }
-    });
-    });
 
-</script>
+    </script>
 </body>
 </html>
 

@@ -4,8 +4,9 @@ if (!isset($_SESSION)) {
     session_start();
     $id = session_id();
 }
-
-define('VERSAO', 'versão - 3.4.1.4-67 -  26.10.2022');
+if(!defined('VERSAO')) {
+define('VERSAO', 'versão - 3.4.1.4-70 -  08.11.2022');
+}
 include 'core/system/config/config.inc.php';
 include_once 'core/include.php';
 

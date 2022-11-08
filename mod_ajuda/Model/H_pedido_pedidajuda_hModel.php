@@ -382,6 +382,8 @@ ano) VALUES (:numero,
     ################  Atualizar dados h_pedido_pedid  ###################
 
     public static function edit(array $dados) {
+        
+        
 
         $con = Conexao::getInstance();
 
@@ -415,7 +417,7 @@ esforcos_realizados= :esforcos_realizados
 
             $result->bindValue(":id", $dados['id']);
             $result->bindValue(":numero", $dados['numero']);
-            $result->bindValue(":data_entrada_sistema", DataMysql::dataForm($dados['data_entrada_sistema']));
+            $result->bindValue(":data_entrada_sistema", DataMysql::dataCompletaForm($dados['data_entrada_sistema']));
             $result->bindValue(":despachante_analista", $dados['despachante_analista']);
             $result->bindValue(":despachante_dlog", $dados['despachante_dlog']);
             $result->bindValue(":id_municipio", $dados['id_municipio']);
@@ -1105,7 +1107,7 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
                 break;
             case 6:
                 # Atendido / verde
-                return array('fdo' => '#4B8A08', 'fonte' => '#2E2E2E', 'title' => '');
+                return array('fdo' => '#90EE90', 'fonte' => '#2E2E2E', 'title' => '');
                 break;
             case 7:
                 # Cancelado / nulo

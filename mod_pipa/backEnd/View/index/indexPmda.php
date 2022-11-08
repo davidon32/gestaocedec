@@ -71,7 +71,7 @@ foreach ($alertaPreCadCom as $value) {
 
                 print "<tr><td>" . ($key + 1) . "</td>";
                 print "<td>" . $protocolo . "</td>";
-                print "<td>" . $value['nome'] . "</td>";
+                print "<td><a href='".FuncaoBase::geraLink('pipa', 'pipa', 'pmda', array('param'=> $value['id_pmda'], 'mun'=>$value['id_municipio']))."'>" . $value['nome'] . "</a></td>";
                 print "<td>" . DataMysql::extraiData($value['data']) . "</td>";
                 print "<td>" . DataMysql::dataCompletaVisual($value['dt_analise']) . "</td>";
                 print "<td>" . DataMysql::dataCompletaVisual($value['dt_ultima_alteracao']) . "</td>";
