@@ -160,13 +160,13 @@ $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
                     <label>Tipo do Decreto</label>
                     <div class="radio">
                         <label>
-                            <input type="radio" name="tipo_decreto" id="ECP" value="ECP" checked>
+                            <input type="radio" name="tipo_decreto" id="ECP" value="ECP" <?=($view[0]['tipo_decreto'] == "ECP" ? "checked" : "");?>>
                             ECP - Estado de Calamidade Pública
                         </label>
                     </div>
                     <div class="radio">
                         <label>
-                            <input type="radio" name="tipo_decreto" id="SE" value="SE">
+                            <input type="radio" name="tipo_decreto" id="SE" value="SE" <?=($view[0]['tipo_decreto'] == "SE" ? "checked" : "");?>>
                             SE - Situação de Emergência
                         </label>
                     </div>
@@ -176,8 +176,7 @@ $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
                 <div class='col-md-12'>
                     <label>Esforços Realizados: </label> <span style="color: silver" id='caracteres'></span>
                     <textarea class='form form-control' name='esforcos_realizados' id='esforcos_realizados' maxlength='65534' rows="8" required>
-                        <?= $view[0]['esforcos_realizados'] ?>
-                    </textarea>
+<?=$view[0]['esforcos_realizados']?></textarea>
                 </div>
             </div>
             <div class="row">

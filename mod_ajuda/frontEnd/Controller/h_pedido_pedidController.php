@@ -1,6 +1,10 @@
 
 <?php
 
+/**
+ * VERSAO : <?=VERSAO?>
+ */
+
 include_once('core/Controller/Controller.php');
 
 /* * *********************************************************************************
@@ -151,8 +155,8 @@ class h_pedido_pedidController extends Controller {
 
             $result = $h_pedido_pedidModel->edit($_POST);         
 
-            //var_dump($result);
-            if (!empty($result)) {
+            
+            if ($result === true) {
                 FuncaoBase::alert("Registro Atualizado com Sucesso !");
                 $view = $h_pedido_pedidModel->view($_POST['id']);
                 $param = array('id' => $_POST['id'] );
@@ -161,6 +165,11 @@ class h_pedido_pedidController extends Controller {
                 }else {
                     $this->redirect("ajuda", "h_pedido_pedid", "view", array('id' => $_POST['id'],'voltar'=>'idx_recente'));
                 }
+            }else {
+                print $result;
+                print "<a href='".FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit", array('id'=>$_POST['id'], 'voltar'=>'idx_recente'))."'>Voltar</a>";
+                
+                
             }
         } else {
 
