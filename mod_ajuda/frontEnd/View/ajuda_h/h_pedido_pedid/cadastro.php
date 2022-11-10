@@ -17,8 +17,9 @@ $pedid_model = new H_pedido_pedidajuda_hModel();
   
 $dadosMunicipio = $pedid_model->listaid_municipioAutocomplete();
  
-$dadosRegiao = $pedid_model->listaid_regiaoAutocomplete();
-  
+$dadosRegiao = $pedid_model->listaid_mesoAutocomplete();
+
+ 
 $dadosCobrade = $pedid_model->listaid_cobradeAutocomplete();
     
 $id_municipio = $_COOKIE['seguranca']['id_municipio'];  
@@ -52,14 +53,14 @@ $dados = Municipio::dadosMunicipio($id_municipio);
 <div class='col-md-3'>
 <label>Identificador Mesorregião</label>
 <input type="text" class='form form-control' name='nomeRegiao_fk' id='nomeRegiao_fk' required readonly='readonly' value='<?=$dados['mesorregiao']?>'>
-<input type="hidden" name='id_regiao' id='id_regiao' required readonly='readonly'>
+<input type="hidden" name='id_meso' id='id_meso' required readonly='readonly'>
 </div>
 </div>
 <div class='row'>
 <div class='col-md-8'>
 <label>Nome do Coordenador</label>
 <div class="input-group">
-<input type="text" class='form form-control' name='nome_coordenador' id='nome_coordenador' maxlength='44' required >
+<input type="text" class='form form-control' name='nome_coordenador' id='nome_coordenador' maxlength='70' required >
 <span id="btn_import_dados_compdec" class="input-group-addon">Importar Cad. Compdec</span>
 </div>
 </div>
@@ -333,18 +334,32 @@ $dados = Municipio::dadosMunicipio($id_municipio);
 		contentType: false,  // tell jQuery not to set contentType
 		success : function(response) {
                     var dados = JSON.parse(response);
-                    console.log(dados.nome_meso);
-                    $("#nome_coordenador").val(dados.nome_coordenador);
-                    $("#tel_coordenador").val(dados.tel_coordenador);
-                    $("#cel_coordenador").val(dados.cel_coordenador);
-                    $("#email_coordenador").val(dados.email_coordenador);
-                    $("#nome_prefeito").val(dados.nome_prefeito);
-                    $("#tel_prefeito").val(dados.tel_prefeito);
-                    $("#cel_prefeito").val(dados.cel_prefeito);
-                    $("#email_prefeito").val(dados.email_prefeito);
-                    $("#id_regiao").val(dados.id_meso);
-                    $("#nomeRegiao_fk").val(dados.nome_meso);
-                    Swal.fire('Importação realizada com Sucesso !')
+                    if(dados == "") {
+                        Swal.fire('Aconteceu um erro, favor verificar o Cadastro de Compdec, pois não foi encontrato um membro da Equipe que seja o Coordenador !');
+                        $("#nome_coordenador").attr('disabled', true).prop('title','para continuar, Corrija seu "CADASTRO DE COMPDEC", incluindo um membro da equipe como COORDENADOR');
+                        $("#tel_coordenador").attr('disabled', true).prop('title','para continuar, Corrija seu "CADASTRO DE COMPDEC", incluindo um membro da equipe como COORDENADOR');
+                        $("#cel_coordenador").attr('disabled', true).prop('title','para continuar, Corrija seu "CADASTRO DE COMPDEC", incluindo um membro da equipe como COORDENADOR');
+                        $("#email_coordenador").attr('disabled', true).prop('title','para continuar, Corrija seu "CADASTRO DE COMPDEC", incluindo um membro da equipe como COORDENADOR');
+                        $("#nome_prefeito").attr('disabled', true).prop('title','para continuar, Corrija seu "CADASTRO DE COMPDEC", incluindo um membro da equipe como COORDENADOR');
+                        $("#tel_prefeito").attr('disabled', true).prop('title','para continuar, Corrija seu "CADASTRO DE COMPDEC", incluindo um membro da equipe como COORDENADOR');
+                        $("#cel_prefeito").attr('disabled', true).prop('title','para continuar, Corrija seu "CADASTRO DE COMPDEC", incluindo um membro da equipe como COORDENADOR');
+                        $("#email_prefeito").attr('disabled', true).prop('title','para continuar, Corrija seu "CADASTRO DE COMPDEC", incluindo um membro da equipe como COORDENADOR');
+                        $("#id_meso").attr('disabled', true).prop('title','para continuar, Corrija seu "CADASTRO DE COMPDEC", incluindo um membro da equipe como COORDENADOR');
+                        $("#nomeRegiao_fk").attr('disabled', true).prop('title','para continuar, Corrija seu "CADASTRO DE COMPDEC", incluindo um membro da equipe como COORDENADOR');
+                    }else {
+                        //console.log(dados.nome_meso);
+                        $("#nome_coordenador").val(dados.nome_coordenador);
+                        $("#tel_coordenador").val(dados.tel_coordenador);
+                        $("#cel_coordenador").val(dados.cel_coordenador);
+                        $("#email_coordenador").val(dados.email_coordenador);
+                        $("#nome_prefeito").val(dados.nome_prefeito);
+                        $("#tel_prefeito").val(dados.tel_prefeito);
+                        $("#cel_prefeito").val(dados.cel_prefeito);
+                        $("#email_prefeito").val(dados.email_prefeito);
+                        $("#id_meso").val(dados.id_meso);
+                        $("#nomeRegiao_fk").val(dados.nome_meso);
+                        Swal.fire('Importação realizada com Sucesso !');
+                    }
 		},
 		error : function(e) {
 		//console.log(JSON.stringify(e));
@@ -432,11 +447,11 @@ $dados = Municipio::dadosMunicipio($id_municipio);
                 },
 
                 onSelectItemEvent: function () {
-                    var id = $("#searcid_regiao").getSelectedItemData().id_regiao;
+                    var id = $("#searcid_regiao").getSelectedItemData().id_meso;
                     var nome = $("#searcid_regiao").getSelectedItemData().nome;
                      
                         $("#nomeRegiao_fk").val(nome); // Mudar
-                       $("#id_regiao").val(id);
+                       $("#id_meso").val(id);
                 },
                 onClickEvent:function(){
                     $('#modal_id_regiao').modal('hide');

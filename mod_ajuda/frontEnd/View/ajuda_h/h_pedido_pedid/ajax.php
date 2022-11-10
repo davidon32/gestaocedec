@@ -11,6 +11,7 @@ $h_pedido_itens = new H_pedido_itensajuda_hModel();
 if($opcao == 'dados_compdec') {
 
     $dados = $h_pedido_pedid->buscaDadosPedido($id_municipio);
+
     print json_encode($dados);
 
     /* inicia o processo de prestação de contas */

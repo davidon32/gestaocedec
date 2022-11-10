@@ -96,6 +96,7 @@ foreach ($materiais as $material) {
                 </tr>
 <?php
 
+
 foreach ($materiaisItens as $key => $material) {
 
     print "<tr>";

@@ -17,10 +17,11 @@ $cedec_municipio = new H_pedido_pedidajuda_hModel();
 $dadosMunicipio = $cedec_municipio->listaid_municipioAutocomplete();
 $com_regiao = new H_pedido_pedidajuda_hModel();
 
-$dadosRegiao = $com_regiao->listaid_regiaoAutocomplete();
+$dadosRegiao = $com_regiao->listaid_mesoAutocomplete();
 $dec_cobrade = new H_pedido_pedidajuda_hModel();
 
 $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
+
 ?>
 <div class='col-md-12'>
     <legend>Editar Pedido de Ajuda Humanitária nº : <?= $view[0]['numero'] . "-" . substr($view[0]['data_entrada_sistema'], 0, 4) ?></legend>
@@ -598,7 +599,7 @@ $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
                     },
 
                     onSelectItemEvent: function () {
-                        var id = $("#searcid_regiao").getSelectedItemData().id_regiao;
+                        var id = $("#searcid_regiao").getSelectedItemData().id_meso;
                         var nome = $("#searcid_regiao").getSelectedItemData().nome;
 
                         $("#nomeRegiao_fk").val(nome); // Mudar

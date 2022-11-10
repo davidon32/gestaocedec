@@ -1,7 +1,7 @@
 <?php
 
 //require_once(PATH . '/core/classe/Classe.Data.php');
-/* * *********************************************************************************
+/** *********************************************************************************
  * 	CEDEC-MG - Coordenadoria Estadual de Defesa Civil de Minas Gerais			  	*
  * 	
  *    Gerador de código : 1.0
@@ -11,7 +11,9 @@
  * 	Autor: Demetrio da Silva Passos	
  *      MASP: 1296844
  * 																					*
- * 	Criacao : 21/06/2021															*
+ * 	Criacao : 21/06/2021	
+ *      Atualização {VERSAO}
+ * @param VERSAO														*
  * ********************************************************************************** */
 
 class H_pedido_pedidajuda_hModel extends Model {
@@ -342,7 +344,7 @@ ano) VALUES (:numero,
             $result->bindValue(":despachante_analista", $dados['despachante_analista']);
             $result->bindValue(":despachante_dlog", $dados['despachante_dlog']);
             $result->bindValue(":id_municipio", $dados['id_municipio']);
-            $result->bindValue(":id_regiao", $dados['id_regiao']);
+            $result->bindValue(":id_regiao", $dados['id_meso']);
             $result->bindValue(":nome_coordenador", $dados['nome_coordenador']);
             $result->bindValue(":tel_coordenador", $dados['tel_coordenador']);
             $result->bindValue(":cel_coordenador", $dados['cel_coordenador']);
@@ -778,6 +780,35 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
 
         $sql = "SELECT id_regiao, nome
                               FROM com_regiao";
+
+        try {
+
+            $result = $con->query($sql);
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dados[] = $linha;
+            }
+
+            return $dados;
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+    
+    /** lista autocomplete mesoregiao
+
+     * 
+
+     */
+    public function listaid_mesoAutocomplete() {
+
+
+        $con = Conexao::getInstance();
+
+        $dados = array();
+
+        $sql = "SELECT id_meso, nome
+                              FROM cedec_meso";
 
         try {
 

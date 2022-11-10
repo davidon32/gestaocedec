@@ -119,7 +119,7 @@ class h_pedido_pedidController extends Controller {
 
         $result = $h_pedido_pedid->gravar($_POST);
         
-        if($result['result']){
+        if($result['result'] === true){
             FuncaoBase::alert("Registro Gravado com Sucesso !");
             print "<script>";
             print "window.location.href = '". FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "add_itens", array("id" => $result['id'], "voltar"=>"idx_recente"))."'";
