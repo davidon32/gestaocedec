@@ -21,7 +21,6 @@ $dadosRegiao = $com_regiao->listaid_mesoAutocomplete();
 $dec_cobrade = new H_pedido_pedidajuda_hModel();
 
 $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
-
 ?>
 <div class='col-md-12'>
     <legend>Editar Pedido de Ajuda Humanitária nº : <?= $view[0]['numero'] . "-" . substr($view[0]['data_entrada_sistema'], 0, 4) ?></legend>
@@ -161,13 +160,13 @@ $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
                     <label>Tipo do Decreto</label>
                     <div class="radio">
                         <label>
-                            <input type="radio" name="tipo_decreto" id="ECP" value="ECP" <?=($view[0]['tipo_decreto'] == "ECP" ? "checked" : "");?>>
+                            <input type="radio" name="tipo_decreto" id="ECP" value="ECP" <?= ($view[0]['tipo_decreto'] == "ECP" ? "checked" : ""); ?>>
                             ECP - Estado de Calamidade Pública
                         </label>
                     </div>
                     <div class="radio">
                         <label>
-                            <input type="radio" name="tipo_decreto" id="SE" value="SE" <?=($view[0]['tipo_decreto'] == "SE" ? "checked" : "");?>>
+                            <input type="radio" name="tipo_decreto" id="SE" value="SE" <?= ($view[0]['tipo_decreto'] == "SE" ? "checked" : ""); ?>>
                             SE - Situação de Emergência
                         </label>
                     </div>
@@ -177,7 +176,7 @@ $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
                 <div class='col-md-12'>
                     <label>Esforços Realizados: </label> <span style="color: silver" id='caracteres'></span>
                     <textarea class='form form-control' name='esforcos_realizados' id='esforcos_realizados' maxlength='65534' rows="8" required>
-<?=$view[0]['esforcos_realizados']?></textarea>
+<?= $view[0]['esforcos_realizados'] ?></textarea>
                 </div>
             </div>
             <div class="row">
@@ -269,7 +268,7 @@ $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
             <div class="col-md-6 text-left">
                 <br>
                 <button type="submit" class="btn btn-info glyphicon glyphicon-floppy-save" name="btnGravar" id="btnGravar" title="Gravar Registro"> Gravar</button>
-                <button type="button" class="btn btn-info" name="btnEnviar" id="btnEnviar" title="Enviar pedido para Analista da CEDEC" data-id_pedido="<?=$view[0]['id']?>"> Enviar para Análise</button>
+                <button type="button" class="btn btn-info" name="btnEnviar" id="btnEnviar" title="Enviar pedido para Analista da CEDEC" data-id_pedido="<?= $view[0]['id'] ?>"> Enviar para Análise</button>
             </div>
 
             <div class="col-md-6 text-right">
@@ -408,13 +407,13 @@ $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
                             success: function (response) {
 
                                 alert('Operação Realizada com Sucesso !');
-                                    window.location.href = '<?= FuncaoBase::geraLink('ajuda', 'h_pedido_index', 'index') ?>';   
+                                window.location.href = '<?= FuncaoBase::geraLink('ajuda', 'h_pedido_index', 'index') ?>';
                             },
                             error: function (e) {
                                 //console.log(JSON.stringify(e));
                             }
                         });
-                        
+
                     }
                 })
 
@@ -477,24 +476,30 @@ $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
 
             $("[name=decreto_se_ecp_vig]").change(function () {
                 if ($("#nao").is(":checked")) {
-                    $("#nao").attr("checked", true);
-                    $("#sim").attr("checked", false);
-
-                    /* campos numero decreto, data vigencia */
-                    $("#numero_decreto,#data_vigencia").val("");
-                    $("#numero_decreto,#data_vigencia").attr('readonly', 'readonly');
-                    $("#data_vigencia").datepicker("destroy");
-                    $("#numero_decreto,#data_vigencia").css('cursor', 'not-allowed');
-
+                $("#nao").attr("checked", true);
+                        $("#sim").attr("checked", false);
+                        /* campos numero decreto, data vigencia */
+                        $("#numero_decreto,#data_vigencia").val("");
+                        $("#numero_decreto,#data_vigencia").attr('readonly', 'readonly');
+                        $("#data_vigencia").datepicker("destroy");
+                        $("#numero_decreto,#data_vigencia").css('cursor', 'not-allowed');
                 } else if ($("#sim").is(":checked")) {
-                    $("#sim").attr("checked", true);
-                    $("#nao").attr("checked", false);
+                $("#sim").attr("checked", true);
+                        $("#nao").attr("checked", false);
+                        /* campos numero decreto, data vigencia */
+                        $("#numero_decreto,#data_vigencia").removeAttr('readonly');
+                        $("#data_vigencia").datepicker({dateFormat: 'dd/mm/yy',
+                            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                            monthNamesShort: [ 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dec'],
+                            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+                            dayNamesMin: [ 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab' ],
+                        orientation: "bottom left",
+                        beforeShow: function () { /* problema datapicker atras controle input*/
+                        
+                        }
+                },) ;
 
-                    /* campos numero decreto, data vigencia */
-                    $("#numero_decreto,#data_vigencia").removeAttr('readonly');
-                    $("#data_vigencia").datepicker();
-
-                    $("#numero_decreto,#data_vigencia").css('cursor', 'text');
+                $("#numero_decreto,#data_vigencia").css('cursor', 'text');
                 }
             });
 

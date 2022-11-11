@@ -122,8 +122,12 @@
 
               $("input[name^='cpf_cnpj_'").mask('99.999.999/9999-99', cpf_cnpj);
               
-              
+        /* DATAPICKER */   
         $("input[name^='data_'").datepicker({dateFormat: 'dd/mm/yy',
+            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+            monthNamesShort: [ 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dec'],
+            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+            dayNamesMin: [ 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab' ],
             orientation: "bottom left",
             beforeShow: function () { /* problema datapicker atras controle input*/
                 setTimeout(function () {

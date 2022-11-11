@@ -295,6 +295,10 @@ $dados = Municipio::dadosMunicipio($id_municipio);
                 /* campos numero decreto, data vigencia */
                 $("#numero_decreto,#data_vigencia").removeAttr('readonly');
                 $("#data_vigencia").datepicker({dateFormat: 'dd/mm/yy',
+                    monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                    monthNamesShort: [ 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dec'],
+                    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+                    dayNamesMin: [ 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab' ],
                     orientation: "bottom left",
                     beforeShow: function () { /* problema datapicker atras controle input*/
                         setTimeout(function () {
