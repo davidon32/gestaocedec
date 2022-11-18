@@ -582,5 +582,30 @@ aju_h_pedido_an_tec.tramit_parecer
     
     }
     
+    
+    /**
+     * Verificar se tem parecer Favoravel
+     */
+    public static function anFavoravel($id_pedido){
+        
+        $con = Conexao::getInstance();
+        
+        $sql = "select aju_h_pedido_an_tec.parecer_sit 
+                from aju_h_pedido_an_tec
+                    where aju_h_pedido_an_tec.id_pedido = {$id_pedido}
+                       and aju_h_pedido_an_tec.tramit_parecer = 'analise_dlog'";
+
+            try {
+
+                $result = $con->query($sql);
+                
+                return $result->rowCount();
+            } catch (Exception $e) {
+                return $e->getMessage() . "Erro lancamento de historico de tramit !";
+            }
+    
+        
+    }
+    
 
 }

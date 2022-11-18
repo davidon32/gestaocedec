@@ -175,7 +175,7 @@ $dados = Usuario::buscaUsuarioId($_GET['id']);
 
     $(document).ready(function () {
 
-        $("#senha").val("");
+        //$("#senha").val("");
 
         $("#cadUserEx").validate();
 
@@ -232,8 +232,8 @@ $dados = Usuario::buscaUsuarioId($_GET['id']);
                 $("#senha").val("<?= md5('defesa199'); ?>");
                 $("#trSenha").val("1");
             } else {
-                $("#senha").val("");
-                $("#trSenha").val("1");
+                //$("#senha").val("");
+                $("#trSenha").val("0");
                 alert('Você não resetou a senha, deseja continuar !');
             }
         });

@@ -132,6 +132,8 @@ class pipaController extends Controller {
 
     public function resetarSenha() {
         
+
+                
         $btn = isset($_POST['btnAtua']) ? $_POST['btnAtua'] : "";
 
         if ($btn == 'btnAtua') {
@@ -141,16 +143,14 @@ class pipaController extends Controller {
             $_POST['ck_ajuda'] = isset($_POST['ck_ajuda']) ? $_POST['ck_ajuda'] : 0;
 
                        
-            if (Usuario::atuaUsuarioExterno($_POST)) {
-
-                print 
-                    "<script>
-	 			alert('Usuario atualizado com Sucesso !');
-                                
+            if ( Usuario::atuaUsuarioExterno($_POST) ) {
+                print  "<script>
+	 		alert('Usuario atualizado com Sucesso !');      
 	 		</script>";
+
+                if( isset($_POST['ckReset']) ){
                 
-                
-                
+
                     print "<style>
                         body {
                         background-color: #F79A86 ;
@@ -195,6 +195,12 @@ class pipaController extends Controller {
                         </div>
                         <p class='text-center'><a class='btn btn-primary' href='".FuncaoBase::geraLink('pipa', 'pipa', 'pesquisaUsuario')."' >Voltar</a></p>
                         </div>";
+                }else {
+
+                    print "<script>
+                            window.location.href= '".FuncaoBase::geraLink('pipa', 'pipa', 'cUserEx', array('id'=>$_POST['id_usuario'], 'volta'=>'compdec'))."';
+                            </script>";
+                }
                 
             } else {
 

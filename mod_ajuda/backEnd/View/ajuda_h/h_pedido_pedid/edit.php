@@ -47,6 +47,8 @@ foreach ($dadosMaterial as $key => $material) {
 $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['idUser'] : null;
 $secao =  isset($_COOKIE['seguranca']['secao']) ? $_COOKIE['seguranca']['secao'] : null;
 
+$favoravelDlog = H_pedido_an_tecajuda_hModel::anFavoravel($view[0]['id']);
+
 ####### PERMISSOES DE EDICAO E DESPACHO #######
 $permissao_ajuda_h = "false";
 if( $secao == 'DLOG' || $secao == "CHEFIA" || $id_usuario == 1 &&  $view[0]['status'] < 3) {
@@ -58,7 +60,7 @@ $aviso_sit ="";
     /*if($view[0]['status'] == 1 && ($ped)){
         $parecer_favoravel = "Parecer Favorável do Analista da DLOG";
         $aviso_sit = "<p class='alert alert-danger'>PROCESSO COM PARECER FAVORÁVEL DO ANALISTA DA DLOG.<br> clique em \"Material do Pedido\" para verificar os despachos.</p>";
-    }else*/if($view[0]['status'] == 2){
+    }else*/if($view[0]['status'] == 2 && $favoravelDlog > 0){
         $parecer_favoravel = "Parecer Favorável do Analista DLOG";
         $aviso_sit = "<p class='alert alert-danger'>PROCESSO FAVORÁVEL PELO(S) ANALISTA DA DLOG .<br> clique em <a id='aviso_sit'>\"Material do Pedido\"</span> para verificar os despachos</p>";
     }
@@ -85,9 +87,11 @@ $aviso_sit ="";
 <div class='col-md-3'></div>
 <div class='col-md-12' id='editar_pedido'>
     <legend>Pedido Ajuda Humanitária nº:
-        <?= $view[0]['numero'] . " / " . substr($view[0]['data_entrada_sistema'], 0, 4) ?> - <?= Municipio::PegaNomeMunicipio($view[0]['id_municipio']) ?></legend>
+        <?= $view[0]['numero'] . " / " . substr($view[0]['data_entrada_sistema'], 0, 4) ?> - <?= Municipio::PegaNomeMunicipio($view[0]['id_municipio']) ?>
+    </legend>
 
 
+    <legend>STATUS : <b><?= H_pedido_pedidajuda_hModel::enumStatus($view[0]['status'])?></b></legend>
 
     <!-- jstree -->
     <div class="col-md-3" data-spy="scroll">
@@ -353,10 +357,10 @@ $aviso_sit ="";
             <!-- #### USUARIOS DLOG ADICIONAR MATERIAL  ##### -->
             <?php
 
-                if($permissao_ajuda_h) {            
+                if($permissao_ajuda_h && ($view[0]['status'] == 1 && $secao == 'DLOG') || ($view[0]['status'] == 2 && $secao == 'CHEFIA')) {            
                     print "<img title=\"Adicionar Material\" src=\"/core/imagem/add.png\" name=\"add_material\"> Adicionar Material<br><br>";
                 }else {
-                    print "<img src=\"/core/imagem/add.png\" class=\"imgCinza\" title=\"Somene Usuários da DLOG, tem permissões de executar esta ação\"><br><br>";
+                    print "<img src=\"/core/imagem/add.png\" class=\"imgCinza\" title=\"O processo está disponivel para operação do ".H_pedido_pedidajuda_hModel::enumStatus($view[0]['status'])." !\"><br><br>";
                 }
             
                 
@@ -390,10 +394,12 @@ $aviso_sit ="";
                         print "<td>";
                         #print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit_itens', array('id' => $view[0]['id'], 'id_item' => $material1['id'])) . "'><img src='/core/imagem/editar.png'></a>";
                         # EDITAR MATERIAL
-                        if($permissao_ajuda_h){
+                        if($permissao_ajuda_h && ($view[0]['status'] == 1 && $secao == 'DLOG') || ($view[0]['status'] == 2 && $secao == 'CHEFIA')){
                             print "<img src='/core/imagem/editar.png' name='edit' data-id='" . $view[0]['id'] . "' data-qtd='" . $material1['qtd'] . "' data-familias_at='" . $material1['qtd_familia_atendida'] . "'>
                             <img src='/core/imagem/save.png' name='salvar' data-id='" . $material1['id'] . "' data-codigo='" . $material1['codigo'] . "' data-descricao_item='" . $material1['descricao_item'] . "'>";
                             print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_itens', 'delete', array('id' => $material1['id'], 'id_pedido' => $view[0]['id'], 'voltar' => 'edit_ped')) . "'><img src='/core/imagem/delete.png'></a>";
+                        }else {
+                            print "processo está disponível para o ".H_pedido_pedidajuda_hModel::enumStatus($view[0]['status']);
                         }
 
                         print "</td>";
@@ -409,8 +415,10 @@ $aviso_sit ="";
             <legend>Despacho</legend></p>
             <?php
             
-                if($permissao_ajuda_h) {
-                    print "<img src='core/imagem/icon_app/new.png' title='Novo Despacho' name='add_despacho' id='add_despacho'> Novo Despacho<br><br>";
+                if($permissao_ajuda_h && ($view[0]['status'] == 1 && $secao == 'DLOG') || ($view[0]['status'] == 2 && $secao == 'CHEFIA')) {
+                    print "<img src='/core/imagem/icon_app/new.png' title='Novo Despacho' name='add_despacho' id='add_despacho'> Novo Despacho<br><br>";
+                }else {
+                    print "<img src='/core/imagem/icon_app/new.png' title='O processo está em outra Fase que não permite a alteração por este usuário' class='imgCinza'> Novo Despacho<br><br>";
                 }
             ?>
             <div class="row" id='novoDespacho'>
@@ -643,7 +651,11 @@ $aviso_sit ="";
     $(document).ready(function () {
         var status = <?=$view[0]['status']?>;
         var secao = '<?=$secao;?>';
-        if(status == 2 && secao != "CHEFIA") {
+        var favoravel = <?=$favoravelDlog;?>;
+        
+        /* situação do processo está com o DIRETOR da dlog
+         * e parecer favoravel pelo analista */
+        if(status == 2 && secao != "CHEFIA" && favoravel > 0) {
             $('#editar_pedido').css('color', '#27AE60');
             //$('img[name=add_material]').hide();
             $('#add_despacho').hide();
@@ -782,11 +794,13 @@ $aviso_sit ="";
 
             var qtd = $(this).data('qtd');
             /* quantidade itens */
-            $("#tbl_material_liberado").parent().find('td')[2].innerHTML = '<input class=\'form form-control col-md-6\' type=\'text\' name=\'qtd\' value=\'' + qtd + '\'>';
+            $(this).closest("tr").find('td')[2].innerHTML = '<input class=\'form form-control col-md-6\' type=\'text\' name=\'qtd\' value=\'' + qtd + '\'>';
+            //$("#tbl_material_liberado").parent().find('td')[2].innerHTML = '<input class=\'form form-control col-md-6\' type=\'text\' name=\'qtd\' value=\'' + qtd + '\'>';
 
             var familias_at = $(this).data('familias_at');
             /* Familias atendidas */
-            $("#tbl_material_liberado").parent().find('td')[3].innerHTML = '<input class=\'form form-control col-md-6\' type=\'text\' name=\'familias\' value=\'' + familias_at + '\'>';
+            $(this).closest("tr").find('td')[3].innerHTML = '<input class=\'form form-control col-md-6\' type=\'text\' name=\'familias\' value=\'' + familias_at + '\'>';
+            //$("#tbl_material_liberado").parent().find('td')[3].innerHTML = '<input class=\'form form-control col-md-6\' type=\'text\' name=\'familias\' value=\'' + familias_at + '\'>';
 
             $("img[name=edit]").hide();
             $("img[name=salvar]").show();
@@ -814,7 +828,10 @@ $aviso_sit ="";
                 processData: false, // tell jQuery not to process the data
                 contentType: false, // tell jQuery not to set contentType
                 success: function (response) {
-                    Swal.fire('Registro Editado com Sucesso !')
+                    Swal.fire('Registro Editado com Sucesso !').then(function () {
+                        window.location.reload();
+                        $('#html1').jstree("select_node", 'show_material_pedido', true);
+                    });
                 },
                 error: function (e) {
                     //console.log(JSON.stringify(e));

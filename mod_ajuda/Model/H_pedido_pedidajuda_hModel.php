@@ -168,7 +168,8 @@ class H_pedido_pedidajuda_hModel extends Model {
                 aju_h_pedido_pedid.id
                 FROM aju_h_pedido_pedid
                 INNER JOIN cedec_municipio
-                ON aju_h_pedido_pedid.id_municipio = cedec_municipio.id_municipio";
+                ON aju_h_pedido_pedid.id_municipio = cedec_municipio.id_municipio
+                ORDER BY aju_h_pedido_pedid.status";
 
         try {
 

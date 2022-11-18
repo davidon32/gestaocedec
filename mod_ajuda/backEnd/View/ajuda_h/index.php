@@ -326,6 +326,7 @@ $response = json_encode($data);
                 fixedHeader: true,
                 bFilter: true,
                 responsive: true,
+                order : [4, 'asc'],
                 data: data1,
                 initComplete: function () {
                     var api = this.api();
