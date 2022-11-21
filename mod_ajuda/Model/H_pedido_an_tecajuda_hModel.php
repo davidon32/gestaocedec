@@ -607,5 +607,35 @@ aju_h_pedido_an_tec.tramit_parecer
         
     }
     
+    /**
+     * Verificar se tem parecer Favoravel
+     */
+    public static function anFavoravelChefe($id_pedido){
+        
+        $con = Conexao::getInstance();
+        
+        $sql = "SELECT aju_h_pedido_an_tec.id_analise 
+                    FROM aju_h_pedido_an_tec
+                    INNER JOIN aju_h_pedido_pedid
+                    ON aju_h_pedido_pedid.id = aju_h_pedido_an_tec.id_pedido
+                    WHERE aju_h_pedido_an_tec.parecer_sit = 1
+                    AND aju_h_pedido_an_tec.tramit_parecer = 'analise_coord'
+                    and aju_h_pedido_an_tec.id_pedido = {$id_pedido}
+                    AND aju_h_pedido_pedid.status = 2";
+
+            try {
+
+                $result = $con->query($sql);
+                
+                return ($result->rowCount());
+            } catch (Exception $e) {
+                return $e->getMessage() . "Erro contando Parecer !";
+            }
+    
+        
+    }
+    
+    
+    
 
 }

@@ -33,10 +33,13 @@ $listaPedido1 = $pedido_h->listaPedidosTodos();
 $data = array();
 
 foreach ($listaPedido1 as $key => $pedido) {
+    
     $data[$key] = $pedido;
     $data[$key]['tramit'] = $pedido_h->enumFase($pedido['tramit']);
     $data[$key]['data_entrada_sistema'] = DataMysql::dataCompletaVisual($pedido['data_entrada_sistema']);
     $data[$key]['data_hora_envio'] = DataMysql::dataCompletaVisual($pedido['data_hora_envio']);
+    $data[$key]['cor'] = H_pedido_an_tecajuda_hModel::anFavoravelChefe($pedido['id']);
+    
 
     $percent = number_format(((H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedido['id']) * 100 ) != 0 ) ? (H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedido['id']) * 100) / H_pedido_prestajuda_hModel::totalMaterialPrestConta($pedido['id']) : 0, '2', '.', ' ');
 }
@@ -380,6 +383,18 @@ $response = json_encode($data);
                                         });
                             });
                 },
+                createdRow: function (row, data, index) {
+                    //console.log(data['status'] == )   ;         
+                    if (data['cor'] == 1) {   
+                        $('td', row).eq(0).addClass('alert alert-success');
+                        $('td', row).eq(1).addClass('alert alert-success');
+                        $('td', row).eq(2).addClass('alert alert-success');
+                        $('td', row).eq(3).addClass('alert alert-success');
+                        $('td', row).eq(4).addClass('alert alert-success');
+                        $('td', row).eq(5).addClass('alert alert-success');
+                        $('td', row).eq(6).addClass('alert alert-success');
+                    }
+                },
                 'columns': [
                     {data: 'numero'},
                     {data: 'nome'},
@@ -387,6 +402,7 @@ $response = json_encode($data);
                     {data: 'tipo_decreto'},
                     {data: 'tramit'},
                     {data: 'data_hora_envio'},
+                    
                     {
                         'className': '',
                         orderable: false,
