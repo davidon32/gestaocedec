@@ -26,6 +26,18 @@ $id_municipio = $_COOKIE['seguranca']['id_municipio'];
 
 $dados = Municipio::dadosMunicipio($id_municipio);
 
+$dados1 = $pedid_model->buscaDadosPedido($id_municipio);
+
+
+if(!is_array($dados1)){
+    
+    print "<script>
+                Swal.fire('Favor verificar o Cadastro de Compdec, pois não foi encontrato um membro da Equipe do COMPDEC com a função de Coordenador !').then(function() {
+    history.back();
+});
+           </script>";
+    die();
+}
 ?>
 
 <legend>Pedido de Ajuda Humanitária</legend>
@@ -53,58 +65,57 @@ $dados = Municipio::dadosMunicipio($id_municipio);
 <div class='col-md-3'>
 <label>Identificador Mesorregião</label>
 <input type="text" class='form form-control' name='nomeRegiao_fk' id='nomeRegiao_fk' required readonly='readonly' value='<?=$dados['mesorregiao']?>'>
-<input type="hidden" name='id_meso' id='id_meso' required readonly='readonly'>
+<input type="hidden" name='id_meso' id='id_meso' required readonly='readonly' value='<?=$dados['id_meso']?>'>
 </div>
 </div>
 <div class='row'>
 <div class='col-md-8'>
 <label>Nome do Coordenador</label>
 <div class="input-group">
-<input type="text" class='form form-control' name='nome_coordenador' id='nome_coordenador' maxlength='70' required >
-<span id="btn_import_dados_compdec" class="input-group-addon">Importar Cad. Compdec</span>
+<input type="text" class='form form-control' name='nome_coordenador' id='nome_coordenador' maxlength='70' required readonly value="<?=$dados1['nome_coordenador']?>">
 </div>
 </div>
 </div>
 <div class='row'>
 <div class='col-md-2'>
 <label>Telefone do Coordenador</label>
-<input type="text" class='form form-control' name='tel_coordenador' id='tel_coordenador' maxlength='12' required >
+<input type="text" class='form form-control' name='tel_coordenador' id='tel_coordenador' maxlength='12' required readonly value="<?=$dados1['tel_coordenador']?>">
 </div>
 </div>
 <div class='row'>
 <div class='col-md-2'>
 <label>Celular do Coordenador</label>
-<input type="text" class='form form-control' name='cel_coordenador' id='cel_coordenador' maxlength='12' required >
+<input type="text" class='form form-control' name='cel_coordenador' id='cel_coordenador' maxlength='12' required readonly value="<?=$dados1['cel_coordenador']?>">
 </div>
 </div>
 <div class='row'>
 <div class='col-md-6'>
 <label>Email do Coordenador</label>
-<input type="text" class='form form-control' name='email_coordenador' id='email_coordenador' maxlength='49' required >
+<input type="text" class='form form-control' name='email_coordenador' id='email_coordenador' maxlength='49' required readonly value="<?=$dados1['email_coordenador']?>">
 </div>
 </div>
 <div class='row'>
 <div class='col-md-6'>
 <label>Nome do Prefeito</label>
-<input type="text" class='form form-control' name='nome_prefeito' id='nome_prefeito' maxlength='44' required >
+<input type="text" class='form form-control' name='nome_prefeito' id='nome_prefeito' maxlength='44' required readonly value="<?=$dados1['nome_prefeito']?>">
 </div>
 </div>
 <div class='row'>
 <div class='col-md-2'>
 <label>Telefone do Prefeito</label>
-<input type="text" class='form form-control' name='tel_prefeito' id='tel_prefeito' maxlength='12' required >
+<input type="text" class='form form-control' name='tel_prefeito' id='tel_prefeito' maxlength='12' required readonly value="<?=$dados1['tel_prefeito']?>">
 </div>
 </div>
 <div class='row'>
 <div class='col-md-2'>
 <label>Celular do Prefeito</label>
-<input type="text" class='form form-control' name='cel_prefeito' id='cel_prefeito' maxlength='12' required >
+<input type="text" class='form form-control' name='cel_prefeito' id='cel_prefeito' maxlength='12' required readonly value="<?=$dados1['cel_prefeito']?>">
 </div>
 </div>
 <div class='row'>
 <div class='col-md-6'>
 <label>Email do Prefeito</label>
-<input type="text" class='form form-control' name='email_prefeito' id='email_prefeito' maxlength='49' required >
+<input type="text" class='form form-control' name='email_prefeito' id='email_prefeito' maxlength='49' required readonly value="<?=$dados1['email_prefeito']?>" >
 </div>
 </div>
 <div class='row'>
@@ -322,54 +333,6 @@ $dados = Municipio::dadosMunicipio($id_municipio);
             
         });
         
-        $("#btn_import_dados_compdec").hover(function(){
-           $("#btn_import_dados_compdec").css('cursor','pointer');
-        });
-        
-        $("#btn_import_dados_compdec").click(function(){
-            var formData = new FormData();
-		formData.append('opcao', 'dados_compdec');
-		formData.append('id_municipio', $("#id_municipio").val()); 
-           $.ajax({
-		url : '/mod_ajuda/frontEnd/View/ajuda_h/h_pedido_pedid/ajax.php',
-		type : 'POST',
-		data : formData,
-		processData: false,  // tell jQuery not to process the data
-		contentType: false,  // tell jQuery not to set contentType
-		success : function(response) {
-                    var dados = JSON.parse(response);
-                    if(dados == "") {
-                        Swal.fire('Aconteceu um erro, favor verificar o Cadastro de Compdec, pois não foi encontrato um membro da Equipe que seja o Coordenador !');
-                        $("#nome_coordenador").attr('disabled', true).prop('title','para continuar, Corrija seu "CADASTRO DE COMPDEC", incluindo um membro da equipe como COORDENADOR');
-                        $("#tel_coordenador").attr('disabled', true).prop('title','para continuar, Corrija seu "CADASTRO DE COMPDEC", incluindo um membro da equipe como COORDENADOR');
-                        $("#cel_coordenador").attr('disabled', true).prop('title','para continuar, Corrija seu "CADASTRO DE COMPDEC", incluindo um membro da equipe como COORDENADOR');
-                        $("#email_coordenador").attr('disabled', true).prop('title','para continuar, Corrija seu "CADASTRO DE COMPDEC", incluindo um membro da equipe como COORDENADOR');
-                        $("#nome_prefeito").attr('disabled', true).prop('title','para continuar, Corrija seu "CADASTRO DE COMPDEC", incluindo um membro da equipe como COORDENADOR');
-                        $("#tel_prefeito").attr('disabled', true).prop('title','para continuar, Corrija seu "CADASTRO DE COMPDEC", incluindo um membro da equipe como COORDENADOR');
-                        $("#cel_prefeito").attr('disabled', true).prop('title','para continuar, Corrija seu "CADASTRO DE COMPDEC", incluindo um membro da equipe como COORDENADOR');
-                        $("#email_prefeito").attr('disabled', true).prop('title','para continuar, Corrija seu "CADASTRO DE COMPDEC", incluindo um membro da equipe como COORDENADOR');
-                        $("#id_meso").attr('disabled', true).prop('title','para continuar, Corrija seu "CADASTRO DE COMPDEC", incluindo um membro da equipe como COORDENADOR');
-                        $("#nomeRegiao_fk").attr('disabled', true).prop('title','para continuar, Corrija seu "CADASTRO DE COMPDEC", incluindo um membro da equipe como COORDENADOR');
-                    }else {
-                        //console.log(dados.nome_meso);
-                        $("#nome_coordenador").val(dados.nome_coordenador);
-                        $("#tel_coordenador").val(dados.tel_coordenador);
-                        $("#cel_coordenador").val(dados.cel_coordenador);
-                        $("#email_coordenador").val(dados.email_coordenador);
-                        $("#nome_prefeito").val(dados.nome_prefeito);
-                        $("#tel_prefeito").val(dados.tel_prefeito);
-                        $("#cel_prefeito").val(dados.cel_prefeito);
-                        $("#email_prefeito").val(dados.email_prefeito);
-                        $("#id_meso").val(dados.id_meso);
-                        $("#nomeRegiao_fk").val(dados.nome_meso);
-                        Swal.fire('Importação realizada com Sucesso !');
-                    }
-		},
-		error : function(e) {
-		//console.log(JSON.stringify(e));
-		}
-            });
-        });
     
         /* close focus pesquisa */
          /* clic form campo FK fornecedor */

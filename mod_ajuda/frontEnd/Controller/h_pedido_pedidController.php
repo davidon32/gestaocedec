@@ -118,15 +118,15 @@ class h_pedido_pedidController extends Controller {
         $_POST['despachante_dlog'] = "";
 
         $result = $h_pedido_pedid->gravar($_POST);
-        
+             
         if($result['result'] === true){
             FuncaoBase::alert("Registro Gravado com Sucesso !");
             print "<script>";
             print "window.location.href = '". FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "add_itens", array("id" => $result['id'], "voltar"=>"idx_recente"))."'";
             print "</script>";
         }else {
-            FuncaoBase::alert("Ocorreu um erro ao gravar o Pedido !");
-            $this->redirect("ajuda", "h_pedido_index", "index");
+            //FuncaoBase::alert("Ocorreu um erro ao gravar o Pedido !");
+            //$this->redirect("ajuda", "h_pedido_index", "index");
         }
     }
 
