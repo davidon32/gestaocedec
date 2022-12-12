@@ -16,7 +16,7 @@ $id_pedido = isset($_GET['id']) ? $_GET['id'] : "";
 
 $pedido = H_ajuda::Pedido($id_pedido);
 
-$itemPedido = H_ajuda::ItemPedido($id_pedido);
+$itemPedido = H_ajuda::ItemPedido($id_pedido, "L");
 
   
 ?>

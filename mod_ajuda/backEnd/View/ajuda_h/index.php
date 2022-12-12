@@ -56,7 +56,7 @@ $response = json_encode($data);
     $lista = "<i class=\"fa fa-thumbs-down\"></i>";
 
     foreach ($lista_devedores as $key => $value) {
-        $lista .= "<i class=\"fa fa-thumbs-down\">&nbsp;&nbsp;".($key+1)."&nbsp;</i>".Municipio::PegaNomeMunicipio($value) . "<br>";
+        $lista .= "<button type=\"button\" class=\"btn btn-primary\">Remover</button><i class=\"fa fa-thumbs-down\">&nbsp;&nbsp;".($key+1)."&nbsp;</i>".Municipio::PegaNomeMunicipio($value) . "<br>";
     }
     ?>
     <input type="button" class='btn btn-success' id='btn_lista' value="Lista de Municípios Impedidos" />

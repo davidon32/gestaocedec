@@ -22,12 +22,13 @@ class H_ajuda extends DataMysql {
     }
     
     
-    public static function ItemPedido($id_pedido) {
+    public static function ItemPedido($id_pedido, $tipo) {
         $dados = array();
         $con = Conexao::getInstance();
         
         $sql = "SELECT *FROM aju_h_pedido_itens
-                WHERE id_pedido = ".$id_pedido;
+                WHERE id_pedido = ".$id_pedido." 
+                and tp_item = '".$tipo."'";
         
         $result = $con->query($sql);
         
