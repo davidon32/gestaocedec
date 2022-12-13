@@ -14,7 +14,7 @@
     <a class="btn btn-success" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_index", "index") ?>">Voltar</a>
 </div>
 <div class="col-md-6 text-right">
-    <a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_prest", "homologar", array('id'=>$_GET['id']) ) ?>">Homologar</a>
+    <a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_prest", "homologa", array('id'=>$_GET['id']) ) ?>">Homologar</a>
     <a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_prest", "visualizar", array('id'=>$_GET['id'])) ?>">Visualizar</a>
     
 </div>

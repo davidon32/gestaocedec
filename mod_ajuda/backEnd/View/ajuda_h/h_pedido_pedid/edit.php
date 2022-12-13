@@ -467,23 +467,31 @@ $aviso_sit ="";
                 print "<option value='0' data-status='edicao_compdec'>Enviar para COMPDEC</option>";
             /*status ( APROVADO ) */    
             }elseif($view[0]['status'] == 2){
-                print "<option value='".$view[0]['status']."' data-status='".$view[0]['tramit']."'>".H_pedido_pedidajuda_hModel::enumFase($view[0]['tramit'])."</option>";
+                //print "<option value='".$view[0]['status']."' data-status='".$view[0]['tramit']."'>".H_pedido_pedidajuda_hModel::enumFase($view[0]['tramit'])."</option>";
                 print "<option value='4' data-status='aguard_disp'>Aguard. Disponibilidade Material</option>";
                 print "<option value='1' data-status='analise_dlog' >Analista DLOG</option>";
                 print "<option value='7' data-status='cancelado'>Cancelar Processo</option>";
-            /* status ( AGUARDAR DISPONIBILIDADE)  */    
-            } elseif ($view[0]['status'] >= 4) {
+            
+            /* processo aprovado */
+            }elseif($view[0]['status'] == 3){
+                print "<option value='4' data-status='aguard_disp'>Aguard. Disponibilidade Material</option>";
+                //print "<option value='1' data-status='analise_dlog' >Analista DLOG</option>";
+                print "<option value='7' data-status='cancelado'>Cancelar Processo</option>";
+            /* status ( AGUARDAR DISPONIBILIDADE)
+             * aguardando retirada
+             * atendido  */    
+            } elseif( ($view[0]['status'] >= 4) && ($view[0]['status'] <= 6) ){
+                print "<option value='7' data-status='cancelado'>Cancelar</option>";
                 
-                if($view[0]['status'] == 6) {
-                    print "<option value='".$view[0]['status']."' data-status='".$view[0]['tramit']."'>".H_pedido_pedidajuda_hModel::enumFase($view[0]['tramit'])."</option>";
-                    print "<option value='7' data-status='cancelado'>Cancelar</option>";
-                }else {
+            }
+            /*if($view[0]['status'] == 6) {
+                    //print "<option value='".$view[0]['status']."' data-status='".$view[0]['tramit']."'>".H_pedido_pedidajuda_hModel::enumFase($view[0]['tramit'])."</option>";
                     print "<option value='4' data-status='aguard_disp'>Aguard. Disponibilidade Material</option>";
                     print "<option value='5' data-status='aguard_ret'>Aguardando Retirada</option>";
-                    print "<option value='6' data-status='atendido'>Atendido</option>";
-                    print "<option value='7' data-status='cancelado'>Cancelar</option>";
                 }
-            }
+                    
+                
+            }*/
             
             ?>
         </select>

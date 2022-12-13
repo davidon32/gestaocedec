@@ -1415,7 +1415,7 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
             $result->bindValue(":qtd", $dados['qtd']);
             $result->execute();
 
-            return true;
+            //return true;
         } catch (Exception $e) {
             return $e->getMessage() . "Erro ao inserir material em prestacao de contas";
         }

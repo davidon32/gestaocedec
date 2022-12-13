@@ -16,7 +16,7 @@
 <form action="<?= FuncaoBase::geraLink("ajuda", "h_pedido_prest", "homologa") ?>" method="POST" name="frmHomologar" id="frmHomologar">
     
     <input type='hidden' name='id_pedido' id='id_pedido' value='<?=$_GET['id']?>'>   
-    <input type='hidden' name='txtUsuario' id='txtUsuario' value=''>
+    <input type='hidden' name='txtUsuario' id='txtUsuario' value='<?=$_COOKIE['seguranca']['idUser']?>'>
     <label>Aprovar</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="checkbox" name="rbParecer" id="rbAprovar" value='Aprovado'><br>
     <label>Recusar</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="checkbox" name="rbParecer" id="rbRecusar" value='Recusado'><br>
     <label>Em aberto</label>&nbsp; <input type="checkbox" name="rbParecer" id="rbAberto" value='EmAberto'>

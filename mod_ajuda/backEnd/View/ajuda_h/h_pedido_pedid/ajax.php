@@ -105,7 +105,9 @@ if($opcao == 'dados_compdec') {
     $dados = $_POST;
 
     if(H_pedido_pedidajuda_hModel::tramitar($dados)) {
-        H_pedido_pedidajuda_hModel::iniciaPrestContas($dados['id_pedido']);
+        if($dados['status'] == 6){
+            H_pedido_pedidajuda_hModel::iniciaPrestContas($dados['id_pedido']);
+        }
         print 'sucesso';
     }   
     

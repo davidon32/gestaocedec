@@ -173,7 +173,7 @@ class h_pedido_prestController extends Controller {
         $id_material = isset($_GET['id_material']) ? $_GET['id_material'] : "";
         $id_pedido   = isset($_GET['id'])          ? $_GET['id']   : "";
         $_usuario    = $_COOKIE['seguranca']['matricula']." ".$_COOKIE['seguranca']['nome_usuario'];
-        die();
+        //die();
 
         if( is_int($id_pedido) && is_int($id_material) && !empty($_usuario) ){
             
