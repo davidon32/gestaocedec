@@ -56,7 +56,7 @@ $response = json_encode($data);
     $lista = "<i class=\"fa fa-thumbs-down\"></i>";
 
     foreach ($lista_devedores as $key => $value) {
-        $lista .= "<button type=\"button\" class=\"btn btn-primary\">Remover</button><i class=\"fa fa-thumbs-down\">&nbsp;&nbsp;".($key+1)."&nbsp;</i>".Municipio::PegaNomeMunicipio($value) . "<br>";
+        $lista .= "<button type=\"button\" name=\"btnListaNegra\" id=\"".$key."\" class=\"btn btn-primary btnListaNegra\">Remover</button><i class=\"fa fa-thumbs-down\">&nbsp;&nbsp;".($key+1)."&nbsp;</i>".Municipio::PegaNomeMunicipio($value) . "<br>";
     }
     ?>
     <input type="button" class='btn btn-success' id='btn_lista' value="Lista de Municípios Impedidos" />
@@ -384,7 +384,7 @@ $response = json_encode($data);
                             });
                 },
                 createdRow: function (row, data, index) {
-                    //console.log(data['status'] == )   ;         
+                    //console.log(data['tramit'])   ;         
                     if (data['cor'] == 1) {   
                         $('td', row).eq(0).addClass('alert alert-success');
                         $('td', row).eq(1).addClass('alert alert-success');
@@ -393,6 +393,15 @@ $response = json_encode($data);
                         $('td', row).eq(4).addClass('alert alert-success');
                         $('td', row).eq(5).addClass('alert alert-success');
                         $('td', row).eq(6).addClass('alert alert-success');
+                    }
+                    if (data['tramit'] == 'Processo Finalizado !') {   
+                        $('td', row).eq(0).addClass('alert alert-info').attr('title', 'Processo Finalizado a Prestação de Contas !');
+                        $('td', row).eq(1).addClass('alert alert-info').attr('title', 'Processo Finalizado a Prestação de Contas !');
+                        $('td', row).eq(2).addClass('alert alert-info').attr('title', 'Processo Finalizado a Prestação de Contas !');
+                        $('td', row).eq(3).addClass('alert alert-info').attr('title', 'Processo Finalizado a Prestação de Contas !');
+                        $('td', row).eq(4).addClass('alert alert-info').attr('title', 'Processo Finalizado a Prestação de Contas !');
+                        $('td', row).eq(5).addClass('alert alert-info').attr('title', 'Processo Finalizado a Prestação de Contas !');
+                        $('td', row).eq(6).addClass('alert alert-info').attr('title', 'Processo Finalizado a Prestação de Contas !');
                     }
                 },
                 'columns': [
@@ -414,15 +423,15 @@ $response = json_encode($data);
                             //return '-'+geraLink('ajuda', 'pedido', 'view', '123', {offset: 5, limit: 10 });
 
                             /*##### EDITAR */
-                            if (data.status > 0 && data.status <= 4 || users.id_usuario == 1 || users.secao == 'CHEFIA' || users.secao == 'DLOG') {
+                            if (data.status > 0 && data.status <= 5 || users.id_usuario == 1 || users.secao == 'CHEFIA' || users.secao == 'DLOG') {
                                 links_opcoes += '<a href=\'' + geraLink('ajuda', 'h_pedido_pedid', 'edit', '<?= VERSAO ?>', {id: data.id, voltar: 'idx_recente'}) + '\' title=\'Editar Pedido\'><img src=\'/core/imagem/editar.png\'></a>';
                                 //links_opcoes +='<button id=\'btnEdicao\' name=\'btnEdicao\' type=\'button\' data-enviar_edicao='+data.id+' class=\'btn btn-primart\'>Enviar Edição</button>';
                             }
 
                             /*    ##### prestação de contas */
-                            if (data.status == 6) {
+                            if (data.status == 6 || data.status == 9) {
                                 links_opcoes += '<a href=\'' + geraLink('ajuda', 'h_pedido_prest', 'index', '<?= VERSAO ?>', {id: data.id}) + '\' title=\'Presatação de contas\'><img width=\'25\' src=\'/core/imagem/relatorio.png\'></a>';
-                                links_opcoes += '&nbsp;&nbsp;<a href=\'\' style=\'color:#ffffff; font-size:14pt\' title=\'Percentual de Conclusão da Prestação de Contas do Pedido\'><?= $percent ?>%</a> ';
+                                links_opcoes += '&nbsp;&nbsp;<a href=\'\' style=\'color:#ffffff; font-size:14pt\' title=\'Percentual de Conclusão da Prestação de Contas do Pedido\'><i style=\'font-size:10pt;\'><?= $percent ?>%</i></a> ';
                             }
 
 
@@ -484,7 +493,41 @@ $response = json_encode($data);
                     console.log(result);
                 }
             });
+            
+            $("button[name='btnListaNegra']").click(function () {
+                alert();
+                /*var result = confirm('Deseja enviar processo para COMPDEC ?');
+                var id_pedido = $(this).data('enviar_edicao');
+                if (result) {
+                    var formData = new FormData();
+                    formData.append('opcao', 'envia_edicao');
+                    formData.append('id_pedido', id_pedido);
+                    $.ajax({
+                        url: '/mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/ajax.php',
+                        type: 'POST',
+                        data: formData,
+                        processData: false, // tell jQuery not to process the data
+                        contentType: false, // tell jQuery not to set contentType
+                        success: function (response) {
+                            if (response == 'sucesso') {
+                                Swal.fire('Pedido enviado para Edição !');
+                                window.location.reload();
+                            }
+
+                        },
+                        error: function (response) {
+                        }
+                    });
+                } else {
+                    console.log(result);
+                }*/
+            });
+            
         });
+        
+        
+        
+        
 
     </script>
 </body>

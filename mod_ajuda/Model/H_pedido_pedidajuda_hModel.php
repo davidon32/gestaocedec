@@ -1036,6 +1036,9 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
             case 8:
                 return 'Pedido Reprovado';
                 break;
+            case 9:
+                return 'Processo Finalizado';
+                break;
             default:
                 return 'Opção Inválida !';
                 break;
@@ -1073,6 +1076,9 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
                 break;
             case 'reprovado':
                 return 'Processo Reprovado !';
+                break;
+            case 'finalizado':
+                return 'Processo Finalizado !';
                 break;
             default:
                 return 'Fase Inválida !';
@@ -1335,6 +1341,55 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
             return $dados;
         } catch (Exception $e) {
             return $e->getMessage() . "erro ao selecionar as perdidos !";
+        }
+    }
+    
+    /**
+     *  busca dados do pedido
+     * 
+     */
+    public static function buscaPedidoId($id) {
+
+        $con = Conexao::getInstance();
+        $sql = "SELECT aju_h_pedido_pedid.id,
+                            aju_h_pedido_pedid.numero,
+                            aju_h_pedido_pedid.data_entrada_sistema,
+                            aju_h_pedido_pedid.despachante_analista,
+                            aju_h_pedido_pedid.despachante_dlog,
+                            aju_h_pedido_pedid.id_municipio,
+                            aju_h_pedido_pedid.id_regiao,
+                            aju_h_pedido_pedid.nome_coordenador,
+                            aju_h_pedido_pedid.tel_coordenador,
+                            aju_h_pedido_pedid.cel_coordenador,
+                            aju_h_pedido_pedid.email_coordenador,
+                            aju_h_pedido_pedid.nome_prefeito,
+                            aju_h_pedido_pedid.tel_prefeito,
+                            aju_h_pedido_pedid.cel_prefeito,
+                            aju_h_pedido_pedid.email_prefeito,
+                            aju_h_pedido_pedid.id_cobrade,
+                            aju_h_pedido_pedid.pop_atendida,
+                            aju_h_pedido_pedid.decreto_se_ecp_vig,
+                            aju_h_pedido_pedid.numero_decreto,
+                            aju_h_pedido_pedid.data_vigencia,
+                            aju_h_pedido_pedid.tipo_decreto,
+                            aju_h_pedido_pedid.esforcos_realizados,
+                            aju_h_pedido_pedid.data_hora_envio,
+                            aju_h_pedido_pedid.status,
+                            aju_h_pedido_pedid.tramit,
+                            aju_h_pedido_pedid.data_aprovacao
+                            FROM gestaocedec.aju_h_pedido_pedid
+                            where id = {$id}";
+
+        try {
+
+            $result = $con->query($sql);
+
+            $linha = $result->fetchAll(PDO::FETCH_ASSOC);
+
+            return $linha;
+            
+        } catch (Exception $e) {
+            return $e->getMessage() . "erro ao selecionar o perdido !";
         }
     }
 

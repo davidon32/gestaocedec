@@ -1,4 +1,5 @@
 <?php
+
 //require_once(PATH . '/core/classe/Classe.Data.php');
 /* * *********************************************************************************
  * 	CEDEC-MG - Coordenadoria Estadual de Defesa Civil de Minas Gerais			  	*
@@ -15,64 +16,57 @@
 
 class H_pedido_prestajuda_hModel extends Model {
 
-    
     private $table = "aju_h_pedido_prest";
     public static $model;
     private static $mod;
     private $marca;
     private static $con;
-    
-    
     private $id = null;
-private $id_pedido = null;
-private $cod_material = null;
-private $nome_material = null;
-private $total_familia_at = null;
+    private $id_pedido = null;
+    private $cod_material = null;
+    private $nome_material = null;
+    private $total_familia_at = null;
 
-
-    
-    
- public function getTotal_familia_at(){
+    public function getTotal_familia_at() {
         return $this->total_familia_at;
     }
 
-            
-    public function setTotal_familia_at($total_familia_at){
-            $this->total_familia_at = $total_familia_at;
+    public function setTotal_familia_at($total_familia_at) {
+        $this->total_familia_at = $total_familia_at;
     }
-    
 
     #################  CONSTRUTOR ##################
-     function __construct() {
 
-         self::$model = $this->Tabela('aju_h_pedido_prest');
+    function __construct() {
 
-         self::$mod = "aju";
-         
-         self::$con = Conexao::getInstance();
-     }
-   
+        self::$model = $this->Tabela('aju_h_pedido_prest');
+
+        self::$mod = "aju";
+
+        self::$con = Conexao::getInstance();
+    }
+
     #################  LISTA  ##################
-   # lista {$model}
-  
+    # lista {$model}
+
     public static function lista($id = null) {
-         
-         $dados = array();
- 
+
+        $dados = array();
+
         $sql = "SELECT ";
-        $sql .= " ".implode(", ",self::$model['dados']['campos'])."";
-        
+        $sql .= " " . implode(", ", self::$model['dados']['campos']) . "";
+
         if (empty($id)) {
 
-            $sql .= " FROM ".self::$model['tabela']->TABLE_NAME." ORDER By ".self::$model['dados']['id'];
+            $sql .= " FROM " . self::$model['tabela']->TABLE_NAME . " ORDER By " . self::$model['dados']['id'];
 
-            $result =  self::$con->query($sql);
+            $result = self::$con->query($sql);
         } else {
 
-            $sql .= " FROM ".self::$model['tabela']."  
-                            WHERE ".self::$model['campos'][0]." = :id
+            $sql .= " FROM " . self::$model['tabela'] . "  
+                            WHERE " . self::$model['campos'][0] . " = :id
                             ORDER BY nome";
-            
+
             var_dump($sql);
             $result = self::$con->prepare($sql);
             $result->bindValue(":id", $id);
@@ -80,58 +74,53 @@ private $total_familia_at = null;
         }
 
         try {
-         
-            while($linha = $result->fetch(PDO::FETCH_ASSOC)){
-         
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+
                 $dados[] = $linha;
             }
 
             return $dados;
-
         } catch (Exception $e) {
             return $e->getMessage() . "Erro lista registros";
         }
     }
-         
-         
-    
-    
+
     #################  LISTA NOME ##################
     # lista nome {$model}
-  
+
     public static function listaNome($nome = null) {
-         
-         try {
-         
-         $dados = array();
- 
-        $sql = "SELECT";
-        $sql .= " ".self::$model['dados']['id'].", ";
-        $sql .= " ".implode(", ",self::$model['dados']['campos'])."";
-        
-        if (empty($nome)) {
 
-            $sql .= " FROM ".self::$model['tabela']->TABLE_NAME." ORDER By ".self::$model['dados']['id'];
+        try {
 
-            $result =  self::$con->query($sql);
-        } else {
+            $dados = array();
 
-            $sql .= " FROM ".self::$model['tabela']->TABLE_NAME."  
-                            WHERE ".self::$model['dados']['campos'][0]." LIKE :nome
+            $sql = "SELECT";
+            $sql .= " " . self::$model['dados']['id'] . ", ";
+            $sql .= " " . implode(", ", self::$model['dados']['campos']) . "";
+
+            if (empty($nome)) {
+
+                $sql .= " FROM " . self::$model['tabela']->TABLE_NAME . " ORDER By " . self::$model['dados']['id'];
+
+                $result = self::$con->query($sql);
+            } else {
+
+                $sql .= " FROM " . self::$model['tabela']->TABLE_NAME . "  
+                            WHERE " . self::$model['dados']['campos'][0] . " LIKE :nome
                             ORDER BY nome";
-            $result = self::$con->prepare($sql);
-            $result->bindValue(":nome", '%'.$nome.'%');
-            $result->execute();
-        }
-         
-         while ($linha = $result->fetch(PDO::FETCH_ASSOC)){
+                $result = self::$con->prepare($sql);
+                $result->bindValue(":nome", '%' . $nome . '%');
+                $result->execute();
+            }
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
                 $dados[] = $linha;
             }
 
-        
+
 
             return $dados;
-
         } catch (Exception $e) {
             return $e->getMessage() . "Erro lista registros";
         }
@@ -159,11 +148,11 @@ total_familia_at
             $result = self::$con->prepare($sql);
 
             $result->bindValue(":id_pedido", $dados['id_pedido']);
-$result->bindValue(":cod_material", $dados['cod_material']);
-$result->bindValue(":nome_material", $dados['nome_material']);
-$result->bindValue(":total_familia_at", $dados['total_familia_at']);
+            $result->bindValue(":cod_material", $dados['cod_material']);
+            $result->bindValue(":nome_material", $dados['nome_material']);
+            $result->bindValue(":total_familia_at", $dados['total_familia_at']);
 
- 
+
             $result->execute();
 
             #Log::GravaLog("Cadastro de marca : " . $dados['nome'] . " " . $_COOKIE['seguranca']['login'], "aju_log");
@@ -175,13 +164,11 @@ $result->bindValue(":total_familia_at", $dados['total_familia_at']);
     }
 
     #################  EDIT ##################
-            
-            
     ################  Atualizar dados h_pedido_prest  ###################
 
     public static function edit(array $dados) {
-        
- 
+
+
 
         $con = Conexao::getInstance();
 
@@ -195,14 +182,14 @@ total_familia_at= :total_familia_at
         try {
 
             $result = $con->prepare($sql);
-            
+
             $result->bindValue(":id", $dados['id']);
             $result->bindValue(":id_pedido", $dados['id_pedido']);
-$result->bindValue(":cod_material", $dados['cod_material']);
-$result->bindValue(":nome_material", $dados['nome_material']);
-$result->bindValue(":total_familia_at", $dados['total_familia_at']);
+            $result->bindValue(":cod_material", $dados['cod_material']);
+            $result->bindValue(":nome_material", $dados['nome_material']);
+            $result->bindValue(":total_familia_at", $dados['total_familia_at']);
 
-            
+
             $result->execute();
 
             #Log::GravaLog("Atualizar Cadastro de H_pedido_prest : " . $dados['nome'] . " " . $_COOKIE['seguranca']['login'], "aju_log");
@@ -214,6 +201,7 @@ $result->bindValue(":total_familia_at", $dados['total_familia_at']);
     }
 
     #################  VIEW  ##################
+
     /**
      * View 
      */
@@ -242,15 +230,15 @@ aju_h_pedido_prest.total_familia_at
                 $h_pedido_prest = $linha;
             }
 
-           $model = self::$model;
+            $model = self::$model;
             return array($h_pedido_prest, $model);
         } catch (Exception $e) {
             return $e->getMessage() . "Erro ao inserir H_pedido_prest";
         }
     }
-    
-    
+
     #################  VIEW  ##################
+
     /**
      * View 
      */
@@ -277,19 +265,20 @@ aju_h_pedido_prest.total_familia_at
                 $h_pedido_prest = $linha;
             }
 
-           $model = self::$model;
+            $model = self::$model;
             return array($h_pedido_prest, $model);
         } catch (Exception $e) {
             return $e->getMessage() . "Erro ao inserir H_pedido_prest";
         }
     }
-    
+
     #################  PAGINACAO  ##################
-    /* paginacao*/
-    public function paginacao($start, $regPorPagina){
+    /* paginacao */
+
+    public function paginacao($start, $regPorPagina) {
         $con = Conexao::getInstance();
 
-            $stmt = $con->prepare("SELECT aju_h_pedido_prest.id,
+        $stmt = $con->prepare("SELECT aju_h_pedido_prest.id,
 aju_h_pedido_prest.id_pedido,
 aju_h_pedido_prest.cod_material,
 aju_h_pedido_prest.nome_material,
@@ -297,12 +286,11 @@ aju_h_pedido_prest.total_familia_at
                                 FROM aju_h_pedido_prest
                                 
                                 ORDER By id DESC LIMIT $start, $regPorPagina");
-            $stmt->execute();
+        $stmt->execute();
 
-            $result = $stmt->fetchAll();
-            
-            return $result;
-            
+        $result = $stmt->fetchAll();
+
+        return $result;
     }
 
     #################  DELETAR  ##################
@@ -323,14 +311,6 @@ aju_h_pedido_prest.total_familia_at
             return $e->getMessage() . "Erro Deletar H_pedido_prest !";
         }
     }
-            
-     
-
-
-     
-     
-
-
 
     /**
      * Lista h_pedido_prest
@@ -396,8 +376,6 @@ aju_h_pedido_prest.total_familia_at
             return $e->getMessage() . "Erro ao inserir Fornecedor";
         }
     }
-
-    
 
     /**
      * Cadastro Dispositivos
@@ -485,17 +463,17 @@ aju_h_pedido_prest.total_familia_at
             return $e->getMessage() . "Erro ao inserir Fornecedor";
         }
     }
-    
+
     /**
      *  Lista de materiais para fazer a prestacao d contas
      *  
      */
-    public static function listaPrestContasporPedido($id_pedido){
-        
-         $con = Conexao::getInstance();
+    public static function listaPrestContasporPedido($id_pedido) {
+
+        $con = Conexao::getInstance();
 
         $dados = array();
-        
+
         $sql = "SELECT id,
                     id_pedido,
                     cod_material,
@@ -503,40 +481,37 @@ aju_h_pedido_prest.total_familia_at
                     total_familia_at,
                     qtd
                 FROM aju_h_pedido_prest
-                where id_pedido = '".$id_pedido."'";
-        
-         try {
+                where id_pedido = '" . $id_pedido . "'";
+
+        try {
 
             $result = $con->query($sql);
 
             while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
                 $dados[] = $linha;
             }
-            
+
             return $dados;
         } catch (Exception $e) {
             return $e->getMessage() . "Erro seleciona os prestacao de contas";
         }
-       
-        
     }
 
-    
     /**
      *  qtd benefiarios prestação de contas 
      * @param id do item da prestacao de contas (material para prestar contas)
      */
-    public static function percBenef($id_prest_conta){
-        
+    public static function percBenef($id_prest_conta) {
+
         $con = Conexao::getInstance();
 
         $dados = "";
 
-        
+
         $sql = "select sum(qtd) as id from aju_h_pedido_benef
-                where id_prest_conta = ".$id_prest_conta;
-        
-         try {
+                where id_prest_conta = " . $id_prest_conta;
+
+        try {
 
             $result = $con->query($sql);
 
@@ -549,22 +524,21 @@ aju_h_pedido_prest.total_familia_at
             return $e->getMessage() . "Erro seleciona os beneficiarios";
         }
     }
-    
-    
+
     /**
      *  qtd material pedido 
      * @param id_prest_cont
      */
-    public static function QtdMaterialPrest($id_prest_conta){
-        
+    public static function QtdMaterialPrest($id_prest_conta) {
+
         $con = Conexao::getInstance();
 
         $dados = "";
 
-        
+
         $sql = "select qtd from aju_h_pedido_prest
-                where id = ".$id_prest_conta;
-         try {
+                where id = " . $id_prest_conta;
+        try {
 
             $result = $con->query($sql);
 
@@ -576,52 +550,49 @@ aju_h_pedido_prest.total_familia_at
         } catch (Exception $e) {
             return $e->getMessage() . "Erro seleciona os beneficiarios";
         }
-        
     }
-    
+
     /* id´s prestação de contas */
-    public static function id_prest_conta($id_pedido){
-        
+
+    public static function id_prest_conta($id_pedido) {
+
         $con = Conexao::getInstance();
 
         $dados = array();
 
-        
+
         $sql = "SELECT id FROM aju_h_pedido_prest
-                    WHERE id_pedido = ".$id_pedido;
-         try {
+                    WHERE id_pedido = " . $id_pedido;
+        try {
 
             $result = $con->query($sql);
 
             while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
                 $dados[] = $linha['id'];
             }
-            
-           
-            return implode("','", $dados);
 
+
+            return implode("','", $dados);
         } catch (Exception $e) {
             
         }
-        
     }
-    
-    
+
     /**
      *  Total de materiais para prestação de contas 
      * @param id_pedido
      */
-    public static function totalMaterialPrestConta($id_pedido){
-        
+    public static function totalMaterialPrestConta($id_pedido) {
+
         $con = Conexao::getInstance();
 
         $dados = "";
 
-        
+
         $sql = "SELECT SUM(aju_h_pedido_prest.qtd) as qtd_prest_cont
                             FROM aju_h_pedido_prest
-                            WHERE aju_h_pedido_prest.id_pedido = ".$id_pedido;
-         try {
+                            WHERE aju_h_pedido_prest.id_pedido = " . $id_pedido;
+        try {
 
             $result = $con->query($sql);
 
@@ -631,29 +602,29 @@ aju_h_pedido_prest.total_familia_at
 
             return is_null($dados['qtd_prest_cont']) ? 0 : $dados['qtd_prest_cont'];
         } catch (Exception $e) {
-            
+
             return $e->getMessage() . "Erro qtd itens para prestacão de contas";
         }
-        
     }
+
     /**
      *  Total de materiais para prestação de contas 
      * @param id_pedido
      */
-    public static function totalMaterialBeneficiarios($id_pedido){
-        
+    public static function totalMaterialBeneficiarios($id_pedido) {
+
         $con = Conexao::getInstance();
 
         $dados = "";
 
         $ids_prest = self::id_prest_conta($id_pedido);
-        
+
         $sql = "select SUM(aju_h_pedido_benef.qtd) as qtd_benef
                             FROM aju_h_pedido_benef
-                            where aju_h_pedido_benef.id_prest_conta in ('".$ids_prest."')";
-                            
-        
-         try {
+                            where aju_h_pedido_benef.id_prest_conta in ('" . $ids_prest . "')";
+
+
+        try {
 
             $result = $con->query($sql);
 
@@ -662,46 +633,45 @@ aju_h_pedido_prest.total_familia_at
             }
 
             return is_null($dados['qtd_benef']) ? 0 : $dados['qtd_benef'];
-            
         } catch (Exception $e) {
             return $e->getMessage() . "Erro qtd materiais dos beneficiarios";
         }
-        
     }
-    
-    
-     /**
+
+    /**
      *  homologacao de prestacao de contas
      * @param id_pedido
      */
-    public static function homologar($dados){
+    public static function homologar($dados) {
+
+        $id_pedido = isset($dados['id_pedido']) ? $dados['id_pedido'] : "";
+        $_usuario = $_COOKIE['seguranca']['matricula'] . " " . $_COOKIE['seguranca']['nome_usuario'];
+        $_parecer = isset($dados['txtParecer']) ? $dados['txtParecer'] : "";
         
-        var_dump($dados);
-        die();
-        
-        $con = Conexao::getInstance();
-       
-        $sql = "UPDATE aju_h_pedido_pedid
+
+            $con = Conexao::getInstance();
+
+            $sql = "UPDATE aju_h_pedido_pedid
                     SET status_prest =  :status_prest,
                         parecer_prest = :parecer_prest,
-                        usuario_homolog = :usuario_homolog
+                        usuario_homolog = :usuario_homolog,
+                        data_aprovacao = :data_aprovacao
                         WHERE id = :id_pedido";
-         try {
-             
-            $result = $con->prepare($sql);
-            $result->bindValue(":status_prest", $dados['rbParecer']);
-            $result->bindValue(":parecer_prest", nl2br($dados['txtParecer']));
-            $result->bindValue(":usuario_homolog", $dados['txtUsuario']);
-            $result->bindValue(":id_pedido", $dados['id_pedido']);
-            $result->execute();
+            try {
 
-            return true;
-            
-        } catch (Exception $e) {
-            return $e->getMessage() . "";
-        }
+                $result = $con->prepare($sql);
+                $result->bindValue(":status_prest", $dados['rbParecer']);
+                $result->bindValue(":parecer_prest", nl2br($_parecer));
+                $result->bindValue(":usuario_homolog", $_usuario);
+                $result->bindValue(":data_aprovacao", date('Y-m-d H:i:s'));
+                $result->bindValue(":id_pedido", $id_pedido);
+                $result->execute();
+
+                return true;
+            } catch (Exception $e) {
+                return $e->getMessage() . "";
+            }
         
     }
-    
-    
+
 }

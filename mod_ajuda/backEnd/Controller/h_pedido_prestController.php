@@ -1,7 +1,8 @@
 
 <?php
+
 include_once('core/Controller/Controller.php');
-        
+
 /* * *********************************************************************************
  * 	CEDEC-MG - Coordenadoria Estadual de Defesa Civil de Minas Gerais			  	*
  * 	
@@ -20,11 +21,10 @@ class h_pedido_prestController extends Controller {
     private $h_pedido_prests;
     private $campos;
     public $numPage;
-    
+
     public function __construct() {
         $this->h_pedido_prest = new H_pedido_prestajuda_hModel;
         $this->h_pedido_prests = $this->h_pedido_prest->lista();
-
     }
 
     # index h_pedido_prest
@@ -37,41 +37,41 @@ class h_pedido_prestController extends Controller {
     /* paginacao */
 
     public function paginacao($page, $numPage) {
-        
+
         $this->numPage = $numPage;
 
         $totalRegistro = count($this->h_pedido_prests);
         $regPorPagina = $numPage;
-        
+
         $totPag = ceil($totalRegistro / $numPage);
 
         $start = ($page - 1) * $regPorPagina;
 
         $paginacao = $this->h_pedido_prest->paginacao($start, $regPorPagina);
-       
+
         return array($paginacao, $totPag);
-       
     }
-        
+
     ################  EXPORTAR ##################    
     # Exportar dados excel
+
     public function exportar() {
 
         $h_pedido_prest = new H_pedido_prestajuda_hModel;
-        
+
         $dados = $h_pedido_prest->lista();
-        
+
         $coluna = array_keys($dados[0]);
-        
+
         $data = array();
-        
+
         array_push($data, $coluna);
-        
+
         foreach ($dados as $key => $dado) {
-            $data[] = $dado; 
+            $data[] = $dado;
         }
 
-        $nomeFileExcel = sys_get_temp_dir()."/Cadastro".ucfirst($_GET['controller'])."_".date("dmY_his").".xlsx";
+        $nomeFileExcel = sys_get_temp_dir() . "/Cadastro" . ucfirst($_GET['controller']) . "_" . date("dmY_his") . ".xlsx";
 
         $writer = new XLSXWriter();
         $writer->writeSheet($data);
@@ -89,9 +89,9 @@ class h_pedido_prestController extends Controller {
         flush();
         readfile($nomeFileExcel);
     }
-        
 
     # formulario cadastro
+
     public function cadastro() {
         include_once 'mod_ajuda/backEnd/View/ajuda_h/h_pedido_prest/cadastro.php';
     }
@@ -108,23 +108,22 @@ class h_pedido_prestController extends Controller {
             $this->redirect("ajuda", "h_pedido_prest", "index");
         }
     }
-            
+
     # pesquisa registro
 
     public function pesquisa() {
 
-            include_once 'mod_ajuda/backEnd/View/ajuda_h/h_pedido_prest/pesquisa.php';
+        include_once 'mod_ajuda/backEnd/View/ajuda_h/h_pedido_prest/pesquisa.php';
     }
-    
 
     #visualizar registro
 
     public function view() {
-         $h_pedido_prestModel = $this->h_pedido_prest;
+        $h_pedido_prestModel = $this->h_pedido_prest;
         $view = $this->h_pedido_prest->view($_GET['id']);
         include_once 'mod_ajuda/backEnd/View/ajuda_h/h_pedido_prest/view.php';
     }
-    
+
     #visualizar registro
 
     public function visualizar() {
@@ -140,12 +139,12 @@ class h_pedido_prestController extends Controller {
         if ($this->isPost()) {
 
             $result = $h_pedido_prestModel->edit($_POST);
-            
+
             //var_dump($result);
             if (!empty($result)) {
                 FuncaoBase::alert("Registro Atualizado com Sucesso !");
                 $view = $h_pedido_prestModel->view($_POST['id_h_pedido_prest']);
-                $param = array('id'=> $_POST['id_h_pedido_prest']);
+                $param = array('id' => $_POST['id_h_pedido_prest']);
                 $this->redirect("ajuda", "h_pedido_prest", "view", $param);
             }
         } else {
@@ -154,36 +153,40 @@ class h_pedido_prestController extends Controller {
             include_once 'mod_ajuda/backEnd/View/ajuda_h/h_pedido_prest/edit.php';
         }
     }
-    
+
     /*  deletar registro */
+
     public function delete() {
-        
-       if($this->h_pedido_prest->delete($_GET['id'])){
-           FuncaoBase::alert("Registro Apagado com Sucesso !");
-       }
 
-            $this->redirect("ajuda", "h_pedido_prest", "index");
-        
+        if ($this->h_pedido_prest->delete($_GET['id'])) {
+            FuncaoBase::alert("Registro Apagado com Sucesso !");
+        }
+
+        $this->redirect("ajuda", "h_pedido_prest", "index");
     }
-    
-    
-    /*  homologar prestacao de contas */
-    public function homologa() {
-        
-        $id_material = isset($_GET['id_material']) ? $_GET['id_material'] : "";
-        $id_pedido   = isset($_GET['id'])          ? $_GET['id']   : "";
-        $_usuario    = $_COOKIE['seguranca']['matricula']." ".$_COOKIE['seguranca']['nome_usuario'];
-        //die();
 
-        if( is_int($id_pedido) && is_int($id_material) && !empty($_usuario) ){
-            
-            
-            if(H_pedido_prestajuda_hModel::homologar($_POST)){
-                FuncaoBase::alert("Registro Gravado com Sucesso !");
-                $this->redirect("ajuda", "h_pedido_prest", "index", array('id'=> $_POST['id_pedido'])); 
+    /*  homologar prestacao de contas */
+
+    public function homologa() {
+
+
+        if ($this->isPost()) {
+
+            if( is_numeric($_POST['id_pedido']) && !empty($_POST['txtParecer']) ) {
+
+                if (H_pedido_prestajuda_hModel::homologar($_POST)) {
+                    if ($_POST['rbParecer'] == 'Aprovado') {
+                        $dados = array('status' => 9,
+                            'tramit' => 'finalizado',
+                            'id_pedido' => $_POST['id_pedido']);
+
+                        H_pedido_pedidajuda_hModel::tramitar($dados);
+                    }
+                    FuncaoBase::alert("Operação Realizada com Sucesso !");
+                    $this->redirect("ajuda", "h_pedido_index", "index");
+                }
             }
-            
-        }else {
+        } else {
             include_once 'mod_ajuda/backEnd/View/ajuda_h/h_pedido_prest/homologa.php';
         }
     }

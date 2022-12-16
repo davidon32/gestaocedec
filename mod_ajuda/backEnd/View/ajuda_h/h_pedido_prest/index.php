@@ -9,12 +9,24 @@
 <?php //include_once "template/page/menu.php";?>
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php"; ?>
+<?php
+    $id = isset($_GET['id']) ? $_GET['id'] : "";
+
+    $h_pedido = H_pedido_pedidajuda_hModel::buscaPedidoId($id);
+    //var_dump($h_pedido[0]['status']);
+
+    $h_pedido_prest = new H_pedido_prestajuda_hModel();
+?>
 
 <div class="col-md-6 text-left">
     <a class="btn btn-success" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_index", "index") ?>">Voltar</a>
 </div>
 <div class="col-md-6 text-right">
-    <a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_prest", "homologa", array('id'=>$_GET['id']) ) ?>">Homologar</a>
+    <?php
+        if($h_pedido[0]['status'] == 6){
+            print "<a class=\"btn btn-primary\" href=\"".FuncaoBase::geraLink("ajuda", "h_pedido_prest", "homologa", array('id'=>$_GET['id']) )."\">Homologar</a>";
+        }
+    ?>
     <a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_prest", "visualizar", array('id'=>$_GET['id'])) ?>">Visualizar</a>
     
 </div>
@@ -22,7 +34,8 @@
 <br>
 
 <?php
-print "<legend>Prestação de Contas Pedido Status</legend>";
+print "<legend>Prestação de Contas Pedido : <b>". Municipio::PegaNomeMunicipio($h_pedido[0]['id_municipio'])."</b></legend>";
+print "Status : <b>". H_pedido_pedidajuda_hModel::enumFase($h_pedido[0]['tramit'])."</b>";
 
 print "<div class=\"table-responsive\"><table class=\"table table-bordered table-striped\">
     <thead>
@@ -38,9 +51,6 @@ print "<div class=\"table-responsive\"><table class=\"table table-bordered table
 </thead>
 <tbody>";
 
-$id = isset($_GET['id']) ? $_GET['id'] : "";
-
-$h_pedido_prest = new H_pedido_prestajuda_hModel();
 
 $materiais = $h_pedido_prest::listaPrestContasporPedido($id);
 

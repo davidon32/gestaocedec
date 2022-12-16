@@ -25,22 +25,21 @@
     <label>Parecer / Justificativa:</label>
     
     
-    <textarea class="form form-control" rows='10' name='txtParecer' id='txtParecer' maxlength='255'></textarea>
+    <textarea class="form form-control" rows='10' name='txtParecer' id='txtParecer' maxlength='255' required></textarea>
     <br>
     <input class='btn btn-primary' type="submit" value="Gravar">
     
 </form>
 
 <br>
-<a class="btn btn-success" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_prest", "index") ?>">Voltar</a>
+<a class="btn btn-success" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_prest", "index", array('id'=>$_GET['id'])) ?>">Voltar</a>
 <br>
 <br>
 
 <br>
 <?php
 
-    var_dump($_POST);
-
+  
 ?>
 <!-- =================== RODAPE CORPO ==================== -->
 <?php include_once "template/page/corpoRodape.php"; ?>

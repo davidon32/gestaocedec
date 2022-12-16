@@ -95,6 +95,10 @@ $pedido_h_item = new H_pedido_itensajuda_hModel();
 foreach ($dados as $key => $value) {
     
     $percent = number_format( ((H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($value['id']) * 100 ) != 0 ) ? (H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($value['id']) * 100) / H_pedido_prestajuda_hModel::totalMaterialPrestConta($value['id']) : 0, '2','.', ' ');
+    /*print $value['status'];
+    if($value['status'] == $percent <= 100){
+        //print "prest ok";
+    }*/
 
     $cor = $pedido_h->getCorStatus($value['status']);
     print "<tr style='background-color:" . $cor['fdo'] . "'>
