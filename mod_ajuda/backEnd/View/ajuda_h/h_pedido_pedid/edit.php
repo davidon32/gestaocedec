@@ -658,9 +658,17 @@ $aviso_sit ="";
 
 <script>
     $(document).ready(function () {
+        
+        
         var status = <?=$view[0]['status']?>;
         var secao = '<?=$secao;?>';
         var favoravel = <?=$favoravelDlog;?>;
+        
+        
+        /* abrir arvore */
+        
+        var aba = '';
+        $('#html1').jstree("select_node", 'show_material_pedido', true);
         
         /* situação do processo está com o DIRETOR da dlog
          * e parecer favoravel pelo analista */
@@ -706,7 +714,7 @@ $aviso_sit ="";
                             if (response.trim() == 'sucesso') {
                                 Swal.fire('Pedido Tramitado com sucesso !').then(function () {
                                     //$('#lista_despacho').load('/mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/ajax_lista_despacho.php?id=' + id_pedido);
-                                    //window.location.reload();
+                                    window.location.reload();
                                 });
                             }
                         },
@@ -778,9 +786,9 @@ $aviso_sit ="";
                                 //$('#processo').text($('#processo').text().substring(0, $('#processo').text().search(":"))+" (Processo com Parecer Favorável pelo Coordenador Adjunto)");
                             }
                             
-                            $('#lista_despacho').load('/mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/ajax_lista_despacho.php?id=' + id_pedido);
+                            //$('#lista_despacho').load('/mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/ajax_lista_despacho.php?id=' + id_pedido);
                             
-                            $('#novoDespacho').hide();
+                            //$('#novoDespacho').hide();
                         });
                     }
                 },
@@ -838,8 +846,8 @@ $aviso_sit ="";
                 contentType: false, // tell jQuery not to set contentType
                 success: function (response) {
                     Swal.fire('Registro Editado com Sucesso !').then(function () {
-                        window.location.reload();
-                        $('#html1').jstree("select_node", 'show_material_pedido', true);
+                        window.location.href = '<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit", array('id' =>$view[0]['id'], 'voltar'=>'idx_recente', 'jstree' => 'show_material_pedido')) ;?>';
+                        //$('#html1').jstree("select_node", 'show_material_pedido', true);
                     });
                 },
                 error: function (e) {
@@ -903,6 +911,7 @@ $aviso_sit ="";
                     //console.log(response);
                     Swal.fire('Registro Salvo com Sucesso !').then(function () {
                         window.location.reload();
+                        
                         $('#html1').jstree("select_node", show_material_pedido, true);
                     });
                 },

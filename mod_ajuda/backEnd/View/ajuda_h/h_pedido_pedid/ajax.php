@@ -74,6 +74,7 @@ if($opcao == 'dados_compdec') {
     $dados = $_POST;
     $dados['data_parecer'] = date('d-m-Y H:i:s');
 
+    
     if(H_pedido_an_tecajuda_hModel::gravar($dados)) {
         
         /* PARECER DESFAVORAVEL */
