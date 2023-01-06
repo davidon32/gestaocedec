@@ -15,16 +15,16 @@ class Registro {
     public function reg_danos_humanos($registro) {
 
         $con = Conexao::getInstance();
-        
-        if(!isset($registro['cedec']) ) {
-            $registro['id_municipio'] = $_COOKIE['seguranca']['id_municipio'];        
+
+        if (!isset($registro['cedec'])) {
+            $registro['id_municipio'] = $_COOKIE['seguranca']['id_municipio'];
         }
 
 
         try {
 
             /* nao existir registro ja lancado */
-            if(self::buscaLancamento($registro)){
+            if (self::buscaLancamento($registro)) {
 
                 $sql = "INSERT INTO reg_danos_humanos (desalojado, dt_desalojado, desabrigado, municipio_id)
                          value (:desalojado, :dt_desalojado, :desabrigado, :id_municipio)";
@@ -36,25 +36,25 @@ class Registro {
                 $result->bindValue(":id_municipio", $registro['id_municipio']);
 
                 return $result->execute();
-            }else {
+            } else {
                 return 'duplicado';
             }
         } catch (Exception $e) {
-                return $e->getMessage();
+            return $e->getMessage();
         }
     }
-    
+
     /**
      * Busca registro ja lancado
      * @param type $id_municipio
      * @return type
      */
-    public static function buscaLancamento($registro){
+    public static function buscaLancamento($registro) {
         $con = Conexao::getInstance();
-        $sql ="SELECT count(*) FROM reg_danos_humanos
+        $sql = "SELECT count(*) FROM reg_danos_humanos
                WHERE dt_desalojado = '{$registro['dt_registro']}'
                 AND municipio_id = {$registro['id_municipio']}";
-                
+
         $result = $con->query($sql);
         return ($result->fetchColumn() == 0) ? true : false;
     }
@@ -79,6 +79,32 @@ class Registro {
         }
     }
     
+    public function listaPorMunicipio_data($id_municipio = 0, $data =null) {
+
+        $con = Conexao::getInstance();
+
+        try {
+            
+                $sql = "SELECT cedec_municipio.nome, dt_desalojado, municipio_id, desalojado, desabrigado
+                            FROM reg_danos_humanos
+                            INNER JOIN cedec_municipio
+                            ON reg_danos_humanos.municipio_id = cedec_municipio.id_municipio
+                            where reg_danos_humanos.municipio_id = {$id_municipio}
+                            AND reg_danos_humanos.dt_desalojado = '{$data}'
+                            GROUP BY municipio_id
+                            ORDER BY cedec_municipio.nome";
+
+
+            $result = $con->query($sql);
+            $result->execute();
+
+            return $result->fetchAll();
+        } catch (Exception $e) {
+            print $e->getMessage();
+        }
+    }
+
+
     /**
      * Lista de ultima posição dos afetados por municipio
      * @param type $id_municipio
@@ -114,8 +140,6 @@ class Registro {
             print $e->getMessage();
         }
     }
-    
-    
 
     /**
      * Lista por ano
@@ -138,7 +162,6 @@ class Registro {
             $result->execute();
 
             return $result->fetchAll();
-            
         } catch (Exception $e) {
             print $e->getMessage();
         }
@@ -171,6 +194,20 @@ class Registro {
         } catch (Exception $e) {
             print $e->getMessage();
         }
+    }
+
+    public function grafGeral() {
+
+        $con = Conexao::getInstance();
+        /* geral por ano */
+        $sql = "SELECT year(dt_desalojado) AS ano, sum(desalojado) AS desalojado,
+                SUM(desabrigado) AS desabrigado FROM reg_danos_humanos
+                    group BY year(dt_desalojado)";
+
+        $result = $con->query($sql);
+        $result->execute();
+
+        return $result->fetchAll();
     }
 
 }

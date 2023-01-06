@@ -28,6 +28,7 @@
     <th>#</th>
     <th>Autor/Nome</th>
     <th>Data/Hora</th>
+    <th>Titulo</th>
     <th>Texto</th>
     <th>Categoria</th>
     <th>Órgão</th>
@@ -45,6 +46,7 @@ foreach ($lista as $key => $value) {
             print "<td ".$style.">".($key+1)."</td>";
             print "<td ".$style.">".$value['autor']."</td>";
             print "<td ".$style.">".DataMysql::dataCompletaVisual($value['data_hora'])."</td>";
+            print "<td ".$style.">".$value['titulo']."</td>";
             print "<td ".$style.">".$value['texto']."</td>";
             print "<td ".$style.">".$value['categoria']."</td>";
             print "<td ".$style.">".$value['orgao']."</td>";

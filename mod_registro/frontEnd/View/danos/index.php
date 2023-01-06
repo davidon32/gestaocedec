@@ -24,7 +24,7 @@
             <form action="<?= FuncaoBase::geraLink('registro', 'index', 'desabrigado')?>" method="POST" name="frmRegistra" id='frmRegistro'>
                 
                 <label>Data de Lancamento</label>
-                <input class='form form-control' type="date" name="dt_registro" id="dt_registro" required value="<?=date('Y-m-d')?>" max="<?= date('Y-m-d')?>">
+                <input class='form form-control' type="date" name="dt_registro" id="dt_registro" required min="<?=date('Y-m-d')?>" max="<?= date('Y-m-d')?>" value="<?=date('Y-m-d')?>">
                 <br>
                 <label>Números de Desabrigados :</label><br>
                 <span>
@@ -33,7 +33,7 @@
                         afetada para ser mantida em um abrigo temporário, ou sob aluguel social,
                         ou hospedagem custeados pela prefeitura.
                 </span>
-                <input class='form form-control' type="number" name="desabrigado" id="desabrigado" required >
+                <input class='form form-control' type="number" name="desabrigado" id="desabrigado" required value="0" >
                 <br>
                 <label>Números de Desalojados :</label><br>
                 <span>
@@ -42,7 +42,7 @@
                         do desastre, que não carece de abrigo custeado pela prefeitura, ou seja, pessoa que saiu
                         da sua residência afetada e se instalou na casa de amigos ou parentes.
                 </span>
-                <input class='form form-control' type="number" name="desalojado" id="desalojado" required >
+                <input class='form form-control' type="number" name="desalojado" id="desalojado" required  value="0" >
                 <br>
                 <input class='btn btn-primary' type="submit" name="btnGravar" id="btnGravar" value="Gravar">
                 
@@ -57,6 +57,7 @@
             $registro = new Registro;
             
             $registros = $registro->listaGeral($_COOKIE['seguranca']['id_municipio']);
+//            $registros = $registro->listaPorMunicipio_data($_COOKIE['seguranca']['id_municipio'], date('Y-m-d'));
             
             
             
@@ -69,13 +70,13 @@
             print "<th>Desalojados</th>";
             print "</tr>";
           
-            foreach ($registros as $key => $registro) {
+            foreach ($registros as $key => $registro1) {
                 
                 
                 print "<tr>";
-                print "<th>".date("d/m/Y", strtotime($registro['dt_desalojado']))."</th>";
-                print "<th>{$registro['desalojado']}</th>";
-                print "<th>{$registro['desabrigado']}</th>";
+                print "<th>".date("d/m/Y", strtotime($registro1['dt_desalojado']))."</th>";
+                print "<th>{$registro1['desalojado']}</th>";
+                print "<th>{$registro1['desabrigado']}</th>";
                 print "</tr>";
                
             }
@@ -84,13 +85,13 @@
             
             $gr_registros = $registro->listaPorAno($_COOKIE['seguranca']['id_municipio'], "2022");
             
-            var_dump($gr_registros);
+            
             $gr_desabrigado = "";
             $gr_desalojado = "";
             
-            foreach ($gr_registros as $key => $registro) {
-                $gr_desabrigado[] = $registro['desabrigado'];
-                $gr_desalojado[] = $registro['desalojado']; 
+            foreach ($gr_registros as $key => $registro2) {
+                $gr_desabrigado[] = $registro2['desabrigado'];
+                $gr_desalojado[] = $registro2['desalojado']; 
             }
             
             
@@ -105,17 +106,17 @@
             <br>
         <br>
         <div class="col-md-6">
-        <legend>Situação de Desabrigados e Desalojados <?= Municipio::PegaNomeMunicipio($_COOKIE['seguranca']['id_municipio']);?></legend>
+<!--        <legend>Situação de Desabrigados e Desalojados <?= Municipio::PegaNomeMunicipio($_COOKIE['seguranca']['id_municipio']);?></legend>-->
             <div class="card-body">
-                <div class="chart">
-                <canvas id="barChart" style="height: 230px; width: 547px;" height="230" width="547"></canvas>
+                <div class="chart1">
+<!--                <canvas id="barChart" style="height: 230px; width: 547px;" height="230" width="547"></canvas>-->
                 </div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="card-body">
                 <div class="chart">
-                <canvas id="barChart1" style="height: 230px; width: 547px;" height="230" width="547"></canvas>
+<!--                <canvas id="barChart12" style="height: 230px; width: 547px;" height="230" width="547"></canvas>-->
                 </div>
             </div>
         </div>
@@ -130,7 +131,7 @@
     $json_desabrigado = json_encode($gr_desabrigado);
     $json_desalojado = json_encode($gr_desalojado);
     
-    var_dump($json_desalojado);
+    //var_dump($json_desalojado);
     
     ?>
 

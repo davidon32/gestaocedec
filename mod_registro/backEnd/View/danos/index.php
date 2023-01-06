@@ -13,102 +13,100 @@
 <?php
 include_once "template/page/corpoHeader.php";
 
-$municipios = Municipio::listaid_municipioAutocomplete();
+$registro = new Registro();
+
+$dadosgrafGeral = $registro->grafGeral();
 ?>
 
 <br>
-
 <div class="row">
-    <div class="col col-md-12">
-        <!-- Pedido Cesta -->
-        <div class="row">
-            <div class="col-md-6">
+    <div class="col-md-6">
+        <a href="<?= FuncaoBase::geraLink('registro', 'index', 'lanca') ?>" class='btn btn-success'>Lancamento</a><br>
+    </div>
+    <div class="col-md-6">
+        <p><label>Período</label>
+            <input type="radio" name="ck_periodo" id="ck_periodo"></p>
 
-                <!--####################### PEDIDO DE AJUDA HUMANITARIO ###########################-->
-                <?php
-                $permissao = Usuario::getPermissao('cedec_usuario', 'it_m_registro');
-                if ($permissao == "1") {
-                    ?>
-
-                    <form action="<?= FuncaoBase::geraLink('registro', 'index', 'desabrigado') ?>" method="POST" name="frmRegistra" id='frmRegistro'>
-                        <label>Data de Lancamento</label>
-                        <input class='form form-control' type="date" name="dt_registro" id="dt_registro" required value="<?= date('Y-m-d') ?>" max="<?= date('Y-m-d') ?>">
-
-                        <label>Números de Desabrigados :</label><br>
-                        <span>
-                            <b>Desabrigado</b>: Pessoa cuja habitação foi afetada por dano ou ameaça de dano que necessita
-                            de abrigo custeado pela prefeitura, ou seja, pessoa que saiu da sua residência
-                            afetada para ser mantida em um abrigo temporário, ou sob aluguel social,
-                            ou hospedagem custeados pela prefeitura.
-                        </span>
-                        <input class='form form-control' type="number" name="desabrigado" id="desabrigado" required >
-                        <br>
-                        <label>Números de Desalojados :</label><br>
-                        <span>
-                            <b>Desalojado</b>: Pessoa que foi obrigada a abandonar temporariamente ou definitivamente sua
-                            habitação, em função de evacuações preventivas, destruição ou avaria grave, decorrentes
-                            do desastre, que não carece de abrigo custeado pela prefeitura, ou seja, pessoa que saiu
-                            da sua residência afetada e se instalou na casa de amigos ou parentes.
-                        </span>
-                        <input class='form form-control' type="number" name="desalojado" id="desalojado" required >
-                        <br>
-                        <label>Município :</label><br>
-                        <input class='form form-control' type="text" name="municipio" id="municipio" required >
-                        <input class='form form-control' type="hidden" name="id_municipio" id="id_municipio" >
-                        <!-- gravar registro pela cedec -->
-                        <input class='form form-control' type="hidden" name="cedec" id="cedec" value="1" >
-                        <br>
-                        <input class='btn btn-primary' type="submit" name="btnGravar" id="btnGravar" value="Gravar">
-
-                    </form>
-                    <?php
-                }
-                ?>
+        <div id='filtro_data'>
+            <label for="dt_inicio">Data Inicial</label>
+            <input type="text" id="dt_inicio" name="dt_inicio" class="form form-control">
+            <label for="dt_fim">Data Final</label>
+            <input type="text" id="dt_fim" name="dt_fim" class="form form-control">
+            <p>
+        </div>
+        <label>Listagem Municípios</label>
+            <input type="radio" name="ck_periodo" id="ck_periodo"></p>
+            <div id='filtro_municipio'>
+                <a href="<?= FuncaoBase::geraLink('registro', 'index', 'lanca') ?>" class='btn btn-success'>Filtro</a>
             </div>
-
-
-            <div class="col-md-6 text-center">
-                <legend>Últimos Registros</legend>
-                <?php
-                $registro = new Registro;
-
-                $registros = $registro->listaPorMunicipio();
-
-                print "<table class='table table-condensed table-responsive'>";
-                print "<tr>";
-                print "<th>Município</th>";
-                print "<th>Data Registro</th>";
-                print "<th>Desabrigados</th>";
-                print "<th>Desalojados</th>";
-                print "</tr>";
-
-                foreach ($registros as $key => $registro) {
-
-                    print "<tr>";
-                    print "<th>" . Municipio::PegaNomeMunicipio($registro['municipio_id']) . "</th>";
-                    print "<th>" . date("d/m/Y", strtotime($registro['dt'])) . "</th>";
-                    print "<th>{$registro['desalojado']}</th>";
-                    print "<th>{$registro['desabrigado']}</th>";
-                    print "</tr>";
-                }
-                print "</table>";
-                ?>
-
+    </div>
+</div>
+<br>
+<div class='row'>
+    <div class="col-md-6 text-center">
+        <div class=" p-2">
+            <legend class='alert alert-warning'>Acumulado Desabrigados e Desalojados em 2022</legend>
+            <div class='chart'>
+                <canvas id="barChart" style="height: 300px"></canvas> 
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12 text-center">
-
-
+    </div>
+    <div class="col-md-6 text-center">
+        <div class="">
+            <legend class='alert alert-warning'>Acumulado Desabrigados e Desalojados em 2022</legend>
+            <div class='chart'>
+                <canvas id="barChart" style="height: 300px"></canvas> 
             </div>
         </div>
-        <div class="col-md-12 text-center">
-            <a class='btn btn-success' href='<?= FuncaoBase::geraLink('index', 'index', 'menu') ?>'>Voltar</a>
-        </div>
+    </div>
 
+
+</div>
+
+<div class="col-md-6 text-center">
+    <div class="table-responsive">
+        <legend>Últimos Registros</legend>
+        <?php
+        $registro = new Registro;
+
+        $registros = $registro->listaPorMunicipio();
+
+        print "<table class='table table-responsive table-striped'>";
+        print "<tr>";
+        print "<th>Município</th>";
+        print "<th>Data Registro</th>";
+        print "<th>Desabrigados</th>";
+        print "<th>Desalojados</th>";
+        print "</tr>";
+
+        foreach ($registros as $key => $registro) {
+
+            print "<tr>";
+            print "<td>" . Municipio::PegaNomeMunicipio($registro['municipio_id']) . "</td>";
+            print "<td>" . date("d/m/Y", strtotime($registro['dt'])) . "</td>";
+            print "<td><span class='label label-warning'>{$registro['desalojado']}</span></td>";
+            print "<td><span class='label label-warning'>{$registro['desabrigado']}</label></td>";
+            print "</tr>";
+        }
+        print "</table>";
+        ?>
+    </div>
+</div>
+
+</div>
+<div class="row">
+    <div class="col-md-12 text-center">
 
 
     </div>
+</div>
+<div class="col-md-12 text-center">
+    <a class='btn btn-success' href='<?= FuncaoBase::geraLink('index', 'index', 'menu') ?>'>Voltar</a>
+</div>
+
+
+
+</div>
 
 </div>
 
@@ -120,21 +118,98 @@ $municipios = Municipio::listaid_municipioAutocomplete();
 <!-- =============== HEADER HTML PAGE ================= -->
 <?php include_once "template/page/rodapePage.php"; ?>
 <script>
-    var itens = {
-        data:
-<?php print json_encode($municipios); ?>, // array com os dados
+    
+    $('#filtro_data').hide();
+    $('#filtro_municipio').hide();
+    
 
-        getValue: "nome",
-        list: {
-            maxNumberOfElements: 15,
-            match: {
-                enabled: true
+    var dateFormat = "dd/mm/yy",
+            dt_inicio = $("#dt_inicio")
+            .datepicker({
+                defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 1,
+                dateFormat: 'dd/mm/yy'
+            })
+            .on("change", function () {
+                dt_fim.datepicker("option", "minDate", getDate(this));
+            }),
+            dt_fim = $("#dt_fim").datepicker({
+        defaultDate: "+1w",
+        changeMonth: true,
+        numberOfMonths: 1,
+        dateFormat: 'dd/mm/yy'
+    })
+            .on("change", function () {
+                dt_inicio.datepicker("option", "maxDate", getDate(this));
+            });
+
+    function getDate(element) {
+        var date;
+        try {
+            date = $.datepicker.parseDate(dateFormat, element.value);
+        } catch (error) {
+            date = null;
+        }
+
+        return date;
+    }
+
+    $("#ck_filtro_data").click(function () {
+        $("#filtro_data").show();
+    });
+    
+    $("#ck_filtro_municipio").click(function () {
+        $("#filtro_municipio").show();
+    });
+    
+    
+
+
+    var chartSituacao = $("#barChart")[0].getContext("2d");
+    var areaChartData = {
+        labels: ['Ano: <?= $dadosgrafGeral[0]['ano'] ?>'],
+        datasets: [
+            {
+                label: 'Desabrigados',
+                data: [<?= $dadosgrafGeral[0]['desabrigado'] ?>],
+                backgroundColor: ['rgba(61, 146, 125, 1)', 'rgba(61, 146, 125, 1)', 'rgba(61, 146, 125, 1)', 'rgba(61, 146, 125, 1)', 'rgba(61, 146, 125, 1)', 'rgba(61, 146, 125, 1)', 'rgba(61, 146, 125, 1)', 'rgba(61, 146, 125, 1)'],
             },
-            onSelectItemEvent: function () {
-                var value = $("#municipio").getSelectedItemData().id_municipio;
-                $("#id_municipio").val(value);
+            {
+                label: 'Desalojados',
+                fillColor: 'rgba(210, 214, 222)',
+                strokeColor: 'rgba(210, 214, 222, 1)',
+                pointColor: 'rgba(210, 214, 222, 1)',
+                pointStrokeColor: '#c1c7d1',
+                pointHighlightFill: '#fff',
+                pointHighlightStroke: 'rgba(220,220,220,1)',
+                data: [<?= $dadosgrafGeral[0]['desalojado'] ?>],
+            },
+        ]
+    }
+
+    new Chart(chartSituacao, {
+        type: 'bar',
+        data: {
+            labels: areaChartData.labels,
+            datasets: areaChartData.datasets,
+            backgroundColor: 'rgba(151,187,205,0.2)',
+            borderColor: 'rgba(151,187,205,1)',
+            pointBackgroundColor: 'rgba(151,187,205,1)',
+
+        },
+
+        options: {
+            scales: {
+                yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            stepSize: 10
+                        }
+                    }]
             }
         }
-    };
-    $("#municipio").easyAutocomplete(itens);
+    });
+
+
 </script>

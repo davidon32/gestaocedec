@@ -7,6 +7,11 @@ class indexController extends Controller {
         include_once 'mod_registro/backEnd/View/danos/index.php';
     } 
     
+    # lancamento
+    public function lanca() {
+        include_once 'mod_registro/backEnd/View/danos/lancamento.php';
+    } 
+    
     
     # gravar
     public function desabrigado() {

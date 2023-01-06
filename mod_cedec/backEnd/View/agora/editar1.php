@@ -5,7 +5,7 @@
 <!-- =================== HEADER ============================ -->
 <?php include_once "template/page/header.php";?>
 <!-- =================== MENU  ============================ -->
-<?php include_once "template/page/menu.php";?>
+<?php //include_once "template/page/menu.php";?>
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php";?>
 
@@ -20,19 +20,13 @@
 
 ?>
     <div id="frmLancamento">
-        <form name="frmAnexoImagem" id="frmAnexoImagem">
+        <form method="POST" name="frmAnexoImagem" id="frmAnexoImagem">
 
-            <label>Titulo</label>
-            <input type="text" class="form-control" id="txtTitulo" value="<?=$dados[0]['titulo'];?>" maxlength="149">
-            <br>
             <label>Autor / Nome :</label>
-            <input type="text" class="form-control" id="txtAutor" value="<?=$dados[0]['autor'];?>" maxlength="69">
-            <br>
-            <label>Nota do Autor (Opctional)</label>
-            <input type="text" class="form-control" id="txtNota" value="<?=$dados[0]['nota'];?>" maxlength="149">
+            <input type="text" class="form-control" id="txtAutor" value="<?=$dados[0]['autor'];?>">
             <br>
             <label>Categoria :</label>
-      <select class="form-control" id="txtCategoria">
+      <select class="form-control" name="txtCategoria" id="txtCategoria">
         <option><?=$dados[0]['categoria'];?></option>
         <option>Ajuda Humanitária</option>
         <option>Programa Agua Doce</option>
@@ -46,10 +40,10 @@
         <option>Outros(descrever no texto)</option>
       </select><br>
       <label>Órgão :</label>
-      <input type="text" class="form-control" id="txtOrgao" value="<?=$dados[0]['orgao'];?>" maxlength="69">
+      <input type="text" class="form-control" name="txtOrgao" id="txtOrgao" value="<?=$dados[0]['orgao'];?>">
             <br>
             <label>Texto : (Caracteres : <span id="num_carac"></span>/254)</label>
-            <textarea class="form-control" id="txtTexto" rows="5" maxlength="254"><?=$dados[0]['texto'];?></textarea>
+            <textarea class="form-control" id="txtTexto" name="" rows="5" maxlength="254"><?=$dados[0]['texto'];?></textarea>
             <br>
             <input type='hidden' id='nomeImagem' value='<?=(is_null($dados[0]['imagem1'])) ? "" :$dados[0]['imagem1'];?>'>
 
@@ -66,15 +60,15 @@
                 if(is_null($dados[0]['imagem1'])){
             ?>
             <label>Imagem :</label>&nbsp;&nbsp;<span>(Resolução Máxima 600x600)</span>
-            <input type="file" class="form-control" id="txtImagem" >
+            <input type="file" class="form-control" id="txtImagem" name="txtImagem">
             <?php } ?>
             
-            <input type="hidden" id="txtId" value="<?=$id;?>" maxlength="2">
-            <input type="hidden" id="txtDtHora" value="<?=date('Y-m-d H:i:s');?>" maxlength="20">
+            <input type="hidden" name="txtId" id="txtId" value="<?=$id;?>">
+            <input type="hidden" name="txtDtHora" id="txtDtHora" value="<?=date('Y-m-d H:i:s');?>">
 
             <br>
-            <a href="index.php?token=<?=hash('sha256', md5(VERSAO))?>&ac=itn&modulo=cedec&controller=agora&action=busca" class="btn btn-primary">Voltar</a>
-            <button type="button" class="btn btn-primary" id="btnSalvar" title="Clique para salvar o Registro !">Salvar</button>
+            <a href="index.php?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=cedec&controller=agora&action=busca" class="btn btn-primary">Voltar</a>
+            <button type="button" class="btn btn-primary" name="btnSalvar" id="btnSalvar" title="Clique para salvar o Registro !">Salvar</button>
         </form>
   </div>
   
@@ -118,8 +112,6 @@ $(document).ready(function(){
         formData.append('data_hora', $('#txtDtHora').val());
         formData.append('orgao', $('#txtOrgao').val());
         formData.append('id', $('#txtId').val());
-        formData.append('nota', $('#txtNota').val());
-        formData.append('titulo', $('#txtTitulo').val());
         formData.append('status', '0');
         formData.append('opcao', 'editar');
         formData.append('nomeImagem', $('#nomeImagem').val());
@@ -131,12 +123,12 @@ $(document).ready(function(){
                 processData: false,  // tell jQuery not to process the data
                 contentType: false,  // tell jQuery not to set contentType
                     success : function(response) {
-                        
+                        console.log(response);
                             if(response == "erro"){
                                 //alert('Erro ao Fazer o UPload do arquivo ! \n Possíveis Causas: \n - Arquivo maior que 2MB (Mega Bytes) \n - Arquivo com nome muito extenso ! \n	para reduzí-ló acesse https://smallpdf.com/pt ');
                             }else{
                                 alert('Registro Salvo com Sucesso !');
-                                    window.location.href = '?token=<?=hash('sha256', md5(VERSAO))?>&ac=itn&modulo=cedec&controller=agora&action=lista';
+                                    window.location.href = '?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=cedec&controller=agora&action=lista';
                             }      
                     },
                     error : function(e) {

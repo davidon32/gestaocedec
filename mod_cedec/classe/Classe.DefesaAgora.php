@@ -82,7 +82,8 @@
                                                 categoria = :categoria,
                                                 status1   = :status1,
                                                 data_hora = :data_hora,
-                                                imagem1   = :imagem1
+                                                imagem1   = :imagem1,
+                                                titulo  = :titulo
                                             WHERE id      = :id";
 
             $result = $con->prepare($sql);
@@ -94,6 +95,7 @@
             $result->bindParam(":status1", $dados['status']);
             $result->bindParam(":data_hora", $dados['data_hora']);
             $result->bindParam(":imagem1", $dados['nomeImagem']);
+            $result->bindParam(":titulo", $dados['titulo']);
             $result->bindParam(":id", $dados['id']);
             
             $result->execute ();
@@ -236,7 +238,7 @@
             $dados = array();
 
             $con = Conexao::getInstance();
-            $sql = "select id, autor, orgao, imagem1, texto, categoria, status1, data_hora 
+            $sql = "select id, autor, orgao, imagem1, texto, categoria, status1, data_hora, titulo 
                     from cedec_def_agora
                     where id = :id";
 
@@ -260,7 +262,7 @@
             $dados = array();
 
             $con = Conexao::getInstance();
-            $sql = "select id, autor, orgao, imagem1, texto, categoria, status1, data_hora 
+            $sql = "select id, autor, orgao, imagem1, texto, categoria, status1, data_hora, titulo 
                     from cedec_def_agora
                     order by status1, data_hora desc
                     limit 50";
