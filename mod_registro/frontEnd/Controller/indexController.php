@@ -24,10 +24,8 @@ class indexController extends Controller {
             FuncaoBase::alert('Ocorreu um erro !'.$result);
             $this->redirect('registro', 'index', 'index');
         }
-    }    
+    } 
     
-  
-}
-
-?>
+    
+}?>
 

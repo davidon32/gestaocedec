@@ -78,14 +78,14 @@ class Registro {
             print $e->getMessage();
         }
     }
-    
-    public function listaPorMunicipio_data($id_municipio = 0, $data =null) {
+
+    public function listaPorMunicipio_data($id_municipio = 0, $data = null) {
 
         $con = Conexao::getInstance();
 
         try {
-            
-                $sql = "SELECT cedec_municipio.nome, dt_desalojado, municipio_id, desalojado, desabrigado
+
+            $sql = "SELECT cedec_municipio.nome, dt_desalojado, municipio_id, desalojado, desabrigado
                             FROM reg_danos_humanos
                             INNER JOIN cedec_municipio
                             ON reg_danos_humanos.municipio_id = cedec_municipio.id_municipio
@@ -103,7 +103,6 @@ class Registro {
             print $e->getMessage();
         }
     }
-
 
     /**
      * Lista de ultima posição dos afetados por municipio
@@ -208,6 +207,26 @@ class Registro {
         $result->execute();
 
         return $result->fetchAll();
+    }
+
+    /**
+     * Editar lancamento
+     * @return type
+     */
+    public function editar($dados) {
+
+        $con = Conexao::getInstance();
+
+        $sql = "UPDATE reg_danos_humanos set desalojado = :desalojado,
+                                                desabrigado = :desabrigado
+                                                Where id = :id_reg";
+
+        $result = $con->prepare($sql);
+        $result->bindValue(":desalojado", $dados['desalojado']);
+        $result->bindValue(":desabrigado", $dados['desabrigado']);
+        $result->bindValue(":id_reg", $dados['id']);
+
+        return $result->execute();
     }
 
 }
