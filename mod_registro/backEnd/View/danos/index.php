@@ -16,6 +16,9 @@ include_once "template/page/corpoHeader.php";
 $registro = new Registro();
 
 $dadosgrafGeral = $registro->grafGeral();
+
+
+
 ?>
 
 <br>
@@ -25,7 +28,7 @@ $dadosgrafGeral = $registro->grafGeral();
     </div>
     <div class="col-md-6">
         <p><label>Período</label>
-            <input type="radio" name="ck_periodo" id="ck_periodo"></p>
+            <input type="radio" name="ck_filtro_data" id="ck_filtro_data"></p>
 
         <div id='filtro_data'>
             <label for="dt_inicio">Data Inicial</label>
@@ -34,16 +37,18 @@ $dadosgrafGeral = $registro->grafGeral();
             <input type="text" id="dt_fim" name="dt_fim" class="form form-control">
             <p>
         </div>
-        <label>Listagem Municípios</label>
+        <div id="div_filtro_municipio">
+            <label>Listagem Municípios</label>
             <input type="radio" name="ck_periodo" id="ck_periodo"></p>
             <div id='filtro_municipio'>
                 <a href="<?= FuncaoBase::geraLink('registro', 'index', 'lanca') ?>" class='btn btn-success'>Filtro</a>
             </div>
+        </div>
     </div>
 </div>
 <br>
 <div class='row'>
-    <div class="col-md-6 text-center">
+    <div class="col-md-4 text-center">
         <div class=" p-2">
             <legend class='alert alert-warning'>Acumulado Desabrigados e Desalojados em 2022</legend>
             <div class='chart'>
@@ -51,47 +56,56 @@ $dadosgrafGeral = $registro->grafGeral();
             </div>
         </div>
     </div>
-    <div class="col-md-6 text-center">
+    <!--<div class="col-md-4 text-center">
         <div class="">
             <legend class='alert alert-warning'>Acumulado Desabrigados e Desalojados em 2022</legend>
             <div class='chart'>
                 <canvas id="barChart" style="height: 300px"></canvas> 
             </div>
         </div>
-    </div>
+    </div>-->
+    <div class="col-md-4 text-center">
+        <div class="table-responsive">
+            <legend>Últimos Registros</legend>
+            <?php
 
+            $registros = $registro->buscaDanosHum('2023-01-12');
+            
 
-</div>
-
-<div class="col-md-6 text-center">
-    <div class="table-responsive">
-        <legend>Últimos Registros</legend>
-        <?php
-        $registro = new Registro;
-
-        $registros = $registro->listaPorMunicipio();
-
-        print "<table class='table table-responsive table-striped'>";
-        print "<tr>";
-        print "<th>Município</th>";
-        print "<th>Data Registro</th>";
-        print "<th>Desabrigados</th>";
-        print "<th>Desalojados</th>";
-        print "</tr>";
-
-        foreach ($registros as $key => $registro) {
-
+            print "<table class='table table-responsive table-striped'>";
             print "<tr>";
-            print "<td>" . Municipio::PegaNomeMunicipio($registro['municipio_id']) . "</td>";
-            print "<td>" . date("d/m/Y", strtotime($registro['dt'])) . "</td>";
-            print "<td><span class='label label-warning'>{$registro['desalojado']}</span></td>";
-            print "<td><span class='label label-warning'>{$registro['desabrigado']}</label></td>";
+            print "<th>#</th>";
+            print "<th>Município</th>";
+            print "<th>Desabrigados</th>";
+            print "<th>Desalojados</th>";
             print "</tr>";
-        }
-        print "</table>";
-        ?>
+
+            foreach ($registros as $key => $registro) {
+                
+                $tot_desabrigados += $registro['desabrigado'];
+                $tot_desalojados   += $registro['desalojado'];
+
+                print "<tr>";
+                print "<td>" . ($key+1) . "</td>";
+                print "<td>" . Municipio::PegaNomeMunicipio($registro['municipio_id']) . "</td>";
+                print "<td><span class='label label-warning'>{$registro['desabrigado']}</label></td>";
+                print "<td><span class='label label-warning'>{$registro['desalojado']}</span></td>";
+                print "</tr>";
+            }
+                print "<tr>";
+                print "<td style='font-size:15pt;' colspan='2'>Total</td>";
+                print "<td style='font-size:15pt;'><span class='label label-danger'>".$tot_desabrigados."</span></td>";
+                print "<td style='font-size:15pt;'><span class='label label-danger'>".$tot_desalojados."</span></td>";
+                print "</tr>";
+            print "</table>";
+            ?>
+        </div>
     </div>
+
+
 </div>
+
+
 
 </div>
 <div class="row">
@@ -118,10 +132,10 @@ $dadosgrafGeral = $registro->grafGeral();
 <!-- =============== HEADER HTML PAGE ================= -->
 <?php include_once "template/page/rodapePage.php"; ?>
 <script>
-    
+
     $('#filtro_data').hide();
     $('#filtro_municipio').hide();
-    
+
 
     var dateFormat = "dd/mm/yy",
             dt_inicio = $("#dt_inicio")
@@ -156,14 +170,16 @@ $dadosgrafGeral = $registro->grafGeral();
     }
 
     $("#ck_filtro_data").click(function () {
-        $("#filtro_data").show();
+        $("#filtro_data").toggle();
+        $("#div_filtro_municipio")
+
     });
-    
+
     $("#ck_filtro_municipio").click(function () {
         $("#filtro_municipio").show();
     });
-    
-    
+
+
 
 
     var chartSituacao = $("#barChart")[0].getContext("2d");
@@ -172,7 +188,7 @@ $dadosgrafGeral = $registro->grafGeral();
         datasets: [
             {
                 label: 'Desabrigados',
-                data: [<?= $dadosgrafGeral[0]['desabrigado'] ?>],
+                data: [<?= $tot_desabrigados ?>],
                 backgroundColor: ['rgba(61, 146, 125, 1)', 'rgba(61, 146, 125, 1)', 'rgba(61, 146, 125, 1)', 'rgba(61, 146, 125, 1)', 'rgba(61, 146, 125, 1)', 'rgba(61, 146, 125, 1)', 'rgba(61, 146, 125, 1)', 'rgba(61, 146, 125, 1)'],
             },
             {
@@ -183,7 +199,7 @@ $dadosgrafGeral = $registro->grafGeral();
                 pointStrokeColor: '#c1c7d1',
                 pointHighlightFill: '#fff',
                 pointHighlightStroke: 'rgba(220,220,220,1)',
-                data: [<?= $dadosgrafGeral[0]['desalojado'] ?>],
+                data: [<?= $tot_desalojados ?>],
             },
         ]
     }

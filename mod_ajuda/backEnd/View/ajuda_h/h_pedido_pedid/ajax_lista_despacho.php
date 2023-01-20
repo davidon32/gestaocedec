@@ -35,10 +35,12 @@ foreach ($despachos as $key => $despacho) {
     print "<td>" . DataMysql::dataCompletaVisual($despacho['data_parecer']) . "</td>";
     print "<td>" . $dadosUsuario['nome'] . "</td>";
     print "<td>" . $dadosUsuario['secao']. "</td>";
-    print "<td>" . $despacho['parecer'] . "</td>";
+    print "<td title='".$despacho['parecer']."'><span name='sub_text_parecer'>" . substr($despacho['parecer'], 0, 60)."...</span>" . "<span name='tx_parecer'>".$despacho['parecer']."</span></td>";
     print "<td>" . $parecer_sit. "</td>";
     //print "<td><a href=''><img width='20px' src='/core/imagem/editar.png'></td>";
     print "</tr>";
 }
 ?>
 </table>
+
+

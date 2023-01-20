@@ -87,8 +87,8 @@ $municipios = Municipio::listaid_municipioAutocomplete();
                     print "<tr>";
                     print "<th>" . Municipio::PegaNomeMunicipio($registro['municipio_id']) . "</th>";
                     print "<th>" . date("d/m/Y", strtotime($registro['dt'])) . "</th>";
-                    print "<th>{$registro['desalojado']}</th>";
                     print "<th>{$registro['desabrigado']}</th>";
+                    print "<th>{$registro['desalojado']}</th>";
                     print "</tr>";
                 }
                 print "</table>";

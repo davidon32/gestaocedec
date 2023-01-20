@@ -235,7 +235,7 @@ if(!is_array($dados1)){
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title">Cadastro dec_cobrade</h4>
+                  <h4 class="modal-title">Pesquisa de Cadastro dec_cobrade</h4>
                 </div>
                 <div class="modal-body">
                   <label>Pesquisa</label>

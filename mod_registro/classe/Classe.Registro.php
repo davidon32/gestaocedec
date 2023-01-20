@@ -228,5 +228,30 @@ class Registro {
 
         return $result->execute();
     }
+    
+    
+    /**
+     * busca dados do municipio
+     */
+    public function buscaDanosHum($data){
+        
+        $con = Conexao::getInstance();
+    
+        $sql = "SELECT municipio_id, dt_desalojado, desalojado, desabrigado FROM reg_danos_humanos
+                WHERE dt_desalojado = '{$data}'";
+       
+        $result = $con->prepare($sql);
+        $result->bindValue(":desalojado", $id_municipio);
+        $result->bindValue(":desabrigado", $data);
+
+        $result->execute();
+        
+        return $result->fetchAll();
+                
+    }
+    
+    
+    
+            
 
 }

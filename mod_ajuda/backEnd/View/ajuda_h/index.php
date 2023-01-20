@@ -152,6 +152,11 @@ $response = json_encode($data);
                 </table>
             </div>
         </div>
+        
+        <div>
+            
+            
+        </div>
 
         <!--<?php
     /*
@@ -494,6 +499,7 @@ $response = json_encode($data);
                 }
             });
             
+            window.onload = (event) => {
             $("button[name='btnListaNegra']").click(function () {
                 alert();
                 /*var result = confirm('Deseja enviar processo para COMPDEC ?');
@@ -522,6 +528,7 @@ $response = json_encode($data);
                     console.log(result);
                 }*/
             });
+            };
             
         });
         

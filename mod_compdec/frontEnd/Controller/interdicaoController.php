@@ -70,17 +70,19 @@ class interdicaoController extends Controller {
         }
     }
 
-    public static function listagem_geral($filtro = false) {
+    public static function listagem_geral($municipio_id, $filtro = false) {
 
         $con = Conexao::getInstance();
 
         if (!empty($filtro)) {
             $sql = "SELECT *FROM com_interdicao WHERE
+                        municipio_id = '{$municipio_id}' and
                         notificado LIKE '%{$filtro}%' OR
                         endereco LIKE '%{$filtro}%' OR
                         numero LIKE '%{$filtro}%'";
         } else {
-            $sql = "select *from com_interdicao";
+            $sql = "select *from com_interdicao WHERE
+                        municipio_id = '{$municipio_id}'";
         }
 
 

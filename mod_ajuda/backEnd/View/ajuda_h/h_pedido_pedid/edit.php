@@ -45,26 +45,28 @@ foreach ($dadosMaterial as $key => $material) {
 }
 
 $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['idUser'] : null;
-$secao =  isset($_COOKIE['seguranca']['secao']) ? $_COOKIE['seguranca']['secao'] : null;
+$secao = isset($_COOKIE['seguranca']['secao']) ? $_COOKIE['seguranca']['secao'] : null;
 
 $favoravelDlog = H_pedido_an_tecajuda_hModel::anFavoravel($view[0]['id']);
 
 ####### PERMISSOES DE EDICAO E DESPACHO #######
 $permissao_ajuda_h = "false";
-if( $secao == 'DLOG' || $secao == "CHEFIA" || $id_usuario == 1 &&  $view[0]['status'] < 3) {
+if ($secao == 'DLOG' || $secao == "CHEFIA" || $id_usuario == 1 && $view[0]['status'] < 3) {
     $permissao_ajuda_h = true;
 }
 
 $parecer_favoravel = "";
-$aviso_sit ="";
-    /*if($view[0]['status'] == 1 && ($ped)){
-        $parecer_favoravel = "Parecer Favorável do Analista da DLOG";
-        $aviso_sit = "<p class='alert alert-danger'>PROCESSO COM PARECER FAVORÁVEL DO ANALISTA DA DLOG.<br> clique em \"Material do Pedido\" para verificar os despachos.</p>";
-    }else*/if($view[0]['status'] == 2 && $favoravelDlog > 0){
-        $parecer_favoravel = "Parecer Favorável do Analista DLOG";
-        $aviso_sit = "<p class='alert alert-danger'>PROCESSO FAVORÁVEL PELO(S) ANALISTA DA DLOG .<br> clique em <a id='aviso_sit'>\"Material do Pedido\"</span> para verificar os despachos</p>";
-    }
+$aviso_sit = "";
+/* if($view[0]['status'] == 1 && ($ped)){
+  $parecer_favoravel = "Parecer Favorável do Analista da DLOG";
+  $aviso_sit = "<p class='alert alert-danger'>PROCESSO COM PARECER FAVORÁVEL DO ANALISTA DA DLOG.<br> clique em \"Material do Pedido\" para verificar os despachos.</p>";
+  }else */if ($view[0]['status'] == 2 && $favoravelDlog > 0) {
+    $parecer_favoravel = "Parecer Favorável do Analista DLOG";
+    $aviso_sit = "<p class='alert alert-danger'>PROCESSO FAVORÁVEL PELO(S) ANALISTA DA DLOG .<br> clique em <a id='aviso_sit'>\"Material do Pedido\"</span> para verificar os despachos</p>";
+}
 
+
+$aba = isset($_GET['jstree']) ? $_GET['jstree'] : "inicio";
 ?>
 
 <div class='col-md-3'></div>
@@ -80,7 +82,7 @@ $aviso_sit ="";
     ?>
     <br><br>
     <div class="col-md-12">
-        <?=$aviso_sit?>
+        <?= $aviso_sit ?>
     </div>
 
 </div>
@@ -91,7 +93,7 @@ $aviso_sit ="";
     </legend>
 
 
-    <legend>STATUS : <b><?= H_pedido_pedidajuda_hModel::enumStatus($view[0]['status'])?></b></legend>
+    <legend>STATUS : <b><?= H_pedido_pedidajuda_hModel::enumStatus($view[0]['status']) ?></b></legend>
 
     <!-- jstree -->
     <div class="col-md-3" data-spy="scroll">
@@ -99,7 +101,7 @@ $aviso_sit ="";
             <ul>
                 <li data-jstree='{"opened":true,"selected":true}' id='processo'> Processo Nº -
                     <?= $view[0]['numero'] . "/" . substr($view[0]['data_entrada_sistema'], 0, 4) ?> -
-                    <?= DataMysql::dataVisual($view[0]['data_entrada_sistema']) ?> - <?=$parecer_favoravel;?>
+                    <?= DataMysql::dataVisual($view[0]['data_entrada_sistema']) ?> - <?= $parecer_favoravel; ?>
                     <ul>
                         <li data-jstree='{"disabled":false}' id='show_dados_gerais'> Dados Gerais</li>
                         <li data-jstree='{"icon":"glyphicon glyphicon-hdd"}' id='show_material_pedido'>
@@ -123,7 +125,7 @@ $aviso_sit ="";
 
     <!-- Dados Gerais -->
     <div class="col-md-9" id="dados_gerais">
-                        <br><br>
+        <br><br>
 
         <form action="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit"); ?>" method="post" accept-charset="utf-8" name="frmH_pedido_pedid" id="frmH_pedido_pedid">
 
@@ -356,14 +358,11 @@ $aviso_sit ="";
 
             <!-- #### USUARIOS DLOG ADICIONAR MATERIAL  ##### -->
             <?php
-
-                if($permissao_ajuda_h && ($view[0]['status'] == 1 && $secao == 'DLOG') || ($view[0]['status'] == 2 && $secao == 'CHEFIA')) {            
-                    print "<img title=\"Adicionar Material\" src=\"/core/imagem/add.png\" name=\"add_material\"> Adicionar Material<br><br>";
-                }else {
-                    print "<img src=\"/core/imagem/add.png\" class=\"imgCinza\" title=\"O processo está disponivel para operação do ".H_pedido_pedidajuda_hModel::enumStatus($view[0]['status'])." !\"><br><br>";
-                }
-            
-                
+            if ($permissao_ajuda_h && ($view[0]['status'] == 1 && $secao == 'DLOG') || ($view[0]['status'] == 2 && $secao == 'CHEFIA')) {
+                print "<img title=\"Adicionar Material\" src=\"/core/imagem/add.png\" name=\"add_material\"> Adicionar Material<br><br>";
+            } else {
+                print "<img src=\"/core/imagem/add.png\" class=\"imgCinza\" title=\"O processo está disponivel para operação do " . H_pedido_pedidajuda_hModel::enumStatus($view[0]['status']) . " !\"><br><br>";
+            }
             ?>
             <table class="table table-bordered table-condensed" id="tbl_material_liberado">
 
@@ -371,11 +370,11 @@ $aviso_sit ="";
                     <!-- comment -->
                     <!-- <th style="width:10%">Código</th> -->
                     <!-- <th style="width:10%">Cód. Mat</th> -->
-                    <th style="width:10%">#</th>
-                    <th style="width:50%">Material</th>
+                    <th style="width:5%">#</th>
+                    <th style="width:25%">Material</th>
                     <th style="width:15%">Qtd</th>
                     <th style="width:15%">Qtd Familias Atend.</th>
-                    <th style="width:10%">Opção</th>
+                    <th style="width:40%">Opção</th>
                 </tr>
 
                 <?php
@@ -394,12 +393,12 @@ $aviso_sit ="";
                         print "<td>";
                         #print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit_itens', array('id' => $view[0]['id'], 'id_item' => $material1['id'])) . "'><img src='/core/imagem/editar.png'></a>";
                         # EDITAR MATERIAL
-                        if($permissao_ajuda_h && ($view[0]['status'] == 1 && $secao == 'DLOG') || ($view[0]['status'] == 2 && $secao == 'CHEFIA')){
+                        if ($permissao_ajuda_h && ($view[0]['status'] == 1 && $secao == 'DLOG') || ($view[0]['status'] == 2 && $secao == 'CHEFIA')) {
                             print "<img src='/core/imagem/editar.png' name='edit' data-id='" . $view[0]['id'] . "' data-qtd='" . $material1['qtd'] . "' data-familias_at='" . $material1['qtd_familia_atendida'] . "'>
                             <img src='/core/imagem/save.png' name='salvar' data-id='" . $material1['id'] . "' data-codigo='" . $material1['codigo'] . "' data-descricao_item='" . $material1['descricao_item'] . "'>";
                             print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_itens', 'delete', array('id' => $material1['id'], 'id_pedido' => $view[0]['id'], 'voltar' => 'edit_ped')) . "'><img src='/core/imagem/delete.png'></a>";
-                        }else {
-                            print "processo está disponível para o ".H_pedido_pedidajuda_hModel::enumStatus($view[0]['status']);
+                        } else {
+                            print "processo está disponível para o " . H_pedido_pedidajuda_hModel::enumStatus($view[0]['status']);
                         }
 
                         print "</td>";
@@ -414,19 +413,18 @@ $aviso_sit ="";
             <p>
             <legend>Despacho</legend></p>
             <?php
-            
-                if($permissao_ajuda_h && ($view[0]['status'] == 1 && $secao == 'DLOG') || ($view[0]['status'] == 2 && $secao == 'CHEFIA')) {
-                    print "<img src='/core/imagem/icon_app/new.png' title='Novo Despacho' name='add_despacho' id='add_despacho'> Novo Despacho<br><br>";
-                }else {
-                    print "<img src='/core/imagem/icon_app/new.png' title='O processo está em outra Fase que não permite a alteração por este usuário' class='imgCinza'> Novo Despacho<br><br>";
-                }
+            if ($permissao_ajuda_h && ($view[0]['status'] == 1 && $secao == 'DLOG') || ($view[0]['status'] == 2 && $secao == 'CHEFIA')) {
+                print "<img src='/core/imagem/icon_app/new.png' title='Novo Despacho' name='add_despacho' id='add_despacho'> Novo Despacho<br><br>";
+            } else {
+                print "<img src='/core/imagem/icon_app/new.png' title='O processo está em outra Fase que não permite a alteração por este usuário' class='imgCinza'> Novo Despacho<br><br>";
+            }
             ?>
             <div class="row" id='novoDespacho'>
                 <div class="col-md-9">
                     <label>Despacho :</label><span id="span_caracteres">Caracteres Restantes : 255</span>
                     <textarea rows='5' id="text_despacho" class='form form-control' maxlength="255"></textarea>
-                    <input type="hidden" id="secao" value="<?=$secao?>">
-                    <input type="hidden" id="tramit_parecer" value="<?=($secao == 'CHEFIA') ? 'analise_coord' : 'analise_dlog' ?>">
+                    <input type="hidden" id="secao" value="<?= $secao ?>">
+                    <input type="hidden" id="tramit_parecer" value="<?= ($secao == 'CHEFIA') ? 'analise_coord' : 'analise_dlog' ?>">
 
                 </div>
                 <!-- Diretores poderão dar o parecer -->
@@ -461,39 +459,35 @@ $aviso_sit ="";
         <select class="form form-control" name="sel_tramitar" id="sel_tramitar">
             <option>Selecione a Seção para Tramitar</option>
             <?php
-            
-            /* status (ANALISE DLOG) enviar para o compdec*/
-            if($view[0]['status'] == 1){
+            /* status (ANALISE DLOG) enviar para o compdec */
+            if ($view[0]['status'] == 1) {
                 print "<option value='0' data-status='edicao_compdec'>Enviar para COMPDEC</option>";
-            /*status ( APROVADO ) */    
-            }elseif($view[0]['status'] == 2){
+                /* status ( APROVADO ) */
+            } elseif ($view[0]['status'] == 2) {
                 //print "<option value='".$view[0]['status']."' data-status='".$view[0]['tramit']."'>".H_pedido_pedidajuda_hModel::enumFase($view[0]['tramit'])."</option>";
                 print "<option value='4' data-status='aguard_disp'>Aguard. Disponibilidade Material</option>";
                 print "<option value='1' data-status='analise_dlog' >Analista DLOG</option>";
                 print "<option value='7' data-status='cancelado'>Cancelar Processo</option>";
-            
-            /* processo aprovado */
-            }elseif($view[0]['status'] == 3){
+
+                /* processo aprovado */
+            } elseif ($view[0]['status'] == 3) {
                 print "<option value='4' data-status='aguard_disp'>Aguard. Disponibilidade Material</option>";
                 //print "<option value='1' data-status='analise_dlog' >Analista DLOG</option>";
                 print "<option value='7' data-status='cancelado'>Cancelar Processo</option>";
-            /* status ( AGUARDAR DISPONIBILIDADE)
-             * aguardando retirada
-             * atendido  */    
-            } elseif ($view[0]['status'] == 4){
-               print "<option value='5' data-status='aguard_ret'>Aguardando Retirada</option>";
-               print "<option value='7' data-status='cancelado'>Cancelar</option>";
-                
-            }elseif ($view[0]['status'] == 5 ){
+                /* status ( AGUARDAR DISPONIBILIDADE)
+                 * aguardando retirada
+                 * atendido  */
+            } elseif ($view[0]['status'] == 4) {
+                print "<option value='5' data-status='aguard_ret'>Aguardando Retirada</option>";
+                print "<option value='7' data-status='cancelado'>Cancelar</option>";
+            } elseif ($view[0]['status'] == 5) {
                 print "<option value='6' data-status='atendido'>Atendido</option>";
                 print "<option value='7' data-status='cancelado'>Cancelar</option>";
-                
-            }elseif($view[0]['status'] == 6) {
-                    //print "<option value='".$view[0]['status']."' data-status='".$view[0]['tramit']."'>".H_pedido_pedidajuda_hModel::enumFase($view[0]['tramit'])."</option>";
-                    //print "<option value='4' data-status='aguard_disp'>Aguard. Disponibilidade Material</option>";
-                    //print "<option value='5' data-status='aguard_ret'>Aguardando Retirada</option>";
+            } elseif ($view[0]['status'] == 6) {
+                //print "<option value='".$view[0]['status']."' data-status='".$view[0]['tramit']."'>".H_pedido_pedidajuda_hModel::enumFase($view[0]['tramit'])."</option>";
+                //print "<option value='4' data-status='aguard_disp'>Aguard. Disponibilidade Material</option>";
+                //print "<option value='5' data-status='aguard_ret'>Aguardando Retirada</option>";
             }
-            
             ?>
         </select>
 
@@ -505,24 +499,24 @@ $aviso_sit ="";
         <br>
         <div class="row">
 
-        <!-- SOMENTE ANALISTA DLOG -->
+            <!-- SOMENTE ANALISTA DLOG -->
             <?php
-                if($secao == "DLOG") {
-            ?>
+            if ($secao == "DLOG") {
+                ?>
                 <div class="col-md-12 text-left">
                     <br>
                     <button type="button" class="btn btn-warning glyphicon glyphicon-upload" name="upload_arquivos" id="upload_arquivos" title="Fazer upload de arquivos"> Upload Arquivos</button>
                 </div>
-                <?php   
-                }else {
+                <?php
+            } else {
                 ?>
-                    <br>
-                    <button type="button" class="btn btn-warning glyphicon glyphicon-upload imgCinza" title="Usuario sem permissão de Anexar Arquivos"> Upload Arquivos</button>
+                <br>
+                <button type="button" class="btn btn-warning glyphicon glyphicon-upload imgCinza" title="Usuario sem permissão de Anexar Arquivos"> Upload Arquivos</button>
 
                 <?php
-                }
-                ?>
-            
+            }
+            ?>
+
         </div>
         <div class="col-md-12 text-center">
             <legend>Lista de Arquivos Anexados</legend>
@@ -548,7 +542,7 @@ $aviso_sit ="";
                     print "<td>" . DataMysql::dataCompletaVisual($arquivo['data_envio']) . "</td>";
                     print "<td><a href='" . FuncaoBase::geraLink("cedec", "app", "visualiza", array('file' => $arquivo['nome_arquivo'], 'fl' => 'pedido_h')) . "'>" . $arquivo['nome_arquivo'] . "</a></td>";
                     print "<td>" . $arquivo['descricao'] . "</td>";
-                    if($permissao_ajuda_h) {
+                    if ($permissao_ajuda_h) {
                         print "<td><a name='deletar_anexo' data-nome_arquivo='" . $arquivo['nome_arquivo'] . "' data-id='" . $arquivo['id'] . "' title='Apagar Arquivo'><img src='/core/imagem/delete.png'></a></td>";
                     }
                     print "</tr>";
@@ -658,26 +652,43 @@ $aviso_sit ="";
 
 <script>
     $(document).ready(function () {
+
+        var status = <?= $view[0]['status'] ?>;
+        var secao = '<?= $secao; ?>';
+        var favoravel = <?= $favoravelDlog; ?>;
+
+        $(document).load(function (){
+            $('#html1').jstree("select_node.jstree", '<?=$aba?>', true);
         
+        });
+
         
-        var status = <?=$view[0]['status']?>;
-        var secao = '<?=$secao;?>';
-        var favoravel = <?=$favoravelDlog;?>;
+//            $("#material_pedido").fadeToggle();
+//            $("#dados_gerais").hide();
+//            $("#anexos").hide();
+//            $("#tramitar").hide()
+
         
-        
+        $("span[name='tx_parecer']").hide();
+
+        $("span[name='sub_text_parecer']").click(function () {
+            console.log($(this).parent('span'));
+
+        });
+
+
+
         /* abrir arvore */
-        
-        var aba = '';
-        $('#html1').jstree("select_node", 'show_material_pedido', true);
-        
+
+
+
         /* situação do processo está com o DIRETOR da dlog
          * e parecer favoravel pelo analista */
-        if(status == 2 && secao != "CHEFIA" && favoravel > 0) {
+        if (status == 2 && secao != "CHEFIA" && favoravel > 0) {
             $('#editar_pedido').css('color', '#27AE60');
             //$('img[name=add_material]').hide();
             $('#add_despacho').hide();
             $('img[name=edit]').hide();
-            
         }
 
         /* tramitar processo */
@@ -700,10 +711,10 @@ $aviso_sit ="";
                     var formData = new FormData();
                     formData.append('opcao', 'tramitar');
                     formData.append('id_pedido', $("#id").val());
-                    formData.append('id_usuario', <?=$id_usuario?>);
+                    formData.append('id_usuario', <?= $id_usuario ?>);
                     formData.append('status', $("#sel_tramitar").val());
                     formData.append('tramit', $("#sel_tramitar option:selected").data('status'));
-                    
+
                     $.ajax({
                         url: '/mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/ajax.php',
                         type: 'POST',
@@ -714,7 +725,8 @@ $aviso_sit ="";
                             if (response.trim() == 'sucesso') {
                                 Swal.fire('Pedido Tramitado com sucesso !').then(function () {
                                     //$('#lista_despacho').load('/mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/ajax_lista_despacho.php?id=' + id_pedido);
-                                    window.location.reload();
+                                    window.location.href = '<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit", array('id' => $view[0]['id'], 'voltar' => 'idx_recente', 'jstree' => 'show_tramitar')); ?>';
+                                    //window.location.reload();
                                 });
                             }
                         },
@@ -775,19 +787,23 @@ $aviso_sit ="";
                 contentType: false, // tell jQuery not to set contentType
                 success: function (response) {
 
-                    console.log(response);
+                    //console.log(response);
                     if (response.trim() == 'sucesso') {
                         Swal.fire('Despacho gravado com sucesso !').then(function () {
                             //$('#html1').jstree("select_node", show_material_pedido, true);
-                            var status = <?=$view[0]['status']?>;
-                            
-                            if(status == 3) {
-                                $('#editar_pedido').css('color', '#27AE60');
+                            var status = <?= $view[0]['status'] ?>;
+
+                            if (status == 3) {
+                                Swal.fire('Pedido Tramitado com sucesso !').then(function () {
+                                    $('#editar_pedido').css('color', '#27AE60');
+                                    window.location.href = '<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit", array('id' => $view[0]['id'], 'voltar' => 'idx_recente', 'jstree' => 'show_material_pedido')); ?>';
+                                });
+
                                 //$('#processo').text($('#processo').text().substring(0, $('#processo').text().search(":"))+" (Processo com Parecer Favorável pelo Coordenador Adjunto)");
                             }
-                            
+
                             //$('#lista_despacho').load('/mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/ajax_lista_despacho.php?id=' + id_pedido);
-                            
+
                             //$('#novoDespacho').hide();
                         });
                     }
@@ -846,7 +862,7 @@ $aviso_sit ="";
                 contentType: false, // tell jQuery not to set contentType
                 success: function (response) {
                     Swal.fire('Registro Editado com Sucesso !').then(function () {
-                        window.location.href = '<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit", array('id' =>$view[0]['id'], 'voltar'=>'idx_recente', 'jstree' => 'show_material_pedido')) ;?>';
+                        window.location.href = '<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit", array('id' => $view[0]['id'], 'voltar' => 'idx_recente', 'jstree' => 'show_material_pedido')); ?>';
                         //$('#html1').jstree("select_node", 'show_material_pedido', true);
                     });
                 },
@@ -910,9 +926,9 @@ $aviso_sit ="";
                 success: function (response) {
                     //console.log(response);
                     Swal.fire('Registro Salvo com Sucesso !').then(function () {
-                        window.location.reload();
-                        
-                        $('#html1').jstree("select_node", show_material_pedido, true);
+                        //window.location.reload();
+                        window.location.href = '<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit", array('id' => $view[0]['id'], 'voltar' => 'idx_recente', 'jstree' => 'show_material_pedido')); ?>';
+                        //$('#html1').jstree("select_node", 'show_material_pedido', true);
                     });
                 },
                 error: function (e) {
@@ -1187,6 +1203,5 @@ $aviso_sit ="";
 
 
     });
-
 
 </script>

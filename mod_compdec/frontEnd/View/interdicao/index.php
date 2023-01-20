@@ -12,7 +12,7 @@
 <?php
 $id_municipio = isset($pageSession['session']['seguranca']['id_municipio']) ? $pageSession['session']['seguranca']['id_municipio'] : "";
 
-$interdicoes = interdicaoController::listagem_geral();
+$interdicoes = interdicaoController::listagem_geral($id_municipio);
 
 ?>
 

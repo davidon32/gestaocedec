@@ -76,8 +76,8 @@
 
                 print "<tr>";
                 print "<td>" . date("d/m/Y", strtotime($registro1['dt_desalojado'])) . "</td>";
-                print "<td>{$registro1['desalojado']}</td>";
                 print "<td>{$registro1['desabrigado']}</td>";
+                print "<td>{$registro1['desalojado']}</td>";
                 print "<td>";
                 if ($registro1['dt_desalojado'] == date('Y-m-d')) {
                     print "<button type='button' name='editar'><img width='25' title='Editar valores' src='/core/imagem/editar.png'></button>";
@@ -152,8 +152,9 @@
 
         $("button[name='salvar']").click(function () {
 
-            var desalojado = $(this).parent().parent().find('td').find('input')[0].value;
-            var desabrigado = $(this).parent().parent().find('td').find('input')[1].value;
+            var desabrigado = $(this).parent().parent().find('td').find('input')[0].value;    
+            var desalojado = $(this).parent().parent().find('td').find('input')[1].value;
+            
 
             if (desalojado.length != 0 && desabrigado.length != 0) {
 

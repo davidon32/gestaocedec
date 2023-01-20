@@ -132,7 +132,7 @@
                 <div class="masonry-blog clearfix">
                     <div class="left-side">
                         <div class="masonry-box post-media" data-id="<?=$ultimas_postagens[0]['id']?>">
-                            <img src="/anexo/def_civil_agora/<?= $ultimas_postagens[0]['imagem1'] ?>" alt="" class="img-fluid">
+                            <img src="/anexo/def_civil_agora/<?= $ultimas_postagens[0]['imagem1'] ?>" alt="" class="">
                             <div class="shadoweffect">
                                 <div class="shadow-desc">
                                     <div class="blog-meta">
@@ -150,7 +150,7 @@
 
                     <div class="center-side">
                         <div class="masonry-box post-media" data-id="<?=$ultimas_postagens[1]['id']?>">
-                            <img src="/anexo/def_civil_agora/<?= $ultimas_postagens[1]['imagem1'] ?>" width="534" height="468"" alt="" class="img-fluid">
+                            <img src="/anexo/def_civil_agora/<?= $ultimas_postagens[1]['imagem1'] ?>" width="534" height=""" alt="" class="img-fluid">
                             <div class="shadoweffect">
                                 <div class="shadow-desc">
                                     <div class="blog-meta">
