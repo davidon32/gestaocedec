@@ -40,6 +40,7 @@ print "Status : <b>". H_pedido_pedidajuda_hModel::enumFase($h_pedido[0]['tramit'
 print "<div class=\"table-responsive\"><table class=\"table table-bordered table-striped\">
     <thead>
             <tr>
+<th>#</th>
 <th>id_pedido</th>
 <th>cod_material</th>
 <th>nome_material</th>
@@ -55,12 +56,13 @@ print "<div class=\"table-responsive\"><table class=\"table table-bordered table
 $materiais = $h_pedido_prest::listaPrestContasporPedido($id);
 
 
-foreach ($materiais as $material) {
+foreach ($materiais as $key=>$material) {
 
     $percent = ( $h_pedido_prest->percBenef($material['id']) / $material['qtd']) * 100;
     $cor_percent_prest = ( $percent == 50 ) ? '#32CD32' : '';
 
     print "<tr style='background-color: " . $cor_percent_prest . "'>
+<td>" . ($key+1) . "</td>
 <td>" . $material['id_pedido'] . "</td>
 <td>" . $material['cod_material'] . "</td>
 <td>" . $material['nome_material'] . "</td>

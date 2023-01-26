@@ -67,6 +67,8 @@ $aviso_sit = "";
 
 
 $aba = isset($_GET['jstree']) ? $_GET['jstree'] : "inicio";
+
+var_dump($aba);
 ?>
 
 <div class='col-md-3'></div>
@@ -371,10 +373,10 @@ $aba = isset($_GET['jstree']) ? $_GET['jstree'] : "inicio";
                     <!-- <th style="width:10%">Código</th> -->
                     <!-- <th style="width:10%">Cód. Mat</th> -->
                     <th style="width:5%">#</th>
-                    <th style="width:25%">Material</th>
+                    <th style="width:50%">Material</th>
                     <th style="width:15%">Qtd</th>
                     <th style="width:15%">Qtd Familias Atend.</th>
-                    <th style="width:40%">Opção</th>
+                    <th style="width:15%">Opção</th>
                 </tr>
 
                 <?php
@@ -645,7 +647,8 @@ $aba = isset($_GET['jstree']) ? $_GET['jstree'] : "inicio";
 <?php include_once "template/page/rodape.php" ?>
 <?php include_once "template/page/barra_config_template.php"; ?>
 <!-- =============== HEADER HTML PAGE ================= -->
-<?php include_once "template/page/rodapePage.php"; ?>
+<?php include_once "template/page/rodapePage.php";
+?>
 
 <script src="/vendor/jstree/dist/jstree.js"></script>
 
@@ -657,18 +660,18 @@ $aba = isset($_GET['jstree']) ? $_GET['jstree'] : "inicio";
         var secao = '<?= $secao; ?>';
         var favoravel = <?= $favoravelDlog; ?>;
 
-        $(document).load(function (){
-            $('#html1').jstree("select_node.jstree", '<?=$aba?>', true);
-        
-        });
 
-        
+        window.onload = function () {
+            $('#html1').jstree("select_node", '<?= $aba ?>');
+        };
+
+
 //            $("#material_pedido").fadeToggle();
 //            $("#dados_gerais").hide();
 //            $("#anexos").hide();
 //            $("#tramitar").hide()
 
-        
+
         $("span[name='tx_parecer']").hide();
 
         $("span[name='sub_text_parecer']").click(function () {
@@ -835,8 +838,8 @@ $aba = isset($_GET['jstree']) ? $_GET['jstree'] : "inicio";
             $(this).closest("tr").find('td')[3].innerHTML = '<input class=\'form form-control col-md-6\' type=\'text\' name=\'familias\' value=\'' + familias_at + '\'>';
             //$("#tbl_material_liberado").parent().find('td')[3].innerHTML = '<input class=\'form form-control col-md-6\' type=\'text\' name=\'familias\' value=\'' + familias_at + '\'>';
 
-            $("img[name=edit]").hide();
-            $("img[name=salvar]").show();
+            $(this).hide();
+            $(this).parent().find('img[name=salvar]').show();
         });
 
         /* salvar edição material */

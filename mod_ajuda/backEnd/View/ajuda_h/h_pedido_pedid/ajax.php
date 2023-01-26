@@ -50,7 +50,6 @@ if($opcao == 'dados_compdec') {
 
 // Permissao pedir material
 }elseif ($opcao == 'permis_material_pedido') {
-    
     if($h_pedido_pedid->PermissaoMaterial($_POST)){
         print 'sucesso';
     }

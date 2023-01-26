@@ -76,14 +76,14 @@ class Email {
      * @param mensagem
      * 
      * */
-    function emailIndividual($destinatario, $assunto, $mensagem, $de = false) {
+    function emailIndividual($destinatario, $assunto, $mensagem, $headers = null, $de = null) {
 
-        $headers = 'MIME-Version: 1.0' . "\r\n";
+        /*$headers = 'MIME-Version: 1.0' . "\r\n";
         $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-        $headers .= (!$de) ? 'From : defesacivil@defesacivil.mg.gov.br' : 'From: ' . $de . ' <' . $de . '>';
+        $headers .= (!$de) ? 'From : defesacivil@defesacivil.mg.gov.br' : 'From: ' . $de . ' <' . $de . '>';*/
 
         
-        $envia = mail($destinatario, $assunto, $mensagem, $headers);
+        $envia = mail($destinatario, $assunto, $mensagem, $headers, $de);
 
         return $envia;
     }

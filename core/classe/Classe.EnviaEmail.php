@@ -12,7 +12,7 @@ class EnviaEmail {
      * @param assunto
      * @param mensagem
      **/
-    function emailIndividual($destinatario, $assunto, $mensagem) {
+    function emailIndividual($destinatario, $assunto, $mensagem, $headers = null, $remetente = null) {
 
     // Inicia a classe PHPMailer
     $mail = new PHPMailer();

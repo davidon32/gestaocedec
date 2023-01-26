@@ -78,7 +78,7 @@
          title: 'Atualização de Email necessária...',
          width: 500,
          text: 'Favor atualiar seu email para um email institucional',
-         footer: '<a href=\'<?= FuncaoBase::geraLink('compdec', 'compdec', 'index') ?>\'>Clique aqui acessar os dados cadatrais</a>'
+         footer: '<a href=\'<?=FuncaoBase::geraLink('compdec', 'compdec', 'index')?>\'>Clique aqui acessar os dados cadatrais</a>'
          });
          }*/
 
@@ -101,16 +101,37 @@
          cancelButtonAriaLabel: 'Thumbs down'
          });*/
 
+//        Swal.fire({
+//         title: '<strong>PEDIDOS DE AJUDA HUMANITÁRIA</u></strong>',
+//         width: 700,
+//         icon: 'info',
+//         html:
+//         'PREZADOS COORDENADORES, AGORA OS PEDIDOS DE AJUDA HUMANITÁRIA DEVERÃO SER ENVIADOS SOMENTE PELO SDC,  ' +
+//         '<br>' +
+//         ' ACESSE O MODULO <b>"PEDIDO DE AJUDA HUMANITÁRIA"</b> ' +
+//         '<br>'+
+//         '<a href="<?= FuncaoBase::geraLink('doc', 'doc', 'index') ?>">Clique aqui e Consulte o Manual </a>',
+//         showCloseButton: true,
+//         returnFocus: true,
+//         confirmButtonAriaLabel: 'Thumbs up, great!',
+//         cancelButtonText: 'Cancelar',
+//         cancelButtonAriaLabel: 'Thumbs down'
+//         });
         Swal.fire({
-         title: '<strong>PEDIDOS DE AJUDA HUMANITÁRIA</u></strong>',
+         title: '<strong>SENHA DE ACESSO E RECUPERAÇÃO</u></strong>',
          width: 700,
          icon: 'info',
+         backdrop: true,
          html:
-         'PREZADOS COORDENADORES, AGORA OS PEDIDOS DE AJUDA HUMANITÁRIA DEVERÃO SER ENVIADOS SOMENTE PELO SDC,  ' +
+         'PREZADOS COORDENADORES, <BR>  ' +
+         'EM BREVE NÃO SERÁ PERMITIDO EMAIL COM DOMÍNIO GMAIL E OUTROS QUE <B>NÃO</B> SEJAM DOMÍNIOS INSTITUCIONAIS/GOVERNAMENTAIS.'+
          '<br>' +
-         ' ACESSE O MODULO <b>"PEDIDO DE AJUDA HUMANITÁRIA"</b> ' +
+         '<i style=\'color:red\'>@seu_municipio.mg.gov.br<BR>' +
+         '@seu_municipio.gov.br<BR>'+
+         '@sua_secretaria.seu_municipio.mg.gov.br</i><BR>'+
+         'PREPAREM-SE !' +
          '<br>'+
-         '<a href="<?= FuncaoBase::geraLink('doc', 'doc', 'index') ?>">Clique aqui e Consulte o Manual </a>',
+         '',
          showCloseButton: true,
          returnFocus: true,
          confirmButtonAriaLabel: 'Thumbs up, great!',

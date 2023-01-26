@@ -1,11 +1,10 @@
 <?php
-
 if (!isset($_SESSION)) {
     session_start();
     $id = session_id();
 }
-if(!defined('VERSAO')) {
-define('VERSAO', 'versão - 3.4.1.5-91 -  18.01.2023');
+if (!defined('VERSAO')) {
+    define('VERSAO', 'versão - 3.4.1.5-91 -  18.01.2023');
 }
 include 'core/system/config/config.inc.php';
 include_once 'core/include.php';
@@ -22,7 +21,6 @@ include_once 'core/include.php';
   //var_dump($valida_link, hash('sha256', md5(VERSAO)), hash('sha256', md5(VERSAO).date('dmY')) );
  * 
  */
-
 
 
 
@@ -61,7 +59,7 @@ if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
 
     $acesso1 = isset($_GET['externo']) ? $_GET['externo'] : "";
 
-//var_dump($caminho[1]);
+
 
     $evento = isset($caminho[1]) ? $caminho[1] : "";
     /* if ($evento == 'evento') {
@@ -131,9 +129,9 @@ if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
     } else if (!isset($_COOKIE['seguranca']['tipo'])) { # redireciona para pagina de login
         # acesso defesa civil agora
         if (
-                //($controller == 'agoraController') && ($action == 'listasite') ||
+        //($controller == 'agoraController') && ($action == 'listasite') ||
                 ($action == 'cadastro') ||
-                ($controller == "cceController" && $action == 'boletimsite') || 
+                ($controller == "cceController" && $action == 'boletimsite') ||
                 //($controller == "cceController" && $action == 'boletimsite1') ||
                 ($action == "listacompdecativa") ||
                 ($controller == 'agoraController' && $action == 'view') ||
@@ -146,37 +144,37 @@ if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
             //($controller == 'agoraController' && $action == 'gravarComentario') ||
             //($controller == 'agoraController' && $action == 'cadpost') ||
             // ($controller == 'agoraController' && $action == 'postagem')
-        
 
-                $ac = 'backEnd/';
-                if (file_exists("mod_" . $modulo . "/" . $ac . "Controller/" . $controller . ".php")) {
-                    include_once "mod_" . $modulo . "/" . $ac . "Controller/" . $controller . ".php";
-                } else {
-                    header('Location:index.php');
-                }
+
+            $ac = 'backEnd/';
+            if (file_exists("mod_" . $modulo . "/" . $ac . "Controller/" . $controller . ".php")) {
+                include_once "mod_" . $modulo . "/" . $ac . "Controller/" . $controller . ".php";
             } else {
-                if (isset($_COOKIE['SEGURANCA'])) {
-                    if (file_exists("mod_" . $modulo . "/Controller/" . $controller . ".php")) {
-                        include_once "mod_" . $modulo . "/Controller/" . $controller . ".php";
-                    } else {
-                        header('Location:index.php');
-                    }
-                    include_once "template/page/login.php";
+                header('Location:index.php');
+            }
+        } else {
+            if (isset($_COOKIE['SEGURANCA'])) {
+                if (file_exists("mod_" . $modulo . "/Controller/" . $controller . ".php")) {
+                    include_once "mod_" . $modulo . "/Controller/" . $controller . ".php";
                 } else {
                     header('Location:index.php');
                 }
+                include_once "template/page/login.php";
+            } else {
+                header('Location:index.php');
             }
         }
+    }
 
-        if (class_exists($controller)) {
+    if (class_exists($controller)) {
 
-            $app = new $controller();
+        $app = new $controller();
 
-            if ($action != 'mapa') {
-                if (method_exists($app, $action)) {
-                    $app->$action();
-                } else {
-                    print <<<EOT
+        if ($action != 'mapa') {
+            if (method_exists($app, $action)) {
+                $app->$action();
+            } else {
+                print <<<EOT
 <div style='width:500px;padding:0; margin:0 auto;'>
 <p style='font-size:20pt;float:left'>Ocorreu um erro interno !<br>chamada nao encontrada : <i style='color:blue'>$action</i></p>
 <p style='float:right'><img width='120px' src='/core/imagem/erro.png'></p>
@@ -186,30 +184,49 @@ if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
       <a href='javascript:history.back();'>Voltar</a>
 </div>
 EOT;
-                }
             }
-        } else {
-            print FuncaoBase::mensagem("", "alert-error", "Arquivo:<br><br>- " . $controller . "<br><br> inexistente");
         }
+    } else {
+        print FuncaoBase::mensagem("", "alert-error", "Arquivo:<br><br>- " . $controller . "<br><br> inexistente");
     }
+}
 
-    $useragent = $_SERVER['HTTP_USER_AGENT'];
+$useragent = $_SERVER['HTTP_USER_AGENT'];
 
-    /* trava acesso google chrome */
-    if (preg_match('#\b(Edg|Firefox|OPR)\b#', $useragent)) {
+/* trava acesso google chrome */
+if (preg_match('#\b(Edg|Firefox|OPR)\b#', $useragent)) {
 
-        print "<script type='text/javascript'>";
-        print "Swal.fire({icon: 'error',
+    print "<script type='text/javascript'>";
+    print "Swal.fire({icon: 'error',
                         title: 'Oops... Navegador não Homologado !',
 
                         footer: 'favor entrar pelo google Ghrome ! <img src=\"/core/imagem/chrome-48.png\">'
                   });";
-        print "setTimeout(() => {window.location = 'http://www.defesacivil.mg.gov.br';}, 3000);";
-        print "</script>";
-    } else if (preg_match('#\b(Mozilla/4.0)\b#', $useragent)) {
-        print "<script type='text/javascript'>";
-        print "alert('Navegador nao homologado \n Favor Entrar pelo Google Chrome ! ');";
-        print "setTimeout(function() {window.location = 'http://www.defesacivil.mg.gov.br';}, 1000);";
-        print "</script>";
+    print "setTimeout(() => {window.location = 'http://www.defesacivil.mg.gov.br';}, 3000);";
+    print "</script>";
+} else if (preg_match('#\b(Mozilla/4.0)\b#', $useragent)) {
+    print "<script type='text/javascript'>";
+    print "alert('Navegador nao homologado \n Favor Entrar pelo Google Chrome ! ');";
+    print "setTimeout(function() {window.location = 'http://www.defesacivil.mg.gov.br';}, 1000);";
+    print "</script>";
+}
+
+
+    $email = $_COOKIE['seguranca']['email_rec'];
+
+    //var_dump(preg_match('#\b(hotmail|gmail)\b#', $email), $_COOKIE['seguranca']['email_rec']);
+    if(preg_match('#\b(hotmail|gmail)\b#', $email)){
+        
+        /*print "<script type='text/javascript'>";
+        print "Swal.fire({
+        icon: 'error',
+        title: 'Atualização de Email necessária...',
+        width: 600,
+        text: 'Seu email cadastrado no sistema é : ".$email." Favor atualiar seu email para um email institucional',
+        footer: '<a href=".FuncaoBase::geraLink('compdec', 'compdec', 'index').">Clique aqui acessar os dados cadatrais</a>'
+        });";
+        print "</script>";*/
     }
+    
+    
 ?>

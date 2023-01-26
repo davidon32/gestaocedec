@@ -60,6 +60,10 @@
     
     $(document).ready(function () {
         
+        if('<?=$_COOKIE['seguranca']['tipo']?>' == 'e'){
+            $('body').addClass('sidebar-mini skin-red-light');
+        }
+        
         $(".overlay1").hide();
         
         /* barra debug */

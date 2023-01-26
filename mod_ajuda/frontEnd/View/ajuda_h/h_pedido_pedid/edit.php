@@ -83,7 +83,7 @@ $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
             <div class='row'>
                 <div class='col-md-6'>
                     <label>Email do Coordenador</label>
-                    <input type="text" class='form form-control' name='email_coordenador' id='email_coordenador' value='<?= $view[0]['email_coordenador'] ?>'  maxlength='49' required>
+                    <input type="text" class='form form-control' name='email_coordenador' id='email_coordenador' value='<?= $view[0]['email_coordenador'] ?>'  maxlength='99' required>
                 </div>
             </div>
             <div class='row'>

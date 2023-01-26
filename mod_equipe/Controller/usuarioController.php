@@ -5,14 +5,10 @@ include_once PATH . '/core/Controller/Controller.php';
 include_once PATH . '/core/Model/UsuarioModel.php';
 
 class usuarioController extends Controller {
-    
-    
-    public function index(){
+
+    public function index() {
         print "opa";
-        
     }
-
-
 
     # recuperar senha compdec
 
@@ -45,7 +41,7 @@ class usuarioController extends Controller {
 
                             $quebraEmail = substr($email_rec[0]['email_rec'], 0, 4) . "******" . substr($email_rec[0]['email_rec'], strpos($email_rec[0]['email_rec'], "@"));
 
-                            $us_hash = "&" . md5('use70') . "=" . $_resultado[4]."&res=".date('His');
+                            $us_hash = "&" . md5('use70') . "=" . $_resultado[4] . "&res=" . date('His');
                             $link = FuncaoBase::geraLink('equipe', 'usuario', 'trsenha_compdec') . $us_hash;
 
                             $mensagem = <<<MSG
@@ -73,8 +69,20 @@ http://www.defesacivil.mg.gov.br
 
 MSG;
 
-
-                            $resultado = $enviaEmail->emailIndividual($email_rec[0]['email_rec'], utf8_decode("SGECEDEC - Recuperação de Senha"), $mensagem, "defesacivil@defesacivil.mg.gov.br");
+                            
+                            $email_remetente = 'sdc@defesacivil.mg.gov.br';
+                            $headers = "MIME-Version: 1.1\n";
+                            $headers .= "Content-type: text/html; charset=UTF-8\n"; // ou UTF-8, como queira
+                            $headers .= "From: $email_remetente\n"; // remetente
+                            $headers .= "Return-Path: $email_remetente\n"; // return-path
+                            $headers .= "Reply-To: demetrio.passos@defesacivil.mg.gov.br\n"; // Endereço (devidamente validado) que o seu usuário informou no contato
+                            
+                            $resultado = $enviaEmail->emailIndividual(
+                                    $email_rec[0]['email_rec'],
+                                    utf8_decode("SDC - Recupera&ccedil;&atilde;o de Senha")." ".date('d/m/Y H:i:s'),
+                                    $mensagem,
+                                    $headers,
+                                    "-f$email_remetente");
 
                             if ($resultado) {
 
@@ -86,9 +94,9 @@ MSG;
                                         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red'>Verifique também sua caixa de spam (Lixo Eletrônico), pois seu provedor pode direcionado para a caixa de Spam.</span></li>
                                         <br>Caso não reconheça, envie um email para:<br><br> 
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sdc@defesacivil.mg.gov.br");
-                            }else {
-                        print FuncaoBase::mensagem(FuncaoBase::geraLink("index", "index", "index"), "alert alert-error", "Ocorreu um erro ao enviar o email, gentileza tente mais tarde !");
-                    }
+                            } else {
+                                print FuncaoBase::mensagem(FuncaoBase::geraLink("index", "index", "index"), "alert alert-error", "Ocorreu um erro ao enviar o email, gentileza tente mais tarde !");
+                            }
                         }
                     }
                 } else {
@@ -100,9 +108,11 @@ MSG;
             include_once 'mod_equipe/View/usuario/recsenha_compdec.php';
         }
     }
+
     # trocar senha interno
 
     public function trsenha_compdec() {
         include_once 'mod_equipe/View/usuario/trsenha_compdec.php';
     }
+
 }

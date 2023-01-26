@@ -188,7 +188,7 @@ if (!empty($id_usuario)) {
 }
 
 # lista de materiais q não estão liberados para pedidos
-$listMateriais = $h_pedido_pedid->MaterialPedido(0);
+$listMateriais = $h_pedido_pedid->MaterialDisponivelPedido(0);
 ?>
 
 <!-- =================== RODAPE CORPO ==================== -->
@@ -285,7 +285,7 @@ $listMateriais = $h_pedido_pedid->MaterialPedido(0);
 
                 onSelectItemEvent: function () {
                     var id = $("#buscaMat").getSelectedItemData().id_unidade;
-                    console.log(id);
+                    /* id para referencia do material na gravação*/
                     $('#buscaMat').data('id_unidade', id);
                 },
                 onClickEvent: function () {

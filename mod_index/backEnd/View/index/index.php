@@ -38,8 +38,10 @@ $secao = isset($_COOKIE['seguranca']['secao']) ? $_COOKIE['seguranca']['secao'] 
             }
             $count = 0;
             print $titulo;
+                //var_dump($secao);
             
             foreach ($ped_ajuda as $key => $pedido) {
+                
                 $data_hoje = new DateTime(date('Y-m-d'));
                 $data_pedido = new DateTime($pedido['data_entrada_sistema']);
                 $dif = $data_hoje->diff($data_pedido);
@@ -53,7 +55,7 @@ $secao = isset($_COOKIE['seguranca']['secao']) ? $_COOKIE['seguranca']['secao'] 
                                 <span class=\"handle\">" . ($count) . ") - <i class=\"fa fa-ellipsis-v\"></i>
                                 <i class=\"fa fa-ellipsis-v\"></i>
                                 </span>
-                                <span class=\"text\">
+                                <span class=\"text\">1
                                     <a style=\"text-decoration:none;\" href=\"" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit', array('id' => $pedido['id'], 'voltar' => 'idx_recente')) . "\" title='Despachar Pedido'>
                                     &nbsp;&nbsp;<img style=\"vertical-align:middle\" width='15px;' src=\"/core/imagem/pedido_cesta.png\">
                                     &nbsp;&nbsp;<span style='font-size:12px;'>
@@ -72,7 +74,7 @@ $secao = isset($_COOKIE['seguranca']['secao']) ? $_COOKIE['seguranca']['secao'] 
                                 <span class=\"handle\">" . ($count) . ") - <i class=\"fa fa-ellipsis-v\"></i>
                                 <i class=\"fa fa-ellipsis-v\"></i>
                                 </span>
-                                <span class=\"text\">
+                                <span class=\"text\">2
                                     <a style=\"text-decoration:none;\" href=\"" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit', array('id' => $pedido['id'], 'voltar' => 'idx_recente')) . "\" title='Despachar Pedido'>
                                     &nbsp;&nbsp;<img style=\"vertical-align:middle\" width='15px;' src=\"/core/imagem/pedido_cesta.png\">
                                     &nbsp;&nbsp;<span style='font-size:12px;'>
@@ -90,7 +92,7 @@ $secao = isset($_COOKIE['seguranca']['secao']) ? $_COOKIE['seguranca']['secao'] 
                                 <span class=\"handle\">" . ($count) . ") - <i class=\"fa fa-ellipsis-v\"></i>
                                 <i class=\"fa fa-ellipsis-v\"></i>
                                 </span>
-                                <span class=\"text\">
+                                <span class=\"text\">3
                                     <a style=\"text-decoration:none;\" href=\"" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'view', array('id' => $pedido['id'], 'voltar' => 'idx_recente')) . "\" title='Visualizar Pedido'>
                                     &nbsp;&nbsp;<img style=\"vertical-align:middle\" width='15px;' src=\"/core/imagem/pedido_cesta.png\">
                                     &nbsp;&nbsp;<span style='font-size:12px;'>
@@ -99,7 +101,11 @@ $secao = isset($_COOKIE['seguranca']['secao']) ? $_COOKIE['seguranca']['secao'] 
                                 <small class=\"label label-danger\"><i class=\"fa fa-clock-o\"></i> - liberado há " . $dif->days . "  dia(s)</small>
                             </li>
                           </ul>";
+                }elseif ($secao == "REDEC" && $pedido['status'] == 3) {
+                    
                 }
+            
+        
             }
         }
         ?>

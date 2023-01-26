@@ -44,6 +44,7 @@
     <![endif]-->
     
     <style>
+        
             @font-face {
                 font-family: "Droid Sans";
                 src: url('fonts/DroidSans.ttf');      
@@ -57,6 +58,10 @@
         body {
           font-family: "Droid Sans", "Droid Sans Bold" ;
          }
+         
+         
+         
+          
     </style>
 
 </head>

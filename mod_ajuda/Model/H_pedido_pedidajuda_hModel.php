@@ -1087,14 +1087,13 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
     }
 
     /* busca material para pedido ajuda */
-
     public static function MaterialPedido($situacao = 1) {
 
         $con = Conexao::getInstance();
 
         $dado = array();
 
-        $sql = "select id_unidade, singular, descricao, nome from aju_unidade
+        $sql = "select DISTINCT singular, id_unidade, descricao, nome from aju_unidade
                 where pedido_h = {$situacao}
                     and singular is not null
                 order by nome";
@@ -1103,7 +1102,37 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
             $result = $con->query($sql);
 
             while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-                $dado[] = $linha;
+                    $dado[] = $linha;
+            }
+
+            return $dado;
+        } catch (Exception $e) {
+            return $e->getMessage() . "Ocorreu um erro !";
+        }
+    }
+    
+    /* busca material disponivel para pedidos */
+    public static function MaterialDisponivelPedido($situacao = 1) {
+
+        $con = Conexao::getInstance();
+
+        $dado = array();
+
+        $sql = "select DISTINCT singular, id_unidade, descricao, nome from aju_unidade
+                where pedido_h = {$situacao}
+                    and singular is not null
+                order by nome";
+        try {
+
+            $result = $con->query($sql);
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+
+                /*var_dump($linha['singular'], array_column($dado, 'singular') );print "<br>";
+                
+                if(!array_search($linha['singular'], array_column($dado, 'singular'))){*/
+                    $dado[] = $linha;
+                /*}*/
             }
 
             return $dado;
