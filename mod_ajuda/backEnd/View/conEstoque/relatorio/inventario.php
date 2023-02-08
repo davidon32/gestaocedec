@@ -104,7 +104,7 @@
     }else {
         
         $linha = "<td>". DataMysql::dataVisual($dataInventario)."</td>";
-        $dados = $_relatorioAjuda->inventarioGeralSaldoAnterior($id_deposito, $dataInventario);
+        $dados = $_relatorioAjuda->inventarioGeralSaldoAnterior($dataInventario, $id_deposito);
     }
     
     

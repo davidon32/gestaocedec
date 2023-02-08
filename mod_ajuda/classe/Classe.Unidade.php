@@ -35,7 +35,7 @@
 
             $con = Conexao::getInstance();
 
-            $sql = "select id_unidade, nome, descricao, uni_medida, peso, valor 
+            $sql = "select id_unidade, nome, descricao, uni_medida, peso, valor, categoria, singular
             from aju_unidade ORDER BY NOME";
 
             $dados = array();

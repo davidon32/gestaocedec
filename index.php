@@ -4,7 +4,7 @@ if (!isset($_SESSION)) {
     $id = session_id();
 }
 if (!defined('VERSAO')) {
-    define('VERSAO', 'versão - 3.4.1.5-91 -  18.01.2023');
+    define('VERSAO', 'versão - 3.4.1.5-94 - 06.02.2023');
 }
 include 'core/system/config/config.inc.php';
 include_once 'core/include.php';
@@ -212,21 +212,22 @@ if (preg_match('#\b(Edg|Firefox|OPR)\b#', $useragent)) {
 }
 
 
-    $email = $_COOKIE['seguranca']['email_rec'];
-
-    //var_dump(preg_match('#\b(hotmail|gmail)\b#', $email), $_COOKIE['seguranca']['email_rec']);
-    if(preg_match('#\b(hotmail|gmail)\b#', $email)){
-        
-        /*print "<script type='text/javascript'>";
-        print "Swal.fire({
-        icon: 'error',
-        title: 'Atualização de Email necessária...',
-        width: 600,
-        text: 'Seu email cadastrado no sistema é : ".$email." Favor atualiar seu email para um email institucional',
-        footer: '<a href=".FuncaoBase::geraLink('compdec', 'compdec', 'index').">Clique aqui acessar os dados cadatrais</a>'
-        });";
-        print "</script>";*/
-    }
+/* verificar email de é gmail*/
+//    $email = $_COOKIE['seguranca']['email_rec'];
+//
+//    //var_dump(preg_match('#\b(hotmail|gmail)\b#', $email), $_COOKIE['seguranca']['email_rec']);
+//    if(preg_match('#\b(hotmail|gmail)\b#', $email)){
+//        
+//        /*print "<script type='text/javascript'>";
+//        print "Swal.fire({
+//        icon: 'error',
+//        title: 'Atualização de Email necessária...',
+//        width: 600,
+//        text: 'Seu email cadastrado no sistema é : ".$email." Favor atualiar seu email para um email institucional',
+//        footer: '<a href=".FuncaoBase::geraLink('compdec', 'compdec', 'index').">Clique aqui acessar os dados cadatrais</a>'
+//        });";
+//        print "</script>";*/
+//    }
     
     
 ?>

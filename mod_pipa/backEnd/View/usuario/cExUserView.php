@@ -192,7 +192,7 @@ $dados = Usuario::buscaUsuarioId($_GET['id']);
 
             var email = $("#email_rec").val();
 
-            if (
+            /*if (
                     (email.indexOf('yahoo') > 0) ||
                     (email.indexOf('live') > 0) ||
                     (email.indexOf('bol') > 0) ||
@@ -206,7 +206,7 @@ $dados = Usuario::buscaUsuarioId($_GET['id']);
                 $("#email_rec").css('color', 'black');
                 $("#btnAtua").attr("disabled", false);
                 $("#email_branco").hide();
-            }
+            }*/
 
         });
 

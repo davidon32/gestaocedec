@@ -109,7 +109,7 @@ var_dump($aba);
                         <li data-jstree='{"icon":"glyphicon glyphicon-hdd"}' id='show_material_pedido'>
                             Material do Pedido</li>
                         <?php
-                        if ($secao == "DLOG") {
+                        if ($secao == "DLOG" || $secao == 'CHEFIA') {
                             ?>
                             <li data-jstree='{"icon":"glyphicon glyphicon-transfer"}' id='show_tramitar'>
                                 Tramitação de Pedido</li>
@@ -134,7 +134,7 @@ var_dump($aba);
             <div class='row'>
                 <div class='col-md-2'>
                     <label>Número Pedido</label>
-                    <input type="text" class='form form-control' name='numero' id='numero' value='<?= $view[0]['numero'] . "-" . substr($view[0]['data_entrada_sistema'], 0, 4) ?>' readonly=readonly>
+                    <input type="text" class='form form-control' name='numero1' id='numero1' value='<?= $view[0]['numero'] . "-" . substr($view[0]['data_entrada_sistema'], 0, 4) ?>' readonly=readonly>
                     <input type="hidden" id='id' name='id' value='<?= $view[0]['id'] ?>'>
                     <input type="hidden" id='despachante_analista' name='despachante_analista' value='<?= $view[0]['despachante_analista'] ?>'>
                     <input type="hidden" id='despachante_dlog' name='despachante_dlog' value='<?= $view[0]['despachante_dlog'] ?>'>
@@ -263,13 +263,13 @@ var_dump($aba);
                     <label>Tipo do Decreto</label>
                     <div class="radio">
                         <label>
-                            <input type="radio" name="tipo_decreto" id="ECP" value="ECP" checked>
+                            <input type="radio" name="tipo_decreto" id="ECP" value="ECP" <?= ($view[0]['tipo_decreto']) == "ECP" ? ' checked' : ""; ?>>
                             ECP
                         </label>
                     </div>
                     <div class="radio">
                         <label>
-                            <input type="radio" name="tipo_decreto" id="SE" value="SE">
+                            <input type="radio" name="tipo_decreto" id="SE" value="SE" <?= ($view[0]['tipo_decreto']) == "SE" ? ' checked' : ""; ?>>
                             SE
                         </label>
                     </div>
@@ -415,7 +415,7 @@ var_dump($aba);
             <p>
             <legend>Despacho</legend></p>
             <?php
-            if ($permissao_ajuda_h && ($view[0]['status'] == 1 && $secao == 'DLOG') || ($view[0]['status'] == 2 && $secao == 'CHEFIA')) {
+            if ($permissao_ajuda_h && ($view[0]['status'] == 1 && $secao == 'DLOG') || $secao == 'CHEFIA') {
                 print "<img src='/core/imagem/icon_app/new.png' title='Novo Despacho' name='add_despacho' id='add_despacho'> Novo Despacho<br><br>";
             } else {
                 print "<img src='/core/imagem/icon_app/new.png' title='O processo está em outra Fase que não permite a alteração por este usuário' class='imgCinza'> Novo Despacho<br><br>";
@@ -423,8 +423,8 @@ var_dump($aba);
             ?>
             <div class="row" id='novoDespacho'>
                 <div class="col-md-9">
-                    <label>Despacho :</label><span id="span_caracteres">Caracteres Restantes : 255</span>
-                    <textarea rows='5' id="text_despacho" class='form form-control' maxlength="255"></textarea>
+                    <label>Despacho :</label><span id="span_caracteres">Caracteres Restantes : 1000</span>
+                    <textarea rows='5' id="text_despacho" class='form form-control' maxlength="1000"></textarea>
                     <input type="hidden" id="secao" value="<?= $secao ?>">
                     <input type="hidden" id="tramit_parecer" value="<?= ($secao == 'CHEFIA') ? 'analise_coord' : 'analise_dlog' ?>">
 
@@ -474,15 +474,19 @@ var_dump($aba);
                 /* processo aprovado */
             } elseif ($view[0]['status'] == 3) {
                 print "<option value='4' data-status='aguard_disp'>Aguard. Disponibilidade Material</option>";
-                //print "<option value='1' data-status='analise_dlog' >Analista DLOG</option>";
+                print "<option value='1' data-status='analise_dlog' >Analista DLOG</option>";
                 print "<option value='7' data-status='cancelado'>Cancelar Processo</option>";
                 /* status ( AGUARDAR DISPONIBILIDADE)
                  * aguardando retirada
                  * atendido  */
             } elseif ($view[0]['status'] == 4) {
                 print "<option value='5' data-status='aguard_ret'>Aguardando Retirada</option>";
+                print "<option value='1' data-status='analise_dlog' >Analista DLOG</option>";
+                
                 print "<option value='7' data-status='cancelado'>Cancelar</option>";
             } elseif ($view[0]['status'] == 5) {
+                print "<option value='1' data-status='analise_dlog' >Analista DLOG</option>";
+                print "<option value='2' data-status='analise_coord' >Analista DIRETOR</option>";
                 print "<option value='6' data-status='atendido'>Atendido</option>";
                 print "<option value='7' data-status='cancelado'>Cancelar</option>";
             } elseif ($view[0]['status'] == 6) {
@@ -749,7 +753,7 @@ var_dump($aba);
         /* controle de caracteres texto despacho*/
         $("#text_despacho").keyup(function () {
             var caracteres = $("#text_despacho").val().length;
-            var restante = 255 - caracteres;
+            var restante = 1000 - caracteres;
             $("#span_caracteres").text('Caracteres restantes : ' + restante);
         });
 

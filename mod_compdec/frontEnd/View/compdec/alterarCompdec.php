@@ -35,14 +35,14 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 
 <div class="col-md-3">
     <div class="card card-block">
-        &nbsp;&nbsp;<img class="img-rounded" src="/anexo/brasao/<?=$_dados[0]['id_municipio']."_brasao.png"; ?>" width="115px;">
+        &nbsp;&nbsp;<img class="img-rounded" src="/anexo/brasao/<?= $_dados[0]['id_municipio'] . "_brasao.png"; ?>" width="115px;">
         &nbsp;&nbsp;
         <a class="btn btn-link" onClick="uploadModal('brasao')" title="Anexar Brasao" id="btnAlterarBrasao" name="btnAlterarBrasao">Alterar</a>
         <br><br>
     </div>
 </div>
 <div class="col-md-9 text-center">
-    <a class="btn btn-success" href="<?= FuncaoBase::geraLink("compdec", "compdec", "index")?>">Voltar</a>
+    <a class="btn btn-success" href="<?= FuncaoBase::geraLink("compdec", "compdec", "index") ?>">Voltar</a>
     </br></br>
     </br></br>
 </div>
@@ -52,6 +52,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 <h4>
     <p style="text-align: center"><?php print $_municipio->PegaNomeMunicipio($_dados[0]['id_municipio']); ?></p>
 </h4>
+
 
 <?= ($_dados[0]['com_ativa'] == 0) ? "<div class='alert alert-danger'>ESTE COMPDEC ESTÁ COM A SITUAÇÃO DE <b>'INATIVO' </b> NA GUIA DADOS GERAIS opção \"Situação do COMPDEC \". <BR>  FAVOR VERIFICAR ANTES DE ALTERAR OS DADOS </div>" : ""; ?>
 
@@ -404,13 +405,14 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
     <br>
 
 
+
     <!-- ABA COMPDEC -->
     <div role="tabpanel" class="tab-pane1" id="panel-compdec">
         <br>
+        
         <!-- Formulario cadastro membro equipe -->
         <p style="text-align:center">
 
-        <legend>EQUIPE COMPDEC</legend>
         </p>
         <br>
         <div id="spanSemEfetivo" class="alert alert-danger">Este compdec não tem Efetivo ( Revise o cadastro de compdec na guia "Dados Gerais -> Possiu Efetivo ?" )</div>
@@ -433,25 +435,27 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
                 }
                 ?>
             </div>
-            <div class='col-md-12 text-center'>
+            <div class='col-md-12 text-center' id='equipe' >
                 <button type='button' id='btnAddMembro' class='btn btn-primary'>Adicionar Membro Compdec</button>
                 <br><br>
             </div>
 
-            <div class="span10" id="formMembro">
-                <p style="text-align: center">
-                    <b>Adicionar Membro</b>
-                </p>
-                <div class="row">
+            
+            <div class="span12" id="formMembro">
+                <div class='col-md-12 text-center'>
+                    <legend>EDITAR EQUIPE COMPDEC</legend>
+                </div>
+
+                <div class="col-md-12">
                     <div class="col-md-6">
                         <label>Nome</label>
                         <input class="form-control" type="text" name="txtNomeMembro" id="txtNomeMembro" required maxlength="70">&nbsp;<span style="color: red; font-size: 13pt;" >*</span>
                     </div>
+                    
                     <div class="col-md-6">
                         <label>Função</label>
                         <select class="form-control" id="selFuncaoMembro" name="selFuncaoMembro" class="form-control">
-                    </div>
-                    <div class="col-md-6">
+
                         <option>Selecione a Função</option>
                         <option>Coordenador</option>
                         <option>Secretário</option>
@@ -459,41 +463,55 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
                         </select><span style="color: red; font-size: 13pt;">*</span>
                     </div>
                 </div>
-                <div class="row">
+                    
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <label>CPF</label>
+                        <input class="form-control" type="text" name="txtCpf" id="txtCpf" required maxlength="15" data-mask='999.999.999-99'>&nbsp;<span style="color: red; font-size: 13pt;" >*</span>
+                    </div>
+                    
                     <div class="col-md-6">
                         <label>Telefone</label>
                         <input class="form-control" type="text" name="txtTelMembro" id="txtTelMembro" maxlength="20">
                     </div>
+                
+                </div>
+                
+                <div class="col-md-12">
                     <div class="col-md-6">
                         <label>Celular</label>
                         <input class="form-control" type="text" name="txtCelMembro" id="txtCelMembro" maxlength="20">
                     </div>
-                </div>
-                <div class="row">
+                
+                
                     <div class="col-md-6">
                         <label>Email</label>
                         <input class="form-control" type="email" name="txtEmailMembro" id="txtEmailMembro" maxlength="100" ><span style="color: red; font-size: 13pt;">*</span>
                     </div>
+                    
+                </div>
+                
+                <div class="col-md-12">
                     <div class="col-md-6">
                         <input class="form-control" type="hidden" name="txtIdMembro" id="txtIdMembro" maxlength="5">
                         <input class="form-control" type="hidden" name="txtIdMunicipio" id="txtIdMunicipio" value="<?php print $_dados[0]['id_municipio']; ?>" maxlength="5">
                     </div>
-                    <div class="col-md-12 text-center">
+                    <div class="col-md-6">
                         <button class="btn btn-info" id="btnGravarMembro" type="button" title="Grava o Membro do Compdec Preenchido no Formulário.">Gravar Membro Equipe</button>
-                        <button type="button" id="btnAlterarMembro" class="btn btn-info">Alterar Membro</button>
+                        <button type="button" id="btnAlterarMembro" class="btn btn-success">Alterar Membro</button>
                     </div>
                 </div>
                 <br>
             </div>
 
-            <?php
-            print "<div class=\"col-md-12\">";
-            print '<h4><p style="text-align:center;">EQUIPE COMPDEC</p></h4>';
-            $pageSession['session']['seguranca']['id_municipio'] = $_dados[0]['id_municipio'];
+            <div class="col-md-12" >
+                
+                <?php
+                $pageSession['session']['seguranca']['id_municipio'] = $_dados[0]['id_municipio'];
 
-            include PATH . '/mod_pipa/frontEnd/View/pmda/membroEquipe.php';
-            ?>
-
+                include PATH . '/mod_pipa/frontEnd/View/pmda/membroEquipe.php';
+                ?>
+            </div>
         </div>
 
         </form>
@@ -545,7 +563,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
                     </div>
                 </div>
             </div>
-            
+
             <!-- Modal Adicionar brasao -->
             <div class="modal fade" id="modalWindowBrasao">
                 <div class="modal-dialog">
@@ -574,6 +592,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
     </div>
 
     <!-- ABA ANEXO LEIS -->
+    <br>
     <div role="tabpanel" class="tab-pane1" id="panel-anexo">
 
         <p style='text-align:center'>
@@ -639,7 +658,11 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
                                 <span style='color:red' class="col-md-11" id='sp_size_lei'>&nbsp;</span>
                                 <img id='sp_size_img' width="25px;" class="pull-right" src="/core/imagem/check.png"><br>
                             </span>
-                            <br><br>
+                            <br>
+                            <p class="alert alert-danger">
+                                -> Evite nome de arquivos con espaços<br>                                
+                            </p>
+                            <br>
                             <p>Tipos de Imagem válidas : <b style="color:red">"JPG", "PDF", "PNG"</b></p>
                             <span>Tamanho máximo da imágem :  <b style="color:red">2 MB</b></span><br>
                             <label>Descrição</label>
@@ -678,6 +701,18 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 <?php include_once "template/page/rodapePage.php"; ?>
 <script type="text/javascript">
     $(document).ready(function () {
+        
+        $('#span_info').hide();
+        
+        var info = '<?=$info?>';
+        if(info.length > 0){
+            $('#span_info').text(info).addClass('alert alert-danger h4');
+            $('#span_info').show();
+        }
+
+        if (getUrlVars().cpf != 'undefined') {
+            $('html, body').animate({scrollTop: $('#equipe').offset().top}, 2000);
+        };
 
         $("#sp_email").hide();
         $("#sp_email2").hide();
@@ -785,14 +820,14 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
         $('#sp_size_img').hide();
         $("#fileAnexoLeis").change(function () {
             tamanho = this.files;
-            
+
             $('#sp_size_lei').text('Tamanho : ' + Number.parseFloat(tamanho[0].size / 1000000).toFixed(2) + ' Mb');
-            
-            
-            if(tamanho[0].size < 1999353){
+
+
+            if (tamanho[0].size < 1999353) {
                 $('#sp_size_lei').addClass('alert alert-info');
                 $('#sp_size_lei, #sp_size_img').show();
-            }else {
+            } else {
                 $('#sp_size_lei').addClass('alert alert-danger');
                 $('#sp_size_img').attr("src", '/core/imagem/remove.png');
                 $('#sp_size_img').show();
@@ -1178,6 +1213,8 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 
         /*********** Alterar dados Membro Equipe ***********/
         $("#btnAlterarMembro").click(function () {
+
+
             var dados = {
                 "opcao": "alterar",
                 "id_equipe": $("#txtIdMembro").val(),
@@ -1186,6 +1223,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
                 "txtTelMembro": $("#txtTelMembro").val(),
                 "txtCelMembro": $("#txtCelMembro").val(),
                 "txtEmailMembro": $("#txtEmailMembro").val(),
+                "txtCpf": $("#txtCpf").val(),
                 "ckWatsapp": $("#ckWatsapp").val(),
             };
             $.ajax({
@@ -1228,10 +1266,10 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
                     $("#modalWindowBrasao").modal('show');
                 } else if (param == 'leis') {
                     $("#modal-default").modal('show');
-                } 
+                }
             }
         })(jQuery);
-        
+
         /* gravar imagem brasao */
         $("#btnGravarBrasao").click(function () {
 
@@ -1583,6 +1621,9 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 
     /*	Alterar o Membros Compdec */
     function alterarMembro(id, nome, funcao, telefone, celular, email) {
+    
+        $('#tbl_membro').hide();
+        $('html, body').animate({scrollTop: $('#equipe').offset().top}, 2000);
 
         $("#formMembro").show();
         $("#btnGravar").hide();

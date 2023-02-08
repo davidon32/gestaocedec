@@ -19,11 +19,11 @@ class Material {
 					$_obs,
 					$_qtd,
 					$_nome_deposito,
-					$_validade = null,
 					$_nota,
                                         $_id_dep_destino,
+                                        $_id_usuario,
                                         $id_entrada = null,
-                                        $_id_usuario) {
+					$_validade = null) {
             
             								
 		$con = Conexao::getInstance();
@@ -34,11 +34,11 @@ class Material {
                                             obs,
                                             quantidade,
                                             depDestino,
-                                            validade,
                                             nota_fiscal,
                                             id_dep_destino,
+                                            id_usuario,
                                             id_entrada,
-                                            id_usuario)
+                                            validade)
                                             VALUES (:id_produto,
 						:nome_produto,
 						:dt_entrada,
@@ -46,11 +46,11 @@ class Material {
 						:obs,
 						:qtd,
 						:dep_destino,
-						:validade,
 						:nota_fiscal,
                                                 :id_dep_destino,
+                                                :id_usuario,
                                                 :id_entrada,
-                                                :id_usuario)";
+                                                :validade)";
 		try {
 			$result = $con->prepare($sql);
 
@@ -61,11 +61,11 @@ class Material {
 			$result->bindValue(":obs"         , $_obs);
 			$result->bindValue(":qtd"         , $_qtd);
 			$result->bindValue(":dep_destino" , $_nome_deposito);
-			$result->bindValue(":validade"    , $_validade);
 			$result->bindValue(":nota_fiscal" , $_nota);
 			$result->bindValue(":id_dep_destino" , $_id_dep_destino);
-			$result->bindValue(":id_entrada" , $id_entrada);
 			$result->bindValue(":id_usuario" , $_id_usuario);
+			$result->bindValue(":id_entrada" , $id_entrada);
+			$result->bindValue(":validade"    , $_validade);
 			
 
 			$result->execute();
@@ -135,7 +135,8 @@ class Material {
                                 $_uni_medida,
                                 $_peso,
                                 $_valor,
-                                $_basico) {
+                                $_basico,
+                                $_categoria) {
 								
 		$con = Conexao::getInstance();
 				$sql = "insert into aju_unidade (nome,
@@ -143,13 +144,15 @@ class Material {
                                                                 uni_medida,
                                                                 peso,
                                                                 valor,
-                                                                singular)
+                                                                singular,
+                                                                categoria)
 								VALUES (:nome,
                                                                 	:descricao,
                                                                         :uni_medida,
                                                                         :peso,
                                                                         :valor,
-                                                                        :singular)";
+                                                                        :singular,
+                                                                        :categoria)";
 		try {
 			$result = $con->prepare($sql);
 
@@ -159,6 +162,7 @@ class Material {
 			$result->bindValue(":peso", $_peso);
 			$result->bindValue(":valor", $_valor);
 			$result->bindValue(":singular", $_basico);
+			$result->bindValue(":categoria", $_categoria);
 			
 
 			$result->execute();

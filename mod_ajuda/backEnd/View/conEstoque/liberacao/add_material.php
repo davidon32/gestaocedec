@@ -238,7 +238,7 @@ $nProd = new Produto();
                                 data: dados,
                                 dataType : "json",
                                 success:function(dados){
-                                    console.log(dados)
+                                    //console.log(dados)
                                     $('#selEntrada').append("<option></option>");
                                     $.each(dados, (i, val) => {
                                         var saldo = val.saldo;

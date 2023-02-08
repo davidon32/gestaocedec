@@ -152,10 +152,14 @@ class H_pedido_pedidajuda_hModel extends Model {
         }
     }
 
-    public static function listaPedidosTodos() {
+    public static function listaPedidosTodos($_id_redec = null) {
 
         $con = Conexao::getInstance();
-
+        $filtro = "";
+        if( ($_id_redec != 1) && !is_null($_id_redec) ){
+            $filtro = " WHERE cedec_rpm_mun.id_rpm = '{$_id_redec}' ";
+        }
+        
         $sql = "SELECT aju_h_pedido_pedid.numero,
                 aju_h_pedido_pedid.id_municipio,
                 aju_h_pedido_pedid.data_entrada_sistema,
@@ -169,6 +173,9 @@ class H_pedido_pedidajuda_hModel extends Model {
                 FROM aju_h_pedido_pedid
                 INNER JOIN cedec_municipio
                 ON aju_h_pedido_pedid.id_municipio = cedec_municipio.id_municipio
+                INNER JOIN cedec_rpm_mun
+                ON cedec_rpm_mun.id_municipio = cedec_municipio.id_municipio
+                {$filtro}
                 ORDER BY aju_h_pedido_pedid.status";
 
         try {
@@ -181,9 +188,13 @@ class H_pedido_pedidajuda_hModel extends Model {
         }
     }
 
-    public static function listaPedidosParaDespacho() {
+    public static function listaPedidosParaDespacho($id_redec = null) {
 
         $con = Conexao::getInstance();
+        $filtro = "";
+        if($id_redec != 1){
+            $filtro = " WHERE cedec_rpm_mun.id_rpm = '{$id_redec}' ";
+        }
 
         $sql = "SELECT aju_h_pedido_pedid.numero,
                 aju_h_pedido_pedid.id_municipio,
@@ -194,7 +205,10 @@ class H_pedido_pedidajuda_hModel extends Model {
                 aju_h_pedido_pedid.id
                 FROM aju_h_pedido_pedid
                 INNER JOIN cedec_municipio
-                ON aju_h_pedido_pedid.id_municipio = cedec_municipio.id_municipio";
+                ON aju_h_pedido_pedid.id_municipio = cedec_municipio.id_municipio
+                INNER JOIN cedec_rpm_mun
+                ON cedec_municipio.id_municipio = cedec_rpm_mun.id_municipio
+                {$filtro}";
 
         try {
 
@@ -341,7 +355,7 @@ ano) VALUES (:numero,
             $result = self::$con->prepare($sql);
 
             $result->bindValue(":numero", $dados['numero']);
-            $result->bindValue(":data_entrada_sistema", DataMysql::dataForm($dados['data_entrada_sistema']) . " " . date('H:i:s'));
+            $result->bindValue(":data_entrada_sistema", DataMysql::dataForm($dados['entrada_sistema']) . " " . date('H:i:s'));
             $result->bindValue(":despachante_analista", $dados['despachante_analista']);
             $result->bindValue(":despachante_dlog", $dados['despachante_dlog']);
             $result->bindValue(":id_municipio", $dados['id_municipio']);
@@ -386,41 +400,35 @@ ano) VALUES (:numero,
 
     public static function edit(array $dados) {
         
-        
-
         $con = Conexao::getInstance();
 
         $sql = "UPDATE aju_h_pedido_pedid SET 
-        numero= :numero,
-data_entrada_sistema= :data_entrada_sistema,
-despachante_analista= :despachante_analista,
-despachante_dlog= :despachante_dlog,
-id_municipio= :id_municipio,
-id_regiao= :id_regiao,
-nome_coordenador= :nome_coordenador,
-tel_coordenador= :tel_coordenador,
-cel_coordenador= :cel_coordenador,
-email_coordenador= :email_coordenador,
-nome_prefeito= :nome_prefeito,
-tel_prefeito= :tel_prefeito,
-cel_prefeito= :cel_prefeito,
-email_prefeito= :email_prefeito,
-id_cobrade= :id_cobrade,
-pop_atendida= :pop_atendida,
-decreto_se_ecp_vig= :decreto_se_ecp_vig,
-numero_decreto= :numero_decreto,
-data_vigencia= :data_vigencia,
-tipo_decreto= :tipo_decreto,
-esforcos_realizados= :esforcos_realizados
-            WHERE id = :id";
+                despachante_analista= :despachante_analista,
+                despachante_dlog= :despachante_dlog,
+                id_municipio= :id_municipio,
+                id_regiao= :id_regiao,
+                nome_coordenador= :nome_coordenador,
+                tel_coordenador= :tel_coordenador,
+                cel_coordenador= :cel_coordenador,
+                email_coordenador= :email_coordenador,
+                nome_prefeito= :nome_prefeito,
+                tel_prefeito= :tel_prefeito,
+                cel_prefeito= :cel_prefeito,
+                email_prefeito= :email_prefeito,
+                id_cobrade= :id_cobrade,
+                pop_atendida= :pop_atendida,
+                decreto_se_ecp_vig= :decreto_se_ecp_vig,
+                numero_decreto= :numero_decreto,
+                data_vigencia= :data_vigencia,
+                tipo_decreto= :tipo_decreto,
+                esforcos_realizados= :esforcos_realizados
+                            WHERE id = :id";
 
         try {
 
             $result = $con->prepare($sql);
 
             $result->bindValue(":id", $dados['id']);
-            $result->bindValue(":numero", $dados['numero']);
-            $result->bindValue(":data_entrada_sistema", DataMysql::dataCompletaForm($dados['data_entrada_sistema']));
             $result->bindValue(":despachante_analista", $dados['despachante_analista']);
             $result->bindValue(":despachante_dlog", $dados['despachante_dlog']);
             $result->bindValue(":id_municipio", $dados['id_municipio']);

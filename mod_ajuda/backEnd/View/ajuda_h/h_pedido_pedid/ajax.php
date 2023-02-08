@@ -81,7 +81,7 @@ if($opcao == 'dados_compdec') {
             $dados['status'] = '8';
             $dados['tramit'] = 'reprovado';
             /* tramitar para aguardar disponibilidade */
-            H_pedido_pedidajuda_hModel::tramitar($dados);
+                H_pedido_pedidajuda_hModel::tramitar($dados);
             
         /* DESPACHO FAVORAVEL DO ANALISTA */
         }elseif($dados['parecer_sit'] == 1 && $dados['secao'] == "DLOG" || $dados['id_usuario'] == 1) {
@@ -90,9 +90,10 @@ if($opcao == 'dados_compdec') {
             /* tramitar para coord adj */
             H_pedido_pedidajuda_hModel::tramitar($dados);
             
-        }elseif ( $dados['parecer_sit'] == 1 && $dados['secao'] == "CHEFIA" ) {
+        }elseif ( $dados['parecer_sit'] == 1 && $dados['secao'] == "CHEFIA" && ($dados['status'] < 4) ) {
             $dados['status'] = '3';
             $dados['tramit'] = 'aprovado';
+            
             /* tramitar para aguardar disponibilidade */
             H_pedido_pedidajuda_hModel::tramitar($dados);
             

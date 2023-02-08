@@ -38,15 +38,15 @@ include_once PATH . '/mod_cedec/classe/Classe.DefesaAgora.php';
 include_once PATH . '/mod_cedec/classe/Classe.AguaDoce.php';
 
 #@ modulo pipa
-include_once PATH . '/mod_pipa/classe/Classe.Calculo.php';
+//include_once PATH . '/mod_pipa/classe/Classe.Calculo.php';
 include_once PATH . '/mod_pipa/classe/Classe.Caminhao.php';
 include_once PATH . '/mod_pipa/classe/Classe.Motorista.php';
 include_once PATH . '/mod_pipa/classe/Classe.Pipeiro.php';
-include_once PATH . '/mod_pipa/classe/Classe.Rota.php';
+//include_once PATH . '/mod_pipa/classe/Classe.Rota.php';
 include_once PATH . '/mod_pipa/classe/Classe.Relatorio.php';
 include_once PATH . '/mod_pipa/classe/Classe.Pipeiro.php';
 include_once PATH . '/mod_pipa/classe/Classe.Monetary.php';
-include_once PATH . '/mod_pipa/classe/Classe.Contrato.php';
+//include_once PATH . '/mod_pipa/classe/Classe.Contrato.php';
 include_once PATH . '/mod_pipa/classe/Classe.Voltar.php';
 include_once PATH . '/mod_pipa/classe/Classe.Acesso.Pipa.php';
 include_once PATH . '/mod_pipa/classe/Classe.rpa.php';

@@ -138,6 +138,7 @@ class Login extends Liberacao {
                 setcookie("seguranca[pmdaoperador]", $_COOKIE['seguranca']['pmdaoperador'], time() + SESSAOADM);
                 setcookie("seguranca[pmdadlog]", $_COOKIE['seguranca']['pmdadlog'], time() + SESSAOADM);
                 setcookie("seguranca[secao]", $_COOKIE['seguranca']['secao'], time() + SESSAOADM);
+                setcookie("seguranca[id_rpm]", $_COOKIE['seguranca']['id_rpm'], time() + SESSAOADM);
                 ob_end_clean();
 
                 return true;
@@ -173,6 +174,7 @@ class Login extends Liberacao {
                 setcookie("seguranca[pmdaoperador]", $dados['pmdaoperador'], time() + SESSAOADM);
                 setcookie("seguranca[pmdadlog]", $dados['pmdadlog'], time() + SESSAOADM);
                 setcookie("seguranca[secao]", $dados['secao'], time() + SESSAOADM);
+                setcookie("seguranca[id_rpm]", $dados['id_rpm'], time() + SESSAOADM);
 
                 if (isset($_COOKIE['seguranca']['sessao_id'])) {
                     session_regenerate_id();

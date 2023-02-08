@@ -18,11 +18,11 @@ $_btn_enviar     = isset($_POST['btn_enviar'])     ? true : "";
 
 if($_btn_enviar) {
 	
-	$_mat_pago = RelatorioAju::MaterialPago($_txt_dt_inicial,
+	$_mat_pago = RelatorioAju::MaterialPago($_txt_nivel,
+        $_txt_dt_inicial,
 	$_txt_dt_final,
 	$_txt_municipio,
 	$_txt_deposito,
-	$_txt_nivel,
 	$_txt_material);
         
         $export_param = array();

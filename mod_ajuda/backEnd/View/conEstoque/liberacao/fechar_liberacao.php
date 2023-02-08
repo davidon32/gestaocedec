@@ -5,6 +5,10 @@
 	
 <?php
 
+var_dump(FuncaoBase::Lock('aju_estoque'));
+var_dump(FuncaoBase::verificaLock('aju_estoque'));
+var_dump(FuncaoBase::UnLock('aju_estoque'));
+
 	if(isset($_SESSION['cesta']) && (count($_SESSION['cesta']) > 0)){
 		
 
@@ -91,8 +95,19 @@
 			"Responsável"=> $resp,
 			"Fonte de Origem"=>$fonte);
 
+                
+//                    $_saldo = false;
+//                    $_itens_pedido = $_SESSION['cesta'];
+//                    foreach ($_itens_pedido as $key => $value) {
+//                        if(ControleSaldo::chSaldo($id_produto, $idDeposito, $qtd)){
+//                            $_saldo = true;
+//                        }
+//                    }
+//                    
+//                    var_dump($_itens_pedido);
+//                    die();
 							
-			if(FuncaoBase::campoBranco($campo)) {
+			if(FuncaoBase::campoBranco($campo) && $_saldo) {
 				#@ testar se tem liberacao para executar 
 				if(count($_SESSION['cesta']) > 0) {
 					// Lancar Liberacao do Banco

@@ -102,7 +102,7 @@
         $inventarios = $_relatorioAjuda->inventarioGerencial($id_deposito);
         
         //$linha = "<td>" . DataMysql::dataVisual($dataInventario) . "</td>";
-        //$dados = $_relatorioAjuda->inventarioGeralSaldoAnterior($id_deposito, $dataInventario);
+        //$dados = $_relatorioAjuda->inventarioGeralSaldoAnterior($dataInventario,$id_deposito);
     }
 
 
@@ -125,23 +125,25 @@
         <br>
         <table class="table table-condensed table-bordered table-hover table-striped">
             <tr>
-                <th>MATERIAL</th>
-                <th>DEPÓSITO</th>
-                <th>SALDO</th>
+                <th class="text-center alert-success">MATERIAL</th>
+                <th class="text-center alert-success">DEPÓSITO</th>
+                <th class="text-center alert-success">SALDO</th>
             </tr>
             <?php
+            
+                $total = 0;
                 foreach ($inventarios as $key => $inventario) {
                     
-                        $dados = $_relatorioAjuda->inventarioMateriaisGerencial("", $inventario['singular']);
+                        $dados = $_relatorioAjuda->inventarioMateriaisGerencial("", $inventario['categoria']);
                     
                     if(empty($id_deposito)) {
                     }else {
                         /*  lista de entradas */
-                        $dados = $_relatorioAjuda->inventarioMateriaisGerencial($id_deposito, $inventario['singular']);
+                        $dados = $_relatorioAjuda->inventarioMateriaisGerencial($id_deposito, $inventario['categoria']);
                     }
                     
                     print "<tr name='lk_material' data-key=\"".$key."\" class='info'>";
-                    print "<td>".(($inventario['singular'] == "CESTA") ? "CESTA BÁSICA" : $inventario['singular'])."</td>";     
+                    print "<td>".$inventario['categoria']."</td>";     
                     print "<td>". ( empty($id_deposito) ? "TODOS" : Deposito::PegaNomeDeposito($inventario['id_deposito']) )."</td>";
                     print "<td><h4 class='text-danger'>".$inventario['saldo']."</h4></td>";
                     print "</tr>";
@@ -167,14 +169,22 @@
                                         <td class='danger'>".$value['peso']."</td>
                                         <td class='danger '><b class='text-danger'>".$value['saldo']."</b></td>
                                     <tr>";
+                                    $total += $value['saldo'];
                             }
                             print "</table>";
                         print "</td>";
                         /* final lista de entradas materiais */
                     print "</tr>";
                     
+                    
                 }
+            
+                print "<tr>";
+                print "<th colspan='2' class='text-right'><h4>Total de Materiais em Estoque :</h4></th>";
+                print "<th><h4 class='text-info'>".$total."</h4></th>";
+                "</tr>";
             ?>
+            
             
         </table>
 </div>

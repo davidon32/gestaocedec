@@ -24,7 +24,8 @@
   
 <div class="col-md-12">
 
-    <?php if ($_COOKIE['seguranca']['id_deposito'] == "1") { ?>
+    <?php //if ($_COOKIE['seguranca']['id_deposito'] == "1") { ?>
+    <?php if (true) { ?>
 
    
         <!-- entrada de material -->
@@ -51,14 +52,14 @@
         }
         ?>
 
-
         <!--Liberacao de Materiais -->
         <?php
+
         if (Usuario::getPermissao('aju_permissao', 'cad_liberacao')) {
             ?>
             <div class="col-md-4 text-center">
                 <a href="?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=idxliberacao" title="Liberacao de Materiais">
-                    <img src="/core/imagem/estoque/liberacao.png" width="80px"><br>
+                    -<img src="/core/imagem/estoque/liberacao.png" width="80px"><br>
                     Liberação
                 </a>
             </div>

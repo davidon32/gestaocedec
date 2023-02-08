@@ -540,6 +540,9 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
                             <form name="frmAnexoLeis" enctype="multipart/form-data">
                                 <input class="form-control" type="file" name="fileAnexoLeis" id="fileAnexoLeis" />
                                 <br>
+                                <p class="alert alert-danger">
+                                -> Evite nome de arquivos con espaços.<br>                                
+                                </p>
                                 <span class="obs" id="formato_file"> (Formato PDF / JPEG / PDF)</span><br>
                                 <span class="obs" id="tamanho_file">Tamanho máximo Arquivo: 2Mb (mega bytes) ou 2.000 KB (kilo bytes) </span> <br>
                                 <span class="obs" id="nome_arquivo_file"></span> <br>

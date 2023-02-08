@@ -118,7 +118,7 @@ class h_pedido_pedidController extends Controller {
         $_POST['despachante_dlog'] = "";
 
         $result = $h_pedido_pedid->gravar($_POST);
-             
+          
         if($result['result'] === true){
             FuncaoBase::alert("Registro Gravado com Sucesso !");
             print "<script>";

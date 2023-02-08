@@ -151,23 +151,29 @@ class Produto {
                 and aju_produto.cancelado = 0
                 and aju_produto.origem not like 'Correcao Manual de Saldo'
                 AND aju_produto.id_dep_destino = {$filtro[1]}";
+               
         
         $result = $con->query($sql);
 
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-            $campos = $linha;
             
+            $campos = $linha;
             
             $transferencia = Produto::ListEntradaTransf($filtro, $linha['id_produto']);
             $transferenciaEmAberto = Produto::ListEntradaTransfEmAberto($filtro, $linha['id_produto']);
             $correcaoSaldo = Produto::ListEntradaCorrecaoSaldo($filtro, $linha['id_produto']);
             $liberacao = Produto::ListItemLiberacao($filtro, $linha['id_produto']);
-            $campos['transferencia'] = $transferencia;
-            $campos['transferenciaEmAberto'] = $transferenciaEmAberto;
-            $campos['liberacao'] = $liberacao;
-            $campos['correcaosaldo'] = $correcaoSaldo;
-            $campos['saldo'] = $linha['quantidade'] -$transferencia +$correcaoSaldo -$liberacao -$transferenciaEmAberto;
-            $dados[] = $campos;
+            
+            $_saldo_pos = ($linha['quantidade'] -$transferencia +$correcaoSaldo -$liberacao -$transferenciaEmAberto);
+            if($_saldo_pos >0 || $_saldo_pos <0 ) {
+                $campos['transferencia'] = $transferencia;
+                $campos['transferenciaEmAberto'] = $transferenciaEmAberto;
+                $campos['liberacao'] = $liberacao;
+                $campos['correcaosaldo'] = $correcaoSaldo;
+                $campos['saldo'] = $linha['quantidade'] -$transferencia +$correcaoSaldo -$liberacao -$transferenciaEmAberto;                
+                $dados[] = $campos;
+            }
+                  
         }
         
         return json_encode($dados);

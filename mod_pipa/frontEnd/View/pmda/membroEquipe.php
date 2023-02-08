@@ -29,9 +29,15 @@ if(is_null($id) && $opcao == "novo") {
     
     $eqCompdec->alterar($_POST);
 }
+
+print "<div class='col-md-12' id='tbl_membro'>";
+print "<br><br><br>";
+print "<span class='col-md-12' id='span_info'></span>";
+print "<h4><p style=\"text-align:center;\">EQUIPE COMPDEC</p></h4>";
 print "<table class='table table-bordered table-striped'>
 <th>#</th>
 <th>Nome</th>
+<th>CPF</th>
 <th>Função</th>
 <th>Telefone</th>
 <th>Celular</th>
@@ -41,10 +47,19 @@ print "<table class='table table-bordered table-striped'>
 $listMembro = $eqCompdec->listaMembro($id_municipio);
 
 $num = 1;
+
+$info = '';
 foreach ($listMembro as $value) {
+    $back ="";
+    if( (empty($value['cpf']) && strtolower($value['funcao']) == 'coordenador') ){
+        $back = " class='alert alert-danger' title='Favor Preencher este campo'";
+        $info = "É necessário que o Coordenador Municipal tenha o cpf Cadastrado no sistema.";
+    }
+    
     print "<tr>";
         print "<td>".$num."</td>";
         print "<td width='25%'>".$value['nome']."</td>";
+        print "<td width='20%' ".$back.">".$value['cpf']."</td>";
         print "<td width='20%'>".$value['funcao']."</td>";
         print "<td width='15%'>".$value['telefone']."</td>";
         print "<td width='15%'>".$value['celular']."</td>";
@@ -60,5 +75,6 @@ foreach ($listMembro as $value) {
     }
     
 print "</table>";
+print "</div>";
 
 ?>

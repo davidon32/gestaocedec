@@ -37,26 +37,36 @@
     <form id="frmCad_produto" action="" method="post">
         <div class="col-md-12">
 
-            <div class="col-md-4">
-                <label>Nome</label>
+            <div class="col-md-6">
+                <label>Nome do Material :</label>
                 <input class="form-control" name="txtNome" id="txtNome" type="text" required maxlength="70"/>
             </div>
-            <div class="col-md-4">
-                <label title='Este campo é necessário para geração de relatorio sem destinção de fornecedor, ou seja quantitativamente !'>Nome basico do Material</label>
-                <select class="form form-control" name='selNomBasico' id='selNomBasico'>
+            <div class="col-md-6">
+                <label title='ESTE CAMPO É USADO PARA MOSTRAR QUAL MATERIAL O MUNICÍPIO PODE FAZER AS SOLICITAÇÕES DE MAH'>TIPO MATERIAL (Usado para o município fazer os pedidos AH) :</label>
+                <select class="form form-control" name='selTipo' id='selTipo' required="required">
                    <option></option>
                    <option>CESTA BASICA</option>
-                    <option>KIT HIGIENE</option>
                     <option>AGUA MINERAL</option>
+                    <option>LEITE</option>
+                    <option>SUCO</option>
+                    <option>MACARRAO</option>
+                    <option>KIT HIGIENE</option>
+                    <option>SABONETE</option>
                     <option>KIT DORMITORIO</option>
                     <option>COLCHAO</option>
+                    <option>COBERTOR</option>
+                    <option>FRONHA</option>
+                    <option>LENCOL</option>
+                    <option>TOALHA</option>
                     <option>KIT LIMPEZA</option>
-                    <option>LEITE</option>
+                    <option>DETERGENTE</option>
+                    <option>ALCOOL</option>
+                    <option>DESINFETANTE</option>
+                    <option>AGUA SANITARIA</option>
+                    <option>LENCO</option>
                     <option>LONA</option>
                     <option>TELHA</option>
-                    <option>COBERTOR</option>
                     <option>ROUPA</option>
-                    <option>ALCOOL</option>
                     <option>OUTROS</option>
                     <!-- 
                    <?php
@@ -66,12 +76,39 @@
                    ?>-->
                 </select>
             </div>
-            <div class="col-md-4">
-                <label>Descrição</label>
+            <div class="col-md-6">
+                <label title='Este campo é necessário para geração de relatorio sem destinção de fornecedor, ou seja quantitativamente !'>CATEGORIA (Nome do Material mostrado no inventário "Englobado/Categorizado" ) :</label>
+                <select class="form form-control" name='selNomBasico' id='selNomBasico' required="required">
+                   <option></option>
+                   <option>CESTA BASICA</option>
+                    <option>KIT HIGIENE</option>
+                    <option>AGUA MINERAL</option>
+                    <option>KIT DORMITORIO</option>
+                    <option>COLCHAO</option>
+                    <option>KIT LIMPEZA</option>
+                    <option>LONA</option>
+                    <option>TELHA</option>
+                    <option>ROUPA</option>
+                    <option>LEITE</option>
+                    <option>COBERTOR</option>
+                    <option>OUTROS</option>
+                    <option>OUTROS GEN. ALIMENTICIOS</option>
+                    <option>OUTROS GEN. LIMPEZA</option>
+                    <option>OUTROS GEN. HIGIENE</option>
+                    <!-- 
+                   <?php
+                        /*foreach ($NOME_BASICO_MAT as $key => $value) {
+                            print "<option>".$value."</option>";  
+                        }*/
+                   ?>-->
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label>Descrição :</label>
                 <input class="form-control" name="txtDescricao" id="txtDescricao" type="text" maxlength="70" required/>
             </div>
             <div class="col-md-6">
-                <label>Unidade Medida</label>
+                <label>Unidade Medida :</label>
                 <select class="form-control" name="txtUniMedida" id="txtUniMedida">
                     <option value=''>Escolha a Opção</option>
                     <option value='Unitario'>Unitario</option>
@@ -83,16 +120,16 @@
                 </select>
             </div>
             <div class="col-md-6">
-                <label>Peso (Kg)</label>
+                <label>Peso (Kg) :</label>
                 <input class="form-control" name="txtPeso" id="txtPeso" type="number" maxlength="5" required/>
             </div>
             <div class="col-md-6">
-                <label>Valor</label>
+                <label>Valor :</label>
                 <input class="form-control" name="txt_val" id="txt_val" type="number" maxlength="5" required/>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-6">
             </div>
-            <div class="col-md-12 text-center">
+            <div class="col-md-12">
                 <br>
                 <input class="btn btn-primary" type="submit" name="btnCadProduto" id="btnCadProduto" value="Cadastrar"/>
             </div>
@@ -103,13 +140,15 @@
 <br>
 
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-1">
     </div>
-    <div class="col-md-7">
+    <div class="col-md-10">
         <table class="table table-bordered">
             <tr>
                 <th class="text-center">Cod</th>
                 <th class="text-center">Nome</th>
+                <th class="text-center">Categoria</th>
+                <th class="text-center">Tipo</th>
                 <th class="text-center">Descrição</th>
                 <th class="text-center">Unidade</th>
                 <th class="text-center">Peso</th>
@@ -121,6 +160,8 @@
             foreach ($unidade as $key => $value) {
                 print "<tr><td>" . $value['id_unidade'] . "</td>
                         <td>" . $value['nome'] . "</td>
+                        <td>" . $value['categoria'] . "</td>
+                        <td>" . $value['singular'] . "</td>
                         <td>" . $value['descricao'] . "</td>
                         <td>" . $value['uni_medida'] . "</td>
                         <td>" . $value['peso'] . "</td>
@@ -131,7 +172,7 @@
             ?>
         </table>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-1">
     </div>	
 </div>
 
@@ -186,6 +227,7 @@
                     'peso': $("#txtPeso").val(),
                     'valor': $("#txt_val").val(),
                     'singular': $("#selNomBasico").val(),
+                    'categoria': $("#selTipo").val(),
                 };
 
                 $.ajax({

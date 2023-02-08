@@ -424,7 +424,7 @@ class TransferenciaMaterial {
 
     #@ informacoes sobre o material em transito
 
-    function materialTransito($_id_dep_destino = false, $_nivel, $_id_transferencia) {
+    function materialTransito($_id_dep_destino, $_nivel, $_id_transferencia) {
 
         $con = Conexao::getInstance();
 

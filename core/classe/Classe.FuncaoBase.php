@@ -574,12 +574,12 @@ class FuncaoBase extends Exception {
 
                 for ($d = 0, $c = 0; $c < $t; $c++) {
 
-                    $d += $cpf{$c} * (($t + 1) - $c);
+                    $d += $cpf[$c] * (($t + 1) - $c);
                 }
 
                 $d = ((10 * $d) % 11) % 10;
 
-                if ($cpf{$c} != $d) {
+                if ($cpf[$c] != $d) {
 
                     return false;
                 }
@@ -953,6 +953,46 @@ class FuncaoBase extends Exception {
     }
     
     
-    
+    /**
+     * Lock table
+     */
+    public static function Lock($table){
+        
+    $con = Conexao::getInstance();
 
+        $sql = "lock tables {$table}";
+
+        $result = $con->query($sql);
+    
+    }
+
+    
+    /**
+     * Lock table
+     */
+    public static function Unlocke(){
+        
+    $con = Conexao::getInstance();
+
+        $sql = "unlock tables {$table}";
+
+        $result = $con->query($sql);
+    
+    }
+    
+    
+    /**
+     * Lock table
+     */
+    public static function VerificaLock($table){
+        
+    $con = Conexao::getInstance();
+
+        $sql = "show open tables where table = {$table} and database = 'gestaocedec' and in_use =0";
+
+        $result = $con->query($sql);
+    
+    }
+    
+    
 }?>

@@ -193,7 +193,7 @@ class RelatorioAju extends DataMysql {
         if(!empty($id_deposito)) {
            $sql = "SELECT sum(aju_estoque.saldo) as saldo,
                 aju_estoque.id_deposito, 
-                aju_unidade.singular
+                aju_unidade.categoria
                 FROM aju_estoque
                 INNER JOIN aju_unidade
                 ON aju_estoque.id_produto = aju_unidade.id_unidade
@@ -201,16 +201,16 @@ class RelatorioAju extends DataMysql {
                 ON aju_estoque.id_deposito = aju_deposito.id_deposito
                 WHERE aju_estoque.id_deposito = {$id_deposito} 
                 AND aju_estoque.saldo <> 0
-                GROUP BY aju_unidade.singular";
+                GROUP BY aju_unidade.categoria";
         }else {
             
             $sql = "SELECT sum(aju_estoque.saldo) as saldo,
-                aju_unidade.singular
+                aju_unidade.categoria
                 FROM aju_estoque
                 INNER JOIN aju_unidade
                 ON aju_estoque.id_produto = aju_unidade.id_unidade
                 AND aju_estoque.saldo <> 0
-                GROUP BY aju_unidade.singular";
+                GROUP BY aju_unidade.categoria";
             
         }
                 
@@ -225,7 +225,7 @@ class RelatorioAju extends DataMysql {
     /**
      * INVENTARIO MATERIAIS GERENCIAL
      */
-    public function inventarioMateriaisGerencial($id_deposito, $singular) {
+    public function inventarioMateriaisGerencial($id_deposito, $categoria) {
         
         if(empty($id_deposito)) {
             $sql ="SELECT aju_unidade.id_unidade,
@@ -233,13 +233,13 @@ class RelatorioAju extends DataMysql {
                 aju_estoque.id_deposito,
                 aju_unidade.descricao,
                 aju_estoque.saldo,
-                aju_unidade.singular,
+                aju_unidade.categoria,
                 aju_unidade.valor,
                 aju_unidade.peso
                 FROM aju_estoque
                 INNER JOIN aju_unidade
                 ON aju_estoque.id_produto = aju_unidade.id_unidade
-                AND aju_unidade.singular = '{$singular}'
+                AND aju_unidade.categoria = '{$categoria}'
                 AND aju_estoque.saldo <> 0";
             
         }else {
@@ -249,7 +249,7 @@ class RelatorioAju extends DataMysql {
                 aju_unidade.descricao,
                 aju_estoque.id_deposito,
                 aju_estoque.saldo,
-                aju_unidade.singular,
+                aju_unidade.categoria,
                 aju_unidade.valor,
                 aju_unidade.peso,
                 aju_deposito.nome
@@ -259,7 +259,7 @@ class RelatorioAju extends DataMysql {
                 INNER JOIN aju_deposito
                 ON aju_estoque.id_deposito = aju_deposito.id_deposito
                 WHERE aju_estoque.id_deposito = '{$id_deposito}'
-                AND aju_unidade.singular = '{$singular}'
+                AND aju_unidade.categoria = '{$categoria}'
                 AND aju_estoque.saldo <> 0";
         }
 
@@ -272,7 +272,7 @@ class RelatorioAju extends DataMysql {
 
     /* INVENTARIO DE MATERIAIS */
 
-    public function inventarioGeralSaldoAnterior($id_deposito = null, $data_saldo) {
+    public function inventarioGeralSaldoAnterior($data_saldo, $id_deposito = null) {
 
         try {
             $dados = array();
@@ -449,11 +449,11 @@ class RelatorioAju extends DataMysql {
      * 
      * #@ relatorio de pagamento de materiais 
      */
-    static function MaterialPago($_dt_inicial = false,
+    static function MaterialPago($_nivel,
+            $_dt_inicial = false,
             $_dt_final = false,
             $_municipio = false,
             $_deposito = false,
-            $_nivel,
             $_material = false,
             $getMaterial = false) {
 

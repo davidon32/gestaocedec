@@ -10,13 +10,14 @@ class MembroEqCompdec {
 
         try{
     
-            $sql = "INSERT INTO com_eq_comdec (nome, funcao, telefone, celular, email, id_municipio)
+            $sql = "INSERT INTO com_eq_comdec (nome, funcao, telefone, celular, email, id_municipio, cpf)
                                         VALUES (:nome,
                                                 :funcao,
                                                 :telefone,
                                                 :celular,
                                                 :email,
-                                                :id_municipio)";
+                                                :id_municipio,
+                                                :cpf)";
     
             $result = $con->prepare($sql);
             $result->bindValue(":nome", strtoupper(FuncaoBase::tirarAcentos($dados['txtNomeMembro'])));
@@ -25,6 +26,7 @@ class MembroEqCompdec {
             $result->bindValue(":celular", $dados['txtCelMembro']);
             $result->bindValue(":email", $dados['txtEmailMembro']);
             $result->bindValue(":id_municipio", $dados['txtIdMunicipio'], PDO::PARAM_INT);
+            $result->bindValue(":cpf", $dados['txtCpf']);
             $result->execute();
     
             return true;
@@ -57,7 +59,8 @@ class MembroEqCompdec {
 							funcao = :funcao,
 							telefone = :telefone,
 							celular = :celular,
-							email = :email
+							email = :email,
+                                                        cpf = :cpf
 		                		WHERE id_equipe = :id_equipe";
     		    		
     		$result = $con->prepare($sql);
@@ -66,6 +69,7 @@ class MembroEqCompdec {
     		$result->bindValue(":telefone", $dados['txtTelMembro']);
     		$result->bindValue(":celular", $dados['txtCelMembro']);
     		$result->bindValue(":email", $dados['txtEmailMembro']);
+    		$result->bindValue(":cpf", $dados['txtCpf']);
     		$result->bindValue(":id_equipe", $dados['id_equipe'], PDO::PARAM_INT);
     		$result->execute();
     		
@@ -102,7 +106,8 @@ class MembroEqCompdec {
                                    funcao,
                                    telefone,
                                    celular,
-                                   email
+                                   email,
+                                   cpf
                                         FROM
                                             com_eq_comdec
                                         WHERE id_municipio = :id_municipio";

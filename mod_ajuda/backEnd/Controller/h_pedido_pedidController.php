@@ -141,11 +141,9 @@ class h_pedido_pedidController extends Controller {
         $h_pedido_pedidModel = new H_pedido_pedidajuda_hModel;
 
         if ($this->isPost()) {
-
+            
             $result = $h_pedido_pedidModel->edit($_POST);
-            
-            
-            //var_dump($result);
+
             if (!empty($result)) {
                 FuncaoBase::alert("Registro Atualizado com Sucesso !");
                 $view = $h_pedido_pedidModel->view($_POST['id']);

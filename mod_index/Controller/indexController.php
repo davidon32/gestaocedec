@@ -26,8 +26,8 @@ class indexController extends Controller {
             print "<script style='text/javascript'>";
             print "window.location = 'index.php?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=itn&ac=&modulo=index&controller=index&action=index1'";
             print "</script>";
-        
-        # troca senha se necessario    
+
+            # troca senha se necessario    
         } else if ($logar == "trsenha") {
 
             print "<script type='text/javascript'>";
@@ -36,12 +36,22 @@ class indexController extends Controller {
         } else {
 
             $logarExterno = $loginExterno->logarExterno($usuarioLogin, $str_senha);
-
+                
             /** login frontend */
-            if ($logarExterno == "index") {
-                print "<script style='text/javascript'>";
-                print "window.location = 'index.php?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=etn&modulo=index&controller=index&action=index1e'";
-                print "</script>";
+            if ($logarExterno['page'] == "index") {
+                
+
+                /* atualizar o cpf */
+                if ($loginExterno::buscaCPF($logarExterno['id_municipio']) >0) {
+                    print "<script style='text/javascript'>";
+                    print "window.location = 'index.php?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=etn&modulo=compdec&controller=compdec&action=compdec'";
+                    print "</script>";
+                    
+                } else {
+                    print "<script style='text/javascript'>";
+                    print "window.location = 'index.php?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=etn&modulo=index&controller=index&action=index1e'";
+                    print "</script>";
+                }
 
                 # troca de senha externo
             } else if ($logarExterno['acesso'] == "trsenha") {
@@ -179,23 +189,23 @@ class indexController extends Controller {
     }
 
     public function lista_munic_reg() {
- 
+
         $dados = array();
 
         $id = $_GET['id_rpm'];
-        
-        
+
+
         try {
-            
-            if( filter_var($id, FILTER_VALIDATE_INT) ) {
-            
+
+            if (filter_var($id, FILTER_VALIDATE_INT)) {
+
                 $dados = Municipio::listaMunicipioRegional($id);
-            }else {
+            } else {
                 throw new Exception();
                 FuncaoBase::BloqueioIP($e->getMessage());
             }
         } catch (Exception $e) {
-            
+
             FuncaoBase::BloqueioIP($e->getMessage());
         }
 

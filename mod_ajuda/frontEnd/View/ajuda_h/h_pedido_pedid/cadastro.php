@@ -62,7 +62,7 @@ if (!is_array($dados1)) {
         <div class='row'>
             <div class='col-md-2'>
                 <label>Data Entrada Sistema</label>
-                <input type="text" class='form form-control' name='data_entrada_sistema' id='data_entrada_sistema' maxlength='' required value='<?= date('d/m/Y') ?>'>
+                <input type="text" class='form form-control' name='entrada_sistema' id='entrada_sistema' maxlength='' required value='<?= date('d/m/Y') ?>' readonly>
             </div>
         </div>
 
@@ -150,7 +150,7 @@ if (!is_array($dados1)) {
             </div>
             <div class='row'>
                 <div class='col-md-6'>
-                    <label>Tipo do Desastre</label>
+                    <label>Tipo do Desastre (Clique na <span class="glyphicon glyphicon-search" aria-hidden="true"></span>  Lupa para pesquisar no nome do DESASTRE)</label>
                     <div class="input-group">
                         <input type="text" class='form form-control' name='nomeCobrade_fk' id='nomeCobrade_fk' required readonly='readonly'>
                         <span onclick="" class="input-group-addon" id="btnBuscaid_cobrade">
@@ -297,7 +297,7 @@ if (!is_array($dados1)) {
         <script>
 
             $(document).ready(function () {
-
+                
                 $("#msg").hide();
 
                 $("#btnGravar").hover(function () {

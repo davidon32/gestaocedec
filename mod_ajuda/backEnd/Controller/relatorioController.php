@@ -214,11 +214,11 @@ include_once(MODEL_AJUDA_BACKEND.'/AjudaRelatorioModel.php');
         
        
         /* ultimo parametro true, agrega os materiais*/
-        $dados = RelatorioAju::MaterialPago($_txt_dt_inicial,
+        $dados = RelatorioAju::MaterialPago($_txt_nivel,
+                $_txt_dt_inicial,
                 $_txt_dt_final,
                 $_txt_municipio,
                 $_txt_deposito,
-                $_txt_nivel,
                 $_txt_material,
                 true);
         

@@ -24,41 +24,48 @@ $pedido_h = new H_pedido_pedidajuda_hModel();
 
 $id_usuario = $_COOKIE['seguranca']['idUser'];
 $secao = $_COOKIE['seguranca']['secao'];
+$id_redec = $_COOKIE['seguranca']['id_rpm'];
 
 //$listaPedido = $pedido_h->lista();
 
 
-$listaPedido1 = $pedido_h->listaPedidosTodos();
+if ($secao == 'REDEC') {
+    $listaPedido1 = $pedido_h->listaPedidosTodos($id_redec);
+} else {
+    $listaPedido1 = $pedido_h->listaPedidosTodos();
+}
 
 $data = array();
 
 foreach ($listaPedido1 as $key => $pedido) {
-    
+
     $data[$key] = $pedido;
     $data[$key]['tramit'] = $pedido_h->enumFase($pedido['tramit']);
     $data[$key]['data_entrada_sistema'] = DataMysql::dataCompletaVisual($pedido['data_entrada_sistema']);
     $data[$key]['data_hora_envio'] = DataMysql::dataCompletaVisual($pedido['data_hora_envio']);
     $data[$key]['cor'] = H_pedido_an_tecajuda_hModel::anFavoravelChefe($pedido['id']);
-    
+
 
     $percent = number_format(((H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedido['id']) * 100 ) != 0 ) ? (H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedido['id']) * 100) / H_pedido_prestajuda_hModel::totalMaterialPrestConta($pedido['id']) : 0, '2', '.', ' ');
 }
 
 //$data = array('data'=> $data);
+
+
 $response = json_encode($data);
 ?>	
 <div class="col-md-6 text-center">
     <a class="btn btn-success" href="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')) ?>&modulo=ajuda&controller=index&action=index">Voltar</a>
 </div>
 <div class="col-md-6 text-center">
-    <?php
-    include('core/system/config/param.php');
-    $lista = "<i class=\"fa fa-thumbs-down\"></i>";
+<?php
+include('core/system/config/param.php');
+$lista = "<i class=\"fa fa-thumbs-down\"></i>";
 
-    foreach ($lista_devedores as $key => $value) {
-        $lista .= "<button type=\"button\" name=\"btnListaNegra\" id=\"".$key."\" class=\"btn btn-primary btnListaNegra\">Remover</button><i class=\"fa fa-thumbs-down\">&nbsp;&nbsp;".($key+1)."&nbsp;</i>".Municipio::PegaNomeMunicipio($value) . "<br>";
-    }
-    ?>
+foreach ($lista_devedores as $key => $value) {
+    $lista .= "<button type=\"button\" name=\"btnListaNegra\" id=\"" . $key . "\" class=\"btn btn-primary btnListaNegra\">Remover</button><i class=\"fa fa-thumbs-down\">&nbsp;&nbsp;" . ($key + 1) . "&nbsp;</i>" . Municipio::PegaNomeMunicipio($value) . "<br>";
+}
+?>
     <input type="button" class='btn btn-success' id='btn_lista' value="Lista de Municípios Impedidos" />
 
 
@@ -70,7 +77,11 @@ $response = json_encode($data);
             <div class="col-md-6">
                 <!--<a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "cadastro") ?>">Novo Pedido</a>-->
                 <!--<a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "index") ?>">Pesquisa</a>-->
-                <a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "config_ajuda") ?>" title="Cadastro Analistas">Configurações</a>
+                <?php
+                    if($secao == "DLOG"){
+                        print "<a class=\"btn btn-primary\" href='".FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'config_ajuda')."' title=\"Cadastro Analistas\">Configurações</a>";
+                    }
+                ?>
             </div>
             <div class="col-md-3">
                 <!--               <h3>Legenda</h3>
@@ -152,10 +163,10 @@ $response = json_encode($data);
                 </table>
             </div>
         </div>
-        
+
         <div>
-            
-            
+
+
         </div>
 
         <!--<?php
@@ -281,7 +292,7 @@ $response = json_encode($data);
       }
 
      */
-    ?>-->
+?>-->
 
 
 
@@ -293,7 +304,7 @@ $response = json_encode($data);
     <!-- =================== RODAPE CORPO ==================== -->
 <?php include_once "template/page/corpoRodape.php"; ?>
     <!-- =================== RODAPE  ======================== -->
-    <?php include_once "template/page/rodape.php" ?>
+<?php include_once "template/page/rodape.php" ?>
     <?php include_once "template/page/barra_config_template.php"; ?>
     <!-- =============== HEADER HTML PAGE ================= -->
     <?php include_once "template/page/rodapePage.php"; ?>
@@ -305,8 +316,8 @@ $response = json_encode($data);
                 Swal.fire({
                     title: '<strong>Lista de Municípios Impedidos de Realizar Pedidos de Ajuda Humanitária</strong>',
                     icon: 'info',
-                    html:'<div class="text-left"'+
-                            '<?=$lista;?>'+
+                    html: '<div class="text-left"' +
+                            '<?= $lista; ?>' +
                             '</div>',
                     showCloseButton: true,
                     focusConfirm: false,
@@ -334,7 +345,7 @@ $response = json_encode($data);
                 fixedHeader: true,
                 bFilter: true,
                 responsive: true,
-                order : [4, 'asc'],
+                order: [4, 'asc'],
                 data: data1,
                 initComplete: function () {
                     var api = this.api();
@@ -390,7 +401,7 @@ $response = json_encode($data);
                 },
                 createdRow: function (row, data, index) {
                     //console.log(data['tramit'])   ;         
-                    if (data['cor'] == 1) {   
+                    if (data['cor'] == 1) {
                         $('td', row).eq(0).addClass('alert alert-success');
                         $('td', row).eq(1).addClass('alert alert-success');
                         $('td', row).eq(2).addClass('alert alert-success');
@@ -399,7 +410,7 @@ $response = json_encode($data);
                         $('td', row).eq(5).addClass('alert alert-success');
                         $('td', row).eq(6).addClass('alert alert-success');
                     }
-                    if (data['tramit'] == 'Processo Finalizado !') {   
+                    if (data['tramit'] == 'Processo Finalizado !') {
                         $('td', row).eq(0).addClass('alert alert-info').attr('title', 'Processo Finalizado a Prestação de Contas !');
                         $('td', row).eq(1).addClass('alert alert-info').attr('title', 'Processo Finalizado a Prestação de Contas !');
                         $('td', row).eq(2).addClass('alert alert-info').attr('title', 'Processo Finalizado a Prestação de Contas !');
@@ -416,7 +427,7 @@ $response = json_encode($data);
                     {data: 'tipo_decreto'},
                     {data: 'tramit'},
                     {data: 'data_hora_envio'},
-                    
+
                     {
                         'className': '',
                         orderable: false,
@@ -424,11 +435,13 @@ $response = json_encode($data);
                         defaultContent: '',
                         render: function (data, type, row) {
 
+                            //console.log(users);
+
                             var links_opcoes = '<a href=\'' + geraLink('ajuda', 'h_pedido_pedid', 'view', '<?= VERSAO ?>', {id: data.id, voltar: 'idx_recente'}) + '\' title=\'Visualiação e Impressão do Pedido\'><img width=\'25px\' src=\'/core/imagem/view1.png\'></a>|';
                             //return '-'+geraLink('ajuda', 'pedido', 'view', '123', {offset: 5, limit: 10 });
 
                             /*##### EDITAR */
-                            if (data.status > 0 && data.status <= 5 || users.id_usuario == 1 || users.secao == 'CHEFIA' || users.secao == 'DLOG') {
+                            if ((data.status > 0 && data.status <= 5 || users[1].id_usuario == 1 || users[1].secao == 'CHEFIA' || users[1].secao == 'DLOG') && (users[1].secao != 'REDEC')) {
                                 links_opcoes += '<a href=\'' + geraLink('ajuda', 'h_pedido_pedid', 'edit', '<?= VERSAO ?>', {id: data.id, voltar: 'idx_recente'}) + '\' title=\'Editar Pedido\'><img src=\'/core/imagem/editar.png\'></a>';
                                 //links_opcoes +='<button id=\'btnEdicao\' name=\'btnEdicao\' type=\'button\' data-enviar_edicao='+data.id+' class=\'btn btn-primart\'>Enviar Edição</button>';
                             }
@@ -498,43 +511,43 @@ $response = json_encode($data);
                     console.log(result);
                 }
             });
-            
-            window.onload = (event) => {
-            $("button[name='btnListaNegra']").click(function () {
-                alert();
-                /*var result = confirm('Deseja enviar processo para COMPDEC ?');
-                var id_pedido = $(this).data('enviar_edicao');
-                if (result) {
-                    var formData = new FormData();
-                    formData.append('opcao', 'envia_edicao');
-                    formData.append('id_pedido', id_pedido);
-                    $.ajax({
-                        url: '/mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/ajax.php',
-                        type: 'POST',
-                        data: formData,
-                        processData: false, // tell jQuery not to process the data
-                        contentType: false, // tell jQuery not to set contentType
-                        success: function (response) {
-                            if (response == 'sucesso') {
-                                Swal.fire('Pedido enviado para Edição !');
-                                window.location.reload();
-                            }
 
-                        },
-                        error: function (response) {
-                        }
-                    });
-                } else {
-                    console.log(result);
-                }*/
-            });
+            window.onload = (event) => {
+                $("button[name='btnListaNegra']").click(function () {
+                    alert();
+                    /*var result = confirm('Deseja enviar processo para COMPDEC ?');
+                     var id_pedido = $(this).data('enviar_edicao');
+                     if (result) {
+                     var formData = new FormData();
+                     formData.append('opcao', 'envia_edicao');
+                     formData.append('id_pedido', id_pedido);
+                     $.ajax({
+                     url: '/mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/ajax.php',
+                     type: 'POST',
+                     data: formData,
+                     processData: false, // tell jQuery not to process the data
+                     contentType: false, // tell jQuery not to set contentType
+                     success: function (response) {
+                     if (response == 'sucesso') {
+                     Swal.fire('Pedido enviado para Edição !');
+                     window.location.reload();
+                     }
+                     
+                     },
+                     error: function (response) {
+                     }
+                     });
+                     } else {
+                     console.log(result);
+                     }*/
+                });
             };
-            
+
         });
-        
-        
-        
-        
+
+
+
+
 
     </script>
 </body>
