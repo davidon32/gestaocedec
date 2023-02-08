@@ -32,6 +32,8 @@ define('CONTROLLER_EQUIPE', $_SERVER['DOCUMENT_ROOT']."/mod_equipe/controller");
 * 
 */
 
+
+
 define('PATH', $_SERVER['DOCUMENT_ROOT']);
 
 define('TESTE', false);

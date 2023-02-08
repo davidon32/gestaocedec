@@ -9,9 +9,6 @@
 <script src="template/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="template/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="template/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="template/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<script src="template/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- SlimScroll -->
 <script src="template/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
@@ -27,7 +24,7 @@
 <!--<script src="js/jasny-bootstrap_bs3.js"></script>-->
 <script src="js/jquery.easy-autocomplete.js"></script>
 <script src="js/lib/thickbox.js"></script>
-<script src="js/funcaobase.js?v=<?=md5(VERSAO);?>"></script>
+<script src="js/funcaobase.js"></script>
 <script src="/js/jquery-ui.js"></script>
 <script src="/js/jquery.mask.js"></script>
 <script src="/js/chartjs/Chart.js"></script>
@@ -59,10 +56,6 @@
     
     
     $(document).ready(function () {
-        
-        if('<?=$_COOKIE['seguranca']['tipo']?>' == 'e'){
-            $('body').addClass('sidebar-mini skin-red-light');
-        }
         
         $(".overlay1").hide();
         
@@ -126,12 +119,8 @@
 
               $("input[name^='cpf_cnpj_'").mask('99.999.999/9999-99', cpf_cnpj);
               
-        /* DATAPICKER */   
+              
         $("input[name^='data_'").datepicker({dateFormat: 'dd/mm/yy',
-            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-            monthNamesShort: [ 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dec'],
-            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-            dayNamesMin: [ 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab' ],
             orientation: "bottom left",
             beforeShow: function () { /* problema datapicker atras controle input*/
                 setTimeout(function () {
@@ -226,9 +215,8 @@
             }
 
             var nomeCampo = $(this).attr("name");
- 
             /* nao normaliza campos com nome val_ (monetario )*/
-            if ( typeof(nomeCampo) !="undefined" && nomeCampo.indexOf("val_") !== 0 ) {
+            if (nomeCampo.indexOf("val_") !== 0) {
                 $(this).val(retira_acentos($(this).val()));
             }
 

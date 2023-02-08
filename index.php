@@ -22,8 +22,6 @@ include_once 'core/include.php';
  * 
  */
 
-
-
 if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
     include('index_manutencao.php');
 } else {

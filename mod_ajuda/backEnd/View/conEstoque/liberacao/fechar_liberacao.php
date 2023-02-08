@@ -5,9 +5,9 @@
 	
 <?php
 
-var_dump(FuncaoBase::Lock('aju_estoque'));
-var_dump(FuncaoBase::verificaLock('aju_estoque'));
-var_dump(FuncaoBase::UnLock('aju_estoque'));
+//var_dump(FuncaoBase::Lock('aju_estoque'));
+//var_dump(FuncaoBase::verificaLock('aju_estoque'));
+//var_dump(FuncaoBase::UnLock('aju_estoque'));
 
 	if(isset($_SESSION['cesta']) && (count($_SESSION['cesta']) > 0)){
 		
@@ -96,20 +96,34 @@ var_dump(FuncaoBase::UnLock('aju_estoque'));
 			"Fonte de Origem"=>$fonte);
 
                 
-//                    $_saldo = false;
-//                    $_itens_pedido = $_SESSION['cesta'];
-//                    foreach ($_itens_pedido as $key => $value) {
-//                        if(ControleSaldo::chSaldo($id_produto, $idDeposito, $qtd)){
-//                            $_saldo = true;
-//                        }
-//                    }
-//                    
-//                    var_dump($_itens_pedido);
-//                    die();
+                    $_saldo = false;
+                    $_itens_pedido = $_SESSION['cesta'];
+                    
+                    
+                    /*
+                     * 
+                       $cesta[][0]- id_deposito
+                       $cesta[][1] - id_produto
+                       $cesta[][2] - descricao
+                       $cesta[][3] - saldo
+                       $cesta[][4] - Evento
+                       $cesta[][5] - id_entrada
+                     */
+                    
+                    foreach ($_itens_pedido as $key => $value) {
+                        if(ControleSaldo::chSaldo($value[1], $value[0], $value[3])){
+                            $_saldo = true;
+                            break;
+                        }
+                    }
+                    
+                    
 							
 			if(FuncaoBase::campoBranco($campo) && $_saldo) {
 				#@ testar se tem liberacao para executar 
 				if(count($_SESSION['cesta']) > 0) {
+
+                                    
 					// Lancar Liberacao do Banco
 					$id_liberacao = $libera -> libera($_dataMysql->dataForm($datalibera), 
                                                                             $id_municipio,

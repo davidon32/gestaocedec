@@ -47,6 +47,7 @@ $dadosDeposito = Deposito::ListaDeposito();
             
                 $attr = "";
                 $id_deposito = "";
+                $nome_deposito = "";
                 
                 if($_COOKIE['seguranca']['id_deposito'] != 1){
                     $attr = 'readonly';

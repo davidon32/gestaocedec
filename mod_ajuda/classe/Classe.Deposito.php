@@ -163,23 +163,19 @@ class Deposito {
         $dados = array();
         
         $sql = "SELECT nome FROM aju_deposito
-                WHERE id_deposito = {$idDeposito}";
-
-        //print $sql;
+                WHERE id_deposito = :id_deposito";
         
         try {
         
             $result = Conexao::getInstance()->prepare($sql);
-            $result->bindValue(":idDeposito", $idDeposito);
+            $result->bindValue(":id_deposito", $idDeposito);
             $result->execute();
         
             while ($linha = $result->fetch(PDO::FETCH_NUM)) {
         
                 $dados = $linha;
             }
-            
-            //var_dump($dados);
-        
+                    
             return $dados[0];
         
         } catch (Exception $e) {
