@@ -12,7 +12,7 @@ class AnexoPmda extends Anexo {
 						WHERE id_pmda = :pmda";
 			$result = $con->prepare($sql);
 			
-			$result->bindParam(":pmda", $id_pmda);
+			$result->bindValue(":pmda", $id_pmda);
 			$result->execute();
 		
 		

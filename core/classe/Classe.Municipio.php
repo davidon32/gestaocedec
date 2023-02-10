@@ -185,6 +185,7 @@ class Municipio extends DataMysql {
     }
 
     public static function dadosMunicipio($id) {
+       
 
         $dados = array();
 

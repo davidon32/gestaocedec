@@ -185,7 +185,7 @@ class Html {
       */
      
      
-     public static function inputSelect( $name, $id, $label = null, $dadosArray, $defaultArray, $opcoes =null ) {
+     public static function inputSelect($name, $id, $label = null, $dadosArray=null, $defaultArray=null, $opcoes =null ) {
 
      	if(is_null($label)){
      			

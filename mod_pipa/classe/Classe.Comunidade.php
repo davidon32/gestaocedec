@@ -12,8 +12,8 @@ class Comunidade extends Log {
 
             $result = $con->prepare($sql);
 
-            $result->bindValue(":placa", $_placa);
-            $result->bindValue(":placa", $id_rota);
+            $result->bindValue(":nome", $nome);
+            $result->bindValue(":idRota", $id_rota);
 
             $result->execute();
 
@@ -505,7 +505,7 @@ class Comunidade extends Log {
                     on pip_pmda_comun.id_pmda = pip_pmda.id_pmda
                     inner join pip_comunidade
                     on pip_pmda_comun.id_comunidade = pip_comunidade.id_comunidade
-                    where pip_pmda_comun.id_municipio = '" . $id_municipio . "'
+                    where pip_pmda_comun.id_municipio = :id_municipio
                     order by pip_pmda.id_pmda";
 
             $result = $con->prepare($sql);

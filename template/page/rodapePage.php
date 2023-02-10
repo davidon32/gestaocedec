@@ -40,7 +40,7 @@
 ?>
 
 
-<!-- barra debug --> 
+<!-- barra debug
 <div id="posiciona"> 
     <div id="fechar" align=right><a href="#">Fechar</a></div> 
     Modulo : <i><?= $_GET['modulo'] ?></i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -49,7 +49,7 @@
     Url : <i><?= substr($_SERVER['REQUEST_URI'], strpos($_SERVER['REQUEST_URI'], "&")); ?></i>
     &nbsp;&nbsp;&nbsp;&nbsp;<a href='<?= FuncaoBase::geraLink("cedec", "index", "vars")?>'>Vars</a>
     
-</div>
+</div>-->
 
 
 <script>

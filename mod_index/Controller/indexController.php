@@ -70,7 +70,7 @@ class indexController extends Controller {
                     print "</script>";
                 }
                 /* alterar dados usuario */
-            } else if ($logarExterno == "perfil") {
+            } else if ($logarExterno == "perfil" && ($_COOKIE['seguranca']['secao'] != 'CHEFIA')) {
                 print "<script style='text/javascript'>";
                 print "window.location = 'index.php?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=etn&modulo=equipe&controller=usuario&action=editar'";
                 print "</script>";

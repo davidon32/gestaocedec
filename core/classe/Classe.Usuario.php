@@ -2423,9 +2423,10 @@ and cedec_usuario.nome not in('SUPORTE') " . $filtro . "
         $con = Conexao::getInstance();
 
         $dados = array();
+        
+        $id_func_chefe_gm = self::getChefeGMG();
 
-        $filtro = (!empty($_GET['tipo'])) ? " and desc_funcao = 'Agente Regional de DC' " : "";
-
+        $filtro = (!empty($_GET['tipo'])) ? " and desc_funcao = 'Agente Regional de DC' order by cedec_rpm.id " : " and desc_funcao not like 'Agente Regional de DC%' order by field(cedec_usuario.id_funcionario,$id_func_chefe_gm) desc, cedec_usuario.nome";
         $sql = "select 
 cedec_usuario.id_usuario,
 cedec_usuario.nome,
@@ -2458,8 +2459,7 @@ inner join aju_deposito
 on cedec_rpm.id = aju_deposito.id_rpm
 where cedec_usuario.situacao = 1
 and cedec_usuario.id_usuario != 79
-" . $filtro . "
-order by cedec_rpm.id";
+" . $filtro;
 
         $result = $con->query($sql);
 
@@ -2495,7 +2495,19 @@ order by cedec_rpm.id";
             return $e->getMessage();
         }
     }
+    
+    
+    
+    public static function getChefeGMG(){
+        $con = Conexao::getInstance();
+        
+        $sql = "SELECT id_funcionario from cedec_funcionario
+                WHERE situacao = 1 and funcao = 'CHEFE GMG' ";
+        
+        $result = $con->query($sql);
 
-}
+        return $result->fetchColumn();
+  
+    }
 
-?>
+}?>

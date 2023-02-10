@@ -457,7 +457,7 @@ include_once 'Classe.Transferencia.Material.php';
 		/**
 		 * Saldo de todos os materiais de um especifico deposito
 		 */
-		static public function saldoPorDeposito($id_deposito){
+		public static function saldoPorDeposito($id_deposito){
 
 			$con = Conexao::getInstance();
 
