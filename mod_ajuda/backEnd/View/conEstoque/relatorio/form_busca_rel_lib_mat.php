@@ -31,7 +31,14 @@
 	<form method="POST" action="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=relatorio&action=rel_lib_mat" name="frm_rel_liberacao" >
 		<div class="col-md-12">
                     <label>Dep&oacute;sito Origem Material:</label>
-                    <?php $_deposito->pegaDeposito();?>
+                    <?php if($_COOKIE['seguranca']['secao'] != "REDEC"){ 
+                        $_deposito->pegaDeposito();
+                    }else {
+                        print "<select class=\"form-control\" name='id_deposito' id='id_deposito'>
+                            <option value=" . $_COOKIE['seguranca']['id_deposito'] . ">" . Deposito::PegaNomeDeposito($_COOKIE['seguranca']['id_deposito']) . "</option>
+                            </select>";
+                    }
+                    ?>
                 </div>
                 <div class="col-md-12">
                     <br>

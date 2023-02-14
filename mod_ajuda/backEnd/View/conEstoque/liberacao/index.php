@@ -27,7 +27,7 @@
     
     <a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=cancelar" class="btn btn-primary">Cancelar Liberação</a>
     
-    <a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=correcao" class="btn btn-primary">Correção Liberação</a>
+    <!--<a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=correcao" class="btn btn-primary">Correção Liberação</a>-->
     
     
 </div>
@@ -38,9 +38,7 @@
     <?php
         $liberacao = new Liberacao();
         
-        $dados = $liberacao->listLiberacao();
-        
-        //var_dump($dados);
+        $dados = $liberacao->listLiberacao($_COOKIE['seguranca']['id_deposito']);
         
         if(count($dados) > 0) {
             

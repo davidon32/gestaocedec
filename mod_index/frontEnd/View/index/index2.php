@@ -47,18 +47,24 @@ print ($acessoModulo['mod_compdec'] == '1') ?
 	  						</td>' : '';
 
 # ajuda humanitaria
-if (!in_array($id_municipio, $lista_devedores)) {
-    print ($acessoModulo['mod_ajuda'] == '1') ?
-                    '<td align="center">
-                            <a class="" href="?token=' . hash("sha256", md5(VERSAO) . "-" . time()) . '&ac=etn&modulo=ajuda&controller=h_pedido_index&action=index" title="Ajuda Humanitária"><img height="128" alt="core/imagem/ajuda.png" src="core/imagem/pedido_cesta.png"><br><b>Ajuda Humanitária</b></a>
-			</td>' : '';
-} else {
+//if (!in_array($id_municipio, $lista_devedores)) {
+if($acessoModulo['mod_ajuda'] == '1') {
     print '<td align="center">
-                        <img height="128" class="dev_prest" src="core/imagem/dev_prest.png" title="Municipio com Prestação de Contas em Atraso"><br><b>Ajuda Humanitária</b>
-                        
-                    </td>';
-    $aviso = "<div class=\"col-md-12 text-center alert alert-success\"><h4>Prezado Coordenador Municipal, existe prestação de contas de Materiais de Ajuda Humanitária em atraso, gentileza regularizar a situação para fazer novos PEDIDOS !</h4></div>";
-}
+        <a class="" href="?token=' . hash("sha256", md5(VERSAO) . "-" . time()) . '&ac=etn&modulo=ajuda&controller=h_pedido_index&action=index" title="Ajuda Humanitária"><img height="128" alt="core/imagem/ajuda.png" src="core/imagem/pedido_cesta.png"><br><b>Ajuda Humanitária</b></a>
+    </td>';
+}else {
+    print '<td align="center">
+        <a class="imgCinza" href="" title="Ajuda Humanitária"><img height="128" alt="core/imagem/dev_prest.png" src="core/imagem/dev_prest.png"><br><b>Ajuda Humanitária</b></a>
+    </td>';
+} 
+
+//else {
+//    print '<td align="center">
+//                        <img height="128" class="dev_prest" src="core/imagem/dev_prest.png" title="Municipio com Prestação de Contas em Atraso"><br><b>Ajuda Humanitária</b>
+//                        
+//                    </td>';
+//    $aviso = "<div class=\"col-md-12 text-center alert alert-success\"><h4>Prezado Coordenador Municipal, existe prestação de contas de Materiais de Ajuda Humanitária em atraso, gentileza regularizar a situação para fazer novos PEDIDOS !</h4></div>";
+//}
 # Registro desastre
 print ($acessoModulo['mod_registro'] == '1') ?
                 '<td align="center">

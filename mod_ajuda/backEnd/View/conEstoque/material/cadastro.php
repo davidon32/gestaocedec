@@ -345,6 +345,8 @@ $(document).ready(function(){
                             alert("Favor Escolher o Deposito de Destino !")
                         }else {
                             
+                            console.log();
+                            
                                     form_data.append("fl_nota",        file_data);
                                     form_data.append("opcao",       "cad_material");
                                     form_data.append("id_produto",  $("#id_produto").val())
@@ -365,7 +367,7 @@ $(document).ready(function(){
                                             data: form_data,
                                             success: function(response) {
                                                 
-                                                //console.log(response);
+                                                console.log(response);
                                                     if(response == 'sucesso'){
                                                         
                                                     alert("Cadastro realizado com Sucesso !");

@@ -33,9 +33,12 @@ class indexController extends Controller {
             print "<script type='text/javascript'>";
             print "window.location = 'index.php?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=itn&ac=&modulo=admin&controller=admin&action=troca_senha_cedec_esqueci';";
             print "</script>";
+        
+            # login externo 
         } else {
-
             $logarExterno = $loginExterno->logarExterno($usuarioLogin, $str_senha);
+            
+            //var_dump($logarExterno);
                 
             /** login frontend */
             if ($logarExterno['page'] == "index") {

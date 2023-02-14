@@ -35,6 +35,8 @@ if ($secao == 'REDEC') {
     $listaPedido1 = $pedido_h->listaPedidosTodos();
 }
 
+//var_dump($listaPedido1);
+
 $data = array();
 
 foreach ($listaPedido1 as $key => $pedido) {
@@ -51,8 +53,8 @@ foreach ($listaPedido1 as $key => $pedido) {
 
 //$data = array('data'=> $data);
 
-
 $response = json_encode($data);
+//var_dump($response);
 ?>	
 <div class="col-md-6 text-center">
     <a class="btn btn-success" href="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')) ?>&modulo=ajuda&controller=index&action=index">Voltar</a>
@@ -66,7 +68,7 @@ foreach ($lista_devedores as $key => $value) {
     $lista .= "<button type=\"button\" name=\"btnListaNegra\" id=\"" . $key . "\" class=\"btn btn-primary btnListaNegra\">Remover</button><i class=\"fa fa-thumbs-down\">&nbsp;&nbsp;" . ($key + 1) . "&nbsp;</i>" . Municipio::PegaNomeMunicipio($value) . "<br>";
 }
 ?>
-    <input type="button" class='btn btn-success' id='btn_lista' value="Lista de Municípios Impedidos" />
+<!--    <input type="button" class='btn btn-success' id='btn_lista' value="Lista de Municípios Impedidos" />-->
 
 
 </div>

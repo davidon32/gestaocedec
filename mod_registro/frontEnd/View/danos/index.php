@@ -94,8 +94,8 @@
             $gr_registros = $registro->listaPorAno($_COOKIE['seguranca']['id_municipio'], "2022");
 
 
-            $gr_desabrigado = "";
-            $gr_desalojado = "";
+            $gr_desabrigado = array();
+            $gr_desalojado = array();
 
             foreach ($gr_registros as $key => $registro2) {
                 $gr_desabrigado[] = $registro2['desabrigado'];

@@ -4,7 +4,8 @@ class indexController extends Controller {
     
     # index
     public function index() {
-        include_once 'mod_registro/frontEnd/View/danos/index.php';
+        //include_once 'mod_registro/frontEnd/View/danos/index.php';
+        $this->redirect('index', 'index', 'menue');
     } 
     
     

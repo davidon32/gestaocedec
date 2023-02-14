@@ -5,7 +5,7 @@ $_usuario = $_COOKIE['seguranca']['idUser'];
 
 /* Entrada de Materiais */
 if($_POST['opcao'] == 'cad_material') {
-
+    
 	$_id_produto     = isset($_POST['id_produto'])     ? $_POST['id_produto']     : "";
 	$_txtDtEntrada   = isset($_POST['txtDtEntrada'])   ? $_POST['txtDtEntrada']   : "";
 	$_txtOrigem      = isset($_POST['txtOrigem'])      ? $_POST['txtOrigem']: "";
@@ -34,11 +34,11 @@ if($_POST['opcao'] == 'cad_material') {
 							$_txarObs,
 							$_txtQtd,
 							Deposito::PegaNomeDeposito($_id_deposito),
-							DataMysql::dataForm($_txtValidade),
 							$hora.$_nota,
                                                         $_id_deposito,
+                                                        $_usuario, 
                                                         null,
-                                                        $_usuario)) {
+							DataMysql::dataForm($_txtValidade))){
                                     
                                     Material::Complnota($_id_produto, $_complnota);
 

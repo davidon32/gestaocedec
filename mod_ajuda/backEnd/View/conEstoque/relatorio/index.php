@@ -12,25 +12,32 @@
 
 <h4><p class="text-center">Relatorios Gerais</p></h4>
 <div class='row'>
+    
+    <?php if($_COOKIE['seguranca']['secao'] != "REDEC"){ ?>
     <div class="col-md-3 text-center">
         <a href="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')); ?>&ac=itn&modulo=ajuda&controller=relatorio&action=fbusca_cad_mat"><img width="100" src='/core/imagem/impressao_icon.png'><br><br><b>ENTRADA DE MATERIAIS</b></a>
         <br>
     </div>
+    <?php }?>
     <div class="col-md-3 text-center">
         <a href="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')); ?>&ac=itn&modulo=ajuda&controller=relatorio&action=fbusca_liberacao"><img width="100" src='/core/imagem/impressao_icon.png'><br><br><b>LIBERAÇÕES</b></a>
         <br>
     </div>
+        <?php if($_COOKIE['seguranca']['secao'] != "REDEC"){ ?>
     <div class="col-md-3 text-center">
         <a href="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')); ?>&ac=itn&modulo=ajuda&controller=relatorio&action=fbusca_pag_mat"><img width="100" src='/core/imagem/impressao_icon.png'><br><br><b>PAGAMENTOS</b></a>
         <br>
     </div>
+    
     <div class="col-md-3 text-center">
         <a href="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')); ?>&ac=itn&modulo=ajuda&controller=relatorio&action=form_busca_invet_libera"><img width="100" src='/core/imagem/impressao_icon.png'><br><br><b>INVENTARIO</b></a>
         <br>
     </div>
+        <?php }?>
 </div>
 <br>
 <br>
+    <?php if($_COOKIE['seguranca']['secao'] != "REDEC"){ ?>
 <div class='row'>
     <div class="col-md-3 text-center">
         <!-- Prestação de contas -->
@@ -57,6 +64,7 @@
     </div>
 
 </div>
+ <?php }?>
 
 <div class="col-md-12 text-center">
     <br>

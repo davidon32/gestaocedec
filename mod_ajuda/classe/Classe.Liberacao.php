@@ -590,7 +590,7 @@ class Liberacao extends DataMysql{
 
 
 	#@ Mostra liberações pendentes (pagina inicial liberação) 
-	function listLiberacao(){
+	function listLiberacao($deposito = null){
 
 		$con = Conexao::getInstance();
 
@@ -598,6 +598,24 @@ class Liberacao extends DataMysql{
 		
 			$dados = array();
 			
+                    if (!empty($deposito) && ($deposito != 1)) {
+                        
+                        $sql = "SELECT aju_liberacao.id_liberacao,
+							aju_liberacao.dataLibera,
+							aju_liberacao.id_municipio,
+							aju_liberacao.depDestino,
+							aju_liberacao.beneficiario,
+							aju_liberacao.evento,
+							aju_liberacao.observacao,
+							aju_liberacao.dtLimite,
+							aju_liberacao.responsavel,
+							aju_liberacao.entrega,
+							aju_liberacao.id_usuario
+							FROM aju_liberacao
+							WHERE aju_liberacao.depDestino = {$deposito}
+							AND aju_liberacao.situacao = 0";
+                        
+                    }else {
 			$sql = "SELECT id_liberacao,
 							dataLibera,
 							id_municipio,
@@ -612,6 +630,7 @@ class Liberacao extends DataMysql{
 							FROM aju_liberacao
 							WHERE situacao = 0
 							ORDER BY dataLibera";
+                    }
 									
 			$result = $con->query($sql);
 			
