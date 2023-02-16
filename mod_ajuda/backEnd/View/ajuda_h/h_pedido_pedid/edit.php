@@ -49,6 +49,8 @@ $secao = isset($_COOKIE['seguranca']['secao']) ? $_COOKIE['seguranca']['secao'] 
 
 $favoravelDlog = H_pedido_an_tecajuda_hModel::anFavoravel($view[0]['id']);
 
+//var_dump($view[0]['status']);
+
 ####### PERMISSOES DE EDICAO E DESPACHO #######
 $permissao_ajuda_h = "false";
 if ($secao == 'DLOG' || $secao == "CHEFIA" || $id_usuario == 1 && $view[0]['status'] < 3) {
@@ -68,7 +70,7 @@ $aviso_sit = "";
 
 $aba = isset($_GET['jstree']) ? $_GET['jstree'] : "inicio";
 
-var_dump($aba);
+//var_dump($aba);
 ?>
 
 <div class='col-md-3'></div>
@@ -764,6 +766,7 @@ var_dump($aba);
             var id_pedido = '<?= $view[0]['id'] ?>';
             var text_despacho = $("#text_despacho").val();
             var tramit_parecer = $("#tramit_parecer").val();
+            var status = '<?=$view[0]['status'];?>';
             var secao = $("#secao").val();
             var parecer;
 
@@ -784,6 +787,7 @@ var_dump($aba);
             formData.append('id_usuario', id_usuario);
             formData.append('parecer_sit', parecer);
             formData.append('tramit_parecer', tramit_parecer);
+            formData.append('status', status);
             formData.append('secao', secao);
 
             $.ajax({
@@ -794,21 +798,21 @@ var_dump($aba);
                 contentType: false, // tell jQuery not to set contentType
                 success: function (response) {
 
-                    //console.log(response);
+                    console.log(response);
                     if (response.trim() == 'sucesso') {
                         Swal.fire('Despacho gravado com sucesso !').then(function () {
                             //$('#html1').jstree("select_node", show_material_pedido, true);
                             var status = <?= $view[0]['status'] ?>;
-
+                            
                             if (status == 3) {
                                 Swal.fire('Pedido Tramitado com sucesso !').then(function () {
                                     $('#editar_pedido').css('color', '#27AE60');
-                                    window.location.href = '<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit", array('id' => $view[0]['id'], 'voltar' => 'idx_recente', 'jstree' => 'show_material_pedido')); ?>';
+                                    //window.location.href = '<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit", array('id' => $view[0]['id'], 'voltar' => 'idx_recente', 'jstree' => 'show_material_pedido')); ?>';
                                 });
 
                                 //$('#processo').text($('#processo').text().substring(0, $('#processo').text().search(":"))+" (Processo com Parecer Favorável pelo Coordenador Adjunto)");
                             }
-
+                                window.location.href = '<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit", array('id' => $view[0]['id'], 'voltar' => 'idx_recente', 'jstree' => 'show_material_pedido')); ?>';
                             //$('#lista_despacho').load('/mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/ajax_lista_despacho.php?id=' + id_pedido);
 
                             //$('#novoDespacho').hide();

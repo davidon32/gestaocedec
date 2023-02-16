@@ -66,7 +66,7 @@ foreach ($listMembro as $value) {
         print "<td width='10%'>".$value['email']."</td>";
         print "<td width='10%'>";
         	
-            	print "<a onclick='javascript:alterarMembro(".$value['id_equipe'].", \"".$value['nome']."\", \"".$value['funcao']."\", \"".$value['telefone']."\", \"".$value['celular']."\", \"".$value['email']."\")' title=\"Editar Membros Compdec\"><img width='30px' src='core/imagem/editar.png'></a>";
+            	print "<a onclick='javascript:alterarMembro(".$value['id_equipe'].", \"".$value['nome']."\", \"".$value['funcao']."\", \"".$value['telefone']."\", \"".$value['celular']."\", \"".$value['email']."\", \"".$value['cpf']."\")' title=\"Editar Membros Compdec\"><img width='30px' src='core/imagem/editar.png'></a>";
                 print "<a onclick='javascript:deletarMembro(".$value['id_equipe'].")' title=\"Deletar Membros Compdec\"><img width='30px' src='core/imagem/delete.png'></a>";
              
               	print "</td>";

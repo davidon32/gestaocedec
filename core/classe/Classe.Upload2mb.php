@@ -55,7 +55,7 @@ class Upload2mb {
      * @param array $extensao - restrição de tipos aceitos ex. array(pdf) 
      * @return void
      */
-    public static function upload($path, $nome = null, array $extensao = null) {
+    public static function upload($path, $nome = null, array $extensao = null, $size ='2097152') {
 
         $result = array('result' => '',
             'nome_arquivo' => '',
@@ -72,7 +72,7 @@ class Upload2mb {
             $tamanho = $arquivo[$input]['size'];
 
             # verifica tamanho arquivo
-            if ($tamanho <= "20971520") {
+            if($tamanho <= $size ){
 
                 #retricao tipo arquivo
                 if (is_null($extensao)) {

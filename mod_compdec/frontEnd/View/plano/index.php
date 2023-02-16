@@ -93,7 +93,7 @@ $plano = new Plano();
                 <input type="file" name="filePlano" id="filePlano" class="form-control">
                 <span id="tamanho" style="font-size:15pt"></span>
                 <br>
-                <span>Descrição do Arquivo ( <i>ex: Parte 1 de 3</i> )</span>
+                <span>VERSÃO / Descrição do Arquivo ( <i>ex: Parte1</i> )</span>
                 <input type="text" name="descricao" id="descricao" class="form-control" maxlength="15" required>
                 <input type="hidden" name="tamanho_size" id="tamanho_size">
                 <br>
@@ -266,7 +266,7 @@ $plano = new Plano();
                 data: form_data,
                 type: 'post',
                 success: function (response) {
-
+                    //console.log(response);
                     if(response == 'sucesso'){  
                         $("#myModal").modal('hide');
                         $('.overlay1').hide();

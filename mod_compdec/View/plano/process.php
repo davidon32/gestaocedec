@@ -42,7 +42,6 @@
             $data_upload = date('Y-m-d H:i:s');
             //isset($_POST['dt_upload']) ? $_POST['dt_upload'] :""; # DATA HORA
             
-            var_dump($_POST);
 
             $descricao = isset($_POST['descricao']) ? FuncaoBase::slug($_POST['descricao']) : "";
                     
@@ -62,7 +61,7 @@
             );
 
 
-            $result = Upload2mb::upload("/anexo/planoCont", $arquivo, array("pdf", "doc", "docx"));
+            $result = Upload2mb::upload("/anexo/planoCont", $arquivo, array("pdf", "doc", "docx"), '20971520');
             if($result){
                 if($plano->gravaUpload($dados)) {
                     print "sucesso";

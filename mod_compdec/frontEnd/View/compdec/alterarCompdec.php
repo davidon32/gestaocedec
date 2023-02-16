@@ -139,7 +139,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
             </div>
             <div class="col-md-4">
                 <!--regioes de planejamento do governo estadual -->
-                <label>Região :</label>
+                <label>Mesorregião Região :</label>
                 <?php $_regiao->ComboRegiao($_dados[0]['regiao'], ""); ?>
             </div>
             <div class="col-md-4">
@@ -1620,7 +1620,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 
 
     /*	Alterar o Membros Compdec */
-    function alterarMembro(id, nome, funcao, telefone, celular, email) {
+    function alterarMembro(id, nome, funcao, telefone, celular, email, cpf) {
     
         $('#tbl_membro').hide();
         $('html, body').animate({scrollTop: $('#equipe').offset().top}, 2000);
@@ -1638,6 +1638,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
         $("#txtCelMembro").val(celular);
         $("#txtEmailMembro").val(email);
         $("#txtIdMembro").val(id);
+        $("#txtCpf").val(cpf);
 
 
     }

@@ -56,7 +56,7 @@ $dadosCobrade = $dec_cobrade->listaid_cobradeAutocomplete();
                 <div class='col-md-6'>
                     <label>Identificador Mesorregião</label>
                     <div class="input-group">
-                        <input type="text" class='form form-control' name='nomeRegiao_fk' id='nomeRegiao_fk' value='<?= $h_pedido_pedidModel->getNomeIdFk('com_regiao', 'id_regiao', $view[0]['id_regiao'])->nome; ?>' required readonly='readonly'>
+                        <input type="text" class='form form-control' name='nomeRegiao_fk' id='nomeRegiao_fk' value='<?= $h_pedido_pedidModel->getNomeIdFk('cedec_meso', 'id_meso', $view[0]['id_regiao'])->nome; ?>' required readonly='readonly'>
                         <span onclick="" class="input-group-addon" id="btnBuscaid_regiao">
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                         </span> </div><input type="hidden" name='id_regiao' id='id_regiao' required readonly='readonly' value='<?= $view[0]['id_regiao'] ?>'>
