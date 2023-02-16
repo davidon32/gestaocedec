@@ -25,7 +25,7 @@ $id = isset($_GET['id']) ? $_GET['id'] : "";
 	$plano = new Plano();
 	$anexo = new Anexo();
 
-?>	
+?>
 
 	  	<div class="container iframe text-center">
 		  <?php 
@@ -38,10 +38,8 @@ $id = isset($_GET['id']) ? $_GET['id'] : "";
 		  	if($anexo->getExtensao($plano->visualizarDoc($_GET['id'])) == 'pdf'){
 				  print "<embed type='application/pdf' style='width:900px;' src=\"/anexo/planoCont/".$plano->visualizarDoc($_GET['id'])."\">";
 			}else {
-				print "<br><br><span class=\"alert alert-success\"><b>Fazendo download do Documento Aguarde...</b></span><br><br>";
-				print "<span class=\"glyphicon glyphicon-arrow-down\" aria-hidden=\"true\"></span>";
-				print "<object name=\"myiframe\" id=\"myiframe\" style=\"width:100%; height:750px;\" data=\"/anexo/planoCont/".$plano->visualizarDoc($_GET['id'])."\"</object>";
-				
+
+				print "<a href=\"/anexo/planoCont/".$plano->visualizarDoc($_GET['id'])."\" />".$plano->visualizarDoc($_GET['id'])."</a>";     
 			}
 			?>
 	  	</div>
@@ -51,4 +49,5 @@ $id = isset($_GET['id']) ? $_GET['id'] : "";
 <?php include_once "template/page/rodape.php"?>
 <?php include_once "template/page/barra_config_template.php";?>
 <!-- =============== HEADER HTML PAGE ================= -->
+
 <?php include_once "template/page/rodapePage.php";?>

@@ -301,7 +301,7 @@ Class RelatorioComdec {
                         on com_plano_upload.id_municipio = cedec_municipio.id_municipio
                         where com_plano_upload.id_municipio <> 7221
                             order by cedec_municipio.nome";
-
+        
         $result = $con->query($sql);
 
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {

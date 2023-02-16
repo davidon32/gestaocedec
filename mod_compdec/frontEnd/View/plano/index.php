@@ -18,7 +18,16 @@ $plano = new Plano();
 <div class="col-md-12 text-center">
     <a class="btn btn-success" href="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')) ?>&ac=etn&modulo=index&controller=index&action=menue">Voltar</a>
 </div>
-
+<div class="col-md-12">
+    <h4 class="alert alert-danger">PREZADOS SENHORES,<BR>
+        O ENVIO DO PLANO DE CONTINGÊNCIA DEVE SERGUIR OS MESMOS PARÂMETROS DOS ANEXOS DE DOCUMENTAÇÕES/LEIS/DECRETOS.<br><BR>
+        <ul>
+            <li>-> ARQUIVOS EM FORMATO PDF, DOC OU DOCX.</li>
+            <li>-> TAMANHO MÁXIMO 20MB(mega bytes) "no caso das documentações o tamanho é 2mb, mas aqui no plano de contingência é 20mb".</li>
+            <li>-> O NOME DO ARQUIVO NÃO DEVE CONTER ESPAÇOS, ACENTOS E CARACTERES ESPECIAIS. ex: PLANO01.PDF, PLANO02.PDF, ETC</li>
+        </ul>
+    </h4>
+</div>
 
 <div class="col-md-12">
 
@@ -54,7 +63,7 @@ $plano = new Plano();
                 print "<tr>";
                 print "<td " . $kits . ">" . $value['dt_upload'] . "</td>";
                 print "<td " . $kits . "><a href=\"" . FuncaoBase::geraLink('compdec', 'app', 'vupload', array('id' => $value['id'])) . "\">Plano Versao " . $value['versao'] . " -  Data: " . $value['dt_upload'] . "</a></td>";
-                print "<td " . $kits . ">" . $value['tamanho'] . "</td>";
+                print "<td " . $kits . ">" . number_format(($value['tamanho'] / 1024 / 1024), 2,  ".", " "). "</td>";
                 print "<td " . $kits . ">";
 
                 if ($value['dt_upload'] > "2021-08-11") {
@@ -85,7 +94,7 @@ $plano = new Plano();
                 <span id="tamanho" style="font-size:15pt"></span>
                 <br>
                 <span>Descrição do Arquivo ( <i>ex: Parte 1 de 3</i> )</span>
-                <input type="text" name="descricao" id="descricao" class="form-control" maxlength="30" required>
+                <input type="text" name="descricao" id="descricao" class="form-control" maxlength="15" required>
                 <input type="hidden" name="tamanho_size" id="tamanho_size">
                 <br>
                 <div class="alert alert-danger">
@@ -167,7 +176,7 @@ $plano = new Plano();
                     },
 
                     success: function (response) {
-                        console.log(response);
+                        //console.log(response);
                         if (response == "sucesso") {
                             window.location.href = "?modulo=compdec&secao=plano&acao=planomenu&id=<?= $id_municipio; ?>";
 
@@ -257,6 +266,7 @@ $plano = new Plano();
                 data: form_data,
                 type: 'post',
                 success: function (response) {
+
                     if(response == 'sucesso'){  
                         $("#myModal").modal('hide');
                         $('.overlay1').hide();

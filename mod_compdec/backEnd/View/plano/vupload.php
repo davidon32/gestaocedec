@@ -31,10 +31,10 @@ if (!empty($id)) {
 }
 if ($anexo->getExtensao($_GET['id']) == "pdf") {
 
-    print "<iframe name=\"myiframe\" id=\"myiframe\" style=\"width:100%; height:750px;\" src=\"/anexo/planoCont/" . $plano->visualizarDoc($_GET['id']) . "\"></iframe>";
+    print "<embed name=\"myiframe\" id=\"myiframe\" style=\"width:100%; height:750px;\" src=\"/anexo/planoCont/" . $plano->visualizarDoc($_GET['id']) . "\"> />";
 } else {
     
-    print "<object name=\"myiframe\" id=\"myiframe\" style=\"width:100%; height:150px;\" data=\"/anexo/planoCont/" . $plano->visualizarDoc($_GET['id']) . "\"></object>";
+    print "<a href=\"/anexo/planoCont/" . $plano->visualizarDoc($_GET['id']) . "\">" . $plano->visualizarDoc($_GET['id']) . "</a>";
 }
 ?>
 </div>

@@ -167,6 +167,23 @@ class AnexoCompdec extends Anexo {
             print $e . "-";
         }
     }
+    
+    /* busca imagem compdec */
+
+    public static function foto3x4($id_municipio) {
+
+        $foto = "padrao.png";
+        try {
+            
+            
+
+
+            return $foto;
+        } catch (Exception $e) {
+
+            print $e . "-";
+        }
+    }
 
     /* busca arquivo foto */
 

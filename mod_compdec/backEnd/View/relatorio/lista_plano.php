@@ -34,6 +34,7 @@
             print "<tr>
                     <th>#</th>
                     <th>Munic. com Plano</th>
+                    <th>Cod.Município</th>
                     <th>Município</th>
                     <th>Plano</th>
                    </tr>";
@@ -47,6 +48,7 @@
                 print "<td class=\"col-md-1\">".($key+1)."</td>";
                 print "<td class=\"col-md-1\">".($id_mun != $plano['id_municipio'] ? $num++ :"")."</td>";
                     
+                print "<td><b>". $plano['id_municipio']."</b></td>";
                 print "<td><b>". Municipio::PegaNomeMunicipio($plano['id_municipio'])."</b></td>";
                 print "<td>".DataMysql::dataCompletaVisual($plano['dt_upload'])."</td>";
                 print "<td>".$plano['file_plano']."</td>";

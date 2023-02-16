@@ -11,8 +11,8 @@ include_once "core/Controller/Controller.php";
             $files = isset($_FILES) ? $_FILES : "";
             $post  = isset($_POST)  ? $_POST  : "";
 
-            var_dump($_POST);
-            die();
+            //var_dump($_POST);
+            //die();
             
             if($anexoFoto->gravarLeis($post, $files, "anexo/anexo_leis", "anexo_compde")){
                 

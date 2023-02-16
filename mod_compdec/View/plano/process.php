@@ -42,7 +42,9 @@
             $data_upload = date('Y-m-d H:i:s');
             //isset($_POST['dt_upload']) ? $_POST['dt_upload'] :""; # DATA HORA
             
-            $descricao = isset($_POST['descricao']) ? $_POST['descricao'] : "";
+            var_dump($_POST);
+
+            $descricao = isset($_POST['descricao']) ? FuncaoBase::slug($_POST['descricao']) : "";
                     
             $arquivo = "PLACON_". FuncaoBase::slug($_COOKIE['seguranca']['nome_usuario'])."_".$descricao."_". FuncaoBase::slug($data_upload);
 
