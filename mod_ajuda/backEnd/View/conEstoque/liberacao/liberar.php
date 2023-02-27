@@ -228,7 +228,8 @@ $dadosDeposito = Deposito::ListaDeposito();
                 match: {
                     enabled: true
                 },
-                onSelectItemEvent: function () {
+                
+                onClickEvent: function () {
                     var value = $("#txtMunicipio").getSelectedItemData().id_municipio;
 
                     $("#id_municipio").val(value);
@@ -250,7 +251,7 @@ $dadosDeposito = Deposito::ListaDeposito();
                 match: {
                     enabled: false
                 },
-                onSelectItemEvent: function () {
+                onClickEvent: function () {
                     var nome = $("#fonte").getSelectedItemData().nome;
                     $("#id_origem").val(nome);
                 },
@@ -269,7 +270,7 @@ $dadosDeposito = Deposito::ListaDeposito();
                 match: {
                     enabled: true
                 },
-                onSelectItemEvent: function () {
+                onClickEvent: function () {
                     var id = $("#nome_deposito").getSelectedItemData().id_deposito;
                     $("#id_deposito").val(id);
                 },

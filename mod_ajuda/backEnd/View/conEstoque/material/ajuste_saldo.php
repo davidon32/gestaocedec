@@ -44,7 +44,7 @@
     </div>
     <div class="col-md-12">
         <label>Obs (Nº de Liberacao ou Transferencia / origem de algum evento)</label>
-        <textarea id="txtObs" name="txtObs" class="form-control" rows="4" maxlength="255" ></textarea>
+        <textarea id="txtObs" name="txtObs" class="form-control" rows="4" maxlength="255" ></textarea><!-- revisado size ok-->
     </div>
 
     <div class="col-md-12" id="correcaoSaldo"> 

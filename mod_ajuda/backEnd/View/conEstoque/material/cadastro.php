@@ -98,7 +98,7 @@ $dadosDeposito = Deposito::ListaDeposito();
 				</div>
 				<div class="col-md-4">
 					<label>Observa&ccedil;&otilde;es:</label>
-                                        <textarea class="form-control" name="txObs" id="txObs" cols="30" rows="4" maxlength="255"></textarea>
+                                        <textarea class="form-control" name="txObs" id="txObs" cols="30" rows="4" maxlength="255"></textarea><!--revisao size ok-->
 				</div>
                         </div>
 				<div class="col-md-12 text-center">
@@ -434,7 +434,7 @@ $(document).ready(function(){
                     match: {
                     enabled: true,
                     },
-                onSelectItemEvent: function () {
+                    onClickEvent: function () {
                     var id = $("#name_deposito").getSelectedItemData().id_deposito;
                     $("#id_deposito").val(id);
                 },
@@ -452,7 +452,7 @@ $(document).ready(function(){
                     match: {
                     enabled: true,
                     },
-                onSelectItemEvent: function () {
+                onClickEvent: function () {
                     var nome = $("#txtOrigem").getSelectedItemData().nome;
                     $("#id_origem").val(nome);
                 },

@@ -1,12 +1,12 @@
 <?php include_once PATH.'/core/include.php';?>
 <?php include_once "core/Model/indexModel.php";?>
 <?php include_once "mod_ajuda/Model/indexModel.php";?>
-<!-- =============== HEADER HTML PAGE ================= -->
+<!-- =============== HEADER HTML PAGE =================-->
 <?php include_once "template/page/headerPage.php";?>
 <!-- =================== HEADER ============================ -->
 <?php include_once "template/page/header.php";?>
 <!-- =================== MENU  ============================ -->
-<?php //include_once "template/page/menu.php";?>
+<!--//include_once "template/page/menu.php";?>-->
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php";
 
@@ -93,13 +93,13 @@ $nProd = new Produto();
 						<input type="hidden" name="la" value="0">
 								
 						<label>Descrição do Produto : (CX, UN, etc)</label>
-                                                <input type="text" name="descricao" size="25" value="-" class="form-control" required maxlength="255">
+                                                <input type="text" name="descricao" size="25" value="-" class="form-control" required maxlength="255"> <!--size revisado ok -->
 					</div>
 
 					<div class="col-md-12">
 						<br>
 						<label>Quantidade :</label>
-						<input type="number" name="qtd" id="txtQtd" size="25" class="form-control" required>
+						<input type="number" name="qtd" id="txtQtd" size="11" class="form-control" required>
 						<br />
 					</div>	
 
