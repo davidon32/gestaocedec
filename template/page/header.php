@@ -66,7 +66,6 @@ print "</script>";
         }, 1000)
     }
 </script>
-<?php ?>
 <style>
 .overlay1 {
     position: fixed;
