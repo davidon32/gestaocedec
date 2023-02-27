@@ -44,14 +44,31 @@ include_once "template/page/headerPageSimples.php";
                                     "Data Chegada"=>$_txt_chegada);
 
                 if($_btn_enviar) {
+                
+                $_saldo = false;
 
                         /* $_SESSION['cesta'][0] => 
                         0 => string '5' - ID_DEPOSITO ORIGEM
                         1 => string '1' - ID_PRODUTO
                         2 => string '-' - DESCRICAO
                         3 => string '10'- QUANTIDADE */
+                    
+                    /* VERIFICA O SALDO ANTES DE GRAVAR A LIBERAÇÃO */
 
-                    if(FuncaoBase::campoBranco($_campos)){
+                    foreach ($_material as $key => $value) {
+                        if(ControleSaldo::chSaldo($value[1], $value[0], $value[3])){
+                            $_saldo = true;
+                        }else {
+                            $_saldo = false;
+                            break;
+                        }
+                           
+                    }
+                    
+                    //var_dump($_saldo);
+                    //die();
+
+                    if(FuncaoBase::campoBranco($_campos) && $_saldo){
 
                         $_tot_cesta = count($_material);
 
@@ -124,6 +141,10 @@ include_once "template/page/headerPageSimples.php";
                             print "</script>";
 
                         }
+                    }else {
+                        print "<br><br><div class='col-md-12 text-center'><br><br>";
+                                    print "<span class=\"alert alert-danger\">Ops !Material sem Saldo, gentileza verificar !</span><br><br><img src='/core/imagem/doh.png' width='100'>";
+                                    print "<br><br><a class=\"btn btn-info\" href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=idxtransf\" class='btn btn-success'>Voltar</a><br><br>";
                     }
                 }
             }else {

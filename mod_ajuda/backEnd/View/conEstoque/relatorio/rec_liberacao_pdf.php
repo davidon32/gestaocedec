@@ -1,14 +1,16 @@
 <?php include_once PATH.'/core/include.php';?>
 <?php include_once PATH.'/mod_ajuda/ajuda_func/include_class_pdf.php';
-		
+
+
 	$dados = Liberacao::comprovanteLiberacao($_SESSION['idLibera']);
 
 	$material = Liberacao::listaProdutosSemPrint($dados['id_liberacao']);
+ var_dump($dados);
 
 define('FPDF_FONTPATH','plugins/fpdf/font/');
 $pdf = new FPDF("P");
 $pdf->Open();
-$pdf->AddPage();
+$pdf->AddPage("P");
 $pdf->SetFont('Arial','',10);
 $pdf->SetMargins(10,10,10);
 $pdf->setY("2.25");

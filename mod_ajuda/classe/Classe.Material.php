@@ -69,7 +69,7 @@ class Material {
 			
 
 			$result->execute();
-			return true;
+			return [true, $con->lastInsertId()];
 		}catch (Exception $e){
 			print FuncaoBase::getError($e->getMessage());
 		}

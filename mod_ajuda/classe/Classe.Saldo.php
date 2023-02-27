@@ -14,9 +14,15 @@ include_once 'Classe.Transferencia.Material.php';
 		
 		private $id_dep; # array com id dos depositos
 			
-		#@checa se o produto tem saldo no estoque
+		/**
+                 * checa se o produto tem saldo no estoque
+                 * 
+                 * @param id_produto
+                 * @param id_deposito
+                 * @param Quandidade
+                 * 
+                 */
 		static function chSaldo($id_produto, $idDeposito, $qtd){ 
-			
 			try{
 
 				$con = Conexao::getInstance();
@@ -43,8 +49,7 @@ include_once 'Classe.Transferencia.Material.php';
 				}
 				
 				return $saldo;
-			}catch (Exception $e){
-				
+			}catch (Exception $e){	
 				echo $e;
 			}
 		}
@@ -555,45 +560,77 @@ include_once 'Classe.Transferencia.Material.php';
 
 		}
 
-	/** Lancamento em C/C */
-	static public function lancaCC($data_lanca,
-							$id_unidade,
-							$historico,
-							$origem,
-							$destino,
-							$tipo,
-							$qtd,
-							$dc){
+	/**
+         *  Lancamento em C/C
+         * 
+         *  @param $data_lanca     - Data de Lançamento
+         *  @param $id_unidade     - id_produto
+         *  @param $nome_material  - Nome do Material
+         *  @param $historico      - Histórico do Lancamento
+         *  @param $id_dep_origem  - Id Deposito Origem
+         *  @param $dep_origem     - nome Deposito Origem
+         *  @param $id_dep_destino - Nome Deposito Destino
+         *  @param $dep_destino    - Nome Deposito Destino
+         *  @param $tipo       - Tipo do Lancamento Entrada / saida
+         *  @param $qtd        - Quantidade do Material
+         *  @param $dc         - Débito ou Crédido D/C
+         *  @param $id_entrada - Identificador da Entrada
+         *  @param $id_entrada_origem - Identificador da Entrada de Origem
+         * 
+         * 
+         * */
+	public static function lancaCC($data_lanca,
+					$id_unidade,
+                                        $nome_material,
+					$historico,
+					$id_dep_origem,
+                                        $dep_origem,
+                                        $id_dep_destino,
+					$dep_destino,
+					$tipo,
+					$qtd,
+					$dc,
+                                        $id_entrada,
+                                        $id_entrada_origem =null){
 
-							try{
+                                                try{
 
-								$con = Conexao::getInstance();
-								$sql = "INSERT INTO aju_cc
-													(data_reg,
-														id_unidade,
-														historico,
-														origem,
-														destino,
-														tipo,
-														qtd,
-														dc)
-														VALUES
-														(".$data_lanca.",
-														 ".$id_unidade.",
-														 ".$historico.",
-														 ".$origem.",
-														 ".$destino.",
-														 ".$tipo.",
-														 ".$qtd.",
-														 ".$dc.")";
+                                                    $con = Conexao::getInstance();
+                                                    $sql = "INSERT INTO aju_cc
+                                                            (data_reg,
+                                                            id_unidade,
+                                                            nome_material,
+                                                            historico,
+                                                            id_dep_origem,
+                                                            dep_origem,
+                                                            id_dep_destino,
+                                                            dep_destino,
+                                                            tipo,
+                                                            qtd,
+                                                            dc,
+                                                            id_entrada,
+                                                            id_entrada_origem)
+                                                            VALUES
+                                                                ('".$data_lanca."',
+                                                                ".$id_unidade.",
+                                                                '".$nome_material."',
+                                                                '".$historico."',
+                                                                ".$id_dep_origem.",
+                                                                '".$dep_origem."',
+                                                                ".$id_dep_destino.",
+                                                                '".$dep_destino."',
+                                                                '".$tipo."',
+                                                                ".$qtd.",
+                                                                '".$dc."',
+                                                                ".$id_entrada.",
+                                                                ".$id_entrada_origem.")";
 
-								$restul = $con->query($sql);
-								return true;
-							
-							}catch (Exception $e){
-								print $e->getMessage();
-							}
-
-							}
+                                                    print $sql;
+                                                        $con->query($sql);
+                                                            return true;
+                                                }catch (Exception $e){
+                                                        print $e->getMessage();
+                                                }
+                                        }
 	
 }?>

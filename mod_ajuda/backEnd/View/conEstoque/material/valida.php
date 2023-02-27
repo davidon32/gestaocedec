@@ -26,8 +26,13 @@ if($_POST['opcao'] == 'cad_material') {
 					"Deposito"       => $_id_deposito);  
 					
 			if(FuncaoBase::CampoBranco($campos)){
-					
-				if(Material::Cadastrar($_id_produto,
+			
+                            /*#retorna um array 
+                                array[
+                                       boolean, ultimo_id
+                                     ]
+                            */
+                            $insert_material = Material::Cadastrar($_id_produto,
 							Unidade::PegaNomeId($_id_produto)." ". str_replace("/",".",$_txtDtEntrada),
 							DataMysql::dataForm($_txtDtEntrada),
 							$_txtOrigem,
@@ -38,7 +43,9 @@ if($_POST['opcao'] == 'cad_material') {
                                                         $_id_deposito,
                                                         $_usuario, 
                                                         null,
-							DataMysql::dataForm($_txtValidade))){
+							DataMysql::dataForm($_txtValidade));
+				
+                                if($insert_material[0]){
                                     
                                     Material::Complnota($_id_produto, $_complnota);
 
@@ -46,13 +53,21 @@ if($_POST['opcao'] == 'cad_material') {
 					Material::atualizarSaldo($_id_produto,$_id_deposito,$_txtQtd);
 					
 					/* LANCAMENTO DO CONTA CORRENTE */
-					/* ControleSaldo::lancaCC($_txtDtEntrada, $_id_produto, 
-											"ENTRADA NOTAS DE MATERIAL",
-											$_txtOrigem,
-											$_id_deposito,
-											"ENTRADA NOTA",
-											$_txtQtd,
-											"C"); */
+					
+                                        ControleSaldo::lancaCC(DataMysql::dataCompletaForm($_txtDtEntrada.date("H:i")),
+                                                $_id_produto,
+                                                Unidade::PegaNomeId($_id_produto),
+                                                "ENTRADA NOTAS DE MATERIAL - ".$_txtOrigem." ",
+                                                'NULL', # id dep Origem 
+                                                'NULL', # Deposito origem nao tem na entra de materiais
+                                                $_id_deposito,
+                                                Deposito::PegaNomeDeposito($_id_deposito),
+                                                "Entrada",
+                                                $_txtQtd,
+                                                "C",
+                                                $insert_material[1],
+                                                'NULL'); # não tem $id_entrada_origem
+
 
 					if(!empty($_nota)){
 						$result = Anexo::upload(PATH.'/anexo/entrada_nota',
@@ -66,6 +81,10 @@ if($_POST['opcao'] == 'cad_material') {
 							//print var_dump($result);
 						}*/
 					}
+                                        
+                                        
+                                        
+                                        
 					
 					//Log::GravaLog("Cadastro de material id_produto:".$_id_produto." qtd:".$_txtQtd." dataEntrada: ".$_txtDtEntrada." validade: ".$_txtValidade. " depDestino:".$_id_deposito, "aju_log");
 							

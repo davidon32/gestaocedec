@@ -345,7 +345,7 @@ $(document).ready(function(){
                             alert("Favor Escolher o Deposito de Destino !")
                         }else {
                             
-                            console.log();
+                            //console.log();
                             
                                     form_data.append("fl_nota",        file_data);
                                     form_data.append("opcao",       "cad_material");

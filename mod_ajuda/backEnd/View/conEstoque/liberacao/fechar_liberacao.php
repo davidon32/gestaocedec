@@ -110,15 +110,18 @@
                        $cesta[][5] - id_entrada
                      */
                     
+                    /* VERIFICA O SALDO ANTES DE GRAVAR A LIBERAÇÃO */
+
                     foreach ($_itens_pedido as $key => $value) {
                         if(ControleSaldo::chSaldo($value[1], $value[0], $value[3])){
                             $_saldo = true;
+                        }else {
+                            $_saldo = false;
                             break;
                         }
+                           
                     }
-                    
-                    
-							
+
 			if(FuncaoBase::campoBranco($campo) && $_saldo) {
 				#@ testar se tem liberacao para executar 
 				if(count($_SESSION['cesta']) > 0) {
@@ -187,7 +190,11 @@
 						print "</div>";
 						
 					}
-				}
+				}else {
+                                    print "<br><br><div class='col-md-12 text-center'><br><br>";
+                                    print "<span class=\"alert alert-danger\">Ops !Material sem Saldo, gentileza verificar !</span><br><br><img src='/core/imagem/doh.png' width='100'>";
+                                    print "<br><br><a class=\"btn btn-info\" href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=liberacao\" class='btn btn-success'>Voltar</a><br><br>";
+                                }
 				
 			}else {
 				
