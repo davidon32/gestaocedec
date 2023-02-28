@@ -84,7 +84,10 @@
             print "<br>";
 
             $dados = $usuario->getResetUsuarioEx($data);
-
+            
+            
+            var_dump( isset($param[md5('use70')]) );
+            die();
             # troca de senha 
             if (isset($param[md5('use70')]) && (isset($dados))) {
                 if (isset($dados['reset'])) {

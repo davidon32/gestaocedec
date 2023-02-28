@@ -78,12 +78,15 @@ class Email {
      * */
     function emailIndividual($destinatario, $assunto, $mensagem, $headers = null, $de = null) {
 
-        /*$headers = 'MIME-Version: 1.0' . "\r\n";
-        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-        $headers .= (!$de) ? 'From : defesacivil@defesacivil.mg.gov.br' : 'From: ' . $de . ' <' . $de . '>';*/
-
+        if( is_null($headers) ){
+            $headers1 = 'MIME-Version: 1.0' . "\r\n";
+            $headers1 .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+            /*$headers .= (!$de) ? 'From : defesacivil@defesacivil.mg.gov.br' : 'From: ' . $de . ' <' . $de . '>';*/
+        }else {
+            $headers1 = $headers;
+        }
         
-        $envia = mail($destinatario, $assunto, $mensagem, $headers, $de);
+        $envia = mail($destinatario, $assunto, $mensagem, $headers1, $de);
 
         return $envia;
     }

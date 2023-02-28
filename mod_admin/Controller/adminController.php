@@ -63,7 +63,13 @@ class adminController extends Controller {
 <p style='font-size:15pt'> Att.</p>
 <p style='font-size:15pt'> Equipe de Suporte ADS.</p>
 MSG;
-                            $resultado = $enviaEmail->emailIndividual($email_rec[0]['email_rec'], utf8_decode("SGECEDEC - Recuperação de Senha"), $mensagem, "defesacivil@defesacivil.mg.gov.br");
+                            $resultado = $enviaEmail->emailIndividual($email_rec[0]['email_rec'],
+                                                                        utf8_decode("SDC - Recuperação de Senha"),
+                                                                        $mensagem,
+                                                                        null,
+                                                                        "defesacivil@defesacivil.mg.gov.br"
+                                                                        );
+                            
                             if ($resultado) {
                                 if(isset($_POST['ajax'])){
                                     print 'sucesso';  

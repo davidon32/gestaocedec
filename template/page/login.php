@@ -155,7 +155,7 @@
                                         <!--                                        <label>
                                                                                     <input type="checkbox"> Lembrar Usuário
                                                                                 </label>-->
-                                        <a class='btn btn-adn' href="index.php<?= FuncaoBase::geraLink("admin", "admin", "esqueci_senha", array('externo' => md5('externo'))) ?>">Esqueci minha senha</a>
+                                        <a class='btn btn-link' href="index.php<?= FuncaoBase::geraLink("admin", "admin", "esqueci_senha", array('externo' => md5('externo'))) ?>">Esqueci minha senha</a>
 
                                     </div>
                                     <!-- /.col -->
