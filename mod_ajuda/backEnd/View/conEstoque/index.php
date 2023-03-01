@@ -75,6 +75,8 @@
 
         <!--Pagamento -->
         <?php
+        
+
         if (Usuario::getPermissao('aju_permissao', 'cad_pagamento')) {
             ?> 
             <div class="col-md-4 text-center">
