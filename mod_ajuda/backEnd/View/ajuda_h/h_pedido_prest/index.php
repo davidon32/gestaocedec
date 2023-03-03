@@ -10,12 +10,12 @@
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php"; ?>
 <?php
-    $id = isset($_GET['id']) ? $_GET['id'] : "";
+$id = isset($_GET['id']) ? $_GET['id'] : "";
 
-    $h_pedido = H_pedido_pedidajuda_hModel::buscaPedidoId($id);
-    //var_dump($h_pedido[0]['status']);
+$h_pedido = H_pedido_pedidajuda_hModel::buscaPedidoId($id);
+//var_dump($h_pedido[0]['status']);
 
-    $h_pedido_prest = new H_pedido_prestajuda_hModel();
+$h_pedido_prest = new H_pedido_prestajuda_hModel();
 ?>
 
 <div class="col-md-6 text-left">
@@ -23,19 +23,19 @@
 </div>
 <div class="col-md-6 text-right">
     <?php
-        if($h_pedido[0]['status'] == 6){
-            print "<a class=\"btn btn-primary\" href=\"".FuncaoBase::geraLink("ajuda", "h_pedido_prest", "homologa", array('id'=>$_GET['id']) )."\">Homologar</a>";
-        }
+    if ($h_pedido[0]['status'] == 6) {
+        print "<a class=\"btn btn-primary\" href=\"" . FuncaoBase::geraLink("ajuda", "h_pedido_prest", "homologa", array('id' => $_GET['id'])) . "\">Homologar</a>";
+    }
     ?>
-    <a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_prest", "visualizar", array('id'=>$_GET['id'])) ?>">Visualizar</a>
-    
+    <a class="btn btn-primary" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_prest", "visualizar", array('id' => $_GET['id'])) ?>">Visualizar</a>
+
 </div>
 <br>
 <br>
 
 <?php
-print "<legend>Prestação de Contas Pedido : <b>". Municipio::PegaNomeMunicipio($h_pedido[0]['id_municipio'])."</b></legend>";
-print "Status : <b>". H_pedido_pedidajuda_hModel::enumFase($h_pedido[0]['tramit'])."</b>";
+print "<legend>Prestação de Contas Pedido : <b>" . Municipio::PegaNomeMunicipio($h_pedido[0]['id_municipio']) . "</b></legend>";
+print "Status : <b>" . H_pedido_pedidajuda_hModel::enumFase($h_pedido[0]['tramit']) . "</b>";
 
 print "<div class=\"table-responsive\"><table class=\"table table-bordered table-striped\">
     <thead>
@@ -56,13 +56,23 @@ print "<div class=\"table-responsive\"><table class=\"table table-bordered table
 $materiais = $h_pedido_prest::listaPrestContasporPedido($id);
 
 
-foreach ($materiais as $key=>$material) {
+foreach ($materiais as $key => $material) {
 
-    $percent = ( $h_pedido_prest->percBenef($material['id']) / $material['qtd']) * 100;
+
+    $beneficiario = $h_pedido_prest->percBenef($material['id']); # $material[id'] - id do item da prest. de contas
+
+    if ($beneficiario > 0) {
+
+        $percent = ( $beneficiario / $material['qtd']) * 100;
+    } else {
+        $percent = 0;
+    }
+
+
     $cor_percent_prest = ( $percent == 50 ) ? '#32CD32' : '';
 
     print "<tr style='background-color: " . $cor_percent_prest . "'>
-<td>" . ($key+1) . "</td>
+<td>" . ($key + 1) . "</td>
 <td>" . $material['id_pedido'] . "</td>
 <td>" . $material['cod_material'] . "</td>
 <td>" . $material['nome_material'] . "</td>

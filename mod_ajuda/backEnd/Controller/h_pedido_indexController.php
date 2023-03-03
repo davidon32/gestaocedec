@@ -33,6 +33,13 @@ class h_pedido_indexController extends Controller {
         $h_pedido_pedidModel = $this->h_pedido_pedid;
         include_once 'mod_ajuda/backEnd/View/ajuda_h/index.php';
     }
+    
+    # index h_pedido_pedid
+
+    public function menu() {
+        $h_pedido_pedidModel = $this->h_pedido_pedid;
+        include_once 'mod_ajuda/backEnd/View/ajuda_h/menu.php';
+    }
 
     /* paginacao */
 

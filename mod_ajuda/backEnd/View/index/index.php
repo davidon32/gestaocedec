@@ -28,7 +28,7 @@ if ($_COOKIE['seguranca']['id_deposito'] == 1) {
             $permissao = Usuario::getPermissao('aju_permissao', 'pedido_ajuda');
             if ($permissao == "1") {
                 ?>
-                <a href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_index", "index") ?>">
+                <a href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_index", "menu") ?>">
                     <img src="core/imagem/pedido_cesta.png" width="80px">
                     <br>
                     Pedido Ajuda Humanitária

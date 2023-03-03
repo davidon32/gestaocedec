@@ -43,7 +43,16 @@ $materiais = $h_pedido_prest::listaPrestContasporPedido($id);
 
 foreach ($materiais as $material) {
     
-    $percent = ( $h_pedido_prest->percBenef($material['id']) / $material['qtd']) * 100;
+    $beneficiario = $h_pedido_prest->percBenef($material['id']);
+    
+    if ($beneficiario > 0) {
+
+        $percent = ( $beneficiario / $material['qtd']) * 100;
+    } else {
+        $percent = 0;
+    }
+    
+    $percent = ( $beneficiario / $material['qtd']) * 100;
     $cor_percent_prest = ( $percent == 50 ) ? '#32CD32' : '';
        
            print "<tr style='background-color: ".$cor_percent_prest."'>

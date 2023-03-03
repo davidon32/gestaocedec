@@ -46,20 +46,21 @@ foreach ($listaPedido1 as $key => $pedido) {
     $data[$key]['data_entrada_sistema'] = DataMysql::dataCompletaVisual($pedido['data_entrada_sistema']);
     $data[$key]['data_hora_envio'] = DataMysql::dataCompletaVisual($pedido['data_hora_envio']);
     $data[$key]['cor'] = H_pedido_an_tecajuda_hModel::anFavoravelChefe($pedido['id']);
-
-
-    $percent = number_format(((H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedido['id']) * 100 ) != 0 ) ? (H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedido['id']) * 100) / H_pedido_prestajuda_hModel::totalMaterialPrestConta($pedido['id']) : 0, '2', '.', ' ');
+    $data[$key]['percent'] = number_format(((H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedido['id']) * 100 ) != 0 ) ? (H_pedido_prestajuda_hModel::totalMaterialBeneficiarios($pedido['id']) * 100) / H_pedido_prestajuda_hModel::totalMaterialPrestConta($pedido['id']) : 0, '2', '.', ' ');
+    
+    
 }
 
 //$data = array('data'=> $data);
 
 $response = json_encode($data);
 //var_dump($response);
-?>	
-<div class="col-md-6 text-center">
+?>
+<div class="col-md-4">
     <a class="btn btn-success" href="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')) ?>&modulo=ajuda&controller=index&action=index">Voltar</a>
 </div>
-<div class="col-md-6 text-center">
+
+<div class="col-md-4 text-center">
 <?php
 include('core/system/config/param.php');
 $lista = "<i class=\"fa fa-thumbs-down\"></i>";
@@ -69,8 +70,14 @@ foreach ($lista_devedores as $key => $value) {
 }
 ?>
 <!--    <input type="button" class='btn btn-success' id='btn_lista' value="Lista de Municípios Impedidos" />-->
+</div>
 
 
+<div class="col-md-4 text-left">
+    <h5>Legenda</h5>
+    <span><i class="fa fa-square" style="color:#f39c12"></i> Processos com Prestação de contas em Andamento</span><br>    
+    <span><i class="fa fa-square text-danger"></i> Processos com Prestação de conta Aguardando Aprovação</span><br>    
+    <span><i class="fa fa-square text-success"></i> Processos com Parecer Favorável do Diretor DLOG</span><br>    
 </div>
 
 <div class="col-md-12">
@@ -129,16 +136,16 @@ foreach ($lista_devedores as $key => $value) {
             <hr>
             <br>
             <div class="col-md-12 table-responsive">
-                <table id="pedidos" class="table table-bordered table-condensed table-responsive dataTable" >
+                <table id="pedidos" class="table table-bordered table-sm table-condensed table-responsive dataTable" >
                     <thead>
                         <tr>
-                            <th>Número</th>
+                            <th style="max-width: 60px;">Número</th>
                             <th>Município</th>
                             <th>Data Criação</th>
                             <th>Tipo</th>
                             <th>Fase do Processo</th>
                             <th>Data Envio Análise</th>
-                            <th>Opções</th>
+                            <th style="width: 250px;">Opções</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -364,7 +371,11 @@ foreach ($lista_devedores as $key => $value) {
                                 //$(cell).html('<input type="text" placeholder="' + title + '" />');
                                 if ($(api.column(colIdx).header()).index() >= 0) {
                                     if (colIdx <= 5) {
-                                        $(cell).html('<input type="text" name="notNormaliza" class="removeStyle" placeholder="' + title + '"/>');
+                                            var col ="";
+                                        if(colIdx ==0) {
+                                            col = " style=\"max-width: 60px;\" ";
+                                        }
+                                        $(cell).html('<input type="text" '+col+' name="notNormaliza" class="removeStyle" placeholder="' + title + '"/>');
                                     }
                                 }
 
@@ -402,7 +413,8 @@ foreach ($lista_devedores as $key => $value) {
                             });
                 },
                 createdRow: function (row, data, index) {
-                    //console.log(data['tramit'])   ;         
+                    //console.log(data['tramit'])   ;
+                    
                     if (data['cor'] == 1) {
                         $('td', row).eq(0).addClass('alert alert-success');
                         $('td', row).eq(1).addClass('alert alert-success');
@@ -412,6 +424,8 @@ foreach ($lista_devedores as $key => $value) {
                         $('td', row).eq(5).addClass('alert alert-success');
                         $('td', row).eq(6).addClass('alert alert-success');
                     }
+                    
+                    /*  pro*/
                     if (data['tramit'] == 'Processo Finalizado !') {
                         $('td', row).eq(0).addClass('alert alert-info').attr('title', 'Processo Finalizado a Prestação de Contas !');
                         $('td', row).eq(1).addClass('alert alert-info').attr('title', 'Processo Finalizado a Prestação de Contas !');
@@ -421,6 +435,31 @@ foreach ($lista_devedores as $key => $value) {
                         $('td', row).eq(5).addClass('alert alert-info').attr('title', 'Processo Finalizado a Prestação de Contas !');
                         $('td', row).eq(6).addClass('alert alert-info').attr('title', 'Processo Finalizado a Prestação de Contas !');
                     }
+                    
+                    if( (data['status'] === 6) && (data['percent'] !== "100.00") ) {
+                        $('td', row).eq(0).addClass('alert alert-warning').attr('title', 'Processo em Prestação de Contas !');
+                        $('td', row).eq(1).addClass('alert alert-warning').attr('title', 'Processo em Prestação de Contas !');
+                        $('td', row).eq(2).addClass('alert alert-warning').attr('title', 'Processo em Prestação de Contas !');
+                        $('td', row).eq(3).addClass('alert alert-warning').attr('title', 'Processo em Prestação de Contas !');
+                        $('td', row).eq(4).addClass('alert alert-warning').attr('title', 'Processo em Prestação de Contas !');
+                        $('td', row).eq(5).addClass('alert alert-warning').attr('title', 'Processo em Prestação de Contas !');
+                        $('td', row).eq(6).addClass('alert alert-warning').attr('title', 'Processo em Prestação de Contas !');
+                        
+                    }else
+                    
+                    if( (data['status'] === 6) && (data['percent'] === "100.00") ) {
+                        
+                        $('td', row).eq(0).addClass('alert alert-danger').attr('title', 'Processo com prestação de contas aguardando Aprovação !');
+                        $('td', row).eq(1).addClass('alert alert-danger').attr('title', 'Processo com prestação de contas aguardando Aprovação !');
+                        $('td', row).eq(2).addClass('alert alert-danger').attr('title', 'Processo com prestação de contas aguardando Aprovação !');
+                        $('td', row).eq(3).addClass('alert alert-danger').attr('title', 'Processo com prestação de contas aguardando Aprovação !');
+                        $('td', row).eq(4).addClass('alert alert-danger').attr('title', 'Processo com prestação de contas aguardando Aprovação !');
+                        $('td', row).eq(5).addClass('alert alert-danger').attr('title', 'Processo com prestação de contas aguardando Aprovação !');
+                        $('td', row).eq(6).addClass('alert alert-danger').attr('title', 'Processo com prestação de contas aguardando Aprovação !');
+                        
+                    }
+                    //console.log(data['percent']);
+                    
                 },
                 'columns': [
                     {data: 'numero'},
@@ -451,7 +490,7 @@ foreach ($lista_devedores as $key => $value) {
                             /*    ##### prestação de contas */
                             if (data.status == 6 || data.status == 9) {
                                 links_opcoes += '<a href=\'' + geraLink('ajuda', 'h_pedido_prest', 'index', '<?= VERSAO ?>', {id: data.id}) + '\' title=\'Presatação de contas\'><img width=\'25\' src=\'/core/imagem/relatorio.png\'></a>';
-                                links_opcoes += '&nbsp;&nbsp;<a href=\'\' style=\'color:#ffffff; font-size:14pt\' title=\'Percentual de Conclusão da Prestação de Contas do Pedido\'><i style=\'font-size:10pt;\'><?= $percent ?>%</i></a> ';
+                                links_opcoes += '&nbsp;&nbsp;<a href=\'' + geraLink('ajuda', 'h_pedido_prest', 'index', '<?= VERSAO ?>', {id: data.id}) + '\' style=\'color:#ffffff; font-size:14pt\' title=\'Percentual de Conclusão da Prestação de Contas do Pedido\'><i style=\'font-size:10pt;\'>'+data.percent+'%</i></a> ';
                             }
 
 

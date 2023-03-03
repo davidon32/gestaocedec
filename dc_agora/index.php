@@ -18,7 +18,7 @@
     <!--<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">-->
 
-    
+
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -42,26 +42,26 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
+
     <style>
-        
-            @font-face {
-                font-family: "Droid Sans";
-                src: url('fonts/DroidSans.ttf');      
+
+        @font-face {
+            font-family: "Droid Sans";
+            src: url('fonts/DroidSans.ttf');      
         }
-        
-            @font-face {
-                font-family: "Droid Sans Bold";
-                src: url('fonts/DroidSans-Bold.ttf');      
+
+        @font-face {
+            font-family: "Droid Sans Bold";
+            src: url('fonts/DroidSans-Bold.ttf');      
         }
 
         body {
-          font-family: "Droid Sans", "Droid Sans Bold" ;
-         }
-         
-         
-         
-          
+            font-family: "Droid Sans", "Droid Sans Bold" ;
+        }
+
+
+
+
     </style>
 
 </head>
@@ -70,15 +70,15 @@
 
     <?php
     //$categoria = isset($_GET['cat']) ? $_GET['cat'] : "";
-    
-        require('dados.php');
+
+    require('dados.php');
     ?>
 
     <div id="wrapper">
         <div class="collapse top-search" id="collapseExample">
-            
-                <?=include_once 'search.php';?>
-            
+
+            <?= include_once 'search.php'; ?>
+
         </div><!-- end top-search -->
 
         <div class="topbar-section">
@@ -106,14 +106,14 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-6 text-right">
-                        
-                            <a href="http://www.defesacivil.mg.gov.br"><img width="100" src="http://sistema.defesacivil.mg.gov.br/logo/imagens/logomarca_da_defesacivil_nova_expandida.png" alt=""></a>                            
-                        
+
+                        <a href="http://www.defesacivil.mg.gov.br"><img width="100" src="http://sistema.defesacivil.mg.gov.br/logo/imagens/logomarca_da_defesacivil_nova_expandida.png" alt=""></a>                            
+
                     </div>
                     <div class="col-6 text-left">
-                        
-                            <a href="http://www.defesacivil.mg.gov.br"><img width="100" src="http://sistema.defesacivil.mg.gov.br/logo/imagens/logomarca_gabinete_militar_nova.png" alt=""></a>
-                       <!-- end logo -->
+
+                        <a href="http://www.defesacivil.mg.gov.br"><img width="100" src="http://sistema.defesacivil.mg.gov.br/logo/imagens/logomarca_gabinete_militar_nova.png" alt=""></a>
+                        <!-- end logo -->
                     </div>
                 </div><!-- end row -->
             </div><!-- end header-logo -->
@@ -125,8 +125,8 @@
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Forest Timemenu" aria-controls="Forest Timemenu" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse justify-content-md-center" id="Forest Timemenu">
-<?php include_once('menu.php') ?>
+                    <div class="collapse navbar-collapse justify-content-md-center menu_dc" id="Forest" ><!--ForestTimemenu-->
+                        <?php include_once('menu.php') ?>
                     </div>
                 </nav>
             </div><!-- end container -->
@@ -136,12 +136,12 @@
             <div class="container-fluid">
                 <div class="masonry-blog clearfix">
                     <div class="left-side">
-                        <div class="masonry-box post-media" data-id="<?=$ultimas_postagens[0]['id']?>">
+                        <div class="masonry-box post-media" data-id="<?= $ultimas_postagens[0]['id'] ?>">
                             <img src="/anexo/def_civil_agora/<?= $ultimas_postagens[0]['imagem1'] ?>" alt="" class="">
                             <div class="shadoweffect">
                                 <div class="shadow-desc">
                                     <div class="blog-meta">
-                                        <span class="bg-aqua"><?=(strpos($ultimas_postagens[0]['categoria'], "Outros") === 0) ? "Diversos" : $ultimas_postagens[0]['categoria'] ?></span>
+                                        <span class="bg-aqua"><?= (strpos($ultimas_postagens[0]['categoria'], "Outros") === 0) ? "Diversos" : $ultimas_postagens[0]['categoria'] ?></span>
                                         <h4 style="color: white;"><?= substr($ultimas_postagens[0]['texto'], 0, 60) ?>...</h4>
                                         <small style="color: white;"><?= $ultimas_postagens[0]['orgao'] ?></small>
                                         <small style="color: white;"><?= date('d/m/Y H:i:s', strtotime($ultimas_postagens[0]['data_hora'])) ?></small>
@@ -154,7 +154,7 @@
                     </div><!-- end left-side -->
 
                     <div class="center-side">
-                        <div class="masonry-box post-media" data-id="<?=$ultimas_postagens[1]['id']?>">
+                        <div class="masonry-box post-media" data-id="<?= $ultimas_postagens[1]['id'] ?>">
                             <img src="/anexo/def_civil_agora/<?= $ultimas_postagens[1]['imagem1'] ?>" width="534" height=""" alt="" class="img-fluid">
                             <div class="shadoweffect">
                                 <div class="shadow-desc">
@@ -172,7 +172,7 @@
                     </div><!-- end left-side -->
 
                     <div class="right-side hidden-md-down">
-                        <div class="masonry-box post-media" data-id="<?=$ultimas_postagens[2]['id']?>">
+                        <div class="masonry-box post-media" data-id="<?= $ultimas_postagens[2]['id'] ?>">
                             <img src="/anexo/def_civil_agora/<?= $ultimas_postagens[2]['imagem1'] ?>" width="534" height="468"" alt="" class="img-fluid">
                             <div class="shadoweffect">
                                 <div class="shadow-desc">
@@ -198,39 +198,39 @@
                     <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
                         <div class="page-wrapper">
 
-<?php
+                            <?php
 //var_dump($paginacao->dados);
-foreach ($paginacao->dados as $value) {
+                            foreach ($paginacao->dados as $value) {
 
 
 
-    print "<div class=\"blog-list clearfix\">";
-    print "<div class=\"blog-box row\">";
-    print "<div class=\"col-md-4\">";
-    print "<div class=\"post-media\" data-id=\"".$value['id']."\">";
-    print "<a href=\"postagem.php?id=" . $value['id'] . "\" title=\"\">";
-    print "<img src=\"/anexo/def_civil_agora/" . $value['imagem1'] . "\" alt=\"\" class=\"img-fluid\" width=\"255px\"; height=\"255px\"; style=\"max-width: 255px; max-height: 255px; object-fit: cover;\">";
-    print "<div class=\"hovereffect\"></div>";
-    print "</a>";
-    print "</div><!-- end media -->";
-    print "</div><!-- end col -->";
+                                print "<div class=\"blog-list clearfix\">";
+                                print "<div class=\"blog-box row\">";
+                                print "<div class=\"col-md-4\">";
+                                print "<div class=\"post-media\" data-id=\"" . $value['id'] . "\">";
+                                print "<a href=\"postagem.php?id=" . $value['id'] . "\" title=\"\">";
+                                print "<img src=\"/anexo/def_civil_agora/" . $value['imagem1'] . "\" alt=\"\" class=\"img-fluid\" width=\"255px\"; height=\"255px\"; style=\"max-width: 255px; max-height: 255px; object-fit: cover;\">";
+                                print "<div class=\"hovereffect\"></div>";
+                                print "</a>";
+                                print "</div><!-- end media -->";
+                                print "</div><!-- end col -->";
 
-    print "<div class=\"blog-meta big-meta col-md-8\">";
-    print "<span class=\"bg-aqua\">" . $value['categoria'] . "</span>";
-    print "<h4><a href=\"postagem.php?id=" . $value['id'] . "\" title=\"\">" . (isset($value['titulo']) ? $value['titulo'] : substr($value['texto'], 0, 40)."...") . "</a></h4>";
-    print "<p>" . substr($value['texto'], 0, 200) . " <span>Leia mais...</span></p>";
-    print "<small><a href=\"\" title=\"\"><i class=\"fa fa-eye\"></i> " . $value['views'] . "</a></small>";
-    print "<small><a href=\"postagem.php?id=" . $value['id'] . "\" title=\"\">" . $value['orgao'] . "</a></small>";
-    print "<small><a href=\"postagem.php?id=" . $value['id'] . "\" title=\"\">" . DataMysql::dataExtensoDocumento(DataMysql::dataVisual($value['data_hora'])) . "</a></small>";
-    /*print "<small>" . $value['autor'] . "</small>";*/
-    print "</div><!-- end meta -->";
-    print "</div><!-- end blog-box -->";
+                                print "<div class=\"blog-meta big-meta col-md-8\">";
+                                print "<span class=\"bg-aqua\">" . $value['categoria'] . "</span>";
+                                print "<h4><a href=\"postagem.php?id=" . $value['id'] . "\" title=\"\">" . (isset($value['titulo']) ? $value['titulo'] : substr($value['texto'], 0, 40) . "...") . "</a></h4>";
+                                print "<p>" . substr($value['texto'], 0, 200) . " <span>Leia mais...</span></p>";
+                                print "<small><a href=\"\" title=\"\"><i class=\"fa fa-eye\"></i> " . $value['views'] . "</a></small>";
+                                print "<small><a href=\"postagem.php?id=" . $value['id'] . "\" title=\"\">" . $value['orgao'] . "</a></small>";
+                                print "<small><a href=\"postagem.php?id=" . $value['id'] . "\" title=\"\">" . DataMysql::dataExtensoDocumento(DataMysql::dataVisual($value['data_hora'])) . "</a></small>";
+                                /* print "<small>" . $value['autor'] . "</small>"; */
+                                print "</div><!-- end meta -->";
+                                print "</div><!-- end blog-box -->";
 
-    print "<hr class=\"invis\">";
+                                print "<hr class=\"invis\">";
 
-    print "</div><!-- end blog-list -->";
-}
-?>
+                                print "</div><!-- end blog-list -->";
+                            }
+                            ?>
                         </div><!-- end page-wrapper -->
 
                         <hr class="invis">
@@ -239,11 +239,11 @@ foreach ($paginacao->dados as $value) {
                             <div class="col-md-12">
                                 <nav aria-label="Page navigation">
                                     <ul class="pagination justify-content-start">
-<?php
-print $paginacao->rodape;
+                                        <?php
+                                        print $paginacao->rodape;
 
 // print "<li class=\"page-item\"><a class=\"page-link\" href=\"" . FuncaoBase::geraLink('ajuda', 'entrada_nota', 'index', array('page' => $p)) . "\">" . $p . "</a></li>";
-?>
+                                        ?>
 
                                     </ul>
                                 </nav>
@@ -267,17 +267,17 @@ print $paginacao->rodape;
                                 <h2 class = "widget-title">Postagens </h2>
                                 <div class = "blog-list-widget">
                                     <div class = "list-group">
-<?php
-foreach ($post_recente as $key => $value) {
-    print "<div class= 'list-group-item list-group-item-action flex-column align-items-start' data-id='".$value['id']."'>
+                                        <?php
+                                        foreach ($post_recente as $key => $value) {
+                                            print "<div class= 'list-group-item list-group-item-action flex-column align-items-start' data-id='" . $value['id'] . "'>
                                             <div class='w-100 justify-content-between'>
-                                                <img src = \"/anexo/def_civil_agora/" . $value['imagem1']."\" alt ='' class= 'img-fluid float-left' width='55px'; height='55px'; style='max-width: 55px; max-height: 55px; object-fit: cover;'>
+                                                <img src = \"/anexo/def_civil_agora/" . $value['imagem1'] . "\" alt ='' class= 'img-fluid float-left' width='55px'; height='55px'; style='max-width: 55px; max-height: 55px; object-fit: cover;'>
                                                 <h5 class ='mb-1'>" . substr($value['texto'], 0, 40) . "...</h5>
                                                 <small>" . DataMysql::dataCompletaVisual($value['data_hora']) . "</small>
                                             </div>
                                         </div>";
-}
-?>
+                                        }
+                                        ?>
 
 
                                     </div>
@@ -312,11 +312,11 @@ foreach ($post_recente as $key => $value) {
                                 <h2 class="widget-title" id="todos">Categorias</h2>
                                 <div class="link-widget">
                                     <ul>
-<?php
-foreach ($categorias as $key => $value) {
-    print "<li><a href=\"index.php?cat=" . FuncaoBase::slug($value['categoria']) . "\">" . $value['categoria'] . "<span>(" . $value['qtd'] . ")</span></a></li>";
-}
-?>
+                                        <?php
+                                        foreach ($categorias as $key => $value) {
+                                            print "<li><a href=\"index.php?cat=" . FuncaoBase::slug($value['categoria']) . "\">" . $value['categoria'] . "<span>(" . $value['qtd'] . ")</span></a></li>";
+                                        }
+                                        ?>
                                     </ul>
                                 </div><!-- end link-widget -->
                             </div><!-- end widget -->
@@ -333,20 +333,20 @@ foreach ($categorias as $key => $value) {
                         <div class="widget">
                             <div class="footer-text text-center">
                                 <div class="container-fluid">
-                                <div class="row">
-                                    
+                                    <div class="row">
+
                                         <div class="col-6 text-right ">
                                             <a href="garden-index.html"><img width="100" src="http://sistema.defesacivil.mg.gov.br/logo/imagens/logomarca_da_defesacivil_nova_s_fundo.png" alt=""></a>
                                         </div>
-                                   
-                                   
+
+
                                         <div class="col-6 text-left">
                                             <a href="garden-index.html"><img width="100" src="http://sistema.defesacivil.mg.gov.br/logo/imagens/logomarca_gabinete_militar_nova_sem_fundo.png" alt=""></a>
 
                                         </div><!-- end logo -->
-                                    
 
-                                </div><!-- end row -->
+
+                                    </div><!-- end row -->
                                 </div>
                                 <!--<a href="index.html"><img src="images/version/garden-footer-logo.png" alt="" class="img-fluid"></a>-->
                                 <p>Defesa Civil do Estado de Minas Gerais <br>Defesa Civil, somos todos nós !</p>
@@ -395,14 +395,25 @@ foreach ($categorias as $key => $value) {
 
         $(document).ready(function () {
             
-       
+            var resWidth = window.innerWidth;
+            var resHeight = window.innerHeight;
             
+            //alert(resWidth+"-"+resHeight);
+            
+            if(( resWidth >"780" && resWidth <= "1300") && (resHeight > "412" && resHeight <= "635") ){
+              $(".topbar-section").hide(); 
+              $(".header-section").css('padding', 0); 
+              $("div.menu_dc").remove(); 
+              
+            }
+            
+
             function view(id) {
-                
-                var dados = {'opcao' : 'view',
-                             'id' : id,
+
+                var dados = {'opcao': 'view',
+                    'id': id,
                 };
-                
+
                 $.ajax({
                     type: 'POST',
                     url: 'ajax.php',
@@ -411,49 +422,50 @@ foreach ($categorias as $key => $value) {
                         console.log(response);
                     }
                 });
-                
-            };
+
+            }
+            ;
 
             $("#frmBusca").keydown(function (e) {
                 if (e.keyCode == 13) {
                     var dados = {
-                    "termo": $("#termo").val(),
-                    "opcao": "busca",
-                };
+                        "termo": $("#termo").val(),
+                        "opcao": "busca",
+                    };
 
-                $.ajax({
-                    type: 'GET',
-                    url: 'index.php',
-                    data: dados,
-                    success: function (response) {
+                    $.ajax({
+                        type: 'GET',
+                        url: 'index.php',
+                        data: dados,
+                        success: function (response) {
 
-                    }
-                });
+                        }
+                    });
                 }
 
             });
-            
-            
-            $(".post-media, .list-group-item").hover(function(){  
-                $(".post-media").css('cursor', 'pointer'); 
-                $(".list-group-item").css('cursor', 'pointer'); 
+
+
+            $(".post-media, .list-group-item").hover(function () {
+                $(".post-media").css('cursor', 'pointer');
+                $(".list-group-item").css('cursor', 'pointer');
             });
 
             /*click contagem de visualizações */
-            $(".post-media, .list-group-item").click(function(){
+            $(".post-media, .list-group-item").click(function () {
                 var id = $(this).data('id');
-               window.location = 'postagem.php?id='+id;
-               view(id);
+                window.location = 'postagem.php?id=' + id;
+                view(id);
             });
-        
-        });
-        
-        Redirect();
-      function Redirect()
-      {
-              setTimeout("location.reload(true);",300000);  
 
-      }
+        });
+
+        Redirect();
+        function Redirect()
+        {
+            setTimeout("location.reload(true);", 300000);
+
+        }
 
     </script>
 

@@ -44,6 +44,11 @@ Class planoController extends Controller
             $opcao = "lista_geral";
             include_once "mod_compdec/backEnd/View/relatorio/lista_plano.php";
         }
+        # Lista de planos
+        public function listakit(){
+            $opcao = "listakit";
+            include_once "mod_compdec/backEnd/View/relatorio/lista_plano.php";
+        }
 
            
 

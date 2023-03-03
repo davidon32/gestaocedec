@@ -1,7 +1,7 @@
 <?php
 
 //require_once(PATH . '/core/classe/Classe.Data.php');
-/** *********************************************************************************
+/** * ********************************************************************************
  * 	CEDEC-MG - Coordenadoria Estadual de Defesa Civil de Minas Gerais			  	*
  * 	
  *    Gerador de código : 1.0
@@ -15,7 +15,6 @@
  *      Atualização {VERSAO}
  * @param VERSAO														*
  * ********************************************************************************** */
-
 class H_pedido_pedidajuda_hModel extends Model {
 
     private $table = "aju_h_pedido_pedid";
@@ -156,10 +155,10 @@ class H_pedido_pedidajuda_hModel extends Model {
 
         $con = Conexao::getInstance();
         $filtro = "";
-        if( ($_id_redec != 1) && !is_null($_id_redec) ){
+        if (($_id_redec != 1) && !is_null($_id_redec)) {
             $filtro = " WHERE cedec_rpm_mun.id_rpm = '{$_id_redec}' ";
         }
-        
+
         $sql = "SELECT aju_h_pedido_pedid.numero,
                 aju_h_pedido_pedid.id_municipio,
                 aju_h_pedido_pedid.data_entrada_sistema,
@@ -192,7 +191,7 @@ class H_pedido_pedidajuda_hModel extends Model {
 
         $con = Conexao::getInstance();
         $filtro = "";
-        if($id_redec != 1){
+        if ($id_redec != 1) {
             $filtro = " WHERE cedec_rpm_mun.id_rpm = '{$id_redec}' ";
         }
 
@@ -399,7 +398,7 @@ ano) VALUES (:numero,
     ################  Atualizar dados h_pedido_pedid  ###################
 
     public static function edit(array $dados) {
-        
+
         $con = Conexao::getInstance();
 
         $sql = "UPDATE aju_h_pedido_pedid SET 
@@ -746,7 +745,7 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
             return $e->getMessage();
         }
     }
-    
+
     /** lista autocomplete 
 
      * 
@@ -803,7 +802,7 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
             return $e->getMessage();
         }
     }
-    
+
     /** lista autocomplete mesoregiao
 
      * 
@@ -1095,6 +1094,7 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
     }
 
     /* busca material para pedido ajuda */
+
     public static function MaterialPedido($situacao = 1) {
 
         $con = Conexao::getInstance();
@@ -1110,7 +1110,7 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
             $result = $con->query($sql);
 
             while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-                    $dado[] = $linha;
+                $dado[] = $linha;
             }
 
             return $dado;
@@ -1118,8 +1118,9 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
             return $e->getMessage() . "Ocorreu um erro !";
         }
     }
-    
+
     /* busca material disponivel para pedidos */
+
     public static function MaterialDisponivelPedido($situacao = 1) {
 
         $con = Conexao::getInstance();
@@ -1136,11 +1137,11 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
 
             while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
 
-                /*var_dump($linha['singular'], array_column($dado, 'singular') );print "<br>";
-                
-                if(!array_search($linha['singular'], array_column($dado, 'singular'))){*/
-                    $dado[] = $linha;
-                /*}*/
+                /* var_dump($linha['singular'], array_column($dado, 'singular') );print "<br>";
+
+                  if(!array_search($linha['singular'], array_column($dado, 'singular'))){ */
+                $dado[] = $linha;
+                /* } */
             }
 
             return $dado;
@@ -1380,7 +1381,7 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
             return $e->getMessage() . "erro ao selecionar as perdidos !";
         }
     }
-    
+
     /**
      *  busca dados do pedido
      * 
@@ -1424,7 +1425,6 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
             $linha = $result->fetchAll(PDO::FETCH_ASSOC);
 
             return $linha;
-            
         } catch (Exception $e) {
             return $e->getMessage() . "erro ao selecionar o perdido !";
         }
@@ -1629,5 +1629,24 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
             return $e->getMessage() . "-";
         }
     }
+
+    /**
+     *  total de Processos
+     * @param status
+     * 
+     */
+    public static function processosQtd($status) {
+
+        $con = Conexao::getInstance();
+        $dados = "";
+
+        $sql = "select count(id) as id from aju_h_pedido_pedid
+                where status = '{$status}'";
+
+        $result = $con->query($sql);
+
+        return $result->fetchColumn();
+    }
+    
 
 }

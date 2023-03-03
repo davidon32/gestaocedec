@@ -284,6 +284,38 @@ Class RelatorioComdec {
     }
     
     /**
+     *  Relatorios count plano
+     * 
+     */
+    function countPlanoPorMunicipioIds($dados) {
+
+        $con = Conexao::getInstance();
+        $_dados = array();
+
+        $sql = "select cedec_municipio.nome,
+                com_plano_upload.id_municipio, 
+                count(com_plano_upload.file_plano) as qtd
+                
+                from com_plano_upload
+                inner join cedec_municipio
+                on com_plano_upload.id_municipio = cedec_municipio.id_municipio
+                where com_plano_upload.id_municipio <> '7221'
+                and com_plano_upload.id_municipio in (".$dados.")
+                group by id_municipio
+                order by cedec_municipio.nome";
+        
+
+        $result = $con->query($sql);
+
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            
+            $_dados[] = $linha;
+        }
+
+        return $_dados;
+    }
+    
+    /**
      *  Lista o plano do municipio
      * 
      */

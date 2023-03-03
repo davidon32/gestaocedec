@@ -519,7 +519,7 @@ aju_h_pedido_prest.total_familia_at
                 $dados = $linha;
             }
 
-            return (empty($dados['id']) ? 0 : $dados['id']);
+            return (empty($dados['id']) ? 1 : $dados['id']);
         } catch (Exception $e) {
             return $e->getMessage() . "Erro seleciona os beneficiarios";
         }
