@@ -453,6 +453,10 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4 class="modal-title">Upload Foto Prefeito</h4>
+                        <ul>
+                            <li>Tamanho máximo em pixels 500x500 ( link para pesquisa "como saber o tamanho da imagem" clique aqui)</li>
+                            <li>Tamanho máximo em Kbits 300Kb </li>
+                        </ul>
                     </div>
                     <div class="modal-body">
                         <input class="form-control btn" type="file" name="fileAnexoPref" id="fileAnexoPref" /> <br> <br>
@@ -1171,9 +1175,9 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
                                     processData: false, // tell jQuery not to process the data
                                     contentType: false, // tell jQuery not to set contentType
                                     success: function (response) {
-                                        alert('Foto Anexada com Sucesso !');
-                                        //console.log(response);
-                                        location.reload();
+                                        //alert('Foto Anexada com Sucesso !');
+                                        console.log(response);
+                                        //location.reload();
                                         //$("#tblAnexo").html(response);
                                     },
                                     error: function (e) {

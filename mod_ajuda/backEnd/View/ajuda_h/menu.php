@@ -42,6 +42,18 @@
             </div>
 
         </div>
+        
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="info-box" title="Quantidade de Processos Finalizados, com Prestação de contas aprovada">
+                <span class="info-box-icon bg-fuchsia-active"><i class="ion ion-ios-gear-outline"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Processos Aguardando Disponibilidade</span>
+                    <span class="info-box-number"><h2><?=$ajuda::processosQtd(4)?></h2></span>
+                </div>
+
+            </div>
+
+        </div>
 
 
         <div class="clearfix visible-sm-block"></div>
@@ -71,7 +83,7 @@
         
         <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="info-box" title="Quantidade de Processos Finalizados, com Prestação de contas aprovada">
-                <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
+                <span class="info-box-icon bg-aqua-active"><i class="ion ion-ios-gear-outline"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Processos Finalizados</span>
                     <span class="info-box-number"><h2><?=$ajuda::processosQtd(9)?></h2></span>
@@ -80,6 +92,8 @@
             </div>
 
         </div>
+        
+        
 
     </div>
     <div class="row">

@@ -16,6 +16,7 @@
         }
         #grava imagem
 	print $anexoFoto->gravar($post, $files, PATH.'/anexo/prefeito');
+	print $anexoFoto->gravar($post, $files, PATH.'/anexo/prefeito');
 
         
 ?>

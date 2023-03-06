@@ -20,7 +20,7 @@
         <!-- iCheck -->
         <link rel="stylesheet" href="template/plugins/iCheck/square/blue.css">
         <style>
-            
+
             /* tela background */
             div#login_fdo {
                 min-height: 100vh;  /*For 100% screen height */
@@ -33,14 +33,14 @@
                 justify-content: center;
                 display: flex;
             }
-            
+
             /* col-5 tela login */
             div#login_sdc {
                 margin-top: 30vh;
                 position: relative;
             }
-            
-            
+
+
             img{
                 display: block;
                 position: relative;
@@ -51,7 +51,7 @@
             /* div container do login */
             div.login-box1 {
                 margin: 0 auto;
-                width: 360px;                
+                width: 360px;
             }
 
             /* titulo login */
@@ -67,28 +67,28 @@
                 /*                height: 100px;*/
             }
 
-            div#row1 {
-                /*                max-height: 100vh;*/
+/*            div#row1 {
+                                max-height: 100vh;
                 z-index: 0;
-/*                position: absolute;*/
+                                position: absolute;
 
-            }
+            }*/
 
-            div#row2 {
-                /*                //max-height: 10vh;*/
+/*            div#row2 {
+                                //max-height: 10vh;
                 display: flex;
                 justify-content: flex-end;
-            }
-            
+            }*/
+
             #tempo{
                 justify-content: flex-end;
             }
 
-            @media screen and (max-width: 414px){
+/*            @media screen and (max-width: 414px){
 
                 div#login_fdo {
-                    /*height: 10vh;  /*For 100% screen height */
-                    /* width:  100vw;  For 100% screen width 100;*/
+                    height: 10vh;  /*For 100% screen height 
+                     width:  100vw;  For 100% screen width 100;
                     background-image: url("/core/imagem/background1_.jpg");
                     background-repeat: no-repeat;
                     background-size: cover;
@@ -104,7 +104,7 @@
                     margin: auto;
                 }
 
-            }
+            }*/
 
         </style>
 
@@ -121,89 +121,93 @@
     </head>
     <body class="hold-transition login-page">
 
-        <div class="row" id="row1">
-            <div class="col col-md-7" id="login_fdo">
-                <img src="/core/imagem/logo_sdc.png" alt="">
-<!--                <div id="ww_faf7fd42cfdd2" v='1.3' loc='auto' a='{"t":"horizontal","lang":"pt","sl_lpl":1,"ids":[],"font":"Arial","sl_ics":"one_a","sl_sot":"celsius","cl_bkg":"image","cl_font":"#FFFFFF","cl_cloud":"#FFFFFF","cl_persp":"#81D4FA","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722"}'><a href="https://weatherwidget.org/android-app/" id="ww_faf7fd42cfdd2_u" target="_blank">Best free weather app for android</a></div><script async src="https://app1.weatherwidget.org/js/?id=ww_faf7fd42cfdd2"></script>;-->
-            </div>
+        <div class="flex-contaner">
 
-            <div class="col col-md-5">
-                <div id="login_sdc">
-                    <div class="login-box1" >
-                        <div class="login-logo1">
-                            <!--                        <a href=\"../../index.php\" title="Sistema de Defesa Civil"><b>SDC</b></a>;-->
-                            <br>
-                        </div>
-                        <!-- /.login-logo -->
-                        <div class="login-box-body1">
-    <!--                        <p class="login-box-msg">Entre com seu <b>usuário</b> e <b>senha</b> para acesso ao Sistema</p>-->
 
-                            <form action="index.php?modulo=index&controller=index&action=logar" method="POST">
-                                <div class="form-group has-feedback">
-                                    <input type="text" class="form-control" placeholder="Email" name="login" id="login" value="" maxlength="70" title="O email de entrada no SDC é o mesmo email de recuperação de senha">
-                                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                                    <span id='municipio'></span>
-                                </div>
-                                <div class="form-group has-feedback">
-                                    <input type="password" class="form-control" placeholder="Password" name="senha"id="senha" value="" title="O SDC diferencia letras maiúsculas de minúsculas !" maxlength="70">
-                                    <span class="glyphicon glyphicon-lock form-control-feedback"></span><br>
+            <div class="row" id="row1">
+                <div class="col col-md-7" id="login_fdo">
+                    <img src="/core/imagem/logo_sdc.png" alt="">
+    <!--                <div id="ww_faf7fd42cfdd2" v='1.3' loc='auto' a='{"t":"horizontal","lang":"pt","sl_lpl":1,"ids":[],"font":"Arial","sl_ics":"one_a","sl_sot":"celsius","cl_bkg":"image","cl_font":"#FFFFFF","cl_cloud":"#FFFFFF","cl_persp":"#81D4FA","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722"}'><a href="https://weatherwidget.org/android-app/" id="ww_faf7fd42cfdd2_u" target="_blank">Best free weather app for android</a></div><script async src="https://app1.weatherwidget.org/js/?id=ww_faf7fd42cfdd2"></script>;-->
+                </div>
 
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-8">
+                <div class="col col-md-5">
+                    <div id="login_sdc">
+                        <div class="login-box1" >
+                            <div class="login-logo1">
+                                <!--                        <a href=\"../../index.php\" title="Sistema de Defesa Civil"><b>SDC</b></a>;-->
+                                <br>
+                            </div>
+                            <!-- /.login-logo -->
+                            <div class="login-box-body1">
+        <!--                        <p class="login-box-msg">Entre com seu <b>usuário</b> e <b>senha</b> para acesso ao Sistema</p>-->
 
-                                        <!--                                        <label>
-                                                                                    <input type="checkbox"> Lembrar Usuário
-                                                                                </label>-->
-                                        <a class='btn btn-link' href="index.php<?= FuncaoBase::geraLink("admin", "admin", "esqueci_senha", array('externo' => md5('externo'))) ?>">Esqueci minha senha</a>
+                                <form action="index.php?modulo=index&controller=index&action=logar" method="POST">
+                                    <div class="form-group has-feedback">
+                                        <input type="text" class="form-control" placeholder="Email" name="login" id="login" value="" maxlength="70" title="O email de entrada no SDC é o mesmo email de recuperação de senha">
+                                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                                        <span id='municipio'></span>
+                                    </div>
+                                    <div class="form-group has-feedback">
+                                        <input type="password" class="form-control" placeholder="Password" name="senha"id="senha" value="" title="O SDC diferencia letras maiúsculas de minúsculas !" maxlength="70">
+                                        <span class="glyphicon glyphicon-lock form-control-feedback"></span><br>
 
                                     </div>
-                                    <!-- /.col -->
-                                    <div class="col-xs-4">
-                                        <button type="submit" class="btn btn-primary btn-block btn-flat">Entrar</button>
-                                    </div>
-                                    <!-- /.col -->
-                                </div>
+                                    <div class="row">
+                                        <div class="col-xs-8">
 
-                                <div class="row">
-                                    <br>
-                                    <div class="col-xs-12">
-                                        <div class="col alert alert-warning">
-                                            Ao usar o recurso "Esquecí minha Senha",<br> verifique em seu email a sua caixa de "SPAM / LIXO ELETRONICO"
+                                            <!--                                        <label>
+                                                                                        <input type="checkbox"> Lembrar Usuário
+                                                                                    </label>-->
+                                            <a class='btn btn-link' href="index.php<?= FuncaoBase::geraLink("admin", "admin", "esqueci_senha", array('externo' => md5('externo'))) ?>">Esqueci minha senha</a>
+
                                         </div>
+                                        <!-- /.col -->
+                                        <div class="col-xs-4">
+                                            <button type="submit" class="btn btn-primary btn-block btn-flat">Entrar</button>
+                                        </div>
+                                        <!-- /.col -->
                                     </div>
 
-                                </div>
+                                    <div class="row">
+                                        <br>
+                                        <div class="col-xs-12">
+                                            <div class="col alert alert-warning">
+                                                Ao usar o recurso "Esquecí minha Senha",<br> verifique em seu email a sua caixa de "SPAM / LIXO ELETRONICO"
+                                            </div>
+                                        </div>
 
-                            </form>
+                                    </div>
 
-                            <!--     <div class="social-auth-links text-center">
-                                  <p>- OR -</p>
-                                  <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using
-                                    Facebook</a>
-                                  <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using
-                                    Google+</a>
-                                </div> -->
-                            <!-- /.social-auth-links -->
+                                </form>
+
+                                <!--     <div class="social-auth-links text-center">
+                                      <p>- OR -</p>
+                                      <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using
+                                        Facebook</a>
+                                      <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using
+                                        Google+</a>
+                                    </div> -->
+                                <!-- /.social-auth-links -->
 
 
-                            <!--<a href="register.html" class="text-center">Registrar novo Usuário</a>-->
+                                <!--<a href="register.html" class="text-center">Registrar novo Usuário</a>-->
 
-                            <!--<a href="register.html" class="text-center">Precisando de Ajuda Clique Aqui</a>
-                            ou envie email para o suporte <br>demetrio.passos@defesacivil.mg.gov.br-->
+                                <!--<a href="register.html" class="text-center">Precisando de Ajuda Clique Aqui</a>
+                                ou envie email para o suporte <br>demetrio.passos@defesacivil.mg.gov.br-->
+                            </div>
+                            <!-- /.login-box-body -->
+
                         </div>
-                        <!-- /.login-box-body -->
-
+                        <!-- /.login-box -->
                     </div>
-                    <!-- /.login-box -->
                 </div>
             </div>
-        </div>
-        <div class="row" id="row2">
-            <div class="tempo" id="ww_0c8fb7f40166b" v='1.3' loc='auto' a='{"t":"responsive","lang":"pt","sl_lpl":1,"ids":[],"font":"Arial","sl_ics":"one_a","sl_sot":"celsius","cl_bkg":"image","cl_font":"#FFFFFF","cl_cloud":"#FFFFFF","cl_persp":"#81D4FA","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722"}'>
-                <a href="https://weatherwidget.org/android-app/" id="ww_0c8fb7f40166b_u" target="_blank">Free weather app for android</a>
+            <div class="row" id="row2">
+                <div class="tempo" id="ww_0c8fb7f40166b" v='1.3' loc='auto' a='{"t":"responsive","lang":"pt","sl_lpl":1,"ids":[],"font":"Arial","sl_ics":"one_a","sl_sot":"celsius","cl_bkg":"image","cl_font":"#FFFFFF","cl_cloud":"#FFFFFF","cl_persp":"#81D4FA","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722"}'>
+                    <a href="https://weatherwidget.org/android-app/" id="ww_0c8fb7f40166b_u" target="_blank">Free weather app for android</a>
+                </div>
+                <script async src="https://app1.weatherwidget.org/js/?id=ww_0c8fb7f40166b"></script>
             </div>
-            <script async src="https://app1.weatherwidget.org/js/?id=ww_0c8fb7f40166b"></script>
         </div>
 
     </body>

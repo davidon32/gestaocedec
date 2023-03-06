@@ -80,9 +80,13 @@ if (($_COOKIE['seguranca']['adm']) && (!empty($id))) {
         print "history.back();";
         print "</script>";
     }
-} else {
+
+    # CADASTRA NOVO USUARIO
+    } else {
 
     if ($_nome != null && $_senha != null) {
+        
+        var_dump($id_funcionario);
 
         $_cad_usuario_cedec = Usuario::CadastraUsuarioCedec($_id_deposito,
                         $_nome,
