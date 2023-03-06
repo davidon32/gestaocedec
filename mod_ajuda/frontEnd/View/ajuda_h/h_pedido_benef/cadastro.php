@@ -45,7 +45,7 @@ $id = isset($_GET['id']) ? $_GET['id'] : "";
 <div class='row'>
 <div class='col-md-2'>
 <label>Quantidade de Material</label>
-<input type="number" class='form form-control' name='qtd' id='qtd' max='999' required >
+<input type="number" class='form form-control' name='qtd' id='qtd' onblur="this.value = Math.abs(this.value)" max='999' required >
 </div>
 </div>
 <div class='row'>

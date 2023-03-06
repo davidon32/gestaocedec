@@ -113,8 +113,8 @@ class h_pedido_benefController extends Controller {
                 $this->redirect("ajuda", "h_pedido_benef", "cadastro", array('id'=>$_POST['id_prest_conta'], 'id_pedido'=>$_POST['id_pedido']));
             }
         }else {
-            //FuncaoBase::alert("Quantidade de Material excede o limite esperado para prestar contas !\\n\\nVerifique o material restante para prestar Contas !");
-            //$this->redirect("ajuda", "h_pedido_benef", "cadastro", array('id'=>$_POST['id_prest_conta'], 'id_pedido'=>$_POST['id_pedido']));
+            FuncaoBase::alert("Quantidade de Material excede o limite esperado para prestar contas !\\n\\nVerifique o material restante para prestar Contas !");
+            $this->redirect("ajuda", "h_pedido_benef", "cadastro", array('id'=>$_POST['id_prest_conta'], 'id_pedido'=>$_POST['id_pedido']));
         }
     }
             

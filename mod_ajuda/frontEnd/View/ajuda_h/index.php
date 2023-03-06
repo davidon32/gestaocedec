@@ -53,7 +53,7 @@ $pedido_h_item = new H_pedido_itensajuda_hModel();
     <div class="col-md-6">
         <div class='col-md-5'></div>
              
-        <div class="col-md-7 text-left"><br>
+        <!--<div class="col-md-7 text-left"><br>
                 <span style="background-color: #F3E2A9;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
                 &nbsp; Em edição COMPDEC.<br>
                 
@@ -72,7 +72,7 @@ $pedido_h_item = new H_pedido_itensajuda_hModel();
                 <span style="background-color: #B40404;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
                 &nbsp; Cancelado / Nulo.<br>
                 <br>
-            </div>
+            </div>-->
     </div>
     <br><br>
     <table class="table ">

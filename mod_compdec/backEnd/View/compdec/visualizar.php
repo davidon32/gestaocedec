@@ -67,6 +67,8 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 
 	<?=($_dados[0]['com_ativa'] == 0) ? "<div class='alert alert-danger'>ESTE COMPDEC ESTÁ COM A SITUAÇÃO DE <b>'INATIVO' </b> NA GUIA DADOS GERAIS opção \"Situação do COMPDEC \". <BR>  FAVOR VERIFICAR ANTES DE ALTERAR OS DADOS </div>" : "";?>
 
+<p><a class="btn btn-success" href="<?= FuncaoBase::geraLink('compdec', 'compdec', 'buscarAlterar')?>">Voltar</a></p>
+
 	<!-- DADOS GERAIS -->
 	<div class="col-md-12">
 		<legend>Dados Gerais</legend>

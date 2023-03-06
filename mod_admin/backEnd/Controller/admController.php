@@ -38,8 +38,7 @@
 
         /** valida cadatro usuario */
         public function cad_user_valida(){
-           
-           
+                     
             $usuario = new Usuario();
 
             $numPolicia = isset($_POST['txtNumPol']) ? $_POST['txtNumPol']  : false;
@@ -50,15 +49,18 @@
             $id_usuario = isset($_POST['id_usuario'])? $_POST['id_usuario'] : false;
             $situacao   = isset($_POST['selSituacao'])? $_POST['selSituacao'] : false;
             
-            $email_info1 = isset($_POST['txtEmailInfo1'])? $_POST['txtEmailInfo1'] : false;
-            $email_info2 = isset($_POST['txtEmailInfo2'])? $_POST['txtEmailInfo2'] : false;
+            $email_info1= isset($_POST['txtEmailInfo1'])? $_POST['txtEmailInfo1'] : false;
+            $email_info2= isset($_POST['txtEmailInfo2'])? $_POST['txtEmailInfo2'] : false;
+            $posto      = isset($_POST['sel_posto'])? $_POST['sel_posto'] : false;
+            $id_rpm     = isset($_POST['sel_rpm'])? $_POST['sel_rpm'] : false;
+            $secao      = isset($_POST['sel_secao'])? $_POST['sel_secao'] : false;
 
             $opcao = isset($_POST['opcao'])  ? $_POST['opcao']   : false;
 
             if($opcao == "caduser"){
                 
                 # cadastro "cedec_funcionario"
-                if($usuario->cadFuncionario($numPolicia, $nomeComp, $username, $setor, $email_info1, $email_info2)){
+                if($usuario->cadFuncionario($numPolicia, $nomeComp, $username, $setor, $email_info1, $email_info2, $posto, $id_rpm, $secao)){
                     
                 /* inserir usuario "cedec_usuario" */
                 SqlGenerics::Inserir('cedec_usuario',
@@ -69,12 +71,23 @@
                             'nivel'=>0,
                             'situacao'=>1,
                             'login'=>$username,
-                            'id_funcionario'=>Usuario::idFuncionario($numPolicia)));
+                            'id_funcionario'=>Usuario::idFuncionario($numPolicia),
+                            'it_m_deposito' => 1,
+                            'it_m_comdec' => 1,
+                            'trsenha' => 1,
+                            'it_m_apoio' => 1,
+                            'it_m_poco' => 1,
+                            'it_m_cce' =>1
+                        )
+                );
                 
                 /* inserir permissoes CEDEC PERMISSAO */
                 SqlGenerics::Inserir('cedec_permissao', array('login'=>$username,
                                                             'nivel'=>0,
-                                                            'id_usuario'=> Usuario::getIdUsuario($username)));
+                                                            'id_usuario'=> Usuario::getIdUsuario($username),
+                                                            'cad_prefeitura' => 1
+                                                            )
+                                    );
 
                 
                 /******************************* modulo ajuda humanitaria novo ***********************

@@ -24,6 +24,8 @@ class Anexo extends FuncaoBase  {
 			$nomeArquivo = (strlen($hash) > 0) ? $hash."_".str_replace(" ", "_", $nome_regular).".".$ext : str_replace(" ", "_", $nome_regular).".".$ext ;
                         
 		}
+                
+                
 		 
 		$uploadFile = $caminho."/".$nomeArquivo;
 

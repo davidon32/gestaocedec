@@ -69,7 +69,7 @@
 
         </div>
 
-        <div class="col-md-4 col-sm-6 col-xs-12">
+        <!--<div class="col-md-4 col-sm-6 col-xs-12">
             <div class="info-box" title="Quantidade de Processos em Fase de Prestação de Contas">
                 <span class="info-box-icon bg-yellow"><i class="ion ion-ios-gear-outline"></i></span>
                 <div class="info-box-content">
@@ -79,7 +79,7 @@
 
             </div>
 
-        </div>
+        </div>-->
         
         <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="info-box" title="Quantidade de Processos Finalizados, com Prestação de contas aprovada">

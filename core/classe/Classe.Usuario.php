@@ -1875,7 +1875,7 @@ class Usuario extends UsuarioModel {
     }
 
     /** cadastro de funcionario */
-    function cadFuncionario($numPolicia, $nomeComp, $usuario, $setor, $email, $email2) {
+    function cadFuncionario($numPolicia, $nomeComp, $usuario, $setor, $email, $email2, $posto, $id_rpm, $secao) {
 
         $con = Conexao::getInstance();
 
@@ -1883,12 +1883,18 @@ class Usuario extends UsuarioModel {
 						nome,
 						orgao,
 						email,
-                                                email2)
+                                                email2,
+                                                posto,
+                                                id_rpm,
+                                                secao)
 						VALUES("' . $numPolicia . '",
 							"' . $nomeComp . '",
 							"' . $setor . '",
 							"' . $email . '",
-							"' . $email2 . '")';
+							"' . $email2 . '",
+                                                        "' . $posto .'",
+                                                        "' . $id_rpm . '",
+                                                        "' . $secao .'")';
         try {
             $result = $con->query($sql);
             return true;
