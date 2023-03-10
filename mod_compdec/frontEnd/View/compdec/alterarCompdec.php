@@ -710,6 +710,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
             $('#span_info').show();
         }
 
+console.log(getUrlVars().cpf);
         if (getUrlVars().cpf != 'undefined') {
             $('html, body').animate({scrollTop: $('#equipe').offset().top}, 2000);
         };

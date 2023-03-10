@@ -233,7 +233,7 @@ if((int)$id_libera){
 
 			$("#dtPgto").datepicker({ 
                             dateFormat: 'dd/mm/yy',
-                            minDate: "-1D",
+                            minDate: "<?php print DataMysql::dataVisual($dado['datalibera'])?>",
                             maxDate: "+15D", 
                         }).attr('readonly', 'readonly');;
 		
@@ -249,6 +249,10 @@ if((int)$id_libera){
 				$("#cpf").hide();
 			}
 		}
+                
+                $("#btnPag").hover(function(){
+                   alert(); 
+                });
 
 		/* form validation */
 		$("#frmPagamento").validate({

@@ -153,17 +153,22 @@ class Municipio extends DataMysql {
         }
     }
 
-    # dados para select nome de municipios
+    
+    /**
+     * # dados para select nome de municipios
+     * @param $rpm = id_rpm
+     */
 
-    function dadosSelectMunicipio($rpm = "") {
+    function dadosSelectMunicipio($rpm ="") {
 
         if (!empty($rpm) && ($rpm != 1)) {
             $sql = "select cedec_municipio.id_municipio, 
-                    cedec_municipio.nome
+                    cedec_municipio.nome,
+                    cedec_rpm_mun.nome as rpm,
+                    cedec_rpm_mun.id_rpm
                     from cedec_municipio
                     inner join cedec_rpm_mun
-                    on cedec_municipio.id_municipio = cedec_rpm_mun.id_municipio
-                    where cedec_rpm_mun.id_rpm = " . $rpm;
+                    on cedec_municipio.id_municipio = cedec_rpm_mun.id_municipio";
         } else {
             $sql = "SELECT id_municipio, nome  FROM cedec_municipio ORDER BY nome";
         }
@@ -177,8 +182,18 @@ class Municipio extends DataMysql {
         $result->execute();
 
         while ($linha = $result->fetch(PDO::FETCH_BOTH)) {
+            
+            $res = $linha;
+            
 
-            $_dados[] = $linha;
+            if( !empty($rpm) && ($rpm !=1) && ($res['id_rpm'] != $rpm) ){
+                $res['red'] = "style='color:red';";
+            }else {
+                $res['red'] = "";
+            }
+                $_dados[] = $res;
+            
+                //var_dump($res);
         }
 
         return $_dados;

@@ -12,7 +12,9 @@
 <?php
 $id_municipio = isset($pageSession['session']['seguranca']['id_municipio']) ? $pageSession['session']['seguranca']['id_municipio'] : "";
 
-$busca_vistorias = vistoriaController::listagem_geral();
+
+
+$busca_vistorias = vistoriaController::listagem_geral(['id_municipio'=>$id_municipio]);
 
 ?>
 

@@ -174,18 +174,18 @@ class LoginExterno extends Log {
 
         try {
 
-            setcookie("seguranca[idUser]", null, -1);
-            setcookie("seguranca[login]", null, -1);
-            setcookie("seguranca[nome_usuario]", null, -1);
-            setcookie("seguranca[email_rec]", null, -1);
+            setcookie("seguranca[idUser]",        "", time() -3600);
+            setcookie("seguranca[login]",         "", time() -3600);
+            setcookie("seguranca[nome_usuario]",  "", time() -3600);
+            setcookie("seguranca[email_rec]",     "", time() -3600);
 
-            setcookie("seguranca[id_municipio]", null, -1);
-            setcookie("seguranca[externo]", null, -1);
-            setcookie("seguranca[tipo]", null, -1);
-            setcookie("seguranca[sessao]", null, -1);
-            setcookie("seguranca[sessao_id]", null, -1);
+            setcookie("seguranca[id_municipio]",  "", time() -3600);
+            setcookie("seguranca[externo]",       "", time() -3600);
+            setcookie("seguranca[tipo]",          "", time() -3600);
+            setcookie("seguranca[sessao]",  "", time() -3600);
+            setcookie("seguranca[sessao_id]",  "", time() -3600);
         } catch (Exception $e) {
-
+            
             print header('Location:/index.php');
         }
     }

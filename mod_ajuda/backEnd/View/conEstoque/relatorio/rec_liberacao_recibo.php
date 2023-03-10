@@ -213,14 +213,17 @@
 					<br />
 					<table width="100%" border="0">
 						<tr>
-							<td align="center">_______________________________________</td>
+                                                    <td align="center">_______________________________________<br></td>
 						 </tr>
 						<tr>
-							<td align="center"><?php print Oficial::PegaNomeOficial($dados['responsavel'])."<br />".Oficial::PegaCargoIdOficial($dados['responsavel']);?></td>
+<!--							<td align="center"><?php print Oficial::PegaNomeOficial($dados['responsavel'])."<br />".Oficial::PegaCargoIdOficial($dados['responsavel']);?></td>-->
 						</tr>
 						<tr>
 							<td align="center"><!--Secret&aacuterio Executivo CEDEC-MG--><br /><br /><br /></td>
 						</tr>
+<!--						<tr>
+							<td align=""><br><br><span class="h6">Autorização: <?php print Oficial::PegaNomeOficial($dados['responsavel'])."<br />".Oficial::PegaCargoIdOficial($dados['responsavel']);?> </td>
+						 </tr>-->
 					</table>
 		</table>						    
 			

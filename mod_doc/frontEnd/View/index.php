@@ -32,10 +32,10 @@
                 <span class="glyphicon glyphicon-asterisk"></span><a href="<?= FuncaoBase::geraLink("doc", "doc", "ajuda") ?>" class="alert" style="text-decoration:none">PMDA - PLANO MUNICIPAL DE DISTRIBUIÇÃO DE ÁGUA</a>
             </li>
             <li class="list-group-item">
-                <span class="glyphicon glyphicon-asterisk"></span><a href="<?= FuncaoBase::geraLink("doc", "doc", "download", array('arquivo' => 'doc/AJUDA_HUMANITARIA_18.10.2022_v.2_parte1.pdf')) ?>" class="alert" style="text-decoration:none">PEDIDO DE AJUDA HUMANIÁRIA PARTE 1(18/10/2022)</a>
+                <span class="glyphicon glyphicon-asterisk"></span><a href="<?= FuncaoBase::geraLink("doc", "doc", "download", array('arquivo' => 'doc/AJUDA_HUMANITARIA_PEDIDO_18.10.2022_v.2_parte1.pdf')) ?>" class="alert" style="text-decoration:none">PEDIDO DE AJUDA HUMANIÁRIA PARTE 1 - atualização 07/03/2023</a>
             </li>
             <li class="list-group-item">
-                <span class="glyphicon glyphicon-asterisk"></span><a href="" class="alert" style="text-decoration:none">PEDIDO DE AJUDA HUMANIÁRIA - PARTE 2 - PRESTAÇÃO DE CONTAS </a><i class="alert">( EM BREVE )</i>    
+                <span class="glyphicon glyphicon-asterisk"></span><a href="<?= FuncaoBase::geraLink("doc", "doc", "download", array('arquivo' => 'doc/AJUDA_HUMANITARIA_PRESTACAO_CONTAS_04.11.2022.pdf')) ?>" class="alert" style="text-decoration:none">PEDIDO DE AJUDA HUMANIÁRIA PARTE 2 / PRESTAÇÃO DE CONTAS - atualização 07/03/2023</a>    
             </li>
 
         </ul>
@@ -56,7 +56,7 @@
                 <a href="<?= FuncaoBase::geraLink("doc", "doc", "download", array('arquivo' => 'doc/AJUDA HUMANITARIA_30.09.2022_parte1.pdf')) ?>" class="alert" id='pedido_ajuda' style="text-decoration:none">PEDIDO DE AJUDA HUMANIÁRIA PARTE 1(03/10/2022)</a>
             </li>
             <li class="list-group-item">
-                <a href="" class="alert" style="text-decoration:none">PEDIDO DE AJUDA HUMANIÁRIA - PARTE 2 - PRESTAÇÃO DE CONTAS </a><i class="alert">( EM BREVE )</i>    
+                <a href="<?= FuncaoBase::geraLink("doc", "doc", "download", array('arquivo' => 'doc/AJUDA_HUMANITARIA_PRESTACAO_CONTAS_04.11.2022.pdf')) ?>" class="alert" style="text-decoration:none">PEDIDO DE AJUDA HUMANIÁRIA - PARTE 2 - PRESTAÇÃO DE CONTAS </a>    
             </li>
             
         </ul>

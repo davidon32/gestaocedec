@@ -67,44 +67,44 @@
                 /*                height: 100px;*/
             }
 
-/*            div#row1 {
-                                max-height: 100vh;
-                z-index: 0;
-                                position: absolute;
+            /*            div#row1 {
+                                            max-height: 100vh;
+                            z-index: 0;
+                                            position: absolute;
+            
+                        }*/
 
-            }*/
-
-/*            div#row2 {
-                                //max-height: 10vh;
-                display: flex;
-                justify-content: flex-end;
-            }*/
+            /*            div#row2 {
+                                            //max-height: 10vh;
+                            display: flex;
+                            justify-content: flex-end;
+                        }*/
 
             #tempo{
                 justify-content: flex-end;
             }
 
-/*            @media screen and (max-width: 414px){
-
-                div#login_fdo {
-                    height: 10vh;  /*For 100% screen height 
-                     width:  100vw;  For 100% screen width 100;
-                    background-image: url("/core/imagem/background1_.jpg");
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                    margin: auto;
-                    text-align:center;
-                    justify-content: center;
-                    display: flex;
-                }
-                img{
-                    width: 10%;
-                    display: block;
-                    position: relative;
-                    margin: auto;
-                }
-
-            }*/
+            /*            @media screen and (max-width: 414px){
+            
+                            div#login_fdo {
+                                height: 10vh;  /*For 100% screen height 
+                                 width:  100vw;  For 100% screen width 100;
+                                background-image: url("/core/imagem/background1_.jpg");
+                                background-repeat: no-repeat;
+                                background-size: cover;
+                                margin: auto;
+                                text-align:center;
+                                justify-content: center;
+                                display: flex;
+                            }
+                            img{
+                                width: 10%;
+                                display: block;
+                                position: relative;
+                                margin: auto;
+                            }
+            
+                        }*/
 
         </style>
 
@@ -175,6 +175,22 @@
                                                 Ao usar o recurso "Esquecí minha Senha",<br> verifique em seu email a sua caixa de "SPAM / LIXO ELETRONICO"
                                             </div>
                                         </div>
+                                        <div class="col-xs-12">
+                                            <div class="">
+                                                Suporte Técnico do SDC enviar para :<br>
+
+                                                <span style="font-size:20px; color:blue"><a style="text-decoration:none" href='malito:sdc@defesacivil.mg.gov.br'>sdc@defesacivil.mg.gov.br</a></span>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xs-12"><br><br>
+                                            <div class="">
+                                                <span class="h4"><?= VERSAO; ?></span>
+
+                                            </div>
+
+                                        </div>
 
                                     </div>
 
@@ -220,6 +236,30 @@
     <script>
 
         $(document).ready(function () {
+
+
+//            let timerInterval
+//            Swal.fire({
+//                title: 'Auto close alert!',
+//                html: 'I will close in <b></b> milliseconds.',
+//                timer: 10000,
+//                timerProgressBar: true,
+//                didOpen: () => {
+//                    Swal.showLoading()
+//                    const b = Swal.getHtmlContainer().querySelector('b')
+//                    timerInterval = setInterval(() => {
+//                        b.textContent = Swal.getTimerLeft()
+//                    }, 100)
+//                },
+//                willClose: () => {
+//                    clearInterval(timerInterval)
+//                }
+//            }).then((result) => {
+//                /* Read more about handling dismissals below */
+//                if (result.dismiss === Swal.DismissReason.timer) {
+//                    console.log('I was closed by the timer')
+//                }
+//            })
 
 
 

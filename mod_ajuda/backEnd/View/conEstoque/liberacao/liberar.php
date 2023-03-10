@@ -42,38 +42,37 @@ $dadosDeposito = Deposito::ListaDeposito();
 <div class="col-md-2"></div>
 <div class="col-md-6 text-left">
 
-        <div class="input-group">
-            <!-- Adicionar Materiais na Liberacao -->
-            <?php
-            
-                $attr = "";
-                $id_deposito = "";
-                $nome_deposito = "";
-                
-                if($_COOKIE['seguranca']['id_deposito'] != 1){
-                    $attr = 'readonly';
-                    $id_deposito = isset($_COOKIE['seguranca']['id_deposito']) ? $_COOKIE['seguranca']['id_deposito'] :"";
-                    $nome_deposito = Deposito::PegaNomeDeposito($id_deposito);
-                }
-            ?>
-            <input type="text" class="form col-md-12" name="nome_deposito" id="nome_deposito" <?=$attr?> value='<?=$nome_deposito?>' placeholder="Deposito Retirada">
-            <input type="hidden" name="id_deposito" id="id_deposito" value="<?=$id_deposito?>"> 
-            <span class="input-group-btn">
-                <button type="button" class="btn btn-default" id='btnAddMaterial'>Adicionar Materiais</button>
-            </span>
-        </div><!-- /input-group -->
-    
-    <p style="text-align:center"><legend>Lista de Materiais a Liberar</legend></p>
-
-    <div class="col-md-12 text-center">
+    <div class="input-group">
+        <!-- Adicionar Materiais na Liberacao -->
         <?php
-        if (isset($_SESSION['cesta']) && (!empty($_SESSION['cesta']))) {
-            print Pedido::MostraPedido($_SESSION['cesta']);
-        } else {
-            print "<span class=\"alert alert-danger\">Não foi Adicionado Material para Liberaração</span>";
+        $attr = "";
+        $id_deposito = "";
+        $nome_deposito = "";
+
+        if ($_COOKIE['seguranca']['id_deposito'] != 1) {
+            $attr = 'readonly';
+            $id_deposito = isset($_COOKIE['seguranca']['id_deposito']) ? $_COOKIE['seguranca']['id_deposito'] : "";
+            $nome_deposito = Deposito::PegaNomeDeposito($id_deposito);
         }
         ?>
-    </div>
+        <input type="text" class="form col-md-12" name="nome_deposito" id="nome_deposito" <?= $attr ?> value='<?= $nome_deposito ?>' placeholder="Deposito Retirada">
+        <input type="hidden" name="id_deposito" id="id_deposito" value="<?= $id_deposito ?>"> 
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-default" id='btnAddMaterial'>Adicionar Materiais</button>
+        </span>
+    </div><!-- /input-group -->
+
+    <p style="text-align:center"><legend>Lista de Materiais a Liberar</legend></p>
+
+<div class="col-md-12 text-center">
+    <?php
+    if (isset($_SESSION['cesta']) && (!empty($_SESSION['cesta']))) {
+        print Pedido::MostraPedido($_SESSION['cesta']);
+    } else {
+        print "<span class=\"alert alert-danger\">Não foi Adicionado Material para Liberaração</span>";
+    }
+    ?>
+</div>
 </div>	
 <div class='col-md-2'>&nbsp;</div>
 <div class='col-md-2'>&nbsp;</div>
@@ -159,7 +158,7 @@ $dadosDeposito = Deposito::ListaDeposito();
     </div>
 
     <div class="col-md-6">	
-        <label>Data:</label>
+        <label>Data:</label> <span style="color:red; font-weight: bold">( Esta é a data da liberação )</span>
         <input type="text" name="dt_libera" id="dt_libera" size="15" class="mask-data form-control" value="<?php print date('d/m/Y'); ?>"  maxlength="10"/>
     </div>
 
@@ -223,12 +222,24 @@ $dadosDeposito = Deposito::ListaDeposito();
             data:
 <?php print json_encode($municipios); ?>, // array com os dados
             getValue: "nome",
+            template: {
+                type: "custom",
+                method: function (value, item) {
+                    if(item.red.length >0){
+                        console.log(item.red);
+                        return value + "- <b style='color:red'>Atenção este Município é da " + item.rpm + " RPM</b>";
+                    }else {
+                        return value;
+                        
+                    }
+                }
+            },
             list: {
                 maxNumberOfElements: 15,
                 match: {
                     enabled: true
                 },
-                
+
                 onClickEvent: function () {
                     var value = $("#txtMunicipio").getSelectedItemData().id_municipio;
 

@@ -49,12 +49,20 @@ $listMembro = $eqCompdec->listaMembro($id_municipio);
 $num = 1;
 
 $info = '';
+
+$coordenador = false;
+
+
 foreach ($listMembro as $value) {
-    $back ="";
-    if( (empty($value['cpf']) && strtolower($value['funcao']) == 'coordenador') ){
-        $back = " class='alert alert-danger' title='Favor Preencher este campo'";
-        $info = "É necessário que o Coordenador Municipal tenha o cpf Cadastrado no sistema.";
-    }
+$back ="";
+    
+
+        if( (empty($value['cpf']) && strtolower($value['funcao']) == 'coordenador') ){
+            $back = " class='alert alert-danger' title='Favor Preencher este campo'";
+            $info = "É necessário que o Coordenador Municipal tenha o cpf Cadastrado no sistema.";
+        }
+
+    
     
     print "<tr>";
         print "<td>".$num."</td>";
@@ -72,9 +80,15 @@ foreach ($listMembro as $value) {
               	print "</td>";
               	print "</tr>";
     $num++;
+    
+   
+    
     }
     
+     
 print "</table>";
 print "</div>";
+
+
 
 ?>

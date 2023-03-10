@@ -101,6 +101,7 @@ foreach ($dados as $key => $value) {
     }*/
 
     $cor = $pedido_h->getCorStatus($value['status']);
+    
     print "<tr style='background-color:" . $cor['fdo'] . "'>
             <td title='".$value['id']."'>" . $value['numero'] . "-" . substr($value['data_entrada_sistema'], 0, 4) . "</td>
             <td>" . DataMysql::dataCompletaVisual($value['data_entrada_sistema']) . "</td>
@@ -169,7 +170,7 @@ foreach ($dados as $key => $value) {
 
 $(document).ready(function() {
     
-    $("a[name=novo_pedido]").hover(function(){
+    $("a[name=novo_pedido]").click(function(){
 
         if($("a[name=novo_pedido]").data('destaque')){
             Swal.fire('Existe um pedido em fase de edição, \nvocê pode editar este pedido, ou excluir para criar um novo  !');

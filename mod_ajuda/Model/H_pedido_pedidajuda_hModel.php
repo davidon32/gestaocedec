@@ -1189,7 +1189,12 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
                 # Cancelado / nulo
                 return array('fdo' => '#B40404', 'fonte' => '#FFFFFF', 'title' => 'Processo Cancelado');
                 break;
+            case 8:
+                # Cancelado / nulo
+                return array('fdo' => '#6E6E6E', 'fonte' => '#FFFFFF', 'title' => 'Processo Reprovado');
+                break;
             default:
+                return array('fdo' => '-', 'fonte' => '-', 'title' => '-');
                 break;
         }
     }
