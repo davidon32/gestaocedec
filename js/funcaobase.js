@@ -195,8 +195,11 @@ function geraLink(modulo, controller, action, hash, param = false) {
     if (param) {
         searchParams = "&" + new URLSearchParams(param).toString();
     }
-
-    var link = 'index.php?token=' + stringToHash(hash) + '&modulo=' + modulo + '&controller=' + controller + '&action=' + action + searchParams;
+    
+    var num_hash = hash.replace(/[^0-9]/g,'');
+    
+    console.log(num_hash);
+    var link = 'index.php?token=' + stringToHash(num_hash) + '&modulo=' + modulo + '&controller=' + controller + '&action=' + action + searchParams;
 
     return link;
 

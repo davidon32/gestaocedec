@@ -44,6 +44,7 @@ define('VERSAO', 'versão - 3.4.1.6-00 - 27.02.2023');
 
 }
 
+
 # manutencao
 define('MANUTENCAO', false);
 

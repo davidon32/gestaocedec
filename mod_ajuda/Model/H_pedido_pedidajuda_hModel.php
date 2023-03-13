@@ -1634,7 +1634,45 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
             return $e->getMessage() . "-";
         }
     }
+    
+    /**
+     * Log de tramitação Pedido
+     */
+    public static function logTramita($dados) {
+        
+        var_dump($dados);
 
+        $con = Conexao::getInstance();
+        $sql = "INSERT INTO aju_h_pedido_tramit_log (id_pedido,
+                                                status_old,
+                                                status_new,
+                                                obs,
+                                                id_usuario)
+                                                    VALUES (:id_pedido,
+                                                    :status_old,
+                                                    :status_new,
+                                                    :obs,
+                                                    :id_usuario)";
+
+        try {
+            $result = $con->prepare($sql);
+            $result->bindValue(":id_pedido", $dados['id_pedido']);
+            $result->bindValue(":status_old", $dados['status_old']);
+            $result->bindValue(":status_new", $dados['status']);
+            $result->bindValue(":obs", $dados['obs']);
+            $result->bindValue(":id_usuario", $dados['id_usuario']);
+            $result->execute();
+
+            //return true;
+        } catch (Exception $e) {
+            return $e->getMessage() . "erro ao gravar log tramitação";
+        }
+        
+    }
+
+    
+    
+    
     /**
      *  total de Processos
      * @param status
@@ -1652,6 +1690,29 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
 
         return $result->fetchColumn();
     }
+    
+    
+    
+    /**
+     *  total de Processos
+     * @param status
+     * 
+     */
+    public static function listTramitacao($id_pedido) {
+
+        $con = Conexao::getInstance();
+        $dados = "";
+
+        $sql = "select *from aju_h_pedido_tramit_log where id_pedido = '{$id_pedido}'";
+
+        $result = $con->query($sql);
+
+        return $result->fetchAll();
+    }
+    
+    
+    
+    
     
 
 }
