@@ -1640,7 +1640,7 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
      */
     public static function logTramita($dados) {
         
-        var_dump($dados);
+        //var_dump($dados);
 
         $con = Conexao::getInstance();
         $sql = "INSERT INTO aju_h_pedido_tramit_log (id_pedido,

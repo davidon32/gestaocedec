@@ -43,7 +43,7 @@ class Log {
      * 
      * 
      * @param string $_acao
-     * @param string $_modulo
+     * @param string $_modulo aju_log
      * @example ("usuario Fulano gravou os dados", mod_cedec)
      */
     static function GravaLog($_acao, $_modulo) {
@@ -55,7 +55,7 @@ class Log {
         $_data = date('Y/m/d H:i:s');
 
         $_ip = $_SERVER['REMOTE_ADDR'];
-
+        
         $sql = "INSERT INTO " . $_modulo . " (login, dt_user, acao, ip) VALUES ('" . $_login . "', '" . $_data . "', '" . $_acao . "', '" . $_ip . "')";
         //$sql = "";
 

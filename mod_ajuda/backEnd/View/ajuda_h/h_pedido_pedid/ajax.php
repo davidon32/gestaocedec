@@ -47,6 +47,7 @@ if ($opcao == 'dados_compdec') {
         'id_pedido' => $_POST['id_pedido'],
         'data_hora_envio' => date('Y-m-d H:i:s'));
     $h_pedido_pedid->envia_pedido($dados);
+    
 
     print 'sucesso';
 
@@ -56,9 +57,12 @@ if ($opcao == 'dados_compdec') {
         print 'sucesso';
     }
 } elseif ($opcao == 'alterar_material') {
+    
+    print FuncaoBase::console($_POST);
 
     $dados = $_POST;
     if (H_pedido_itensajuda_hModel::edit($dados)) {
+        Log::GravaLog('Edição Material '.FuncaoBase::implode("|",$dados), 'aju_log');
         print 'sucesso';
     }
 } elseif ($opcao == 'salvar_novo_mat') {

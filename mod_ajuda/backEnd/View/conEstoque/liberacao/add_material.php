@@ -1,14 +1,15 @@
-<?php include_once PATH.'/core/include.php';?>
-<?php include_once "core/Model/indexModel.php";?>
-<?php include_once "mod_ajuda/Model/indexModel.php";?>
+<?php include_once PATH . '/core/include.php'; ?>
+<?php include_once "core/Model/indexModel.php"; ?>
+<?php include_once "mod_ajuda/Model/indexModel.php"; ?>
 <!-- =============== HEADER HTML PAGE =================-->
-<?php include_once "template/page/headerPage.php";?>
+<?php include_once "template/page/headerPage.php"; ?>
 <!-- =================== HEADER ============================ -->
-<?php include_once "template/page/header.php";?>
+<?php include_once "template/page/header.php"; ?>
 <!-- =================== MENU  ============================ -->
 <!--//include_once "template/page/menu.php";?>-->
 <!-- =================== CORPO  ============================ -->
-<?php include_once "template/page/corpoHeader.php";
+<?php
+include_once "template/page/corpoHeader.php";
 
 $_deposito = new Deposito();
 
@@ -16,123 +17,122 @@ $_controleSaldo = new ControleSaldo();
 
 $_pedido = new Pedido();
 
-/*****************************************************************************************
+/* * ***************************************************************************************
  *   Org�o 		: Coordenadoria Estadual de Defesa Civil do Estado de Minas Gerais
-*	Sistema      : Sistema de Gest�o de Ajuda Humanit�ria
-*
-*	Autor        : Demetrio Silva Passos
-*	Fun��o       : tela manipulacao cesta de produtos liberacao
-*
-*******************************************************************************************/
+ * 	Sistema      : Sistema de Gest�o de Ajuda Humanit�ria
+ *
+ * 	Autor        : Demetrio Silva Passos
+ * 	Fun��o       : tela manipulacao cesta de produtos liberacao
+ *
+ * ***************************************************************************************** */
 
 
 $saldo = new Relatorio();
 
-if(!isset($_SESSION['cesta'])){
+if (!isset($_SESSION['cesta'])) {
 
-	$_SESSION['cesta'] = array();
+    $_SESSION['cesta'] = array();
 }
 
 //$id_deposito = isset($_POST['id']) ? $_POST['id'] :0;
 
-$id_deposito1 = isset($_GET['id']) ? $_GET['id'] :0;
+$id_deposito1 = isset($_GET['id']) ? $_GET['id'] : 0;
 $itensProduto = ControleSaldo::saldoPorDeposito($id_deposito1);
 
-$nProd = new Produto();	
+$nProd = new Produto();
 ?>
-		<div class="row-fluid">
-				<legend>Adicionar Materiais</legend>
-                    <div class="col-md-3"></div>
-			<div class="col-md-6">
-				<form method="POST" action="#" name="adItem" id="frmAddMaterialLib">
-				    <!--index.php?ac=itn&modulo=pipa&secao=liberacao&acao=adicionarCesta-->
-		
-					<div class="col-md-12">
-						<label>Dep&oacute;sito a Liberar os Materiais :</label>
-						<!--<?php $_deposito->pegaDeposito('required');?>-->
-                                                <input type="text" class="form form-control" readonly value="<?=Deposito::PegaNomeDeposito($id_deposito1);?>">
-                                                <input type="hidden" name='id_deposito' id='id_deposito' value="<?=$id_deposito1;?>">
-					</div>
-                                        <div class="col-md-12">
-                                            <br />
-						<input type="hidden" name="la" value="0">
-								
-						<label>Evento :</label>
-						<select name="evento" class="form-control" required>
-							<option></option>
-						<?php
-							Material::Evento();
-						?>
+<div class="row-fluid">
+    <legend>Adicionar Materiais</legend>
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <form method="POST" action="#" name="adItem" id="frmAddMaterialLib">
+            <!--index.php?ac=itn&modulo=pipa&secao=liberacao&acao=adicionarCesta-->
 
-						</select>
-					</div>
+            <div class="col-md-12">
+                <label>Dep&oacute;sito a Liberar os Materiais :</label>
+                <!--<?php $_deposito->pegaDeposito('required'); ?>-->
+                <input type="text" class="form form-control" readonly value="<?= Deposito::PegaNomeDeposito($id_deposito1); ?>">
+                <input type="hidden" name='id_deposito' id='id_deposito' value="<?= $id_deposito1; ?>">
+            </div>
+            <div class="col-md-12">
+                <br />
+                <input type="hidden" name="la" value="0">
 
-					<div class="col-md-12">
-                                            <br>
-						<label>Material :</label>
-						<!--<?php $nProd->PegaProduto('required');
-						//Produto::PegaProdutoDescricao();
-					?>-->
-                                        <input type="text" name="nome_produto" id="nome_produto" class="col-md-12" required>
-                                        <input type="hidden" name="id_produto" id="id_produto">
-					</div>
-                                    
-                                        <!-- Entrada de Materiais -->
-					<div class="col-md-12">
-                                            <br>
-						<label>Entrada de Materiais :</label>
-						
-                                                <select class='form form-control' id="selEntrada" name="selEntrada" required>
-                                                    <option></option>
-                                                </select>
-                                        <input type="hidden" name="id_entrada" id="id_entrada">
-					</div>
-					
-					<div class="col-md-12">
-					<br />
-						<input type="hidden" name="la" value="0">
-								
-						<label>Descrição do Produto : (CX, UN, etc)</label>
-                                                <input type="text" name="descricao" size="25" value="-" class="form-control" required maxlength="255"> <!--size revisado ok -->
-					</div>
+                <label>Evento :</label>
+                <select name="evento" class="form-control" required>
+                    <option></option>
+                    <?php
+                    Material::Evento();
+                    ?>
 
-					<div class="col-md-12">
-						<br>
-						<label>Quantidade :</label>
-						<input type="number" name="qtd" id="txtQtd" size="11" class="form-control" required>
-						<br />
-					</div>	
+                </select>
+            </div>
 
-					<div class="col-md-12 text-center">
-						<a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=ajuda&controller=conestoque&action=liberacao">Voltar</a>
-						<input class="btn btn-primary" type="submit" name="acao" value="Adicionar">
-						<br><br>
-					</div>
-				</form>
-			</div>
-                    <div class="col-md-3"></div>
-                    <div class="col-md-12">
-			<p class="text-center"><legend>Materiais da Liberação</legend></p>
-			<div class="col-md-2"></div>
-			<div class="col-md-8" style="background:#BDBDBD;">
-			<br>
-					<?php $pedido = new Pedido();
-						//FuncaoBase::vd($_SESSION);
-						#@ mostra os materiais que estao no pedido
-						$pedido -> MostraPedido($_SESSION['cesta']);
-                                                
-					?>
+            <div class="col-md-12">
+                <br>
+                <label>Material :</label>
+                <!--<?php
+                $nProd->PegaProduto('required');
+                //Produto::PegaProdutoDescricao();
+                ?>-->
+                <input type="text" name="nome_produto" id="nome_produto" class="col-md-12" required>
+                <input type="hidden" name="id_produto" id="id_produto">
+            </div>
 
-			</div>
-			<div class="col-md-2"></div>
-			
-			<div class="col-md-12">
-				<span id="id"></span>
+            <!-- Entrada de Materiais -->
+            <div class="col-md-12">
+                <br>
+                <label>Entrada de Materiais :</label>
 
-				<?php
-                                
-	
-	    $acao = isset($_POST['acao']) ? $_POST['acao'] : '';
+                <select class='form form-control' id="selEntrada" name="selEntrada" required>
+                    <option></option>
+                </select>
+                <input type="hidden" name="id_entrada" id="id_entrada">
+            </div>
+
+            <div class="col-md-12">
+                <br />
+                <input type="hidden" name="la" value="0">
+
+                <label>Descrição do Produto : (CX, UN, etc)</label>
+                <input type="text" name="descricao" size="25" value="-" class="form-control" required maxlength="255"> <!--size revisado ok -->
+            </div>
+
+            <div class="col-md-12">
+                <br>
+                <label>Quantidade :</label>
+                <input type="number" name="qtd" id="txtQtd" size="11" class="form-control" required>
+                <br />
+            </div>	
+
+            <div class="col-md-12 text-center">
+                <a class="btn btn-success" href="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')) ?>&ac=itn&modulo=ajuda&controller=conestoque&action=liberacao">Voltar</a>
+                <input class="btn btn-primary" type="submit" name="acao" value="Adicionar">
+                <br><br>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-3"></div>
+    <div class="col-md-12">
+        <p class="text-center"><legend>Materiais da Liberação</legend></p>
+        <div class="col-md-2"></div>
+        <div class="col-md-8" style="background:#BDBDBD;">
+            <br>
+            <?php
+            $pedido = new Pedido();
+            //FuncaoBase::vd($_SESSION);
+            #@ mostra os materiais que estao no pedido
+            $pedido->MostraPedido($_SESSION['cesta']);
+            ?>
+
+        </div>
+        <div class="col-md-2"></div>
+
+        <div class="col-md-12">
+            <span id="id"></span>
+
+            <?php
+            $acao = isset($_POST['acao']) ? $_POST['acao'] : '';
             $material = isset($_POST['id_produto']) ? $_POST['id_produto'] : '';
             $qtd = isset($_POST['qtd']) ? $_POST['qtd'] : '';
             $id_deposito = isset($_POST['id_deposito']) ? $_POST['id_deposito'] : '';
@@ -140,132 +140,159 @@ $nProd = new Produto();
             $evento = isset($_POST['evento']) ? $_POST['evento'] : '';
             $id_entrada = isset($_POST['selEntrada']) ? $_POST['selEntrada'] : '';
 
-            if($acao == 'Adicionar'){
+            if ($acao == 'Adicionar') {
 
-                $campos = array('Acao'=>$acao,
-                                'Material'=>$material,
-                                'Quantidade'=>$qtd,
-                                'Deposito'=>$id_deposito,
-                                'Descrição'=>$descricao);
-                
-                if(FuncaoBase::CampoBranco($campos)){
-    
+                $campos = array('Acao' => $acao,
+                    'Material' => $material,
+                    'Quantidade' => $qtd,
+                    'Deposito' => $id_deposito,
+                    'Descrição' => $descricao);
+
+                if (FuncaoBase::CampoBranco($campos)) {
+
                     #@ Monta o item 
                     $item = $_pedido->Item($id_deposito,
-                                        $material,
-                                        $descricao,
-                                        $qtd,
-                                        Material::getNomeEvento($evento),
-                                        $id_entrada
-                                        );
+                            $material,
+                            $descricao,
+                            $qtd,
+                            Material::getNomeEvento($evento),
+                            $id_entrada
+                    );
 
                     #@ adiciona na cesta 
                     $_pedido->AdicionaItem($item);
-
-    
                 }
-				 	
             }
-		?>
-			</div>		
-		</div>
-<!-- =================== RODAPE CORPO ==================== -->
-<?php include_once "template/page/corpoRodape.php";?>
-<!-- =================== RODAPE  ======================== -->
-<?php include_once "template/page/rodape.php"?>
-<?php include_once "template/page/barra_config_template.php";?>
-<!-- =============== HEADER HTML PAGE ================= -->
-<?php include_once "template/page/rodapePage.php";?>
-<script type="text/javascript">
-	$(document).ready(function(){
+            ?>
+        </div>		
+    </div>
+    <!-- =================== RODAPE CORPO ==================== -->
+    <?php include_once "template/page/corpoRodape.php"; ?>
+    <!-- =================== RODAPE  ======================== -->
+    <?php include_once "template/page/rodape.php" ?>
+    <?php include_once "template/page/barra_config_template.php"; ?>
+    <!-- =============== HEADER HTML PAGE ================= -->
+    <?php include_once "template/page/rodapePage.php"; ?>
+    <script type="text/javascript">
+        $(document).ready(function () {
 
-            $("a[name='lk_material']").click(function(){
-                
-               alert($(this).data('id_material')); 
+            $("a[name='lk_material']").click(function () {
+
+                alert($(this).data('id_material'));
             });
 
 
-		
-		var id = $("#id_deposito").val();
+//             Barrar selecão de material errado
+//            $('#nome_produto').blur(function () {
+//                if ($("#id_produto").val().length == 0) {
+//                    Swal.fire({
+//                        title: '<strong>HTML <u>Material Não Selecionado</u></strong>',
+//                        icon: 'info',
+//                        html:
+//                                'Selecione um Material que é sujerido na lista</b>, ' +
+//                                'não' +
+//                                'and other HTML tags',
+//                        showCloseButton: true,
+//                        showCancelButton: true,
+//                        focusConfirm: false,
+//                        confirmButtonText:
+//                                '<i class="fa fa-thumbs-up"></i> Great!',
+//                        confirmButtonAriaLabel: 'Thumbs up, great!',
+//                        cancelButtonText:
+//                                '<i class="fa fa-thumbs-down"></i>',
+//                        cancelButtonAriaLabel: 'Thumbs down',
+//                        imageUrl: 'https://unsplash.it/400/200',
+//                        imageWidth: 400,
+//                        imageHeight: 200,
+//                        imageAlt: 'Custom image'
+//                        
+//                    });
+//                }
+//
+//            });
 
-		if(typeof id !== 'undefined') {
-			$("#id").load('mod_ajuda/backEnd/View/conEstoque/liberacao/saldo_por_deposito.php?id='+id);
-		}
-
-		$("#id_deposito").change(function(){
-			var id = $("#id_deposito").val();
-			$("#id").load('mod_ajuda/backEnd/View/conEstoque/liberacao/saldo_por_deposito.php?id='+id);
 
 
-		});
+            var id = $("#id_deposito").val();
 
-		$("#txtQtd").blur(function(){
-			var num = $("#txtQtd").val();
+            if (typeof id !== 'undefined') {
+                $("#id").load('mod_ajuda/backEnd/View/conEstoque/liberacao/saldo_por_deposito.php?id=' + id);
+            }
 
-			numInt = parseInt(num);
-			$("#txtQtd").val(numInt);
-		});
-	});
-        
+            $("#id_deposito").change(function () {
+                var id = $("#id_deposito").val();
+                $("#id").load('mod_ajuda/backEnd/View/conEstoque/liberacao/saldo_por_deposito.php?id=' + id);
+
+
+            });
+
+            $("#txtQtd").blur(function () {
+                var num = $("#txtQtd").val();
+
+                numInt = parseInt(num);
+                $("#txtQtd").val(numInt);
+            });
+        });
+
         var itensProduto = {
             data:
-                <?php print json_encode($itensProduto); ?>, // array com os dados
-                getValue: "nome",
-                template: {
-                    type: "custom",
-                    method: function(value, item) {
-			return item.id_unidade + " - " +value + " | " + item.descricao + " | Saldo :  " + item.saldo;
-		}
+<?php print json_encode($itensProduto); ?>, // array com os dados
+            getValue: "nome",
+            template: {
+                type: "custom",
+                method: function (value, item) {
+                    return item.id_unidade + " - " + value + " | " + item.descricao + " | Saldo :  " + item.saldo;
+                }
+            },
+            list: {
+                match: {
+                    enabled: true
                 },
-                list: {
-                    match: {
-                            enabled: true
-                        },
-                        onClickEvent: function () {
-                            $('#selEntrada')[0].options.length = 0;
-                            var id = $("#nome_produto").getSelectedItemData().id_unidade;
-                            var id_deposito = $("#id_deposito").val();
-                            
-                            var dados = {
-                                'id_material': ''+ id +'',
-                                'id_deposito':''+id_deposito+''
-                            }
-                            
-                            $("#id_produto").val(id);
-                            $.ajax({
-                                url:"mod_ajuda/backEnd/View/conEstoque/liberacao/busca_entrada.php",
-                                type:"POST",
-                                data: dados,
-                                dataType : "json",
-                                success:function(dados){
-                                    //console.log(dados)
-                                    $('#selEntrada').append("<option></option>");
-                                    $.each(dados, (i, val) => {
-                                        var saldo = val.saldo;
-                                        if(typeof saldo == 'object') {
-                                            saldo = val.quantidade;
-                                        }else {
-                                            saldo = val.saldo;
-                                        }
-                                        $('#selEntrada').append(`<option value="${val.id_produto}" data-saldo="${saldo}"> ${val.id_produto} - Saldo Individual ${saldo} </option>`);
-                                    });
-                                    
+                onClickEvent: function () {
+                    $('#selEntrada')[0].options.length = 0;
+                    var id = $("#nome_produto").getSelectedItemData().id_unidade;
+                    var id_deposito = $("#id_deposito").val();
+
+                    var dados = {
+                        'id_material': '' + id + '',
+                        'id_deposito': '' + id_deposito + ''
+                    }
+
+                    $("#id_produto").val(id);
+                    $.ajax({
+                        url: "mod_ajuda/backEnd/View/conEstoque/liberacao/busca_entrada.php",
+                        type: "POST",
+                        data: dados,
+                        dataType: "json",
+                        success: function (dados) {
+                            //console.log(dados)
+                            $('#selEntrada').append("<option></option>");
+                            $.each(dados, (i, val) => {
+                                var saldo = val.saldo;
+                                if (typeof saldo == 'object') {
+                                    saldo = val.quantidade;
+                                } else {
+                                    saldo = val.saldo;
                                 }
-                                });
-                            
-                            
+                                $('#selEntrada').append(`<option value="${val.id_produto}" data-saldo="${saldo}"> ${val.id_produto} - Saldo Individual ${saldo} </option>`);
+                            });
+
                         }
+                    });
+
 
                 }
 
+            }
+
         };
-            $("#nome_produto").easyAutocomplete(itensProduto);
-            
-            $("#selEntrada").change(function(){
-                var max = $(this).find(':selected').data('saldo')
-                $("#txtQtd").attr({
-                        "max" : max,        
-                        "min" : 1});
-            });
-            
-</script>
+        $("#nome_produto").easyAutocomplete(itensProduto);
+
+        $("#selEntrada").change(function () {
+            var max = $(this).find(':selected').data('saldo')
+            $("#txtQtd").attr({
+                "max": max,
+                "min": 1});
+        });
+
+    </script>

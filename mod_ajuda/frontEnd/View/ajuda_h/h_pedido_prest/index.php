@@ -52,7 +52,7 @@ foreach ($materiais as $material) {
         $percent = 0;
     }
     
-    $percent = ( $beneficiario / $material['qtd']) * 100;
+    //$percent = ( $beneficiario / $material['qtd']) * 100;
     $cor_percent_prest = ( $percent == 50 ) ? '#32CD32' : '';
        
            print "<tr style='background-color: ".$cor_percent_prest."'>

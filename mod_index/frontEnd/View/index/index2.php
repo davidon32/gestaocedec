@@ -47,16 +47,18 @@ print ($acessoModulo['mod_compdec'] == '1') ?
 	  						</td>' : '';
 
 # ajuda humanitaria
+
+ 
 //if (!in_array($id_municipio, $lista_devedores)) {
-if($acessoModulo['mod_ajuda'] == '1') {
+//if($acessoModulo['mod_ajuda'] == '1') {
     print '<td align="center">
         <a class="" href="?token=' . hash("sha256", md5(VERSAO) . "-" . time()) . '&ac=etn&modulo=ajuda&controller=h_pedido_index&action=index" title="Ajuda Humanitária"><img height="128" alt="core/imagem/ajuda.png" src="core/imagem/pedido_cesta.png"><br><b>Ajuda Humanitária</b></a>
     </td>';
-}else {
-    print '<td align="center">
-        <a class="imgCinza" href="" title="Ajuda Humanitária"><img height="128" alt="core/imagem/dev_prest.png" src="core/imagem/dev_prest.png"><br><b>Ajuda Humanitária</b></a>
-    </td>';
-} 
+//}else {
+//    print '<td align="center">
+//        <a class="imgCinza" href="" title="Ajuda Humanitária"><img height="128" alt="core/imagem/dev_prest.png" src="core/imagem/dev_prest.png"><br><b>Ajuda Humanitária</b></a>
+//    </td>';
+//} 
 
 //else {
 //    print '<td align="center">
@@ -71,15 +73,15 @@ print ($acessoModulo['mod_registro'] == '1') ?
 	  							<a class="" href="?token=' . hash("sha256", md5(VERSAO) . "-" . time()) . '&ac=etn&modulo=registro&controller=index&action=index" title="Registro de Danos Humanos"><img width="128" alt="core/imagem/evento.png" src="core/imagem/evento.png"><br><b>Registro Danos Humanos</b></a>
 								</td>' : '';
 # plano de contingencia	
-if ($acessoModulo['mod_plano'] == '1') {
+//if ($acessoModulo['mod_plano'] == '1') {
     print '<td align="center">
                     <a class="" href="?token=' . hash("sha256", md5(VERSAO) . "-" . time()) . '&ac=etn&modulo=compdec&controller=plano&action=index" title="Confecção do Plano de Contingencia"><img alt="core/imagem/plano.png" src="core/imagem/plano.png"><br><b>Plano de Contingência</b></a>
                 </td>';
-} else {
-    print '<td align="center">
-                    <a class="" href="" title="Prazo Terminou as 16:00 do dia 10/08/2021 para Envio de plano de Contingencia"><img class="imgCinza" alt="core/imagem/plano.png" src="core/imagem/plano.png"><br></a>
-                </td>';
-}
+//} else {
+//    print '<td align="center">
+//                    <a class="" href="" title="Prazo Terminou as 16:00 do dia 10/08/2021 para Envio de plano de Contingencia"><img class="imgCinza" alt="core/imagem/plano.png" src="core/imagem/plano.png"><br></a>
+//                </td>';
+//}
 ?>
     </tr>
 </table>

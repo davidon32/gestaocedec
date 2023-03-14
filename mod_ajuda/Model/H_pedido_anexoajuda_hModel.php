@@ -466,6 +466,32 @@ aju_h_pedido_anexo.nome_arquivo
         }
         
     }
+    /**
+     * 
+     * 
+     */
+    public static function ListaTramitacao($id_pedido){
+        $con = Conexao::getInstance();
+
+        $sql = "SELECT dt_tramita,"
+                . " status_old,"
+                . " status_new,"
+                . " id_usuario,"
+                . " obs"
+                . " FROM aju_h_pedido_tramit_log"
+                . " WHERE id_pedido = " . $id_pedido;
+
+        try {
+
+            $result = $con->query($sql);
+
+            return $result->fetchAll();
+            
+        } catch (Exception $e) {
+            return $e->getMessage() . "Erro ao inserir Fornecedor";
+        }
+        
+    }
     
     
 }

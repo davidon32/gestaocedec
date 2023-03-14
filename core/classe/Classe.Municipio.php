@@ -172,6 +172,8 @@ class Municipio extends DataMysql {
         } else {
             $sql = "SELECT id_municipio, nome  FROM cedec_municipio ORDER BY nome";
         }
+        
+        //var_dump($sql, $rpm, !empty($rpm), $rpm != 1);
 
         $con = Conexao::getInstance();
 
@@ -193,7 +195,6 @@ class Municipio extends DataMysql {
             }
                 $_dados[] = $res;
             
-                //var_dump($res);
         }
 
         return $_dados;

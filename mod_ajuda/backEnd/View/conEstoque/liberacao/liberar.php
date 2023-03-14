@@ -226,7 +226,7 @@ $dadosDeposito = Deposito::ListaDeposito();
                 type: "custom",
                 method: function (value, item) {
                     if(item.red.length >0){
-                        console.log(item.red);
+                        console.log(item.red.length);
                         return value + "- <b style='color:red'>Atenção este Município é da " + item.rpm + " RPM</b>";
                     }else {
                         return value;

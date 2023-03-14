@@ -131,8 +131,10 @@
             </tr>
 <?php
 
+/* se o estatus nao estiver em edição */
 if ( $view[0]['status'] != "0") {
     $materiais = H_pedido_pedidajuda_hModel::item_pedido($view[0]['id'], "L");
+    
 } else {
     $materiais = H_pedido_pedidajuda_hModel::item_pedido($view[0]['id']);
 }

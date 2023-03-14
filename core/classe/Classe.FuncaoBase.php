@@ -995,4 +995,30 @@ class FuncaoBase extends Exception {
     }
     
     
+    public static function console($dados){
+        $result = "";
+        if(is_array($dados)){
+            foreach ($dados as $key => $value) {
+                $result .= $value."<br>";
+            }
+        }else {
+            $result = $dados;
+        }
+        print "<script>";
+        print "console.log(".$result.")";
+        print  "</script>";
+    }
+    
+    
+    /**
+     * 
+     * @param type $param
+     * 
+     */
+    
+    function implode_array($param) {
+        
+    }
+    
+    
 }?>
