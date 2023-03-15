@@ -74,7 +74,7 @@ foreach ($tramitacao as $key => $value) {
 //var_dump($view[0]['status']);
 ####### PERMISSOES DE EDICAO E DESPACHO #######
 $permissao_ajuda_h = "false";
-if ($secao == 'DLOG' || $secao == "CHEFIA" || $id_usuario == 1 ) {
+if ($secao == 'DLOG' || $secao == "CHEFIA" || $id_usuario == 1) {
     $permissao_ajuda_h = true;
 }
 
@@ -168,7 +168,8 @@ $aba = isset($_GET['aba']) ? $_GET['aba'] : "inicio";
                     <div class='row'>
                         <div class='col-md-2'>
                             <label>Data Entrada Sistema</label>
-                            <input type="text" class='form form-control' name='data_entrada_sistema' id='data_entrada_sistema' value='<?= DataMysql::dataVisual($view[0]['data_entrada_sistema']) ?>' maxlength='-1' required>
+                            <input type="text" class='form form-control' name='entrada_sistema' id='entrada_sistema' value='<?= DataMysql::dataVisual($view[0]['data_entrada_sistema']) ?>' readonly>
+                            <input type="hidden" name='data_entrada_sistema' id='data_entrada_sistema' value='<?= DataMysql::dataVisual($view[0]['data_entrada_sistema']) ?>' maxlength='-1' required>
                         </div>
                     </div>
                     <div class='row'>
@@ -384,12 +385,12 @@ $aba = isset($_GET['aba']) ? $_GET['aba'] : "inicio";
 
                 <div class="col-md-12">
                     <p class="">
-                    <legend>Materiais que serão Liberados</legend>
+                    <legend>Materiais que serão Liberados - Fase : <?= H_pedido_pedidajuda_hModel::enumStatus($view[0]['status']) ?></legend>
                     </p>
 
                     <!-- #### USUARIOS DLOG ADICIONAR MATERIAL  ##### -->
                     <?php
-                    if ($permissao_ajuda_h && ($view[0]['status'] == 1) || ($view[0]['status'] == 2) ) {
+                    if ($permissao_ajuda_h && ($view[0]['status'] == 1) || ($view[0]['status'] == 2)) {
                         print "<img title=\"Adicionar Material\" src=\"/core/imagem/add.png\" name=\"add_material\"> Adicionar Material<br><br>";
                     } else {
                         //print "<img src=\"/core/imagem/add.png\" class=\"imgCinza\" title=\"O processo está disponivel para operação do " . H_pedido_pedidajuda_hModel::enumStatus($view[0]['status']) . " !\"><br><br>";
@@ -405,7 +406,8 @@ $aba = isset($_GET['aba']) ? $_GET['aba'] : "inicio";
                             <th style="width:20%">Material</th>
                             <th style="width:15%">Qtd</th>
                             <th style="width:15%">Qtd Familias Atend.</th>
-                            <th style="width:45%">Opção</th>
+                            <th style="width:25%">Opção</th>
+                            <th style="width:10%"></th>
                         </tr>
 
                         <?php
@@ -424,12 +426,11 @@ $aba = isset($_GET['aba']) ? $_GET['aba'] : "inicio";
                                 print "<td>";
                                 #print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit_itens', array('id' => $view[0]['id'], 'id_item' => $material1['id'])) . "'><img src='/core/imagem/editar.png'></a>";
                                 # EDITAR MATERIAL
-                                if ($permissao_ajuda_h ) {
-                                    print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_itens', 'delete', array('id' => $material1['id'], 'id_pedido' => $view[0]['id'], 'voltar' => 'edit_ped')) . "'><img src='/core/imagem/delete.png'></a>";
+                                if ($permissao_ajuda_h) {
 //                                } else {
-                                    print "-<img src='/core/imagem/editar.png' name='edit' data-id='" . $view[0]['id'] . "' data-qtd='" . $material1['qtd'] . "' data-familias_at='" . $material1['qtd_familia_atendida'] . "'>
-                                        <img src='/core/imagem/save.png' name='salvar' data-id='" . $material1['id'] . "' data-codigo='" . $material1['codigo'] . "' data-descricao_item='" . $material1['descricao_item'] . "'>";
-                                    print "processo está disponível para o " . H_pedido_pedidajuda_hModel::enumStatus($view[0]['status']);
+                                    print "<img src='/core/imagem/editar.png' name='edit' data-id='" . $view[0]['id'] . "' data-qtd='" . $material1['qtd'] . "' data-familias_at='" . $material1['qtd_familia_atendida'] . "'>
+                                        | <img src='/core/imagem/save.png' name='salvar' data-id='" . $material1['id'] . "' data-codigo='" . $material1['codigo'] . "' data-descricao_item='" . $material1['descricao_item'] . "'>";
+                                    print "<img src='/core/imagem/delete.png' name='delete' data-id='" . $material1['id'] . "' data-id_pedido='" . $view[0]['id'] . "' data-cod_material='".$material1['codigo']."'></a>";
                                 }
 
                                 print "</td>";
@@ -503,8 +504,6 @@ $aba = isset($_GET['aba']) ? $_GET['aba'] : "inicio";
                 7 - cancelado
                 8 - reprovado
                 9 - processo finalizado
-                
-                
                 *-->
                 <select class="form form-control" name="sel_tramitar" id="sel_tramitar">
                     <option>Selecione a Seção para Tramitar</option>
@@ -557,8 +556,10 @@ $aba = isset($_GET['aba']) ? $_GET['aba'] : "inicio";
                                         </div>-->
 
                 </div>
+
+                <!-- TRAMITAÇÕES DE DOCUMENTOS -->
                 <div class="col-md-12 text-center">
-                    <legend>Histórico de Tramitações - Pedido Nr: <?=$view[0]['numero']."-".$view[0]['ano']?></legend>
+                    <legend>Histórico de Tramitações - Pedido Nr: <?= $view[0]['numero'] . "-" . $view[0]['ano'] ?></legend>
 
                     <table class="table table-bordered table-condensed table-striped">
 
@@ -667,18 +668,9 @@ $aba = isset($_GET['aba']) ? $_GET['aba'] : "inicio";
         </div>
     </div>
 
-
-
-
-
-
-
-
-
 </div>
 
 <!--######################  MODAL cedec_municipio ###################-->
-
 <div class="modal fade" tabindex="-1" role="dialog" id="modal_id_municipio">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -704,8 +696,8 @@ $aba = isset($_GET['aba']) ? $_GET['aba'] : "inicio";
 </div><!-- /.modal -->
 
 <!--###################  FIM MODAL cedec_municipio ####################-->
-<!--######################  MODAL com_regiao ###################-->
 
+<!--######################  MODAL com_regiao ###################-->
 <div class="modal fade" tabindex="-1" role="dialog" id="modal_id_regiao">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -731,8 +723,8 @@ $aba = isset($_GET['aba']) ? $_GET['aba'] : "inicio";
 </div><!-- /.modal -->
 
 <!--###################  FIM MODAL com_regiao ####################-->
-<!--######################  MODAL dec_cobrade ###################-->
 
+<!--######################  MODAL dec_cobrade ###################-->
 <div class="modal fade" tabindex="-1" role="dialog" id="modal_id_cobrade">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -797,54 +789,44 @@ $aba = isset($_GET['aba']) ? $_GET['aba'] : "inicio";
         //            }
         //        });
 
+        $('#novoDespacho').hide();
+        $('img[name=salvar]').hide();
 
-        var status = <?= $view[0]['status'] ?>;
-        var secao = '<?= $secao; ?>';
-        var favoravel = <?= $favoravelDlog; ?>;
-
-
- 
-            var param = getUrlVars()['aba'];
-
-            if (param === 'dadosgerais') {
-                $('a#dadosgerais-tab').trigger('click');
-                
-            } else if (param === 'materialpedido') {
-                console.log(materialpedido);
-                $('a#materialpedido-tab').trigger('click');
-
-            } else if (param === 'anexos') {
-                $('a#anexo-tab').trigger('click');
-
-            } else if (param === 'tramitar') {
-                $('a#tramitar-tab').trigger('click');
-
-            } else if (param === 'tramitacoes') {
-                
-                $('a#tramitacoes-tab').trigger('click');
-            }
-        
-
-        //console.log('-opa');
-
-        //            $("#material_pedido").fadeToggle();
-        //            $("#dados_gerais").hide();
-        //            $("#anexos").hide();
-        //            $("#tramitar").hide()
-
+        $('#add_despacho').click(function () {
+            $('#novoDespacho').show();
+            $("#text_despacho").focus();
+        });
 
         $("span[name='tx_parecer']").hide();
 
         $("span[name='sub_text_parecer']").click(function () {
             console.log($(this).parent('span'));
-
         });
 
 
+        var status = <?= $view[0]['status'] ?>;
+        var secao = '<?= $secao; ?>';
+        var favoravel = <?= $favoravelDlog; ?>;
 
-        /* abrir arvore */
+        var param = getUrlVars()['aba'];
 
+        if (param === 'dadosgerais') {
+            $('a#dadosgerais-tab').trigger('click');
 
+        } else if (param === 'materialpedido') {
+            console.log(materialpedido);
+            $('a#materialpedido-tab').trigger('click');
+
+        } else if (param === 'anexos') {
+            $('a#anexo-tab').trigger('click');
+
+        } else if (param === 'tramitar') {
+            $('a#tramitar-tab').trigger('click');
+
+        } else if (param === 'tramitacoes') {
+
+            $('a#tramitacoes-tab').trigger('click');
+        }
 
         /* situação do processo está com o DIRETOR da dlog
          * e parecer favoravel pelo analista */
@@ -975,7 +957,7 @@ $aba = isset($_GET['aba']) ? $_GET['aba'] : "inicio";
                     console.log(response);
                     if (response.trim() == 'sucesso') {
                         Swal.fire('Despacho gravado com sucesso !').then(function () {
-                            
+
                             var status = <?= $view[0]['status'] ?>;
 
                             if (status == 3) {
@@ -997,14 +979,6 @@ $aba = isset($_GET['aba']) ? $_GET['aba'] : "inicio";
                     //console.log(JSON.stringify(e));
                 }
             });
-        });
-
-        $('#novoDespacho').hide();
-        $('img[name=salvar]').hide();
-
-        $('#add_despacho').click(function () {
-            $('#novoDespacho').show();
-            $("#text_despacho").focus();
         });
 
         /* editar form material */
@@ -1039,6 +1013,12 @@ $aba = isset($_GET['aba']) ? $_GET['aba'] : "inicio";
             formData.append('qtd_familia_atendida', $('input[name=familias]').val());
             formData.append('descricao_item', descricao_item);
 
+            /* input prest */
+            formData.append('cod_material', codigo);
+            formData.append('id_pedido', '<?= $view[0]['id'] ?>');
+            formData.append('nome_material', descricao_item);
+            formData.append('total_familia_at', $('input[name=familias]').val());
+
             $.ajax({
                 url: '/mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/ajax.php',
                 type: 'POST',
@@ -1046,9 +1026,12 @@ $aba = isset($_GET['aba']) ? $_GET['aba'] : "inicio";
                 processData: false, // tell jQuery not to process the data
                 contentType: false, // tell jQuery not to set contentType
                 success: function (response) {
-                    Swal.fire('Registro Editado com Sucesso !').then(function () {
-                        window.location.href = '<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit", array('id' => $view[0]['id'], 'voltar' => 'idx_recente', 'aba' => 'materialpedido')); ?>';
-                    });
+
+                    if (response.trim() === 'sucesso') {
+                        Swal.fire('Registro Editado com Sucesso !').then(function () {
+                            window.location.href = '<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit", array('id' => $view[0]['id'], 'voltar' => 'idx_recente', 'aba' => 'materialpedido')); ?>';
+                        });
+                    }
                 },
                 error: function (e) {
                     //console.log(JSON.stringify(e));
@@ -1078,6 +1061,47 @@ $aba = isset($_GET['aba']) ? $_GET['aba'] : "inicio";
         $('#tbl_material_liberado').on('chance', '.descricao_item_novo', function () {
             $("select[name=descricao_item_novo] option:selected").text()
         });
+
+        /* DELETAR MATERIAL DO PEDIDO */
+        $('img[name=delete]').click(function () {
+
+            var confirm1 = confirm('Deseja realmente deletar este material do pedido ?');
+
+            if (confirm1) {
+
+                var cod_material = $(this).data('cod_material');
+                var id_pedido = $(this).data('id_pedido');
+                var id = $(this).data('id');
+
+                var formData = new FormData();
+                formData.append('opcao', 'deletar_material');
+                formData.append('cod_material', cod_material);
+                formData.append('id_pedido', id_pedido);
+                formData.append('id', id);
+
+
+                $.ajax({
+                    url: '/mod_ajuda/backEnd/View/ajuda_h/h_pedido_pedid/ajax.php',
+                    type: 'POST',
+                    data: formData,
+                    processData: false, // tell jQuery not to process the data
+                    contentType: false, // tell jQuery not to set contentType
+                    success: function (response) {
+
+                        console.log(response);
+                        if (response.trim() === 'sucesso') {
+                            Swal.fire('Registro Deletado com Sucesso !').then(function () {
+                                window.location.href = '<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit", array('id' => $view[0]['id'], 'voltar' => 'idx_recente', 'aba' => 'materialpedido')); ?>';
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        //console.log(JSON.stringify(e));
+                    }
+                });
+            }
+        });
+
 
 
         /* salvar novo material */
@@ -1112,7 +1136,7 @@ $aba = isset($_GET['aba']) ? $_GET['aba'] : "inicio";
                     Swal.fire('Registro Salvo com Sucesso !').then(function () {
                         //window.location.reload();
                         window.location.href = '<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit", array('id' => $view[0]['id'], 'voltar' => 'idx_recente', 'aba' => 'materialpedido')); ?>';
-                        
+
                     });
                 },
                 error: function (e) {

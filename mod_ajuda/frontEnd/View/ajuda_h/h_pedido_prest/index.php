@@ -11,28 +11,27 @@
 <?php include_once "template/page/corpoHeader.php"; ?>
 
 <a class="btn btn-success" href="<?= FuncaoBase::geraLink("ajuda", "h_pedido_index", "index") ?>">Voltar</a>
-   <br>
+<br>
 <br>
 
 <?php
-
 print "<legend>Prestação de Contas Pedido </legend>";
 
 print "<div class=\"table-responsive\"><table class=\"table table-bordered table-striped\">
     <thead>
             <tr>
-<th>id_pedido</th>
-<th>cod_material</th>
-<th>nome_material</th>
-<th>Qtd</th>
-<th>% Conclusão Prestação Contas</th>
-
-<th>Opções</th>
+            <th>Cod. Item</th>
+            <th>Cod. Pedido</th>
+            <th>Cod. Material</th>
+            <th>nome_material</th>
+            <th>Qtd</th>
+            <th>% Conclusão Prestação Contas</th>
+            <th>Opções</th>
             </tr>
-</thead>
-<tbody>";
+    </thead>
+    <tbody>";
 
-$id = isset($_GET['id']) ? $_GET['id']: "";
+$id = isset($_GET['id']) ? $_GET['id'] : "";
 
 $h_pedido_prest = new H_pedido_prestajuda_hModel();
 
@@ -41,43 +40,43 @@ $materiais = $h_pedido_prest::listaPrestContasporPedido($id);
 
 //var_dump($materiais);
 
-foreach ($materiais as $material) {
-    
+$total_reg = 0;
+
+foreach ($materiais as $key=> $material) {
+    $total_reg++;
+
     $beneficiario = $h_pedido_prest->percBenef($material['id']);
-    
+
     if ($beneficiario > 0) {
 
         $percent = ( $beneficiario / $material['qtd']) * 100;
     } else {
         $percent = 0;
     }
-    
+
     //$percent = ( $beneficiario / $material['qtd']) * 100;
     $cor_percent_prest = ( $percent == 50 ) ? '#32CD32' : '';
-       
-           print "<tr style='background-color: ".$cor_percent_prest."'>
-<td>".$material['id_pedido']."</td>
-<td>".$material['cod_material']."</td>
-<td>".$material['nome_material']."</td>
-<td>".$material['qtd']."</td>
-<td>".$percent."</td>
-";
-                    
-            print "<td>";
-            print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_prest", "view", array('id' => $material['id'])) . "'><img src='/core/imagem/view.png' title='Visualizar Prestação de Contas'></a>|";
-            print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_benef", "cadastro", array('id' => $material['id'], 'id_pedido'=>$material['id_pedido'])) . "'><img src='/core/imagem/contas.png' title='Fazer Prestação de Contas'></a>|";
 
-            print
-                    "</td>";
+    print "<tr style='background-color: " . $cor_percent_prest . "'>
+            <td>" . $material['id'] . "</td>
+            <td>" . $material['id_pedido'] . "</td>
+            <td>" . $material['cod_material'] . "</td>
+            <td>" . $material['nome_material'] . "</td>
+            <td>" . $material['qtd'] . "</td>
+            <td>" . $percent . "</td>";
 
-            print "</tr>";
+    print "<td>";
+    print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_prest", "view", array('id' => $material['id'])) . "'><img src='/core/imagem/view.png' title='Visualizar Prestação de Contas'></a>|";
+    print "<a href='" . FuncaoBase::geraLink("ajuda", "h_pedido_benef", "cadastro", array('id' => $material['id'], 'id_pedido' => $material['id_pedido'])) . "'><img src='/core/imagem/contas.png' title='Fazer Prestação de Contas'></a>|";
 
-        }
-       
+    print
+            "</td>";
+    print "</tr>";
+}
+    print "<tr><td colspan='7'>Total de Registros: ".$total_reg."</td></tr>";
 
-        print " </tbody></table></div>";
-        
-       
+
+print " </tbody></table></div>";
 ?>
 
 
@@ -95,4 +94,3 @@ foreach ($materiais as $material) {
 
     });
 </script>
-        

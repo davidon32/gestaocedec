@@ -167,17 +167,17 @@ total_familia_at
     ################  Atualizar dados h_pedido_prest  ###################
 
     public static function edit(array $dados) {
-
-
-
+        
+        
         $con = Conexao::getInstance();
 
         $sql = "UPDATE aju_h_pedido_prest SET 
-        id_pedido= :id_pedido,
-cod_material= :cod_material,
-nome_material= :nome_material,
-total_familia_at= :total_familia_at
-            WHERE id = :id";
+                id_pedido= :id_pedido,
+                cod_material= :cod_material,
+                nome_material= :nome_material,
+                total_familia_at= :total_familia_at,
+                qtd = :qtd
+                    WHERE id = :id";
 
         try {
 
@@ -188,6 +188,7 @@ total_familia_at= :total_familia_at
             $result->bindValue(":cod_material", $dados['cod_material']);
             $result->bindValue(":nome_material", $dados['nome_material']);
             $result->bindValue(":total_familia_at", $dados['total_familia_at']);
+            $result->bindValue(":qtd", $dados['qtd']);
 
 
             $result->execute();
@@ -199,6 +200,39 @@ total_familia_at= :total_familia_at
             return $e->getMessage() . "Erro ao Atualizar Marca";
         }
     }
+    
+    ################  Atualizar dados h_pedido_prest quanto altera o material ###################
+
+    public static function editPrest(array $dados) {
+        
+        $con = Conexao::getInstance();
+
+        $sql = "UPDATE aju_h_pedido_prest SET 
+                total_familia_at= :total_familia_at,
+                qtd = :qtd
+                    WHERE id_pedido = :id_pedido
+                    and cod_material= :cod_material";
+
+        try {
+
+            $result = $con->prepare($sql);
+
+            $result->bindValue(":id_pedido", $dados['id_pedido']);
+            $result->bindValue(":cod_material", $dados['cod_material']);
+            $result->bindValue(":total_familia_at", $dados['total_familia_at']);
+            $result->bindValue(":qtd", $dados['qtd']);
+
+
+            $result->execute();
+
+            #Log::GravaLog("Atualizar Cadastro de H_pedido_prest : " . $dados['nome'] . " " . $_COOKIE['seguranca']['login'], "aju_log");
+
+            //return true;
+        } catch (Exception $e) {
+            return $e->getMessage() . "Erro ao Atualizar Marca";
+        }
+    }
+    
 
     #################  VIEW  ##################
 
@@ -311,6 +345,27 @@ aju_h_pedido_prest.total_familia_at
             return $e->getMessage() . "Erro Deletar H_pedido_prest !";
         }
     }
+    
+    
+    # @ deletar o h_pedido_prest
+
+    public static function deletePrest($dados) {
+        
+        $con = Conexao::getInstance();
+
+        $sql = "DELETE FROM aju_h_pedido_prest WHERE id_pedido = ". $dados['id_pedido']. " and cod_material = ".$dados['cod_material'];
+
+        try {
+            $con->query($sql);
+
+            return true;
+        } catch (Exception $e) {
+            return $e->getMessage() . "Erro Deletar H_pedido_prest !";
+        }
+    }
+    
+    
+    
 
     /**
      * Lista h_pedido_prest
@@ -519,7 +574,7 @@ aju_h_pedido_prest.total_familia_at
                 $dados = $linha;
             }
 
-            return (empty($dados['id']) ? 1 : $dados['id']);
+            return (empty($dados['id']) ? 0 : $dados['id']);
         } catch (Exception $e) {
             return $e->getMessage() . "Erro seleciona os beneficiarios";
         }

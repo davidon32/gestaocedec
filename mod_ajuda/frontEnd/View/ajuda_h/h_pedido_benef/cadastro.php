@@ -33,7 +33,7 @@ $id = isset($_GET['id']) ? $_GET['id'] : "";
 <div class='row'>
 <div class='col-md-2'>
 <label>Identidade do Beneficiário</label>
-<input type="text" class='form form-control' name='rg' id='rg' maxlength='14' required >
+<input type="number" class='form form-control' name='rg' id='rg' maxlength='14' required >
 </div>
 </div>
 <div class='row'>
@@ -91,9 +91,14 @@ $id = isset($_GET['id']) ? $_GET['id'] : "";
     $(document).ready(function () {
     
         /* close focus pesquisa */
-        
+       
     
         $("#frmH_pedido_benef").trigger("reset");
+        
+                
+            
+            
+        });
     
         
         

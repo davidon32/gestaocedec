@@ -995,7 +995,7 @@ class FuncaoBase extends Exception {
     }
     
     
-    public static function console($dados){
+    public static function implode($dados){
         $result = "";
         if(is_array($dados)){
             foreach ($dados as $key => $value) {
@@ -1004,9 +1004,7 @@ class FuncaoBase extends Exception {
         }else {
             $result = $dados;
         }
-        print "<script>";
-        print "console.log(".$result.")";
-        print  "</script>";
+        return $result;
     }
     
     

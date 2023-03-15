@@ -56,16 +56,31 @@ if ($opcao == 'dados_compdec') {
     if ($h_pedido_pedid->PermissaoMaterial($_POST)) {
         print 'sucesso';
     }
+    
+/* EDICAO MATERIAIS */
 } elseif ($opcao == 'alterar_material') {
     
-    print FuncaoBase::console($_POST);
+    //print FuncaoBase::implode($_POST);
 
     $dados = $_POST;
     if (H_pedido_itensajuda_hModel::edit($dados)) {
+        
+        H_pedido_prestajuda_hModel::editPrest($dados);
         Log::GravaLog('Edição Material '.FuncaoBase::implode("|",$dados), 'aju_log');
         print 'sucesso';
     }
-} elseif ($opcao == 'salvar_novo_mat') {
+    
+/* DELETAR MATERIAL ITEM DO PEDIDO */
+} elseif($opcao == 'deletar_material'){
+    
+    $dados = $_POST;
+    
+    if(H_pedido_itensajuda_hModel::delete($dados['id'])){
+        H_pedido_prestajuda_hModel::deletePrest($dados);
+        print 'sucesso';
+    }
+    
+}elseif ($opcao == 'salvar_novo_mat') {
 
     $dados = $_POST;
     if (H_pedido_itensajuda_hModel::gravar($dados)) {
@@ -117,4 +132,3 @@ if ($opcao == 'dados_compdec') {
         print 'sucesso';
     }
 }
-

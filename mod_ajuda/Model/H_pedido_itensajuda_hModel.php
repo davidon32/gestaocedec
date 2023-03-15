@@ -227,7 +227,7 @@ private $qtd_familia_atendida = null;
             $result->bindValue(":qtd_familia_atendida", $dados['qtd_familia_atendida']);
 
             
-            var_dump($result->execute());
+            $result->execute();
 
             #Log::GravaLog("Atualizar Cadastro de H_pedido_itens : " . $dados['nome'] . " " . $_COOKIE['seguranca']['login'], "aju_log");
 

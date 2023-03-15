@@ -483,7 +483,7 @@ foreach ($lista_devedores as $key => $value) {
 
                             /*##### EDITAR */
                             if ((data.status > 0 && data.status <= 5 || users[1].id_usuario == 1 || users[1].secao == 'CHEFIA' || users[1].secao == 'DLOG') && (users[1].secao != 'REDEC')) {
-                                links_opcoes += '<a href=\'' + geraLink('ajuda', 'h_pedido_pedid', 'edit', '<?= VERSAO ?>', {id: data.id, voltar: 'idx_recente'}) + '\' title=\'Editar Pedido\'><img src=\'/core/imagem/editar.png\'></a>';
+                                links_opcoes += '<a href=\'' + geraLink('ajuda', 'h_pedido_pedid', 'edit', '<?= VERSAO ?>', {id: data.id, voltar: 'idx_recente', aba: 'dadosgerais'}) + '\' title=\'Editar Pedido\'><img src=\'/core/imagem/editar.png\'></a>';
                                 //links_opcoes +='<button id=\'btnEdicao\' name=\'btnEdicao\' type=\'button\' data-enviar_edicao='+data.id+' class=\'btn btn-primart\'>Enviar Edição</button>';
                             }
 
