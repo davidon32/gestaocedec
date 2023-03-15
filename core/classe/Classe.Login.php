@@ -89,6 +89,7 @@ class Login extends Liberacao {
 
                 /* troca de senha */
                 if ($linha['trsenha'] == 1) {
+                    
                     self::SetCookieAdm($linha);
                     return "trsenha";
                 } else {
@@ -625,7 +626,7 @@ class Login extends Liberacao {
 
             print "alert('Você foi deslogado do sistema ! \\nfavor fechar as abas \"do Sistema\" e refazer o Login. ');";
 
-            print "window.location ='" . $redireciona . "';";
+            //print "window.location ='" . $redireciona . "';";
 
 
             print "</script>";

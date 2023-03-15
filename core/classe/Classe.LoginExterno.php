@@ -74,7 +74,7 @@ class LoginExterno extends Log {
             if (!$linha) {
 
                 Usuario::gravarLogin(array('login' => $_login, 'acao' => 'Login: ' . $_login . " Senha: " . $senha));
-                return false;
+                return ['page' => '', 'acesso'=>''];
             } else if ($linha && ($linha['situacao'] == "DESATIVADO")) {
 
                 print '<script> alert("Usuario EXPIRADO !");
