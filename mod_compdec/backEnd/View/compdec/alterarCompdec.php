@@ -427,11 +427,15 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title">Upload</h4>
+                            <h4 class="modal-title">Upload Foto Compdec</h4>
                         </div>
                         <div class="modal-body">
-                            <input class="form-control btn" type="file" name="fileAnexo" id="fileAnexo" /> <br> <br>
+                            <input class="form-control btn" type="file" name="fileAnexo" id="fileAnexo" /> <br>
+                            <p><span id="bytesFile"></span><br>
+                            <span id="file_size"></span>
                             <br>
+                            <p class="alert alert-danger">Tamanho máximo da imagem : 400 Kb</p>
+                            <p class="alert alert-danger">Resolução máxima da Imagem : 400x400 (pixels)</p>
 
                         </div>
                         <div class="modal-footer">
@@ -613,9 +617,28 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 <script type="text/javascript">
 
     $(document).ready(function () {
+        
+        
         $("#sp_email").hide();
         $("#sp_email2").hide();
         $("#sp_email3").hide();
+        
+        $("#fileAnexo").change(function () {
+            var size = $("#fileAnexo")[0].files[0].size;
+            var bitsFile = size / 1024;
+            if (size > 419430) {
+                $("#bytesFile").css('color', 'red').css('font-weight', 'bold');
+                $("#bytesFile").text(bitsFile.toFixed(2)+"Kb");
+                $("#file_size").css('color', 'red');
+                $("#file_size").text('Seu arquivo é maior que o recomendado !\n Gentileza verificá-lo !');
+                $("#btnGravarFoto").hide();
+            } else {
+                $("#bytesFile").text(bitsFile.toFixed(2)+"Kb");
+                $("#file_size").css('color', 'blue').css('font-weight', 'bold');
+                $("#file_size").text('Arquivo Tamanho Adequado');
+                $("#btnGravarFoto").show();
+            }
+        });
 
         $("#txt_email").blur(function () {
             var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -1108,14 +1131,15 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
                                     processData: false, // tell jQuery not to process the data
                                     contentType: false, // tell jQuery not to set contentType 
                                     success: function (response) {
+                                        //console.log(response);
                                         alert('Foto Anexada com Sucesso !');
                                         //console.log(response);
                                         location.reload();
                                     },
-                                    /* error : function(e) {
+                                     error : function(e) {
                                      //alert(data);
                                      console.log(JSON.stringify(e));
-                                     } */
+                                     } 
                                 });
 
                             } else {

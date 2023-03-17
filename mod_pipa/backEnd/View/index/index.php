@@ -31,6 +31,22 @@ foreach ($alertaPreCadCom as $value) {
         <a href="<?= FuncaoBase::geraLink("pipa", "pipa", "pmdaindex", array('a'=>'adm'))?>"><img width="80" src='/core/imagem/adm_pmda.png' title='Administração dos PMDA´s'></a><br>PMDA
         <br><br>
         </div>
+    
+    <!-- TDAP -->
+        <div class="col-md-4 text-center">
+            <!--######################## TDAP ###############################-->
+            <?php
+            $permissao = Usuario::getPermissao('aju_permissao', 'tdap');
+
+            if ($permissao == "1") {
+                print "<a href=\"?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=ajuda&controller=tdap&action=index\" title=\"TDAP QRCode\">";
+                print "<img src=\"core/imagem/tdap.png\" width=\"80px\"><br>TDAP</a>";
+            } else {
+                print "<img class=\"imgCinza\" src=\"core/imagem/tdap.png\" width=\"80px\"  height=\"80px\" title=\"Usuario sem Acesso\">";
+                print "<br> TDAP";
+            }
+            ?>
+        </div>
     </div>
 
 

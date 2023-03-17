@@ -9,9 +9,7 @@ class AnexoCompdec extends Anexo {
     public static function gravar($dados, $arquivo, $caminho, $campo) {
 
         try {
-            
-            
-            
+           
             /* 1.7mb = 1762762 */
             if (
                     ($arquivo[$campo]['error'] == '0') &&
@@ -28,16 +26,20 @@ class AnexoCompdec extends Anexo {
 
                 $result = $con->prepare($sql);
 
-                $nomeArquivo = str_replace(" ", "_", $arquivo[$campo]['name']);
 
-                $nomeFoto = $dados['txtIdMunicipio'] . "_" . $nomeArquivo;
+                $ext = Upload2mb::get_extension($arquivo['fileAnexo']['name']);
+                
+                $nomeFoto = $dados['txtIdMunicipio'] . "_foto_compdec.".$ext;
+                $nomeFotoUp = "foto_compdec";
+
 
                 $result->bindParam(":id_municipio", $dados['txtIdMunicipio']);
                 $result->bindParam(":fotoCompdec", $nomeFoto);
                 $result->execute();
-
-                $resultA = Anexo::upload($caminho, $arquivo, $campo, $dados['txtIdMunicipio']);
-                    return true;
+                
+                Anexo::upload($caminho, $arquivo, $campo, $dados['txtIdMunicipio'], $nomeFotoUp );
+                
+                return true;
                 
             } else {
 

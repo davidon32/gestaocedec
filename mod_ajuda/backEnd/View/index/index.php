@@ -41,21 +41,7 @@ if ($_COOKIE['seguranca']['id_deposito'] == 1) {
             ?>
         </div>
 
-        <!-- TDAP -->
-        <div class="col-md-4 text-center">
-            <!--######################## TDAP ###############################-->
-            <?php
-            $permissao = Usuario::getPermissao('aju_permissao', 'tdap');
-
-            if ($permissao == "1") {
-                print "<a href=\"?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=ajuda&controller=tdap&action=index\" title=\"TDAP QRCode\">";
-                print "<img src=\"core/imagem/tdap.png\" width=\"80px\"><br>TDAP</a>";
-            } else {
-                print "<img class=\"imgCinza\" src=\"core/imagem/tdap.png\" width=\"80px\"  height=\"80px\" title=\"Usuario sem Acesso\">";
-                print "<br> TDAP";
-            }
-            ?>
-        </div>
+        
 
         <!--###################### CONTROLE DE ESTOQUE ##########################-->
         <?php

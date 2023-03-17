@@ -71,12 +71,18 @@ if ($opcao == "parte1") {
     $files = isset($_FILES) ? $_FILES : "";
     $post = isset($_POST) ? $_POST : "";
 
+    try{
 
     $anexoFoto->deletarFoto($post['txtIdMunicipio'], '/anexo/compdec');
 
     $hash = date('his');
 
-    $anexoFoto->gravar($post, $files, PATH . '/anexo/compdec', 'fileAnexo', $hash);
+        if($anexoFoto->gravar($post, $files, PATH . '/anexo/compdec', 'fileAnexo', $hash)){
+            print 'sucesso';
+        }
+    } catch (Exception $e) {
+        return $e->getMessage();
+    }
 
 
     /* ALTERACAO DE COMPDEC */
