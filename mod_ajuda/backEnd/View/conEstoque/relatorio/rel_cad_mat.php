@@ -64,10 +64,14 @@ $dados = $ajudaRelatorioController->relatorioCadastroMaterial($ajudaRelatorioMod
     <th style='font-size:10px; text-align:center;'>Validade</th>
     <th style='font-size:10px; text-align:center;'>Obs</th>
     <th style='font-size:10px; text-align:center;'>Lanc. Usuario</th>
+    <th style='font-size:10px; text-align:center;'>Arquivo Nota</th>
     <th style='font-size:10px; text-align:center;'>Dt.Entrada</th>
 
     <?php
     $totalRegistro = 0;
+    $cancela = "";
+    
+    $title = "";
 
     for ($i = 0; $i < count($dados); $i++) {
         if($dados[$i]['cancelado'] == 1){
@@ -86,6 +90,7 @@ $dados = $ajudaRelatorioController->relatorioCadastroMaterial($ajudaRelatorioMod
         print "<td $title style='font-size:10px;{$cancela}'>" . DataMysql::dataVisual($dados[$i]['validade']) . "</td>";
         print "<td $title style='text-align:justify; font-size:10px;{$cancela}'>" . $dados[$i]['obs'] . "</td>";
         print "<td $title style='text-align:justify; font-size:10px;{$cancela}'>" . $usuario . "</td>";
+        print "<td $title style='text-align:justify; font-size:10px;{$cancela}'><a href='anexo/entrada_nota/" . $dados[$i]['nota_fiscal'] . "'>" . $dados[$i]['nota_fiscal'] . "</a></td>";
         print "<td $title style='font-size:10px;'>" . DataMysql::dataVisual($dados[$i]['dtEntradaSaida']) . "</td>";
         print "</tr>";
         $cancela = "";

@@ -99,13 +99,29 @@ class Produto {
     }
 
     #@ resgata o nome do produto baseado no id
-
     static function PegaNomeProduto($idProd) {
 
         $con = Conexao::getInstance();
 
 
         $sql = 'SELECT u.nome FROM aju_unidade u WHERE u.id_Unidade = ' . $idProd . '';
+
+        $result = $con->query($sql);
+
+        while ($row = $result->fetch(PDO::FETCH_BOTH)) {
+            $dados = $row[0];
+        }
+
+        return $dados;
+    }
+    
+    #@ resgata o nome do produto baseado no id
+    static function PegaDadosProduto($idProd) {
+
+        $con = Conexao::getInstance();
+
+
+        $sql = 'SELECT aju_produto.origem FROM aju_produto WHERE codProd = ' . $idProd . '';
 
         $result = $con->query($sql);
 

@@ -245,7 +245,8 @@ class AjudaRelatorioController extends AppController {
                                             validade,
                                             id_entrada,
                                             id_usuario,
-                                            cancelado
+                                            cancelado,
+                                            nota_fiscal
                                             from aju_produto
                                             where id_produto > 0 ".
                                             $filtro." order by ".self::SwOrder($ajudaRelatorioModel->getOrdem());

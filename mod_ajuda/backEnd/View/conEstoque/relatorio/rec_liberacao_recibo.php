@@ -136,6 +136,7 @@
 								<tr>
 									<th>Cod</th>
 									<th>Nome</th>
+									<th>Fonte</th>
 									<th>Cod.Entrada</th>
 									<th>Evento</th>
 									<th>Descr.</th>
@@ -149,6 +150,7 @@
 										print "<tr>";
 										print "<td>".$value['cod']."</td>";
 										print "<td>".Unidade::PegaNomeId($value['cod'])."</td>";
+										print "<td>".Produto::PegaDadosProduto($value['cod'])."</td>";
 										print "<td>".$value['id_entrada']."</td>";
 										print "<td>".$value['evento']."</td>";
 										print "<td>".$value['descricao']."</td>";
