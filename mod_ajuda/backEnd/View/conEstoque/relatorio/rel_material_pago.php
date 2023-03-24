@@ -6,6 +6,7 @@
 <!-- =================== HEADER ============================ -->
 <?php
 
+
 $_liberacao = new Liberacao();
 $_txt_dt_inicial = isset($_POST['txt_dt_inicial']) ? DataMysql::dataForm(htmlentities(htmlspecialchars($_POST['txt_dt_inicial']))) : "";
 $_txt_dt_final   = isset($_POST['txt_dt_final'])   ? DataMysql::dataForm(htmlentities(htmlspecialchars($_POST['txt_dt_final']))) : "" ;
@@ -47,10 +48,7 @@ if($_btn_enviar) {
         if(!is_null($_txt_material)){
             $export_param['txt_material'] = $_txt_material;
         }
-        
-        
-        
-        //var_dump($_mat_pago);
+
 }
 ?>
 <style>
@@ -65,6 +63,10 @@ if($_btn_enviar) {
 		border-color: #D8D8D8 !important;
 	}
 </style>
+
+<?php
+
+if(count($_mat_pago) > 0) { ?>
 
 
 <div class="col-md-12 text-center">
@@ -142,6 +144,15 @@ if($_btn_enviar) {
 
 	</table>
 </div>
+
+<?php } else {
+    
+    print "<br><br><br><h4><p class='alert alert-danger text-center'>Sua consulta não retornou resultados para exibição ! <br> verifique os parametros de pesquisa ! </p></h4>";
+    
+    print "<p class='text-center'><a class='btn btn-success' href='".FuncaoBase::geraLink('ajuda', 'relatorio', 'fbusca_pag_mat')."'>Voltar</a>";
+}
+
+?>
 
 <?php include_once "template/page/rodapePage.php"; ?>
 <script>

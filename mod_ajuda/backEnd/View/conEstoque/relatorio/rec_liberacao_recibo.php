@@ -137,7 +137,7 @@
 									<th>Cod</th>
 									<th>Nome</th>
 									<th>Fonte</th>
-									<th>Cod.Entrada</th>
+									<th>Cód.Entrada</th>
 									<th>Evento</th>
 									<th>Descr.</th>
 									<th>Qtd</th>

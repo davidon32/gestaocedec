@@ -67,7 +67,7 @@ $_funcaoBase = new FuncaoBase();
 
 				 $_login->acessoLembrete($_login1, $_dep);?>
 				<hr>
-				<label class="text-center"><b>Lembrete de Material em Tr&acirc;nsito</b></label>
+				<label class="text-center"><b>Lembrete de Material em Tr&acirc;nsito-</b></label>
 				<?php
 					// usuario comum
 					if($_SESSION['seguranca']['nivel'] == 0 || $_SESSION['seguranca']['nivel'] == 4) {

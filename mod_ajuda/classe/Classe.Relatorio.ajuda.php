@@ -479,11 +479,11 @@ class RelatorioAju extends DataMysql {
                                     on aju_item.cod = aju_unidade.id_unidade ";
         }
 
-        if (( strlen($_dt_inicial) > 0) && (strlen($_dt_final) > 0)) {
+        if ( !is_null($_dt_inicial) && !is_null($_dt_final) ) {
             $data = ' AND aju_pagamento.dtPagto BETWEEN "' . $_dt_inicial . '" AND "' . $_dt_final . '" ';
         }
 
-        if (strlen($_municipio) > 0) {
+        if (!is_null($_municipio) > 0) {
             $id_municipio = " AND aju_liberacao.id_municipio =  '" . $_municipio . "' ";
         }
 
@@ -516,7 +516,6 @@ class RelatorioAju extends DataMysql {
                                                         " . $sql_material_part2 . "
 							WHERE aju_pagamento.id_pagamento > '0' " . $data . $id_municipio . $id_deposito;
 
-        //print ($sql);
         $result = $con->query($sql);
 
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {

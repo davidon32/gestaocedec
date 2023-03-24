@@ -38,12 +38,13 @@ $_dados = $_compdec->buscaDadosCompdec();
 </style>
 </head>
 <body>
+         
         <?php
 
         	foreach ($_dados as $dadosCompdec) {
         		$dadosMunicipio = $_municipio->dadosMunicipio($dadosCompdec['id_municipio']);
         ?>
-				    <div class="page">
+                <div class="page">
 	                <div class="text-center"><legend><?=$_municipio->PegaNomeMunicipio($dadosCompdec['id_municipio']); ?></legend></div>
 	                <div class="">Situação Compdec: <?=($dadosCompdec['com_const']) == 0 ? "<span style='color: red;'>Inativo</span>" : "Ativo";?></div>
 	                <br>
@@ -161,6 +162,9 @@ $_dados = $_compdec->buscaDadosCompdec();
 	                    	</tr>
 	                  </table>
 	                  <table class="table table-striped table-bordered table-condensed" align="center" width="100%">
+                              <tr>
+	                    		<td colspan="5" style="text-align:center;">Coordenador Municipal de Defesa Civil</td>
+	                    	</tr>
 	                    <tr>
 	                        <td width="30%"><b>Nome</b></td>
 	                        <td width="15%"><b>Função</b></td>
@@ -175,27 +179,24 @@ $_dados = $_compdec->buscaDadosCompdec();
 	                    $repCompdec = $eqCompdec->listaMembro($dadosCompdec['id_municipio']);
 	                    	
 	                    foreach ($repCompdec as $value) {
-	                    	print "<tr>";
-	                    	print "<td>".$value['nome']."</td>";
-	                    	print "<td>".$value['funcao']."</td>";
-	                    	print "<td>".$value['telefone']."</td>";
-	                    	print "<td>".$value['celular']."</td>";
-	                    	print "<td>".$value['email']."</td>";
-	                    	print "<tr>";
+                                if($value['funcao'] == 'Coordenador') {
+                                    print "<tr>";
+                                    print "<td>".$value['nome']."</td>";
+                                    print "<td>".$value['funcao']."</td>";
+                                    print "<td>".$value['telefone']."</td>";
+                                    print "<td>".$value['celular']."</td>";
+                                    print "<td>".$value['email']."</td>";
+                                    print "<tr>";
+                                }
 	                    }
 	              
 	                    ?>
-	  
 	                </table>
 	            </div>
    
-	        	<?php
-	        	/* fecha foreach */
-                        
-					 }
-					 
-				?>
-	</div>
+                        <!-- /* fecha foreach */-->
+	        	<?php }?>
+	
         <!-- RODAPE -->
         <div class="row-fluid" id="rodape">
             <div class="span12 text-center">
@@ -203,6 +204,7 @@ $_dados = $_compdec->buscaDadosCompdec();
                 <small><?php print RODAPE;?></small>
             </div>
         </div>
+
 
     <script src="/js/jquery.js"></script>
     <script src="/js/bootstrap.js"></script>

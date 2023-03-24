@@ -566,19 +566,14 @@ class Compdec {
     						INNER JOIN cedec_municipio
     						ON com_comdec.id_municipio = cedec_municipio.id_municipio";
 
-            if ($_id_municipio) {
+            if (!empty($_id_municipio)) {
 
-                $sql .= " WHERE com_comdec.id_municipio =:id_municipio";
+                $sql .= " WHERE com_comdec.id_municipio ={$_id_municipio}";
             }
 
             $sql .= " ORDER BY cedec_municipio.nome";
 
-            $result = $con->prepare($sql);
-
-            $result->bindValue(':id_municipio', $_id_municipio);
-
-            $result->execute();
-
+            $result = $con->query($sql);
 
             while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
 
