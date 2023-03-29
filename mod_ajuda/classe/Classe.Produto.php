@@ -121,7 +121,7 @@ class Produto {
         $con = Conexao::getInstance();
 
 
-        $sql = 'SELECT aju_produto.origem FROM aju_produto WHERE codProd = ' . $idProd . '';
+        $sql = 'SELECT aju_produto.origem FROM aju_produto WHERE id_produto = ' . $idProd . '';
 
         $result = $con->query($sql);
 

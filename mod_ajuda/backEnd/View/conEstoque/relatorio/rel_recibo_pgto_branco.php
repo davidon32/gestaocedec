@@ -109,7 +109,6 @@ body {
 							print "<th>Cód</th>";
 							print "<th>Material</th>";
 							print "<th>Fonte</th>";
-							print "<th>Cód.Entrada</th>";
 							print "<th>Descr.</th>";
 							print "<th>Qtd</th>";
 							print "</tr>"; 
@@ -119,8 +118,7 @@ body {
 								print "<tr>"; 
 								print "<td>".$value['cod']."</td>";
 								print "<td>".Produto::PegaNomeProduto($value['cod'])."</td>";
-								print "<td>".Produto::PegaDadosProduto($value['cod'])."</td>";
-								print "<td>".$value['id_entrada']."</td>";
+								print "<td>".$value['id_entrada']."-".Produto::PegaDadosProduto($value['id_entrada'])."</td>";
 								print "<td>".$value['descricao']."</td>";
 								print "<td>".$value['quantidade']."</td>";
 								print "</tr>"; 
