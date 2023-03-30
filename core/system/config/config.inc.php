@@ -40,7 +40,7 @@ define('TESTE', false);
 
 #@ versao
 if(!defined('VERSAO')){
-define('VERSAO', 'versão - 3.4.1.6-3 - 14.03.2023');
+define('VERSAO', 'versão - 3.4.1.6-6 - 30.03.2023');
 
 }
 

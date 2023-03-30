@@ -132,7 +132,7 @@
 							<td colspan="4" align="center">
 							 <br>
                                                     <legend>Deposito Retirada: <?= Deposito::PegaNomeDeposito($dados['depDestino'])?></legend>
-							<table class='table table-bordered' style="width: 80%">
+							<table class='table table-bordered' style="width:90%">
 								<tr>
 									<th>Cod</th>
 									<th>Nome</th>

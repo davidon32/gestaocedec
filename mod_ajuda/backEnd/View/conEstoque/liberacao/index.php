@@ -61,7 +61,7 @@
                 print "<td><a href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=vmateriallib&id=".$value['id_liberacao']."\" title='Mostra Materiais Liberados'>".Municipio::PegaNomeMunicipio($value['id_municipio'])."</a></td>";
                 print "<td>".Usuario::getNomeId($value['id_usuario'])."</td>";
                 print "<td><a href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=cancelar&id=".$value['id_liberacao']."\" title='Cancelar Liberacao'><img src='core/imagem/cancela.png' width='25'></a>
-                &nbsp;&nbsp;&nbsp;&nbsp;<a href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=relatorio&action=rec_pgto&id=".$value['id_liberacao']."&m=Q\" title='Recibo Pagamento em Branco'><img src='core/imagem/impressao.png' width='25'></a>
+                &nbsp;&nbsp;&nbsp;&nbsp;<a href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=relatorio&action=rel_liberacao_recibo&id=".$value['id_liberacao']."&m=Q\" title='Recibo Pagamento em Branco'><img src='core/imagem/impressao.png' width='25'></a>
                 </td>";
                 print "</tr>";
             }

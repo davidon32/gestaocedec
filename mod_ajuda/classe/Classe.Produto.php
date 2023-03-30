@@ -117,6 +117,7 @@ class Produto {
     
     #@ resgata o nome do produto baseado no id
     static function PegaDadosProduto($idProd) {
+        $dados = "";
 
         $con = Conexao::getInstance();
 
