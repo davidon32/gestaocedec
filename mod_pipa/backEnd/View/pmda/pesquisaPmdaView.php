@@ -210,10 +210,11 @@ $secao_usuario = $_COOKIE['seguranca']['secao'];
             }else {
                 
             }
-
+            
+            /* Pmda em edição usuario não faz parte da drrd */
             if ($value['status'] < 2 && $secao_usuario != "DRRD" ) {
                 print "<tr>
-                        <td colspan='13'>Registro Suprimido !</td>
+                        <td></td><td>".$protocolo."</td><td>".DataMysql::dataCompletaVisual($value['data'])."</td><td colspan='12'>Processo em Edição - Registro Suprimido ! - </td>
                     </tr>";
             
             #### todos os registros ####    
@@ -359,9 +360,8 @@ $secao_usuario = $_COOKIE['seguranca']['secao'];
                 print "<td " . $homologado . ">";
 
                 # acesso somente operador PMDA
-                if ($permissaoOperador == 1) {
-                    if ($value['status'] == 4 ||
-                            $value['status'] == 0 ||
+                if ( ($permissaoOperador == 1) && ($secao_usuario == "DLS") ){
+                    if ($value['status'] == 0 ||
                             $value['status'] == 1 ||
                             $value['status'] == 2 ||
                             $value['status'] == 5){
@@ -463,8 +463,10 @@ $secao_usuario = $_COOKIE['seguranca']['secao'];
     $(document).ready(function () {
 
         $("[name=selStatus]").change(function () {
-            if ($(this).data('status') == 7) {
+            if ($(this).data('status') == 8) {
                 alterarEstado($(this).data('id_pmda'), 'Cancelado');
+            } else if($(this).data('status') == 4){
+                alterarEstado($(this).data('id_pmda'), 'Atendido');
             } else {
                 alterarStatus($(this).data('id_pmda'));
             }
