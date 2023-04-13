@@ -35,9 +35,7 @@ if (!empty($id_pmda)) {
     <b>Municipio :</b>&nbsp;&nbsp;&nbsp; <i><?= Municipio::PegaNomeMunicipio($id_municipio); ?></i>
     &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
     <i><?= isset($protocolo) ? "<b>PMDA Nº: </b>" . $protocolo : ""; ?></i>
-    <div class="col-md-12">
-        <br>
-        <br> <button class="btn btn-primary" title="Voltar Menu" id="idVoltarMenu">Voltar</button>
+        <button class="btn btn-success" title="Voltar Menu" id="idVoltarMenu">Voltar</button>
 
         <p class="pull-right">
             <!-- conta os status do pmda em edição status =0 -->
@@ -51,37 +49,39 @@ print "<button type=\"button\" class=\"btn btn-primary\" title=\"Criar novo PMDA
             <span style="background-color:#D6D6D6; width:40%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;PMDA que está em Edição &nbsp;
             <span style="background-color:#A9F5A9; width:40%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;PMDA que Permite Edição
         </p>
+    <div class="col-md-10">
         <?php
         $dadosPmda = $pmda->listaPmda($id_municipio);
 
         ?>
-        <table style="width:90%; margin: auto;" class="table table-bordered table-responsive" id="tblListaPmda">
+        <table margin: auto;" class="table table-bordered table-responsive" id="tblListaPmda">
+                        
             <tr>
-                <th colspan="5" style="text-align: center"><h4>Histórico dos PMDA</h4></th>
+                <th colspan="6" style="text-align: center"><h4>Histórico dos PMDA</h4></th>
             </tr>
             <tr>
                 <th class="col-md-3 text-center" style="width: 30%;">Protocolo</th>
                 <th class="col-md-2 text-center" style="width: 20%;">Data Criação</th>
                 <th class="col-md-2 text-center" style="width: 20%;">Situação</th>
                 <th class="col-md-3 text-center" style="width: 30%;">Ação</th>
-                <th class="col-md-3 text-center" style="width: 30%;">Estado</th>
-                
+                <th class="col-md-3 text-center" style="width: 30%;">Estado</th>               
             </tr>
+            
 <?php
 
 $verificaDuplicar = $pmda->verificaDuplicar($id_municipio);
 
 #lista de pmda do Compdec
 foreach ($dadosPmda as $value) {
-    
-    //var_dump($pmda->buscaStatus($value ['id_pmda']));
-    //die();
 
+    /* verificação da data do pmda */
     $pmdaLegado = $pmda->pmdaLegado($value['data']);
+    
+    /* montagem do protocolo */
     $protocolo = $value ['id_pmda'] . str_replace("-", "", substr($value ['data'], 0, 10));
 
     $novo = "";
-    # 
+     
     if ($id_pmda == $value ['id_pmda']) {
         $fdo = "background-color:#D6D6D6; color:#6E6E6E;";
         # pmda status edição
@@ -119,7 +119,8 @@ foreach ($dadosPmda as $value) {
     
     # duplicar pmda ( somente pmda atendido )
     if ($verificaDuplicar == 0){
-        "&nbsp;<a id='btnVerificar' onclick='javascrip:duplicar(" . $value ['id_pmda'] . ")' title='Criar Cópia deste PMDA'><img width='30px' src='core/imagem/copia.png'></a>";   
+        print "&nbsp;<a id='btnVerificar' onclick='javascrip:duplicar(" . $value ['id_pmda'] . ")' title='Criar Cópia deste PMDA'><img width='30px' src='core/imagem/copia.png'></a>";   
+        
     }
 
     # somente mensagem novas
@@ -127,7 +128,7 @@ foreach ($dadosPmda as $value) {
         $title = '/ Nova(s) Mensagem(s) Recebida(s) !';
         $icone = 'msg_not_nova.png';
 
-        print "&nbsp;<a onclick=\"lerMensagemRecebida('" . $value ['id_pmda'] . "','nv')\" title='Troca de Mensagens / Nova(s) Mensagem(s) Recebida(s) !'><img src='core/imagem/msg_tr_nova.png'></a>";
+        print "&nbsp;<a onclick=\"lerMensagemRecebida('" . $value ['id_pmda'] . "','nv')\" title='Troca de Mensagens / Nova(s) Mensagem(s) Recebida(s) !'><img src='core/imagem/msg_not.png'></a>";
     } elseif (count($pmda->listaMensagem($value ['id_pmda'], '')) > '0') {
         //print "&nbsp;<a data-toggle='modal' data-target='#modalMensagem' data-idpmda='".$value ['id_pmda']."' id='btnMensagem' title='Troca de Mensagens'><img src='core/imagem/msg_tr.png'></a>";
     }
@@ -149,10 +150,27 @@ foreach ($dadosPmda as $value) {
     print "</tr>";
 }
 ?>
-
-        </table>
+    </table>
 
     </div>
+    <div class="col-md-2">
+         
+    <table class="table table-bordered">
+            <tr>
+                <td>
+                    <h4><p style="text-align:center">Legenda</p></h4>
+                    <p><img src='core/imagem/delete.png'> Apagar PMDA</p>
+                    <p><img src='core/imagem/editar.png'> Editar PMDA</p>
+                    <p><img src='core/imagem/impressao.png'> Imprimir</p>
+                    <p><img src='core/imagem/atualizar.png' title="Verifica se o processo está em condições de envio para análise !"> Verificar Pendências</p>
+                    <p><img src='core/imagem/msg_not.png'> Nova Mensagem</p>
+                    <p><img src='core/imagem/notas.png'> Históricos Msg</p>
+                
+                </td>
+            </tr>
+        </table>
+    </div>
+        
 </div>
 
 <!-- Modal Msg -->

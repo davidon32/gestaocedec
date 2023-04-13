@@ -188,7 +188,8 @@ print "</script>";
                         if (isset($pageSession['session']['seguranca']['externo'])) {
                             print $pageSession['session']['seguranca']['nome_usuario'];
                         } else {
-                            print $pageSession['session']['seguranca']['posto']." ".$pageSession['session']['seguranca']['nome_usuario'];
+                            print $pageSession['session']['seguranca']['posto']." ".substr($pageSession['session']['seguranca']['nome_usuario'], 0, 20)."..";
+                            print "( ".$pageSession['session']['seguranca']['secao']." )";
                         }
                         ?>
                         <script>start_countdown();</script>
@@ -246,9 +247,9 @@ print "</script>";
                     </ul>
                 </li>
                 <!-- Control Sidebar Toggle Button -->
-                <li>
+<!--                <li>
                   <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                </li>
+                </li>-->
             </ul>
         </div>
         <!-- final itens usuario-->

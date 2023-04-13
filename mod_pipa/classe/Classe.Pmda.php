@@ -773,6 +773,11 @@ class Pmda extends Comunidade {
 
     /**
      * Muda os status do PMDA
+     * $array['id_pmda']
+       $array['resp']
+       $array['status']
+       $dt_atual - hoje
+       $array['data']
      *
      */
     public static function atualizaStatus($array) {
@@ -809,7 +814,7 @@ class Pmda extends Comunidade {
      *
      */
     public static function atualizaEstado($array) {
-        
+               
         if($array['estado'] == 7){
             $data = isset($array['data']) ? $array['data'] : null;
         }else {
@@ -1340,13 +1345,16 @@ class Pmda extends Comunidade {
             $situacao = "=" . $situacao;
         }
         $sql = "select pip_pmda.id_pmda,
-    					pip_pmda.id_municipio,
-						pip_pmda.data as data,
-						pip_pmda.status as status,
-    					pip_pmda.resp_homolog as resp_homolog
-						from pip_pmda
-						where pip_pmda.status " . $situacao . "
-    					order by pip_pmda.status desc, pip_pmda.id_municipio";
+    		pip_pmda.id_municipio,
+		pip_pmda.data as data,
+		pip_pmda.status as status,
+    		pip_pmda.resp_homolog as resp_homolog,
+                pip_pmda.data_aprov as data_aprov,
+                pip_pmda.dt_analise as dt_analise,
+                pip_pmda.estado as estado
+		from pip_pmda
+		where pip_pmda.status " . $situacao . "
+    		order by pip_pmda.status desc, pip_pmda.id_municipio";
 
         $result = $con->query($sql);
         $result->execute();

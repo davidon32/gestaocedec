@@ -161,8 +161,8 @@ $secao_usuario = $_COOKIE['seguranca']['secao'];
 									<th>Municipio</th>
 									<th width='150'>Status</th>";
 
-        print "<th>Opções</th>";
-        print "<th>Último Acesso</th>";
+        print "<th>Ações</th>";
+        print "<th title='Data do último acesso do COMPDEC no sistema'>Último Acesso</th>";
         print "<th>Data Aprovação</th>";
         print "<th>Homologado Por</th>";
         print "<th>Dt Analise</th>";
@@ -248,15 +248,17 @@ $secao_usuario = $_COOKIE['seguranca']['secao'];
    ############################### SELECT STATUS ##################################
                             # permissao operador
                             if ($permissaoOperador == 1) {
-                                # status CANCELADO
+                                
+                                # CANCELADO não tem opções
                                 if($value['status'] >= 8) {
                                     print $pmda->status($value['status']);
-                                    
+                                 
+                                # ATENDIDO e estado:"Encerrado Atendimento" ou ANULADO
                                 } elseif ($value['status'] == 7 && $value['estado'] == "Encerrado Atendimento" || $value['status'] == 5) {
                                     print $pmda->status($value['status']);
                                 
-                                # status não esteja cancelado     
-                                } elseif ($value['status'] == 7 && $value['estado'] != "Cancelado" || $value['status'] != 8 || $value['status'] != 9) {
+                                # status não esteja cancelado e usuario DLS    
+                                } elseif ($value['status'] == 7 && $value['estado'] != "Cancelado" || $value['status'] != 8 || $value['status'] != 9 && $secao_usuario != "DLS") {
                                     # SELECT STATUS 
                                     print "<select class='form-control' id='selStatus" . $value['id_pmda'] . "' data-id_pmda='" . $value['id_pmda'] . "' data-status='" . $value['status'] . "' name='selStatus'>";
                                     print "<option value='" . $value['status'] . "'>" . $pmda->status($value['status']) . "</option>";
@@ -275,8 +277,9 @@ $secao_usuario = $_COOKIE['seguranca']['secao'];
                                         print "<option value='8'>Cancelar</option>";
                                     }
 
-                                    # atendido
-                                    if ($value['status'] == 7 && $value['estado'] != 'Cancelado' && $value['estado'] != 'Encerrado Atendimento') {
+                                    # STATUS ATENDIDO
+                                    # DLS - PERMISSAO DE CANCELAR OU ENCERRAR O ATENDIEMTO( FIM DO ATENDIMENTO )
+                                    if ($value['status'] == 7 && $value['estado'] != 'Cancelado' && $value['estado'] != 'Encerrado Atendimento' && $secao_usuario == "DLS") {
                                         print "<option value='8'>Cancelar</option>";
                                         print "<option value='9'>Encerrado</option>";
 
@@ -329,7 +332,7 @@ $secao_usuario = $_COOKIE['seguranca']['secao'];
                 //
                 # imprimir
                 print "|<a href='?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=pipa&controller=pipa&action=printView&param=" . $value['id_pmda'] . "&mun=" . $value['id_municipio'] . "' title='Impressão PMDA'><img src='core/imagem/printer.png'></a>";
-                print $pmdaLegado ? ("|<a data-toggle='modal' data-target='#modalMensagem' id='btnMsg' name='TrocaMensagem' data-idpmda='" . $value['id_pmda'] . "' data-idusuario='" . $pageSession['session']['seguranca']['idUser'] . "' data-idmunicipio='" . $value['id_municipio'] . "' data-protocolo='" . $protocolo . "' ><img src='core/imagem/msg_tr.png' title='Troca de mensagens PMDA'></a>") : "";
+                print $pmdaLegado ? ("|<a data-toggle='modal' data-target='#modalMensagem' id='btnMsg".$value['id_pmda']."' name='TrocaMensagem' data-idpmda='" . $value['id_pmda'] . "' data-idusuario='" . $pageSession['session']['seguranca']['idUser'] . "' data-idmunicipio='" . $value['id_municipio'] . "' data-protocolo='" . $protocolo . "' ><img src='core/imagem/msg_tr.png' title='Troca de mensagens PMDA'></a>") : "";
 
                 # visualizar Comentarios/Notas
                 print "|<a href='?ac=itn&modulo=pipa&controller=pipa&action=historicoMsg&id_pmda=" . $value['id_pmda'] . "' id='list_msg' name='list_msg' title='Historico de Mensagens do PMDA nº " . $protocolo . "'><img src='core/imagem/notas.png'></a>";
@@ -349,9 +352,9 @@ $secao_usuario = $_COOKIE['seguranca']['secao'];
                 print "</td>";
 
                 print "<td " . $homologado . ">" . $ultimoAcesso . "</td>";
-                print "<td " . $homologado . ">" . $value['data_aprov'] . "</td>";
-                print "<td " . $homologado . ">" . (!isset($value['resp_homolog']) ? "-" : Usuario::getNomeId($value['resp_homolog']) ) . "</td>";
-                print "<td " . $homologado . ">" . $value['dt_analise'] . "</td>";
+                print "<td " . $homologado . ">" . DataMysql::dataCompletaVisual($value['data_aprov']) . "</td>";
+                print "<td " . $homologado . ">" . (!isset($value['resp_homolog']) ? "-" : substr( Usuario::getNomeId($value['resp_homolog']), 0, 20)."..." ) . "</td>";
+                print "<td " . $homologado . ">" . DataMysql::dataCompletaVisual($value['dt_analise']) . "</td>";
 
                 
 ##############################  ESTADO ###################################
@@ -420,8 +423,8 @@ $secao_usuario = $_COOKIE['seguranca']['secao'];
 </div>
 
 <!-- Modal Msg -->
-<div class="modal fade" id="modalMensagem">
-    <div class="modal-dialog">
+<div class="modal fade" id="modalMensagem" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -461,18 +464,20 @@ $secao_usuario = $_COOKIE['seguranca']['secao'];
 
 
     $(document).ready(function () {
-
+        
+        
+        /* muda o STATUS do processo */
         $("[name=selStatus]").change(function () {
             if ($(this).data('status') == 8) {
                 alterarEstado($(this).data('id_pmda'), 'Cancelado');
-            } else if($(this).data('status') == 4){
+            } else if($(this).find(":selected").val() == 4){
                 alterarEstado($(this).data('id_pmda'), 'Atendido');
             } else {
                 alterarStatus($(this).data('id_pmda'));
             }
         });
 
-
+        /* muda o ESTADO DO PROCESSO */
         $("[name=selEstado]").change(function () {
             alterarEstado($(this).data('id_pmda'));
         });
@@ -725,10 +730,12 @@ $secao_usuario = $_COOKIE['seguranca']['secao'];
             estado = 'Aguard. Atendimento';
         } else if ($(id_sel).val() == 7) {
             estado = 'Em Atendimento';
-        } else if ($(id_sel).val() == 9) {
+        } else if ($(id_sel).val() == 8) {
+            estado = 'Cancelado';
+        }else if ($(id_sel).val() == 9) {
             estado = 'Cancelado';
         }
-
+        
         var dados = {
             "id_pmda": id_pmda,
             "status": $(id_sel).val(),
@@ -779,10 +786,9 @@ $secao_usuario = $_COOKIE['seguranca']['secao'];
             url: 'mod_pipa/backEnd/View/pmda/funcAdm.php?v=<?= md5(VERSAO) ?>',
             data: dados,
             success: function (response) {
-                console.log(response);
-                alert('Estado Alterado com Sucesso !!')
+                //console.log(response);
+                alert('Estado Alterado com Sucesso !!');
                 location.reload();
-                // console.log(response);
             },
             error: function (response) {
                 console.log(JSON.stringify(response));
