@@ -1422,13 +1422,11 @@ class Pmda extends Comunidade {
      * @return numero de registros
      * @param $id_municipio 
      */
-    public function verificaDuplicar($id_municipio) {
+    public function verificaDuplicar($id_pmda) {
 
         $dataCriacao = date('Y/m/d', strtotime(date('2021/03/04')));
 
         try {
-
-            if (!empty($id_municipio)) {
 
                 $con = Conexao::getInstance();
 
@@ -1436,12 +1434,12 @@ class Pmda extends Comunidade {
 
                 $sql = "select count(id_pmda) as num_pmda
                             from pip_pmda
-                            where id_municipio = :id_municipio
-                            and status in ('1','0')
+                            where id_pmda = :id_pmda
+                            and status not in ('1','0', '4')
                             and data > '" . $dataCriacao . "'";
 
                 $result = $con->prepare($sql);
-                $result->bindParam(":id_municipio", $id_municipio);
+                $result->bindParam(":id_pmda", $id_pmda);
                 $result->execute();
 
                 while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -1450,9 +1448,7 @@ class Pmda extends Comunidade {
                 }
 
                 return $dados;
-            } else {
-                return null;
-            }
+            
         } catch (Exception $e) {
             
         }

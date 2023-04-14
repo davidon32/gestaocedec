@@ -13,9 +13,23 @@ $permissaoOperador = $_COOKIE['seguranca']['pmdaoperador'];
 $permissaoDlog = $_COOKIE['seguranca']['pmdadlog'];
 $secao_usuario = $_COOKIE['seguranca']['secao'];
 ?>
+<style>
+    .breadcrumb {
+        padding: 0px 0 !important;
+        margin: 0 !important;
+    }
+</style>
+<div class="">
+    <ul class="breadcrumb">
+        <li><a href='<?=FuncaoBase::geraLink('index', 'index', 'menu')?>'>Home</a></li>
+        <li><a href='<?=FuncaoBase::geraLink('pipa', 'pipa', 'index')?>'>Módulo PMDA</a></li>
+        <li><a href='<?=FuncaoBase::geraLink('pipa', 'pipa', 'pmdaindex')?>'>SubMenu PMDA</a></li>
+    </ul>
+</div>
 <div class='col-md-12 text-center'>
     <a class="btn btn-success" href="?ac=itn&modulo=pipa&controller=pipa&action=index">Voltar</a>
 </div>
+
 
 
 <!-- INICIO DO CORPO-->

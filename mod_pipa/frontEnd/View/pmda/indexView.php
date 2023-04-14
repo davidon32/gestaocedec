@@ -69,11 +69,12 @@ print "<button type=\"button\" class=\"btn btn-primary\" title=\"Criar novo PMDA
             
 <?php
 
-$verificaDuplicar = $pmda->verificaDuplicar($id_municipio);
 
 #lista de pmda do Compdec
 foreach ($dadosPmda as $value) {
 
+    $verificaDuplicar = $pmda->verificaDuplicar($value['id_pmda']);
+    
     /* verificação da data do pmda */
     $pmdaLegado = $pmda->pmdaLegado($value['data']);
     
@@ -118,7 +119,7 @@ foreach ($dadosPmda as $value) {
     print ($pmda->buscaStatus($value ['id_pmda']) < '2') ? (($pmdaLegado) ? "&nbsp;<a id='btnVerificar' onclick='javascrip:verificaPendencia(" . $value ['id_pmda'] . ")' title='Verifica Pendência deste PMDA'><img width='30px' src='core/imagem/atualizar.png'></a>" :"") : "";
     
     # duplicar pmda ( somente pmda atendido )
-    if ($verificaDuplicar == 0){
+    if ($verificaDuplicar == 1){
         print "&nbsp;<a id='btnVerificar' onclick='javascrip:duplicar(" . $value ['id_pmda'] . ")' title='Criar Cópia deste PMDA'><img width='30px' src='core/imagem/copia.png'></a>";   
         
     }
@@ -165,6 +166,7 @@ foreach ($dadosPmda as $value) {
                     <p><img src='core/imagem/atualizar.png' title="Verifica se o processo está em condições de envio para análise !"> Verificar Pendências</p>
                     <p><img src='core/imagem/msg_not.png'> Nova Mensagem</p>
                     <p><img src='core/imagem/notas.png'> Históricos Msg</p>
+                    <p><img src='core/imagem/copia.png'> Criar Cópia PMDA</p>
                 
                 </td>
             </tr>

@@ -51,6 +51,16 @@
     Action : <i><?= $_GET['action'] ?></i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     Url : <i><?= substr($_SERVER['REQUEST_URI'], strpos($_SERVER['REQUEST_URI'], "&")); ?></i>
     &nbsp;&nbsp;&nbsp;&nbsp;<a href='<?= FuncaoBase::geraLink("cedec", "index", "vars")?>'>Vars</a>
+    <br>
+   
+<?php 
+$modulo = $_GET['modulo'];
+$controller = $_GET['controller'];
+$action = $_GET['action'];
+echo htmlspecialchars("<a href='<?=FuncaoBase::geraLink('$modulo', '$controller', '$action')?>'>Home</a>");
+
+    
+    ?>
     
 </div>
 

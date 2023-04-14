@@ -1,11 +1,12 @@
 <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+<!--  <div class="content-wrapper">-->
+<!--      <div class="col-md-12">-->
     <!-- Content Header (Page header) -->
-    <section class="content-header print">
-      <h1>
+<!--    <section class="content-header print">-->
+<!--      <h1>
           <small><?=($_GET['controller'] != 'almoxarifado') ? Config::traducaoController($_GET['controller']) : 'Armazém';?></small>
-      </h1>
-      <ol class="breadcrumb">
+      </h1>-->
+<!--      <ol class="breadcrumb">
           
           <?php
             if(isset($_COOKIE['seguranca']['externo'])) {
@@ -22,14 +23,16 @@
             }
             ?>
         <li class="active "><?=($_GET['controller'] == "almoxarifado" ? "Armazém" : Config::traducaobreadcrumb($_GET['controller']));?></li>
-      </ol>
-    </section>
+      </ol>-->
+<!--    </section>-->
+<!--      </div>-->
 
     <!-- Main content -->
-    <section class="content">
+<!--    <section class="content">-->
 
       <!-- Default box -->
-      <div class="box">
+<!-- 14/04/2023    <div class="box">-->
+<div class="col-md-12">
 <!--        <div class="box-header with-border print">
             <h3 class="box-title"><?= isset($this) ? $this->Contexto($_GET['action']) : "";?></h3>
             
@@ -42,5 +45,5 @@
               <i class="fa fa-times"></i></button>
           </div>
         </div>-->
-        <div class="box-body">
+<!--  14/04/2023        <div class="box-body">-->
           <?php #include_once('mod_'.$modulo.'/app/'.$secao."/index.php");?>
