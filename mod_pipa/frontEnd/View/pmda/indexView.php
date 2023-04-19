@@ -45,6 +45,11 @@ print "<button type=\"button\" class=\"btn btn-primary\" title=\"Criar novo PMDA
 ?>
         </p>
         <br><br>
+        <h4 class="alert alert-danger">Critério para criar uma cópia <img width='30px' src='core/imagem/copia.png'> de um Processo de PMDA : <br>
+            > A data de Criação deve ser Posterior a "03/04/2021"<br>
+            > O status <b>não</b> dever estar como "Em Edição", "Completo", "Em Análise" ou "Aprovado".
+            
+        </h4>
         <p style="text-align:right; font-weight:bold;">
             <span style="background-color:#D6D6D6; width:40%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;PMDA que está em Edição &nbsp;
             <span style="background-color:#A9F5A9; width:40%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;PMDA que Permite Edição
@@ -60,11 +65,12 @@ print "<button type=\"button\" class=\"btn btn-primary\" title=\"Criar novo PMDA
                 <th colspan="6" style="text-align: center"><h4>Histórico dos PMDA</h4></th>
             </tr>
             <tr>
-                <th class="col-md-3 text-center" style="width: 30%;">Protocolo</th>
-                <th class="col-md-2 text-center" style="width: 20%;">Data Criação</th>
-                <th class="col-md-2 text-center" style="width: 20%;">Situação</th>
-                <th class="col-md-3 text-center" style="width: 30%;">Ação</th>
-                <th class="col-md-3 text-center" style="width: 30%;">Estado</th>               
+                <th class="col-md-3 text-center" style="width: 12%;">Protocolo</th>
+                <th class="col-md-2 text-center" style="width: 10%;">Data Criação</th>
+                <th class="col-md-2 text-center" style="width: 10%;">Situação</th>
+                <th class="col-md-3 text-center" style="width: 20%;">Ação</th>
+                <th class="col-md-3 text-center" style="width: 35%;">Obs</th>
+                <th class="col-md-3 text-center" style="width: 15%;">Estado</th>               
             </tr>
             
 <?php
@@ -122,6 +128,8 @@ foreach ($dadosPmda as $value) {
     if ($verificaDuplicar == 1){
         print "&nbsp;<a id='btnVerificar' onclick='javascrip:duplicar(" . $value ['id_pmda'] . ")' title='Criar Cópia deste PMDA'><img width='30px' src='core/imagem/copia.png'></a>";   
         
+    }else {
+     print "<img class='imgCinza' width='30px' src='core/imagem/copia.png' title='Este PMDA não pode ser Duplicado !'>";
     }
 
     # somente mensagem novas
@@ -141,6 +149,11 @@ foreach ($dadosPmda as $value) {
         print "| <a href='".FuncaoBase::geraLink("pipa", "pipa", "alt_com_proc", array('id_pmda'=>$value['id_pmda']))."' name='btnAlterarComunid' data-id_pmda='" . $value ['id_pmda'] . "' title='Altere as Comunidades do Pmda'> <img src='core/imagem/change.png'></a>";
     }
     //print "<a href='#' id='btnDuplicarPmda' name='btnDuplicarPmda' data-idpmda='" . $value ['id_pmda'] . "' title='Cria um Clone deste PMDA para Edição'> <img src='core/imagem/duplicar.png'></a>";
+    print "</td>";
+    print "<td>";
+        if($verificaDuplicar == 0) {
+            print "Este PMDA não permite fazer uma cópia pois está fora dos requisitos para esta ação";
+        }
     print "</td>";
     
     ##########  ESTADO PMDA ###############

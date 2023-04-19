@@ -1435,7 +1435,7 @@ class Pmda extends Comunidade {
                 $sql = "select count(id_pmda) as num_pmda
                             from pip_pmda
                             where id_pmda = :id_pmda
-                            and status not in ('1','0', '4')
+                            and status not in ('1','0','2','4')
                             and data > '" . $dataCriacao . "'";
 
                 $result = $con->prepare($sql);
