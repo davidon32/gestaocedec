@@ -744,7 +744,7 @@ class RelatorioAju extends DataMysql {
 
             while ($_prod = $r_prod->fetch(PDO::FETCH_ASSOC)) {
                 print "<tr>
-								<td style='font-size:10px;text-align:left'><i>" . Produto::PegaNomeProduto($_prod['cod']) . "</i></td>
+								<td style='font-size:10px;text-align:left'><i>" . Produto::PegaNomeProduto($_prod['cod']) . "-".Material::getMaterial1($_prod['id_entrada'])['origem']."</i></td>
 								<td style='font-size:10px;text-align:left'>" . $_prod['id_entrada'] . "</td>
 								<td style='font-size:10px;text-align:left'>" . $_prod['descricao'] . "</td>
 								<td style='font-size:10px;text-align:left'>" . $_prod['quantidade'] . "</td>

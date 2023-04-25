@@ -14,6 +14,10 @@
                 <form action="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=relatorio&action=rel_cad_mat" method="POST">
 
                 <div class="col-md-12">
+                    <label>Depósito Entrada</label>
+                    <?php Deposito::pegaDeposito();?>
+                </div>
+                <div class="col-md-12">
                     <label>Historico</label>
                     <input class="form-control" type="text" id="txtMaterial" name="txtMaterial" />
                 </div>

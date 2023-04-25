@@ -226,11 +226,13 @@ class AjudaRelatorioController extends AppController {
         $dt_inicio = $ajudaRelatorioModel->getDt_inicial();
         $dt_final = $ajudaRelatorioModel->getDt_final();
         $material = $ajudaRelatorioModel->getMaterial();
+        $deposito1 = $ajudaRelatorioModel->getDeposito();
         
         $filtro ="";
-        $filtro .= !empty($dt_inicio) ? " and dtEntradaSaida >= '".$dt_inicio."'" : "";
+        $filtro .= !empty($dt_inicio)  ? " and dtEntradaSaida >= '".$dt_inicio."'" : "";
         $filtro .= !empty($dt_final)   ? " and dtEntradaSaida <= '".$dt_final."'"   : "";
         $filtro .= !empty($material)   ? " and nome like '%".$material."%'"   : "";
+        $filtro .= !empty($deposito1)  ? " and id_dep_destino = '".$deposito1."'" : "";
 
         try {
             

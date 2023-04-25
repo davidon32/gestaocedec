@@ -32,10 +32,11 @@ $_relatorioAjuda = new RelatorioAju();
     }
 </style>
 <?php
-$dtInicio = isset($_POST['txtDtInicio']) ? DataMysql::dataForm($_POST['txtDtInicio']) : false;
-$dtFinal = isset($_POST['txtDtFinal']) ? DataMysql::dataForm($_POST['txtDtFinal']) : false;
-$ordem = isset($_POST['rbOrdem']) ? $_POST['rbOrdem'] : false;
+$dtInicio      = isset($_POST['txtDtInicio']) ? DataMysql::dataForm($_POST['txtDtInicio']) : false;
+$dtFinal       = isset($_POST['txtDtFinal']) ? DataMysql::dataForm($_POST['txtDtFinal']) : false;
+$ordem         = isset($_POST['rbOrdem']) ? $_POST['rbOrdem'] : false;
 $nome_material = isset($_POST['txtMaterial']) ? $_POST['txtMaterial'] : false;
+$deposito      = isset($_POST['id_deposito']) ? $_POST['id_deposito'] : false;
  
 
 $ajudaRelatorioModel = new AjudaRelatorioModel();
@@ -46,8 +47,11 @@ $ajudaRelatorioModel->setDt_inicial($dtInicio);
 $ajudaRelatorioModel->setDt_final($dtFinal);
 $ajudaRelatorioModel->setOrdem($ordem);
 $ajudaRelatorioModel->setMaterial($nome_material);
+$ajudaRelatorioModel->setDeposito($deposito);
 
 $dados = $ajudaRelatorioController->relatorioCadastroMaterial($ajudaRelatorioModel);
+
+
 ?>
 <br>
 <div class='text-center'><a class="btn btn-success" href='index.php?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=ajuda&controller=relatorio&action=fbusca_cad_mat' class="btn">Voltar</a></div>
@@ -74,6 +78,11 @@ $dados = $ajudaRelatorioController->relatorioCadastroMaterial($ajudaRelatorioMod
     $title = "";
 
     for ($i = 0; $i < count($dados); $i++) {
+        
+        if(!empty($dados[$i]['id_entrada'])){
+            $nom_origem = Material::getMaterial1($dados[$i]['id_entrada'])['origem'];
+        }
+        
         if($dados[$i]['cancelado'] == 1){
             $cancela = "color:red;";
             $title = "title='Entrada de Material Cancelada !'";
@@ -84,8 +93,8 @@ $dados = $ajudaRelatorioController->relatorioCadastroMaterial($ajudaRelatorioMod
         print "<tr>";
         print "<td $title style='font-size:10px;{$cancela}'>" . $dados[$i]['id_produto'] . "</td>";
         print "<td $title style='font-size:10px;{$cancela}'>" . $dados[$i]['codProd']."-".$dados[$i]['nome'] . "</td>";
-        print "<td $title style='font-size:10px;{$cancela}'>" . $dados[$i]['quantidade'] . "</td>";
-        print "<td $title style='font-size:10px;{$cancela}'>" . utf8_encode($dados[$i]['origem']). "- " .( ($dados[$i]['origem'] == 'Transferencia entre Depositos') ? " ID Entrada : <b>".$dados[$i]['id_entrada']."</b>" :  "" )."</td>";
+        print "<td $title style='font-size:15px;{$cancela}'><b>" . $dados[$i]['quantidade'] . "</b></td>";
+        print "<td $title style='font-size:10px;{$cancela}'>" . utf8_encode($dados[$i]['origem']). "- " .( ($dados[$i]['origem'] == 'Transferencia entre Depositos') ? " ID Entrada : <b>".$dados[$i]['id_entrada']."-".$nom_origem."</b>" :  "" )."</td>";
         print "<td $title style='font-size:10px;{$cancela}'>" . $dados[$i]['depDestino'] . "</td>";
         print "<td $title style='font-size:10px;{$cancela}'>" . DataMysql::dataVisual($dados[$i]['validade']) . "</td>";
         print "<td $title style='text-align:justify; font-size:10px;{$cancela}'>" . $dados[$i]['obs'] . "</td>";
