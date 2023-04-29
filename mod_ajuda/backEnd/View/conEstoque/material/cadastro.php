@@ -156,10 +156,11 @@ $dadosDeposito = Deposito::ListaDeposito();
                                                                 <td ".$cancelado.">";
                                                                     //$countSaida = (int)Liberacao::CountLibera($value['id_produto'])+(int)Liberacao::CountTransferencia($value['id_produto']);
                                                                     
+                                                                    /* entradas que não estão canceladas*/
                                                                     if($value['cancelado'] == 0){
-                                                                        //print "<a href='".FuncaoBase::geraLink("ajuda", "conestoque", "edEntMat", array('id' => $value['id_produto']))."'><img src=core/imagem/editar.png></a>";
-                                                                        if($value['origem'] !== 'Transferencia entre Depositos'){
-                                                                            //print "<a href='' name='lk_del_entrada' data-id_entrada='".$value['id_produto']."' data-id_produto='".$value['codProd']."' data-id_deposito='". $nome_deposito."' data-qtd='".$value['quantidade']."'><img src=core/imagem/delete.png></a>";
+                                                                        if( ($value['origem'] !== 'Transferencia entre Depositos') && ($value['origem'] !== 'Correção Manual de Saldo') ){
+                                                                            //print "<a href='".FuncaoBase::geraLink("ajuda", "conestoque", "edEntMat", array('id' => $value['id_produto']))."'><img src=core/imagem/editar.png></a>";
+                                                                            print "<a href='' name='lk_del_entrada' data-id_entrada='".$value['id_produto']."' data-id_produto='".$value['codProd']."' data-id_deposito='". $nome_deposito."' data-qtd='".$value['quantidade']."' title='Se houver liberaçoes para esta entrada, será necessário cancelar todas as liberações vinculadas a esta entrada !'><img src=core/imagem/delete.png></a>";
                                                                         }
                                                                     }else {
                                                                         print "-";

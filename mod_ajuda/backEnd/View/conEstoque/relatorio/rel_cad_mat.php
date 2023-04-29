@@ -77,13 +77,13 @@ $dados = $ajudaRelatorioController->relatorioCadastroMaterial($ajudaRelatorioMod
     
     $title = "";
 
-    for ($i = 0; $i < count($dados); $i++) {
+    for ($i = 0; $i < count($dados[0]); $i++) {
         
-        if(!empty($dados[$i]['id_entrada'])){
-            $nom_origem = Material::getMaterial1($dados[$i]['id_entrada'])['origem'];
+        if(!empty($dados[0][$i]['id_entrada'])){
+            $nom_origem = Material::getMaterial1($dados[0][$i]['id_entrada'])['origem'];
         }
         
-        if($dados[$i]['cancelado'] == 1){
+        if($dados[0][$i]['cancelado'] == 1){
             $cancela = "color:red;";
             $title = "title='Entrada de Material Cancelada !'";
         }
@@ -91,16 +91,16 @@ $dados = $ajudaRelatorioController->relatorioCadastroMaterial($ajudaRelatorioMod
         $usuario = (!empty($dados[$i]['id_usuario'])) ? Usuario::getNomeId($dados[$i]['id_usuario']):"";
         $totalRegistro++;
         print "<tr>";
-        print "<td $title style='font-size:10px;{$cancela}'>" . $dados[$i]['id_produto'] . "</td>";
-        print "<td $title style='font-size:10px;{$cancela}'>" . $dados[$i]['codProd']."-".$dados[$i]['nome'] . "</td>";
-        print "<td $title style='font-size:15px;{$cancela}'><b>" . $dados[$i]['quantidade'] . "</b></td>";
-        print "<td $title style='font-size:10px;{$cancela}'>" . utf8_encode($dados[$i]['origem']). "- " .( ($dados[$i]['origem'] == 'Transferencia entre Depositos') ? " ID Entrada : <b>".$dados[$i]['id_entrada']."-".$nom_origem."</b>" :  "" )."</td>";
-        print "<td $title style='font-size:10px;{$cancela}'>" . $dados[$i]['depDestino'] . "</td>";
-        print "<td $title style='font-size:10px;{$cancela}'>" . DataMysql::dataVisual($dados[$i]['validade']) . "</td>";
-        print "<td $title style='text-align:justify; font-size:10px;{$cancela}'>" . $dados[$i]['obs'] . "</td>";
+        print "<td $title style='font-size:10px;{$cancela}'>" . $dados[0][$i]['id_produto'] . "</td>";
+        print "<td $title style='font-size:10px;{$cancela}'>" . $dados[0][$i]['codProd']."-".$dados[0][$i]['nome'] . "</td>";
+        print "<td $title style='font-size:15px;{$cancela}'><b>" . $dados[0][$i]['quantidade'] . "</b></td>";
+        print "<td $title style='font-size:10px;{$cancela}'>" . utf8_encode($dados[0][$i]['origem']). "- " .( ($dados[0][$i]['origem'] == 'Transferencia entre Depositos') ? " ID Entrada : <b>".$dados[0][$i]['id_entrada']."-".$nom_origem."</b>" :  "" )."</td>";
+        print "<td $title style='font-size:10px;{$cancela}'>" . $dados[0][$i]['depDestino'] . "</td>";
+        print "<td $title style='font-size:10px;{$cancela}'>" . DataMysql::dataVisual($dados[0][$i]['validade']) . "</td>";
+        print "<td $title style='text-align:justify; font-size:10px;{$cancela}'>" . $dados[0][$i]['obs'] . "</td>";
         print "<td $title style='text-align:justify; font-size:10px;{$cancela}'>" . $usuario . "</td>";
-        print "<td $title style='text-align:justify; font-size:10px;{$cancela}'><a href='anexo/entrada_nota/" . $dados[$i]['nota_fiscal'] . "'>" . $dados[$i]['nota_fiscal'] . "</a></td>";
-        print "<td $title style='font-size:10px;'>" . DataMysql::dataVisual($dados[$i]['dtEntradaSaida']) . "</td>";
+        print "<td $title style='text-align:justify; font-size:10px;{$cancela}'><a href='anexo/entrada_nota/" . $dados[0][$i]['nota_fiscal'] . "'>" . $dados[0][$i]['nota_fiscal'] . "</a></td>";
+        print "<td $title style='font-size:10px;'>" . DataMysql::dataVisual($dados[0][$i]['dtEntradaSaida']) . "</td>";
         print "</tr>";
         $cancela = "";
         $title="";
@@ -108,6 +108,40 @@ $dados = $ajudaRelatorioController->relatorioCadastroMaterial($ajudaRelatorioMod
     print "<tr><td colspan='7'>&nbsp;</td><td style='text-align:right'>Total Registro</td><td>" . $totalRegistro . "</td></tr>";
     print "</table>";
     ?>
+    
+     
+    <table class="table table-bordered table-condensed">
+        
+            <tr>
+                <th>Material</th>
+                <th>Total Qtd</th>
+            </tr>
+            
+    <?php
+        foreach ($dados[1] as $key => $value) {
+            
+           
+            print "<tr>";
+            print "<td>".$value['codProd']."-". $value['nome']." / ".$value['origem']."</td>";
+            print "<td style='font-size:15px;'><b>".$value['qtd']."</b></td>";
+            print "</tr>";
+        
+        
+        }?>
+        
+    </table>
+
+    
+<div class="row">
+    <div class="col-md-12">
+    
+        <p class="p-4"><span style="color: red">Obs: Entradas Canceladas não são Somadas no Relatório</span></p>
+    </div>
+</div>
+      
+        
+        
+
 
 
 

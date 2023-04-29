@@ -730,7 +730,8 @@ class Material {
 
         try {
             $con = Conexao::getInstance();
-            $sql = "update aju_produto set cancelado = 1 WHERE id_produto = {$id_entrada}";
+            $sql = "update aju_produto set cancelado = 1 WHERE id_produto = '{$id_entrada}'
+            and id_usuario = '".$_COOKIE['seguranca']['idUser']."'";
 
             $result = $con->query($sql);
 

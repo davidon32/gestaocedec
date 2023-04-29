@@ -253,21 +253,30 @@ class AjudaRelatorioController extends AppController {
                                             where id_produto > 0 ".
                                             $filtro." order by ".self::SwOrder($ajudaRelatorioModel->getOrdem());
            
+            /* resumo*/
+            $sql1 = "select codProd, nome, origem, SUM(quantidade) as qtd from aju_produto
+                        where cancelado = 0 and id_produto > 0 {$filtro} GROUP BY codProd";
 
-            $statement = $con->query($sql);
-
+                        /* resumo */
+            $statement1 = $con->query($sql1);
+            $statement1->execute();
+            $linha1 = $statement1->fetchAll(PDO::FETCH_ASSOC);
             
+            $statement = $con->query($sql);
             $statement->execute();
 
             $linha = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-            return $linha;
+            return array($linha, $linha1);
         } catch (PDOException $e) {
 
             print $e->getMessage() . "1";
             print "<br><a href='javascript:history.back();'>Voltar</a>";
         }
     }
+    
+    
+    
 
 }
 

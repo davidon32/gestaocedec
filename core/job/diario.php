@@ -1,7 +1,7 @@
 <?php 
 
 try{
-    $conn = new PDO('mysql:host=200.198.29.229;dbname=gestaocedec', 'usuario', 'usuario');
+    $conn = new PDO('mysql:host=200.198.29.227;dbname=gestaocedec', 'usuario', 'usuario');
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
     $sql = "SELECT * FROM aju_estoque WHERE saldo > 0";
