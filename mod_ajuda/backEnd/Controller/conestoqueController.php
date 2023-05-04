@@ -80,7 +80,7 @@ class ConEstoqueController extends Controller {
     /* Ajuste saldo Material */
 
     public function ajuste() {
-        include_once 'mod_ajuda/backEnd/View/conEstoque/material/ajuste_saldo.php';
+        //include_once 'mod_ajuda/backEnd/View/conEstoque/material/ajuste_saldo.php';
     }
 
     /* saldo resumo  */

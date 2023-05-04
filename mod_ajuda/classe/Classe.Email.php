@@ -18,6 +18,13 @@ $dadm = 'demetrio.passos@defesacivil.mg.gov.br,
 $dtec = 'demetrio.passos@defesacivil.mg.gov.br,
 			 zinhoflag1@gmail.com';
 
+//use PHPMailer\PHPMailer\PHPMailer;
+//use PHPMailer\PHPMailer\Exception;
+//
+//require '/plugins/PHPMailer/src/Exception.php';
+//require 'path/to/PHPMailer/src/PHPMailer.php';
+//require 'path/to/PHPMailer/src/SMTP.php';
+
 class Email {
 
     function AvisoLibera() {
@@ -209,7 +216,12 @@ class Email {
 	echo "Done!\n";
                 
     }
+    
+    
+    
+    public static function newMail(){
+        
+        
+    }
 
-}
-
-?>
+}?>

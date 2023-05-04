@@ -24,7 +24,7 @@
 
 <br>
 <br>
-<a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=ajuste" class="btn btn-primary">Ajuste Saldo</a>
+<!--<a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=ajuste" class="btn btn-primary">Ajuste Saldo</a>-->
 <br>
 <br>
 </div>
