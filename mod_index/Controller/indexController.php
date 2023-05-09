@@ -92,6 +92,12 @@ class indexController extends Controller {
             }
         }
     }
+    
+    
+    /* filtro dados bi */
+    public function filtro() {
+       include_once 'mod_index/backend/View/bi/index.php';
+    }
 
     public function index1() {
 

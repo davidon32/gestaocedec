@@ -200,6 +200,7 @@ Class RelatorioComdec {
                            c.dt_portaria,
                            c.id_comdec,
                            c.com_const,
+                           c.nudec,
                            cedec_rpm_mun.nome as rpm,
                            aju_deposito.nome as da
                                FROM com_comdec c

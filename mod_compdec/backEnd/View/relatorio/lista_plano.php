@@ -270,6 +270,7 @@
                     <th>Data</th>
                     <th>Plano</th>
                     <th>Opção</th>
+                    <th>tag</th>
                     <th>-</th>
                    </tr>";
 
@@ -280,6 +281,16 @@
                 $sem_arquivo = 0;
                 foreach ($planos as $key => $plano) {
                     
+                        if(file_exists("anexo/planoCont/".$plano['file_plano'])){
+                            $file =  ( (strlen($plano['file_plano']) > 0) ? "<a onclick=\"javascript:anexoView('anexo/planoCont/".$plano['file_plano']."')\"><img src='/core/imagem/impressao.png'></a>" : "Sem Plano de Contingência");    
+                            //$file = "";
+                            $tag = "ok";
+                        }else {
+                            $sem_arquivo ++; 
+                            //$file = "<img width=\"25\" src=\"/core/imagem/cancela1.png\" title=\"Arquivo Inexistente\">";
+                            $file ="";
+                            $tag = "x";
+                        }
                     
                     print "<tr>";
                     print "<td class=\"col-md-1\">".($key+1)."</td>";
@@ -290,23 +301,24 @@
                     print "<td>".DataMysql::dataCompletaVisual($plano['dt_upload'])."</td>";
                     print "<td>".$plano['file_plano']."</td>";
                     print "<td>";
-                        if(file_exists("anexo/planoCont/".$plano['file_plano'])){
-                            print ( (strlen($plano['file_plano']) > 0) ? "<a onclick=\"javascript:anexoView('anexo/planoCont/".$plano['file_plano']."')\"><img src='/core/imagem/impressao.png'></a>" : "Sem Plano de Contingência");    
-                        }else {
-                            $sem_arquivo ++; 
-                            print "<img width=\"25\" src=\"/core/imagem/cancela1.png\" title=\"Arquivo Inexistente\">";
-                        }
+                        print $file;
                         $id_mun = $plano['id_municipio'];
                     print "</td>";
+                    print "<td>".$tag."</td>";
                 
                 }
-   
-                print "<tr><td></td><td colspan='2' align=right><label>Total Municipios com Plano de Contingência : </label></td><td>".($num-1-$sem_arquivo)."</td></tr>";
-                print "<tr><td></td></tr>";
-                print "<tr><td></td><td colspan='2' align=right><label>Total Planos de Contingência Hospedados : </label></td><td>".($key+1)."</td></tr>";
-                print "<tr><td></td></tr>";
-
              print "</table>";
+             print "<table class='table table-bordered'>";
+   
+                print "<tr>";
+                print "<td align=right><label>Municipios com Plano de Contingência Inseridos no sistema: </label></td>";
+                print "<td> ".($num-1-$sem_arquivo)."</td>";
+                print "</tr>";
+                /*print "<tr>";
+                print "<td align=right><label>Total Planos de Contingência Hospedados : </label></td>";
+                print "<td> ".($key+1)."</td>";
+                print "</tr>";*/
+
              print"</div>"
              . "</div>";
 ?>

@@ -19,11 +19,11 @@
             print "<table class=\"table table-condensed\" id=\"rel_compdec\">
             
                     <tr>
-                        <td colspan=\"12\"style=\"text-align:center;\"><h3>".$titulo."</h3></td>
+                        <td colspan=\"13\"style=\"text-align:center;\"><h3>".$titulo."</h3></td>
                     </tr>
                     <tr>
                         <td colspan=\"7\"></td>
-                        <td colspan=\"5\" style=\"text-align:right\"><img src=\"/core/imagem/leg_verme.png\" />&nbsp;<small>Municípios Sem Compdec<small></td>
+                        <td colspan=\"6\" style=\"text-align:right\"><img src=\"/core/imagem/leg_verme.png\" />&nbsp;<small>Municípios Sem Compdec<small></td>
                     </tr>";
                     
             print "<tr>
@@ -35,6 +35,7 @@
                     <th title='Deposito Avançado'>D.A.</th>
                     <th>Lei</th>
                     <th>Decreto</th>
+                    <th>Nupdec</th>
                     <th>Portaria</th>
                     <th>Endereço</th>
                     <th>Fone</th>
@@ -42,7 +43,14 @@
                     </tr>";
 
 
+            $totalNupdec = 0;
+            
             for ($i=0; $i < count($dados); $i++) {
+                
+                if( $dados[$i]['nudec'] == 1 && $dados[$i]['com_const'] == 1) {
+                    $totalNupdec ++; 
+                }
+                
                 print "<tr>";
                 
                 if($dados[$i]['com_const'] == 0) {
@@ -63,6 +71,7 @@
                         <td ".$_semCompdec."  class=\"dados\">".$dados[$i]['da']."</td>
                         <td ".$_semCompdec."  class=\"dados\">".DataMysql::dataVisual($dados[$i]['dt_lei'])." ".$dados[$i]['num_lei']."</td>
                         <td ".$_semCompdec."  class=\"dados\">".DataMysql::dataVisual($dados[$i]['dt_decreto'])." ".$dados[$i]['num_decreto']."</td>
+                        <td ".$_semCompdec."  class=\"dados\">".( ($dados[$i]['nudec'] == 0) ? 'Não' : "Sim") ."</td>
                         <td ".$_semCompdec."  class=\"dados\">".DataMysql::dataVisual($dados[$i]['dt_portaria'])." ".$dados[$i]['num_portaria']."</td>
                         <td ".$_semCompdec."  class=\"dados\">".utf8_encode($dados[$i]['endereco'])."</td>
                         <td ".$_semCompdec."  class=\"dados\">".$dados[$i]['fone_com1']."</td>
@@ -76,6 +85,7 @@
                         <td></td>
                         <td colspan='4'>Total Compdec Existente :".$totalCompdec."</td>
                         <td colspan='4'>Total Municipio Sem Compdec :".$totalSemCompdec."</td>
+                        <td colspan='4'>Total Municipio com Nupdec :".$totalNupdec."</td>
                     </tr>
              
              </table>";

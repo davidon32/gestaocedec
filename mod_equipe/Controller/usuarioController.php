@@ -105,6 +105,7 @@ MSG;
                 }
             }
         } else {
+            # view cadastro
             include_once 'mod_equipe/View/usuario/recsenha_compdec.php';
         }
     }

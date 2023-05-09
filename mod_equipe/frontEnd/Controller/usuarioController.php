@@ -13,7 +13,6 @@ class usuarioController extends Controller {
         include_once 'mod_equipe/View/usuario/editar.php';
     }
 
-
     # recuperar senha separa usuario
     public function recsenha(){
         include_once 'mod_equipe/View/usuario/recsenha_user.php';
