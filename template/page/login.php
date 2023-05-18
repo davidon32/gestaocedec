@@ -185,9 +185,9 @@
                                         </div>
                                         <div class="col-xs-12">
                                             <div class="">
-                                                Suporte Técnico do SDC enviar para :<br>
-
-                                                <span style="font-size:20px; color:blue"><a style="text-decoration:none" href='malito:sdc@defesacivil.mg.gov.br'>sdc@defesacivil.mg.gov.br</a></span>
+                                                Suporte Técnico SDC :<br>
+                                                <span style="font-size:20px; color:blue"><a style="text-decoration:none" href='malito:sdc@defesacivil.mg.gov.br'>sdc@defesacivil.mg.gov.br</a></span><br>
+                                                Contatos :
 
                                             </div>
 

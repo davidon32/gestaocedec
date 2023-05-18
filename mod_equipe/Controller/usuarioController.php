@@ -32,8 +32,13 @@ class usuarioController extends Controller {
                 # busca por municipio (compdec)     
                 $email_rec = $usuario->buscaEmailRecMunicipioUserExterno($_POST['txtMunicipio']);
                 if (isset($email_rec[0]['email_rec'])) {
-
+                    
+                    //atualiza o campo reset do usuario com date now
+                    // retorna hash email_usuario+date_now
+                    // envia o link http://sistema.defesacivil.mg.gov.br/index.php/{$hash}
                     $_resultado = $usuario->resetaSenhaUsuarioEx($email_rec[0]['id'], $email_rec[0]['email_rec']);
+                    
+                    //var_dump($_resultado);
 
                     if (!is_null($_resultado)) {
 
@@ -41,15 +46,14 @@ class usuarioController extends Controller {
 
                             $quebraEmail = substr($email_rec[0]['email_rec'], 0, 4) . "******" . substr($email_rec[0]['email_rec'], strpos($email_rec[0]['email_rec'], "@"));
 
-                            $us_hash = "&" . md5('use70') . "=" . $_resultado[4] . "&res=" . date('His');
-                            $link = FuncaoBase::geraLink('equipe', 'usuario', 'trsenha_compdec') . $us_hash;
+                            $link = "http://sistema.defesacivil.mg.gov.br/index.php/{$_resultado[1]}";
 
                             $mensagem = <<<MSG
                                     <p style='font-size:15pt'>Prezado Coordenador Municipal de Proteção e Defesa Civil,</p>
 
 <p style='font-size:15pt'>Foi iniciado um pedido de alteração de senha para acesso ao SDC – Sistema de Defesa Civil, para continuar siga os seguintes passos:</p>
 
-<p style='font-size:15pt'>1)    Clique para trocar a Senha : <a href='http://sistema.defesacivil.mg.gov.br/index.php{$link}'>Trocar Senha</a></p>
+<p style='font-size:15pt'>1)    Clique para trocar a Senha : <a href='{$link}'>Trocar Senha</a></p>
 
 <p style='font-size:15pt'> O usuário será redirecionado para uma pagina de troca de senha, onde deverá fazer a troca de senha</p>
 
@@ -68,21 +72,13 @@ http://www.defesacivil.mg.gov.br
 </div>
 
 MSG;
+                        
 
-                            
-                            $email_remetente = 'sdc@defesacivil.mg.gov.br';
-                            $headers = "MIME-Version: 1.1\n";
-                            $headers .= "Content-type: text/html; charset=UTF-8\n"; // ou UTF-8, como queira
-                            $headers .= "From: $email_remetente\n"; // remetente
-                            $headers .= "Return-Path: $email_remetente\n"; // return-path
-                            $headers .= "Reply-To: demetrio.passos@defesacivil.mg.gov.br\n"; // Endereço (devidamente validado) que o seu usuário informou no contato
-                            
-                            $resultado = $enviaEmail->emailIndividual(
-                                    $email_rec[0]['email_rec'],
-                                    utf8_decode("SDC - Recupera&ccedil;&atilde;o de Senha")." ".date('d/m/Y H:i:s'),
-                                    $mensagem,
-                                    $headers,
-                                    "-f$email_remetente");
+    var_dump($resultado = $enviaEmail->newMail(['para'=> $email_rec[0]['email_rec'],
+     'nomePara'=> 'Demetrio Silva Para',
+     'assunto'=> 'Assunto - teste de email',
+     'corpo'=> $mensagem,
+     'alt' => 'Este é um corpo de teste de email']));
 
                             if ($resultado) {
 

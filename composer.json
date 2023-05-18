@@ -2,7 +2,7 @@
     
     "require":{
         "mk-j/php_xlsxwriter": "~0.38",
-        "phpmailer/phpmailer": "~5.2",
+        "phpmailer/phpmailer": "^6.8",
         "dompdf/dompdf": "0.8.3"
     },
     "autoload": {

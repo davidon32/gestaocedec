@@ -43,8 +43,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/core/include.php';
     
     print <<<MSG
     <h4 class='msg'>:: ATENÇÃO ::</h4>
-    <p class='alert alert-danger msg'>Você, <b>COORDENADOR MUNICIPAL DE PROTEÇÃO E DEFESA CIVIL</b>, receberá um email com um link para fazer a troca de senha, esse link terá validade de <b>4 horas</b>.</p>
-    <p class='alert alert-danger msg'>Após expirar o tempo de alteração da senha você, <b>COORDENADOR MUNICIPAL DE PROTEÇÃO E DEFESA CIVIL</b>, deverá refazer o processo de recuperação de senha !</p>
+    <p class='alert alert-danger msg'>Você, <b>COORDENADOR MUNICIPAL DE PROTEÇÃO E DEFESA CIVIL</b>, receberá um email com um link para fazer a troca de senha</b>.</p>
+    <!--<p class='alert alert-danger msg'>Após expirar o tempo de alteração da senha você, <b>COORDENADOR MUNICIPAL DE PROTEÇÃO E DEFESA CIVIL</b>, deverá refazer o processo de recuperação de senha !</p>-->
 MSG;
     ?>	
 </div>

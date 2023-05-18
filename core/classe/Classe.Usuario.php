@@ -1407,7 +1407,7 @@ class Usuario extends UsuarioModel {
 
         $con = Conexao::getInstance();
         $retorno = array();
-        $senhaTemp = "";
+
 
         $sql = "";
 
@@ -1424,25 +1424,15 @@ class Usuario extends UsuarioModel {
                      WHERE id = '" . $id . "'";
             }
 
-            // administrador reseta senha para usuário
-        } else if ($email == false) {
-
-            Print 'implementar !';
-        }
+        } 
 
         try {
-
 
             $result = $con->query($sql);
 
             if ($result->execute()) {
 
-                return array(
-                    true,
-                    $senhaTemp,
-                    $emailCad['email_rec'],
-                    $emailCad['usuario'],
-                    $reset);
+                return array(true,md5($emailCad['email_rec'].$reset));
             } else {
                 return array(false, "");
             }
