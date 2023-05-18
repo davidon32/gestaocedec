@@ -29,8 +29,8 @@ $id = isset($_GET['id']) ? $_GET['id'] : "";
         </div>
     </div>
     <div class='row'>
-        <div class='col-md-2'>
-            <label>Identidade do Beneficiário</label>
+        <div class='col-md-6'>
+            <label>Identidade do Beneficiário (<span style="color:red"> este campo só aceita Números da Identidade </span> )</label>
             <input type="number" class='form form-control' name='rg' id='rg' maxlength='14' required >
         </div>
     </div>

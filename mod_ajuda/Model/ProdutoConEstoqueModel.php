@@ -235,6 +235,9 @@ nota_fiscal= :nota_fiscal,
             return $e->getMessage() . "Erro ao inserir Fornecedor";
         }
     }
+    
+    
+    
 
     /**
      * Lista Fornecedoress

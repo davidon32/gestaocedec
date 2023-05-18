@@ -228,7 +228,7 @@ $secao_usuario = $_COOKIE['seguranca']['secao'];
             /* Pmda em edição usuario não faz parte da drrd */
             if ($value['status'] < 2 && $secao_usuario != "DRRD" ) {
                 print "<tr>
-                        <td></td><td>".$protocolo."</td><td>".DataMysql::dataCompletaVisual($value['data'])."</td><td colspan='12'>Processo em Edição - Registro Suprimido ! - </td>
+                        <td></td><td>".$protocolo."</td><td>".DataMysql::dataCompletaVisual($value['data'])."</td><td colspan='12'>Processo em Edição - Registro Suprimido ! - Voçê não é um operador de PMDA OU não faz parte da DRRD !</td>
                     </tr>";
             
             #### todos os registros ####    
@@ -320,10 +320,15 @@ $secao_usuario = $_COOKIE['seguranca']['secao'];
                 # pmda's que não estão atendidos 
                 //if($pmdaLegado && $value['status'] !=7){
                 # icone em Analise
+                print($value['status'] == 2);
+                print ($permissaoOperador == 1);
                 if ($value['status'] == 2 && $permissaoOperador == 1) {
                     if (!$existe_edicao) {
                         # enviar para Edição
                         print "<a href='#' class='btn btn-primary' name='enviar_compdec' data-id_pmda='" . $value['id_pmda'] . "' data-status='0' data-estado='Em Edicao' data-resp='" . $pageSession['session']['seguranca']['idUser'] . "' >Enviar p/ COMPDEC</a>";
+                    }else{
+                        print "<a href='#' class='btn btn-secondary' title='Não é possivel enviar para o COMPDEC pois existe PMDA em edição favor removê-lo, para envio deste ao Município !'>Enviar p/ COMPDEC</a>";
+                        
                     }
 
                     # deletar PMDA

@@ -12,7 +12,7 @@
 
 class Produto {
 
-    //private $idProd;
+//private $idProd;
     private $nomeProd;
 
     static function pegaProduto($attr = null) {
@@ -81,7 +81,7 @@ class Produto {
         echo "</select>";
     }
 
-    # obtem-se o id do produto baseado no nome 
+# obtem-se o id do produto baseado no nome 
 
     static function PegaIdProduto($a) {
 
@@ -98,7 +98,8 @@ class Produto {
         return $dados;
     }
 
-    #@ resgata o nome do produto baseado no id
+#@ resgata o nome do produto baseado no id
+
     static function PegaNomeProduto($idProd) {
 
         $con = Conexao::getInstance();
@@ -114,8 +115,9 @@ class Produto {
 
         return $dados;
     }
-    
-    #@ resgata o nome do produto baseado no id
+
+#@ resgata o nome do produto baseado no id
+
     static function PegaDadosProduto($idProd) {
         $dados = "";
 
@@ -158,7 +160,7 @@ class Produto {
     public static function ListEntradaSaldo($filtro) {
 
         $con = Conexao::getInstance();
-        
+
         $dados = array();
         $sql = "SELECT aju_produto.id_produto,
                 aju_produto.codProd,
@@ -168,40 +170,39 @@ class Produto {
                 and aju_produto.cancelado = 0
                 and aju_produto.origem not like 'Correcao Manual de Saldo'
                 AND aju_produto.id_dep_destino = {$filtro[1]}";
-               
-        
+
+
         $result = $con->query($sql);
 
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-            
+
             $campos = $linha;
-            
+
             $transferencia = Produto::ListEntradaTransf($filtro, $linha['id_produto']);
             $transferenciaEmAberto = Produto::ListEntradaTransfEmAberto($filtro, $linha['id_produto']);
             $correcaoSaldo = Produto::ListEntradaCorrecaoSaldo($filtro, $linha['id_produto']);
             $liberacao = Produto::ListItemLiberacao($filtro, $linha['id_produto']);
-            
-            $_saldo_pos = ($linha['quantidade'] -$transferencia +$correcaoSaldo -$liberacao -$transferenciaEmAberto);
-            if($_saldo_pos >0 || $_saldo_pos <0 ) {
+
+            $_saldo_pos = ($linha['quantidade'] - $transferencia + $correcaoSaldo - $liberacao - $transferenciaEmAberto);
+            if ($_saldo_pos > 0 || $_saldo_pos < 0) {
                 $campos['transferencia'] = $transferencia;
                 $campos['transferenciaEmAberto'] = $transferenciaEmAberto;
                 $campos['liberacao'] = $liberacao;
                 $campos['correcaosaldo'] = $correcaoSaldo;
-                $campos['saldo'] = $linha['quantidade'] -$transferencia +$correcaoSaldo -$liberacao -$transferenciaEmAberto;                
+                $campos['saldo'] = $linha['quantidade'] - $transferencia + $correcaoSaldo - $liberacao - $transferenciaEmAberto;
                 $dados[] = $campos;
             }
-                  
         }
-        
+
         return json_encode($dados);
- 
     }
+
     /**
      * @example Pega as transferencias de materiais
      * 
      *  */
     public static function ListEntradaTransf($filtro, $id_entrada) {
-        
+
         $con = Conexao::getInstance();
 
         $dados = array();
@@ -215,7 +216,7 @@ class Produto {
                 AND aju_produto.id_dep_origem = {$filtro[1]}
                 AND aju_produto.id_entrada = {$id_entrada}
                 AND aju_produto.origem LIKE 'Transferencia entre Depositos%'";
-        
+
         $result = $con->query($sql);
 
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -223,13 +224,13 @@ class Produto {
         }
         return $dados;
     }
-    
+
     /**
      * @example Pega as transferencias de materiais
      * 
      *  */
     public static function ListEntradaTransfEmAberto($filtro, $id_entrada) {
-        
+
         $con = Conexao::getInstance();
 
         $dados = array();
@@ -245,9 +246,9 @@ class Produto {
                 AND aju_transferencia.situacao = 0
                 AND aju_transferencia.id_dep_origem = {$filtro[1]}
                 AND aju_item_transf.id_entrada = {$id_entrada}";
-                
-                
-        
+
+
+
         $result = $con->query($sql);
 
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -255,13 +256,13 @@ class Produto {
         }
         return $dados;
     }
-    
+
     /**
      * @example Pega as transferencias de materiais
      * 
      *  */
     public static function ListEntradaCorrecaoSaldo($filtro, $id_entrada) {
-        
+
         $con = Conexao::getInstance();
 
         $dados = array();
@@ -274,7 +275,7 @@ class Produto {
                 WHERE codProd = {$filtro[0]}
                 AND aju_produto.id_entrada = {$id_entrada}
                 AND aju_produto.origem LIKE 'Correcao Manual de Saldo%'";
-        
+
         $result = $con->query($sql);
 
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -282,13 +283,13 @@ class Produto {
         }
         return $dados;
     }
-    
+
     /**
      * @example item liberacao 
      * 
      *  */
     public static function ListItemLiberacao($filtro, $id_entrada) {
-        
+
         $con = Conexao::getInstance();
 
         $dados = array();
@@ -300,7 +301,7 @@ class Produto {
                 WHERE aju_item.situacao < 2
                 AND aju_item.cod = {$filtro[0]}
                 AND aju_item.id_entrada = {$id_entrada}";
-                
+
         $result = $con->query($sql);
 
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -309,11 +310,28 @@ class Produto {
         return $dados;
     }
 
-}
+    /* get dados do produto */
 
+    public static function getProdutos($id_unidade) {
+        $con = Conexao::getInstance();
 
-/**
- 
- *  */
+        $dados = array();
 
-?>
+        $sql = "SELECT *FROM aju_produto
+                              WHERE codProd =" . $id_unidade;
+
+        try {
+
+            $result = $con->query($sql);
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dados = $linha;
+            }
+
+            return $dados;
+        } catch (Exception $e) {
+            return $e->getMessage() . "Erro ao Selecionar os dados do produto";
+        }
+    }
+
+}?>

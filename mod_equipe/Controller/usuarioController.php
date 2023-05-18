@@ -52,8 +52,9 @@ class usuarioController extends Controller {
                                     <p style='font-size:15pt'>Prezado Coordenador Municipal de Proteção e Defesa Civil,</p>
 
 <p style='font-size:15pt'>Foi iniciado um pedido de alteração de senha para acesso ao SDC – Sistema de Defesa Civil, para continuar siga os seguintes passos:</p>
-
-<p style='font-size:15pt'>1)    Clique para trocar a Senha : <a href='{$link}'>Trocar Senha</a></p>
+<br>
+<p style='font-size:17pt; font-weight: bold'>1)    Clique para trocar a Senha : <a href='{$link}'>Trocar Senha</a></p>
+<br>
 
 <p style='font-size:15pt'> O usuário será redirecionado para uma pagina de troca de senha, onde deverá fazer a troca de senha</p>
 
@@ -74,11 +75,11 @@ http://www.defesacivil.mg.gov.br
 MSG;
                         
 
-    var_dump($resultado = $enviaEmail->newMail(['para'=> $email_rec[0]['email_rec'],
-     'nomePara'=> 'Demetrio Silva Para',
-     'assunto'=> 'Assunto - teste de email',
-     'corpo'=> $mensagem,
-     'alt' => 'Este é um corpo de teste de email']));
+    $resultado = $enviaEmail->newMail(['para'=> $email_rec[0]['email_rec'],
+     'nomePara'=> 'Municipio de '.$email_rec[0]['nome_municipio']."'",
+     'assunto'=> utf8_decode('Recuperação de Senha do SDC - '.$email_rec[0]['nome_municipio']),
+     'corpo'=> utf8_decode($mensagem),
+     'alt' => 'Email com Instruções para recuperação de senha']);
 
                             if ($resultado) {
 

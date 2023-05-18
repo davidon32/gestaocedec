@@ -57,10 +57,10 @@ if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
 
     $acesso1 = isset($_GET['externo']) ? $_GET['externo'] : "";
     
-    if( (strlen($caminho[2]) == 32) && ($usuario::buscaTrSenha($caminho[2]) ) ){
+    if( (isset($caminho[2])) && (strlen($caminho[2]) == 32) && (Usuario::buscaTrSenha($caminho[2]) ) ){
+        die();
         
     }
-    die();
 
 
 

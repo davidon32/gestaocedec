@@ -112,5 +112,6 @@ class produtoController extends Controller {
             $this->redirect("ajuda", "marca", "index");
         
     }
-
+    
+    
 }

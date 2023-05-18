@@ -18,8 +18,10 @@ $dadm = 'demetrio.passos@defesacivil.mg.gov.br,
 $dtec = 'demetrio.passos@defesacivil.mg.gov.br,
 			 zinhoflag1@gmail.com';
 
+
 use PHPMailer\PHPMailer\PHPMailer;
 //use PHPMailer\PHPMailer\Exception;
+
 
 require_once "vendor/autoload.php";
 
@@ -231,19 +233,19 @@ class Email {
         //Set PHPMailer to use SMTP.
         $mail->isSMTP();
         //Set SMTP host name                          
-        $mail->Host = "smtp.gmail.com";
+        $mail->Host = "smtpprdm.prodemge.gov.br";
         //Set this to true if SMTP host requires authentication to send email
         $mail->SMTPAuth = true;
         //Provide username and password     
-        $mail->Username = "zinhoflag1@gmail.com";
-        $mail->Password = "xxfefnksashkjrgi";
+        $mail->Username = "defesa_civil_sdc";
+        $mail->Password = "Zgb7TFcOAgpEh5Vd";
         //If SMTP requires TLS encryption then set it
-        $mail->SMTPSecure = "tls";
+        $mail->SMTPSecure = "starttls";
         //Set TCP port to connect to
         $mail->Port = 587;
 
-        $mail->From = "zinhoflag1@gmail.com";
-        $mail->FromName = "Demetrio da Silva Passos";
+        $mail->From = "sdc@defesacivil.mg.gov.br";
+        $mail->FromName = "CEDEC/MG - SDC Sistema de Defesa Civl ";
 
         $mail->addAddress($dados['para'], $dados['nomePara']);
 

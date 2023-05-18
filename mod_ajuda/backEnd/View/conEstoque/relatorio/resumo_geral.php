@@ -134,15 +134,18 @@
         
         foreach ($evento as $key1 => $value1) {
             $total_itens = 0;
+            
 
             print "<div class='col-md-12 text-center' style='background-color:#C0C0C0'><h4>Total Materiais Liberados Evento : ".$value1['evento']."</h4> - Período : ".$dataInicial." a ".$dataFinal."</div>";
             
                 print "<table class='table table-bordered table-condensed table-striped'>";
                     foreach ($material as $key => $value) {
+                        
                         $tot = Liberacao::totMaterialLiberadoPorEvento($value['id_unidade'], $_POST, $value1['evento']);
                         if($tot > 0){
+                            //var_dump(Produto::getProdutos($value['id_unidade'])['origem']);
                             $total_itens += $tot;
-                            print "<tr><td>".$value['nome']."</td><td class='text-center'>".$tot."</td></tr>";  
+                            print "<tr><td>".$value['id_unidade']."-".$value['nome']."</td><td class='text-center'>".$tot."</td></tr>";  
                         }
                     }
                 print "<tr><td class='rodape'>Total Itens</td><td class='text-center rodape'><b>".$total_itens."</b></td></tr>";

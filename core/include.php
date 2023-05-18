@@ -2,7 +2,7 @@
 
 # plugins
 //include_once PATH . '/plugins/phplot-6.1.0/phplot.php';
-include_once PATH . '/vendor/mk-j/php_xlsxwriter/xlsxwriter.class.php';
+include_once PATH . '/plugins/PHP_XLSXWriter/xlsxwriter.class.php';
 
 
 
@@ -10,7 +10,7 @@ include_once PATH . '/vendor/mk-j/php_xlsxwriter/xlsxwriter.class.php';
 include_once PATH . '/vendor/mimemessage/email_message.php';
 include_once PATH . '/vendor/mimemessage/sendmail_message.php';
 
-//include PATH.'/vendor/autoload.php';
+include PATH.'/vendor/autoload.php';
 
 # core/classe 
 spl_autoload_register(function ($class_name) {

@@ -96,6 +96,7 @@
                 <th ".$coluna.">#</th>
                 <th ".$coluna.">Num Liberação</th>
                 <th ".$coluna.">Data Liberação</th>
+                <th ".$coluna.">Evento</th>
                 <th ".$coluna.">Município</th>
                 <th ".$coluna.">Materiais</th>";
 
@@ -104,6 +105,7 @@
                         <td style='v-align'>".($key+1)."</td>
                         <td>".$value[0]['id_liberacao']."</td>
                         <td>".DataMysql::dataVisual($value[0]['datalibera'])."</td>
+                        <td>".$value[0]['evento']."</td>
                         <td>".Municipio::PegaNomeMunicipio($value[0]['id_municipio'])."</td>";
                 
                 print "<td>";

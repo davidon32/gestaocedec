@@ -831,7 +831,8 @@ class Liberacao extends DataMysql{
 			}
 
 			$dados = array();
-				$sql = "SELECT sum(aju_item.quantidade) as qtd FROM aju_item
+				$sql = "SELECT sum(aju_item.quantidade) as qtd
+                                        FROM aju_item
 					INNER JOIN aju_liberacao 
 					ON aju_item.id_liberacao = aju_liberacao.id_liberacao
 					WHERE aju_item.situacao <= '1' and aju_item.cod = ".$material."
