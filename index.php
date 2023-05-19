@@ -1,10 +1,11 @@
 <?php
+
 if (!isset($_SESSION)) {
     session_start();
     $id = session_id();
 }
 if (!defined('VERSAO')) {
-define('VERSAO', 'versão - 3.4.1.6-6 - 30.03.2023');
+    define('VERSAO', 'versão - 3.4.1.6-6 - 30.03.2023');
 }
 include 'core/system/config/config.inc.php';
 include_once 'core/include.php';
@@ -56,20 +57,19 @@ if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
 # acesso externo
 
     $acesso1 = isset($_GET['externo']) ? $_GET['externo'] : "";
-    
-    $email = isset($_GET['email']) ? $_GET['email']:"";
-    
+
+    $email = isset($_GET['email']) ? $_GET['email'] : "";
+
     var_dump($caminho);
-    
-    if( (isset($caminho[2])) && 
-        (strlen($caminho[2]) == 32) &&
-        (isset($caminho[3])) &&
-        ($caminho[3] == "email")  
-      ){
-        
-        die();
-        Usuario::buscaTrSenha($caminho[2], $caminho[3]);
-        
+
+    if ((isset($caminho[2])) &&
+            (strlen($caminho[2]) == 32) &&
+            (isset($email))
+    ) {
+
+        //die();
+        include_once 'mod_equipe/View/usuario/trsenha_compdec.php';
+        //Usuario::buscaTrSenha($caminho[2], $caminho[3]);
     }
 
 
@@ -225,7 +225,7 @@ if (preg_match('#\b(Edg|Firefox|OPR)\b#', $useragent)) {
 }
 
 
-/* verificar email de é gmail*/
+/* verificar email de é gmail */
 //    $email = $_COOKIE['seguranca']['email_rec'];
 //
 //    //var_dump(preg_match('#\b(hotmail|gmail)\b#', $email), $_COOKIE['seguranca']['email_rec']);
@@ -241,6 +241,4 @@ if (preg_match('#\b(Edg|Firefox|OPR)\b#', $useragent)) {
 //        });";
 //        print "</script>";*/
 //    }
-    
-    
 ?>

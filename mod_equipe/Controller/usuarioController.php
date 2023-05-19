@@ -46,7 +46,7 @@ class usuarioController extends Controller {
 
                             $quebraEmail = substr($email_rec[0]['email_rec'], 0, 4) . "******" . substr($email_rec[0]['email_rec'], strpos($email_rec[0]['email_rec'], "@"));
 
-                            $link = "http://sistema.defesacivil.mg.gov.br/index.php/{$_resultado[1]}";
+                            $link = "http://sistema.defesacivil.mg.gov.br/index.php/{$_resultado[1]}&";
 
                             $mensagem = <<<MSG
                                     <p style='font-size:15pt'>Prezado Coordenador Municipal de Proteção e Defesa Civil,</p>
