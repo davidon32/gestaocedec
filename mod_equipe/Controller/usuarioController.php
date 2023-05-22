@@ -10,9 +10,12 @@ class usuarioController extends Controller {
         print "opa";
     }
 
-    # recuperar senha compdec
-
+    # recuperar senha compdec via esqueci senha
     public function recsenha_compdec() {
+        
+//        print "Estamos em Manutenção !";
+//        print "<p class='text-center'><img src='/core/imagem/manutencao.jpg'></p>";
+//        die();
 
         $usuario = new Usuario();
 
@@ -46,7 +49,7 @@ class usuarioController extends Controller {
 
                             $quebraEmail = substr($email_rec[0]['email_rec'], 0, 4) . "******" . substr($email_rec[0]['email_rec'], strpos($email_rec[0]['email_rec'], "@"));
 
-                            $link = "http://sistema.defesacivil.mg.gov.br/index.php/{$_resultado[1]}&";
+                            $link = "http://sistema.defesacivil.mg.gov.br/index.php/{$_resultado[1]}&email=".$email_rec[0]['email_rec'];
 
                             $mensagem = <<<MSG
                                     <p style='font-size:15pt'>Prezado Coordenador Municipal de Proteção e Defesa Civil,</p>
@@ -80,6 +83,10 @@ MSG;
      'assunto'=> utf8_decode('Recuperação de Senha do SDC - '.$email_rec[0]['nome_municipio']),
      'corpo'=> utf8_decode($mensagem),
      'alt' => 'Email com Instruções para recuperação de senha']);
+    
+    # gravar hash e data acesso
+    
+    
 
                             if ($resultado) {
 

@@ -18,11 +18,9 @@ $dadm = 'demetrio.passos@defesacivil.mg.gov.br,
 $dtec = 'demetrio.passos@defesacivil.mg.gov.br,
 			 zinhoflag1@gmail.com';
 
-
 use PHPMailer\PHPMailer\PHPMailer;
+
 //use PHPMailer\PHPMailer\Exception;
-
-
 //require_once "vendor/autoload.php";
 
 class Email {
@@ -83,7 +81,7 @@ class Email {
      * @param mensagem
      * 
      * */
-    function emailIndividual($destinatario, $assunto, $mensagem, $headers = null, $de = null) {
+    public static function emailIndividual($destinatario, $assunto, $mensagem, $headers='', $de ='') {
 
         if (is_null($headers)) {
             $headers1 = 'MIME-Version: 1.0' . "\r\n";
@@ -212,7 +210,7 @@ class Email {
 
         echo "Done!\n";
     }
-    
+
     /**
      * 
      * @param array $dados     
@@ -224,45 +222,48 @@ class Email {
      *
      *
      */
-
     public static function newMail(array $dados) {
 
-        $mail = new PHPMailer(true);
-        //Enable SMTP debugging.
-        $mail->SMTPDebug = 3;
-        //Set PHPMailer to use SMTP.
-        $mail->isSMTP();
-        //Set SMTP host name                          
-        $mail->Host = "smtpprdm.prodemge.gov.br";
-        //Set this to true if SMTP host requires authentication to send email
-        $mail->SMTPAuth = true;
-        //Provide username and password     
-        $mail->Username = "defesa_civil_sdc";
-        $mail->Password = "Zgb7TFcOAgpEh5Vd";
-        //If SMTP requires TLS encryption then set it
-        $mail->SMTPSecure = "starttls";
-        //Set TCP port to connect to
-        $mail->Port = 587;
 
-        $mail->From = "sdc@defesacivil.mg.gov.br";
-        $mail->FromName = "CEDEC/MG - SDC Sistema de Defesa Civl ";
+        if ($_SERVER['HTTP_HOST'] == 'desenvolvimento.gestaocedec:8082') {
+            return self::emailIndividual('zinhoflag1@gmail.com', 'teste de asunto', $dados['corpo']);
+        } else {
 
-        $mail->addAddress($dados['para'], $dados['nomePara']);
+            $mail = new PHPMailer(true);
+            //Enable SMTP debugging.
+            $mail->SMTPDebug = 3;
+            //Set PHPMailer to use SMTP.
+            $mail->isSMTP();
+            //Set SMTP host name                          
+            $mail->Host = "smtpprdm.prodemge.gov.br";
+            //Set this to true if SMTP host requires authentication to send email
+            $mail->SMTPAuth = true;
+            //Provide username and password     
+            $mail->Username = "defesa_civil_sdc";
+            $mail->Password = "Zgb7TFcOAgpEh5Vd";
+            //If SMTP requires TLS encryption then set it
+            $mail->SMTPSecure = "starttls";
+            //Set TCP port to connect to
+            $mail->Port = 587;
 
-        $mail->isHTML(true);
+            $mail->From = "sdc@defesacivil.mg.gov.br";
+            $mail->FromName = "CEDEC/MG - SDC Sistema de Defesa Civl ";
 
-        $mail->Subject = $dados['assunto'];
-        $mail->Body = $dados['corpo'];
-        $mail->AltBody = "Conteudo deste email é referente a ".$dados['alt'];
+            $mail->addAddress($dados['para'], $dados['nomePara']);
 
-        try {
-            $mail->send();
-            echo "Message has been sent successfully";
-        } catch (Exception $e) {
-            echo "Mailer Error: " . $mail->ErrorInfo;
+            $mail->isHTML(true);
+
+            $mail->Subject = $dados['assunto'];
+            $mail->Body = $dados['corpo'];
+            $mail->AltBody = "Conteudo deste email é referente a " . $dados['alt'];
+
+            try {
+                $mail->send();
+                echo "Message has been sent successfully";
+            } catch (Exception $e) {
+                echo "Mailer Error: " . $mail->ErrorInfo;
+            }
         }
     }
 
 }
-
-?>

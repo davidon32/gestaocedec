@@ -10,13 +10,13 @@
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.7 -->
-        <link rel="stylesheet" href="template/bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/template/bower_components/bootstrap/dist/css/bootstrap.min.css">
         <!-- Font Awesome -->
         <link rel="stylesheet" href="template/bower_components/font-awesome/css/font-awesome.min.css">
         <!-- Ionicons -->
         <link rel="stylesheet" href="template/bower_components/Ionicons/css/ionicons.min.css">
         <!-- Theme style -->
-        <link rel="stylesheet" href="template/dist/css/AdminLTE.min.css">
+        <link rel="stylesheet" href="/template/dist/css/AdminLTE.min.css">
         <!-- iCheck -->
         <link rel="stylesheet" href="template/plugins/iCheck/square/blue.css">
 
@@ -49,89 +49,84 @@
         </form>
     </div>
     <?php
-    
+    $tr_senha = isset($verificaTrSenha) ? $verificaTrSenha : "";
+
+    var_dump($tr_senha);
+
     $usuario = new Usuario();
-    
+
     $senha_antiga = isset($_POST['senha_antiga']) ? trim($_POST['senha_antiga']) : "";
     $senha_nova = isset($_POST['senha_nova']) ? trim($_POST['senha_nova']) : "";
     $envia_troca = isset($_POST['btn_trocasenha']) ? $_POST['btn_trocasenha'] : "";
     $externo = isset($_POST['txtExterno']) ? $_POST['txtExterno'] : "";
-    
-    $campo = array("Senha Nova" => $senha_nova);
-    
-    if ($envia_troca == "trocar") {
-   
-        # troca de senha via link email
-        if (isset($_GET['res'])) {
 
-            $param = $_GET;
-            $data = $param[md5('use70')];
+    $campo = array("Senha Nova" => $senha_nova);
+
+    if ($envia_troca == "trocar") {
+
+
+        # troca de senha via link email
+        if ($tr_senha['troca']) {
+
 
             $dataBanco = new DateTime();
-            $dataBanco->setTimestamp($data);
-            echo "Data Banco ".$dataBanco->format('d/m/Y H:i:s')."<br>";
+            $dataBanco->setTimestamp($tr_senha['reset']);
+            echo "Data Banco " . $dataBanco->format('d/m/Y H:i:s') . "<br>";
 
             $expira = new DateTime();
-            $expira->setTimestamp($data);
+            $expira->setTimestamp($tr_senha['reset']);
             $expira->modify('+4 hours');
             $expira->getTimestamp();
-            print "Data Prazo Expira " .$expira->format('d/m/Y H:i:s')."<br>";
+            print "Data Prazo Expira " . $expira->format('d/m/Y H:i:s') . "<br>";
 
             $agora = new DateTime();
             $agora->getTimestamp();
-            echo "Data agora " .$agora->format('d/m/Y H:i:s')."<br>";
+            echo "Data agora " . $agora->format('d/m/Y H:i:s') . "<br>";
 
             print "<br>";
 
-            $dados = $usuario->getResetUsuarioEx($data);
+            $dados = $usuario->getResetUsuarioEx($tr_senha['reset']);
+
+            var_dump($dados);
+            //die();
             
-            
-            var_dump( isset($param[md5('use70')]) );
-            die();
             # troca de senha 
-            if (isset($param[md5('use70')]) && (isset($dados))) {
-                if (isset($dados['reset'])) {
-                    
-                    if ($agora <= $expira) {
-                        #interno
-                        if (empty($externo)) {
+            if ($agora <= $expira) {
+                #interno
+                if (empty($externo)) {
 
-                            $campo_branco = FuncaoBase::CampoBranco($campo);
+                    $campo_branco = FuncaoBase::CampoBranco($campo);
 
-                            if ($campo_branco) {
+                    if ($campo_branco) {
 
-                                $_loginExt = new LoginExterno();
+                        $_loginExt = new LoginExterno();
 
-                                if ($_loginExt->TrocaSenha($dados['usuario'], $senha_nova )) {
+                        if ($_loginExt->TrocaSenha($dados['usuario'], $senha_nova)) {
+                            
+                            /* remove o hash e o reset do usuario*/
+                            var_dump(Usuario::normAcesso($dados['usuario']));
+                            die();
 
-                                    print "<script type='text/javascript'>";
+                            print "<script type='text/javascript'>";
 
-                                    print "alert('Troca de Senha Realizada Com Sucesso !-');";
+                            print "alert('Troca de Senha Realizada Com Sucesso !');";
 
-                                    print "window.location.href='index.php';";
+                            print "window.location.href='/index.php';";
 
-                                    print "</script>";
-                                }
-                            }
+                            print "</script>";
                         }
-                    } else {
-                        print "<script>";
-                        print "alert('Link Expirado !');";
-                        //print "window.location.href ='" . FuncaoBase::geraLink("index", "index", "index") . "'";
-                        print "</script>";
-                        die();
                     }
-                } else {
-
                 }
             } else {
                 print "<script>";
-                print "alert('Link Expirado !-');";
+                print "alert('Link Expirado !');";
                 //print "window.location.href ='" . FuncaoBase::geraLink("index", "index", "index") . "'";
                 print "</script>";
+
             }
 
-        # grava a troca de senha via (Administrador CEDEC) sistema.
+
+            # grava a troca de senha via (Administrador CEDEC) sistema.
         } else {
 
             $dados = $usuario->getDadosUsuarioEx($_COOKIE['seguranca']['idUser']);
@@ -142,47 +137,45 @@
 
                 if ($campo_branco) {
 
-                        $_loginExt = new LoginExterno();
+                    $_loginExt = new LoginExterno();
 
-                    if ($_loginExt->TrocaSenha($dados['usuario'], $senha_nova )) {
+                    if ($_loginExt->TrocaSenha($dados['usuario'], $senha_nova)) {
 
                         print "<script type='text/javascript'>";
 
                         print "alert('Troca de Senha Realizada Com Sucesso !-');";
 
-                        print "window.location.href='index.php';";
+                        //print "window.location.href='/index.php';";
 
                         print "</script>";
                     }
                 }
             }
         }
-       
     }
-    
     ?>
-    <!-- jQuery 3 -->
-    <script src="template/bower_components/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap 3.3.7 -->
-    <script src="template/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- iCheck -->
-    <script src="template/plugins/iCheck/icheck.min.js"></script>
-    <script type="text/javascript">
+</body>
+<!-- jQuery 3 -->
+<script src="/template/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="/template/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- iCheck -->
+<script src="/template/plugins/iCheck/icheck.min.js"></script>
+<script type="text/javascript">
 
-        $(document).ready(function () {
+    $(document).ready(function () {
 
-            $("#btn_trocasenha").hover(function () {
+        $("#btn_trocasenha").hover(function () {
 
-                if ($("#senha_nova").val() != $("#conf_senha_nova").val()) {
-                    alert("As senhas nao conferem !");
-                }
-
-            });
-
-
+            if ($("#senha_nova").val() != $("#conf_senha_nova").val()) {
+                alert("As senhas nao conferem !");
+            }
 
         });
 
-    </script>
-</body>
+
+
+    });
+
+</script>
 </html>

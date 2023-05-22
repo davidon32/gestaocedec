@@ -1261,7 +1261,8 @@ class Usuario extends UsuarioModel {
             $dados = array();
             $con = Conexao::getInstance();
 
-            $sql = "select cedec_user_ex.email_rec, cedec_user_ex.id, cedec_user_ex.usuario
+            $sql = "select cedec_user_ex.email_rec, cedec_user_ex.id, cedec_user_ex.usuario,
+                    cedec_municipio.nome as nome_municipio
 				from cedec_user_ex
 				inner join cedec_municipio
 				on cedec_municipio.id_municipio = cedec_user_ex.id_municipio
@@ -1837,6 +1838,29 @@ class Usuario extends UsuarioModel {
 
         return true;
     }
+    
+    
+    /**
+     * 
+     * @param type $usuario nome do usuario do sistema
+     * @return boolean
+     * 
+     */
+    public static function normAcesso($usuario) {
+
+        $con = Conexao::getInstance();
+        $sql = "UPDATE cedec_user_ex SET reset = '',
+                    hash = ''
+                    where usuario = :usuario";
+
+        $result = $con->prepare($sql);
+        $result->bindValue(":usuario", $usuario);
+        $result->execute();
+
+        return true;
+    }
+    
+    
 
     /**
      *  Mensagem do Suporte do menu usuario
@@ -2504,6 +2528,37 @@ and cedec_usuario.id_usuario != 79
 
         return $result->fetchColumn();
   
+    }
+    
+    
+    /**
+     * 
+     */
+    public static function buscaTrSenha($email, $hash){
+        
+        $con = Conexao::getInstance();
+        
+        $sql = "select email_rec, reset
+                    from cedec_user_ex where
+                    email_rec = :email
+                    and hash = :hash";
+        
+
+        $result = $con->prepare($sql);
+
+        $result->bindParam(":email", $email, PDO::PARAM_STR);
+        $result->bindParam(":hash", $hash, PDO::PARAM_STR);
+        
+        $result->execute();
+        
+        $dados = $result->fetch(PDO::FETCH_ASSOC);
+        
+        $dados['troca'] = $result->rowCount();
+        
+
+        return $dados;
+        
+        
     }
 
 }?>
