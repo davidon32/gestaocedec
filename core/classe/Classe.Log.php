@@ -83,6 +83,7 @@ class Log {
         try {
 
             $id_municipio = $_COOKIE['seguranca']['id_municipio'];
+            $_login = $_COOKIE['seguranca']['login'];
 
             $_data = date('Y/m/d H:i:s');
 

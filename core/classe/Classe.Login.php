@@ -224,6 +224,7 @@ class Login extends Liberacao {
         setcookie("seguranca[pmdaoperador]", null, - 3600);
         setcookie("seguranca[pmdadlog]", null, - 3600);
         setcookie("seguranca[secao]", null, - 3600);
+        setcookie("seguranca[id_rpm]", null, - 3600);
         ob_end_clean();
     }
 

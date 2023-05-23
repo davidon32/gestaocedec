@@ -18,7 +18,9 @@ $dadm = 'demetrio.passos@defesacivil.mg.gov.br,
 $dtec = 'demetrio.passos@defesacivil.mg.gov.br,
 			 zinhoflag1@gmail.com';
 
-use PHPMailer\PHPMailer\PHPMailer;
+//use PHPMailer\PHPMailer\PHPMailer;
+require(PATH.'/vendor/phpmailer/phpmailer/src/PHPMailer.php');
+require(PATH.'/vendor/phpmailer/phpmailer/src/SMTP.php');
 
 //use PHPMailer\PHPMailer\Exception;
 //require_once "vendor/autoload.php";
@@ -229,7 +231,7 @@ class Email {
             return self::emailIndividual('zinhoflag1@gmail.com', 'teste de asunto', $dados['corpo']);
         } else {
 
-            $mail = new PHPMailer(true);
+            $mail = new PHPMailer\PHPMailer\PHPMailer(true);
             //Enable SMTP debugging.
             $mail->SMTPDebug = 3;
             //Set PHPMailer to use SMTP.

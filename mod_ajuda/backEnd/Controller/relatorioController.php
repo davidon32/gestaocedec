@@ -116,6 +116,14 @@ include_once(MODEL_AJUDA_BACKEND.'/AjudaRelatorioModel.php');
 
             include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/mapa.php';
         }
+        
+        /**
+         *  mapa com dados 
+         */
+        function mapa1(){
+
+            include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/mapa.php';
+        }
 
 
         

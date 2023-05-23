@@ -5,14 +5,12 @@
 
 
 $post = isset($_POST) ? $_POST :"";
-$icone = '/core/imagem/maps.png';
+$icone = '/core/imagem/maps30.png';
 //var_dump($post);
 $voltar = "<p style='text-align: center'><a class='button' href='?token=".hash('sha256', md5(VERSAO).date('dmY'))."&modulo=ajuda&controller=relatorio&action=buscamapa'>Voltar</a></p>";
 
 if(empty($post)) {
     
-
-  
   
   $data_final = date('d/m/Y');
   $post['id_deposito'] = "";
@@ -43,7 +41,7 @@ if(empty($post)) {
     
   }
   
-  //die();
+ 
 
  $municipios = Liberacao::buscaMunicipioLiberacaoMapa($post);
 

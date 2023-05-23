@@ -62,21 +62,27 @@ if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
     $hash = isset($caminho[2]) ? substr($caminho[2], 0, 32) : "";
 
     $verificaTrSenha = Usuario::buscaTrSenha($email, $hash);
-
-    if ($verificaTrSenha['troca']) {
+    
+    if (isset($verificaTrSenha['troca'])) {
         include_once 'mod_equipe/View/usuario/trsenha_compdec.php';
     } else {
+        
+        if(preg_match('/email/', $_SERVER['REQUEST_URI'])){
+            header('Location:/index.php');
+        }
 
         $evento = isset($caminho[1]) ? $caminho[1] : "";
         /* if ($evento == 'evento') {
           header('Location :evento.php');
           } else */
         if ((isset($caminho[1]) && ($caminho[1] === 'mapa')) && ( (isset($caminho[2]) && $caminho[2] === 'site'))) { # mapas
+            
             $controller = 'relatorio';
             $action = 'mapa';
             include_once "mod_ajuda/backEnd/Controller/relatorioController.php";
             $app = new relatorioController();
             $app->mapa();
+
 
             /* acesso externo sem login */
         } else if ($acesso1 == md5('externo')) {
@@ -85,9 +91,12 @@ if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
             if (file_exists("mod_" . $modulo . "/Controller/" . $controller . ".php")) {
                 include_once "mod_" . $modulo . "/Controller/" . $controller . ".php";
             } else {
+                
                 header('Location:index.php');
             }
         } else if (
+                
+                
                 ($action === 'recsenha') ||
                 ($action === 'recsenha_compdec') ||
                 ($action === 'trsenha_cedec') ||
@@ -101,8 +110,12 @@ if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
         ) {
             /* não exist Controller */
             if (file_exists("mod_" . $modulo . "/Controller/" . $controller . ".php")) {
+
                 include_once "mod_" . $modulo . "/Controller/" . $controller . ".php";
+                
             } else {
+                print "mod_" . $modulo . "/Controller/" . $controller . ".php";
+                
                 header('Location:index.php');
             }
         } else if ((isset($caminho[1]) && $caminho[1] == "tdap")) { # TDAP
@@ -115,6 +128,7 @@ if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
             if (file_exists("/plugins/api-rest-php/view/" . ucfirst($controller) . "/" . $action . ".php")) {
                 include_once("/plugins/api-rest-php/view/" . ucfirst($controller) . "/" . $action . ".php");
             } else {
+                
                 header('Location:index.php');
             }
         } else if (isset($_COOKIE['seguranca']['tipo'])) {
@@ -124,6 +138,8 @@ if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
             } elseif ($acesso === "i") {
                 $ac = "backEnd/";
             }
+            
+                
 
             //include_once "mod_" . $modulo . "/" . $ac . "Controller/" . $controller . ".php";
             /* não exist Controller */
@@ -156,6 +172,7 @@ if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
                 if (file_exists("mod_" . $modulo . "/" . $ac . "Controller/" . $controller . ".php")) {
                     include_once "mod_" . $modulo . "/" . $ac . "Controller/" . $controller . ".php";
                 } else {
+                    
                     header('Location:index.php');
                 }
             } else {
@@ -171,12 +188,13 @@ if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
                 }
             }
         }
-
         if (class_exists($controller)) {
 
             $app = new $controller();
 
             if ($action != 'mapa') {
+                
+                //die();
                 if (method_exists($app, $action)) {
                     $app->$action();
                 } else {

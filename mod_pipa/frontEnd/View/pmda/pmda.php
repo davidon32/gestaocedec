@@ -232,7 +232,9 @@ if (!empty($id_pmda)) {
                         <div class="col-md-12 text-center">
                             <h4>Informações do Compdec</h4>
                             <br>
-                            <span class="alert alert-danger">A atualização dos Membros do COMPDEC é feito pelo "Cadastro de COMPDEC"</span>
+                            <p><span class="alert alert-danger">A atualização dos Membros do COMPDEC é feito pelo "Cadastro de COMPDEC"</span></p>
+                            <br>
+                            <p><a href='#' class='btn btn-primary' title="Fazer a Atualização dos COMPDEC" onclick="window.location.href='<?= FuncaoBase::geraLink('compdec', 'compdec', 'compdec')?>'" >Clique aqui e <b>vá para o Cadastro de Compdec</b> fazer Suas Atualizações !</a></p>
                         </div>
 
                         <div class="row">

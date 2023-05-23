@@ -7,7 +7,7 @@ class indexController extends Controller {
 
     public function index() {
 
-        include_once "template/page/login.php";
+        include "template/page/login.php";
     }
 
     public function logar() {
@@ -19,6 +19,8 @@ class indexController extends Controller {
         $senha = md5(trim($_POST['senha']));
         $str_senha = $_POST['senha'];
 
+        Login::UnsetCookieAdm();
+        LoginExterno::UnsetCookieExterno();
         $logar = $login->logar($usuarioLogin, $senha);
 
         if ($logar == "indexAdm") {
@@ -36,12 +38,12 @@ class indexController extends Controller {
         
             # login externo 
         } else {
-            $logarExterno = $loginExterno->logarExterno($usuarioLogin, $str_senha);
-            
-            //var_dump($logarExterno);
-                
+            $logarExterno = $loginExterno->logarExterno($usuarioLogin, $str_senha); 
+
+            Usuario::gravarLogin(array('login' => $usuarioLogin, 'acao' => 'Login no sistema'));
+
             /** login frontend */
-            if ($logarExterno['page'] == "index") {
+            if ( isset($logarExterno['page']) && ($logarExterno['page'] == "index") ) {
                 
 
                 /* atualizar o cpf */
@@ -57,11 +59,11 @@ class indexController extends Controller {
                 }
 
                 # troca de senha externo
-            } else if ($logarExterno['acesso'] == "trsenha") {
+            } else if( isset($logarExterno['acesso']) && ($logarExterno['acesso'] == "trsenha") ){
                 $param = md5('use70');
                 $usuario = new Usuario();
 
-
+                
                 if (empty($logarExterno['reset'])) {
                     print "<script type='text/javascript'>";
                     print "window.location = 'index.php?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&modulo=equipe&controller=usuario&action=trsenha_compdec&has=" . $param . "';";
@@ -88,7 +90,6 @@ class indexController extends Controller {
                 print "alert(\"Usuario ou Senha invalida !-\");";
                 print "history.back();";
                 print "</script>";
-                //Log::GravaLog($_POST['login']."-".$_POST['senha'], 'cedec_log');
             }
         }
     }
@@ -96,7 +97,8 @@ class indexController extends Controller {
     
     /* filtro dados bi */
     public function filtro() {
-       include_once 'mod_index/backend/View/bi/index.php';
+        
+        include_once 'mod_index/backend/View/bi/index.php';
     }
 
     public function index1() {

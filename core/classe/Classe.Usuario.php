@@ -1404,7 +1404,7 @@ class Usuario extends UsuarioModel {
     /**
      * Resetar Senha usuário Externo
      */
-    function resetaSenhaUsuarioEx($id = false, $email = false) {
+    function resetaSenhaUsuarioEx(array $param) {
 
         $con = Conexao::getInstance();
         $retorno = array();
@@ -1412,17 +1412,19 @@ class Usuario extends UsuarioModel {
 
         $sql = "";
 
-        if ($email) {
+        if ($param['email']) {
 
             // busca email cadastrado no sistema
-            $emailCad = Usuario::getEmailUsuarioExterno($id);
+            $emailCad = Usuario::getEmailUsuarioExterno($param['id']);
 
-            if ($email == $emailCad['email_rec']) {
+            if ($param['email'] == $emailCad['email_rec']) {
 
                 $reset = strtotime(date('Y-m-d H:i:s'));
+                
                 $sql = "UPDATE cedec_user_ex
-                     SET reset = '" . $reset . "'
-                     WHERE id = '" . $id . "'";
+                     SET reset = '".$reset."',
+                     hash = '".md5($param['email'].$reset)."'
+                     WHERE id = '{$param['id']}'";
             }
 
         } 
@@ -2536,6 +2538,7 @@ and cedec_usuario.id_usuario != 79
      */
     public static function buscaTrSenha($email, $hash){
         
+
         $con = Conexao::getInstance();
         
         $sql = "select email_rec, reset
@@ -2550,11 +2553,14 @@ and cedec_usuario.id_usuario != 79
         $result->bindParam(":hash", $hash, PDO::PARAM_STR);
         
         $result->execute();
+                
+        $troca = $result->rowCount();
         
         $dados = $result->fetch(PDO::FETCH_ASSOC);
         
-        $dados['troca'] = $result->rowCount();
-        
+        if($troca) {
+            $dados['troca'] = $troca;
+        }
 
         return $dados;
         

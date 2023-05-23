@@ -32,16 +32,22 @@ class usuarioController extends Controller {
                 print "</script>";
             } else {
 
-                # busca por municipio (compdec)     
+                # busca dados do municipio (compdec)     
                 $email_rec = $usuario->buscaEmailRecMunicipioUserExterno($_POST['txtMunicipio']);
                 if (isset($email_rec[0]['email_rec'])) {
                     
-                    //atualiza o campo reset do usuario com date now
+                    // Atualiza o campo reset do usuario com DATE now
+                    // Atualiza o campo hash do usuario
                     // retorna hash email_usuario+date_now
                     // envia o link http://sistema.defesacivil.mg.gov.br/index.php/{$hash}
-                    $_resultado = $usuario->resetaSenhaUsuarioEx($email_rec[0]['id'], $email_rec[0]['email_rec']);
                     
-                    //var_dump($_resultado);
+                    $param = [
+                            'id' => $email_rec[0]['id'],
+                            'email' => $email_rec[0]['email_rec']
+                    ];
+                    
+                    $_resultado = $usuario->resetaSenhaUsuarioEx($param);
+
 
                     if (!is_null($_resultado)) {
 
@@ -54,16 +60,26 @@ class usuarioController extends Controller {
                             $mensagem = <<<MSG
                                     <p style='font-size:15pt'>Prezado Coordenador Municipal de Proteção e Defesa Civil,</p>
 
-<p style='font-size:15pt'>Foi iniciado um pedido de alteração de senha para acesso ao SDC – Sistema de Defesa Civil, para continuar siga os seguintes passos:</p>
+<p style='font-size:15pt'>
+    Informamos que foi iniciado um processo de solicitação de alteração de senha para acesso ao SDC - Sistema de Defesa Civil. A fim de prosseguir, solicitamos que siga as orientações abaixo:
+</p>
 <br>
 <p style='font-size:17pt; font-weight: bold'>1)    Clique para trocar a Senha : <a href='{$link}'>Trocar Senha</a></p>
 <br>
 
-<p style='font-size:15pt'> O usuário será redirecionado para uma pagina de troca de senha, onde deverá fazer a troca de senha</p>
+<p style='font-size:15pt'>
+    O usuário será redirecionado para uma página de troca de senha, onde deverá efetuar a alteração de senha.
+</p>
 
-<p style='font-size:15pt'>Obs: Seu usuario de acesso ao sistema é: <br> <span style='color:blue'>{$email_rec[0]['email_rec']}</span>.</p>
+<p style='font-size:15pt'> 
+    Observação: O seu nome de usuário para acesso ao sistema é: 
+        <br>
+        <span style='color:blue'>{$email_rec[0]['email_rec']}</span>.
+</p>
 
-<p style='font-size:15pt'> Se você, não requisitou alteração de senha favor desconsiderar esse email.</p>
+<p style='font-size:15pt'> 
+    Caso você não tenha solicitado a alteração de senha, pedimos que desconsidere este e-mail.
+</p>
         
 <p style='font-size:15pt'> Att.</p>
 <p style='font-size:15pt'> Equipe de Suporte ADS.</p>

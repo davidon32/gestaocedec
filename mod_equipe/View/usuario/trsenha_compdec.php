@@ -51,7 +51,6 @@
     <?php
     $tr_senha = isset($verificaTrSenha) ? $verificaTrSenha : "";
 
-    var_dump($tr_senha);
 
     $usuario = new Usuario();
 
@@ -86,9 +85,6 @@
             print "<br>";
 
             $dados = $usuario->getResetUsuarioEx($tr_senha['reset']);
-
-            var_dump($dados);
-            //die();
             
             # troca de senha 
             if ($agora <= $expira) {
@@ -104,8 +100,7 @@
                         if ($_loginExt->TrocaSenha($dados['usuario'], $senha_nova)) {
                             
                             /* remove o hash e o reset do usuario*/
-                            var_dump(Usuario::normAcesso($dados['usuario']));
-                            die();
+                            Usuario::normAcesso($dados['usuario']);
 
                             print "<script type='text/javascript'>";
 

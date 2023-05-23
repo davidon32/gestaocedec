@@ -22,7 +22,7 @@
 	<br>
 
 	<div class="col-md-6">
-		<form method="POST" action="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=relatorio&action=mapa" name="frm_rel_liberacao" >
+		<form method="POST" action="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=relatorio&action=mapa1" name="frm_rel_liberacao" >
 		
 
 			<div class="col-md-12">
@@ -74,7 +74,8 @@
 		</div>
 		<div class="col-md-12 text-center">
 			<br>
-			<input class="btn btn-primary" type="submit" name="pesquisar" value="Pesquisar" />&nbsp;&nbsp;<a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=relIndex">Voltar</a>				 
+			<input class="btn btn-primary" type="submit" name="pesquisar" value="Pesquisar" />&nbsp;&nbsp;
+                        <a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=relIndex">Voltar</a>				 
 		</div>
 		</form>
 	<?php 
