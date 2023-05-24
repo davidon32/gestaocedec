@@ -65,7 +65,7 @@
 
 
         # troca de senha via link email
-        if ($tr_senha['troca']) {
+        if (isset($tr_senha['troca'])) {
 
 
             $dataBanco = new DateTime();
@@ -140,7 +140,7 @@
 
                         print "alert('Troca de Senha Realizada Com Sucesso !-');";
 
-                        //print "window.location.href='/index.php';";
+                        print "window.location.href='/index.php';";
 
                         print "</script>";
                     }

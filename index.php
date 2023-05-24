@@ -4,11 +4,14 @@ if (!isset($_SESSION)) {
     session_start();
     $id = session_id();
 }
+die();
 if (!defined('VERSAO')) {
-    define('VERSAO', 'versão - 3.4.1.6-6 - 30.03.2023');
+    define('VERSAO', 'versão - 3.4.2.0-1 - 23.05.2023');
 }
 include 'core/system/config/config.inc.php';
 include_once 'core/include.php';
+
+
 
 /* valida link versao
  * $valida_link = false;

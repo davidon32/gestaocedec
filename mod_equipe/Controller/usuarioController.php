@@ -93,12 +93,15 @@ http://www.defesacivil.mg.gov.br
 
 MSG;
                         
+    $dados_envio = [
+                        'para'      => $email_rec[0]['email_rec'],
+                        'nomePara'  => 'Municipio de '.$email_rec[0]['nome_municipio']."'",
+                        'assunto'   => utf8_decode('Recuperação de Senha do SDC - '.$email_rec[0]['nome_municipio']),
+                        'corpo'     => utf8_decode($mensagem),
+                        'alt'       => 'Email com Instruções para recuperação de senha'
+                    ];
 
-    $resultado = $enviaEmail->newMail(['para'=> $email_rec[0]['email_rec'],
-     'nomePara'=> 'Municipio de '.$email_rec[0]['nome_municipio']."'",
-     'assunto'=> utf8_decode('Recuperação de Senha do SDC - '.$email_rec[0]['nome_municipio']),
-     'corpo'=> utf8_decode($mensagem),
-     'alt' => 'Email com Instruções para recuperação de senha']);
+    $resultado = $enviaEmail->newMail($dados_envio);
     
     # gravar hash e data acesso
     

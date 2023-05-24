@@ -1179,76 +1179,40 @@ class Usuario extends UsuarioModel {
     function resetaSenha($idFuncionario = false, $email = false) {
 
         $con = Conexao::getInstance();
-        $retorno = array();
-        $senhaTemp = "";
 
         # busca pelo email 
         if ((!empty($email)) && (empty($idFuncionario))) {
 
             // busca usuario interno
-            if ($emailCad = Usuario::getEmailFuncEmail($email)) {
+            $emailCad = Usuario::getEmailFuncEmail($email);
 
                 // busca email cadastrado no sistema
-                if ($email == $emailCad[0]['email_rec']) { // reseta com senha aleatoria
-                    $senhaTemp = Usuario::gerarSenha();
-
-                    try {
+                if ($email === $emailCad[0]['email_rec']) {
 
                         $reset = strtotime(date('Y-m-d H:i:s'));
 
                         $sql = "UPDATE cedec_usuario
-		                     SET reset = '" . $reset . "'
+		                     SET reset = '" . $reset . "',
+                                         hash = '".md5($email.$reset)."'
 		                     WHERE id_usuario = '" . $emailCad[0]['id_usuario'] . "'";
-
 
                         $result = $con->query($sql);
 
-                        if ($result->execute()) {
-                            return array(true,
-                                $senhaTemp,
-                                $emailCad[0]['email_rec'],
-                                $emailCad[0]['login'],
-                                $reset);
-                        } else {
-                            return array(false, "");
-                        }
-                    } catch (Exception $e) {
-                        print FuncaoBase::getError($e->getMessage(), 'Mensagem');
-                    }
+                        return ($result->execute()) ? array(true,md5($emailCad[0]['email_rec'].$reset)) : array(false, "");               
+                } 
+            
+                // administrador reseta senha para usuário   
+                } else if ($email == false) {
 
-
-                    // email nao confere com o cadatrado no sistema  
-                } else {
-
-                    print "vou te dar uma maozinha !!!<br>";
-                    print "<img width='100px' src='/core/imagem/maozinha.png'>";
-                    print '<br>Obs: seu email cadastrado no sistema !!! <br><br><span class="alert alert-info" style="font-size:15pt;">' . $emailCad['email'] . '</span>';
+                    $sql = "UPDATE cedec_usuario
+                           SET senha = '32efe320d4a241dec1268bf3a8a0557d', #//gmgcedec199
+                               trsenha = '1'
+                               WHERE id_funcionario = '" . $idFuncionario . "'";
+                    
+                    $result = $con->query($sql);
+                    return $result->execute();
+                        
                 }
-            }
-
-
-            // administrador reseta senha para usuário   
-        } else if ($email == false) {
-
-            $sql = "UPDATE cedec_usuario
-                   SET senha = '32efe320d4a241dec1268bf3a8a0557d', #//gmgcedec199
-                       trsenha = '1'
-                       WHERE id_funcionario = '" . $idFuncionario . "'";
-
-            try {
-
-                $result = $con->query($sql);
-
-                if ($result->execute()) {
-
-                    return array(true, $senhaTemp);
-                } else {
-                    return array(false, "");
-                }
-            } catch (Exception $e) {
-                print FuncaoBase::getError($e->getMessage(), 'Mensagem');
-            }
-        }
     }
 
     /**

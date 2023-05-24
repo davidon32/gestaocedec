@@ -233,7 +233,7 @@ class Email {
 
             $mail = new PHPMailer\PHPMailer\PHPMailer(true);
             //Enable SMTP debugging.
-            $mail->SMTPDebug = 3;
+            $mail->SMTPDebug = 0;
             //Set PHPMailer to use SMTP.
             $mail->isSMTP();
             //Set SMTP host name                          
@@ -260,8 +260,8 @@ class Email {
             $mail->AltBody = "Conteudo deste email é referente a " . $dados['alt'];
 
             try {
-                $mail->send();
-                echo "Message has been sent successfully";
+                return $mail->send();
+                //echo "Message has been sent successfully";
             } catch (Exception $e) {
                 echo "Mailer Error: " . $mail->ErrorInfo;
             }
