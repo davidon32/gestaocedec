@@ -773,11 +773,13 @@ class FuncaoBase extends Exception {
     }
 
     public static function slug($string) {
-        $result = self::tirarAcentos($string);
-        $result = strtolower($result);
-        $result = str_replace(array(" ", "(", ")"), "_", $result);
+        if(strlen($string) >0){
+            $result = self::tirarAcentos($string);
+            $result = strtolower($result);
+            $result = str_replace(array(" ", "(", ")"), "_", $result);
 
-        return $result;
+            return $result;
+        }
     }
 
     /**

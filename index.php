@@ -4,7 +4,7 @@ if (!isset($_SESSION)) {
     session_start();
     $id = session_id();
 }
-die();
+
 if (!defined('VERSAO')) {
     define('VERSAO', 'versão - 3.4.2.0-1 - 23.05.2023');
 }

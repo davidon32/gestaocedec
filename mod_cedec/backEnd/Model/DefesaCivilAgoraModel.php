@@ -26,12 +26,13 @@ class DefesaCivilAgoraModel {
     }
 
     public function listaPostagem($limit = 0, $categoria = "") {
-
+        
         $opcao = ($limit > 0) ? " limit 3 " : "";
         
         $cat = (empty($categoria) ? "" : " and categoria = '".self::enumCategoria($categoria)."' ");
 
         $dados = array();
+        
 
         $con = Conexao::getInstance();
 
@@ -47,6 +48,7 @@ class DefesaCivilAgoraModel {
                         from cedec_def_agora
                         where status1 = 1 ".$cat."
                         order by data_hora desc " . $opcao;
+               
         $result = $con->query($sql);
 
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -153,6 +155,12 @@ class DefesaCivilAgoraModel {
     }
 
     public static function paginacao_dc_agora(array $dados) {
+        
+        if(isset($dados['categoria'])) {
+            $cat = "and categoria = '".$dados['categoria']."'";
+        }else {
+            $cat = '';
+        }
 
         $conexao = Conexao::getInstance();
 
@@ -170,7 +178,7 @@ class DefesaCivilAgoraModel {
             $tabela = $dados['tabela'];
 
             $registros = self::count("select *from " . $tabela);
-            $sql = "select *from " . $tabela . " where status1 = 1 order by data_hora desc" . $limit;
+            $sql = "select *from " . $tabela . " where status1 = 1 ".$cat." order by data_hora desc" . $limit;
             $result->dados = self::select($sql);
         }
 
@@ -305,6 +313,9 @@ class DefesaCivilAgoraModel {
                 break;
             case "programa_agua_doce":
                 return "Programa Agua Doce";
+                break;
+            case "reclamacao_denuncia":
+                return "Reclamação Denúncia";
                 break;
             case "reuniao":
                 return "Reunião";

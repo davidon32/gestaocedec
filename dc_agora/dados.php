@@ -23,23 +23,27 @@ $categ_validate = array("CEDEC-MG",
 "Treinamento Capacitação",
 "Elogios/Sugestões",
 "Mapeamento de Área de Risco",
-"Programa Agua Doce");
+"Programa Agua Doce",
+'Reclamação/Denúncia');
 
 
 $cat =isset($_GET['cat']) ? $_GET['cat'] : "";
 
-if(in_array($cat, $categ_validate)){
-    $cat1 = $cat;
-}elseif($cat == "") {
-  $cat1 = "";  
-}else {
-    print "<script>";
-    print "window.location = 'http://www.defesacivil.mg.gov.br'";
-    print "</script>";
-    
-}
+//if(in_array($cat, $categ_validate)){
+//    $cat1 = $cat;
+//}elseif($cat == "") {
+//  $cat1 = "";  
+//}else {
+//    print "<script>";
+//        //print "window.location = 'http://www.defesacivil.mg.gov.br'";
+//    print "</script>";
+//    
+//}
 
-$ultimas_postagens = $agora->listaPostagem(3, $cat1);
+//Verificar se exisite categoria NULL
+//var_dump($categoria);
+
+$ultimas_postagens = $agora->listaPostagem(3, $cat);
 
 
 foreach ($ultimas_postagens as $key => $value) {
@@ -91,9 +95,22 @@ if(!empty($termo)){
     
 }
 
-$paginacao = $agora->paginacao_dc_agora(array('dados'=> $dados,
-    'tabela' => $tabela,
-    'qtd_registro' => "5"));
+if(isset($cat)) {
+    $dado_paginacao = ['dados'=> $dados,
+                        'tabela' => $tabela,
+                        'qtd_registro' => "5",
+                        'categoria' => DefesaCivilAgoraModel::enumCategoria($cat)
+            ];
+}else {
+    $dado_paginacao = ['dados'=> $dados,
+                        'tabela' => $tabela,
+                        'qtd_registro' => "5"
+        ];
+    
+}
+                        
+
+$paginacao = $agora->paginacao_dc_agora($dado_paginacao);
 
 
 ?>

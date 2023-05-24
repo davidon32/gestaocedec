@@ -69,8 +69,8 @@
 
 
     <?php
-    //$categoria = isset($_GET['cat']) ? $_GET['cat'] : "";
-
+    $categoria = isset($_GET['cat']) ? $_GET['cat'] : "";
+    
     require('dados.php');
     ?>
 
@@ -313,7 +313,8 @@
                                 <div class="link-widget">
                                     <ul>
                                         <?php
-                                                                                //var_dump($categorias);
+                                                            
+                                        //var_dump($categorias);
                                         foreach ($categorias as $key => $value) {
                                             print "<li><a href=\"index.php?cat=" . FuncaoBase::slug($value['categoria']) . "\">" . $value['categoria'] . "<span>(" . $value['qtd'] . ")</span></a></li>";
                                         }
