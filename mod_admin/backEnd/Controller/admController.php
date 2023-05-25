@@ -287,6 +287,15 @@
         include_once('mod_admin/backEnd/View/relatorio/index.php');
         
     }
+    
+    /*
+     * relatorios
+     * 
+     */
+    public function log(){
+        include_once('mod_admin/backEnd/View/relatorio/indexlog.php');
+        
+    }
     /*
      * relatorio usuarios
      * 
