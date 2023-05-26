@@ -9,6 +9,7 @@ class Ajuda{
         $_campoData = "";
 		$_campoDeposito = "";
 		$_campoMunicipio = "";
+		$_campoEvento = "";
 
 		/* filtro por Data */
 		if((strlen($post['txtDtInicial']) >0) && (strlen($post['txtDtFinal']) >0)) {
@@ -24,14 +25,19 @@ class Ajuda{
 		if(strlen($post['id_municipio']) >0) {
 			$_campoMunicipio = " AND aju_liberacao.id_municipio = ".$post['id_municipio']." ";
 		}
+                
+		/* filtro por evento */
+		if(strlen($post['selEvento']) >0) {
+			$_campoEvento = " AND aju_liberacao.evento = '".$post['selEvento']."' ";
+		}
 
         $con = Conexao::getInstance();
         $dados = array();
 
         $sql = "SELECT count(id_liberacao) as numLibera FROM aju_liberacao
-                WHERE situacao = '1' ".$_campoData.$_campoDeposito.$_campoMunicipio."
+                WHERE situacao = '1' ".$_campoData.$_campoDeposito.$_campoMunicipio.$_campoEvento."
                  ORDER BY dataLibera";
-        
+
         $result = $con->query($sql);
 		
         while($linha = $result->fetch(PDO::FETCH_ASSOC)){
@@ -48,6 +54,7 @@ class Ajuda{
         $_campoData = "";
 		$_campoDeposito = "";
 		$_campoMunicipio = "";
+                $_campoEvento = "";
 
 		/* filtro por Data */
 		if((!empty($post['txtDtInicial'])) && (!empty($post['txtDtFinal']))) {
@@ -63,6 +70,12 @@ class Ajuda{
 		if(strlen($post['id_municipio']) > 0) {
 			$_campoMunicipio = " AND aju_pagamento.municipio = '".Municipio::PegaNomeMunicipio($post['id_municipio'])."'";
 		}
+                
+                /* filtro por evento */
+		if(strlen($post['selEvento']) >0) {
+			$_campoEvento = " AND aju_liberacao.evento = '".$post['selEvento']."' ";
+		}
+                
         
         
         $con = Conexao::getInstance();
@@ -73,7 +86,7 @@ class Ajuda{
 		inner join aju_liberacao
 		on aju_pagamento.id_liberacao = aju_liberacao.id_liberacao
         WHERE aju_pagamento.id_liberacao IN (SELECT id_liberacao FROM aju_liberacao
-                        WHERE situacao = 1) ".$_campoData.$_campoDeposito.$_campoMunicipio."";
+                        WHERE situacao = 1) ".$_campoData.$_campoDeposito.$_campoMunicipio.$_campoEvento."";
         
         $result = $con->query($sql);
         
@@ -91,6 +104,7 @@ class Ajuda{
         $_campoData = "";
 		$_campoDeposito = "";
 		$_campoMunicipio = "";
+                $_campoEvento = "";
 
 		/* filtro por Data */
 		if((!empty($post['txtDtInicial'])) && (!empty($post['txtDtFinal']))) {
@@ -106,6 +120,11 @@ class Ajuda{
 		if(!empty($post['id_municipio'])) {
 			$_campoMunicipio = " AND aju_liberacao.id_municipio = ".$post['id_municipio']." ";
 		}
+                
+                /* filtro por evento */
+		if(strlen($post['selEvento']) >0) {
+			$_campoEvento = " AND aju_liberacao.evento = '".$post['selEvento']."' ";
+		}
         
         $con = Conexao::getInstance();
         $dados = array();
@@ -113,7 +132,7 @@ class Ajuda{
        
 
         $sql = "SELECT count(id_liberacao) as numLibera FROM aju_liberacao
-                WHERE situacao = 0 ".$_campoData.$_campoDeposito.$_campoMunicipio."
+                WHERE situacao = 0 ".$_campoData.$_campoDeposito.$_campoMunicipio.$_campoEvento."
                 ORDER BY dataLibera";
         
         $result = $con->query($sql);
@@ -134,7 +153,7 @@ class Ajuda{
     /* pega quantidade de transferencias em transito */
     public static function getMaterialTransito($post, $situacao){
         
-        $_campoData = "";
+                $_campoData = "";
 		$_campoDeposito = "";
 
 		/* filtro por Data */
@@ -146,16 +165,16 @@ class Ajuda{
 		if(!empty($post['id_deposito'])) {
 			$_campoDeposito = " AND id_dep_destino = ".$post['id_deposito']." ";
 		}
+                
+                
         
         $con = Conexao::getInstance();
         $dados = array();
 
-       
-
-
-        $sql = "SELECT count(id_transferencia) as numTransf FROM aju_transferencia
-                WHERE situacao = ".$situacao." ".$_campoData.$_campoDeposito."
-                ORDER BY dt_transferencia";
+        $sql = "SELECT count(aju_transferencia.id_transferencia) as numTransf 
+                FROM aju_transferencia
+                WHERE aju_transferencia.situacao = ".$situacao." ".$_campoData.$_campoDeposito."
+                ORDER BY aju_transferencia.dt_transferencia";
         
         $result = $con->query($sql);
         

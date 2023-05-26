@@ -87,12 +87,13 @@
                     <input type="checkbox" name="ck_diario" id="ck_diario" value="1" >
 			Resumo Diário
 		</label>
+                
                 <hr>
-		<label>
+<!--		<label>
 			<input type="checkbox" name="ck_resumo_distr" id="ck_resumo_distr" value='2'>
                         Resumo Distribuição de Materiais <h6>( Resumo Quantitativo de Materiais distribuídos )</h6>
 		</label>
-                <hr>
+                <hr>-->
 	</div>
 
 </form>

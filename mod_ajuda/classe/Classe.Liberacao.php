@@ -713,6 +713,7 @@ class Liberacao extends DataMysql{
 		$_campoData = "";
 		$_campoDeposito = "";
 		$_campoMunicipio = "";
+                $_campoEvento = "";
 
 		/* filtro por Data */
 		if((!empty($post['txtDtInicial'])) && (!empty($post['txtDtFinal']))) {
@@ -728,6 +729,11 @@ class Liberacao extends DataMysql{
 		if(!empty($post['id_municipio'])) {
 			$_campoMunicipio = " AND aju_liberacao.id_municipio = ".$post['id_municipio']." ";
 		}
+                
+                /* filtro por evento */
+		if(strlen($post['selEvento']) >0) {
+			$_campoEvento = " AND aju_liberacao.evento = '".$post['selEvento']."' ";
+		}
 
 		$con = Conexao::getInstance();
 			
@@ -737,7 +743,7 @@ class Liberacao extends DataMysql{
 							inner join aju_liberacao
 							on aju_liberacao.id_liberacao = aju_item.id_liberacao
 							WHERE aju_item.situacao <= '1'
-							and aju_item.cod = '".$material."' ".$_campoData.$_campoDeposito.$_campoMunicipio;
+							and aju_item.cod = '".$material."' ".$_campoData.$_campoDeposito.$_campoMunicipio.$_campoEvento;
 
 					$result = $con->query($sql);
 
@@ -752,6 +758,7 @@ class Liberacao extends DataMysql{
 		
 		$_campoData = "";
 		$_campoDeposito = "";
+                $_campoEvento = "";
 
 		/* filtro por Data */
 		if((!empty($post['txtDtInicial'])) && (!empty($post['txtDtFinal']))) {
@@ -761,6 +768,11 @@ class Liberacao extends DataMysql{
 		/* filtro por deposito */
 		if(!empty($post['id_deposito'])) {
 			$_campoDeposito = " AND aju_liberacao.depDestino = ".$post['id_deposito']." ";
+		}
+                
+                /* filtro por evento */
+		if(strlen($post['selEvento']) >0) {
+			$_campoEvento = " AND aju_liberacao.evento = '".$post['selEvento']."' ";
 		}
 
 		
@@ -779,7 +791,7 @@ class Liberacao extends DataMysql{
 					on aju_item.cod = aju_unidade.id_unidade
 					where aju_liberacao.situacao <='1' 
 					and aju_item.situacao <= '1'
-					".$_campoData.$_campoDeposito."
+					".$_campoData.$_campoDeposito.$_campoEvento."
 					AND aju_liberacao.id_municipio = ".$_id_municipio." 
 					 group by aju_item.cod
 					order by aju_item.cod";
@@ -816,6 +828,11 @@ class Liberacao extends DataMysql{
 		if(!empty($post['id_municipio'])) {
 			$_campoMunicipio = " AND aju_liberacao.id_municipio = ".$post['id_municipio']." ";
 		}
+                
+                /* filtro por evento */
+		if(strlen($post['selEvento']) >0) {
+			$_campoEvento = " AND aju_liberacao.evento = '".$post['selEvento']."' ";
+		}
 		
 		$con = Conexao::getInstance();
 
@@ -836,7 +853,7 @@ class Liberacao extends DataMysql{
 					INNER JOIN aju_liberacao 
 					ON aju_item.id_liberacao = aju_liberacao.id_liberacao
 					WHERE aju_item.situacao <= '1' and aju_item.cod = ".$material."
-					AND aju_item.evento = '".$evento."' ".$_campoData.$_campoDeposito.$_campoMunicipio;
+					AND aju_item.evento = '".$evento."' ".$_campoData.$_campoDeposito.$_campoMunicipio.$_campoEvento;
 
 					$result = $con->query($sql);
 
@@ -856,6 +873,7 @@ class Liberacao extends DataMysql{
 		$_campoData = "";
 		$_campoDeposito = "";
 		$_campoMunicipio = "";
+                $_campoEvento = "";
 
 
 		/* filtro por Data */
@@ -872,6 +890,11 @@ class Liberacao extends DataMysql{
 		if(!empty($post['id_municipio'])) {
 			$_campoMunicipio = " AND aju_liberacao.id_municipio = ".$post['id_municipio']." ";
 		}
+                
+                /* filtro por evento */
+		if(strlen($post['selEvento']) >0) {
+			$_campoEvento = " AND aju_liberacao.evento = '".$post['selEvento']."' ";
+		}
 
 		/* filtro por evento */
 		/* if((!empty($post['sel_evento'])) && ($post['sel_evento'] != "Selecione o Evento")) {
@@ -881,7 +904,7 @@ class Liberacao extends DataMysql{
 		$dados = array();
 
 			$sql = "SELECT aju_liberacao.id_municipio, count(aju_liberacao.id_municipio) AS qtd FROM aju_liberacao
-							WHERE aju_liberacao.situacao <= 1 ".$_campoData.$_campoDeposito.$_campoMunicipio."
+							WHERE aju_liberacao.situacao <= 1 ".$_campoData.$_campoDeposito.$_campoMunicipio.$_campoEvento."
 							GROUP BY aju_liberacao.id_municipio";
 
 					$result = $con->query($sql);
