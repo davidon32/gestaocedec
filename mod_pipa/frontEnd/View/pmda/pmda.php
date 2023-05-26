@@ -2922,7 +2922,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
     }
 
     function ajudacoordenada() {
-        window.location.href = 'http://conversor-de-medidas.com/coordenadas-geograficas';
+        window.location.href = 'https://conversor-de-medidas.com/coordenadas-geograficas.php';
     }
 
     function passoapasso() {
