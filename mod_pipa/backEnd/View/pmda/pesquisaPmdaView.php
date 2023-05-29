@@ -228,7 +228,7 @@ $secao_usuario = $_COOKIE['seguranca']['secao'];
             /* Pmda em edição usuario não faz parte da drrd */
             if ($value['status'] < 2 && $secao_usuario != "DRRD" ) {
                 print "<tr>
-                        <td></td><td>".$protocolo."</td><td>".DataMysql::dataCompletaVisual($value['data'])."</td><td colspan='12'>Processo em Edição - Registro Suprimido ! - Voçê não é um operador de PMDA OU não faz parte da DRRD !</td>
+                        <td></td><td>".$protocolo."</td><td>".DataMysql::dataCompletaVisual($value['data'])."</td><td colspan='12'><b style='color:red'>".Municipio::PegaNomeMunicipio($value['id_municipio'])."</b> Processo em Edição - Registro Suprimido ! - Voçê não é um operador de PMDA OU não faz parte da DRRD !</td>
                     </tr>";
             
             #### todos os registros ####    
@@ -320,8 +320,8 @@ $secao_usuario = $_COOKIE['seguranca']['secao'];
                 # pmda's que não estão atendidos 
                 //if($pmdaLegado && $value['status'] !=7){
                 # icone em Analise
-                print($value['status'] == 2);
-                print ($permissaoOperador == 1);
+                //print($value['status'] == 2);
+                //print ($permissaoOperador == 1);
                 if ($value['status'] == 2 && $permissaoOperador == 1) {
                     if (!$existe_edicao) {
                         # enviar para Edição
@@ -491,6 +491,7 @@ $secao_usuario = $_COOKIE['seguranca']['secao'];
                 alterarEstado($(this).data('id_pmda'), 'Cancelado');
             } else if($(this).find(":selected").val() == 4){
                 alterarEstado($(this).data('id_pmda'), 'Atendido');
+                alterarStatus($(this).data('id_pmda'));
             } else {
                 alterarStatus($(this).data('id_pmda'));
             }
@@ -769,7 +770,8 @@ $secao_usuario = $_COOKIE['seguranca']['secao'];
             url: 'mod_pipa/backEnd/View/pmda/funcAdm.php?v=<?= md5(VERSAO) ?>',
             data: dados,
             success: function (response) {
-                alert('Status Alterado com Sucesso !!')
+                //console.log(response);
+                alert('Status Alterado com Sucesso !');
                 location.reload();
             },
             error: function (response) {
