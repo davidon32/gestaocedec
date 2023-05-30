@@ -207,10 +207,10 @@ class H_pedido_pedidajuda_hModel extends Model {
                 ON aju_h_pedido_pedid.id_municipio = cedec_municipio.id_municipio
                 INNER JOIN cedec_rpm_mun
                 ON cedec_municipio.id_municipio = cedec_rpm_mun.id_municipio
-                {$filtro}";
+                {$filtro} ORDER BY aju_h_pedido_pedid.data_entrada_sistema";
 
         try {
-
+            
             $result = $con->query($sql);
 
             return $result->fetchAll(PDO::FETCH_ASSOC);

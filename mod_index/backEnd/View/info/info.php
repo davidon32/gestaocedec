@@ -28,9 +28,21 @@
 
     </div>
 
-    <div class="col-md-4">
-        <p class="text-center"><a href='<?= FuncaoBase::geraLink("index", "index", "usuarioCedec", array("tipo" => 'regional')) ?>' title='Lista de Usuario Regionais'><img width="100px" src='core/imagem/usuario_redec.png'><br>Usuários Regionais DC / Contatos</a></p>
-    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <p class="text-center"><a href='<?= FuncaoBase::geraLink("index", "index", "usuarioCedec", array("tipo" => 'regional')) ?>' title='Lista de Usuario Regionais'><img width="100px" src='core/imagem/usuario_redec.png'><br>Usuários Regionais DC / Contatos</a></p>
+        </div>
+        
+        <!-- visualização Diretor -->
+        <div class="col-md-4">
+            <?php if( $_COOKIE['seguranca']['diretor'] || $_COOKIE['seguranca']['secao'] == 'DLS' || $_COOKIE['seguranca']['idUser'] == 1) { ?>
+                <p class="text-center"><a href='<?= FuncaoBase::geraLink("ajuda", "index", "auditoria") ?>' title='Lista de Usuario Regionais'><img width="100px" src='core/imagem/auditoria.png'><br>Auditoria Controle de Estoque</a></p>
+            <?php }?>
+        </div>
+        
+
+    </div
+
 
 
 </div>
