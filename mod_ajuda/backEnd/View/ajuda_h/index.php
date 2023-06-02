@@ -374,6 +374,8 @@ foreach ($lista_devedores as $key => $value) {
                                             var col ="";
                                         if(colIdx ==0) {
                                             col = " style=\"max-width: 60px;\" ";
+                                        }else if(colIdx == 3) {
+                                            col = " style=\"max-width: 60px;\" ";
                                         }
                                         $(cell).html('<input type="text" '+col+' name="notNormaliza" class="removeStyle" placeholder="' + title + '"/>');
                                     }

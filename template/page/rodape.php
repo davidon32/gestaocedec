@@ -1,8 +1,6 @@
 <footer class="main-footer print">
     <div class="pull-right hidden-xs">
-        <?php
-        
-        
+        <?php       
             if(isset($_COOKIE['seguranca'])){
                 print "<a href='".FuncaoBase::geraLink("admin", "release", "rel")."'>".VERSAO."</a>";
             }else {

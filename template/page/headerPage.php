@@ -130,6 +130,12 @@ if(isset($pageSession)){
     }
     #fechar { margin-right: 5px; font-size: 12px; }
 
+    body {
+        
+        height: 100hv;
+        
+    }
+    
 </style>
 
 <!-- Google tag (gtag.js) -->

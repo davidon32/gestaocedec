@@ -179,10 +179,17 @@ print "</script>";
                         </li>
                     </ul>
 
+
                 </li>
+                <li class="dropdown tasks-menu">
+                    <a class="dropdown-toggle" href="<?= FuncaoBase::geraLink("index", "index", "logout") ?>" title="Sair com Segurança do Sistema">
+                        <i class="fa fa-sign-out"></i>
+                    </a>
+                </li>
+                
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu" style="min-width: 200px;">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding:0;">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding:0;" title="Nome do Usuario do Sistema">
 
                         <?php
                         if (isset($pageSession['session']['seguranca']['externo'])) {
@@ -194,8 +201,7 @@ print "</script>";
                         ?>
                         <script>start_countdown();</script>
                     </a>
-                    <a href="<?= FuncaoBase::geraLink("index", "index", "logout") ?>" class="btn btn-default" style="padding:0; width: 40%; float: left; color: #ABABAB;" title="Sair com Segurança do Sistema">Logout</a>
-                    <p id="countdown" style="margin:0; font-size:14px; color: #ffffff; float: right"></p>
+                    <p id="countdown" style="margin:0; font-size:14px; color: #ffffff; float: right" title="Tempo Restante de Sessão"></p>
 
                     <ul class="dropdown-menu">
                         <!-- User image -->
