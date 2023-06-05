@@ -228,7 +228,7 @@ $secao_usuario = $_COOKIE['seguranca']['secao'];
             /* Pmda em edição usuario não faz parte da drrd */
             if ($value['status'] < 2 && $secao_usuario != "DRRD" ) {
                 print "<tr>
-                        <td></td><td>".$protocolo."</td><td>".DataMysql::dataCompletaVisual($value['data'])."</td><td colspan='12'><b style='color:red'>".Municipio::PegaNomeMunicipio($value['id_municipio'])."</b> Processo em Edição - Registro Suprimido ! - Voçê não é um operador de PMDA OU não faz parte da DRRD !</td>
+                        <td></td><td>".$protocolo."</td><td>".DataMysql::dataCompletaVisual($value['data'])."</td><td colspan='12'><b style='color:red'>".Municipio::PegaNomeMunicipio($value['id_municipio'])."</b> Processo em Edição - Registro Suprimido ! - Voçê não é um operador de PMDA <b>OU</b> não faz parte da DRRD !</td>
                     </tr>";
             
             #### todos os registros ####    
@@ -487,6 +487,8 @@ $secao_usuario = $_COOKIE['seguranca']['secao'];
         
         /* muda o STATUS do processo */
         $("[name=selStatus]").change(function () {
+            
+               
             if ($(this).data('status') == 8) {
                 alterarEstado($(this).data('id_pmda'), 'Cancelado');
             } else if($(this).find(":selected").val() == 4){
@@ -500,6 +502,7 @@ $secao_usuario = $_COOKIE['seguranca']['secao'];
         /* muda o ESTADO DO PROCESSO */
         $("[name=selEstado]").change(function () {
             alterarEstado($(this).data('id_pmda'));
+
         });
 
 
@@ -772,7 +775,7 @@ $secao_usuario = $_COOKIE['seguranca']['secao'];
             success: function (response) {
                 //console.log(response);
                 alert('Status Alterado com Sucesso !');
-                location.reload();
+                //location.reload();
             },
             error: function (response) {
                 console.log(JSON.stringify(response));
@@ -807,9 +810,9 @@ $secao_usuario = $_COOKIE['seguranca']['secao'];
             url: 'mod_pipa/backEnd/View/pmda/funcAdm.php?v=<?= md5(VERSAO) ?>',
             data: dados,
             success: function (response) {
-                //console.log(response);
-                alert('Estado Alterado com Sucesso !!');
-                location.reload();
+                console.log(response);
+                //alert('Estado Alterado com Sucesso !!');
+                //location.reload();
             },
             error: function (response) {
                 console.log(JSON.stringify(response));

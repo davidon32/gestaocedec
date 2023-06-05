@@ -15,7 +15,7 @@
 
     <?php
     
-    $email = Compdec::get"";
+    $email = "";
     $telCoord = "";
     
     ?>

@@ -95,7 +95,7 @@ print "</script>";
   </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
-        <a href="#" class="sidebar-toggle"><img src="/core/imagem/sdc-110x32.png"></a>
+        <a href="#" class="sidebar-toggle"><img style="border-radius:6px; width: 200px" src="/core/imagem/logo_modelo_1-160X44-a.png"></a>
         <!-- Sidebar toggle button remover barra lateral
         <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
             <span class="sr-only">Toggle navigation</span>

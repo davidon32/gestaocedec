@@ -6,7 +6,7 @@ $post = isset($_POST) ? $_POST : "";
 
 $id_msg = isset($_POST['id_msg']) ? $_POST['id_msg'] : "";
 
-//var_dump($post);
+
 $pmda = new Pmda();
 
 $opcao = $post['opcao'];
@@ -16,7 +16,7 @@ $opcao = $post['opcao'];
 if ($opcao == "gravar") {
     if ($post['status'] == "4") {
 
-        var_dump($pmda->atualizaStatus($post));
+        $pmda->atualizaStatus($post);
         $pmda->atualizaEstado($post);
     } else {
         $post['resp'] = "";
@@ -38,6 +38,9 @@ if ($opcao == "gravar") {
     if ($post['estado'] == 'Em Atendimento') {
         $post['status'] = 7;
 
+        $pmda->atualizaStatus($post);
+    }elseif($post['estado'] == 'Encerrado Atendimento') {
+        $post['status'] = 7;
         $pmda->atualizaStatus($post);
     }
 } elseif ($opcao == 'liberar_alterar') {
