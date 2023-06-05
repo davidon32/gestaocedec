@@ -14,6 +14,10 @@
     <a class="btn btn-success" href='index.php?token=<?= hash('sha256', md5(VERSAO) . date('dmY')) ?>&ac=etn&modulo=index&controller=index&action=menue'>Acessar Módulos</a>  
 
     <?php
+    
+    $email = Compdec::get"";
+    $telCoord = "";
+    
     ?>
 </div> 
 <div class="col-md-4 text-center"> 
@@ -54,10 +58,34 @@
 
     <?php
     MensagemSistema::mostraMensagem();
+    
+    
     ?>
 
 
 </div> 
+
+
+<!-- Modal Contatos -->
+<div class="modal fade" id="contatos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Contatos</h5>
+            </div>
+            <div class="modal-body">
+                <label>Email de contato:</label>
+                <input class="form form-control" type="email" name="emailContato" id="emailContato" value="<?=$email?>" title="Email para contato da Defesa Civil Municipal" maxlength="110">
+                <label>Tel. Coordenador Municipal de Defesa Civil:</label>
+                <input class="form form-control" type="text" name="telContato" id="telContato" value="<?=$email?>" title="Telefone de contato da Defesa Civil Municipal" maxlength="16" data-mask="(99)9999-9999">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Continuar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <!-- =================== RODAPE CORPO ==================== -->
@@ -71,35 +99,56 @@
 <script>
 
     $(document).ready(function () {
-        /* var email = '<?= $_COOKIE['seguranca']['email_rec'] ?>';
-         if((email.length > 0) && (email.match(/.com/))){
-         Swal.fire({
-         icon: 'error',
-         title: 'Atualização de Email necessária...',
-         width: 500,
-         text: 'Favor atualiar seu email para um email institucional',
-         footer: '<a href=\'<?=FuncaoBase::geraLink('compdec', 'compdec', 'index')?>\'>Clique aqui acessar os dados cadatrais</a>'
-         });
-         }*/
 
 
-        /*Swal.fire({
-         title: '<strong>UPLOAD arquivos SDC</u></strong>',
-         icon: 'info',
-         html:
-         'Antes de salvar seu documento WORD no formato PDF, faça a Compressão da Imagens, ' +
-         '<br>' +
-         '<a href="<?= FuncaoBase::geraLink('doc', 'doc', 'compdec') ?>">Clique aqui e Consulte o Manual</a>',
-         showCloseButton: true,
-         showCancelButton: true,
-         focusConfirm: false,
-         confirmButtonText:
-         '',
-         confirmButtonAriaLabel: 'Thumbs up, great!',
-         cancelButtonText:
-         '',
-         cancelButtonAriaLabel: 'Thumbs down'
-         });*/
+        /* grava dos dados de contatos */
+        $('#contatos').on('hidden.bs.modal', function () {
+            $.ajax({
+                    type: 'POST',
+                    url: 'mod_compdec/fronEnd/View/compdec/valida.php?v=<?= md5(VERSAO)?>',
+                    data: dados,
+                    //dataType: 'json',
+                    success: function (response) {
+                        //alert("Documento Validado com Sucesso");
+                        //location.reload();
+                        console.log(response);
+                    },
+                    error: function (e) {
+                        console.log(JSON.stringify(e));
+                    }
+                });
+            
+        });
+
+            /* var email = '<?= $_COOKIE['seguranca']['email_rec'] ?>';
+             if((email.length > 0) && (email.match(/.com/))){
+             Swal.fire({
+             icon: 'error',
+             title: 'Atualização de Email necessária...',
+             width: 500,
+             text: 'Favor atualiar seu email para um email institucional',
+             footer: '<a href=\'<?= FuncaoBase::geraLink('compdec', 'compdec', 'index') ?>\'>Clique aqui acessar os dados cadatrais</a>'
+             });
+             }*/
+
+
+            /*Swal.fire({
+             title: '<strong>UPLOAD arquivos SDC</u></strong>',
+             icon: 'info',
+             html:
+             'Antes de salvar seu documento WORD no formato PDF, faça a Compressão da Imagens, ' +
+             '<br>' +
+             '<a href="<?= FuncaoBase::geraLink('doc', 'doc', 'compdec') ?>">Clique aqui e Consulte o Manual</a>',
+             showCloseButton: true,
+             showCancelButton: true,
+             focusConfirm: false,
+             confirmButtonText:
+             '',
+             confirmButtonAriaLabel: 'Thumbs up, great!',
+             cancelButtonText:
+             '',
+             cancelButtonAriaLabel: 'Thumbs down'
+             });*/
 
 //        Swal.fire({
 //         title: '<strong>PEDIDOS DE AJUDA HUMANITÁRIA</u></strong>',
@@ -117,28 +166,32 @@
 //         cancelButtonText: 'Cancelar',
 //         cancelButtonAriaLabel: 'Thumbs down'
 //         });
-        Swal.fire({
-         title: '<strong>SENHA DE ACESSO E RECUPERAÇÃO</u></strong>',
-         width: 700,
-         icon: 'info',
-         backdrop: true,
-         html:
-         'PREZADOS COORDENADORES, <BR>  ' +
-         'EM BREVE NÃO SERÁ PERMITIDO EMAIL COM DOMÍNIO GMAIL E OUTROS QUE <B>NÃO</B> SEJAM DOMÍNIOS INSTITUCIONAIS/GOVERNAMENTAIS.'+
-         '<br>' +
-         '<i style=\'color:red\'>@seu_municipio.mg.gov.br<BR>' +
-         '@seu_municipio.gov.br<BR>'+
-         '@sua_secretaria.seu_municipio.mg.gov.br</i><BR>'+
-         'PREPAREM-SE !' +
-         '<br>'+
-         '',
-         showCloseButton: true,
-         returnFocus: true,
-         confirmButtonAriaLabel: 'Thumbs up, great!',
-         cancelButtonText: 'Cancelar',
-         cancelButtonAriaLabel: 'Thumbs down'
-         });
 
+            Swal.fire({
+                title: '<strong>SENHA DE ACESSO E RECUPERAÇÃO</u></strong>',
+                width: 700,
+                icon: 'info',
+                backdrop: true,
+                html:
+                        'PREZADOS COORDENADORES, <BR>  ' +
+                        'EM BREVE NÃO SERÁ PERMITIDO EMAIL COM DOMÍNIO GMAIL E OUTROS QUE <B>NÃO</B> SEJAM DOMÍNIOS INSTITUCIONAIS/GOVERNAMENTAIS.' +
+                        '<br>' +
+                        '<i style=\'color:red\'>@seu_municipio.mg.gov.br<BR>' +
+                        '@seu_municipio.gov.br<BR>' +
+                        '@sua_secretaria.seu_municipio.mg.gov.br</i><BR>' +
+                        'PREPAREM-SE !' +
+                        '<br>' +
+                        '',
+                allowEscapeKey: false,
+                keydownListenerCapture: true,
+                showCloseButton: false,
+                allowOutsideClick: false,
+                confirmButtonAriaLabel: 'Thumbs up, great!',
+                cancelButtonText: 'Cancelar',
+                cancelButtonAriaLabel: 'Thumbs down'
+        }).then((result) => {
+            $('#contatos').modal('show');
+        });
 
     });
 </script>

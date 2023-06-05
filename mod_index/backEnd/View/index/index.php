@@ -28,7 +28,7 @@ $secao = isset($_COOKIE['seguranca']['secao']) ? $_COOKIE['seguranca']['secao'] 
 <div class="col-md-12">
     <br>
 
-    <div class="col-md-6">
+    <div class="col-md-8">
         <?php
         $id_redec = $_COOKIE['seguranca']['id_rpm'];
         $ped_ajuda = H_pedido_pedidajuda_hModel::listaPedidosParaDespacho($id_redec);
@@ -56,7 +56,7 @@ $secao = isset($_COOKIE['seguranca']['secao']) ? $_COOKIE['seguranca']['secao'] 
                 /* PEDIDO STATUS PARA ANALISE DLOG  */
                 if ($secao == "DLOG" && $pedido['status'] == 1) {
                     $count++;
-                    print "<ul class=\"todo-lis\">
+                    print "<ul class=\"todo-lis col-md-12\">
                             <li>
                                 <span class=\"handle\">" . ($count) . ") - <i class=\"fa fa-ellipsis-v\"></i>
                                 <i class=\"fa fa-ellipsis-v\"></i>
@@ -65,7 +65,8 @@ $secao = isset($_COOKIE['seguranca']['secao']) ? $_COOKIE['seguranca']['secao'] 
                                     <a style=\"text-decoration:none;\" href=\"" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit', array('id' => $pedido['id'], 'voltar' => 'idx_recente')) . "\" title='Despachar Pedido'>
                                     &nbsp;&nbsp;<img style=\"vertical-align:middle\" width='15px;' src=\"/core/imagem/pedido_cesta.png\">
                                     &nbsp;&nbsp;<span style='font-size:12px;'>
-                                    Pedido de Ajuda Humanitária Nº: " . $pedido['numero'] . "/" . substr($pedido['data_entrada_sistema'], 0, 4) . " - " . DataMysql::dataVisual($pedido['data_entrada_sistema']) . "</a>
+                                    <span style='font-weight:bold;font-style: italic;'>". Municipio::PegaNomeMunicipio($pedido['id_municipio'])."</span>
+                                    Pedido AH Nº: " . $pedido['numero'] . "/" . substr($pedido['data_entrada_sistema'], 0, 4) . " - " . DataMysql::dataVisual($pedido['data_entrada_sistema']) . "</a>
                                 </span>
                                 <small class=\"label label-danger\"><i class=\"fa fa-clock-o\"></i> - liberado há " . $dif->days . "  dia(s)</small>
                             </li>
@@ -73,16 +74,17 @@ $secao = isset($_COOKIE['seguranca']['secao']) ? $_COOKIE['seguranca']['secao'] 
                  /* visualização dos demais usuarios do pedido em analise pelo DLOG*/
                 }elseif($secao != "DLOG" && $pedido['status'] == 1) {
                     $count++;
-                    print "<ul class=\"todo-lis\">
+                    print "<ul class=\"todo-lis col-md-12\">
                             <li>
                                 <span class=\"handle\">" . ($count) . ") - <i class=\"fa fa-ellipsis-v\"></i>
                                 <i class=\"fa fa-ellipsis-v\"></i>
                                 </span>
-                                <span class=\"text\">
+                                <span class='text'>
                                     <a style=\"text-decoration:none;\" href=\"" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'view', array('id' => $pedido['id'], 'voltar' => 'idx_recente')) . "\" title='Despachar Pedido'>
                                     &nbsp;&nbsp;<img style=\"vertical-align:middle\" width='15px;' src=\"/core/imagem/pedido_cesta.png\">
                                     &nbsp;&nbsp;<span style='font-size:12px;'>
-                                    Pedido de Ajuda Humanitária Nº: " . $pedido['numero'] . "/" . substr($pedido['data_entrada_sistema'], 0, 4) . " - " . DataMysql::dataVisual($pedido['data_entrada_sistema']) . "</a>
+                                    <span style='font-weight:bold;font-style: italic;'>". Municipio::PegaNomeMunicipio($pedido['id_municipio'])."</span>
+                                    Pedido AH Nº: " . $pedido['numero'] . "/" . substr($pedido['data_entrada_sistema'], 0, 4) . " - " . DataMysql::dataVisual($pedido['data_entrada_sistema']) . "</a>
                                 </span>
                                 <small class=\"label label-danger\"><i class=\"fa fa-clock-o\"></i> - liberado há " . $dif->days . "  dia(s)</small>
                             </li>
@@ -92,7 +94,7 @@ $secao = isset($_COOKIE['seguranca']['secao']) ? $_COOKIE['seguranca']['secao'] 
                 elseif ($secao == "CHEFIA" && $pedido['status'] == 2) {
                     $count ++;
                     
-                    print "<ul class=\"todo-lis\">
+                    print "<ul class=\"todo-lis col-md-12\">
                             <li>
                                 <span class=\"handle\">" . ($count) . ") - <i class=\"fa fa-ellipsis-v\"></i>
                                 <i class=\"fa fa-ellipsis-v\"></i>
@@ -101,7 +103,8 @@ $secao = isset($_COOKIE['seguranca']['secao']) ? $_COOKIE['seguranca']['secao'] 
                                     <a style=\"text-decoration:none;\" href=\"" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit', array('id' => $pedido['id'], 'voltar' => 'idx_recente')) . "\" title='Despachar Pedido'>
                                     &nbsp;&nbsp;<img style=\"vertical-align:middle\" width='15px;' src=\"/core/imagem/pedido_cesta.png\">
                                     &nbsp;&nbsp;<span style='font-size:12px;'>
-                                    Pedido de Ajuda Humanitária Nº: " . $pedido['numero'] . "/" . substr($pedido['data_entrada_sistema'], 0, 4) . " - " . DataMysql::dataVisual($pedido['data_entrada_sistema']) . "</a>
+                                    <span style='font-weight:bold;font-style: italic;'>". Municipio::PegaNomeMunicipio($pedido['id_municipio'])."</span>
+                                    Pedido AH Nº: " . $pedido['numero'] . "/" . substr($pedido['data_entrada_sistema'], 0, 4) . " - " . DataMysql::dataVisual($pedido['data_entrada_sistema']) . "</a>
                                 </span>
                                 <small class=\"label label-danger\"><i class=\"fa fa-clock-o\"></i> - liberado há " . $dif->days . "  dia(s)</small>
                             </li>
@@ -115,11 +118,12 @@ $secao = isset($_COOKIE['seguranca']['secao']) ? $_COOKIE['seguranca']['secao'] 
                                 <span class=\"handle\">" . ($count) . ") - <i class=\"fa fa-ellipsis-v\"></i>
                                 <i class=\"fa fa-ellipsis-v\"></i>
                                 </span>
-                                <span class=\"text\">3
+                                <span class=\"text\">
                                     <a style=\"text-decoration:none;\" href=\"" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'view', array('id' => $pedido['id'], 'voltar' => 'idx_recente')) . "\" title='Visualizar Pedido'>
                                     &nbsp;&nbsp;<img style=\"vertical-align:middle\" width='15px;' src=\"/core/imagem/pedido_cesta.png\">
                                     &nbsp;&nbsp;<span style='font-size:12px;'>
-                                    Pedido de Ajuda Humanitária Nº: " . $pedido['numero'] . "/" . substr($pedido['data_entrada_sistema'], 0, 4) . " - " . DataMysql::dataVisual($pedido['data_entrada_sistema']) . "</a>
+                                    <span style='font-weight:bold;font-style: italic;'>". Municipio::PegaNomeMunicipio($pedido['id_municipio'])."</span>
+                                    Pedido AH Nº: " . $pedido['numero'] . "/" . substr($pedido['data_entrada_sistema'], 0, 4) . " - " . DataMysql::dataVisual($pedido['data_entrada_sistema']) . "</a>
                                 </span>
                                 <small class=\"label label-danger\"><i class=\"fa fa-clock-o\"></i> - liberado há " . $dif->days . "  dia(s)</small>
                             </li>
@@ -133,7 +137,7 @@ $secao = isset($_COOKIE['seguranca']['secao']) ? $_COOKIE['seguranca']['secao'] 
         }
         ?>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
         <legend>Últimas Liberações MAH</legend>
 <?php
 $login = new Login();

@@ -157,8 +157,14 @@ if ($opcao == "parte1") {
             print "</script>";
         }
     }
-    /* novo Compdec */
-} elseif (($_id == "") && ($opcao == "")) {
+    /* atualiza Contato */
+} elseif($opcao == "atualizaContato"){  
+    
+    //$_compdec->Contatos($_post);
+    
+    
+/* novo Compdec */
+}elseif (($_id == "") && ($opcao == "")) {
 
     $_campos = array("Municipio" => $_txt_id_municipio,
         "Região" => $_sel_regiao,
