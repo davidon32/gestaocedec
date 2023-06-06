@@ -126,6 +126,40 @@ class Log {
         }
     }
     
+    
+    /**
+     * Pega o ultimo acesso do municipio
+     * @param type $id_municipio
+     * @return type
+     */
+    static function UltimoAcessoCompdec($id_municipio) {
+
+        $con = Conexao::getInstance();
+
+        $dados = array();
+
+        try {
+
+            $sql = "select dt_user
+    				from cedec_user_ex
+    				where id_municipio = " . $id_municipio . "
+					order by id_log	desc
+    				limit 1";
+
+            $result = $con->query($sql);
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+
+                $dados = $linha;
+            }
+
+            return $dados;
+        } catch (Exception $e) {
+            $e->getMessage() . 'Código : 10 erro ao gravar log' . $_modulo;
+        }
+    }
+    
+    
     /**
      * 
      */

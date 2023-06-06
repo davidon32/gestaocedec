@@ -19,7 +19,7 @@
                 <td>Agente :</td><td><?=isset($_GET['nome']) ? $_GET['nome'] :"";?></td>
             </tr>
             <tr>
-                <td>Região :</td><td><?=$_GET['id_rpm']?> RDC - Regiões de Defesa Civil</td>
+                <td>Região :</td><td><?=$_GET['id_rpm']?> REDEC - Regiões de Defesa Civil</td>
             </tr>
             <tr>
                 <td>Total de Municípios :</td><td><?=isset($dados) ? (count($dados)) :0; ?> </td>

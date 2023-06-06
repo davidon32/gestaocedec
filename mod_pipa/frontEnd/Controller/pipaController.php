@@ -39,6 +39,7 @@
 
         #pmda index
         public function pmdaidx(){
+            LoginExterno::ultimoAcesso($_COOKIE['seguranca']['id_municipio']);
             include_once "mod_pipa/frontEnd/View/pmda/indexView.php";
         }
         #pmda editar

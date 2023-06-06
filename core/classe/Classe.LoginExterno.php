@@ -87,7 +87,8 @@ class LoginExterno extends Log {
                 self::$_id_municipio = $linha['id_municipio'];
                 self::$login = $linha['usuario'];
 
-                //$this->ultimoAcesso($linha['id']);
+                
+                
 
 
                 /* controla o numero de acessos atualização dos dados */
@@ -237,7 +238,7 @@ class LoginExterno extends Log {
      * grava ultimo acesso ao sistema
      * 
      */
-    public function ultimoAcesso($id_usuario) {
+    public static function ultimoAcesso($id_usuario) {
 
         $sql = "Update cedec_user_ex set acesso ='" . date('Y-m-d H:i:s') . "'
 				WHERE id = :id";

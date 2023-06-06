@@ -202,7 +202,7 @@ $secao_usuario = $_COOKIE['seguranca']['secao'];
 
 
 
-            $val = Log::buscaultimoAcesso($value['id_municipio']);
+            $val = Log::UltimoAcessoCompdec($value['id_municipio']);
 
             $ultimoAcesso = isset($val['dt_user']) ? DataMysql::dataCompletaVisual($val['dt_user']) : "";
 
