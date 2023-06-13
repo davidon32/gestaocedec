@@ -4,10 +4,10 @@
 Class planoController extends Controller
     {
 
-
-        public function index()
-        {
-            include_once "mod_compdec/backEnd/View/index/indexView.php";
+        
+        # index plano de contingencia
+        public function indexplano(){
+            include_once "mod_compdec/backEnd/View/plano/indexplano.php";
         }
 
         # usuario index
@@ -23,10 +23,6 @@ Class planoController extends Controller
 
         }
 
-        # usuario visualizar anexo
-        public function indexplano(){
-            include_once "mod_compdec/backEnd/View/plano/indexplano.php";
-        }
         
         # Lista de planos
         public function listacomplano(){

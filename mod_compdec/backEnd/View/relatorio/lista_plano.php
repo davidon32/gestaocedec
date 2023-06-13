@@ -1,25 +1,25 @@
 <?php $_relatorioCompdec = new RelatorioComdec();
 ?>
 <!-- =============== HEADER HTML PAGE ================= -->
-<?php include_once "template/page/headerPageSimples.php";?>
+<?php include_once "template/page/headerPageSimples.php"; ?>
 <!-- =================== HEADER ============================ -->
 <!-- =================== CORPO  ============================ -->
-<?php include_once "template/page/corpoHeader.php";?>
+<?php include_once "template/page/corpoHeader.php"; ?>
 
 <?php
-
-    if($opcao == "lista_geral"){
-	$dados = $_relatorioCompdec->relGeralPlano();
-        $titulo = "Lista Geral de Municipios";
-    }elseif ($opcao == "lista_com_plano"){
-        $dadosPlanos = $_relatorioCompdec->countPlanoPorMunicipio();
-        $planos = $_relatorioCompdec->listPlano();
-        $titulo = "Lista de Municípios Com Plano de Contingência";
-    }elseif($opcao == "lista_sem_plano") {
-        $planos = $_relatorioCompdec->relSemPlano();
-        $titulo = "Lista de Município sem Plano de Contingência";
-    }elseif($opcao == "listakit") {
-        $ids = "'40',
+if ($opcao == "lista_geral") {
+    $dados = $_relatorioCompdec->relGeralPlano();
+    $titulo = "Lista Geral de Municipios";
+} elseif ($opcao == "lista_com_plano") {
+    $dadosPlanos = $_relatorioCompdec->countPlanoPorMunicipio();
+    $planos = $_relatorioCompdec->listPlano();
+    $titulo = "Lista de Municípios Com Plano de Contingência";
+} elseif ($opcao == "lista_sem_plano") {
+    $dadosPlanos = $_relatorioCompdec->countPlanoPorMunicipio();
+    $planos = $_relatorioCompdec->relSemPlano();
+    $titulo = "Lista de Município sem Plano de Contingência";
+} elseif ($opcao == "listakit") {
+    $ids = "'40',
 '50',
 '90',
 '163',
@@ -244,25 +244,25 @@
 '7090',
 '7190',
 '7210'";
-        $dadosPlanos = $_relatorioCompdec->countPlanoPorMunicipioIds($ids);
-        $planos = $_relatorioCompdec->listPlano();
-        
-        $titulo = "Lista de Município sem Plano de Contingência";
-    }
-        
-    //var_dump($dados);   
-        
-        print "<div class=\"container\"><div class=\"col-md-12\">";
-        
-        
-        print "<a class=\"btn btn-success\" href=\"".FuncaoBase::geraLink("compdec", "plano", "indexplano")."\">voltar</a>";
+    $dadosPlanos = $_relatorioCompdec->countPlanoPorMunicipioIds($ids);
+    $planos = $_relatorioCompdec->listPlano();
 
-        print "<legend>".$titulo."</legend>";
-           
-        print "<div class='col-md-12'>";              
-            print "<table align=\"center\" class=\"table table-bordered table-condensed table-striped\" >";
-                                
-            print "<tr>
+    $titulo = "Lista de Município sem Plano de Contingência";
+}
+
+//var_dump($dados);   
+
+print "<div class=\"container\"><div class=\"col-md-12\">";
+
+
+print "<a class=\"btn btn-success\" href=\"" . FuncaoBase::geraLink("compdec", "plano", "indexplano") . "\">voltar</a>";
+
+print "<legend>" . $titulo . "</legend>";
+
+print "<div class='col-md-12'>";
+print "<table align=\"center\" class=\"table table-bordered table-condensed table-striped\" >";
+
+print "<tr>
                     <th>#</th>
                     <th>Munic. com Plano</th>
                     <th>Cod.Município</th>
@@ -274,64 +274,82 @@
                     <th>-</th>
                    </tr>";
 
-                
 
-                $id_mun = "";
-                $num =1;
-                $sem_arquivo = 0;
-                foreach ($planos as $key => $plano) {
-                    
-                        if(file_exists("anexo/planoCont/".$plano['file_plano'])){
-                            $file =  ( (strlen($plano['file_plano']) > 0) ? "<a onclick=\"javascript:anexoView('anexo/planoCont/".$plano['file_plano']."')\"><img src='/core/imagem/impressao.png'></a>" : "Sem Plano de Contingência");    
-                            //$file = "";
-                            $tag = "ok";
-                        }else {
-                            $sem_arquivo ++; 
-                            //$file = "<img width=\"25\" src=\"/core/imagem/cancela1.png\" title=\"Arquivo Inexistente\">";
-                            $file ="";
-                            $tag = "x";
-                        }
-                    
-                    print "<tr>";
-                    print "<td class=\"col-md-1\">".($key+1)."</td>";
-                    print "<td class=\"col-md-1\">".($id_mun != $plano['id_municipio'] ? $num++ :"")."</td>";
 
-                    print "<td><b>". $plano['id_municipio']."</b></td>";
-                    print "<td><b>". Municipio::PegaNomeMunicipio($plano['id_municipio'])."</b></td>";
-                    print "<td>".DataMysql::dataCompletaVisual($plano['dt_upload'])."</td>";
-                    print "<td>".$plano['file_plano']."</td>";
-                    print "<td>";
-                        print $file;
-                        $id_mun = $plano['id_municipio'];
-                    print "</td>";
-                    print "<td>".$tag."</td>";
-                
-                }
-             print "</table>";
-             print "<table class='table table-bordered'>";
-   
-                print "<tr>";
-                print "<td align=right><label>Municipios com Plano de Contingência Inseridos no sistema: </label></td>";
-                print "<td> ".($num-1-$sem_arquivo)."</td>";
-                print "</tr>";
-                /*print "<tr>";
-                print "<td align=right><label>Total Planos de Contingência Hospedados : </label></td>";
-                print "<td> ".($key+1)."</td>";
-                print "</tr>";*/
+$id_mun = "";
+$num = 1;
+$sem_arquivo = 0;
 
-             print"</div>"
-             . "</div>";
+foreach ($planos as $key => $plano) {
+    if ($opcao == 'lista_sem_plano') {
+
+        print "<tr>";
+        print "<td class=\"col-md-1\">" . ($key + 1) . "</td>";
+        print "<td class=\"col-md-1\"></td>";
+
+        print "<td></td>";
+        print "<td><b>" . Municipio::PegaNomeMunicipio($plano['id_municipio']) . "</b></td>";
+        print "<td></td>";
+        print "<td></td>";
+        print "<td>";
+
+        print "</td>";
+        print "<td></td>";
+    } else {
+
+        if (file_exists("anexo/planoCont/" . $plano['file_plano'])) {
+            $file = ( (strlen($plano['file_plano']) > 0) ? "<a onclick=\"javascript:anexoView('anexo/planoCont/" . $plano['file_plano'] . "')\"><img src='/core/imagem/impressao.png'></a>" : "Sem Plano de Contingência");
+            //$file = "";
+            $tag = "ok";
+        } else {
+            $sem_arquivo++;
+            //$file = "<img width=\"25\" src=\"/core/imagem/cancela1.png\" title=\"Arquivo Inexistente\">";
+            $file = "";
+            $tag = "x";
+        }
+
+
+        print "<tr>";
+        print "<td class=\"col-md-1\">" . ($key + 1) . "</td>";
+        print "<td class=\"col-md-1\">" . ($id_mun != $plano['id_municipio'] ? $num++ : "") . "</td>";
+
+        print "<td><b>" . $plano['id_municipio'] . "</b></td>";
+        print "<td><b>" . Municipio::PegaNomeMunicipio($plano['id_municipio']) . "</b></td>";
+        print "<td>" . DataMysql::dataCompletaVisual($plano['dt_upload']) . "</td>";
+        print "<td>" . $plano['file_plano'] . "</td>";
+        print "<td>";
+        print $file;
+        $id_mun = $plano['id_municipio'];
+        print "</td>";
+        print "<td>" . $tag . "</td>";
+    }
+}
+
+print "</table>";
+print "<table class='table table-bordered'>";
+
+print "<tr>";
+print "<td align=right><label>Municipios com Plano de Contingência Inseridos no sistema: </label></td>";
+print "<td> " . ($num - 1 - $sem_arquivo) . "</td>";
+print "</tr>";
+/* print "<tr>";
+  print "<td align=right><label>Total Planos de Contingência Hospedados : </label></td>";
+  print "<td> ".($key+1)."</td>";
+  print "</tr>"; */
+
+print"</div>"
+        . "</div>";
 ?>
-<?php include_once "template/page/rodapePage.php";?>
+<?php include_once "template/page/rodapePage.php"; ?>
 <script>
-    $(document).ready(function(){
-        $("a").hover(function(){
-            $(this).css('cursor','pointer');
-        })   
+    $(document).ready(function () {
+        $("a").hover(function () {
+            $(this).css('cursor', 'pointer');
+        })
     });
-    
-    function anexoView(url){
-		window.location.href = url;	
-                
-	}
+
+    function anexoView(url) {
+        window.location.href = url;
+
+    }
 </script>

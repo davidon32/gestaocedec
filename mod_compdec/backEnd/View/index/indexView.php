@@ -12,28 +12,38 @@
     <!-- PAGINA -->
     <div class="container">
         <!-- CORPO -->
-        <div class="row-fluid">
+        <div class="row">
+            <div class="col-md-3"></div>
             
-            <div class="col-md-4">
-                <a class="btn btn-lg btn-primary" href="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')); ?>&ac=itn&modulo=compdec&controller=compdec&action=buscarAlterar">Busca / Alteração dados Compdec</a><br> <br>  
+            <div class="col-md-3 text-center">
+                <a class="thumbnail" href="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')); ?>&ac=itn&modulo=compdec&controller=compdec&action=buscarAlterar"><img width="110"src='/core/imagem/compdec_searc.png' ><br>Busca / Alteração dados Compdec</a><br> <br>  
             </div>
-            <div class="col-md-4">
-                <a class="btn btn-lg btn-primary" href="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')); ?>&ac=itn&modulo=compdec&controller=compdec&action=filtroRelatorio">Relatórios</a><br> <br>  
+            
+            <div class="col-md-3 text-center">
+                <a class="thumbnail" href="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')); ?>&ac=itn&modulo=compdec&controller=compdec&action=filtroRelatorio"><img width="110" src='/core/imagem/relatorio.png' ><br>Relatórios</a><br> <br>  
             </div>
-            <div class="col-md-4">
-                <a class="btn btn-lg  btn-primary" href="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')); ?>&ac=itn&modulo=compdec&controller=compdec&action=email&">Envio Email / Lote</a><br> <br>  
+            <div class='col-md-3'></div>
+        </div>
+        
+        <div class="row">
+            <div class='col-md-3'></div>
+            
+            <div class="col-md-3 text-center">
+                <a class="thumbnail" href="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')); ?>&ac=itn&modulo=compdec&controller=compdec&action=email&"><img width="110" src='/core/imagem/email_icon.png' ><br>Envio Email / Lote</a><br> <br>  
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3 text-center">
                 <!--<a class="btn btn-primary" href="?modulo=pipa&controller=pipa&action=usuario">Add Usuario Externo</a><br> <br>  -->
-                <a class="btn btn-lg  btn-primary" href="<?= FuncaoBase::geraLink('pipa', 'pipa', 'usuario', array('volta' => 'compdec')); ?>">Ativar/Editar Usuario</a><br><br>   
+                <a class="thumbnail" href="<?= FuncaoBase::geraLink('pipa', 'pipa', 'usuario', array('volta' => 'compdec')); ?>"><img width="110" src='/core/imagem/manager_user.png' ><br>Ativar/Editar Usuario</a><br><br>   
             </div>
-            <div class="col-md-4">
-                <!--<a class="btn btn-primary" href="?modulo=compdec&controller=pipa&action=pmdaCom&a=adm">Lista Usuarios</a>   -->
-                <a class="btn btn-lg  btn-primary" href="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')); ?>&ac=itn&modulo=compdec&controller=plano&action=indexplano">Plano de Contingência</a>
-            </div>
+            <div class='col-md-3'></div>
+        </div>
+<!--            <div class="col-md-4">
+                <a class="btn btn-primary" href="?modulo=compdec&controller=pipa&action=pmdaCom&a=adm">Lista Usuarios</a>   
+                
+            </div>;-->
 
             <div class="col-md-12">
-                <br><br>
+                <br>
                 <p class="text-center"><a class="btn btn-success" href="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')); ?>&&modulo=index&controller=index&action=menu">Voltar</a></p><br> <br>  
             </div>
             <!--<div class="col-md-6">-->

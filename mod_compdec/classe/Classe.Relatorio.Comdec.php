@@ -515,5 +515,25 @@ Class RelatorioComdec {
 
         return $_dados;
     }
+    
+    
+    /**
+     *  relacao simples de planos hospeados no sdc
+     */
+    public function listaTodosPlanos() {
+        
+        $con = Conexao::getInstance();
 
+        $sql = "select DISTINCT com_plano_upload.id_municipio,  
+                            cedec_municipio.nome                  
+                            from com_plano_upload
+                            INNER JOIN cedec_municipio
+                            ON com_plano_upload.id_municipio = cedec_municipio.id_municipio
+                            where com_plano_upload.id_municipio <> 7221";
+
+        $result = $con->query($sql);
+
+        return $result->fetchAll();
+        
+    }
 }

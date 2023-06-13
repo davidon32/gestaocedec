@@ -17,11 +17,9 @@
                 <?php  
                   # MOSTRA MODULOS
                   Login::mostraModulos(Login::acessoModulo($pageSession['session']['seguranca']['login']));
-                  print "<div class=\"col-md-3 text-center\">
-                            <a class='thumbnail' href=\"?token=". hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=admin&controller=index&action=index\" title=\"Plano de Contingência\"><img src=\"core/imagem/plano.png\"><br />Plano Contingência</a>
-                        </div>";
+                  
                 ?>
-            </div>       
+            </div>
 <!-- =================== RODAPE CORPO ==================== -->
 <?php include_once "template/page/corpoRodape.php";?>
 <!-- =================== RODAPE  ======================== -->
