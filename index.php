@@ -64,11 +64,23 @@ if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
     $email = isset($caminho[2]) ? substr($caminho[2], strpos($caminho[2], 'email') + 6) : "";
     $hash = isset($caminho[2]) ? substr($caminho[2], 0, 32) : "";
 
-    $verificaTrSenha = Usuario::buscaTrSenha($email, $hash);
+    /* usuario externo */
+    $verificaTrSenhaEx = Usuario::buscaTrSenha($email, $hash);
     
-    if (isset($verificaTrSenha['troca'])) {
+    /* interno */
+    $verificaTrSenhaCedec = Usuario::buscaTrSenhaCedec($email, $hash);
+    
+    
+    //var_dump($email, $hash);
+    //die();
+    
+    if (isset($verificaTrSenhaEx['troca'])) {
         include_once 'mod_equipe/View/usuario/trsenha_compdec.php';
     } else {
+        
+//        if(isset($verificaTrSenhaCedec)) {
+//        //include_once 'mod_equipe/View/usuario/trsenha_compdec.php';
+//    }else {
         
         if(preg_match('/email/', $_SERVER['REQUEST_URI'])){
             header('Location:/index.php');

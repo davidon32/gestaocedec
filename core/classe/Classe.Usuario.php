@@ -2530,5 +2530,41 @@ and cedec_usuario.id_usuario != 79
         
         
     }
+    /**
+     * 
+     */
+    public static function buscaTrSenhaCedec($email, $hash){
+        
+
+        $con = Conexao::getInstance();
+        
+        $sql = "select email_rec, reset
+                    from cedec_usuario where
+                    email_rec = :email
+                    and hash = :hash";
+        
+
+        $result = $con->prepare($sql);
+
+        $result->bindParam(":email", $email, PDO::PARAM_STR);
+        $result->bindParam(":hash", $hash, PDO::PARAM_STR);
+        
+        $result->execute();
+                
+        $troca = $result->rowCount();
+        
+        $dados = $result->fetch(PDO::FETCH_ASSOC);
+        
+        if($troca) {
+            $dados['troca'] = $troca;
+        }
+
+        return $dados;
+        
+        
+    }
+    
+    
+    
 
 }?>

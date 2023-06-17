@@ -497,9 +497,8 @@ aju_h_pedido_pedid.esforcos_realizados,
 aju_h_pedido_pedid.data_hora_envio,
 aju_h_pedido_pedid.status,
 aju_h_pedido_pedid.ano,
-aju_h_pedido_pedid.tramit
-
-
+aju_h_pedido_pedid.tramit,
+cedec_rpm_mun.id_rpm as regiao_dc
                               FROM aju_h_pedido_pedid
                               LEFT JOIN cedec_municipio
 ON aju_h_pedido_pedid.id_municipio = cedec_municipio.id_municipio
@@ -507,8 +506,9 @@ LEFT JOIN com_regiao
 ON aju_h_pedido_pedid.id_regiao = com_regiao.id_regiao
 LEFT JOIN dec_cobrade
 ON aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
-
-                              WHERE id = " . $id_h_pedido_pedid;
+inner join cedec_rpm_mun
+on cedec_municipio.id_municipio = cedec_rpm_mun.id_municipio
+                              WHERE aju_h_pedido_pedid.id = " . $id_h_pedido_pedid;
 
         try {
 

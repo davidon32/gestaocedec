@@ -1179,9 +1179,10 @@ class Login extends Liberacao {
          * 6 - modulo cedec
          * 7 - modulo escola
          * 8 - modulo registro desastre
-         * 9 -
-         * 10-
-         * 11- 
+         * 9 - configurações
+         * 10- plano de contingencia
+         * 11- termo de vistoria e interdicao
+         * 12- PAEBM 
          * */
 
 
@@ -1195,15 +1196,17 @@ class Login extends Liberacao {
             '6' => '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=escola&secao=menu" title="Módulo Escola de Defesa Civil"><img src="core/imagem/escola.png"><br />Escola de Defesa Civil</a>',
             '7' => '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=registro&controller=index&action=index" title="Registro de Desastre"><img src="core/imagem/registro.png"><br />Registro Desastre</a>',
             '8' => '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=cedec&controller=index&action=index" title="Módulo CEDEC"><img src="core/imagem/cedec.png"><br />CEDEC</a>',
-            '9' => '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=admin&controller=index&action=index" title="Configurações"><img width="120" src="core/imagem/config.png"><br />Configurações</a>',
-            '10'=> '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=compdec&controller=plano&action=indexplano" title="Plano de Contingência"><img width="120" src="core/imagem/plano.png"><br />Plano Contingência</a>',
-            '11'=> '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=compdec&controller=plano&action=indexplano" title="Plano de Contingência"><img width="130" src="core/imagem/vistoria_interdicao.png"><br />Laudo de Vistoria / Interdição</a>');
+            '9'=> '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=compdec&controller=plano&action=indexplano" title="Plano de Contingência"><img width="120" src="core/imagem/plano.png"><br />Plano Contingência</a>',
+            '10'=> '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=compdec&controller=plano&action=indexplano" title="Plano de Contingência"><img width="130" src="core/imagem/vistoria_interdicao.png"><br />Laudo de Vistoria / Interdição</a>',
+            '11'=> '<a class="thumbnail" href="#" title="Plano de Contingência"><img width="130" src="core/imagem/paebm.png"><br />PAEBM</a>',
+            '12' => '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=admin&controller=index&action=index" title="Configurações"><img width="120" src="core/imagem/config.png"><br />Configurações</a>');
 
         $acesso = array();
         
         $_acesso[9] = 1;
         $_acesso[10] = 1;
         $_acesso[11] = 1;
+        $_acesso[12] = 1;
         
         print "<div class='row'>";
 

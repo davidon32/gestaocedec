@@ -151,13 +151,13 @@ $aba = isset($_GET['aba']) ? $_GET['aba'] : "inicio";
     <div class="tab-content">
         <div class="tab-pane" id="dadosgerais" role="tabpanel" aria-labelledby="dadosgerais-tab">
             <!-- Dados Gerais -->
-            <div class="col-md-9" id="1dados_gerais">
+            <div class="col-md-12" id="1dados_gerais">
                 <br><br>
 
                 <form action="<?= FuncaoBase::geraLink("ajuda", "h_pedido_pedid", "edit"); ?>" method="post" accept-charset="utf-8" name="frmH_pedido_pedid" id="frmH_pedido_pedid">
 
                     <div class='row'>
-                        <div class='col-md-2'>
+                        <div class='col-md-6'>
                             <label>Número Pedido</label>
                             <input type="text" class='form form-control' name='numero1' id='numero1' value='<?= $view[0]['numero'] . "-" . substr($view[0]['data_entrada_sistema'], 0, 4) ?>' readonly=readonly>
                             <input type="hidden" id='id' name='id' value='<?= $view[0]['id'] ?>'>
@@ -166,7 +166,7 @@ $aba = isset($_GET['aba']) ? $_GET['aba'] : "inicio";
                         </div>
                     </div>
                     <div class='row'>
-                        <div class='col-md-2'>
+                        <div class='col-md-6'>
                             <label>Data Entrada Sistema</label>
                             <input type="text" class='form form-control' name='entrada_sistema' id='entrada_sistema' value='<?= DataMysql::dataVisual($view[0]['data_entrada_sistema']) ?>' readonly>
                             <input type="hidden" name='data_entrada_sistema' id='data_entrada_sistema' value='<?= DataMysql::dataVisual($view[0]['data_entrada_sistema']) ?>' maxlength='-1' required>
@@ -181,7 +181,18 @@ $aba = isset($_GET['aba']) ? $_GET['aba'] : "inicio";
                     </div>
                     <div class='row'>
                         <div class='col-md-6'>
-                            <label>Identificador Mesorregião</label>
+                            <label>Região de Defesa Civil</label>
+                            <div class="input-group">
+                                <input type="text" class='form form-control' value='<?= $view[0]['regiao_dc']; ?>' required readonly='readonly'>
+                                <span onclick="" class="input-group-addon" id="btnBuscaid_regiao">
+                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                </span>
+                            </div><input type="hidden" name='id_regiao' id='id_regiao' required readonly='readonly' value='<?= $view[0]['id_regiao'] ?>'>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class='col-md-6'>
+                            <label>Mesorregião</label>
                             <div class="input-group">
                                 <input type="text" class='form form-control' name='nomeRegiao_fk' id='nomeRegiao_fk' value='<?= $h_pedido_pedidModel->getNomeIdFk('com_regiao', 'id_regiao', $view[0]['id_regiao'])->nome; ?>' required readonly='readonly'>
                                 <span onclick="" class="input-group-addon" id="btnBuscaid_regiao">
@@ -197,13 +208,13 @@ $aba = isset($_GET['aba']) ? $_GET['aba'] : "inicio";
                         </div>
                     </div>
                     <div class='row'>
-                        <div class='col-md-2'>
+                        <div class='col-md-6'>
                             <label>Telefone do Coordenador</label>
                             <input type="text" class='form form-control' name='tel_coordenador' id='tel_coordenador' value='<?= $view[0]['tel_coordenador'] ?>' maxlength='12' required>
                         </div>
                     </div>
                     <div class='row'>
-                        <div class='col-md-2'>
+                        <div class='col-md-6'>
                             <label>Celular do Coordenador</label>
                             <input type="text" class='form form-control' name='cel_coordenador' id='cel_coordenador' value='<?= $view[0]['cel_coordenador'] ?>' maxlength='12' required>
                         </div>
@@ -221,13 +232,13 @@ $aba = isset($_GET['aba']) ? $_GET['aba'] : "inicio";
                         </div>
                     </div>
                     <div class='row'>
-                        <div class='col-md-2'>
+                        <div class='col-md-6'>
                             <label>Telefone do Prefeito</label>
                             <input type="text" class='form form-control' name='tel_prefeito' id='tel_prefeito' value='<?= $view[0]['tel_prefeito'] ?>' maxlength='12' required>
                         </div>
                     </div>
                     <div class='row'>
-                        <div class='col-md-2'>
+                        <div class='col-md-6'>
                             <label>Celular do Prefeito</label>
                             <input type="text" class='form form-control' name='cel_prefeito' id='cel_prefeito' value='<?= $view[0]['cel_prefeito'] ?>' maxlength='12' required>
                         </div>
@@ -250,13 +261,13 @@ $aba = isset($_GET['aba']) ? $_GET['aba'] : "inicio";
                         </div>
                     </div>
                     <div class='row'>
-                        <div class='col-md-2'>
+                        <div class='col-md-6'>
                             <label>População a ser Atendida</label>
                             <input type="text" class='form form-control' name='pop_atendida' id='pop_atendida' value='<?= $view[0]['pop_atendida'] ?>' maxlength='-1' required>
                         </div>
                     </div>
                     <div class='row'>
-                        <div class='col-md-2'>
+                        <div class='col-md-6'>
                             <label>Decreto SE ou ECP Vigente ?</label>
                             <div class="radio">
                                 <label>
