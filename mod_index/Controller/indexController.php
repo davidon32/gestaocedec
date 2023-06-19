@@ -222,5 +222,17 @@ class indexController extends Controller {
 
         include_once 'mod_index/backEnd/View/info/lista_municipio_reg.php';
     }
+    
+    
+    /**
+     * paebm
+     * 
+     */
+    public function paebm() {
+        
+        include_once 'mod_index/app/login/auth.php';
+        
+    }
+    
 
 }

@@ -1198,7 +1198,7 @@ class Login extends Liberacao {
             '8' => '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=cedec&controller=index&action=index" title="Módulo CEDEC"><img src="core/imagem/cedec.png"><br />CEDEC</a>',
             '9'=> '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=compdec&controller=plano&action=indexplano" title="Plano de Contingência"><img width="120" src="core/imagem/plano.png"><br />Plano Contingência</a>',
             '10'=> '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=compdec&controller=plano&action=indexplano" title="Plano de Contingência"><img width="130" src="core/imagem/vistoria_interdicao.png"><br />Laudo de Vistoria / Interdição</a>',
-            '11'=> '<a class="thumbnail" href="#" title="Plano de Contingência"><img width="130" src="core/imagem/paebm.png"><br />PAEBM</a>',
+            '11'=> '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=index&controller=index&action=paebm" title="Plano de Contingência"><img width="130" src="core/imagem/paebm.png"><br />PAEBM</a>',
             '12' => '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=admin&controller=index&action=index" title="Configurações"><img width="120" src="core/imagem/config.png"><br />Configurações</a>');
 
         $acesso = array();
