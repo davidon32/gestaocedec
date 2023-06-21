@@ -13,12 +13,14 @@
 
     $.ajax({
         type: "POST",
-        url: 'http://localhost:8081/sdclaravel/public/compdec/edit/854',
+        url: 'http://localhost/api/autentica',
         data: {
-            user: 'demetrio',
-            pass: '123'
+            cpf: '03260414606',
+            pass: '12345678'
         },
-        success: function () {
+        success: function (e) {
+            console.log(e);
+            //window.location.href = 'http://localhost/drrd';
             
         }
     });
