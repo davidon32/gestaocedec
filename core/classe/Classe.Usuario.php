@@ -936,6 +936,27 @@ class Usuario extends UsuarioModel {
 
         return $dados;
     }
+    
+    
+    #@ CPF e email usuario
+
+    static function getCpfEmail($id_usuario) {
+
+        $con = Conexao::getInstance();
+
+
+        $sql = 'SELECT cedec_usuario.cpf,
+                    cedec_usuario.email_rec,
+                    cedec_usuario.token
+                        FROM cedec_usuario
+                            WHERE cedec_usuario.id_usuario = :id_func';
+
+        $result = $con->prepare($sql);
+        $result->bindValue(":id_func", $id_usuario);
+        $result->execute();
+
+        return $result->fetch();
+    }
 
     #@ funcao retorna dados do usuario para alteracao
 

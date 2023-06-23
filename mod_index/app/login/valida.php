@@ -1,7 +1,7 @@
 <?php $id_session = session_id();
     if(empty($id_session)) session_start(); 
 
-include_once $_SERVER['DOCUMENT_ROOT'] .'/include.php';
+include_once $_SERVER['DOCUMENT_ROOT'] .'/core/include.php';
 
 
 $usuario = new Usuario();
@@ -155,5 +155,8 @@ $post  = isset($_POST)  ? $_POST  : "";
 			return false;
 		}
 	}
-}
-?>
+}elseif ($opcao == 'updateToken') {
+    
+    print "-";
+    
+}?>

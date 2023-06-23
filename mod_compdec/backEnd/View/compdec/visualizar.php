@@ -244,7 +244,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 								<div class="col-md-8">
 									<label>Email :</label>
 									<span class="form-control">
-										<?php print $_dados[0]['email'];?>">
+										<?php print $_dados[0]['email'];?>
 									</span>
 								</div>
 						</div>
