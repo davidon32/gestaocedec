@@ -157,6 +157,6 @@ $post  = isset($_POST)  ? $_POST  : "";
 	}
 }elseif ($opcao == 'updateToken') {
     
-    print "-";
+    Usuario::updateToken($id_usuario);
     
 }?>
