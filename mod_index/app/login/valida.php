@@ -159,4 +159,13 @@ $post  = isset($_POST)  ? $_POST  : "";
     
     Usuario::updateToken($id_usuario);
     
+}elseif($opcao == 'updateCPF'){
+    
+    $post  = isset($_POST)  ? $_POST  : "";
+    
+    Usuario::updateCpf($post);
+    Usuario::updateToken($post['id_usuario']);
+
+    
+    
 }?>

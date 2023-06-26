@@ -12,11 +12,6 @@ include_once "template/page/rodapePage.php";
 
 $usuario = Usuario::getCpfEmail($_COOKIE['seguranca']['idUser']);
 
-var_dump($usuario);
-if (is_null($usuario['cpf'])) {
-
-    //modal colocar o cpf;
-}
 ?>
 
 <div class="modal fade" tabindex="-1" role="dialog" id="myModal" data-backdrop="static">
@@ -28,13 +23,13 @@ if (is_null($usuario['cpf'])) {
             </div>
             <div class="modal-body">
                 <p class="alert alert-danger bold">Você será direcionado a nova plataforma do SDC !</p>
-                
+
                 <p>Gentileza informar o CPF do Coordenador ! (sem pontos somente os numeros )</p>
                 <input type="text" name="cpf" id="cpf" maxlength="11" class="form form-control">
-                       
+
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Salvar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="btnSalvar">Salvar</button>
 
             </div>
         </div><!-- /.modal-content -->
@@ -42,49 +37,78 @@ if (is_null($usuario['cpf'])) {
 </div><!-- /.modal -->
 
 <script>
-    
-    $(document).ready(function(){
-      
-       var cpf = '<?=$usuario['cpf']?>';
-       
-       if(cpf.length == 0){
-           $('#myModal').modal('show');
-           $('#cpf').focus();
+
+    $(document).ready(function () {
+
+        var cpf = '<?= $usuario['cpf'] ?>';
+
+        if (cpf.length == 0) {
+            $('#myModal').modal('show');
+            $('#cpf').focus();
+        } else {
+            autentica();
         }
         
-        $('#cpf').keyup(function(){
+        $('#cpf').keyup(function () {
             $('#cpf').val($('#cpf').val().replace(/\D/g, ""));
         });
-        
-    });
 
+        /* salvar cpf banco*/
+        $("#btnSalvar").click(function () {
 
-    $.ajax({
-        type: "POST",
-        /*url: 'http://localhost/api/autentica',*/
-        url: '/er',
-
-        data: {
-            token: '<?= $usuario['token'] ?>',
-            cpf: '<?= $usuario['cpf'] ?>',
-            email: '<?= $usuario['email_rec'] ?>'
-        },
-        success: function (e) {
             $.ajax({
                 type: "POST",
                 url: '/mod_index/app/login/valida.php',
                 data: {
-                    cpf: '<?= $usuario['cpf'] ?>',
-                    email: '<?= $usuario['email_rec'] ?>',
-                    opcao: 'updateToken'
+                    cpf: $('#cpf').val(),
+                    id_usuario: '<?= $_COOKIE['seguranca']['idUser'] ?>',
+                    opcao: 'updateCPF'
                 },
                 success: function (e) {
-                    console.log();
+                    console.log(e);
+                    if(e === 'true'){
+                        //autentica();
+                    }
                 }
             });
+        });
 
-        }
+
+
     });
+
+    /*tenta autentica e se sucesso atualia o token */
+    function autentica() {
+        $.ajax({
+            type: "POST",
+            /*url: 'http://localhost/api/autentica',*/
+            url: 'http://localhost:8081/sdclaravel/public/autentica/<?= $usuario['token'] ?>',
+
+
+            data: {
+                token: '<?= $usuario['token'] ?>',
+                cpf: '<?= $usuario['cpf'] ?>',
+                email: '<?= $usuario['email'] ?>',
+                'url' : window.location.href
+            },
+            success: function (e) {
+                console.log(e);
+                $.ajax({
+                    type: "POST",
+                    url: '/mod_index/app/login/valida.php',
+                    data: {
+                        cpf: '<?= $usuario['cpf'] ?>',
+                        email: '<?= $usuario['email'] ?>',
+                        opcao: 'updateToken'
+                    },
+                    success: function (e) {
+                        console.log();
+                    }
+                });
+
+            }
+        });
+    }
 
 
 

@@ -191,7 +191,11 @@
                 cancelButtonAriaLabel: 'Thumbs down'
         }).then((result) => {
             $('#contatos').modal('show');
+
         });
 
     });
 </script>
+
+
+<!--É de responsabilidade do usuário garantir a veracidade e integridade das informações. O usuário é encarregado de revisar e verificar as informações e arquivos anexados no sistema, uma vez que os administradores do sistema não possuem mecanismos para editar informações de cadastros.-->

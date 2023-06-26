@@ -940,7 +940,7 @@ class Usuario extends UsuarioModel {
         $con = Conexao::getInstance();
 
         $sql = 'SELECT cedec_usuario.cpf,
-                    cedec_usuario.email_rec,
+                    cedec_usuario.email_rec as email,
                     cedec_usuario.token
                         FROM cedec_usuario
                             WHERE cedec_usuario.id_usuario = :id_func';
@@ -2565,16 +2565,16 @@ and cedec_usuario.id_usuario != 79
      * Atualizacao usuario externo
      *
      */
-    public function updateToken($id_usuario) {
-        
-        $dados = $this->getCpfEmail($id_usuario);
+    public static function updateToken($id_usuario) {
+
+        $dados = self::getCpfEmail($id_usuario);
 
         try {
 
             $con = Conexao::getInstance();
 
             $sql = "UPDATE cedec_usuario SET
-			token = ".hash('sha256', $dados['cpf'].$dados['email'])."
+			token = '" . hash('sha256', $dados['cpf'] . $dados['email']) . "'
 			WHERE id_usuario = " . $id_usuario;
 
             $result = $con->query($sql);
@@ -2584,6 +2584,61 @@ and cedec_usuario.id_usuario != 79
             print FuncaoBase::getError($e->getMessage(), 'Mensagem');
         }
     }
+
+    /**
+     * Atualizacao usuario externo
+     *
+     */
+    public static function updateCpf($post) {
+
+        try {
+
+            $con = Conexao::getInstance();
+
+            $sql = "UPDATE cedec_usuario SET
+			cpf = " . $post['cpf'] . "
+			WHERE id_usuario = " . $post['id_usuario'];
+
+            $result = $con->query($sql);
+
+            return true;
+        } catch (Exception $e) {
+            print FuncaoBase::getError($e->getMessage(), 'Mensagem');
+        }
+    }
+
+    /**
+     * Atualizacao token
+     *
+     */
+    public static function updateGeralToken() {
+
+        $dados = array();
+        
+        $con = Conexao::getInstance();
+
+        try {
+
+            $sql = "select id_usuario, email_rec, cpf from cedec_usuario";
+
+            $result = $con->query($sql);
+            
+            $result->execute();
+
+            $dados = $result->fetchAll(PDO::FETCH_ASSOC);
+            
+           var_dump($dados);
+            
+            foreach ($dados as $key => $value) {
+                self::updateToken($value['id_usuario']);
+                
+            }
+
+        } catch (Exception $e) {
+            print FuncaoBase::getError($e->getMessage(), 'Mensagem');
+        }
+    }
+
 }
 
 ?>
