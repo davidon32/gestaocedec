@@ -20,6 +20,10 @@
         <!-- iCheck -->
         <link rel="stylesheet" href="../template/plugins/iCheck/square/blue.css">
         <style>
+            
+            @media (max-width:445px){
+                
+            }
 
             /* tela background */
             div#login_fdo {
@@ -134,7 +138,7 @@
 
             <div class="row" id="row1">
                 <div class="col col-md-7 responsive" id="login_fdo">
-                    <img class="img-responsive" src="/core/imagem/logo_sdc.png" alt="">
+                    <img class="img-responsive" src="/core/imagem/logo_sdc.png" alt="" id="background">
     <!--                <div id="ww_faf7fd42cfdd2" v='1.3' loc='auto' a='{"t":"horizontal","lang":"pt","sl_lpl":1,"ids":[],"font":"Arial","sl_ics":"one_a","sl_sot":"celsius","cl_bkg":"image","cl_font":"#FFFFFF","cl_cloud":"#FFFFFF","cl_persp":"#81D4FA","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722"}'><a href="https://weatherwidget.org/android-app/" id="ww_faf7fd42cfdd2_u" target="_blank">Best free weather app for android</a></div><script async src="https://app1.weatherwidget.org/js/?id=ww_faf7fd42cfdd2"></script>;-->
                 </div>
 
