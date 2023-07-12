@@ -49,7 +49,7 @@
         </form>
     </div>
     <?php
-    $tr_senha = isset($verificaTrSenha) ? $verificaTrSenha : "";
+    $tr_senha = isset($verificaTrSenhaEx) ? $verificaTrSenhaEx : "";
 
 
     $usuario = new Usuario();

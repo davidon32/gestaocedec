@@ -165,6 +165,8 @@ class H_pedido_pedidajuda_hModel extends Model {
                 aju_h_pedido_pedid.tipo_decreto,
                 aju_h_pedido_pedid.status,
                 aju_h_pedido_pedid.tramit,
+                aju_h_pedido_pedid.id_cobrade,
+                dec_cobrade.descricao as cobrade,
                 aju_h_pedido_pedid.data_hora_envio,
                 aju_h_pedido_pedid.data_aprovacao,
                 cedec_municipio.nome,
@@ -174,6 +176,8 @@ class H_pedido_pedidajuda_hModel extends Model {
                 ON aju_h_pedido_pedid.id_municipio = cedec_municipio.id_municipio
                 INNER JOIN cedec_rpm_mun
                 ON cedec_rpm_mun.id_municipio = cedec_municipio.id_municipio
+                inner join dec_cobrade
+                on aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
                 {$filtro}
                 ORDER BY aju_h_pedido_pedid.status";
 

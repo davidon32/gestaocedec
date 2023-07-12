@@ -143,6 +143,7 @@ foreach ($lista_devedores as $key => $value) {
                             <th>Município</th>
                             <th>Data Criação</th>
                             <th>Tipo</th>
+                            <th>Cobrade</th>
                             <th>Fase do Processo</th>
                             <th>Data Envio Análise</th>
                             <th style="width: 250px;">Opções</th>
@@ -163,6 +164,7 @@ foreach ($lista_devedores as $key => $value) {
                             <th>Município</th>
                             <th>Data Criação</th>
                             <th>Tipo</th>
+                            <th>Cobrade</th>
                             <th>Fase do Processo</th>
                             <th>Data Envio Análise</th>
                             <th>Opções</th>
@@ -370,12 +372,17 @@ foreach ($lista_devedores as $key => $value) {
                                 var title = $(cell).text();
                                 //$(cell).html('<input type="text" placeholder="' + title + '" />');
                                 if ($(api.column(colIdx).header()).index() >= 0) {
-                                    if (colIdx <= 5) {
+                                    /**/
+                                    if (colIdx <= 6) {
                                             var col ="";
                                         if(colIdx ==0) {
                                             col = " style=\"max-width: 60px;\" ";
+                                        }else if(colIdx == 2) {
+                                            col = " style=\"max-width: 80px;\" ";
                                         }else if(colIdx == 3) {
                                             col = " style=\"max-width: 60px;\" ";
+                                        }else if(colIdx == 4) {
+                                            col = " style=\"max-width: 80px;\" ";
                                         }
                                         $(cell).html('<input type="text" '+col+' name="notNormaliza" class="removeStyle" placeholder="' + title + '"/>');
                                     }
@@ -425,6 +432,7 @@ foreach ($lista_devedores as $key => $value) {
                         $('td', row).eq(4).addClass('alert alert-success');
                         $('td', row).eq(5).addClass('alert alert-success');
                         $('td', row).eq(6).addClass('alert alert-success');
+                        $('td', row).eq(7).addClass('alert alert-success');
                     }
                     
                     /*  pro*/
@@ -436,6 +444,7 @@ foreach ($lista_devedores as $key => $value) {
                         $('td', row).eq(4).addClass('alert alert-info').attr('title', 'Processo Finalizado a Prestação de Contas !');
                         $('td', row).eq(5).addClass('alert alert-info').attr('title', 'Processo Finalizado a Prestação de Contas !');
                         $('td', row).eq(6).addClass('alert alert-info').attr('title', 'Processo Finalizado a Prestação de Contas !');
+                        $('td', row).eq(7).addClass('alert alert-info').attr('title', 'Processo Finalizado a Prestação de Contas !');
                     }
                     
                     if( (data['status'] === 6) && (data['percent'] !== "100.00") ) {
@@ -446,6 +455,7 @@ foreach ($lista_devedores as $key => $value) {
                         $('td', row).eq(4).addClass('alert alert-warning').attr('title', 'Processo em Prestação de Contas !');
                         $('td', row).eq(5).addClass('alert alert-warning').attr('title', 'Processo em Prestação de Contas !');
                         $('td', row).eq(6).addClass('alert alert-warning').attr('title', 'Processo em Prestação de Contas !');
+                        $('td', row).eq(7).addClass('alert alert-warning').attr('title', 'Processo em Prestação de Contas !');
                         
                     }else
                     
@@ -458,6 +468,7 @@ foreach ($lista_devedores as $key => $value) {
                         $('td', row).eq(4).addClass('alert alert-danger').attr('title', 'Processo com prestação de contas aguardando Aprovação !');
                         $('td', row).eq(5).addClass('alert alert-danger').attr('title', 'Processo com prestação de contas aguardando Aprovação !');
                         $('td', row).eq(6).addClass('alert alert-danger').attr('title', 'Processo com prestação de contas aguardando Aprovação !');
+                        $('td', row).eq(7).addClass('alert alert-danger').attr('title', 'Processo com prestação de contas aguardando Aprovação !');
                         
                     }
                     //console.log(data['percent']);
@@ -468,6 +479,7 @@ foreach ($lista_devedores as $key => $value) {
                     {data: 'nome'},
                     {data: 'data_entrada_sistema'},
                     {data: 'tipo_decreto'},
+                    {data: 'cobrade'},
                     {data: 'tramit'},
                     {data: 'data_hora_envio'},
 

@@ -34,7 +34,7 @@
                                 <!--<label>Total Registros : <?= count($dados) ?> </label><span style="font-size: 10pt; color: silver"> ( Usuarios Ativos )</span>-->
                                 <div class='col-md-3 text-left pull-left'><img width="150" src='/core/imagem/DEFESACIVILMG_400.png'></div>
                                 <div class='col-md-3 text-right pull-right'><img width="150" src='http://www.sistema.defesacivil.mg.gov.br/logo/imagens/logomarca_gabinete_militar_nova_sem_fundo.png'></div>
-                                <div class='col-md-3 text-center'><img width="150" src='http://desenvolvimento.gestaocedec:8082/logo/imagens/brasao-minas-gerais-logo-vector.png'></div>
+                                <div class='col-md-3 text-center'><img width="150" src='http://www.sistema.defesacivil.mg.gov.br/logo/imagens/brasao_minas_gerais.png'></div>
                                 <div class='col-md-12 text-center'><a href='#' onclick="history.back()" class='btn btn-primary'>Voltar</a><br><br></div>
                                             <table class='table table-bordered'>
                                                 <tr>
@@ -51,11 +51,11 @@
                                                 foreach ($dados as $key => $value) {
                                                     print "<tr>";
                                                     print "<td>" . $value['rpm'] . "</td>";
-                                                    print "<td>" . $value['dep_avancado'] . "</td>";
-                                                    print "<td>" . $value['num_masp'] . "</td>";
-                                                    print "<td>" . $value['posto'] . "</td>";
-                                                    #print "<td>" . $value['nome']. "</td>";
-                                                    print "<td>" . ($value['desc_funcao'] == 'Agente Regional de DC' ? "<a href='" . FuncaoBase::geraLink('index', 'index', 'lista_munic_reg_site', array('id_rpm' => $value['id_rpm'], 'nome' => $value['nome'])) . "' title='Municipios Relativos a àrea de atuação do Agente Regional'>" . $value['nome'] : $value['nome']) . "</td>";
+                                                    print "<td><nobr>" . $value['dep_avancado'] . "</td>";
+                                                    print "<td><nobr>" . $value['num_masp'] . "</td>";
+                                                    print "<td><nobr>" . $value['posto'] . "</td>";
+                                                    //print "<td><nobr>" . $value['nome']. "</td>";
+                                                    print "<td><nobr>" . ($value['desc_funcao'] == 'Agente Regional de DC' ? "<a href='" . FuncaoBase::geraLink('index', 'index', 'lista_munic_reg_site', array('id_rpm' => $value['id_rpm'], 'nome' => $value['nome'])) . "' title='Municipios Relativos a àrea de atuação do Agente Regional'>" . $value['nome'] : $value['nome']) . "</td>";
                                                     print "<td>" . $value['telefone'] . "<br>" . $value['celular'] . "</td>";
                                                     print "<td>" . $value['email_rec'] . "<br>".$value['email2']."</td>";
                                                     print "<td> <a href='" . FuncaoBase::geraLink('index', 'index', 'lista_munic_reg_site', array('id_rpm' => $value['id_rpm'], 'nome' => $value['nome'])) . "' title='Municipios Relativos ao Agente Regional'><img src='/core/imagem/listagem.png'></a></td>";
