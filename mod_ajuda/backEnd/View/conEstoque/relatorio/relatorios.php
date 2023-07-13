@@ -13,6 +13,18 @@ $_evento = isset($_POST['selEvento'])? $_POST['selEvento']: "";
 
 $_txt_btn_enviar   = isset($_POST['txt_btn_enviar'])  ? $_POST['txt_btn_enviar']  : ""; 
 
+
+var_dump($_POST);
+die();
+
+//select sum(aju_item.quantidade) as quantidade, aju_unidade.singular 
+//from aju_item
+//inner join aju_unidade
+//on aju_item.cod = aju_unidade.id_unidade 
+//where aju_unidade.singular = "cesta"
+//and YEAR(aju_item.dataLibera) = "2022" 
+//group by aju_unidade.singular
+
 if($_opcao == '1') {
 	include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/resumo_diario.php';
 	exit();

@@ -134,6 +134,28 @@
                 print FuncaoBase::getError($e->getMessage());
             }
         }
+        
+        
+        /* lista unidade */
+        public static function singular() {
+            $con = Conexao::getInstance();
+            
+            $sql = "select distinct(singular) from aju_unidade ";
+            
+            $dados = array();
+
+            try {
+
+                $result = $con->query($sql);
+                $result->execute();
+
+                
+                return $result->fetchAll(PDO::FETCH_ASSOC); 
+                
+            }catch (Exception $e){
+                print FuncaoBase::getError($e->getMessage());
+            }
+        }
 
         
         

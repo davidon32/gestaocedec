@@ -1,66 +1,71 @@
-<?php include_once PATH.'/core/include.php';?>
-<?php include_once "core/Model/indexModel.php";?>
-<?php include_once "mod_ajuda/Model/indexModel.php";?>
+<?php include_once PATH . '/core/include.php'; ?>
+<?php include_once "core/Model/indexModel.php"; ?>
+<?php include_once "mod_ajuda/Model/indexModel.php"; ?>
 <!-- =============== HEADER HTML PAGE ================= -->
-<?php include_once "template/page/headerPageSimples.php";?>
+<?php include_once "template/page/headerPageSimples.php"; ?>
 <!-- =================== HEADER ============================ -->
-<?php include_once "template/page/header.php";?>
+<?php include_once "template/page/header.php"; ?>
 <!-- =================== MENU  ============================ -->
 <?php //include_once "template/page/menu.php";?>
 <!-- =================== CORPO  ============================ -->
-<?php include_once "template/page/corpoHeader.php";
+<?php
+include_once "template/page/corpoHeader.php";
+
+$_deposito = new Deposito();
+
+$_municipio = new Municipio();
+
+$eventoModel = new EventoConEstoqueModel;
+$eventos = $eventoModel->listaEvento();
+
+$singular = new Unidade();
+$singulars = $singular->singular();
 
 
-	$_deposito = new Deposito();
-
-	$_municipio = new Municipio();
-        
-        $eventoModel = new EventoConEstoqueModel;
-        $eventos = $eventoModel->listaEvento();
-	
 ?>
 
 <p class="text-center">
-    <legend>Relat&oacute;rio de Libera&ccedil;&otilde;es</legend>
+<legend>Relatório Resumo de Liberações </legend>
 </p>
 
 <div class="col-md-6">
     <form method="POST"
-        action="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=relatorio&action=relatorio"
-        name="frm_rel_liberacao">
+          action="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')); ?>&ac=itn&modulo=ajuda&controller=relatorio&action=relatorio"
+          name="frm_rel_liberacao">
+
 
         <div class="col-md-12">
             <label>Dep&oacute;sito Destino:</label>
-            <?php $_deposito->pegaDeposito('novalidate="novalidate"');?>
+            <?php $_deposito->pegaDeposito('novalidate="novalidate"'); ?>
         </div>
 
         <div class="col-md-12">
             <label>Data Inicial:</label>
             <input class="form-control" type="text" name="txtDtInicial" id="txtDtInicial" data-mask="99/99/9999"
-                title="Periodo Inicial de Liberações" required />
+                   title="Periodo Inicial de Liberações" />
         </div>
         <div class="col-md-12">
             <label>Data Final:</label>
             <input class="form-control" type="text" name="txtDtFinal" id="txtDtFinal" data-mask="99/99/9999"
-                title="Periodo Final de Liberações" required />
+                   title="Periodo Final de Liberações" />
         </div>
 
         <div class="col-md-12">
             <label>Munic&iacute;pio:</label>
-            <?php $_municipio->PegaMunicipio();?>
+            <?php $_municipio->PegaMunicipio(); ?>
             <br>
         </div>
-        
+
         <div class="col-md-12">
             <label>Evento</label>
             <select name="selEvento" id="selEvento" class="form form-control">
-                        <option value="">Todos</option>
-                            <?php 
-                                foreach ($eventos as $evento){
-                                    print "<option>".$evento['nome']."</option>";
-                                }
-                            ?>
-                    </select>
+                <option value="">Todos</option>
+                <?php
+                foreach ($eventos as $evento) {
+                    print "<option>" . $evento['nome'] . "</option>";
+                }
+                ?>
+            </select>
             <br>
         </div>
 
@@ -69,85 +74,135 @@
         <br>
         <input class="btn btn-primary" type="submit" name="pesquisar" value="Pesquisar" />
         &nbsp;&nbsp;<a class="btn btn-success"
-            href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=relIndex">Voltar</a>
+                       href="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=relIndex">Voltar</a>
 
-	</div>
-	<div class='col-md-6'>
-		<!-- <label>
-				<input type="checkbox" name="ck_evento" id="ck_evento">
-				Adicionar Resumo Por Evento
-			</label>
-			<br>
-			<label>
-				<input type="checkbox" name="ck_fonte" id="ck_fonte">
-				Adicionar Resumo por Fonte de Entrada
-			</label>
-			<br> -->
-		<label>
-                    <input type="checkbox" name="ck_diario" id="ck_diario" value="1" >
-			Resumo Diário
-		</label>
-                
-                <hr>
+</div>
+<div class='col-md-6'>
+
+    <div class="col-md-12">
+        <label>Ano:</label>
+        <input class="form-control" type="text" name="txtAno" id="txtAno" title="" maxlength="4" />
+    </div>
+
+    <div class="col-md-12">
+        <br>
+        <input type="checkbox" name="ck_sazional" id="ck_sazional" value="1" >
+        <label>Considerar Período Sazional</label>
+    </div>
+    <br>
+    <div class="col-md-12">
+        <br>
+        <label>Período:</label><br>
+        <select name="selEstacao" id="selEstacao" class="form form-control">
+            <option value=""></option>
+            <option value="chuva">Chuva</option>
+            <option value="seca">Seca</option>
+        </select>
+        <br>
+    </div>
+    <div class="col-md-12">
+        <br>
+        <label>Material:</label><br>
+        <select name="selMaterial" id="selMaterial" class="form form-control">
+            <?php
+            
+                            
+                foreach ($singulars as $key => $value) {
+                    print "<option>".$value['singular']."</option>";
+                }
+            ?>
+        </select>
+        <br>
+    </div>
+
+
+
+    <p><br>-> Ao marcar essa opção o sistema irá calcular o período sazional escolhido.
+        <br>
+        <br>-> Período Chuvoso de <b>Outubro a Março</b>, pegando como base o início no ano escolhido.
+        <br>
+        <br>-> Período de Seca é de <b>Abril a Setembro</b>, pegando como base de início o ano escolhido</p>
+</div>
+<br>
+<br>
+<!-- <label>
+                <input type="checkbox" name="ck_evento" id="ck_evento">
+                Adicionar Resumo Por Evento
+        </label>
+        <br>
+        <label>
+                <input type="checkbox" name="ck_fonte" id="ck_fonte">
+                Adicionar Resumo por Fonte de Entrada
+        </label>
+        <br> -->
+<div class="col-md-12">
+    <br>
+    <label>
+        <input type="checkbox" name="ck_diario" id="ck_diario" value="1" >
+        Resumo Diário
+    </label>
+</div>
+
+<hr>
 <!--		<label>
-			<input type="checkbox" name="ck_resumo_distr" id="ck_resumo_distr" value='2'>
+                        <input type="checkbox" name="ck_resumo_distr" id="ck_resumo_distr" value='2'>
                         Resumo Distribuição de Materiais <h6>( Resumo Quantitativo de Materiais distribuídos )</h6>
-		</label>
+                </label>
                 <hr>-->
-	</div>
+</div>
 
 </form>
-<?php 
-	?>
+<?php
+?>
 <!-- =================== RODAPE CORPO ==================== -->
-<?php include_once "template/page/corpoRodape.php";?>
+<?php include_once "template/page/corpoRodape.php"; ?>
 <!-- =================== RODAPE  ======================== -->
-<?php include_once "template/page/rodape.php"?>
-<?php include_once "template/page/barra_config_template.php";?>
+<?php include_once "template/page/rodape.php" ?>
+<?php include_once "template/page/barra_config_template.php"; ?>
 <!-- =============== HEADER HTML PAGE ================= -->
-<?php include_once "template/page/rodapePage.php";?>
+<?php include_once "template/page/rodapePage.php"; ?>
 <script type="text/javascript">
     
-$(document).ready(function(){
+    $(document).ready(function () {
         
-   $("#ck_diario").change(function(){
-        if($("#ck_diario").is(":checked")){
-            $("#ck_resumo_distr").prop('checked', false);
-        }
+        $("#ck_diario").change(function () {
+            if ($("#ck_diario").is(":checked")) {
+                $("#ck_resumo_distr").prop('checked', false);
+            }
+        });
+        
+        $("#ck_resumo_distr").change(function () {
+            if ($("#ck_resumo_distr").is(":checked")) {
+                $("#ck_diario").prop('checked', false);
+            }
+        });
+        
+        
+        $("#txtDtInicial").datepicker({
+            dateFormat: 'dd/mm/yy',
+            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+            dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+            dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro',
+                'Outubro', 'Novembro', 'Dezembro'
+            ],
+            monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+            nextText: 'Proximo',
+            prevText: 'Anterior'
+        });
+        $("#txtDtFinal").datepicker({
+            dateFormat: 'dd/mm/yy',
+            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+            dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+            dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro',
+                'Outubro', 'Novembro', 'Dezembro'
+            ],
+            monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+            nextText: 'Proximo',
+            prevText: 'Anterior'
+                    
+        });
+        
     });
-    
-    $("#ck_resumo_distr").change(function(){
-        if($("#ck_resumo_distr").is(":checked")){
-            $("#ck_diario").prop('checked',false);
-        }
-    });
-    
-    
-    $("#txtDtInicial").datepicker({
-        dateFormat: 'dd/mm/yy',
-        dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-        dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
-        dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
-        monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro',
-            'Outubro', 'Novembro', 'Dezembro'
-        ],
-        monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-        nextText: 'Proximo',
-        prevText: 'Anterior'
-    });
-    $("#txtDtFinal").datepicker({
-        dateFormat: 'dd/mm/yy',
-        dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-        dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
-        dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
-        monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro',
-            'Outubro', 'Novembro', 'Dezembro'
-        ],
-        monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-        nextText: 'Proximo',
-        prevText: 'Anterior'
-
-    });
-
-});
 </script>
