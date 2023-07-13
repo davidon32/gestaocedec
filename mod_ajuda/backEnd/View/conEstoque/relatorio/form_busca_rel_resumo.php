@@ -79,12 +79,12 @@ $singulars = $singular->singular();
 </div>
 <div class='col-md-6'>
 
-    <div class="col-md-12">
+<!--    <div class="col-md-12">
         <label>Ano:</label>
         <input class="form-control" type="text" name="txtAno" id="txtAno" title="" maxlength="4" />
-    </div>
+    </div>-->
 
-    <div class="col-md-12">
+<!--    <div class="col-md-12">
         <br>
         <input type="checkbox" name="ck_sazional" id="ck_sazional" value="1" >
         <label>Considerar Período Sazional</label>
@@ -99,15 +99,16 @@ $singulars = $singular->singular();
             <option value="seca">Seca</option>
         </select>
         <br>
-    </div>
+    </div>-->
     <div class="col-md-12">
         <br>
         <label>Material:</label><br>
         <select name="selMaterial" id="selMaterial" class="form form-control">
             <?php
-            
-                            
-                foreach ($singulars as $key => $value) {
+                            print "<option></option>";
+
+
+            foreach ($singulars as $key => $value) {
                     print "<option>".$value['singular']."</option>";
                 }
             ?>
@@ -117,11 +118,11 @@ $singulars = $singular->singular();
 
 
 
-    <p><br>-> Ao marcar essa opção o sistema irá calcular o período sazional escolhido.
+<!--    <p><br>-> Ao marcar essa opção o sistema irá calcular o período sazional escolhido.
         <br>
         <br>-> Período Chuvoso de <b>Outubro a Março</b>, pegando como base o início no ano escolhido.
         <br>
-        <br>-> Período de Seca é de <b>Abril a Setembro</b>, pegando como base de início o ano escolhido</p>
+        <br>-> Período de Seca é de <b>Abril a Setembro</b>, pegando como base de início o ano escolhido</p>-->
 </div>
 <br>
 <br>

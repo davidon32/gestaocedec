@@ -13,6 +13,8 @@ $_evento = isset($_POST['selEvento'])? $_POST['selEvento']: "";
 
 $_txt_btn_enviar   = isset($_POST['txt_btn_enviar'])  ? $_POST['txt_btn_enviar']  : ""; 
 
+$opcao3 = isset($_POST['selMaterial']) ? $_POST['selMaterial'] : "";
+        
 
 var_dump($_POST);
 die();
