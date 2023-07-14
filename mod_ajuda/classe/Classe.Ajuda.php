@@ -1,236 +1,233 @@
 <?php
 
-class Ajuda{
-
+class Ajuda {
 
     /** pega quantidade de materias liberados e ja pagos */
-    public static function  getMateriaisLiberadosEpagos($post){
+    public static function getMateriaisLiberadosEpagos($post) {
 
         $_campoData = "";
-		$_campoDeposito = "";
-		$_campoMunicipio = "";
-		$_campoEvento = "";
+        $_campoDeposito = "";
+        $_campoMunicipio = "";
+        $_campoEvento = "";
 
-		/* filtro por Data */
-		if((strlen($post['txtDtInicial']) >0) && (strlen($post['txtDtFinal']) >0)) {
-			$_campoData = " AND dataLibera >= '".DataMysql::dataForm($post['txtDtInicial'])."' AND dataLibera <= '".DataMysql::dataForm($post['txtDtFinal'])."' ";
-		}
+        /* filtro por Data */
+        if ((strlen($post['txtDtInicial']) > 0) && (strlen($post['txtDtFinal']) > 0)) {
+            $_campoData = " AND dataLibera >= '" . DataMysql::dataForm($post['txtDtInicial']) . "' AND dataLibera <= '" . DataMysql::dataForm($post['txtDtFinal']) . "' ";
+        }
 
-		/* filtro por deposito */
-		if(strlen($post['id_deposito']) >0) {
-			$_campoDeposito = " AND aju_liberacao.depDestino = ".$post['id_deposito']." ";
-		}
+        /* filtro por deposito */
+        if (strlen($post['id_deposito']) > 0) {
+            $_campoDeposito = " AND aju_liberacao.depDestino = " . $post['id_deposito'] . " ";
+        }
 
-		/* filtro por municipio */
-		if(strlen($post['id_municipio']) >0) {
-			$_campoMunicipio = " AND aju_liberacao.id_municipio = ".$post['id_municipio']." ";
-		}
-                
-		/* filtro por evento */
-		if(strlen($post['selEvento']) >0) {
-			$_campoEvento = " AND aju_liberacao.evento = '".$post['selEvento']."' ";
-		}
+        /* filtro por municipio */
+        if (strlen($post['id_municipio']) > 0) {
+            $_campoMunicipio = " AND aju_liberacao.id_municipio = " . $post['id_municipio'] . " ";
+        }
+
+        /* filtro por evento */
+        if (strlen($post['selEvento']) > 0) {
+            $_campoEvento = " AND aju_liberacao.evento = '" . $post['selEvento'] . "' ";
+        }
 
         $con = Conexao::getInstance();
         $dados = array();
 
         $sql = "SELECT count(id_liberacao) as numLibera FROM aju_liberacao
-                WHERE situacao = '1' ".$_campoData.$_campoDeposito.$_campoMunicipio.$_campoEvento."
+                WHERE situacao = '1' " . $_campoData . $_campoDeposito . $_campoMunicipio . $_campoEvento . "
                  ORDER BY dataLibera";
 
         $result = $con->query($sql);
-		
-        while($linha = $result->fetch(PDO::FETCH_ASSOC)){
+
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
             $dados = $linha['numLibera'];
         }
 
         return $dados;
-        
     }
-    
+
     /* pega a quantidade de materiais pagos  */
-    public static function getMateriaisPagos($post){
+
+    public static function getMateriaisPagos($post) {
 
         $_campoData = "";
-		$_campoDeposito = "";
-		$_campoMunicipio = "";
-                $_campoEvento = "";
+        $_campoDeposito = "";
+        $_campoMunicipio = "";
+        $_campoEvento = "";
 
-		/* filtro por Data */
-		if((!empty($post['txtDtInicial'])) && (!empty($post['txtDtFinal']))) {
-			$_campoData = " AND aju_pagamento.dataLibera >= '".DataMysql::dataForm($post['txtDtInicial'])."' AND aju_pagamento.dataLibera <= '".DataMysql::dataForm($post['txtDtFinal'])."' ";
-		}
+        /* filtro por Data */
+        if ((!empty($post['txtDtInicial'])) && (!empty($post['txtDtFinal']))) {
+            $_campoData = " AND aju_pagamento.dataLibera >= '" . DataMysql::dataForm($post['txtDtInicial']) . "' AND aju_pagamento.dataLibera <= '" . DataMysql::dataForm($post['txtDtFinal']) . "' ";
+        }
 
-		/* filtro por deposito */
-		if(!empty($post['id_deposito'])) {
-			$_campoDeposito = " AND aju_liberacao.depDestino = ".$post['id_deposito']." ";
-		}
+        /* filtro por deposito */
+        if (!empty($post['id_deposito'])) {
+            $_campoDeposito = " AND aju_liberacao.depDestino = " . $post['id_deposito'] . " ";
+        }
 
-		/* filtro por municipio */
-		if(strlen($post['id_municipio']) > 0) {
-			$_campoMunicipio = " AND aju_pagamento.municipio = '".Municipio::PegaNomeMunicipio($post['id_municipio'])."'";
-		}
-                
-                /* filtro por evento */
-		if(strlen($post['selEvento']) >0) {
-			$_campoEvento = " AND aju_liberacao.evento = '".$post['selEvento']."' ";
-		}
-                
-        
-        
+        /* filtro por municipio */
+        if (strlen($post['id_municipio']) > 0) {
+            $_campoMunicipio = " AND aju_pagamento.municipio = '" . Municipio::PegaNomeMunicipio($post['id_municipio']) . "'";
+        }
+
+        /* filtro por evento */
+        if (strlen($post['selEvento']) > 0) {
+            $_campoEvento = " AND aju_liberacao.evento = '" . $post['selEvento'] . "' ";
+        }
+
+
+
         $con = Conexao::getInstance();
         $dados = array();
 
-        
+
         $sql = "SELECT count(aju_pagamento.id_pagamento) as numPgto FROM aju_pagamento
 		inner join aju_liberacao
 		on aju_pagamento.id_liberacao = aju_liberacao.id_liberacao
         WHERE aju_pagamento.id_liberacao IN (SELECT id_liberacao FROM aju_liberacao
-                        WHERE situacao = 1) ".$_campoData.$_campoDeposito.$_campoMunicipio.$_campoEvento."";
-        
+                        WHERE situacao = 1) " . $_campoData . $_campoDeposito . $_campoMunicipio . $_campoEvento . "";
+
         $result = $con->query($sql);
-        
-        while($linha = $result->fetch(PDO::FETCH_ASSOC)){
+
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
             $dados = $linha['numPgto'];
         }
 
         return $dados;
-        
     }
-    
+
     /* pega a quantidade liberaoes */
-    public static function getLiberacao($post){
+
+    public static function getLiberacao($post) {
 
         $_campoData = "";
-		$_campoDeposito = "";
-		$_campoMunicipio = "";
-                $_campoEvento = "";
+        $_campoDeposito = "";
+        $_campoMunicipio = "";
+        $_campoEvento = "";
 
-		/* filtro por Data */
-		if((!empty($post['txtDtInicial'])) && (!empty($post['txtDtFinal']))) {
-			$_campoData = " AND dataLibera >= '".DataMysql::dataForm($post['txtDtInicial'])."' AND dataLibera <= '".DataMysql::dataForm($post['txtDtFinal'])."' ";
-		}
+        /* filtro por Data */
+        if ((!empty($post['txtDtInicial'])) && (!empty($post['txtDtFinal']))) {
+            $_campoData = " AND dataLibera >= '" . DataMysql::dataForm($post['txtDtInicial']) . "' AND dataLibera <= '" . DataMysql::dataForm($post['txtDtFinal']) . "' ";
+        }
 
-		/* filtro por deposito */
-		if(!empty($post['id_deposito'])) {
-			$_campoDeposito = " AND aju_liberacao.depDestino = ".$post['id_deposito']." ";
-		}
+        /* filtro por deposito */
+        if (!empty($post['id_deposito'])) {
+            $_campoDeposito = " AND aju_liberacao.depDestino = " . $post['id_deposito'] . " ";
+        }
 
-		/* filtro por municipio */
-		if(!empty($post['id_municipio'])) {
-			$_campoMunicipio = " AND aju_liberacao.id_municipio = ".$post['id_municipio']." ";
-		}
-                
-                /* filtro por evento */
-		if(strlen($post['selEvento']) >0) {
-			$_campoEvento = " AND aju_liberacao.evento = '".$post['selEvento']."' ";
-		}
-        
+        /* filtro por municipio */
+        if (!empty($post['id_municipio'])) {
+            $_campoMunicipio = " AND aju_liberacao.id_municipio = " . $post['id_municipio'] . " ";
+        }
+
+        /* filtro por evento */
+        if (strlen($post['selEvento']) > 0) {
+            $_campoEvento = " AND aju_liberacao.evento = '" . $post['selEvento'] . "' ";
+        }
+
         $con = Conexao::getInstance();
         $dados = array();
 
-       
+
 
         $sql = "SELECT count(id_liberacao) as numLibera FROM aju_liberacao
-                WHERE situacao = 0 ".$_campoData.$_campoDeposito.$_campoMunicipio.$_campoEvento."
+                WHERE situacao = 0 " . $_campoData . $_campoDeposito . $_campoMunicipio . $_campoEvento . "
                 ORDER BY dataLibera";
-        
+
         $result = $con->query($sql);
-        
-        while($linha = $result->fetch(PDO::FETCH_ASSOC)){
+
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
             $dados = $linha['numLibera'];
         }
 
         return $dados;
     }
-    
+
     /* pega quantidade de materiais esperando pagamento */
-    public static function getMaterialEsperaPagto(){
-        
+
+    public static function getMaterialEsperaPagto() {
+
         return 0;
     }
-    
+
     /* pega quantidade de transferencias em transito */
-    public static function getMaterialTransito($post, $situacao){
-        
-                $_campoData = "";
-		$_campoDeposito = "";
 
-		/* filtro por Data */
-		if((!empty($post['txtDtInicial'])) && (!empty($post['txtDtFinal']))) {
-            $_campoData = " AND dt_transferencia >= '".DataMysql::dataForm($post['txtDtInicial'])."' AND dt_transferencia <= '".DataMysql::dataForm($post['txtDtFinal'])."' ";
-		}
+    public static function getMaterialTransito($post, $situacao) {
 
-		/* filtro por deposito */
-		if(!empty($post['id_deposito'])) {
-			$_campoDeposito = " AND id_dep_destino = ".$post['id_deposito']." ";
-		}
-                
-                
-        
+        $_campoData = "";
+        $_campoDeposito = "";
+
+        /* filtro por Data */
+        if ((!empty($post['txtDtInicial'])) && (!empty($post['txtDtFinal']))) {
+            $_campoData = " AND dt_transferencia >= '" . DataMysql::dataForm($post['txtDtInicial']) . "' AND dt_transferencia <= '" . DataMysql::dataForm($post['txtDtFinal']) . "' ";
+        }
+
+        /* filtro por deposito */
+        if (!empty($post['id_deposito'])) {
+            $_campoDeposito = " AND id_dep_destino = " . $post['id_deposito'] . " ";
+        }
+
+
+
         $con = Conexao::getInstance();
         $dados = array();
 
         $sql = "SELECT count(aju_transferencia.id_transferencia) as numTransf 
                 FROM aju_transferencia
-                WHERE aju_transferencia.situacao = ".$situacao." ".$_campoData.$_campoDeposito."
+                WHERE aju_transferencia.situacao = " . $situacao . " " . $_campoData . $_campoDeposito . "
                 ORDER BY aju_transferencia.dt_transferencia";
-        
+
         $result = $con->query($sql);
-        
-        while($linha = $result->fetch(PDO::FETCH_ASSOC)){
+
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
             $dados = $linha['numTransf'];
         }
 
         return $dados;
     }
 
-
     /** pega dados municipios, dados das liberacoes
-	 *  int situacao
-	 */
+     *  int situacao
+     */
+    public static function dadosMunicipioMapaLiberacoes($situacao = 1) {
 
-	public static function dadosMunicipioMapaLiberacoes($situacao = 1){
+        try {
 
-		try {
-       		 
-			$con = Conexao::getInstance();
-			$dados = array();
+            $con = Conexao::getInstance();
+            $dados = array();
 
-			$sql = "select count(aju_liberacao.id_municipio) as qtd, cedec_municipio.nome from aju_liberacao
+            $sql = "select count(aju_liberacao.id_municipio) as qtd, cedec_municipio.nome from aju_liberacao
 					inner join cedec_municipio
 					on aju_liberacao.id_municipio = cedec_municipio.id_municipio
-					where aju_liberacao.situacao = ".$situacao."
+					where aju_liberacao.situacao = " . $situacao . "
 					group by aju_liberacao.id_municipio;";
 
-			$result = $con->query($sql);
+            $result = $con->query($sql);
 
-			while($linha = $result->fetch(PDO::FETCH_ASSOC)){
-				$dados[] = $linha;
-			}
-		}catch (Exception $e){
-			print $e->getMessage();
-		}
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dados[] = $linha;
+            }
+        } catch (Exception $e) {
+            print $e->getMessage();
+        }
 
-		return $dados;
-
+        return $dados;
     }
-    
+
     /* Materiais liberador por municipios */
-    
-    
+
     /**
      * Municipios atendidos
      * quantidade de atendimentos
      * periodo Chuva
      * 
-     **/
+     * */
     public static function liberacoesPeriodoChuva($ano) {
-        
+
         $con = Conexao::getInstance();
-	$dados = array();
-        
-        
+        $dados = array();
+
+
         $sql = "SELECT distinct(aju_liberacao.ID_municipio) AS id_municipio, 
 		cedec_municipio.nome,
 		COUNT(aju_liberacao.id_municipio) AS qtdAtendimento
@@ -239,29 +236,27 @@ class Ajuda{
                 ON aju_liberacao.id_municipio = cedec_municipio.id_municipio
                 where aju_liberacao.evento = 'CHUVA'
                 AND aju_liberacao.SITUACAO < 2
-                AND aju_liberacao.DATALIBERA BETWEEN '".$ano."-10-01' AND '".($ano+1)."-03-31'
+                AND aju_liberacao.DATALIBERA BETWEEN '" . $ano . "-10-01' AND '" . ($ano + 1) . "-03-31'
                 GROUP BY aju_liberacao.id_municipio";
-        
-            $result = $con->query($sql);
 
-            while($linha = $result->fetch(PDO::FETCH_ASSOC)){
-		$dados[] = $linha;
-            }
-            
-            return $dados;
-        
+        $result = $con->query($sql);
+
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            $dados[] = $linha;
+        }
+
+        return $dados;
     }
-    
-    
+
     /**
      * Quantidade materiais distribuidos no periodo Chuvoso
      * 
      */
-    public static function QuantidadeMatePeriodoChuva($ano){
-        
+    public static function QuantidadeMatePeriodoChuva($ano) {
+
         $con = Conexao::getInstance();
-	$dados = array();
-        
+        $dados = array();
+
         $sql = "SELECT aju_item.cod, aju_unidade.nome, aju_unidade.singular,
                     SUM(aju_item.quantidade) as qtd
                     FROM aju_liberacao
@@ -270,31 +265,31 @@ class Ajuda{
                     INNER JOIN aju_unidade
                     ON aju_item.cod = aju_unidade.id_unidade
                     WHERE aju_liberacao.SITUACAO < 2
-                    AND aju_liberacao.DATALIBERA BETWEEN '".$ano."-10-01' AND '".($ano+1)."-03-31'
+                    AND aju_liberacao.DATALIBERA BETWEEN '" . $ano . "-10-01' AND '" . ($ano + 1) . "-03-31'
                     AND aju_liberacao.EVENTO = 'CHUVA'
                     group BY aju_item.cod";
-    
+
         $result = $con->query($sql);
 
-            while($linha = $result->fetch(PDO::FETCH_ASSOC)){
-		$dados[] = $linha;
-            }
-            
-            return $dados;
-    
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            $dados[] = $linha;
+        }
+
+        return $dados;
     }
+
     /**
      * Municipios atendidos
      * quantidade de atendimentos
      * periodo Chuva
      * 
-     **/
+     * */
     public static function liberacoesPeriodoEstiagem($ano) {
-        
+
         $con = Conexao::getInstance();
-	$dados = array();
-        
-        
+        $dados = array();
+
+
         $sql = "SELECT distinct(aju_liberacao.ID_municipio) AS id_municipio, 
 		cedec_municipio.nome,
 		COUNT(aju_liberacao.id_municipio) AS qtdAtendimento
@@ -303,29 +298,27 @@ class Ajuda{
                 ON aju_liberacao.id_municipio = cedec_municipio.id_municipio
                 where aju_liberacao.evento = 'SECA'
                 AND aju_liberacao.SITUACAO < 2
-                AND aju_liberacao.DATALIBERA BETWEEN '".$ano."-05-01' AND '".($ano+1)."-10-30'
+                AND aju_liberacao.DATALIBERA BETWEEN '" . $ano . "-05-01' AND '" . ($ano + 1) . "-10-30'
                 GROUP BY aju_liberacao.id_municipio";
-        
-            $result = $con->query($sql);
 
-            while($linha = $result->fetch(PDO::FETCH_ASSOC)){
-		$dados[] = $linha;
-            }
-            
-            return $dados;
-        
+        $result = $con->query($sql);
+
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            $dados[] = $linha;
+        }
+
+        return $dados;
     }
-    
-    
+
     /**
      * Quantidade materiais distribuidos no periodo Chuvoso
      * 
      */
-    public static function QuantidadeMatePeriodoEstiagem($ano){
-        
+    public static function QuantidadeMatePeriodoEstiagem($ano) {
+
         $con = Conexao::getInstance();
-	$dados = array();
-        
+        $dados = array();
+
         $sql = "SELECT aju_item.cod, aju_unidade.nome, aju_unidade.singular,
                     SUM(aju_item.quantidade) as qtd
                     FROM aju_liberacao
@@ -334,23 +327,68 @@ class Ajuda{
                     INNER JOIN aju_unidade
                     ON aju_item.cod = aju_unidade.id_unidade
                     WHERE aju_liberacao.SITUACAO < 2
-                    AND aju_liberacao.DATALIBERA BETWEEN '".$ano."-05-01' AND '".($ano+1)."-10-30'
+                    AND aju_liberacao.DATALIBERA BETWEEN '" . $ano . "-05-01' AND '" . ($ano + 1) . "-10-30'
                     AND aju_liberacao.EVENTO = 'SECA'
                     group BY aju_item.cod";
-    
+
         $result = $con->query($sql);
 
-            while($linha = $result->fetch(PDO::FETCH_ASSOC)){
-		$dados[] = $linha;
-            }
-            
-            return $dados;
-    
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            $dados[] = $linha;
+        }
+
+        return $dados;
     }
 
- 
-    
+    /* quantidade de protudos por ano e material */
+
+    public static function relPorMaterialTotal(array $param) {
+
+        $con = Conexao::getInstance();
 
 
+        $sql = "select sum(aju_item.quantidade) as quantidade, aju_unidade.singular 
+                from aju_item
+                inner join aju_unidade
+                on aju_item.cod = aju_unidade.id_unidade 
+                where aju_unidade.singular = \"cesta basica\"
+                and YEAR(aju_item.dataLibera) = \"2021\" 
+                group by aju_unidade.singular";
+    }
 
-}?>
+    /* quantidade de protudos por ano e material */
+
+    public static function relPorMaterial(array $param) {
+
+        $con = Conexao::getInstance();
+
+        $material = isset($param['selMaterial']) ? $param['selMaterial'] : "";
+        $dt_inicial = isset($param['txtDtInicial']) ? $param['txtDtInicial'] : "";
+        $dt_final = isset($param['txtDtFinal']) ? $param['txtDtFinal'] : "";
+
+        $filtro = " where ";
+        $filtro .= (!empty($material)) ? " aju_unidade.singular = '" . $material . "' and " : "";
+
+        $filtro .= " aju_item.dataLibera between '".DataMysql::dataForm($dt_inicial)."' and '".DataMysql::dataForm($dt_final)."' ";
+
+        $sql = "select sum(aju_item.quantidade) as quantidade,
+                aju_unidade.singular,
+                cedec_municipio.nome
+                from aju_item
+                inner join aju_unidade
+                on aju_item.cod = aju_unidade.id_unidade 
+                INNER JOIN aju_liberacao
+                ON aju_item.id_liberacao = aju_liberacao.id_liberacao
+                INNER JOIN cedec_municipio
+                ON aju_liberacao.id_municipio = cedec_municipio.id_municipio
+                " . $filtro . "
+                group by aju_unidade.singular, cedec_municipio.id_municipio";
+
+        $result = $con->query($sql);
+        
+        return $result->fetchAll(PDO::FETCH_OBJ);
+    }
+
+}
+
+?>
