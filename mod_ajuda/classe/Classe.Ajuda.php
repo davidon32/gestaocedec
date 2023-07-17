@@ -383,8 +383,32 @@ class Ajuda {
                 ON aju_liberacao.id_municipio = cedec_municipio.id_municipio
                 " . $filtro . "
                 group by aju_unidade.singular, cedec_municipio.id_municipio";
+        
+        /*
+
+select sum(aju_item.quantidade) as quantidade,
+aju_unidade.singular,
+aju_produto.origem,
+cedec_municipio.nome
+from aju_item
+inner join aju_unidade
+on aju_item.cod = aju_unidade.id_unidade
+INNER JOIN aju_liberacao
+ON aju_item.id_liberacao = aju_liberacao.id_liberacao
+INNER JOIN cedec_municipio
+ON aju_liberacao.id_municipio = cedec_municipio.id_municipio
+INNER JOIN aju_produto
+ON aju_item.id_entrada = aju_produto.id_produto
+where aju_unidade.singular = 'CESTA BASICA'
+and aju_item.dataLibera between '2022/01/01' and '2022/12/31'
+group by aju_unidade.singular,
+cedec_municipio.id_municipio,
+aju_produto.origem
+
+         *          */
 
         $result = $con->query($sql);
+        print $sql;
         
         return $result->fetchAll(PDO::FETCH_OBJ);
     }
