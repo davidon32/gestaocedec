@@ -50,6 +50,13 @@
     $dados_municipio = Ajuda::relPorMaterial($_POST);
 
     //var_dump($_POST, $dados_municipio);
+    
+    $dad = Ajuda::selProduto("Transferencia%");
+    
+    $dados1 = Ajuda::gravaOrigem($dad);
+    
+    Ajuda::gravaOrigem1($dados1);
+    
     ?>
 
     <div class="row">

@@ -99,6 +99,10 @@ class relatorioConController extends Controller {
         readfile($nomeFileExcel);
     }
     
-           
+     
+    
+    
+    
+    
 
 }

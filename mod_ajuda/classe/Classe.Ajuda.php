@@ -413,6 +413,63 @@ aju_produto.origem
         return $result->fetchAll(PDO::FETCH_OBJ);
     }
 
-}
+    
+    public static function selProduto($origem) {
+        
+        $res = array();
+        
+        $sql = "Select *from aju_produto where origem like '%".$origem."%'";
+        
+        $con = Conexao::getInstance();
+        
+        $result = $con->query($sql);
+        
+        return $result->fetchAll(PDO::FETCH_ASSOC); 
+    }
+    
+    public static function gravaOrigem($produtos) {
+        
+        $con = Conexao::getInstance();
+              
+       $origem = array();
+        //var_dump($produtos);
+        foreach ($produtos as $produto){
+            
+            $sql = "select id_produto, origem from aju_produto where id_produto = '".$produto['id_entrada']."'";
+            
+            $result = $con->query($sql);
+            
+            $origem[] = $result->fetchAll(PDO::FETCH_ASSOC); 
+        }
+        
+        return $origem;
 
-?>
+    }
+    
+    
+    /* grava a origem no banco */
+    public static function gravaOrigem1($origens) {
+        
+        $con = Conexao::getInstance();
+              
+        foreach ($origens as $origem){
+            
+            //var_dump($origens);
+            
+            $sql = "update aju_produto set origem = '".$origem['origem']."' where id_produto = '".$origem['id_produto']."'";
+            
+            //$result = $con->query($sql);
+            
+            //$origem[] = $result->fetchAll(PDO::FETCH_ASSOC); 
+        }
+        
+        //return $origem;
+
+    }
+    
+    
+    
+    
+    
+    
+}?>
