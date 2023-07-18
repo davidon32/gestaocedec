@@ -932,5 +932,21 @@ class Compdec {
     }
     
     
+    /*
+        verifica validade do documento no SDC
+    */
+    public static function verificadoc($id_municipio){
+        
+        $con = Conexao::getInstance();
+        
+        $sql = "SELECT *from com_anexo WHERE year(dt_anexo) <='2022' and id_municipio = ".$id_municipio;
+        
+        $result = $con->query($sql);
+        
+        return $result->fetch(PDO::FETCH_ASSOC);
+        
+        
+    }
+    
 
 }?>

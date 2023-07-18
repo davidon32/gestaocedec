@@ -190,7 +190,25 @@
                 cancelButtonText: 'Cancelar',
                 cancelButtonAriaLabel: 'Thumbs down'
         }).then((result) => {
-            $('#contatos').modal('show');
+            Swal.fire({
+                title:'Termo de Ciência de Uso do Sistema SDC',
+                width: 700,
+                icon: 'info',
+                backdrop: true,
+                html:
+                        'PREZADOS COORDENADORES, <BR>  ' +
+                        '<p class=\'text-justify\'>O SDC - Sistema de Defesa Civil por se tratar de um sistema eletrônico online no qual os próprios municípios inserem e atualizam informações relevantes às atividades de Proteção e Defesa Civil, é responsabilidade do usuário/Município manter em seguranca as credenciais de Acesso (senha e login), utilizar o sistema corretamente, seguir as recomendações e parâmetros necessários disponibilizados por meio de Documentação on-line ou outra forma que se fizer necessária. Além disso, é de sua responsabilidade verificar a integridade e a veracidade das informações registradas e arquivos anexados ao sistema. Para possibilitar a correção de informações, o sistema dispõe de funções de visualização, edição e exclusão. Em caso de dificuldade ou problemas técnicos, existe canais de atendimento e suporte ao usuário, tais como e-mail (sdc@defesacivil.mg.gov.br), contato telefônico, manuais de ajuda on-line, via Agentes Regionais de Defesa Civil e Atendimento Presencial na CEDEC.</p>'+
+                        '<b>Por fim, cabe ressaltar que a CEDEC não é responsável pelas ações de uso, atualização e inserção de dados e Documentos anexados no SDC, cabe ao usuário mantê-los atualizados e validados.</b>',
+                allowEscapeKey: false,
+                keydownListenerCapture: true,
+                showCloseButton: false,
+                allowOutsideClick: false,
+                confirmButtonText:'<i class="fa fa-thumbs-up"></i> Lí e Concordo',
+                confirmButtonAriaLabel: 'Thumbs up, great!',
+                cancelButtonText: 'Cancelar',
+                cancelButtonAriaLabel: 'Thumbs down'
+            });
+            //$('#contatos').modal('show');
 
         });
 
