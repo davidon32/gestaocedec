@@ -9,7 +9,7 @@ class AnexoCompdec extends Anexo {
     public static function gravar($dados, $arquivo, $caminho, $campo) {
 
         try {
-           
+
             /* 1.7mb = 1762762 */
             if (
                     ($arquivo[$campo]['error'] == '0') &&
@@ -28,19 +28,18 @@ class AnexoCompdec extends Anexo {
 
 
                 $ext = Upload2mb::get_extension($arquivo['fileAnexo']['name']);
-                
-                $nomeFoto = $dados['txtIdMunicipio'] . "_foto_compdec.".$ext;
+
+                $nomeFoto = $dados['txtIdMunicipio'] . "_foto_compdec." . $ext;
                 $nomeFotoUp = "foto_compdec";
 
 
                 $result->bindParam(":id_municipio", $dados['txtIdMunicipio']);
                 $result->bindParam(":fotoCompdec", $nomeFoto);
                 $result->execute();
-                
-                Anexo::upload($caminho, $arquivo, $campo, $dados['txtIdMunicipio'], $nomeFotoUp );
-                
+
+                Anexo::upload($caminho, $arquivo, $campo, $dados['txtIdMunicipio'], $nomeFotoUp);
+
                 return true;
-                
             } else {
 
                 print "<script>";
@@ -70,8 +69,18 @@ class AnexoCompdec extends Anexo {
                     ($arquivo['fileAnexoLeis']['size'] > '0') &&
                     ($arquivo['fileAnexoLeis']['size'] <= '2000000' )
             ) {
+                
+                //var_dump($dados);
 
-                $sql = "insert into com_anexo (id_municipio,
+                $nomeArquivo = $dados['txtIdMunicipio'] . '_' . strtoupper($dados['selTipoNome'] . '_Documento') . date('his'). ".".self::getExtensao($arquivo['fileAnexoLeis']['name']);
+               
+                //var_dump($nomeArquivo, $arquivo['fileAnexoLeis']['name'], self::getExtensao($arquivo['fileAnexoLeis']['name']));
+                
+                if (Anexo::uploadRen($_SERVER['DOCUMENT_ROOT'] . "/anexo/anexo_leis", $arquivo, "fileAnexoLeis", $nomeArquivo)) {
+
+
+
+                    $sql = "insert into com_anexo (id_municipio,
 												arquivo,
 												dt_anexo,
 												descricao,
@@ -82,30 +91,23 @@ class AnexoCompdec extends Anexo {
 															:descricao,
 															:tipo)";
 
-                $con = Conexao::getInstance();
-                $result = $con->prepare($sql);
+                    $con = Conexao::getInstance();
+                    $result = $con->prepare($sql);
 
-                # remove espacos e adiciona underline
-                $nomeArquivo = str_replace(" ", "_", $arquivo['fileAnexoLeis']['name']);
-                $nomeArquivo = FuncaoBase::tirarAcentos($nomeArquivo);
-                $nomeArquivo = strtoupper(substr($nomeArquivo, 0, 10));
-                #identificador unico
-                $hash = date('his');
-                $nomeFoto = $dados['txtIdMunicipio'] . "_" . $hash . "_" . $nomeArquivo. ".".self::getExtensao($arquivo['fileAnexoLeis']['name']);
+                    # remove espacos e adiciona underline
 
-                $result->bindParam(":id_municipio", $dados['txtIdMunicipio']);
-                $result->bindParam(":arquivo", $nomeFoto);
-                $result->bindParam(":dt_anexo", $dados['txtDtAnexo']);
-                $result->bindParam(":descricao", $dados['txtDescricao']);
-                $result->bindParam(":tipo", $dados['selTipo']);
-                $result->execute();
 
-                if (Anexo::uploadRen($_SERVER['DOCUMENT_ROOT'] . "/anexo/anexo_leis", $arquivo, "fileAnexoLeis", $nomeFoto)) {
-
-                    return true;
+                    $result->bindParam(":id_municipio", $dados['txtIdMunicipio']);
+                    $result->bindParam(":arquivo", $nomeArquivo);
+                    $result->bindParam(":dt_anexo", $dados['txtDtAnexo']);
+                    $result->bindParam(":descricao", $dados['txtDescricao']);
+                    $result->bindParam(":tipo", $dados['selTipo']);
+                    $result->execute();
+                    
+                    return array('result'=>true, 'file'=>$nomeArquivo);
                 }
             } else {
-                return false;
+                return array('result'=>false);
             }
         } catch (PDOException $e) {
 
@@ -169,15 +171,15 @@ class AnexoCompdec extends Anexo {
             print $e . "-";
         }
     }
-    
+
     /* busca imagem compdec */
 
     public static function foto3x4($id_municipio) {
 
         $foto = "padrao.png";
         try {
-            
-            
+
+
 
 
             return $foto;
@@ -316,13 +318,14 @@ class AnexoCompdec extends Anexo {
             print $e . " ";
         }
     }
-    
+
     /* validar documentação homologar */
+
     public static function homologar_document($id_municipio, $valor) {
         try {
 
             $con = Conexao::getInstance();
-            
+
             $sql = "update com_comdec
                     set doc_aprov = :valor
                     where id_municipio = :id_municipio";

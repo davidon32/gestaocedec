@@ -34,15 +34,16 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 
 $status_anexo = Compdec::verificadoc($id_municipio);
 
-if(count($status_anexo) > 0) {
-    
-    $voltar = "<a class=\"btn btn-success\" title='Favor Atualizar os Documentos anexos, lei de criação, decreto e portaria de nomeação do Coordenador'>Voltar</a>";
-    $gravar = "<button class=\"btn btn-success\" type=\"button1\" name=\"-\" id=\"-\" title='Favor Atualizar os Documentos anexos, lei de criação, decreto e portaria de nomeação do Coordenador'>Gravar</button>";
-}else {
-    $voltar = "<a class=\"btn btn-success\" href=".FuncaoBase::geraLink("compdec", "compdec", "index").">Voltar</a>";
-    $gravar = "<button class=\"btn btn-success\" type=\"button\" name=\"btnDados2\" id=\"btnDados2\">Gravar</button>";
-}
+$desatualiza = count($status_anexo);
 
+if ($desatualiza > 0) {
+
+    $voltar = "<button class=\"btn btn-success\" type=\"button\" onclick=\"focus_secao('tblAnexoLeis')\" title='Favor Atualizar os Documentos anexos, lei de criação, decreto e portaria de nomeação do Coordenador'>Voltar</button>";
+    $gravar = "<button class=\"btn btn-success\" type=\"button\" onclick=\"focus_secao('tblAnexoLeis')\" title='Favor Atualizar os Documentos anexos, lei de criação, decreto e portaria de nomeação do Coordenador'>Gravar</button>";
+} else {
+    $voltar = "<a class=\"btn btn-success\" href=" . FuncaoBase::geraLink("compdec", "compdec", "index") . ">Voltar</a>";
+    $gravar = "<span class=\"btn btn-success\" name=\"btnDados2\" id=\"btnDados2\">Gravar</span>";
+}
 ?>
 
 <div class="col-md-3">
@@ -54,7 +55,7 @@ if(count($status_anexo) > 0) {
     </div>
 </div>
 <div class="col-md-9 text-center">
-    <?=$voltar?>
+    <?= $voltar ?>
     </br></br>
     </br></br>
 </div>
@@ -410,7 +411,7 @@ if(count($status_anexo) > 0) {
         </div>
     </div>
     <div class="col-md-12 text-center">
-        <?=$gravar?>
+        <?= $gravar ?>
         <br>
         <br>
     </div>
@@ -421,7 +422,7 @@ if(count($status_anexo) > 0) {
     <!-- ABA COMPDEC -->
     <div role="tabpanel" class="tab-pane1" id="panel-compdec">
         <br>
-        
+
         <!-- Formulario cadastro membro equipe -->
         <p style="text-align:center">
 
@@ -452,7 +453,7 @@ if(count($status_anexo) > 0) {
                 <br><br>
             </div>
 
-            
+
             <div class="span12" id="formMembro">
                 <div class='col-md-12 text-center'>
                     <legend>EDITAR EQUIPE COMPDEC</legend>
@@ -463,46 +464,46 @@ if(count($status_anexo) > 0) {
                         <label>Nome</label>
                         <input class="form-control" type="text" name="txtNomeMembro" id="txtNomeMembro" required maxlength="70">&nbsp;<span style="color: red; font-size: 13pt;" >*</span>
                     </div>
-                    
+
                     <div class="col-md-6">
                         <label>Função</label>
                         <select class="form-control" id="selFuncaoMembro" name="selFuncaoMembro" class="form-control">
 
-                        <option>Selecione a Função</option>
-                        <option>Coordenador</option>
-                        <option>Secretário</option>
-                        <option>Agente</option>
+                            <option>Selecione a Função</option>
+                            <option>Coordenador</option>
+                            <option>Secretário</option>
+                            <option>Agente</option>
                         </select><span style="color: red; font-size: 13pt;">*</span>
                     </div>
                 </div>
-                    
+
                 <div class="col-md-12">
                     <div class="col-md-6">
                         <label>CPF</label>
                         <input class="form-control" type="text" name="txtCpf" id="txtCpf" required maxlength="15" data-mask='999.999.999-99'>&nbsp;<span style="color: red; font-size: 13pt;" >*</span>
                     </div>
-                    
+
                     <div class="col-md-6">
                         <label>Telefone</label>
                         <input class="form-control" type="text" name="txtTelMembro" id="txtTelMembro" maxlength="20">
                     </div>
-                
+
                 </div>
-                
+
                 <div class="col-md-12">
                     <div class="col-md-6">
                         <label>Celular</label>
                         <input class="form-control" type="text" name="txtCelMembro" id="txtCelMembro" maxlength="20">
                     </div>
-                
-                
+
+
                     <div class="col-md-6">
                         <label>Email</label>
                         <input class="form-control" type="email" name="txtEmailMembro" id="txtEmailMembro" maxlength="100" ><span style="color: red; font-size: 13pt;">*</span>
                     </div>
-                    
+
                 </div>
-                
+
                 <div class="col-md-12">
                     <div class="col-md-6">
                         <input class="form-control" type="hidden" name="txtIdMembro" id="txtIdMembro" maxlength="5">
@@ -517,7 +518,7 @@ if(count($status_anexo) > 0) {
             </div>
 
             <div class="col-md-12" >
-                
+
                 <?php
                 $pageSession['session']['seguranca']['id_municipio'] = $_dados[0]['id_municipio'];
 
@@ -533,7 +534,7 @@ if(count($status_anexo) > 0) {
             <div class="modal-dialog">
                 <div class="modal-content">
 
-                    <div class="modal-header">
+                    <div class="modal-header" id="leis_anexos">
                         <button type="button" class="close" aria-hidden="true">&times;</button>
                         <h4 class="modal-title">Upload</h4>
                     </div>
@@ -713,24 +714,34 @@ if(count($status_anexo) > 0) {
 <?php include_once "template/page/rodapePage.php"; ?>
 <script type="text/javascript">
     $(document).ready(function () {
-        
+
         $('#span_info').hide();
-        
-        var info = '<?=$info?>';
-        if(info.length > 0){
+        var info = '<?= $info ?>';
+        if (info.length > 0) {
             $('#span_info').text(info).addClass('alert alert-danger h4');
             $('#span_info').show();
         }
 
-console.log(getUrlVars().cpf);
-        if (getUrlVars().cpf != 'undefined') {
-            $('html, body').animate({scrollTop: $('#equipe').offset().top}, 2000);
-        };
 
+        $('#tbl_equipe > tbody  > tr').each(function (index, tr) {
+            if (index > 0) {
+                var table = tr.cells[2].innerHTML;
+                var coord = tr.cells[3].innerHTML;
+                if(table === "" && coord === 'Coordenador'){
+                    focus_secao('equipe');
+                }
+            }
+        });
+
+        if(<?=$desatualiza?> > 0) {
+            focus_secao('tblAnexoLeis');
+        
+        }
+        
+      
         $("#sp_email").hide();
         $("#sp_email2").hide();
         $("#sp_email3").hide();
-
         $("#txt_email").blur(function () {
             var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
             if ($("#txt_email").val().length > 0) {
@@ -747,12 +758,10 @@ console.log(getUrlVars().cpf);
                 $("#sp_email").hide();
             }
         });
-
         $("#txt_email2").blur(function () {
             var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
             if ($("#txt_email2").val().length > 0) {
                 var email = $("#txt_email2").val();
-
                 if (!email.match(validRegex)) {
                     $("#sp_email2").css('color', 'red');
                     $("#sp_email2").show();
@@ -765,7 +774,6 @@ console.log(getUrlVars().cpf);
                 $("#sp_email2").hide();
             }
         });
-
         $("#txt_email3").blur(function () {
             var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
             if ($("#txt_email3").val().length > 0) {
@@ -782,7 +790,6 @@ console.log(getUrlVars().cpf);
                 $("#sp_email3").hide();
             }
         });
-
         /*Swal.fire({
          icon: 'error',
          title: 'Mudanças para Atualização de Anexos de Leis',
@@ -791,9 +798,7 @@ console.log(getUrlVars().cpf);
 
         $("#btn_anexo").click(function () {
             $("#btnDados2").trigger('click', [false]);
-
         });
-
         $("#fileAnexoPref").change(function () {
             var size = $("#fileAnexoPref")[0].files[0].size;
             if (size > 419430) {
@@ -804,7 +809,6 @@ console.log(getUrlVars().cpf);
                 $("#btnGravarFotoPref").show();
             }
         });
-
         $("#fileAnexo").change(function () {
             var size = $("#fileAnexo")[0].files[0].size;
             if (size > 419430) {
@@ -815,8 +819,6 @@ console.log(getUrlVars().cpf);
                 $("#btnGravarFoto").show();
             }
         });
-
-
         /* $("#txt_email").blur(function(){
          
          var email = validaEmail($("#txt_email").val());
@@ -833,10 +835,7 @@ console.log(getUrlVars().cpf);
         $('#sp_size_img').hide();
         $("#fileAnexoLeis").change(function () {
             tamanho = this.files;
-
             $('#sp_size_lei').text('Tamanho : ' + Number.parseFloat(tamanho[0].size / 1000000).toFixed(2) + ' Mb');
-
-
             if (tamanho[0].size < 1999353) {
                 $('#sp_size_lei').addClass('alert alert-info');
                 $('#sp_size_lei, #sp_size_img').show();
@@ -859,20 +858,16 @@ console.log(getUrlVars().cpf);
             }
 
         });
-
         /* $('#tabs-166211 a').click(function (e) {
          e.preventDefault()
          $(this).tab('show')
          }); */
 
         $("#menu_compdec").height($(".form_cadastro").height());
-
-
         $("#txt_dt_lei").datepicker({
             dateFormat: "dd/mm/yy",
             defaultDate: null
         });
-
         $("#txt_dt_decreto").datepicker({
             dateFormat: "dd/mm/yy",
             defaultDate: null
@@ -885,23 +880,18 @@ console.log(getUrlVars().cpf);
             dateFormat: "dd/mm/yy",
             defaultDate: null
         });
-
         $("#dt_curso_gestao").datepicker({
             dateFormat: "dd/mm/yy",
             defaultDate: null
         });
-
         $("#dt_curso_sco").datepicker({
             dateFormat: "dd/mm/yy",
             defaultDate: null
         });
-
         $("#dt_partic_workshop").datepicker({
             dateFormat: "dd/mm/yy",
             defaultDate: null
         });
-
-
         $("#txtTelMembro").mask("(00) 0-0000-0009");
         $("#txtCelMembro").mask("(00) 0-0000-0009");
         $("#txt_comp_fone1").mask("(00) 0-0000-0009");
@@ -913,36 +903,29 @@ console.log(getUrlVars().cpf);
         $("#dt_curso_gestao").mask("99/99/9999");
         $("#dt_curso_sco").mask("99/99/9999");
         $("#dt_partic_workshop").mask("99/99/9999");
-
-
         $("#formMembro").hide();
         $("#btnAlterarMembro").hide();
-
         /* mostr form cadastro membro*/
         $("#btnAddMembro").click(function () {
 
             $("#formMembro").show();
             $("#btnAddMembro").hide();
         });
-
         /* read only mudança (existe efetivo ?) */
         $("#selCompdec").change(function () {
             if ($("#selCompdec").val() == 0) {
                 $("#cadastro_compdec").find('input, radio, textarea, select, button, a').attr('readonly', 'readonly');
                 $("#cadastro_compdec").find('button').attr('disabled', 'disabled');
-
                 $("#spanSemEfetivo").show();
                 $("#tblMembroEquipe").hide();
                 $("#selCompdec").removeProp('readonly');
                 $("#btn_enviar").removeProp('disabled');
-
             } else {
                 $("#cadastro_compdec").find('input, radio, textarea, select, button, a').removeProp('disabled');
                 $("#tblMembroEquipe").show();
                 $("#spanSemEfetivo").hide();
             }
         });
-
         /* read only no carregamento*/
         if ($("#selCompdec").val() == 1) {
             $("#cadastro_compdec").find('input, radio, textarea, select, button, a').removeProp('disabled');
@@ -966,7 +949,6 @@ console.log(getUrlVars().cpf);
                     ) {
 
                 alert("Todos os Campos São Obrigatórios !");
-
             } else {
 
                 var dados = {
@@ -978,7 +960,6 @@ console.log(getUrlVars().cpf);
                     "txtEmailMembro": $("#txtEmailMembro").val(),
                     "txtIdMunicipio": $("#txtIdMunicipio").val(),
                 };
-
                 $.ajax({
                     type: 'POST',
                     url: 'mod_pipa/frontEnd/View/pmda/membroEquipe.php?v=<?= md5(VERSAO) ?>',
@@ -994,7 +975,6 @@ console.log(getUrlVars().cpf);
                     }
 
                 });
-
                 // limpa os controles
                 $("#txtNomeMembro").val("");
                 $("#selFuncaoMembro").val("Selecione a Função");
@@ -1003,12 +983,8 @@ console.log(getUrlVars().cpf);
                 $("#txtEmailMembro").val("");
                 $("#formMembro").hide();
                 $("#btnAddMembro").show();
-
-
             }
         });
-
-
         /**
          * gravar dados parte 1
          *
@@ -1021,7 +997,6 @@ console.log(getUrlVars().cpf);
 
                 var dados = {
                     "opcao": "parte1",
-
                     "id_municipio": $("#id_municipio").val(),
                     "selCompdec": $("#selCompdec").val(),
                     "selAtivo": $("#selAtivo").val(),
@@ -1042,9 +1017,7 @@ console.log(getUrlVars().cpf);
                     "selNudec": $("#selNudec").val(),
                     "txt_cap_nupdec": $("#txt_cap_nupdec").val(),
                     "txt_qtd_nudec": $("#txt_qtd_nudec").val(),
-
                 };
-
                 $.ajax({
                     type: 'POST',
                     url: 'mod_compdec/frontEnd/View/compdec/valida.php?v=<?= md5(VERSAO) ?>',
@@ -1060,10 +1033,8 @@ console.log(getUrlVars().cpf);
                     }
 
                 });
-
             }
         });
-
         /**
          * dados parte 2
          *
@@ -1075,7 +1046,6 @@ console.log(getUrlVars().cpf);
 
 
                 $("#btnDados").trigger("click");
-
                 /* ck sede */
                 if ($("#ck_sede").is(":checked")) {
                     $("#ck_sede").val(1);
@@ -1123,7 +1093,6 @@ console.log(getUrlVars().cpf);
                 if (false) {
 
                     alert("Todos os Campos São Obrigatórios !");
-
                 } else {
 
                     var dados = {
@@ -1158,7 +1127,6 @@ console.log(getUrlVars().cpf);
                         "pref_bairro": $("#txtBairroPref").val(),
                         "pref_cep": $("#txtCepPref").val(),
                     };
-
                     $.ajax({
                         type: 'POST',
                         url: 'mod_compdec/frontEnd/View/compdec/valida.php?v=<?= md5(VERSAO) ?>',
@@ -1181,24 +1149,19 @@ console.log(getUrlVars().cpf);
                 $("#txt_email").focus();
                 $("#txt_email").css("background", "#FF6347");
                 $("#txt_email").css("color", "#FFFFFF");
-
-
             }
         });
-
         /* grava checkebox sem DEcreto */
         $("input[name=ckSemDoc]").click(function () {
 
             var valor = ($(this).is(":checked")) ? 1 : 0;
             var campo = $(this).attr('id');
-
             var dados = {
                 "opcao": "GravaSemDoc",
                 "campo": campo,
                 "valor": valor,
                 "id_municipio": $("#txtIdMunicipio").val(),
             };
-
             /*if(valor == 1){ 
              Swal.fire({
              icon: 'error',
@@ -1221,9 +1184,7 @@ console.log(getUrlVars().cpf);
                     console.log(JSON.stringify(e));
                 }
             });
-
         });
-
         /*********** Alterar dados Membro Equipe ***********/
         $("#btnAlterarMembro").click(function () {
 
@@ -1248,7 +1209,6 @@ console.log(getUrlVars().cpf);
                     location.reload();
                 }
             });
-
             // limpa os controles
             $("#txtNomeMembro").val("");
             $("#selFuncaoMembro").val("Selecione a Função");
@@ -1257,14 +1217,10 @@ console.log(getUrlVars().cpf);
             $("#txtEmailMembro").val("");
             $("#txtIdMembro").val("");
             $("#ckWatsapp").attr('checked', false);
-
             $("#divAddMembroEquipe").show();
             $("#divAlterarMembroEquipe").hide();
             $("#formMembro").hide();
-
         });
-
-
         /*********** Gravar Foto compdec ************************/
         /* abrir modal*/
         /* defoto compdec */
@@ -1282,7 +1238,6 @@ console.log(getUrlVars().cpf);
                 }
             }
         })(jQuery);
-
         /* gravar imagem brasao */
         $("#btnGravarBrasao").click(function () {
 
@@ -1297,7 +1252,6 @@ console.log(getUrlVars().cpf);
                         if ($('#fileAnexoBrasao').val() == "") {
 
                             alert("Favor escolher uma foto ! ");
-
                         } else {
 
                             var formData = new FormData();
@@ -1306,9 +1260,7 @@ console.log(getUrlVars().cpf);
                             formData.append('fileAnexo', fileData);
                             formData.append('opcao', 'alterarImagemBrasao');
                             formData.append('txtIdMunicipio', <?= (isset($_COOKIE['seguranca']['id_municipio'])) ? $_COOKIE['seguranca']['id_municipio'] : $_GET['mun']; ?>);
-
                             var extensao = getExtensao($("#fileAnexoBrasao").val());
-
                             if (extensao.toLowerCase() == 'png') {
 
                                 $.ajax({
@@ -1328,7 +1280,6 @@ console.log(getUrlVars().cpf);
                                         console.log(JSON.stringify(e));
                                     }
                                 });
-
                             } else {
                                 alert('Formatos de arquivos permitidos PNG !');
                             }
@@ -1342,9 +1293,7 @@ console.log(getUrlVars().cpf);
                     console.log(JSON.stringify(response));
                 }
             });
-
         });
-
         /* gravar imagem compdec */
         $("#btnGravarFoto").click(function () {
 
@@ -1359,7 +1308,6 @@ console.log(getUrlVars().cpf);
                         if ($('#fileAnexo').val() == "") {
 
                             alert("Favor escolher uma foto ! ");
-
                         } else {
 
                             var formData = new FormData();
@@ -1368,9 +1316,7 @@ console.log(getUrlVars().cpf);
                             formData.append('fileAnexo', fileData);
                             formData.append('opcao', 'alterarImagem');
                             formData.append('txtIdMunicipio', <?= (isset($_COOKIE['seguranca']['id_municipio'])) ? $_COOKIE['seguranca']['id_municipio'] : $_GET['mun']; ?>);
-
                             var extensao = getExtensao($("#fileAnexo").val());
-
                             if (extensao.toLowerCase() == 'jpg' ||
                                     extensao.toLowerCase() == 'jpeg' ||
                                     extensao.toLowerCase() == 'png') {
@@ -1392,7 +1338,6 @@ console.log(getUrlVars().cpf);
                                         console.log(JSON.stringify(e));
                                     }
                                 });
-
                             } else {
                                 alert('Formatos de arquivos permitidos JPG, JPEG, PNG !');
                             }
@@ -1406,10 +1351,7 @@ console.log(getUrlVars().cpf);
                     console.log(JSON.stringify(response));
                 }
             });
-
         });
-
-
         /*********** Gravar Foto Prefeito ************************/
 
         $("#btnGravarFotoPref").click(function () {
@@ -1425,7 +1367,6 @@ console.log(getUrlVars().cpf);
                         if ($('#fileAnexoPref').val() == "") {
 
                             alert("Favor escolher uma foto ! ");
-
                         } else {
 
                             var formData = new FormData();
@@ -1434,9 +1375,7 @@ console.log(getUrlVars().cpf);
                             formData.append('fileAnexoPref', fileData);
                             formData.append('opcao', 'alterarImagemPref');
                             formData.append('txtIdMunicipio', <?= $id_municipio; ?>);
-
                             var extensao = getExtensao($("#fileAnexoPref").val());
-
                             if (extensao.toLowerCase() == 'jpg' ||
                                     extensao.toLowerCase() == 'jpeg' ||
                                     extensao.toLowerCase() == 'png') {
@@ -1477,10 +1416,7 @@ console.log(getUrlVars().cpf);
                     console.log(JSON.stringify(response));
                 }
             });
-
         });
-
-
         /*********** Anexo leis Decretos ************************/
         $("#btnGravarLeis").click(function () {
 
@@ -1495,7 +1431,6 @@ console.log(getUrlVars().cpf);
                         if ($("#fileAnexoLeis").val() == "") {
 
                             alert("Favor Anexar um arquivo! ");
-
                         } else {
 
 
@@ -1507,12 +1442,9 @@ console.log(getUrlVars().cpf);
                             formData.append('txtDtAnexo', $('#txtDtAnexo').val());
                             formData.append('txtDescricao', $('#txtDescricao').val());
                             formData.append('selTipo', $('#selTipo').val());
-                            formData.append('selTipo', $('#selTipo').val());
-
-
+                            formData.append('selTipoNome', $('#selTipo').find(":selected").text());
                             var extensao = getExtensao($("#fileAnexoLeis").val());
-
-                            if (extensao.toLowerCase() == 'pdf'){ //||
+                            if (extensao.toLowerCase() == 'pdf') { //||
 //                                    extensao.toLowerCase() == 'jpg' ||
 //                                    extensao.toLowerCase() == 'peg' ||
 //                                    extensao.toLowerCase() == 'png') {
@@ -1524,16 +1456,16 @@ console.log(getUrlVars().cpf);
                                     processData: false, // tell jQuery not to process the data
                                     contentType: false, // tell jQuery not to set contentType
                                     success: function (response) {
-                                        console.log(response);
-                                        $("#modal-default").modal('hide');
+                                        var parsedData = JSON.parse(response);
+                                         //$("#modal-default").modal('hide');
                                         //$("#tblAnexoLeis").html(response);
-                                        //location.reload();
+                                        window.open('anexo/anexo_leis/'+parsedData.file);
+                                        location.reload();
                                     },
                                     error: function (response) {
                                         //console.log(JSON.stringify(response));
                                     }
                                 });
-
                             } else {
                                 //alert($('#txtFoto').val());
                                 //alert('Formatos de arquivos permitidos PDF, JPG, JPEG, PNG !' + getExtensao($("#txtFoto").val()));
@@ -1550,13 +1482,8 @@ console.log(getUrlVars().cpf);
                     console.log(JSON.stringify(response));
                 }
             });
-
         });
-
-
     });
-
-
     function anexoView(url) {
         window.location.href = url;
     }
@@ -1570,11 +1497,8 @@ console.log(getUrlVars().cpf);
             "arquivo": arquivo,
             "opcao": "delete",
             "txtIdMunicipio": id_municipio,
-
         };
-
         var confirm1 = confirm('Deseja realmente apagar o registro ?');
-
         if (confirm1 == true) {
 
             $.ajax({
@@ -1585,10 +1509,8 @@ console.log(getUrlVars().cpf);
                     $("#tblAnexoLeis").html(response);
                     //console.log(response);
                     location.reload();
-
                 }
             });
-
             $("#btnAddMembro").hide();
         }
     }
@@ -1612,9 +1534,7 @@ console.log(getUrlVars().cpf);
             "id_equipe": id,
             "opcao": "delete"
         };
-
         var confirm1 = confirm('Deseja realmente apagar o registro ?');
-
         if (confirm1 == true) {
 
             $.ajax({
@@ -1626,7 +1546,6 @@ console.log(getUrlVars().cpf);
                     location.reload();
                 }
             });
-
             $("#btnAddMembro").hide();
         }
     }
@@ -1634,17 +1553,14 @@ console.log(getUrlVars().cpf);
 
     /*	Alterar o Membros Compdec */
     function alterarMembro(id, nome, funcao, telefone, celular, email, cpf) {
-    
+
         $('#tbl_membro').hide();
         $('html, body').animate({scrollTop: $('#equipe').offset().top}, 2000);
-
         $("#formMembro").show();
         $("#btnGravar").hide();
         $("#btnAlterarMembro").show();
         $("#btnAddMembro").hide();
         $("#btnGravarMembro").hide();
-
-
         $("#txtNomeMembro").val(nome);
         $("#selFuncaoMembro").val(funcao).change();
         $("#txtTelMembro").val(telefone);
@@ -1652,13 +1568,17 @@ console.log(getUrlVars().cpf);
         $("#txtEmailMembro").val(email);
         $("#txtIdMembro").val(id);
         $("#txtCpf").val(cpf);
-
-
     }
 
     function validaEmail(email) {
         var regex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
         return regex.test(email);
+    }
+    
+    
+    /* */
+    function focus_secao(secao) {
+        $('html, body').animate({scrollTop: $("#"+secao).offset().top}, 2000);  
     }
 
 </script>

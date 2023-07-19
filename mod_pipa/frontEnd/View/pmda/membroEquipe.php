@@ -34,7 +34,7 @@ print "<div class='col-md-12' id='tbl_membro'>";
 print "<br><br><br>";
 print "<span class='col-md-12' id='span_info'></span>";
 print "<h4><p style=\"text-align:center;\">EQUIPE COMPDEC</p></h4>";
-print "<table class='table table-bordered table-striped'>
+print "<table class='table table-bordered table-striped' id='tbl_equipe'>
 <th>#</th>
 <th>Nome</th>
 <th>CPF</th>

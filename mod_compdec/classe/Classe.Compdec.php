@@ -939,7 +939,8 @@ class Compdec {
         
         $con = Conexao::getInstance();
         
-        $sql = "SELECT *from com_anexo WHERE id_municipio = ".$id_municipio;
+        $sql = "SELECT *from com_anexo WHERE id_municipio = '".$id_municipio."'
+                and dt_anexo <= '2023-06-01'";
         
         $result = $con->query($sql);
         

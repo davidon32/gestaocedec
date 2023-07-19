@@ -126,6 +126,9 @@ class Anexo extends FuncaoBase  {
 	public static function uploadRen($caminho, $file, $inputName, $renomear){
 		
 		$uploadFile = $caminho."/".$renomear;
+                
+                //var_dump($file[$inputName]['tmp_name'], $uploadFile);
+                //die();
 
 		if(move_uploaded_file($file[$inputName]['tmp_name'], $uploadFile)/*  && (Anexo::gravar($hash, $nomeArquivo)) */){
 	

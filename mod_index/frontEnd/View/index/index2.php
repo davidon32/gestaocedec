@@ -21,20 +21,20 @@ if (isset($_GET['debug'])) {
 
 $id_municipio = $_COOKIE['seguranca']['id_municipio'];
 
+//$data_doc = 0;
+
 $data_doc = Compdec::verificadoc($id_municipio);
 
 //var_dump($data_doc);
-foreach ($data_doc as $doc) {
-   $date = new DateTime($doc['dt_anexo']);
-   //var_dump($date->diff(new DateTime('2023-06-01'))->days >=30);
-   if($date->diff(new DateTime('2023-06-01'))->days >=30) {
+
+
+   if(count($data_doc) >0) {
     print "<script>";
     print "window.location.href='index.php?token=".hash('sha256', md5(VERSAO) . date('dmY'))."&modulo=compdec&controller=compdec&action=compdec'";  
     print "</script>";
-    //break;
-    die();
+
    }
-}
+
     
 
     $_loginEx = new LoginExterno();
