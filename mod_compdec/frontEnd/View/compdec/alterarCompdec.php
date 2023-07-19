@@ -31,6 +31,18 @@ $id_municipio = $pageSession['session']['seguranca']['id_municipio'];
 $_dados = $_compdec->buscaCompdec($id_municipio);
 
 $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
+
+$status_anexo = Compdec::verificadoc($id_municipio);
+
+if(count($status_anexo) > 0) {
+    
+    $voltar = "<a class=\"btn btn-success\" title='Favor Atualizar os Documentos anexos, lei de criação, decreto e portaria de nomeação do Coordenador'>Voltar</a>";
+    $gravar = "<button class=\"btn btn-success\" type=\"button1\" name=\"-\" id=\"-\" title='Favor Atualizar os Documentos anexos, lei de criação, decreto e portaria de nomeação do Coordenador'>Gravar</button>";
+}else {
+    $voltar = "<a class=\"btn btn-success\" href=".FuncaoBase::geraLink("compdec", "compdec", "index").">Voltar</a>";
+    $gravar = "<button class=\"btn btn-success\" type=\"button\" name=\"btnDados2\" id=\"btnDados2\">Gravar</button>";
+}
+
 ?>
 
 <div class="col-md-3">
@@ -42,7 +54,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
     </div>
 </div>
 <div class="col-md-9 text-center">
-    <a class="btn btn-success" href="<?= FuncaoBase::geraLink("compdec", "compdec", "index") ?>">Voltar</a>
+    <?=$voltar?>
     </br></br>
     </br></br>
 </div>
@@ -398,7 +410,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
         </div>
     </div>
     <div class="col-md-12 text-center">
-        <button class="btn btn-success" type="button" name="btnDados2" id="btnDados2">Gravar</button>
+        <?=$gravar?>
         <br>
         <br>
     </div>
@@ -617,7 +629,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
         <div class="col-md-12" id="tblAnexoLeis">
             <span class="alert alert-danger">Favor NÃO anexar documento fora do conteúdo solicitado. !</span></br></br>
 
-
+            </br></br>
             <?php
             include PATH . '/mod_compdec/frontEnd/View/compdec/anexo.php';
             /* print "<table class='table table-bordered'>";
@@ -663,7 +675,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
                                 -> Evite nome de arquivos con espaços<br>                                
                             </p>
                             <br>
-                            <p>Tipos de Imagem válidas : <b style="color:red">"JPG", "PDF", "PNG"</b></p>
+                            <p>Tipos de Imagem válidas : <b style="color:red">"PDF"</b></p>
                             <span>Tamanho máximo da imágem :  <b style="color:red">2 MB</b></span><br>
                             <label>Descrição</label>
                             <input class="form-control" type='text' name='txtDescricao' id='txtDescricao' maxlength="40">
@@ -1500,10 +1512,10 @@ console.log(getUrlVars().cpf);
 
                             var extensao = getExtensao($("#fileAnexoLeis").val());
 
-                            if (extensao.toLowerCase() == 'pdf' ||
-                                    extensao.toLowerCase() == 'jpg' ||
-                                    extensao.toLowerCase() == 'peg' ||
-                                    extensao.toLowerCase() == 'png') {
+                            if (extensao.toLowerCase() == 'pdf'){ //||
+//                                    extensao.toLowerCase() == 'jpg' ||
+//                                    extensao.toLowerCase() == 'peg' ||
+//                                    extensao.toLowerCase() == 'png') {
 
                                 $.ajax({
                                     url: 'mod_compdec/frontEnd/View/compdec/anexo.php?v=<?= md5(VERSAO) ?>',
@@ -1512,10 +1524,10 @@ console.log(getUrlVars().cpf);
                                     processData: false, // tell jQuery not to process the data
                                     contentType: false, // tell jQuery not to set contentType
                                     success: function (response) {
-                                        //console.log(response);
+                                        console.log(response);
                                         $("#modal-default").modal('hide');
                                         //$("#tblAnexoLeis").html(response);
-                                        location.reload();
+                                        //location.reload();
                                     },
                                     error: function (response) {
                                         //console.log(JSON.stringify(response));

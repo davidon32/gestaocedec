@@ -91,7 +91,7 @@ class AnexoCompdec extends Anexo {
                 $nomeArquivo = strtoupper(substr($nomeArquivo, 0, 10));
                 #identificador unico
                 $hash = date('his');
-                $nomeFoto = $dados['txtIdMunicipio'] . "_" . $hash . "_" . $nomeArquivo;
+                $nomeFoto = $dados['txtIdMunicipio'] . "_" . $hash . "_" . $nomeArquivo. ".".self::getExtensao($arquivo['fileAnexoLeis']['name']);
 
                 $result->bindParam(":id_municipio", $dados['txtIdMunicipio']);
                 $result->bindParam(":arquivo", $nomeFoto);

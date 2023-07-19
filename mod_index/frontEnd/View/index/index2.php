@@ -21,14 +21,21 @@ if (isset($_GET['debug'])) {
 
 $id_municipio = $_COOKIE['seguranca']['id_municipio'];
 
+$data_doc = Compdec::verificadoc($id_municipio);
 
-if (count(Compdec::verificadoc($id_municipio)) >=1) {
-    
+//var_dump($data_doc);
+foreach ($data_doc as $doc) {
+   $date = new DateTime($doc['dt_anexo']);
+   //var_dump($date->diff(new DateTime('2023-06-01'))->days >=30);
+   if($date->diff(new DateTime('2023-06-01'))->days >=30) {
     print "<script>";
     print "window.location.href='index.php?token=".hash('sha256', md5(VERSAO) . date('dmY'))."&modulo=compdec&controller=compdec&action=compdec'";  
     print "</script>";
-} else {
-
+    //break;
+    die();
+   }
+}
+    
 
     $_loginEx = new LoginExterno();
     $aviso = "<div class=\"col-md-12 text-center\"></div>";
@@ -107,10 +114,6 @@ if (count(Compdec::verificadoc($id_municipio)) >=1) {
     <div class="col-md-3 text-center"></div>
     </div>
 
-    <?php
-    }
-    
-    ?>
 
     <!-- =================== RODAPE CORPO ==================== -->
     <?php include_once "template/page/corpoRodape.php"; ?>
