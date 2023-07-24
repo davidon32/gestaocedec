@@ -31,6 +31,8 @@ class LoginExterno extends Log {
      * 
      */
     public function logarExterno($_login, $senha, $redireciona = false) {
+        
+        $con = Conexao::getInstance();
 
         $_senha = "";
 
@@ -56,11 +58,12 @@ class LoginExterno extends Log {
 				WHERE cedec_user_ex.usuario = :login
 				AND cedec_user_ex.senha = :senha
 				OR
-				cedec_user_ex .email_rec = :email_rec
+				cedec_user_ex.email_rec = :email_rec
 				AND cedec_user_ex.senha = :senha";
 
-
-            $result = Conexao::getInstance()->prepare($sql);
+            
+            
+            $result = $con->prepare($sql);
 
             $result->bindValue(":login", $_login);
             $result->bindValue(":email_rec", $_login);
@@ -71,6 +74,7 @@ class LoginExterno extends Log {
 
                 $linha = $dados;
             }
+            
             if (!$linha) {
 
                 

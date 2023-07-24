@@ -72,6 +72,7 @@
     <?php
     $id = isset($_GET['id']) ? (int) $_GET['id'] : null;
     
+    
     if($id == 0) {
         print "<script>";
     print "window.location = 'http://sistema.defesacivil.mg.gov.br/dc_agora'";
@@ -80,7 +81,6 @@
     }
 
     require('dados.php');
-       
     
     $comentarios = $agora->getComentarios($id);
     

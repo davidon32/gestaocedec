@@ -219,7 +219,6 @@ class DefesaCivilAgoraModel {
                         nota
                         from cedec_def_agora
                         where id = :id";
-
        
         $result = $con->prepare($sql);
 

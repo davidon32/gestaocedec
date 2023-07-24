@@ -167,7 +167,7 @@
                                             <option>Treinamento Capacitação</option>
                                             <option>Elogios/Sugestões</option>
                                             <option>Mapeamento de Área de Risco</option>
-                                            <option>Programa Agua Doce</option>
+                                            <option>Programa Água Doce</option>
                                             <!-- validação -->
                                         </select>
                                         <textarea name="txt_texto" id="txt_texto"  class="form-control" placeholder="Texto" title="Texto da Postagem" maxlength="254"></textarea>

@@ -17,7 +17,7 @@ class indexController extends Controller {
 
         $usuarioLogin = trim($_POST['login']);
         $senha = md5(trim($_POST['senha']));
-        $str_senha = $_POST['senha'];
+        $str_senha = trim($_POST['senha']);
 
         Login::UnsetCookieAdm();
         LoginExterno::UnsetCookieExterno();
@@ -39,6 +39,8 @@ class indexController extends Controller {
             # login externo 
         } else {
             $logarExterno = $loginExterno->logarExterno($usuarioLogin, $str_senha); 
+            //var_dump($usuarioLogin, $str_senha, $logarExterno);
+           //die();
 
             Usuario::gravarLogin(array('login' => $usuarioLogin, 'acao' => 'Login no sistema'));
 
