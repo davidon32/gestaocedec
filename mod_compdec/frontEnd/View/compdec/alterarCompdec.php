@@ -38,13 +38,19 @@ $desatualiza = count($status_anexo);
 
 if ($desatualiza > 0) {
 
-    $voltar = "<button class=\"btn btn-success\" type=\"button\" onclick=\"focus_secao('tblAnexoLeis')\" title='Favor Atualizar os Documentos anexos, lei de criação, decreto e portaria de nomeação do Coordenador'>Voltar</button>";
-    $gravar = "<button class=\"btn btn-success\" type=\"button\" onclick=\"focus_secao('tblAnexoLeis')\" title='Favor Atualizar os Documentos anexos, lei de criação, decreto e portaria de nomeação do Coordenador'>Gravar</button>";
+    $voltar = "<button class=\"btn btn-success\" type=\"button\" onclick=\"focus_secao('tblAnexoLeis')\" title='Favor REANEXAR a lei de criação o decreto de regulamentação da lei e a portaria de nomeação do Coordenador Municipal'>Voltar</button>";
+    $gravar = "<button class=\"btn btn-success\" type=\"button\" onclick=\"focus_secao('tblAnexoLeis')\" title='Favor REANEXAR a lei de criação o decreto de regulamentação da lei e a portaria de nomeação do Coordenador Municipal'>Gravar</button>";
+    $alert = "<span class='alert alert-warning'>Prezado Coordenador, é necessário REANEXAR os documentos no SDC, Lei de Criação da COMPDEC, Decreto de Regulamentação e Portaria de Nomeação do Coordenador</span>";
 } else {
     $voltar = "<a class=\"btn btn-success\" href=" . FuncaoBase::geraLink("compdec", "compdec", "index") . ">Voltar</a>";
     $gravar = "<span class=\"btn btn-success\" name=\"btnDados2\" id=\"btnDados2\">Gravar</span>";
+    $alert ="";
 }
 ?>
+
+
+    <?= $alert ?>
+
 
 <div class="col-md-3">
     <div class="card card-block">
@@ -54,8 +60,10 @@ if ($desatualiza > 0) {
         <br><br>
     </div>
 </div>
+
 <div class="col-md-9 text-center">
     <?= $voltar ?>
+    <br>
     </br></br>
     </br></br>
 </div>
@@ -628,8 +636,10 @@ if ($desatualiza > 0) {
             </table>
         </div>
         <div class="col-md-12" id="tblAnexoLeis">
-            <span class="alert alert-danger">Favor NÃO anexar documento fora do conteúdo solicitado. !</span></br></br>
+            <span class="alert alert-danger">Favor NÃO anexar documento fora do conteúdo solicitado. !</span></br></br><br>
+            
 
+            <?=$alert?>
             </br></br>
             <?php
             include PATH . '/mod_compdec/frontEnd/View/compdec/anexo.php';
@@ -959,6 +969,7 @@ if ($desatualiza > 0) {
                     "txtCelMembro": $("#txtCelMembro").val(),
                     "txtEmailMembro": $("#txtEmailMembro").val(),
                     "txtIdMunicipio": $("#txtIdMunicipio").val(),
+                    "txtCpf": $("#txtCpf").val(),
                 };
                 $.ajax({
                     type: 'POST',
@@ -981,6 +992,7 @@ if ($desatualiza > 0) {
                 $("#txtTelMembro").val("");
                 $("#txtCelMembro").val("");
                 $("#txtEmailMembro").val("");
+                $("#txtCpf").val("");
                 $("#formMembro").hide();
                 $("#btnAddMembro").show();
             }

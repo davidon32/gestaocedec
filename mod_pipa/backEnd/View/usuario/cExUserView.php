@@ -103,7 +103,7 @@ $dados = Usuario::buscaUsuarioId($_GET['id']);
 
         <div class="row">
             
-            <div class="col-md-12">
+<!--            <div class="col-md-12">
                 <table class="table table-bordered table-striped" width="60%">
                     <tr>
                         <th style="text-align: center;" colspan="3"><h4>Habilitação Módulo de Acesso</h4></th>
@@ -130,7 +130,7 @@ $dados = Usuario::buscaUsuarioId($_GET['id']);
                             <input type="checkbox" name="ck_ajuda" id="ck_ajuda" title="Em Desenvolvimento" disabled <?= ($dados['mod_ajuda']) == "1" ? "checked='checked' value='1'" : "" ?>>
                         </td>
                     </tr>
-                </table>
+                </table>-->
             </div>
         </div>
 
