@@ -194,7 +194,7 @@
                         <div class="widget">
                             <div class="footer-text text-center">
                                 <a href="index.html"><img src="images/version/garden-footer-logo.png" alt="" class="img-fluid"></a>
-                                <p>Gabinete Militar do Estado de Minas Gerais e Coordenadoria Estadual de Defesa Civil de Minas Gerais.</p>
+                                <p>Gabinete Militar do Governador de MG e Coordenadoria Estadual de Defesa Civil MG.</p>
                                 <div class="social">
                                     <a href="https://www.facebook.com/defesacivilmg/" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i class="fa fa-facebook"></i></a>              
                                     <a href="https://www.youtube.com/c/DefesaCivildeMinasGerais/videos" data-toggle="tooltip" data-placement="bottom" title="Youtube"><i class="fa fa-youtube"></i></a>
