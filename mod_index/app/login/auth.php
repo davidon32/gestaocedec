@@ -81,30 +81,32 @@ $usuario = Usuario::getCpfEmail($_COOKIE['seguranca']['idUser']);
     function autentica() {
         $.ajax({
             type: "POST",
-            /*url: 'http://localhost/api/autentica',*/
-            url: 'http://localhost:8081/sdclaravel/public/autentica/<?= $usuario['token'] ?>',
+            url: 'http://localhost:8081/api/auth/login',
+            //url: 'http://localhost:8081/sdclaravel/public/autentica/<?= $usuario['token'] ?>',
 
 
             data: {
                 token: '<?= $usuario['token'] ?>',
                 cpf: '<?= $usuario['cpf'] ?>',
+                password: '12345678',
                 email: '<?= $usuario['email'] ?>',
                 'url' : window.location.href
             },
             success: function (e) {
                 console.log(e);
-                $.ajax({
-                    type: "POST",
-                    url: '/mod_index/app/login/valida.php',
-                    data: {
-                        cpf: '<?= $usuario['cpf'] ?>',
-                        email: '<?= $usuario['email'] ?>',
-                        opcao: 'updateToken'
-                    },
-                    success: function (e) {
-                        console.log();
-                    }
-                });
+                window.location.href = 'http://localhost:8081/drrd';
+//                $.ajax({
+//                    type: "POST",
+//                    url: '/mod_index/app/login/valida.php',
+//                    data: {
+//                        cpf: '<?= $usuario['cpf'] ?>',
+//                        email: '<?= $usuario['email'] ?>',
+//                        opcao: 'updateToken'
+//                    },
+//                    success: function (e) {
+//                        console.log();
+//                    }
+//                });
 
             }
         });
