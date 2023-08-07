@@ -81,8 +81,8 @@ $usuario = Usuario::getCpfEmail($_COOKIE['seguranca']['idUser']);
     function autentica() {
         $.ajax({
             type: "POST",
-            url: 'http://localhost:8081/api/auth/login',
-            //url: 'http://localhost:8081/sdclaravel/public/autentica/<?= $usuario['token'] ?>',
+            //url: 'http://localhost:8081/api/auth/login',
+            url: 'http://localhost:8081/sdclaravel/public/autentica/<?= $usuario['token'] ?>',
 
 
             data: {
