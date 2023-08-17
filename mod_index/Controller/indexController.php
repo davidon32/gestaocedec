@@ -232,6 +232,8 @@ class indexController extends Controller {
      */
     public function paebm() {
         
+        $routeInicio = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+
         include_once 'mod_index/app/login/auth.php';
         
     }

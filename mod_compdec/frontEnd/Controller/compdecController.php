@@ -34,6 +34,13 @@
         public function download(){
             return FuncaoBase::download($_GET['arquivo']);
         }
+        
+        
+        public function vistoria() {
+            $vistoria = 'vistoria';
+            include_once 'mod_index/app/login/auth.php';
+            
+        }
 
    
     }

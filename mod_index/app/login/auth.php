@@ -10,8 +10,23 @@
 <?php
 include_once "template/page/rodapePage.php";
 
-$usuario = Usuario::getCpfEmail($_COOKIE['seguranca']['idUser']);
+$user = Usuario::getUserData($_COOKIE['seguranca']);
 
+if (isset($user['email_rec'])) {
+    $email = $user['email_rec'];
+}
+
+
+$routeList = [
+    "paebm" => 'drrd',
+];
+
+$actionApi = isset($_GET['action']) ? $_GET['action'] : "index";
+
+$route = $routeList[$actionApi];
+
+var_dump($user);
+//die();
 ?>
 
 <div class="modal fade" tabindex="-1" role="dialog" id="myModal" data-backdrop="static">
@@ -40,15 +55,19 @@ $usuario = Usuario::getCpfEmail($_COOKIE['seguranca']['idUser']);
 
     $(document).ready(function () {
 
-        var cpf = '<?= $usuario['cpf'] ?>';
+        var cpf = '<?= $user['cpf'] ?>';
+
+        console.log(cpf.length);
+
 
         if (cpf.length == 0) {
             $('#myModal').modal('show');
-            $('#cpf').focus();
+            //$('#cpf').focus();
+
         } else {
             autentica();
         }
-        
+
         $('#cpf').keyup(function () {
             $('#cpf').val($('#cpf').val().replace(/\D/g, ""));
         });
@@ -62,11 +81,12 @@ $usuario = Usuario::getCpfEmail($_COOKIE['seguranca']['idUser']);
                 data: {
                     cpf: $('#cpf').val(),
                     id_usuario: '<?= $_COOKIE['seguranca']['idUser'] ?>',
+                    email: '<?= $email ?>',
                     opcao: 'updateCPF'
                 },
                 success: function (e) {
                     console.log(e);
-                    if(e === 'true'){
+                    if (e === 'true') {
                         //autentica();
                     }
                 }
@@ -75,38 +95,42 @@ $usuario = Usuario::getCpfEmail($_COOKIE['seguranca']['idUser']);
 
 
 
+
+
     });
 
     /*tenta autentica e se sucesso atualia o token */
     function autentica() {
+    
+    
+        var route = '<?= $route ?>';
+        
         $.ajax({
             type: "POST",
-            //url: 'http://localhost:8081/api/auth/login',
-            url: 'http://localhost:8081/sdclaravel/public/autentica/<?= $usuario['token'] ?>',
+            url: 'http://localhost:8081/api/auth/login',
+            //url: 'http://localhost:8081/sdclaravel/public/autentica/'//$user['token'] ?>',
 
 
             data: {
-                token: '<?= $usuario['token'] ?>',
-                cpf: '<?= $usuario['cpf'] ?>',
+                token: '<?= $user['token'] ?>',
+                cpf: '<?= $user['cpf'] ?>',
                 password: '12345678',
-                email: '<?= $usuario['email'] ?>',
-                'url' : window.location.href
+                email: '<?= $email ?>',
+                route: route,
             },
             success: function (e) {
                 console.log(e);
-                window.location.href = 'http://localhost:8081/drrd';
-//                $.ajax({
-//                    type: "POST",
-//                    url: '/mod_index/app/login/valida.php',
-//                    data: {
-//                        cpf: '<?= $usuario['cpf'] ?>',
-//                        email: '<?= $usuario['email'] ?>',
-//                        opcao: 'updateToken'
-//                    },
-//                    success: function (e) {
-//                        console.log();
-//                    }
-//                });
+                
+                var routeInicio = '<?=$routeInicio?>';
+                if (e.data.result === true) {
+                    var token = e.data.token.plainTextToken;
+                    window.location.href = 'http://localhost:8081/'+route+'?token='+token+'&routeInicio='+routeInicio;
+                } else {
+                    console.log('erro login na api !');
+
+                }
+
+
 
             }
         });

@@ -2638,7 +2638,43 @@ and cedec_usuario.id_usuario != 79
             print FuncaoBase::getError($e->getMessage(), 'Mensagem');
         }
     }
+    
+    
+    /* busca usuarios internos e externos */
+    public static function getUserData(array $dados) {
+              
+        $con = Conexao::getInstance();
+        
+        $sql = "";
 
-}
+        try {
 
-?>
+            $sqlUserExterno = "select * from cedec_user_ex where id = ".$dados['idUser'];
+            
+            $sqlUserInterno = "select *from cedec_usuario where id_usuario = ".$dados['idUser'];
+            
+            if($dados['tipo'] == "e") {
+                
+                $sql = $sqlUserExterno;
+                
+            }elseif ($dados['tipo'] == "i") {
+                $sql = $sqlUserInterno;
+            }
+
+            $result = $con->query($sql);
+            
+            $result->execute();
+            
+           
+            return $result->fetch(PDO::FETCH_ASSOC);
+
+        } catch (Exception $e) {
+            print FuncaoBase::getError($e->getMessage(), 'Mensagem');
+        }
+        
+        
+        
+    }
+    
+
+}?>
