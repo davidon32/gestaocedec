@@ -17,6 +17,8 @@ $registro = new Registro();
 
 $dadosgrafGeral = $registro->grafGeral();
 
+$tot_desabrigados = 0;
+$tot_desalojados  = 0;
 
 
 ?>
@@ -64,12 +66,14 @@ $dadosgrafGeral = $registro->grafGeral();
             </div>
         </div>
     </div>-->
-    <div class="col-md-4 text-center">
+    <div class="col-md-5 text-center">
         <div class="table-responsive">
             <legend>Últimos Registros</legend>
             <?php
 
             $registros = $registro->buscaDanosHum('2023-01-12');
+            
+            //var_dump($registros);
             
 
             print "<table class='table table-responsive table-striped'>";
@@ -80,6 +84,7 @@ $dadosgrafGeral = $registro->grafGeral();
             print "<th>Desalojados</th>";
             print "</tr>";
 
+            
             foreach ($registros as $key => $registro) {
                 
                 $tot_desabrigados += $registro['desabrigado'];
@@ -98,6 +103,9 @@ $dadosgrafGeral = $registro->grafGeral();
                 print "<td style='font-size:15pt;'><span class='label label-danger'>".$tot_desalojados."</span></td>";
                 print "</tr>";
             print "</table>";
+            
+            $tot_desabrigados = 0;
+            $tot_desalojados  = 0;
             ?>
         </div>
     </div>

@@ -238,11 +238,11 @@ class Registro {
         $con = Conexao::getInstance();
     
         $sql = "SELECT municipio_id, dt_desalojado, desalojado, desabrigado FROM reg_danos_humanos
-                WHERE dt_desalojado = '{$data}'";
+                WHERE dt_desalojado = :desalojado";
        
         $result = $con->prepare($sql);
-        $result->bindValue(":desalojado", $id_municipio);
-        $result->bindValue(":desabrigado", $data);
+        $result->bindValue(":desalojado", $data);
+        //$result->bindValue(":desabrigado", $data);
 
         $result->execute();
         
