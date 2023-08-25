@@ -24,7 +24,20 @@
 
 <br>
 <br>
-<a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=ajuste" class="btn btn-primary">Ajuste Saldo</a>
+<?php
+
+    $loginAcesso = ['m1296844',
+                    's149704'
+                    ];
+    
+    
+  
+    if( ($_COOKIE['seguranca']['tipo'] == "i") && (in_array(strtolower($_COOKIE['seguranca']['login']), $loginAcesso)) ) 
+     {
+        print "<a href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=ajuste\" class=\"btn btn-primary\">Ajuste Saldo</a>";
+    }
+    
+?>
 <br>
 <br>
 </div>

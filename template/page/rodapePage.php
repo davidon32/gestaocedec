@@ -188,7 +188,8 @@ echo htmlspecialchars("<a href='<?=FuncaoBase::geraLink('$modulo', '$controller'
 
 
 
-        $('input[type="text"]:not([type="email"]):not([type="submit"]):not([name*="notNormaliza"]),textarea').blur(function () {
+        /* upper case */
+        $('input[type="text"]:not([type="email"]):not([type="submit"]):not([name*="notNormaliza"]),textarea:not([name*="notNormaliza"])').blur(function () {
             $(this).val($(this).val().toUpperCase());
         });
 
@@ -196,7 +197,7 @@ echo htmlspecialchars("<a href='<?=FuncaoBase::geraLink('$modulo', '$controller'
             $(this).val($(this).val().toLowerCase());
         });
 
-        $('input[type="text"]:not([name^="val"]):not([name*="DtInici"]):not([name*="DtFinal"]):not([name*="txtAliquota"]):not([name*="notNormaliza"]),textarea').blur(function () {
+        $('input[type="text"]:not([name^="val"]):not([name*="DtInici"]):not([name*="DtFinal"]):not([name*="txtAliquota"]):not([name*="notNormaliza"]),textarea:not([name*="notNormaliza"])').blur(function () {
             function retira_acentos(palavra) {
                 var string = palavra;
                 var mapaAcentosHex = {

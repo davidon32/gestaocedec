@@ -173,6 +173,7 @@ class Produto {
 
 
         $result = $con->query($sql);
+        
 
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
 

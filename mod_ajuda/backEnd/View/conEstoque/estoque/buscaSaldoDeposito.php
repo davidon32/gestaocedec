@@ -22,6 +22,7 @@ if(empty($opcao) && (empty($qtd))){
     
     # grava entrada de saldo de materiais
     }elseif ($opcao == "gravar"){
+        
         if($qtd > 0){
             # lancar entrada de material
             $ajusteSaldo = $saldo->CreditarSaldo($id_material, $id_deposito, $qtd);
@@ -33,17 +34,17 @@ if(empty($opcao) && (empty($qtd))){
                                             $txarObs,
                                             $qtd,
                                             Deposito::PegaNomeDeposito($id_deposito),
-                                            date("Y-m-d"),
                                             "-",
                                             $id_deposito,
-                                            "",
-                                            $_COOKIE['seguranca']['idUser']);
+                                            $_COOKIE['seguranca']['idUser'],
+                                            $id_entrada);
             }
             if($result){
                 print "sucesso";
             };
 
         }elseif ($qtd < 0){
+            
             # lancar entrada negativa material - ajuste saldo
             $ajusteSaldo = $saldo->DebitarSaldo($id_material, $id_deposito, abs($qtd));
             
@@ -55,11 +56,10 @@ if(empty($opcao) && (empty($qtd))){
                                             $txarObs,
                                             $qtd,
                                             Deposito::PegaNomeDeposito($id_deposito),
-                                            date("Y-m-d"),
                                             "-",
                                             $id_deposito,
-                                            $id_entrada,
-                                            $_COOKIE['seguranca']['idUser']);
+                                            $_COOKIE['seguranca']['idUser'],
+                                            $id_entrada);
             }
             if($result){
                 print "sucesso";

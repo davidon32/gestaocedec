@@ -45,8 +45,9 @@ $_relatorioAjuda = new RelatorioAju();
 
 </style>
 <?php
+var_dump($_POST);
 if (empty($_POST)) {
-    print "<script>window.location.href='" . FuncaoBase::geraLink("ajuda", "relatorio", "form_busca_prest_contas") . "';</script>";
+    //print "<script>window.location.href='" . FuncaoBase::geraLink("ajuda", "relatorio", "form_busca_prest_contas") . "';</script>";
 } else {
 
 
@@ -70,6 +71,8 @@ if (empty($_POST)) {
 
     $entrada = $_relatorioAjuda->EntradaMaterial($_POST);
     
+    
+    
     $totalEntrada = 0;
     $totalCorrecao = 0;
     $totalTransferencia = 0;
@@ -79,6 +82,9 @@ if (empty($_POST)) {
     $countCorrecao = 0;
     $countLiberacao = 0;
     $totSaldo = 0;
+    $saldo = 0;
+    
+    $totalLiberacao=0;
     
 
     print "</br>";
@@ -218,58 +224,61 @@ if (empty($_POST)) {
                 print "</tr>";
 
                 $totalItem += $item['quantidade'];
+                $totalLiberacao += $totalItem; 
             }
             print "</table>";
+            
+        }else {
+            $totalItem =0;
+            $saldo = 0;
         }
-        // resumo material 
-        //if(count($items) > 0) {
+        
 
         $cor = ($totalEntrada - $totalItem) > 0 ? "#0000FF" : $corSaida;
         
         $saldo = $totalEntrada - $totalTransferencia - $totalItem - $totalCorrecao;
+        print $saldo."/";
         $totSaldo += $saldo;
         print "<tr><td colspan='6' style='text-align:right'>Total Liberado</td>";
         print "<td colspan='2' style='color :" . $corSaida . "'>" . ( ($totalItem == 0 ) ? "" : "-" ) . $totalItem . "</td></tr>";
 
         print "</tr>";
         print "<td colspan='6' style='text-align:right'>Saldo</td>";
-        print "<td colspan='2' style='color :" . $cor . "'>" . ($saldo) . "</td>";
+        print "<td colspan='2' style='color :" . $cor . "'>" . $saldo . "</td>";
         //var_dump($totalEntrada,$totalTransferencia, $totalItem );
         print "</tr>";
-        //}
 
 
         print "</td></tr>";
         print "<tr><td colspan='8'><hr style='border:0.1em solid'></td></tr>";
 
-        
+        $totalItem = 0;
+        $saldo = 0;
+        $totalEntrada =0;
+        $totalTransferencia =0;
+        $totalCorrecao =0;
     }
     print "</table>";
-    
         
         
-        $totalLiberacao = 0;
-        
-        
-
         $totalGeralEntrada = count($entrada);
     
     print "<div class='col-md-3'></div>";
     print "<div class='col-md-6'>";
     print "<table class='table table-stripped'>";
     print "<tr>";
-    print "<td>Total Entradas :</td><td>" . $totalGeralEntrada . "</td>";
+    print "<td>Entradas :</td><td>".$totalGeralEntrada."</td>";
     print "</tr>";
     print "<tr>";
-    print "<td>Total Liberações :</td><td>".$countLiberacao."</td>";
+    print "<td>Total Itens Liberações :</td><td>".$totalLiberacao."</td>";
     print "</tr>";
     print "<tr>";
-    print "<td>Total Transferencias :</td><td>".$countTransf."</td>";
+    print "<td>Total Transferencias :</td><td>".$totalTransferencia."</td>";
     print "</tr>";
-    print "<td>Total Correções Saldo :</td><td>".$countCorrecao."</td>";
+    print "<td>Total Correções Saldo :</td><td>0</td>";
     print "</tr>";
     print "</tr>";
-    print "<td>Saldo :</td><td>".$totSaldo."</td>";
+    print "<td>Saldo :</td><td>0</td>";
     print "</tr>";
     print "</table>";
     print "</div>";

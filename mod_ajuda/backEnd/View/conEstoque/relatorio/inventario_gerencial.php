@@ -267,6 +267,9 @@
                    /* ajax */
                    
                    
+                   ".FuncaoBase::geraLink('ajuda', 'relatorio', 'rel_prest_conta', ['voltar'=>'menu'])
+                   
+                   
                     
                 });
 

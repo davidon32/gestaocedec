@@ -46,7 +46,7 @@
     </div>
     <div class="col-md-12">
         <label>Obs (Nº de Liberacao ou Transferencia / origem de algum evento)</label>
-        <textarea id="txtObs" name="txtObs" class="form-control" rows="4" maxlength="255" ></textarea><!-- revisado size ok-->
+        <textarea id="txtObs" name="notNormaliza" class="form-control" rows="4" maxlength="255" ></textarea><!-- revisado size ok-->
     </div>
 
     <div class="col-md-12" id="correcaoSaldo"> 
@@ -97,14 +97,14 @@
             saldo = $("#selEntrada").find(':selected').data('saldo');
 
             if (isNaN(saldo)) {
+                $("#saldoAtual").text(0);
+            }else {
                 $("#txtSaldoAtual").val(saldo);
                 $("#txtSaldoCorrecao").attr({
                     "max": saldo,
                     "min": 1
                 });
                 $("#saldoAtual").text(saldo);
-            }else {
-                $("#saldoAtual").text(0);
             }
         });
 
