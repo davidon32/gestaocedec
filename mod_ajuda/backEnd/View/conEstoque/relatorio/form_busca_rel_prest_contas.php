@@ -37,10 +37,11 @@ $eventos = $eventoModel->listaEvento();
         <br><br>
     </div>
 
-    <!--<div class="col-md-12">
+    <div class="col-md-12">
         <label>Dep&oacute;sito Destino:</label>
         <?php $_deposito->pegaDeposito(); ?>
-    </div>
+    </div><br>
+    <!--
     <div class="col-md-12">
         <br>
         <label>Data Inicial:</label>
@@ -69,7 +70,9 @@ $eventos = $eventoModel->listaEvento();
             ?>
         </select>
     </div>-->
-    <div class="col-md-12 text-center">
+    <br>
+    
+    <div class="col-md-12 text-center"><br>
         <input class="btn btn-primary" type="submit" name="pesquisar" value="Pesquisar" />
         &nbsp;&nbsp;<a class="btn btn-success" href="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')); ?>&ac=itn&modulo=ajuda&controller=relatorio&action=form_prest_contas">Voltar</a>				 
     </div>

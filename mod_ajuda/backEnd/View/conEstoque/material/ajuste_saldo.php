@@ -24,6 +24,8 @@
         <?= Deposito::pegaDeposito(); ?>
         <br>
     </div>
+    
+    <!--    MATERIAL -->
     <div class="col-md-3">
         <label>Material</label>
         <?= Produto::pegaProduto(); ?>

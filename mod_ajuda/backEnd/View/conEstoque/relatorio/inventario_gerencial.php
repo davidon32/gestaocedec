@@ -163,7 +163,13 @@
                                 print "<tr>
                                     
                                     <td class='danger'>".$value['id_unidade']."</td>
-                                    <td class='danger'>".$value['material']."/".$value['descricao']."</td>";
+                                    <td class='danger'>
+                                    
+                                        <!--INVENTARIO-->
+                                        
+                                        <a href='#' id='prest".$key1."' name='lkPrest' data-id_mat='".$value['id_unidade']."' data-id_dep='".$id_deposito."'>".$value['material']."/".$value['descricao']."</a>";                                    
+                                        
+                                     print "</td>";
                                     print ( (empty($id_deposito)) ? "<td class='danger'>".Deposito::PegaNomeDeposito($value['id_deposito'])."</td>" : "" );
                                     print "<td class='danger'>".$value['valor']."</td>
                                         <td class='danger'>".$value['peso']."</td>
@@ -249,11 +255,20 @@
                         $(this).find("td:eq(1)").remove();
                     });
 
-
-
-
-
                 }
+                
+                
+                /* rel prest contas */
+                $("a[name=lkPrest]").click(function(){
+                   
+                   var id_material = $(this).data('id_mat');
+                   var id_deposito = $(this).data('id_dep');
+                   
+                   /* ajax */
+                   
+                   
+                    
+                });
 
             });
 
