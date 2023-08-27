@@ -1202,7 +1202,7 @@ class Login extends Liberacao {
         $acesso = array();
         
         $_acesso[9] = 1;
-        $_acesso[10] = 0;
+        $_acesso[10] = 1;
         
         print "<div class='row'>";
 

@@ -19,6 +19,12 @@
                   Login::mostraModulos(Login::acessoModulo($pageSession['session']['seguranca']['login']));
                   
                 ?>
+                
+                <div class="col-md-3 text-center">
+                    <a class="thumbnail" href="?token=<?=hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=paebm"?>" title="Protocolo PaeBM"><img width="120" src="core/imagem/paebm.png"><br />PaeBM</a>
+                </div>
+                    
+                    
             </div>
 <!-- =================== RODAPE CORPO ==================== -->
 <?php include_once "template/page/corpoRodape.php";?>

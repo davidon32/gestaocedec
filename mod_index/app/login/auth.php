@@ -25,7 +25,7 @@ $actionApi = isset($_GET['action']) ? $_GET['action'] : "index";
 
 $route = $routeList[$actionApi];
 
-var_dump($user);
+//var_dump($user);
 //die();
 ?>
 
@@ -107,7 +107,8 @@ var_dump($user);
         
         $.ajax({
             type: "POST",
-            url: 'http://localhost:8081/api/auth/login',
+            url: 'http://www.sdcmg.com.br/api/auth/login',
+            //url: 'http://localhost:8081/api/auth/login',
             //url: 'http://localhost:8081/sdclaravel/public/autentica/'//$user['token'] ?>',
 
 
