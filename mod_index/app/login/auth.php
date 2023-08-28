@@ -99,9 +99,6 @@ var_dump($result);
         });
 
 
-
-
-
     });
 
     /*tenta autentica e se sucesso atualia o token */
