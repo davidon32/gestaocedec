@@ -2667,6 +2667,7 @@ and cedec_usuario.id_usuario != 79
             
            
             return $result->fetch(PDO::FETCH_ASSOC);
+            
 
         } catch (Exception $e) {
             print FuncaoBase::getError($e->getMessage(), 'Mensagem');

@@ -12,6 +12,8 @@ include_once "template/page/rodapePage.php";
 
 $user = Usuario::getUserData($_COOKIE['seguranca']);
 
+
+
 if (isset($user['email_rec'])) {
     $email = $user['email_rec'];
 }
@@ -25,8 +27,6 @@ $actionApi = isset($_GET['action']) ? $_GET['action'] : "index";
 
 $route = $routeList[$actionApi];
 
-//var_dump($user);
-//die();
 ?>
 
 <div class="modal fade" tabindex="-1" role="dialog" id="myModal" data-backdrop="static">
@@ -57,12 +57,8 @@ $route = $routeList[$actionApi];
 
         var cpf = '<?= $user['cpf'] ?>';
 
-        console.log(cpf.length);
-
-
-        if (cpf.length == 0) {
+        if (cpf.length === 0) {
             $('#myModal').modal('show');
-            //$('#cpf').focus();
 
         } else {
             autentica();
@@ -79,7 +75,7 @@ $route = $routeList[$actionApi];
                 type: "POST",
                 url: '/mod_index/app/login/valida.php',
                 data: {
-                    cpf: $('#cpf').val(),
+                    cpf: cpf,
                     id_usuario: '<?= $_COOKIE['seguranca']['idUser'] ?>',
                     email: '<?= $email ?>',
                     opcao: 'updateCPF'
@@ -107,11 +103,10 @@ $route = $routeList[$actionApi];
         
         $.ajax({
             type: "POST",
-            url: 'http://www.sdcmg.com.br/api/auth/login',
+            url: 'https://sdcmg.com.br/api/auth/login',
             //url: 'http://localhost:8081/api/auth/login',
+            //url: 'http://localhost:8081/public/api/auth/login',
             //url: 'http://localhost:8081/sdclaravel/public/autentica/'//$user['token'] ?>',
-
-
             data: {
                 token: '<?= $user['token'] ?>',
                 cpf: '<?= $user['cpf'] ?>',
@@ -125,7 +120,7 @@ $route = $routeList[$actionApi];
                 var routeInicio = '<?=$routeInicio?>';
                 if (e.data.result === true) {
                     var token = e.data.token.plainTextToken;
-                    window.location.href = 'http://localhost:8081/'+route+'?token='+token+'&routeInicio='+routeInicio;
+                    window.location.href = 'http://localhost:8081/public/'+route+'?token='+token+'&routeInicio='+routeInicio;
                 } else {
                     console.log('erro login na api !');
 
