@@ -27,6 +27,15 @@ $actionApi = isset($_GET['action']) ? $_GET['action'] : "index";
 
 $route = $routeList[$actionApi];
 
+$url = 'https://sdcmg.com.br/api/teste';
+           
+$ch = curl_init($url);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+           
+$result =  json_decode(curl_exec($ch));
+
+var_dump($result);
+
 ?>
 
 <div class="modal fade" tabindex="-1" role="dialog" id="myModal" data-backdrop="static">
@@ -101,35 +110,43 @@ $route = $routeList[$actionApi];
     
         var route = '<?= $route ?>';
         
-        $.ajax({
-            type: "POST",
-            url: 'https://sdcmg.com.br/api/auth/login',
-            //url: 'http://localhost:8081/api/auth/login',
-            //url: 'http://localhost:8081/public/api/auth/login',
-            //url: 'http://localhost:8081/sdclaravel/public/autentica/'//$user['token'] ?>',
-            data: {
-                token: '<?= $user['token'] ?>',
+           
+                   
+        
+//        $.ajax({
+//            type: "GET",
+//            headers: {
+//            'Access-Control-Allow-Origin' : "https://sdcmg.com.br",
+//            'Access-Control-Allow-Methods': 'POST, PUT, PATCH, GET, DELETE, OPTIONS',
+//            'Access-Control-Allow-Headers': 'Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization',
+//            'Access-Control-Allow-Credentials': 'true',
+//            'Accept': 'application/json',
+//            },
+//            url: 'https://sdcmg.com.br/api/teste',
+//            //url: 'http://sdcmg.com.br/api/auth/login',
+//            //url: 'http://localhost:8081/api/auth/login',
+//            //url: 'http://localhost:8081/public/api/auth/login',
+//            //url: 'http://localhost:8081/sdclaravel/public/autentica/'//$user['token'] ?>',
+////            data: {
+////                token: '<?= $user['token'] ?>',
                 cpf: '<?= $user['cpf'] ?>',
                 password: '12345678',
                 email: '<?= $email ?>',
-                route: route,
-            },
-            success: function (e) {
-                console.log(e);
-                
-                var routeInicio = '<?=$routeInicio?>';
-                if (e.data.result === true) {
-                    var token = e.data.token.plainTextToken;
-                    window.location.href = 'http://localhost:8081/public/'+route+'?token='+token+'&routeInicio='+routeInicio;
-                } else {
-                    console.log('erro login na api !');
-
-                }
-
-
-
-            }
-        });
+////                route: route,
+////            },
+//            success: function (e) {
+//                console.log(e);
+//                
+////                var routeInicio = '<?=$routeInicio?>';
+////                if (e.data.result === true) {
+////                    var token = e.data.token.plainTextToken;
+////                    window.location.href = 'http://localhost:8081/public/'+route+'?token='+token+'&routeInicio='+routeInicio;
+////                } else {
+////                    console.log('erro login na api !');
+////
+////                }
+//            }
+//        });
     }
 
 
