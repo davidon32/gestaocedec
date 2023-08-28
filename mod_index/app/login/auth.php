@@ -94,9 +94,6 @@ $route = $routeList[$actionApi];
         });
 
 
-
-
-
     });
 
     /*tenta autentica e se sucesso atualia o token */
