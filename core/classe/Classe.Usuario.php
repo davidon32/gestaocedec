@@ -2596,7 +2596,7 @@ and cedec_usuario.id_usuario != 79
             $con = Conexao::getInstance();
 
             $sql = "UPDATE cedec_usuario SET
-			cpf = " . $post['cpf'] . "
+			cpf = '" . $post['cpf'] . "'
 			WHERE id_usuario = " . $post['id_usuario'];
 
             $result = $con->query($sql);

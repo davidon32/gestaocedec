@@ -40,7 +40,7 @@ if ($desatualiza > 0) {
 
     $voltar = "<button class=\"btn btn-success\" type=\"button\" onclick=\"focus_secao('tblAnexoLeis')\" title='Favor REANEXAR a lei de criação o decreto de regulamentação da lei e a portaria de nomeação do Coordenador Municipal'>Voltar</button>";
     $gravar = "<button class=\"btn btn-success\" type=\"button\" onclick=\"focus_secao('tblAnexoLeis')\" title='Favor REANEXAR a lei de criação o decreto de regulamentação da lei e a portaria de nomeação do Coordenador Municipal'>Gravar</button>";
-    $alert = "<span class='alert alert-warning'>Prezado Coordenador, é necessário REANEXAR os documentos no SDC, Lei de Criação da COMPDEC, Decreto de Regulamentação e Portaria de Nomeação do Coordenador</span>";
+    $alert = "<p class='alert alert-warning'>Prezado Coordenador, é necessário REANEXAR os documentos no SDC, Lei de Criação da COMPDEC, Decreto de Regulamentação e Portaria de Nomeação do Coordenador, é necessários que a Todos os Documentos sejan reanexados</p>";
 } else {
     $voltar = "<a class=\"btn btn-success\" href=" . FuncaoBase::geraLink("compdec", "compdec", "index") . ">Voltar</a>";
     $gravar = "<span class=\"btn btn-success\" name=\"btnDados2\" id=\"btnDados2\">Gravar</span>";

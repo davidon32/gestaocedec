@@ -1188,7 +1188,7 @@ class Login extends Liberacao {
 
         $chave_acesso = array(
             '0' => '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=compdec&controller=compdec&action=index" title="Módulo Cadastro Compdec"><img src="core/imagem/comdec.png"><br />Informações Compdec</a>',
-            '1' => '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=ajuda&controller=index&action=index" title="Módulo Ajuda Humanitária"><img src="core/imagem/pedido_cesta.png" width=\'130\'><br />Ajuda Humanitária</a>',
+            '1' => '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=ajuda&controller=index&action=index" title="Módulo Ajuda Humanitária"><img src="core/imagem/pedido_cesta.png" width=\'140\'><br />Ajuda Humanitária</a>',
             '2' => '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=pipa&controller=pipa&action=index" title="Módulo TDAP Transporte e Distribuição de Água Potável"><img src="core/imagem/pipa.png"><br />TDAP</a>',
             '3' => '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=cce&controller=cce&action=index" title="Módulo Controle de Emergência"><img src="core/imagem/cce.png"><br />Controle de Emergência</a>',
             '4' => '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=decreto&controller=index&action=index" title="Módulo Processo de Decretação"><img src="core/imagem/processo.png"><br />Processo de Decretação</a>',
@@ -1201,15 +1201,16 @@ class Login extends Liberacao {
 
         $acesso = array();
         
-        $_acesso[9] = 1;
-        $_acesso[10] = 1;
+        $_acesso[9] = 1; // habilitar plano de conting
+        $_acesso[10] = 1; // habilitar config.
+        $_acesso[6] = 0; // desabilitar escola
         
-        print "<div class='row'>";
 
+        print "<div class='row'>";
         for ($i = 0; $i < count($_acesso); $i++) {
             if ($_acesso[$i] == 1) {
                 $acesso[] = $chave_acesso[$i];
-                print '<div class="col-md-3 text-center">';
+                print '<div class="col-md-3 text-center" style="height: 200px;">';
                 
                 print $chave_acesso[$i];
 

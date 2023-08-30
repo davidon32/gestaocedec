@@ -44,7 +44,7 @@
 
 
 <!-- barra debug --> 
-<div id="posiciona"> 
+<!--<div id="posiciona"> 
     <div id="fechar" align=right><a href="#">Fechar</a></div> 
     Modulo : <i><?= $_GET['modulo'] ?></i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     Controller : <i><?= $_GET['controller'] ?></i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -62,7 +62,7 @@ echo htmlspecialchars("<a href='<?=FuncaoBase::geraLink('$modulo', '$controller'
     
     ?>
     
-</div>
+</div>-->
 
 
 <script>

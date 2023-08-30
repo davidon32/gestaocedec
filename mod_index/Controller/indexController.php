@@ -231,9 +231,37 @@ class indexController extends Controller {
      * 
      */
     public function paebm() {
+        $routeInicio = 'modulo=index&controller=index&action=menu';
+        include_once 'mod_index/app/login/auth.php';
         
-        $routeInicio = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-
+    }
+    
+    /**
+     * RAT
+     * 
+     */
+    public function rat() {
+        $routeInicio = 'modulo=index&controller=index&action=menu';
+        include_once 'mod_index/app/login/auth.php';
+        
+    }
+    
+    /**
+     * VISTORIA
+     * 
+     */
+    public function vistoria() {
+        $routeInicio = 'modulo=index&controller=index&action=menu';
+        include_once 'mod_index/app/login/auth.php';
+        
+    }
+    
+    /**
+     * CADASTRO COMPDEC
+     * 
+     */
+    public function compdec() {
+        $routeInicio = 'modulo=index&controller=index&action=menu';
         include_once 'mod_index/app/login/auth.php';
         
     }
