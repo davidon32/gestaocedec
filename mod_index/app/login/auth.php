@@ -1,42 +1,41 @@
 <?php include_once "template/page/headerPageSimples.php"; ?>
 
 <style>
-.overlay1 {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    background: rgba(70,20,15,0.3);
-    z-index: 2;
-    background-image: url(https://i.stack.imgur.com/BNGOI.gif);
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: 100px;
-  }    
+    .overlay1 {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        background: rgba(70,20,15,0.3);
+        z-index: 2;
+        background-image: url(https://i.stack.imgur.com/BNGOI.gif);
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 100px;
+    }    
 </style>
-    
-<div class="overlay1"> <i class="fa fa-cog fa-spin fa-5x fa-fw"></i><span class="sr-only">Loading...</span> </div>
+
+<!--<div class="overlay1"> <i class="fa fa-cog fa-spin fa-5x fa-fw"></i><span class="sr-only">Loading...</span> </div>-->
 
 <?php
-
-$user  = Usuario::getUserData($_COOKIE['seguranca']);
-$cpf   = isset($user['cpf']) ? $user['cpf'] : null;
+$user = Usuario::getUserData($_COOKIE['seguranca']);
+$cpf = isset($user['cpf']) ? $user['cpf'] : null;
 $email = isset($user['email_rec']) ? $user['email_rec'] : null;
 
 
 /* route sdclara */
 $routeList = [
     "paebm" => 'drrd',
-    "rat"   => 'rat',
-    "vistoria"=> 'vistoria',
+    "rat" => 'rat',
+    "vistoria" => 'vistoria',
     "compdec" => 'compdec'
 ];
 
 $actionApi = isset($_GET['action']) ? $_GET['action'] : "index";
 $route = $routeList[$actionApi];
 
-if ( (is_null($cpf)) && (!is_numeric($cpf)) ) {
+if ((is_null($cpf)) && (!is_numeric($cpf))) {
     ?>
     <!--<div class="modal fade" tabindex="-1" role="dialog" id="myModal" data-backdrop="static">-->
     <div class="modal-dialog" role="document">
@@ -61,7 +60,6 @@ if ( (is_null($cpf)) && (!is_numeric($cpf)) ) {
     <!--</div> /.modal -->
 
     <?php
-    
 } else {
 
     if ($_SERVER['HTTP_HOST'] == 'sistema.defesacivil.mg.gov.br') {
@@ -75,8 +73,8 @@ if ( (is_null($cpf)) && (!is_numeric($cpf)) ) {
     $ch = curl_init();
 
     curl_setopt_array($ch, [
-        CURLOPT_URL => $url,
-        CURLOPT_POST => true,
+        CURLOPT_URL => "https://sdcmg.com.br/api/auth/login",
+        CURLOPT_POST => 1,
         CURLOPT_HTTPHEADER => [
             //'Authorization: Bearer ' . $token,
             'Content-Type: application/json',
@@ -91,30 +89,39 @@ if ( (is_null($cpf)) && (!is_numeric($cpf)) ) {
                 'code' => 'anyone'
             ]
         ]),
-        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_SSL_VERIFYHOST => 0,
+        CURLOPT_SSL_VERIFYPEER => 0,
+        CURLOPT_RETURNTRANSFER => 1,
         CURLOPT_PROTOCOLS => CURLPROTO_HTTPS,
-        CURLOPT_VERBOSE =>true
+        CURLOPT_VERBOSE => true,
+        CURLOPT_STDERR => fopen('/web/anexo/curl.log', 'w+'),
     ]);
 
     $resultado = curl_exec($ch);
+
+    if (curl_errno($ch)) {
+        print curl_error($ch);
+    }
+
     curl_close($ch);
-    
+
     $ret = json_decode($resultado);
 
-    $token = isset($ret->data->token->plainTextToken) ? $ret->data->token->plainTextToken : null;
+    $token = isset($ret->token->plainTextToken) ? $ret->token->plainTextToken : null;
 
-   if(!is_null($token)) {
-       
-       print "<script>";
-       print "window.location.href = '".$url_redirect.'/'.$route.'?token='.$token.'&routeInicio='.$routeInicio."'";
-       print "</script>";
-       
-   }else {
+    if (!is_null($token)) {
 
-       
-   }
+        print $token;
+        print "<script>";
+        print "window.location.href = '" . $url_redirect . '/' . $route . '?token=' . $token . '&routeInicio=' . $routeInicio . "'";
+        print "</script>";
+    } else {
+        print "Ocorreu um erro";
+        
+        // enviar email com erro 
+        $log_erro = file_get_contents('/web/anexo/curl.log', true);
+    }
 }
-
 ?>
 <div style="height: 700px;">
 </div>    
@@ -127,7 +134,7 @@ if ( (is_null($cpf)) && (!is_numeric($cpf)) ) {
 <script>
 
     $(document).ready(function () {
-        
+
         $(".overlay1").show();
 
         $('#cpf').keyup(function () {
@@ -136,9 +143,9 @@ if ( (is_null($cpf)) && (!is_numeric($cpf)) ) {
 
         /* salvar cpf banco*/
         $("#btnSalvar").click(function () {
-            
+
             var cpf = $("#cpf").val();
-            
+
             $.ajax({
                 type: "POST",
                 url: '/mod_index/app/login/valida.php',
@@ -149,11 +156,11 @@ if ( (is_null($cpf)) && (!is_numeric($cpf)) ) {
                     opcao: 'updateCPF'
                 },
                 success: function (e) {
-                    window.location.href = '<?=$url_redirect.'/'.$route.'?token='.$token.'&routeInicio='.$routeInicio?>';
+                    window.location.href = '<?= $url_redirect . '/' . $route . '?token=' . $token . '&routeInicio=' . $routeInicio ?>';
                 },
-                error: function(e) {
+                error: function (e) {
                 }
-                
+
             });
         });
     });
