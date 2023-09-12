@@ -664,7 +664,8 @@ class Compdec {
                                                         cedec_prefeitura.tel1 as tel_prefeitura1,
                                                         cedec_prefeitura.tel2 as tel_prefeitura2,
 							com_comdec.fone_com1 as tel_compdec1,
-							com_comdec.fone_com2 as tel_compdec2
+							com_comdec.fone_com2 as tel_compdec2,
+                                                        com_eq_comdec.email as email_compdec
 							from cedec_municipio
 							inner join com_comdec
 							on cedec_municipio.id_municipio = com_comdec.id_municipio
@@ -672,8 +673,11 @@ class Compdec {
 							on cedec_municipio.id_municipio = cedec_user_ex.id_municipio
                                                         inner join cedec_prefeitura
                                                         on cedec_municipio.id_municipio = cedec_prefeitura.id_municipio
+                                                        left join com_eq_comdec
+                                                        on cedec_municipio.id_municipio = com_eq_comdec.id_municipio
 							where com_comdec.com_const = 1
 							and cedec_municipio.id_municipio <> 7221
+                                                        and com_eq_comdec.funcao = 'Coordenador' 
 							order by cedec_municipio.nome";
 
             $result = $con->query($sql);

@@ -10,19 +10,21 @@ class pipaController extends Controller {
         include_once "mod_pipa/backEnd/View/index/index.php";
         //var_dump($pageSession);
     }
-    
+
     /* editar pmda */
+
     public function pmda() {
         include_once "mod_pipa/backEnd/View/pmda/indexView.php";
-
     }
 
     # usuario index
+
     public function usuario() {
         include_once "mod_pipa/backEnd/View/usuario/indexView.php";
     }
 
     #cadastro Usuario
+
     public function caduser() {
         include_once "mod_pipa/backEnd/View/usuario/caduserView.php";
     }
@@ -42,6 +44,7 @@ class pipaController extends Controller {
     }
 
     # Administração do pmda
+
     public function pmdaIndex() {
         include_once "mod_pipa/backEnd/View/index/indexPmda.php";
     }
@@ -131,9 +134,9 @@ class pipaController extends Controller {
     }
 
     public function resetarSenha() {
-        
 
-                
+
+
         $btn = isset($_POST['btnAtua']) ? $_POST['btnAtua'] : "";
 
         if ($btn == 'btnAtua') {
@@ -142,14 +145,14 @@ class pipaController extends Controller {
             $_POST['ck_pmda'] = isset($_POST['ck_pmda']) ? $_POST['ck_pmda'] : 0;
             $_POST['ck_ajuda'] = isset($_POST['ck_ajuda']) ? $_POST['ck_ajuda'] : 0;
 
-                       
-            if ( Usuario::atuaUsuarioExterno($_POST) ) {
-                print  "<script>
+
+            if (Usuario::atuaUsuarioExterno($_POST)) {
+                print "<script>
 	 		alert('Usuario atualizado com Sucesso !');      
 	 		</script>";
 
-                if( isset($_POST['ckReset']) ){
-                
+                if (isset($_POST['ckReset'])) {
+
 
                     print "<style>
                         body {
@@ -182,7 +185,7 @@ class pipaController extends Controller {
                             http://sistema.defesacivil.mg.gov.br
                             <br>
                             <br>
-                            Usuario : <b>".$_POST['email_rec']."</b> 
+                            Usuario : <b>" . $_POST['email_rec'] . "</b> 
                             <br>
                             <br>
                             Senha   : <b>defesa199</b>
@@ -193,56 +196,72 @@ class pipaController extends Controller {
                             <h3><p style='color:#35231F'>Obs:<br> <i>O usuario de acesso, é o email que usamos para resetar a senha, fique atento pois alterar o email de resetar senha é também alterado o usuario de acesso.</i></p></h3>
                             
                         </div>
-                        <p class='text-center'><a class='btn btn-primary' href='".FuncaoBase::geraLink('pipa', 'pipa', 'pesquisaUsuario')."' >Voltar</a></p>
+                        <p class='text-center'><a class='btn btn-primary' href='" . FuncaoBase::geraLink('pipa', 'pipa', 'pesquisaUsuario') . "' >Voltar</a></p>
                         </div>";
-                }else {
+                } else {
 
                     print "<script>
-                            window.location.href= '".FuncaoBase::geraLink('pipa', 'pipa', 'cUserEx', array('id'=>$_POST['id_usuario'], 'volta'=>'compdec'))."';
+                            window.location.href= '" . FuncaoBase::geraLink('pipa', 'pipa', 'cUserEx', array('id' => $_POST['id_usuario'], 'volta' => 'compdec')) . "';
                             </script>";
                 }
-                
             } else {
 
                 print "oi";
             }
         }
     }
-    
-    
+
     /* apagar pmda */
-    public function deletePmda(){
+
+    public function deletePmda() {
 
         $id_pmda = $_GET['param'];
         $id_municipio = $_GET['idmun'];
-        if(Pmda::deletePmda($id_pmda)){
-            
+        if (Pmda::deletePmda($id_pmda)) {
+
             print "<script>
 	 		alert('Pmda deletado com Sucesso !');
-                        window.location.href = '".FuncaoBase::geraLink("pipa", "pipa", "pesquisaPmda", array("idmun"=>$id_municipio))."';
+                        window.location.href = '" . FuncaoBase::geraLink("pipa", "pipa", "pesquisaPmda", array("idmun" => $id_municipio)) . "';
                     </script>";
-       }
+        }
     }
-    
-    
+
     # Declaração de Conformidade 
+
     public function decIndex() {
         include_once "mod_pipa/backEnd/View/index/indexDconf.php";
     }
-    
-    
+
     # nova declaracao
+
     public function novoDconf() {
         include_once "mod_pipa/backEnd/View/tdap/declaracao.php";
     }
-    
-    
+
     # Visualizar Alteraçao de comunidade
+
     public function altera_com_view() {
         include_once "mod_pipa/backEnd/View/pmda/altera_comunidade_processo.php";
     }
-    
-    
-    
+
+    # lista de pmda por status
+
+    public function resumolist() {
+        $status = isset($_GET['st'])     ? $_GET['st']     : "";
+        $ano    = isset($_GET['ano'])    ? $_GET['ano']    : "";
+        $estado = isset($_GET['estado']) ? $_GET['estado'] : null;
+        
+        
+        $param = [
+                    'status'=> $status, 
+                    'ano' => $ano,
+                    'estado' =>$estado
+                ];
+        
+        $dados = Pmda::listaprocessosporstatus($param);
+        include_once "mod_pipa/backEnd/View/pmda/listaprocessosporstatus.php";
+
+        
+    }
 
 }

@@ -164,7 +164,7 @@ class Pmda extends Comunidade {
      * 5 - Anulado
      * @param $status int
      */
-    public function status($status) {
+    public static function status($status) {
 
         switch ($status) {
             case 0:
@@ -536,7 +536,6 @@ class Pmda extends Comunidade {
             $result->execute();
 
             //$comunidade = empty($dados['id_comunidade']) ? "" : Comunidade::buscaComunidadeId($dados['id_comunidade']);
-
             //Log::GravaLogUserEx("Alteração dados da Comunidade :".$comunidade['comunidade']."\n", "cedec_user_ex_log", $dados['id_pmda']);
 
             return true;
@@ -774,19 +773,19 @@ class Pmda extends Comunidade {
     /**
      * Muda os status do PMDA
      * $array['id_pmda']
-       $array['resp']
-       $array['status']
-       $dt_atual - hoje
-       $array['data']
+      $array['resp']
+      $array['status']
+      $dt_atual - hoje
+      $array['data']
      *
      */
     public static function atualizaStatus($array) {
-        
+
         $dt_atual = date('Y-m-d H:i:s');
 
-        if($array['status'] == 4){
+        if ($array['status'] == 4) {
             $data = isset($array['data']) ? $array['data'] : null;
-        }else {
+        } else {
             $array['data'] = null;
         }
 
@@ -809,20 +808,21 @@ class Pmda extends Comunidade {
 
         return true;
     }
+
     /**
      * Muda os ESTADO do PMDA
      *
      */
     public static function atualizaEstado($array) {
-               
-        if($array['estado'] == 7){
+
+        if ($array['estado'] == 7) {
             $data = isset($array['data']) ? $array['data'] : null;
-        }else {
+        } else {
             $array['data'] = null;
         }
 
         $con = Conexao::getInstance();
-        
+
         $data_agora = date('Y-m-d H:i:s');
 
         $sql = "UPDATE pip_pmda
@@ -840,6 +840,7 @@ class Pmda extends Comunidade {
 
         return true;
     }
+
     /**
      * Liberar pmda para alteraçoes de comunidades
      *
@@ -847,7 +848,7 @@ class Pmda extends Comunidade {
     public static function liberarAtualizar($array) {
 
         $con = Conexao::getInstance();
-       
+
         $sql = "UPDATE pip_pmda
 	    				SET alterar_com = 1
 		                        WHERE id_pmda = :id_pmda";
@@ -933,7 +934,7 @@ class Pmda extends Comunidade {
         $valStatus = Pmda::buscaStatus($array['id_pmda']);
 
         $dt_analise = null;
-        
+
         # verifica se existem comunidades no pmda e se o total dos representantes é 3x o numero das comunidades
         if (($tot_comunidade == 0) || ($tot_representante < $tot_comunidade)) {
 
@@ -985,6 +986,7 @@ class Pmda extends Comunidade {
 
         return $dados['status'];
     }
+
     /**
      * 
      * Busca pmda em edicao
@@ -1010,7 +1012,7 @@ class Pmda extends Comunidade {
             $dados[] = $linha;
         }
 
-        
+
         return (count($dados) > 0) ? true : false;
     }
 
@@ -1428,33 +1430,31 @@ class Pmda extends Comunidade {
 
         try {
 
-                $con = Conexao::getInstance();
+            $con = Conexao::getInstance();
 
-                $dados = "";
+            $dados = "";
 
-                $sql = "select count(id_pmda) as num_pmda
+            $sql = "select count(id_pmda) as num_pmda
                             from pip_pmda
                             where id_pmda = :id_pmda
                             and status not in ('1','0','2','4')
                             and data > '" . $dataCriacao . "'";
 
-                $result = $con->prepare($sql);
-                $result->bindParam(":id_pmda", $id_pmda);
-                $result->execute();
+            $result = $con->prepare($sql);
+            $result->bindParam(":id_pmda", $id_pmda);
+            $result->execute();
 
-                while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
 
-                    $dados = $linha['num_pmda'];
-                }
+                $dados = $linha['num_pmda'];
+            }
 
-                return $dados;
-            
+            return $dados;
         } catch (Exception $e) {
             
         }
     }
 
-    
     /**
      *  atualiza ultima alteração pmda
      */
@@ -1473,7 +1473,7 @@ class Pmda extends Comunidade {
 
         return true;
     }
-    
+
     /**
      *
      * Duplicar PMDA 
@@ -1484,26 +1484,25 @@ class Pmda extends Comunidade {
     public function copiaPmda($id_pmda) {
 
         $dados = "";
-        
+
         /* pmda */
         $id_pmda_novo = $this->duplicaPmda($id_pmda);
-        
+
         /* comunidades */
         $this->duplicaComunidades($id_pmda, $id_pmda_novo);
-        
+
         /* representante */
         $this->duplicaRepresentantes($id_pmda, $id_pmda_novo);
-        
+
         print "sucesso";
-        
     }
-    
-    
+
     /* duplica PMDA */
+
     public function duplicaPmda($id_pmda) {
-        
+
         $con = Conexao::getInstance();
-        
+
         $dadosPmda = $this->buscaPmda($id_pmda);
         $id_municipio = $dadosPmda[0]['id_municipio'];
 
@@ -1531,32 +1530,32 @@ class Pmda extends Comunidade {
         $result = $con->prepare($sql);
         $dataHoje = date("Y-m-d H:i:s");
         $status = 0;
-        $result->bindParam("data",               $dataHoje);
-        $result->bindParam("status",             $status);
-        $result->bindParam("id_municipio",       $dadosPmda[0]['id_municipio']);
-        $result->bindParam("acoes",              $dadosPmda[0]['acoes']);
-        $result->bindParam("qtd_caminhao",       $dadosPmda[0]['qtd_caminhao']);
-        $result->bindParam("pop_at_municipio",   $dadosPmda[0]['pop_at_municipio']);
-        $result->bindParam("pedido_altera",      $dadosPmda[0]['pedido_altera']);
-        $result->bindParam("em_analise",         $dadosPmda[0]['em_analise']);
-        $result->bindParam("resp_homolog",       $dadosPmda[0]['resp_homolog']);
-        $result->bindParam("dt_analise",         $dadosPmda[0]['dt_analise']);
-        $result->bindParam("dt_ultima_alteracao",$dadosPmda[0]['dt_ultima_alteracao']);
+        $result->bindParam("data", $dataHoje);
+        $result->bindParam("status", $status);
+        $result->bindParam("id_municipio", $dadosPmda[0]['id_municipio']);
+        $result->bindParam("acoes", $dadosPmda[0]['acoes']);
+        $result->bindParam("qtd_caminhao", $dadosPmda[0]['qtd_caminhao']);
+        $result->bindParam("pop_at_municipio", $dadosPmda[0]['pop_at_municipio']);
+        $result->bindParam("pedido_altera", $dadosPmda[0]['pedido_altera']);
+        $result->bindParam("em_analise", $dadosPmda[0]['em_analise']);
+        $result->bindParam("resp_homolog", $dadosPmda[0]['resp_homolog']);
+        $result->bindParam("dt_analise", $dadosPmda[0]['dt_analise']);
+        $result->bindParam("dt_ultima_alteracao", $dadosPmda[0]['dt_ultima_alteracao']);
         $result->execute();
 
         return $con->lastInsertId();
     }
-    
+
     /**
      * 
      * busca comunudades do pmda
      */
     public function buscaComunidades($id_pmda) {
-    
+
         $con = Conexao::getInstance();
 
         $dados = array();
-        
+
         $sql = "SELECT id_com_pmda,
                         id_pmda,
                         id_comunidade,
@@ -1568,30 +1567,29 @@ class Pmda extends Comunidade {
                         trecho_n_pav,
                         pop_atendida
                         FROM pip_pmda_comun
-                        where id_pmda = ".$id_pmda;
-        
-            $result = $con->query($sql);
-            //$result->execute();
+                        where id_pmda = " . $id_pmda;
 
-                while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+        $result = $con->query($sql);
+        //$result->execute();
 
-                    $dados[] = $linha;
-                }
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
 
-                return $dados;
-    
+            $dados[] = $linha;
+        }
+
+        return $dados;
     }
-    
+
     /**
      * 
      * busca comunudades do pmda
      */
     public function buscaComunidadesAltera($id_pmda) {
-    
+
         $con = Conexao::getInstance();
 
         $dados = array();
-        
+
         $sql = "SELECT id_com_pmda,
                         id_pmda,
                         id_comunidade,
@@ -1603,55 +1601,52 @@ class Pmda extends Comunidade {
                         trecho_n_pav,
                         pop_atendida
                         FROM pip_pmda_comun_altera
-                        where id_pmda = ".$id_pmda;
-        
-            $result = $con->query($sql);
-            //$result->execute();
+                        where id_pmda = " . $id_pmda;
 
-                while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+        $result = $con->query($sql);
+        //$result->execute();
 
-                    $dados[] = $linha;
-                }
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
 
-                return $dados;
-    
+            $dados[] = $linha;
+        }
+
+        return $dados;
     }
-    
-    
-      /**
+
+    /**
      * 
      * busca representantes
      */
     public function buscaComunidadeAlteracao($id_comunidade) {
-    
+
         $con = Conexao::getInstance();
 
         $dados = array();
-        
+
         $sql = "SELECT id_pmda,
                         id_comunidade
                         FROM pip_pmda_comun_altera
-                        where id_comunidade = ".$id_comunidade;
-        
-            $result = $con->query($sql);
+                        where id_comunidade = " . $id_comunidade;
 
-                while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+        $result = $con->query($sql);
 
-                    $dados[] = $linha;
-                }
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
 
-                return $dados;
-    
+            $dados[] = $linha;
+        }
+
+        return $dados;
     }
-    
-    
+
     /* duplica Comunidades */
+
     public function duplicaComunidades($id_pmda, $id_pmda_novo) {
-        
+
         $con = Conexao::getInstance();
-        
-        $dadosComnidades = $this->buscaComunidades($id_pmda);    
-        
+
+        $dadosComnidades = $this->buscaComunidades($id_pmda);
+
         $sql = "INSERT INTO pip_pmda_comun (id_pmda,
 			id_comunidade,
 			id_municipio,
@@ -1669,37 +1664,36 @@ class Pmda extends Comunidade {
                                                     :trecho_pav,
                                                     :trecho_n_pav,
                                                     :pop_atendida)";
-        
-             $result = $con->prepare($sql);
-        
-            foreach ($dadosComnidades as $key => $dados) {
 
-                $result->bindParam("id_pmda",      $id_pmda_novo);
-                $result->bindParam("id_comunidade",$dados["id_comunidade"]);
-                $result->bindParam("id_municipio", $dados["id_municipio"]);
-                $result->bindParam("id_ponto",     $dados["id_ponto"]);
-                $result->bindParam("latitude",     $dados["latitude"]);
-                $result->bindParam("longitude",    $dados["longitude"]);
-                $result->bindParam("trecho_pav",   $dados["trecho_pav"]);
-                $result->bindParam("trecho_n_pav", $dados["trecho_n_pav"]);
-                $result->bindParam("pop_atendida", $dados["pop_atendida"]);
-                $result->execute();
-            }
-            
-            return true;
+        $result = $con->prepare($sql);
+
+        foreach ($dadosComnidades as $key => $dados) {
+
+            $result->bindParam("id_pmda", $id_pmda_novo);
+            $result->bindParam("id_comunidade", $dados["id_comunidade"]);
+            $result->bindParam("id_municipio", $dados["id_municipio"]);
+            $result->bindParam("id_ponto", $dados["id_ponto"]);
+            $result->bindParam("latitude", $dados["latitude"]);
+            $result->bindParam("longitude", $dados["longitude"]);
+            $result->bindParam("trecho_pav", $dados["trecho_pav"]);
+            $result->bindParam("trecho_n_pav", $dados["trecho_n_pav"]);
+            $result->bindParam("pop_atendida", $dados["pop_atendida"]);
+            $result->execute();
         }
 
-        
-        /**
+        return true;
+    }
+
+    /**
      * 
      * busca representantes
      */
     public function buscaRepresentates($id_pmda) {
-    
+
         $con = Conexao::getInstance();
 
         $dados = array();
-        
+
         $sql = "SELECT id,
                         id_comunidade,
                         nome,
@@ -1711,28 +1705,25 @@ class Pmda extends Comunidade {
                         watsapp,
                         id_pmda
                         FROM pip_representante
-                        where id_pmda = ".$id_pmda;
-        
-            $result = $con->query($sql);
+                        where id_pmda = " . $id_pmda;
 
-                while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+        $result = $con->query($sql);
 
-                    $dados[] = $linha;
-                }
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
 
-                return $dados;
-    
+            $dados[] = $linha;
+        }
+
+        return $dados;
     }
-    
-    
-    
-    
+
     /* duplica Representantes */
+
     public function duplicaRepresentantes($id_pmda, $id_pmda_novo) {
-        
+
         $con = Conexao::getInstance();
-        
-        $dadosRepresentantes = $this->buscaRepresentates($id_pmda);    
+
+        $dadosRepresentantes = $this->buscaRepresentates($id_pmda);
 
         $sql = "INSERT INTO pip_representante (id_comunidade,
                                                             nome,
@@ -1752,52 +1743,147 @@ class Pmda extends Comunidade {
                                                                         :cpf,
                                                                         :watsapp,
                                                                         :id_pmda)";
-             $result = $con->prepare($sql);
-             
-            foreach ($dadosRepresentantes as $key => $dados) {
+        $result = $con->prepare($sql);
 
-                $result->bindParam("id_comunidade", $dados['id_comunidade']);
-                $result->bindParam("nome",          $dados['nome']);
-                $result->bindParam("tel",           $dados['tel']);
-                $result->bindParam("endereco",      $dados['endereco']);
-                $result->bindParam("bairro",        $dados['bairro']);
-                $result->bindParam("email",         $dados['email']);
-                $result->bindParam("cpf",           $dados['cpf']);
-                $result->bindParam("watsapp",       $dados['watsapp']);
-                $result->bindParam("id_pmda",       $id_pmda_novo);
-                $result->execute();
-            }
-            
-            return true;
+        foreach ($dadosRepresentantes as $key => $dados) {
+
+            $result->bindParam("id_comunidade", $dados['id_comunidade']);
+            $result->bindParam("nome", $dados['nome']);
+            $result->bindParam("tel", $dados['tel']);
+            $result->bindParam("endereco", $dados['endereco']);
+            $result->bindParam("bairro", $dados['bairro']);
+            $result->bindParam("email", $dados['email']);
+            $result->bindParam("cpf", $dados['cpf']);
+            $result->bindParam("watsapp", $dados['watsapp']);
+            $result->bindParam("id_pmda", $id_pmda_novo);
+            $result->execute();
         }
-        
-        public static function AprovaPMDA(){
-            
-            $con = Conexao::getInstance();
-            
-            $sql = "update pip_pmda set status = 7
+
+        return true;
+    }
+
+    public static function AprovaPMDA() {
+
+        $con = Conexao::getInstance();
+
+        $sql = "update pip_pmda set status = 7
                     where pip_pmda.data_aprov <= DATE_SUB(curdate(), INTERVAL 10 DAY)";
-            
-            $result = $con->query($sql);
-            print "ok";
-            
+
+        $result = $con->query($sql);
+        print "ok";
+    }
+
+    /* Deletar PMDA */
+
+    public static function deletePmda($id_pmda) {
+
+        $con = Conexao::getInstance();
+
+        $sql = "delete from pip_pmda where id_pmda = " . $id_pmda . ";
+                delete from pip_pmda_comun where id_pmda = " . $id_pmda . " and id_com_pmda > 0;
+                delete from pip_anexo where id_pmda = " . $id_pmda . " and id > 0;
+                delete from pip_pmda_alteracao where id_pmda = " . $id_pmda . " and id_pmda_altera > 0;
+                delete from pip_pmda_coment where id_pmda = " . $id_pmda . " and id_coment > 0;
+                delete from pip_pmda_msg where id_pmda = " . $id_pmda . " and id > 0;";
+
+        $result = $con->query($sql);
+        return true;
+    }
+
+    /* total de processos */
+
+    public static function processos() {
+
+        $con = Conexao::getInstance();
+
+        $res = array();
+
+        $sql = "SELECT year(DATA), status, COUNT(id_municipio) as total 
+                    FROM pip_pmda
+                    WHERE year(DATA)= year(NOW())
+                    and status in(0,2,4,5)
+                    GROUP BY year(DATA), status";
+
+        $sql1 = "SELECT year(DATA), estado, COUNT(estado) as total 
+                    FROM pip_pmda
+                    WHERE year(DATA)= year(NOW())
+                    and status in(0,2,4,5)
+                    GROUP BY year(DATA), estado";
+
+        $sql2 = "SELECT year(DATA), STATUS, COUNT(id_municipio) as total FROM pip_pmda
+                    GROUP BY year(DATA)";
+
+        $result = $con->query($sql);
+        $result1 = $con->query($sql1);
+        $result2 = $con->query($sql2);
+
+
+        $dados = $result->fetchAll(PDO::FETCH_ASSOC);
+        $dados1 = $result1->fetchAll(PDO::FETCH_ASSOC);
+        $dados2 = $result2->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($dados as $key => $value) {
+            if ($value['status'] == 0) {
+                $res[0]['emEdicao'] = $value['total'];
+            } elseif ($value['status'] == 2) {
+                $res[0]['emAnalise'] = $value['total'];
+            } elseif ($value['status'] == 4) {
+                $res[0]['aprovado'] = $value['total'];
+            } elseif ($value['status'] == 5) {
+                //$res['atendido'][0] = $value['total'];
+            }
         }
+
+
+        foreach ($dados1 as $key => $value) {
+            if ($value['estado'] == 'Em Atendimento') {
+                $res[1]['emAtendimento'] = $value['total'];
+            }
+        }
+
+        return $res;
+    }
+
+    /* lista por status */
+
+    public static function listaprocessosporstatus(array $param) {
         
-        /* Deletar PMDA */
-        public static function deletePmda($id_pmda){
-            
-            $con = Conexao::getInstance();
-            
-        $sql ="delete from pip_pmda where id_pmda = ".$id_pmda.";
-                delete from pip_pmda_comun where id_pmda = ".$id_pmda." and id_com_pmda > 0;
-                delete from pip_anexo where id_pmda = ".$id_pmda." and id > 0;
-                delete from pip_pmda_alteracao where id_pmda = ".$id_pmda." and id_pmda_altera > 0;
-                delete from pip_pmda_coment where id_pmda = ".$id_pmda." and id_coment > 0;
-                delete from pip_pmda_msg where id_pmda = ".$id_pmda." and id > 0;";
+       
+        $ano    = isset($param['ano'])    ? " AND YEAR(DATA) = '".$param['ano']."'"  : '';
+        $status = isset($param['status']) ? " AND pip_pmda.status = ".$param['status'] : '';
+        
+        if(isset($param['estado'])) {
+            $status = "";
+            $estado = " AND pip_pmda.estado = 'Em Atendimento'";
+        }else {
+            $estado = '';
+        }
+                
+        
+        $con = Conexao::getInstance();
 
-            $result = $con->query($sql);
-            return true;
-            
-        }   
+        $sql = "SELECT pip_pmda.id_pmda,
+                pip_pmda.data,
+                pip_pmda.id_municipio,
+                cedec_municipio.nome,
+                pip_pmda.status,
+                pip_pmda.estado,
+                pip_pmda.dt_analise,
+                pip_pmda.data_aprov
+                FROM pip_pmda
+                INNER JOIN
+                cedec_municipio
+                ON pip_pmda.id_municipio = cedec_municipio.id_municipio
+                WHERE id_pmda > 0 ".$status.$ano.$estado;
+       
+       
+        $result = $con->query($sql);
 
-}?>
+        $dados = $result->fetchAll(PDO::FETCH_ASSOC);
+        
+        return $dados;
+    }
+
+}
+
+?>

@@ -15,7 +15,7 @@
     border: 0.1em solid ;
     margin-left:auto; 
     margin-right:auto;
-    font-size:15pt;
+    font-size:13pt;
   }
 
   td{
@@ -42,22 +42,25 @@ $dados = $compdec->listaCompdecAtiva();
     </style>
   </head>
   <body>
-  <div class="col-lg10 col-xs-12 center">
+  <div class="col-md-12 col-xs-12 center">
     <p style='text-align:center;'><span>Atualizado em <?=date('d/m/Y h:i:s');?></span></p>
     <?php
       print "<table class=''";
       print "<tr>";
         print "<th style='width:5%; text-align:center'>#</th>";
-        print "<th  style='width:30%; text-align:center'>Nome</th>";
-        print "<th  style='width:20%; text-align:center'>Tel. Compdec</th>";
-        print "<th  style='width:20%; text-align:center'>Tel. Coordenador</th>";
-        print "<th  style='width:20%; text-align:center'>Tel. Prefeitura</th>";
+        print "<th  style='text-align:center'>Nome</th>";
+        print "<th  style='text-align:center'>Email Compdec</th>";
+        print "<th  style='text-align:center'>Tel. Compdec</th>";
+        print "<th  style='text-align:center'>Tel. Coordenador</th>";
+        print "<th  style='text-align:center'>Tel. Prefeitura</th>";
         print "</tr>";
       foreach ($dados as $key=>$value) {
         $telCoordenador = $compdec->getTelCoordenador($value['id_municipio']);
+        $email_low = !is_null($value['email_compdec']) ? strtolower($value['email_compdec']) :"";
         print "<tr>";
         print "<td style='text-align:center'>".($key+1)."</td>";
         print "<td style='text-align:left;padding-left:5px;'>".$value['nome']."</td>";
+        print "<td style='text-align:center; font-size:11pt;'>".$email_low."</td>";
         print "<td style='text-align:center; font-size:11pt;'>".$value['tel_compdec1']." / ".$value['tel_compdec2']."</td>";
         print "<td style='text-align:center; font-size:11pt;'>".$telCoordenador."</td>";
         print "<td style='text-align:center; font-size:11pt;'>".$value['tel_prefeitura']."/".$value['tel_prefeitura1']."/".$value['tel_prefeitura2'] ."</td>";
