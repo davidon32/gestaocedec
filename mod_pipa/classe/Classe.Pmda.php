@@ -521,7 +521,8 @@ class Pmda extends Comunidade {
 			trecho_pav = :trecho_pav,
 			trecho_n_pav = :trecho_n_pav,
 			pop_atendida = :pop_atendida
-                            WHERE id_comunidade = :id_comunidade;";
+                            WHERE id_comunidade = :id_comunidade
+                            AND id_pmda = :id_pmda";
 
             $result = $con->prepare($sql);
 
@@ -532,6 +533,7 @@ class Pmda extends Comunidade {
             $result->bindValue(":pop_atendida", $dados['txtPopAtComunidade']);
             $result->bindValue(":id_ponto", $dados['selPontoCapCom']);
             $result->bindValue(":id_comunidade", $dados['id_comunidade']);
+            $result->bindValue(":id_pmda", $dados['id_pmda']);
 
             $result->execute();
 
@@ -1798,7 +1800,7 @@ class Pmda extends Comunidade {
 
         $res = array();
 
-        $sql = "SELECT year(DATA), status, COUNT(id_municipio) as total 
+        $sql = "SELECT year(DATA), status, COUNT(distinct(id_municipio)) as total 
                     FROM pip_pmda
                     WHERE year(DATA)= year(NOW())
                     and status in(0,2,4,5)
@@ -1849,12 +1851,12 @@ class Pmda extends Comunidade {
     public static function listaprocessosporstatus(array $param) {
         
        
-        $ano    = isset($param['ano'])    ? " AND YEAR(DATA) = '".$param['ano']."'"  : '';
-        $status = isset($param['status']) ? " AND pip_pmda.status = ".$param['status'] : '';
+        $ano    = isset($param['ano'])    ? " AND YEAR(DATA) = '".$param['ano']."' "  : '';
+        $status = isset($param['status']) ? " AND pip_pmda.status = ".$param['status']." " : '';
         
         if(isset($param['estado'])) {
             $status = "";
-            $estado = " AND pip_pmda.estado = 'Em Atendimento'";
+            $estado = " AND pip_pmda.estado = 'Em Atendimento' ";
         }else {
             $estado = '';
         }
@@ -1874,8 +1876,8 @@ class Pmda extends Comunidade {
                 INNER JOIN
                 cedec_municipio
                 ON pip_pmda.id_municipio = cedec_municipio.id_municipio
-                WHERE id_pmda > 0 ".$status.$ano.$estado;
-       
+                WHERE pip_pmda.id_municipio <> '7221' ".$status.$ano.$estado." 
+                    order by cedec_municipio.nome";
        
         $result = $con->query($sql);
 
