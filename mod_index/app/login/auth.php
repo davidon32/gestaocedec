@@ -34,6 +34,8 @@ $routeList = [
 
 $actionApi = isset($_GET['action']) ? $_GET['action'] : "index";
 $route = $routeList[$actionApi];
+$url_redirect = '';
+$token = '';
 
 if ((is_null($cpf)) && (!is_numeric($cpf))) {
     ?>
@@ -60,20 +62,26 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
     <!--</div> /.modal -->
 
     <?php
+    
 } else {
-
+    
     if ($_SERVER['HTTP_HOST'] == 'sistema.defesacivil.mg.gov.br') {
         $url = 'https://sdcmg.com.br/api/auth/login';
         $url_redirect = 'https://sdcmg.com.br';
+        $log_path = '/web/anexo/curl.log';
     } else {
+        //var_dump($_SERVER['HTTP_HOST']);
+        //die();
         $url = 'http://localhost:8081/api/auth/login';
         $url_redirect = 'http://localhost:8081';
+        $log_path = 'log/curl.log';
     }
 
     $ch = curl_init();
 
     curl_setopt_array($ch, [
-        CURLOPT_URL => "https://sdcmg.com.br/api/auth/login",
+        //CURLOPT_URL => "https://sdcmg.com.br/api/auth/login", //Original
+        CURLOPT_URL => $url,
         CURLOPT_POST => 1,
         CURLOPT_HTTPHEADER => [
             //'Authorization: Bearer ' . $token,
@@ -94,7 +102,7 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
         CURLOPT_RETURNTRANSFER => 1,
         CURLOPT_PROTOCOLS => CURLPROTO_HTTPS,
         CURLOPT_VERBOSE => true,
-        CURLOPT_STDERR => fopen('/web/anexo/curl.log', 'w+'),
+        CURLOPT_STDERR => fopen($log_path, 'w+') ,
     ]);
 
     $resultado = curl_exec($ch);
@@ -119,7 +127,7 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
         print "Ocorreu um erro";
         
         // enviar email com erro 
-        $log_erro = file_get_contents('/web/anexo/curl.log', true);
+        $log_erro = file_get_contents($log_path, true);
     }
 }
 ?>
@@ -156,9 +164,11 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
                     opcao: 'updateCPF'
                 },
                 success: function (e) {
-                    window.location.href = '<?= $url_redirect . '/' . $route . '?token=' . $token . '&routeInicio=' . $routeInicio ?>';
+                    console.log(e);
+                    //window.location.href = '<?= $url_redirect . '/' . $route . '?token=' . $token . '&routeInicio=' . $routeInicio ?>';
                 },
                 error: function (e) {
+                    console.log(cpf);
                 }
 
             });

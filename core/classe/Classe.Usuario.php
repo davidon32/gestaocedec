@@ -2578,7 +2578,7 @@ and cedec_usuario.id_usuario != 79
 			WHERE id_usuario = " . $id_usuario;
 
             $result = $con->query($sql);
-
+            
             return true;
         } catch (Exception $e) {
             print FuncaoBase::getError($e->getMessage(), 'Mensagem');

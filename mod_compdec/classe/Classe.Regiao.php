@@ -165,5 +165,55 @@ class Regiao
          return $_dados; 
 
      }
+     
+     
+     #@ combobox Regiao de DEFEsa Civil
+
+    function comboRegiaoDC($opcoes = null) {
+
+        $dados = array();
+        
+        
+        $filtro = "";//"AND cedec_municipio.id_municipio = 7221";
+
+        try {
+
+            $con = Conexao::getInstance();
+            
+            $sql = "select id, nome from cedec_rpm";
+
+//            $sql = "SELECT cedec_municipio.nome,
+//                        com_comdec.id_comdec,
+//                        cedec_rpm_mun.id_rpm,
+//                        cedec_rpm_mun.nome as rpm,
+//                        com_eq_comdec.nome
+//                        FROM cedec_municipio
+//                        INNER JOIN com_comdec
+//                        ON cedec_municipio.id_municipio = com_comdec.id_municipio
+//                        INNER JOIN cedec_rpm_mun
+//                        ON cedec_municipio.id_municipio = cedec_rpm_mun.id_municipio
+//                        INNER JOIN com_eq_comdec
+//                        ON cedec_municipio.id_municipio = com_eq_comdec.id_municipio
+//                        WHERE com_eq_comdec.funcao = \"Coordenador\"
+//                        ".$filtro;;
+
+            $result = $con->query($sql);
+
+            $result->execute();
+
+
+            print "<select class=\"form-control\" name=\"sel_regiaoDC\" id=\"sel_regiaoDC\">";
+            print "<option value=\"0\">Todas</option>";
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+
+                print "<option value=" . $linha['id'] . ">" . $linha['nome'] . "</option>";
+            }
+
+            print "</select>";
+        } catch (Exception $e) {
+            
+        }
+    }
 
 }?>

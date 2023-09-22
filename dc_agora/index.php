@@ -240,6 +240,7 @@
                                 <nav aria-label="Page navigation">
                                     <ul class="pagination justify-content-start">
                                         <?php
+                                        
                                         print $paginacao->rodape;
 
 // print "<li class=\"page-item\"><a class=\"page-link\" href=\"" . FuncaoBase::geraLink('ajuda', 'entrada_nota', 'index', array('page' => $p)) . "\">" . $p . "</a></li>";

@@ -188,12 +188,14 @@ class DefesaCivilAgoraModel {
         $pagina_anterior = ($pagina_atual > 1) ? ($pagina_atual - 1) : 1;
 
         $pagina_proxima = ($pagina_atual < $total_pagina) ? ($pagina_atual + 1) : $total_pagina;
+        
+        $categoria = isset($_GET['cat']) ? '&cat='.$_GET['cat'] : "";
 
 ######
         $rodape = ' <li class="page-item"><a class="page-link" href="?pag=1" title="Primeira Página">Primeira</a></li>&nbsp;
-                    <li class="page-item"><a class="page-link"  href="?pag=' . $pagina_anterior . '" title="Página Anterior">Anterior</a>&nbsp;
-                    <li class="page-item"><a class="page-link"  href="?pag=' . $pagina_proxima . '" title="Página Posterior">Proxima</a>&nbsp;
-                    <li class="page-item"><a class="page-link"  href="?pag=' . $total_pagina . '" title="Última Página">Última</a>&nbsp;';
+                    <li class="page-item"><a class="page-link"  href="?pag=' . $pagina_anterior . $categoria.'" title="Página Anterior">Anterior</a>&nbsp;
+                    <li class="page-item"><a class="page-link"  href="?pag=' . $pagina_proxima . $categoria.'" title="Página Posterior">Proxima</a>&nbsp;
+                    <li class="page-item"><a class="page-link"  href="?pag=' . $total_pagina . $categoria.'" title="Última Página">Última</a>&nbsp;';
 
 
         $result->rodape = $rodape;

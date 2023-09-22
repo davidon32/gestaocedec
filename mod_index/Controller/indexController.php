@@ -105,19 +105,19 @@ class indexController extends Controller {
 
     public function index1() {
 
-        $id_usuario = $_COOKIE['seguranca']['idUser'];
+        //$id_usuario = $_COOKIE['seguranca']['idUser'];
 
-        $numAcesso = Login::pegaQtdAcesso($id_usuario);
+        # $numAcesso = Login::pegaQtdAcesso($id_usuario);
 
-        if ($numAcesso[0]['qtd_acesso'] >= 20) {
-            Login::atualizaAcesso($id_usuario, 0);
-            print "<script style='text/javascript'>";
-            print "window.location = '" . FuncaoBase::geraLink("equipe", "funcionario", "alterar") . "'";
-            print "</script>";
-        } else {
-            Login::atualizaAcesso($id_usuario, 1);
+//        if ($numAcesso[0]['qtd_acesso'] >= 20) {
+//            Login::atualizaAcesso($id_usuario, 0);
+//            print "<script style='text/javascript'>";
+//            print "window.location = '" . FuncaoBase::geraLink("equipe", "funcionario", "alterar") . "'";
+//            print "</script>";
+//        } else {
+          #  Login::atualizaAcesso($id_usuario, 1);
             include_once 'mod_index/backEnd/View/index/index.php';
-        }
+        #}
     }
 
     public function menu() {

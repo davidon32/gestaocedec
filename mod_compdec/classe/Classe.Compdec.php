@@ -953,5 +953,19 @@ class Compdec {
         
     }
     
+    
+    /* informações do coordenador*/
+    public static function getCoordenador($id_municipio){
+        
+        $con = Conexao::getInstance();
+        
+        $sql = "select nome, telefone, celular, email from com_eq_comdec where funcao = 'Coordenador' AND id_municipio = ".$id_municipio;
+        
+        $result = $con->query($sql);
+        
+        return $result->fetch(PDO::FETCH_ASSOC);
+        
+    }
+    
 
 }?>

@@ -162,6 +162,53 @@ Class RelatorioComdec {
 
         return $_dados;
     }
+    
+    
+    /**
+     *  Relatorios de Compdec por Região de DEFESA CIVIL
+     * 
+     */
+    function relCompdecRegiaoDC($_sel_regiao) {
+
+        $con = Conexao::getInstance();
+        $_dados = array();
+        $_filtro = "";
+
+        if ($_sel_regiao == "0") {
+
+            $_filtro = " ";
+        } else {
+
+            $_filtro = " AND cedec_rpm_mun.id_rpm = " . $_sel_regiao;
+        }
+
+        $sql = "SELECT cedec_municipio.id_municipio,
+                cedec_municipio.nome AS municipio,
+                com_comdec.id_comdec,
+                com_comdec.email AS email_compdec,
+                cedec_prefeitura.email AS email_prefeito,
+                cedec_rpm_mun.id_rpm,
+                cedec_rpm_mun.nome AS regiaodc
+                FROM cedec_municipio
+                INNER JOIN cedec_prefeitura
+                ON cedec_municipio.id_municipio = cedec_prefeitura.id_municipio
+                INNER JOIN com_comdec
+                ON cedec_municipio.id_municipio = com_comdec.id_municipio
+                INNER JOIN cedec_rpm_mun
+                ON cedec_municipio.id_municipio = cedec_rpm_mun.id_municipio
+                WHERE cedec_municipio.id_municipio <> '7221'". $_filtro." ORDER BY id_rpm";
+
+        //print $sql;
+
+        $result = $con->query($sql);
+
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+
+            $_dados[] = $linha;
+        }
+
+        return $_dados;
+    }
 
     /**
      *  Relatorios de compdec existente

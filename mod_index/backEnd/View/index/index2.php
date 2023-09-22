@@ -19,10 +19,10 @@
     Login::mostraModulos(Login::acessoModulo($pageSession['session']['seguranca']['login']));
     ?>
 
-    <!--PAEBM-->
-    <div class="col-md-3 text-center">
+<!--    PAEBM  Desativado-->
+<!--    <div class="col-md-3 text-center">
         <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=paebm" ?>" title="Protocolo PaeBM"><img width="120" src="core/imagem/paebm_teste.png"><br />PaeBM</a>
-    </div>
+    </div>-->
 
     
     <!--RAT-->
