@@ -64,8 +64,8 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
     <?php
     
 } else {
-    
-    if ($_SERVER['HTTP_HOST'] == 'sistema.defesacivil.mg.gov.br') {
+
+    if ( ($_SERVER['HTTP_HOST'] == 'sistema.defesacivil.mg.gov.br') || ($_SERVER['HTTP_HOST'] == 'www.sistema.defesacivil.mg.gov.br') ){
         $url = 'https://sdcmg.com.br/api/auth/login';
         $url_redirect = 'https://sdcmg.com.br';
         $log_path = '/web/anexo/curl.log';
@@ -108,12 +108,14 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
     $resultado = curl_exec($ch);
 
     if (curl_errno($ch)) {
-        print curl_error($ch);
+        print "log: ".curl_error($ch);
     }
 
     curl_close($ch);
 
     $ret = json_decode($resultado);
+    
+    //var_dump($ret, $url, $cpf);
 
     $token = isset($ret->token->plainTextToken) ? $ret->token->plainTextToken : null;
 
@@ -164,8 +166,8 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
                     opcao: 'updateCPF'
                 },
                 success: function (e) {
-                    console.log(e);
-                    //window.location.href = '<?= $url_redirect . '/' . $route . '?token=' . $token . '&routeInicio=' . $routeInicio ?>';
+                    //print "opa";
+                    window.location.href = '<?= $url_redirect . '/' . $route . '?token=' . $token . '&routeInicio=' . $routeInicio ?>';
                 },
                 error: function (e) {
                     console.log(cpf);

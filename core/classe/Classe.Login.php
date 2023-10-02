@@ -1202,7 +1202,9 @@ class Login extends Liberacao {
         $acesso = array();
         
         $_acesso[9] = 1; // habilitar plano de conting
-        $_acesso[10] = 1; // habilitar config.
+        if($_COOKIE['seguranca']['idUser'] == 1){
+            $_acesso[10] = 1; // habilitar config.
+        }
         $_acesso[6] = 0; // desabilitar escola
         
 
