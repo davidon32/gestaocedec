@@ -138,16 +138,19 @@ if ($opcao == 'cadastro') {
             return false;
         }
     }
+    
+####
 } elseif ($opcao == 'updateToken') {
     
     return Usuario::updateToken($id_usuario);  
-    
+
+###    
 } elseif ($opcao == 'updateCPF') {
     $post = isset($_POST) ? $_POST : "";
     
-    print 'er';
-    var_dump(Usuario::updateCpf($post));
-    die();
+    //var_dump($_POST);
+    //return Usuario::updateCpf($post);
+    //die();
     if ((Usuario::updateCpf($post)) && (Usuario::updateToken($post['id_usuario']))) {
         return true;
     }else {

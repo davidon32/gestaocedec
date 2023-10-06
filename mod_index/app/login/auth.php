@@ -22,6 +22,8 @@
 $user = Usuario::getUserData($_COOKIE['seguranca']);
 $cpf = isset($user['cpf']) ? $user['cpf'] : null;
 $email = isset($user['email_rec']) ? $user['email_rec'] : null;
+$id_user = $_COOKIE['seguranca']['idUser'];
+
 
 
 /* route sdclara */
@@ -37,6 +39,28 @@ $route = $routeList[$actionApi];
 $url_redirect = '';
 $token = '';
 
+$funcao =  isset($_COOKIE['seguranca']['funcao']) ? $_COOKIE['seguranca']['funcao'] : "null" ;
+
+$orgao = isset($_COOKIE['seguranca']['orgao']) ? $_COOKIE['seguranca']['orgao'] : "null";
+
+if($funcao == 'REDEC') {
+    $orgao = strtolower($funcao);
+}
+
+
+if ( ($_SERVER['HTTP_HOST'] == 'sistema.defesacivil.mg.gov.br') || ($_SERVER['HTTP_HOST'] == 'www.sistema.defesacivil.mg.gov.br') ){
+        $url = 'https://sdcmg.com.br/api/auth/login';
+        $url_redirect = 'https://sdcmg.com.br';
+        $log_path = '/web/anexo/curl.log';
+    } else {
+        //var_dump($_SERVER['HTTP_HOST']);
+        //die();
+        $url = 'http://localhost:8081/api/auth/login';
+        $url_redirect = 'http://localhost:8081';
+        $log_path = 'log/curl.log';
+    }
+
+
 if ((is_null($cpf)) && (!is_numeric($cpf))) {
     ?>
     <!--<div class="modal fade" tabindex="-1" role="dialog" id="myModal" data-backdrop="static">-->
@@ -44,7 +68,8 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
         <div class="modal-content">
             <div class="modal-header">
     <!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
-                <h4 class="modal-title">Favor preencher o CPF do Usuário</h4>
+                <legend>Atualização Necessária</legend>
+                <h4 class="modal-title">Favor preencher o CPF Coordenador Municipal de Defesa Civil</h4>
             </div>
             <div class="modal-body">
                 <p class="alert alert-danger bold">Após clicar no botão Salvar, Você será direcionado a nova plataforma do SDC !</p>
@@ -65,18 +90,7 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
     
 } else {
 
-    if ( ($_SERVER['HTTP_HOST'] == 'sistema.defesacivil.mg.gov.br') || ($_SERVER['HTTP_HOST'] == 'www.sistema.defesacivil.mg.gov.br') ){
-        $url = 'https://sdcmg.com.br/api/auth/login';
-        $url_redirect = 'https://sdcmg.com.br';
-        $log_path = '/web/anexo/curl.log';
-    } else {
-        //var_dump($_SERVER['HTTP_HOST']);
-        //die();
-        $url = 'http://localhost:8081/api/auth/login';
-        $url_redirect = 'http://localhost:8081';
-        $log_path = 'log/curl.log';
-    }
-
+    
     $ch = curl_init();
 
     curl_setopt_array($ch, [
@@ -91,7 +105,11 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
         CURLOPT_POSTFIELDS => json_encode([
             'content' => [
                 'cpf' => $cpf,
-                'password' => 'cedecmg@new'
+                'password' => 'cedecmg@new',
+                'id_usuario' => $id_user,
+                'tipo' => $_COOKIE['seguranca']['tipo'],
+                'email'=> $_COOKIE['seguranca']['email_rec'],
+                'us' => $orgao,
             ],
             'visibility' => [
                 'code' => 'anyone'
@@ -115,9 +133,9 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
 
     $ret = json_decode($resultado);
     
-    //var_dump($ret, $url, $cpf);
 
     $token = isset($ret->token->plainTextToken) ? $ret->token->plainTextToken : null;
+
 
     if (!is_null($token)) {
 
@@ -126,10 +144,11 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
         print "window.location.href = '" . $url_redirect . '/' . $route . '?token=' . $token . '&routeInicio=' . $routeInicio . "'";
         print "</script>";
     } else {
-        print "Ocorreu um erro";
-        
+        print "Ocorreu um erro1";
+                
         // enviar email com erro 
         $log_erro = file_get_contents($log_path, true);
+        var_dump($resultado, $log_erro);
     }
 }
 ?>
@@ -163,14 +182,17 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
                     cpf: cpf,
                     id_usuario: '<?= $_COOKIE['seguranca']['idUser'] ?>',
                     email: '<?= $email ?>',
+                    tipo: '<?=$_COOKIE['seguranca']['tipo']?>',
                     opcao: 'updateCPF'
                 },
                 success: function (e) {
-                    //print "opa";
-                    window.location.href = '<?= $url_redirect . '/' . $route . '?token=' . $token . '&routeInicio=' . $routeInicio ?>';
+                    
+                    window.location.reload();
+                    
+                    //window.location.href = '<?= $url_redirect . '/' . $route . '?token=' . $token . '&routeInicio=' . $routeInicio ?>';
                 },
                 error: function (e) {
-                    console.log(cpf);
+                    //console.log(cpf);
                 }
 
             });

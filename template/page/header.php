@@ -6,6 +6,7 @@ print "<script>";
 print "window.location.href='index.php'";
 print "</script>";
 }
+
 ?>
 <script type="text/javascript">
     function start_countdown()
@@ -64,6 +65,7 @@ print "</script>";
             }
             document.getElementById("countdown").innerHTML = "Sessão: " + hours + ":" + minutes + ":" + seconds;
         }, 1000)
+        
     }
 </script>
 <style>

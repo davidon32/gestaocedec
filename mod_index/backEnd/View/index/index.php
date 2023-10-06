@@ -336,10 +336,10 @@ print "<tr><td style='text-align:center'>ANO</td><td>QTD</td></tr>";*/
         if ((email.length > 0) && (email.match(/.com/))) {
             Swal.fire({
                 icon: 'error',
-                title: 'Atualização de Email necessária...',
+                title: 'Atualização de E-mail necessária...!',
                 width: 500,
                 height: 400,
-                text: 'Favor atualiar seu email para um email institucional',
+                text: 'Favor atualizar seu email, para um domínio institucional @mg.gov.br ou similar.',
                 footer: '<a href=\'<?= FuncaoBase::geraLink("admin", "adm", "caduser", array("id" => $_COOKIE['seguranca']['idUser'])) ?>\'>Clique aqui acessar os dados cadatrais</a>'
             });
         }

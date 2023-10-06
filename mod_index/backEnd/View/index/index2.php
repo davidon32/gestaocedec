@@ -15,6 +15,14 @@
 <!-- modulos de acesso -->
 <div class="col-md-12">   
     <?php
+    
+    if($_COOKIE['seguranca']['tipo'] == "e") {
+        print "<script>";
+        print "window.location.href='".FuncaoBase::geraLink("index", "index", "menue")."'";
+        print "</script>";
+
+    }
+    
     # MOSTRA MODULOS
     Login::mostraModulos(Login::acessoModulo($pageSession['session']['seguranca']['login']));
     ?>

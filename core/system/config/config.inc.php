@@ -53,7 +53,7 @@ define('SESSAOADM', '14400');
 // define('SESSAOADM', '15'); //teste debug
 
 #@ tempo sessao Externo
-define('SESSAOEX', '1800');
+define('SESSAOEX', '3600');
 //define('SESSAOEX', '25'); // teste debug
 
 #@ titulo página

@@ -2594,10 +2594,20 @@ and cedec_usuario.id_usuario != 79
         try {
 
             $con = Conexao::getInstance();
+            
+            $sql = "";
+            
+            if($post['tipo'] == "i" ) {
 
-            $sql = "UPDATE cedec_usuario SET
+                $sql = "UPDATE cedec_usuario SET
+                            cpf = '" . $post['cpf'] . "'
+                            WHERE id_usuario = " . $post['id_usuario'];
+            }elseif($post['tipo'] == "e") {
+                $sql = "UPDATE cedec_user_ex SET
 			cpf = '" . $post['cpf'] . "'
-			WHERE id_usuario = " . $post['id_usuario'];
+			WHERE id = " . $post['id_usuario'];
+                
+            }
 
             $result = $con->query($sql);
 

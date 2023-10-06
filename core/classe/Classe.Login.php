@@ -56,6 +56,8 @@ class Login extends Liberacao {
                 cedec_funcionario.posto,
                 cedec_funcionario.diretor,
 				cedec_funcionario.secao,
+                                cedec_funcionario.orgao,
+                                cedec_funcionario.funcao,
                 pip_permissao.pmda_operador as pmdaoperador,
                 pip_permissao.pmda_dlog as pmdadlog
 		FROM cedec_usuario
@@ -140,6 +142,8 @@ class Login extends Liberacao {
                 setcookie("seguranca[pmdadlog]", $_COOKIE['seguranca']['pmdadlog'], time() + SESSAOADM);
                 setcookie("seguranca[secao]", $_COOKIE['seguranca']['secao'], time() + SESSAOADM);
                 setcookie("seguranca[id_rpm]", $_COOKIE['seguranca']['id_rpm'], time() + SESSAOADM);
+                setcookie("seguranca[orgao]", $_COOKIE['seguranca']['orgao'], time() + SESSAOADM);
+                setcookie("seguranca[funcao]", $_COOKIE['seguranca']['funcao'], time() + SESSAOADM);
                 ob_end_clean();
 
                 return true;
@@ -176,6 +180,8 @@ class Login extends Liberacao {
                 setcookie("seguranca[pmdadlog]", $dados['pmdadlog'], time() + SESSAOADM);
                 setcookie("seguranca[secao]", $dados['secao'], time() + SESSAOADM);
                 setcookie("seguranca[id_rpm]", $dados['id_rpm'], time() + SESSAOADM);
+                setcookie("seguranca[orgao]", $dados['orgao'], time() + SESSAOADM);
+                setcookie("seguranca[funcao]", $dados['funcao'], time() + SESSAOADM);
 
                 if (isset($_COOKIE['seguranca']['sessao_id'])) {
                     session_regenerate_id();
@@ -225,6 +231,10 @@ class Login extends Liberacao {
         setcookie("seguranca[pmdadlog]", null, - 3600);
         setcookie("seguranca[secao]", null, - 3600);
         setcookie("seguranca[id_rpm]", null, - 3600);
+        setcookie("seguranca[orgao]", null, - 3600);
+        setcookie("seguranca[funcao]", null, - 3600);
+        
+        
         ob_end_clean();
     }
 
@@ -1207,7 +1217,6 @@ class Login extends Liberacao {
         }
         $_acesso[6] = 0; // desabilitar escola
         
-
         print "<div class='row'>";
         for ($i = 0; $i < count($_acesso); $i++) {
             if ($_acesso[$i] == 1) {

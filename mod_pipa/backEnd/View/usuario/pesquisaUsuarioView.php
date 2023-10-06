@@ -25,7 +25,10 @@
 
 
     <div class="col-md-12">
-        <legend>Manutenção de Usuários</legend><br>
+        <legend>Manutenção de Usuários - Pesquisa</legend><br>
+        <span>Pesquisa pelo nome do Município ou <b>PARTE</b> do nome :</span>
+        <br>
+        <br>
         <!-- INICIO DO CORPO-->
         <form action="<?= FuncaoBase::geraLink("pipa", "pipa", "pesquisaUsuario", isset($_GET['volta']) ? array('volta' => 'compdec') : array()) ?>" class="form-search" method="post">
             <div class="col-md-12">

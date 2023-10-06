@@ -178,7 +178,7 @@ class pipaController extends Controller {
                         <br>
                         <div class='container message'>
                         <div class='col alert alert-success'>
-                        <p style='text-align:center'><img width='80' src='/core/imagem/DEFESACIVILMG_400'></p>
+                        <p style='text-align:center'><img width='80' src='/core/imagem/DEFESACIVILMG_400.png'></p>
                             <br>
                             <h4>Prezado Coordenador,<br><br>
                             Sua senha foi resetada, acesse : <br>

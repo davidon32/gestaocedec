@@ -241,7 +241,11 @@ class indexController extends Controller {
      * 
      */
     public function rat() {
-        $routeInicio = 'modulo=index&controller=index&action=menu';
+        if($_COOKIE['seguranca']['tipo'] == "i"){
+            $routeInicio = 'modulo=index&controller=index&action=menu';
+        }else {
+            $routeInicio = 'modulo=index&controller=index&action=menue';    
+        }
         include_once 'mod_index/app/login/auth.php';
         
     }
@@ -251,7 +255,11 @@ class indexController extends Controller {
      * 
      */
     public function vistoria() {
-        $routeInicio = 'modulo=index&controller=index&action=menu';
+        if($_COOKIE['seguranca']['tipo'] == "i"){
+            $routeInicio = 'modulo=index&controller=index&action=menu';
+        }else {
+            $routeInicio = 'modulo=index&controller=index&action=menue';    
+        }
         include_once 'mod_index/app/login/auth.php';
         
     }
@@ -261,7 +269,11 @@ class indexController extends Controller {
      * 
      */
     public function compdec() {
-        $routeInicio = 'modulo=index&controller=index&action=menu';
+        if($_COOKIE['seguranca']['tipo'] == "i"){
+            $routeInicio = 'modulo=index&controller=index&action=menu';
+        }else {
+            $routeInicio = 'modulo=index&controller=index&action=menue';    
+        }
         include_once 'mod_index/app/login/auth.php';
         
     }

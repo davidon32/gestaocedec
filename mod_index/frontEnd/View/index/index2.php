@@ -95,9 +95,30 @@ $data_doc = Compdec::verificadoc($id_municipio);
 //                </td>';
 //}
             ?>
+            
+            
+   
+            
         </tr>
     </table>
     <br>
+    
+    <?php
+        //if($_COOKIE['seguranca']['id_municipio'] == '120') {
+            
+        ?>
+     <!--RAT-->
+    <div class="col-md-3 text-center" style="height: 190px;">
+        <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=rat" ?>" title="Relatório de Atividades"><img width="155" src="core/imagem/rat_teste.png"><br />RAT</a>
+    </div>
+    
+    <!--VISTORIA-->
+    <div class="col-md-3 text-center" style="height: 190px;">
+        <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=vistoria" ?>" title="Relatório de Atividades"><img width="135" src="core/imagem/vistoria_interdicao_teste.png"><br />Vistoria/Interdição</a>
+    </div>
+    <?php
+        //}
+    ?>
     <div>
         <br>
 
