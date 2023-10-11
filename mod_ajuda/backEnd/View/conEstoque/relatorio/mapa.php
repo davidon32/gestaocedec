@@ -271,7 +271,7 @@ if(empty($post)) {
   <body>
   <div class="wrap">
     <?=$voltar?>
-      <span style='text-align: center'>Mapa de Distribuição de Material de Ajuda Humanitária <br> Período Chuvoso 2022/2023 <!--<?=$post['txtDtInicial'];?> a <?=$post['txtDtFinal'];?>--></span>
+      <span style='text-align: center'>Mapa de Distribuição de Material de Ajuda Humanitária <br> <!--<?=$post['txtDtInicial'];?> a <?=$post['txtDtFinal'];?>--></span>
     <div id="map-canvas"></div>
   </div>
   </body>

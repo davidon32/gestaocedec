@@ -71,7 +71,7 @@ if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
     $verificaTrSenhaCedec = Usuario::buscaTrSenhaCedec($email, $hash);
     
     
-    //var_dump($email, $hash);
+    //var_dump($caminho);
     //die();
     
     if (isset($verificaTrSenhaEx['troca'])) {
@@ -90,7 +90,7 @@ if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
         /* if ($evento == 'evento') {
           header('Location :evento.php');
           } else */
-        if ((isset($caminho[1]) && ($caminho[1] === 'mapa')) && ( (isset($caminho[2]) && $caminho[2] === 'site'))) { # mapas
+        if ((isset($caminho[2]) && ($caminho[2] === 'mapa')) && ( (isset($caminho[3]) && $caminho[3] === 'site'))) { # mapas
             
             $controller = 'relatorio';
             $action = 'mapa';

@@ -27,7 +27,8 @@ $dados = Usuario::buscaUsuarioId($_GET['id']);
                 <input id="reset" name="reset" type="hidden" value="">
                 
                 <label class="" for="textinput">Email</label> <small>(email institucional ex. nomemunicipio@municipio.mg.gov.br)</small>
-                <input id="email_rec" name="email_rec" type="email" value="<?= $dados['email_rec']; ?>" class="form-control">
+                <input id="email_rec1" name="email_rec1" type="email" value="<?= $dados['email_rec']; ?>" class="form-control">
+                <input id="email_rec" name="email_rec" type="hidden" value="<?= $dados['email_rec']; ?>" class="form-control">
                 <br>
                 <span class="alert alert-danger" id="email_branco" style="font-size:12px;">* Email não pode ficar em branco, pois o mesmo é usado para a recuperação de senha </span>
                 

@@ -731,8 +731,8 @@ class Liberacao extends DataMysql{
 		}
                 
                 /* filtro por evento */
-		if(strlen($post['selEvento']) >0) {
-			$_campoEvento = " AND aju_liberacao.evento = '".$post['selEvento']."' ";
+		if(strlen($post['sel_evento']) >0) {
+			$_campoEvento = " AND aju_liberacao.evento = '".$post['sel_evento']."' ";
 		}
 
 		$con = Conexao::getInstance();
@@ -771,8 +771,8 @@ class Liberacao extends DataMysql{
 		}
                 
                 /* filtro por evento */
-		if(strlen($post['selEvento']) >0) {
-			$_campoEvento = " AND aju_liberacao.evento = '".$post['selEvento']."' ";
+		if(strlen($post['sel_evento']) >0) {
+			$_campoEvento = " AND aju_liberacao.evento = '".$post['sel_evento']."' ";
 		}
 
 		
@@ -830,8 +830,8 @@ class Liberacao extends DataMysql{
 		}
                 
                 /* filtro por evento */
-		if(strlen($post['selEvento']) >0) {
-			$_campoEvento = " AND aju_liberacao.evento = '".$post['selEvento']."' ";
+		if(strlen($post['sel_evento']) >0) {
+			$_campoEvento = " AND aju_liberacao.evento = '".$post['sel_evento']."' ";
 		}
 		
 		$con = Conexao::getInstance();
@@ -892,8 +892,8 @@ class Liberacao extends DataMysql{
 		}
                 
                 /* filtro por evento */
-		if(strlen($post['selEvento']) >0) {
-			$_campoEvento = " AND aju_liberacao.evento = '".$post['selEvento']."' ";
+		if(strlen($post['sel_evento']) >0) {
+			$_campoEvento = " AND aju_liberacao.evento = '".$post['sel_evento']."' ";
 		}
 
 		/* filtro por evento */

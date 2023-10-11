@@ -39,26 +39,26 @@ $route = $routeList[$actionApi];
 $url_redirect = '';
 $token = '';
 
-$funcao =  isset($_COOKIE['seguranca']['funcao']) ? $_COOKIE['seguranca']['funcao'] : "null" ;
+$funcao = isset($_COOKIE['seguranca']['funcao']) ? $_COOKIE['seguranca']['funcao'] : "null";
 
 $orgao = isset($_COOKIE['seguranca']['orgao']) ? $_COOKIE['seguranca']['orgao'] : "null";
 
-if($funcao == 'REDEC') {
+if ($funcao == 'REDEC') {
     $orgao = strtolower($funcao);
 }
 
 
-if ( ($_SERVER['HTTP_HOST'] == 'sistema.defesacivil.mg.gov.br') || ($_SERVER['HTTP_HOST'] == 'www.sistema.defesacivil.mg.gov.br') ){
-        $url = 'https://sdcmg.com.br/api/auth/login';
-        $url_redirect = 'https://sdcmg.com.br';
-        $log_path = '/web/anexo/curl.log';
-    } else {
-        //var_dump($_SERVER['HTTP_HOST']);
-        //die();
-        $url = 'http://localhost:8081/api/auth/login';
-        $url_redirect = 'http://localhost:8081';
-        $log_path = 'log/curl.log';
-    }
+if (($_SERVER['HTTP_HOST'] == 'sistema.defesacivil.mg.gov.br') || ($_SERVER['HTTP_HOST'] == 'www.sistema.defesacivil.mg.gov.br')) {
+    $url = 'https://sdcmg.com.br/api/auth/login';
+    $url_redirect = 'https://sdcmg.com.br';
+    $log_path = '/web/anexo/curl.log';
+} else {
+    //var_dump($_SERVER['HTTP_HOST']);
+    //die();
+    $url = 'http://localhost:8081/api/auth/login';
+    $url_redirect = 'http://localhost:8081';
+    $log_path = 'log/curl.log';
+}
 
 
 if ((is_null($cpf)) && (!is_numeric($cpf))) {
@@ -75,7 +75,7 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
                 <p class="alert alert-danger bold">Após clicar no botão Salvar, Você será direcionado a nova plataforma do SDC !</p>
 
                 <p>Gentileza informar o CPF do Coordenador ! (sem pontos somente os numeros )</p>
-                <input type="text" name="cpf" id="cpf" maxlength="11" class="form form-control">
+                <input type="text" name="cpf" id="cpf" maxlength="11" minlength="11" class="form form-control">
 
             </div>
             <div class="modal-footer">
@@ -87,10 +87,9 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
     <!--</div> /.modal -->
 
     <?php
-    
 } else {
 
-    
+
     $ch = curl_init();
 
     curl_setopt_array($ch, [
@@ -108,7 +107,7 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
                 'password' => 'cedecmg@new',
                 'id_usuario' => $id_user,
                 'tipo' => $_COOKIE['seguranca']['tipo'],
-                'email'=> $_COOKIE['seguranca']['email_rec'],
+                'email' => $_COOKIE['seguranca']['email_rec'],
                 'us' => $orgao,
             ],
             'visibility' => [
@@ -120,19 +119,19 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
         CURLOPT_RETURNTRANSFER => 1,
         CURLOPT_PROTOCOLS => CURLPROTO_HTTPS,
         CURLOPT_VERBOSE => true,
-        CURLOPT_STDERR => fopen($log_path, 'w+') ,
+        CURLOPT_STDERR => fopen($log_path, 'w+'),
     ]);
 
     $resultado = curl_exec($ch);
 
     if (curl_errno($ch)) {
-        print "log: ".curl_error($ch);
+        print "log: " . curl_error($ch);
     }
 
     curl_close($ch);
 
     $ret = json_decode($resultado);
-    
+
 
     $token = isset($ret->token->plainTextToken) ? $ret->token->plainTextToken : null;
 
@@ -144,8 +143,8 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
         print "window.location.href = '" . $url_redirect . '/' . $route . '?token=' . $token . '&routeInicio=' . $routeInicio . "'";
         print "</script>";
     } else {
-        print "Ocorreu um erro1";
-                
+        print "Ocorreu um erro";
+
         // enviar email com erro 
         $log_erro = file_get_contents($log_path, true);
         var_dump($resultado, $log_erro);
@@ -175,27 +174,33 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
 
             var cpf = $("#cpf").val();
 
-            $.ajax({
-                type: "POST",
-                url: '/mod_index/app/login/valida.php',
-                data: {
-                    cpf: cpf,
-                    id_usuario: '<?= $_COOKIE['seguranca']['idUser'] ?>',
-                    email: '<?= $email ?>',
-                    tipo: '<?=$_COOKIE['seguranca']['tipo']?>',
-                    opcao: 'updateCPF'
-                },
-                success: function (e) {
-                    
-                    window.location.reload();
-                    
-                    //window.location.href = '<?= $url_redirect . '/' . $route . '?token=' . $token . '&routeInicio=' . $routeInicio ?>';
-                },
-                error: function (e) {
-                    //console.log(cpf);
-                }
+            if (cpf.length < 11) {
+                alert('O CPF deve ter 11 números !');
 
-            });
+            } else {
+
+                $.ajax({
+                    type: "POST",
+                    url: '/mod_index/app/login/valida.php',
+                    data: {
+                        cpf: cpf,
+                        id_usuario: '<?= $_COOKIE['seguranca']['idUser'] ?>',
+                        email: '<?= $email ?>',
+                        tipo: '<?= $_COOKIE['seguranca']['tipo'] ?>',
+                        opcao: 'updateCPF'
+                    },
+                    success: function (e) {
+
+                        window.location.reload();
+
+                        //window.location.href = '<?= $url_redirect . '/' . $route . '?token=' . $token . '&routeInicio=' . $routeInicio ?>';
+                    },
+                    error: function (e) {
+                        //console.log(cpf);
+                    }
+
+                });
+            }
         });
     });
 
