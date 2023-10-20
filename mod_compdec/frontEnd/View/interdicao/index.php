@@ -24,7 +24,7 @@ $interdicoes = interdicaoController::listagem_geral($id_municipio);
     <br><br>
 </div>
 <div class="col-md-6">     
-     <a class="btn btn-primary" href="<?= FuncaoBase::geraLink('compdec', 'interdicao', 'novo')?>">Novo Termo Interdição</a>
+     <!--<a class="btn btn-primary" href="<?= FuncaoBase::geraLink('compdec', 'interdicao', 'novo')?>">Novo Termo Interdição</a>-->
 </div>
 <div class="col-md-6">
     <a class="btn btn-linkedin" href="<?= FuncaoBase::geraLink('compdec', 'compdec', 'download', array('arquivo'=>'anexo/modelo/MODELO_DE_NOTIFICACAO_DE_INTERDICAO.docx'))?>">Baixar Modelo de Notificação de Interdição</a><br><br>

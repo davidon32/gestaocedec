@@ -26,7 +26,8 @@ $busca_vistorias = vistoriaController::listagem_geral(['id_municipio'=>$id_munic
     <br><br>
 </div>
 <div class="col-md-6">     
-     <a class="btn btn-primary" href="<?= FuncaoBase::geraLink('compdec', 'vistoria', 'novo')?>">Novo Termo</a>
+<!--     <a class="btn btn-primary" href="<?= FuncaoBase::geraLink('compdec', 'vistoria', 'novo')?>">Novo Termo</a>-->
+<a class="btn btn-primary" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=vistoria" ?>" title="Relatório de Atividades">Vistoria/Interdição</a>
 </div>
 <div class="col-md-6">
     <a class="btn btn-linkedin" title='Clique para baixar o Modelo' href="<?= FuncaoBase::geraLink('compdec', 'compdec', 'download', array('arquivo'=>'anexo/modelo/RELATORIO_VISTORIA_ATENDIMENTO_EMERGENCIAL.docx'))?>">Baixar Modelo de Termo de Vistoria </a><br><br>
