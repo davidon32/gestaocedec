@@ -132,7 +132,7 @@ class Log {
      * @param type $id_municipio
      * @return type
      */
-    static function UltimoAcessoCompdec($id_municipio) {
+    static function UltimoAcessoCompdec($id_municipio, $_modulo) {
 
         $con = Conexao::getInstance();
 
