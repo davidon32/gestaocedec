@@ -60,8 +60,12 @@ if(!empty($dados['tmpAnexo'])){
 <div class="control-group">
   <label class="control-label" for="textinput">Usuário</label>
   <div class="controls">
-    <input id="textUsuario" name="textUsuario" type="text" value="<?=$dados['usuario']?>" class="input-xlarge" readonly="readonly">
-    <input id="id_usuario" name="id_usuario" type="hidden" value="<?=$dados['id']?>" >
+    <input id="textUsuario" name="textUsuario" type="text"   value="<?=$dados['usuario']?>" class="input-xlarge" readonly="readonly">
+    <input id="id_usuario"  name="id_usuario"  type="hidden" value="<?=$dados['id']?>" >
+    
+    <input id="mod_compdec" name="mod_compdec" type="hidden" value="<?=$dados['mod_compdec']?>" >
+    <input id="mod_pipa"    name="mod_pipa"    type="hidden" value="<?=$dados['mod_pipa']?>" >
+    <input id="mod_ajuda"   name="mod_ajuda"   type="hidden" value="<?=$dados['mod_ajuda']?>" >
     
   </div>
 </div>

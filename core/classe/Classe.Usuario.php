@@ -701,7 +701,43 @@ class Usuario extends UsuarioModel {
 
         return count($linha) > 0 ? $linha['nome'] : "";
     }
+    
+    
+    /**
+     * Retorna o nome do usuario baseado no identificador
+     * @param integer $id_user - Identificador do Usuario
+     * @return String $nome
+     * 
+     * */
+    static function getUserExNomeId($id_user) {
 
+        $con = Conexao::getInstance();
+
+        $linha = array();
+
+        $sql = "select cedec_user_ex.usuario,
+                cedec_municipio.nome as nome_municipio,
+                cedec_rpm_mun.nome as rpm
+		from cedec_user_ex
+                inner join cedec_municipio
+                on cedec_user_ex.id_municipio = cedec_municipio.id_municipio
+                inner join cedec_rpm_mun
+                on cedec_municipio.id_municipio = cedec_rpm_mun.id_municipio
+		where cedec_user_ex.id = :id_user";
+
+        $result = $con->prepare($sql);
+        $result->bindParam(":id_user", $id_user);
+        $result->execute();
+
+        while ($dados = $result->fetch(PDO::FETCH_ASSOC)) {
+
+            $linha = $dados;
+        }
+
+        return $linha;
+    }
+    
+    
     /**
      * Função para retornar o login com base no nome
      * @param  String $_nome - nome do usuario
@@ -2417,8 +2453,14 @@ and cedec_usuario.nome not in('SUPORTE') " . $filtro . "
         $dados = array();
 
         $id_func_chefe_gm = self::getChefeGMG();
+        $id_chefe = "";
+        if($id_func_chefe_gm) {
+            $id_chefe = " field(cedec_usuario.id_funcionario,$id_func_chefe_gm) desc, ";
+        }
+        
+        //var_dump($id_func_chefe_gm);
 
-        $filtro = (!empty($_GET['tipo'])) ? " and desc_funcao = 'Agente Regional de DC' order by cedec_rpm.id " : " and desc_funcao not like 'Agente Regional de DC%' order by field(cedec_usuario.id_funcionario,$id_func_chefe_gm) desc, cedec_usuario.nome";
+        $filtro = (!empty($_GET['tipo'])) ? " and desc_funcao = 'Agente Regional de DC' order by cedec_rpm.id " : " and desc_funcao not like 'Agente Regional de DC%' order by $id_chefe cedec_usuario.nome";
         $sql = "select 
 cedec_usuario.id_usuario,
 cedec_usuario.nome,
@@ -2441,6 +2483,7 @@ cedec_funcionario.posto,
 cedec_funcionario.num_masp,
 cedec_funcionario.email2,
 cedec_rpm.nome as rpm,
+cedec_usuario.cpf,
 aju_deposito.nome as dep_avancado
 from cedec_usuario
 inner join cedec_funcionario
@@ -2682,9 +2725,80 @@ and cedec_usuario.id_usuario != 79
         } catch (Exception $e) {
             print FuncaoBase::getError($e->getMessage(), 'Mensagem');
         }
+          
         
-        
-        
+    }
+    
+    
+    /**
+     * uSUARIOS CEDEC
+     * @return type
+     */
+    static function UsuarioCedecDados() {
+
+        $dados = array();
+        $con = Conexao::getInstance();
+
+        $sql = 'SELECT cedec_usuario.id_usuario,
+                    cedec_usuario.id_deposito,
+                    cedec_usuario.nome as nome,
+                    cedec_usuario.senha,
+                    cedec_usuario.email_rec,
+                    cedec_usuario.nivel,
+                    cedec_usuario.situacao,
+                    cedec_usuario.login,
+                    cedec_usuario.it_m_deposito,
+                    cedec_usuario.it_m_pipa,
+                    cedec_usuario.it_m_cce,
+                    cedec_usuario.it_m_decretacao,
+                    cedec_usuario.it_m_comdec,
+                    cedec_usuario.it_m_apoio,
+                    cedec_usuario.it_m_poco,
+                    cedec_usuario.it_m_escola,
+                    cedec_usuario.cpf,
+                    cedec_usuario.id_funcionario,
+                    cedec_funcionario.email as email_info1,
+                    cedec_funcionario.email2 as email_info2,
+                    cedec_funcionario.num_masp,
+                    cedec_funcionario.secao as secao,
+                    cedec_funcionario.id_funcionario
+                        FROM cedec_usuario
+                            inner join cedec_funcionario
+                            on cedec_usuario.id_funcionario = cedec_funcionario.id_funcionario
+                            WHERE cedec_usuario.situacao = 1';
+
+        $result = $con->query($sql);
+       
+
+        return $result->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+    
+    /**
+     * uSUARIOS eXTERNOS compdec
+     * @return type
+     */
+    static function UsuariocomdecDados() {
+
+        $dados = array();
+        $con = Conexao::getInstance();
+
+        $sql = "SELECT cedec_user_ex.id,
+                        cedec_user_ex.usuario,
+                        cedec_user_ex.email_rec,
+                        cedec_user_ex.id_municipio,
+                        cedec_user_ex.cpf,
+                        cedec_rpm_mun.nome
+                        FROM cedec_user_ex
+                        inner join cedec_rpm_mun
+                        on cedec_user_ex.id_municipio = cedec_rpm_mun.id_municipio                        
+                            WHERE cedec_user_ex.situacao = 'ATIVADO'
+                            Order by cedec_rpm_mun.id_rpm";
+
+        $result = $con->query($sql);
+       
+
+        return $result->fetchAll(PDO::FETCH_ASSOC);
     }
     
 

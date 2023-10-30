@@ -28,6 +28,27 @@ if(is_null($id) && $opcao == "novo") {
 }else if($opcao == "alterar"){
     
     $eqCompdec->alterar($_POST);
+    
+    # atualizar cpf no lara
+    
+//    if (($_SERVER['HTTP_HOST'] == 'sistema.defesacivil.mg.gov.br') || ($_SERVER['HTTP_HOST'] == 'www.sistema.defesacivil.mg.gov.br')) {
+//    $url = 'https://sdcmg.com.br/api/auth/cpf';
+//    $log_path = '/web/anexo/curl.log';
+//} else {
+//    //var_dump($_SERVER['HTTP_HOST']);
+//    //die();
+//    $url = 'http://localhost:8081/api/auth/cpf';
+//    $log_path = 'log/curl.log';
+//}
+//
+//    FuncaoBase::Api([
+//        'url'=>$url,
+//        'items' => [
+//                'cpf'        => str_replace(array('.','-'), "", $_POST['txtCpf']),
+//                'id_usuario' => $_COOKIE['seguranca']['idUser'],
+//                'email'      => $_COOKIE['seguranca']['email_rec'],
+//                ],
+//        ]);
 }
 
 print "<div class='col-md-12' id='tbl_membro'>";
@@ -59,7 +80,7 @@ $back ="";
 
         if( (empty($value['cpf']) && strtolower($value['funcao']) == 'coordenador') ){
             $back = " class='alert alert-danger' title='Favor Preencher este campo'";
-            $info = "É necessário que o Coordenador Municipal tenha o cpf Cadastrado no sistema.";
+            $info = "PARA Continuar, é necessário que o Coordenador Municipal tenha o cpf Cadastrado no sistema.";
         }
 
     

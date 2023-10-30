@@ -429,6 +429,15 @@ MSG;
     }
     
     
+    public function verificar_user(){
+        include_once 'mod_admin/backEnd/View/usuario_cedec/verificar_user.php';
+        
+        //var_dump("verificar_user");
+        
+        
+    }
+    
+    
     
 
     

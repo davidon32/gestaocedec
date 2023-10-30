@@ -5,8 +5,9 @@ if (!isset($_SESSION)) {
     $id = session_id();
 }
 
+
 if (!defined('VERSAO')) {
-    define('VERSAO', 'versão - 3.4.2.0-1 - 23.05.2023');
+    define('VERSAO', 'versão - 3.4.2.3-1 - 25.10.2023');
 }
 include 'core/system/config/config.inc.php';
 include_once 'core/include.php';
@@ -45,6 +46,8 @@ if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
     $parametro = filter_var($parametro, FILTER_SANITIZE_URL);
     $parametro = explode('/', $parametro);
 
+
+    var_dump($caminho);
     $controller = isset($_GET['controller']) ? $_GET['controller'] . "Controller" : "indexController";
     $action = isset($_GET['action']) ? $_GET['action'] : "index";
 
@@ -70,9 +73,6 @@ if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
     /* interno */
     $verificaTrSenhaCedec = Usuario::buscaTrSenhaCedec($email, $hash);
     
-    
-    //var_dump($caminho);
-    //die();
     
     if (isset($verificaTrSenhaEx['troca'])) {
         include_once 'mod_equipe/View/usuario/trsenha_compdec.php';

@@ -65,7 +65,7 @@
             <!--<tr>
                 <td>Materiais Esperando Pagamento </td> <td>: <?= Ajuda::getMaterialEsperaPagto($_POST, 0);?></h3></td>
             </tr> -->
-            <?php if(strlen($_POST['selEvento']) == 0) { ?>
+            <?php if(strlen($_POST['sel_evento']) == 0) { ?>
             <tr>
                 <td>Materiais em Transito (Transferencia entre Depositos)</td> <td><h3> : <?= Ajuda::getMaterialTransito($_POST, 1);?></h3></td>
             </tr>

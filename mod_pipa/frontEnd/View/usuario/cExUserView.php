@@ -11,6 +11,7 @@
 
 <?php
 $dados = Usuario::buscaUsuarioId($_GET['id']);
+
 ?>
 
 <form class="form-horizontal" action="#" method="POST">
@@ -45,6 +46,12 @@ $dados = Usuario::buscaUsuarioId($_GET['id']);
 
     <input id="senha" name="senha" type="password" value="<?=$dados['senha'] ?>" class="form-control" readonly="readonly">
     <input id="trSenha" name="trSenha" type="hidden" value="0">
+    
+    <input id="mod_compdec" name="mod_compdec" type="hidden" value="<?=$dados['mod_compdec']?>" >
+    <input id="mod_pipa" name="mod_pipa" type="hidden" value="<?=$dados['mod_pipa']?>" >
+    <input id="mod_ajuda" name="mod_ajuda" type="hidden" value="<?=$dados['mod_ajuda']?>" >
+    
+    
 		<br>
     <span class="alert alert-danger">Senha Padrao : "portal199"</span>&nbsp;<br>
 		<br>

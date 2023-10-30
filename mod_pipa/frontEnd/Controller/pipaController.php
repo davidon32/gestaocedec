@@ -33,6 +33,7 @@
         #altera Usuario
         public function cUserEx(){
 
+            var_dump($_POST);
             include_once "mod_pipa/frontEnd/View/usuario/cExUserView.php";
 
         }

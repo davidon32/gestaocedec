@@ -10,8 +10,12 @@
 <?php include_once "template/page/corpoHeader.php"; ?>
 
 <!-- painel inicial sitema notificacoes -->
-<div class="col-md-4 text-left"> 
-    <a class="btn btn-success" href='index.php?token=<?= hash('sha256', md5(VERSAO) . date('dmY')) ?>&ac=etn&modulo=index&controller=index&action=menue'>Acessar Módulos</a>  
+<div class="col-md-4 text-left">
+    <br>
+    <legend>Prezado Coordenador, <br>seja Bem Vindo ao SDC !</legend>
+    <p>Para acessar os módulos do SDC clique no botão abaixo :</p>
+    <a class="btn btn-primary btn-lg" href='index.php?token=<?= hash('sha256', md5(VERSAO) . date('dmY')) ?>&ac=etn&modulo=index&controller=index&action=menue' title="Clique aqui para acessa o sistema !" >
+        Entrar</a>  
 
     <?php
     

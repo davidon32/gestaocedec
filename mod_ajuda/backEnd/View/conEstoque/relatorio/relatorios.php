@@ -9,7 +9,7 @@ $_txt_dt_inicial = isset($_POST['txt_dt_inicial']) ? $_POST['txt_dt_inicial'] : 
 $_txt_dt_final = isset($_POST['txt_dt_final']) ? $_POST['txt_dt_final'] : "";
 $_txt_id_municipio = isset($_POST['txt_id_municipio']) ? $_POST['txt_id_municipio'] : "";
 
-$_evento = isset($_POST['selEvento']) ? $_POST['selEvento'] : "";
+$_evento = isset($_POST['sel_evento']) ? $_POST['sel_evento'] : "";
 
 $_txt_btn_enviar = isset($_POST['txt_btn_enviar']) ? $_POST['txt_btn_enviar'] : "";
 

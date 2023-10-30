@@ -19,7 +19,9 @@ $secao = isset($_COOKIE['seguranca']['secao']) ? $_COOKIE['seguranca']['secao'] 
 
 
 <div id='continuar_sistema' class="col-md-6 text-left">
-    <a class="btn btn-success btn-lg" href='index.php?token=<?= hash('sha256', md5(VERSAO) . "-" . time()) ?>&modulo=index&controller=index&action=menu'> Continuar a usar o Sistema !</a>
+    <a class="btn btn-success btn-lg" href='index.php?token=<?= hash('sha256', md5(VERSAO) . "-" . time()) ?>&modulo=index&controller=index&action=menu' title="Clique aqui para acessar o Sistema !">
+        Entrar
+    </a>
 </div>
 <p id="espaco_menu"></p>
 <div id='info_rapido' class="col-md-6 text-right">
@@ -67,8 +69,11 @@ $secao = isset($_COOKIE['seguranca']['secao']) ? $_COOKIE['seguranca']['secao'] 
                                     &nbsp;&nbsp;<span style='font-size:12px;'>
                                     <span style='font-weight:bold;font-style: italic;'>". Municipio::PegaNomeMunicipio($pedido['id_municipio'])."</span>
                                     Pedido AH Nº: " . $pedido['numero'] . "/" . substr($pedido['data_entrada_sistema'], 0, 4) . " - " . DataMysql::dataVisual($pedido['data_entrada_sistema']) . "</a>
-                                </span>
-                                <small class=\"label label-danger\"><i class=\"fa fa-clock-o\"></i> - Criado há " . $dif->days . "  dia(s)</small>
+                                </span>";
+                                if($pedido['id_municipio'] != "7221"){
+                                    print "<small class=\"label label-danger\"><i class=\"fa fa-clock-o\"></i> - Criado há " . $dif->days . "  dia(s)</small>";
+                                }
+                             print "
                             </li>
                           </ul>";
                  /* visualização dos demais usuarios do pedido em analise pelo DLOG*/
@@ -85,8 +90,14 @@ $secao = isset($_COOKIE['seguranca']['secao']) ? $_COOKIE['seguranca']['secao'] 
                                     &nbsp;&nbsp;<span style='font-size:12px;'>
                                     <span style='font-weight:bold;font-style: italic;'>". Municipio::PegaNomeMunicipio($pedido['id_municipio'])."</span>
                                     Pedido AH Nº: " . $pedido['numero'] . "/" . substr($pedido['data_entrada_sistema'], 0, 4) . " - " . DataMysql::dataVisual($pedido['data_entrada_sistema']) . "</a>
-                                </span>
-                                <small class=\"label label-danger\"><i class=\"fa fa-clock-o\"></i> - Criado há " . $dif->days . "  dia(s)</small>
+                                </span>";
+                    
+                    if($pedido['id_municipio'] != "7221"){
+                                    print "<small class=\"label label-danger\"><i class=\"fa fa-clock-o\"></i> - Criado há " . $dif->days . "  dia(s)</small>";
+                                }
+                                
+                                //<small class=\"label label-danger\"><i class=\"fa fa-clock-o\"></i> - Criado há " . $dif->days . "  dia(s)</small>
+                              print "
                             </li>
                           </ul>";
                 

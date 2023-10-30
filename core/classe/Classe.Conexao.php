@@ -31,7 +31,7 @@ class Conexao {
 
                 /* localhost casa */
                 
-            } else if ($_SERVER['DOCUMENT_ROOT'] == '/var/www/html/gestaocedec') {
+            } else if ($_SERVER['DOCUMENT_ROOT'] == '/var/www/html/cedec') {
 
                 try {
                     self::$instance = new PDO('mysql:host=localhost;port=3306;dbname=gestaocedec', 'root', '12345678', array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
@@ -40,7 +40,7 @@ class Conexao {
                 }
 
                 /* local host cedec */
-            } else if ($_SERVER['DOCUMENT_ROOT'] == 'C:/wamp/www/gestaocedec'){
+            } else if ($_SERVER['DOCUMENT_ROOT'] == 'C:/wamp/www/cedec'){
                 
                 try {
                     self::$instance = new PDO('mysql:host=localhost;port=3307;dbname=gestaocedec', 'root', '', array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));

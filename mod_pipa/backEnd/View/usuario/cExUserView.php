@@ -11,6 +11,7 @@
 
 <?php
 $dados = Usuario::buscaUsuarioId($_GET['id']);
+
 ?>
 
 <form class="form-horizontal" action="<?= FuncaoBase::geraLink("pipa", "pipa", "resetarSenha") ?>" method="POST" id="cadUserEx" name="">
@@ -26,8 +27,14 @@ $dados = Usuario::buscaUsuarioId($_GET['id']);
                 <input id="id_usuario" name="id_usuario" type="hidden" value="<?= $dados['id'] ?>" >
                 <input id="reset" name="reset" type="hidden" value="">
                 
+                <input id="ck_pmda"    name="ck_pmda"    type="hidden" value="<?=$dados['mod_pipa']?>">
+                <input id="ck_ajuda"   name="ck_ajuda"   type="hidden" value="<?=$dados['mod_ajuda']?>">
+                <input id="ck_compdec" name="ck_compdec" type="hidden" value="<?=$dados['mod_compdec']?>">
+                
                 <label class="" for="textinput">Email</label> <small>(email institucional ex. nomemunicipio@municipio.mg.gov.br)</small>
-                <input id="email_rec1" name="email_rec1" type="email" value="<?= $dados['email_rec']; ?>" class="form-control">
+<!--                <input id="email_rec1" name="email_rec1" type="email" value="<?= $dados['email_rec']; ?>" class="form-control">-->
+                <br>
+                <span><b>: <?= $dados['email_rec']; ?></b><p style="font-style: oblique">( A função de troca de email foi desabilitada, favor fazer a solicitção via email para sdc@defesacivil.mg.gov.br)</p> 
                 <input id="email_rec" name="email_rec" type="hidden" value="<?= $dados['email_rec']; ?>" class="form-control">
                 <br>
                 <span class="alert alert-danger" id="email_branco" style="font-size:12px;">* Email não pode ficar em branco, pois o mesmo é usado para a recuperação de senha </span>

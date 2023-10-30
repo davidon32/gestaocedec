@@ -631,6 +631,7 @@ class FuncaoBase extends Exception {
     }
 
     /* retirar acentos e espaco string */
+
     static function sanitizeString($string) {
         // matriz de entrada
         $what = array('ä', 'ã', 'à', 'á', 'â', 'ê', 'ë', 'è', 'é', 'ï', 'ì', 'í', 'ö', 'õ', 'ò', 'ó', 'ô', 'ü', 'ù', 'ú', 'û', 'À', 'Á', 'É', 'Í', 'Ó', 'Ú', 'ñ', 'Ñ', 'ç', 'Ç', '-', '(', ')', ',', ';', ':', '|', '!', '"', '#', '$', '%', '&', '/', '=', '?', '~', '^', '>', '<', 'ª', 'º');
@@ -773,7 +774,7 @@ class FuncaoBase extends Exception {
     }
 
     public static function slug($string) {
-        if(strlen($string) >0){
+        if (strlen($string) > 0) {
             $result = self::tirarAcentos($string);
             $result = strtolower($result);
             $result = str_replace(array(" ", "(", ")"), "_", $result);
@@ -910,8 +911,7 @@ class FuncaoBase extends Exception {
         $result->bindValue(":obs", htmlspecialchars($obs . $obs1));
         $result->execute();
     }
-    
-    
+
     /**
      * Calculo diferenca dadas
      * @param type $dt_hoje
@@ -919,98 +919,137 @@ class FuncaoBase extends Exception {
      * @param type $tipo d = dias, m = meses, Y = anos
      * 
      */
-
     public static function DiferencaDt($dt_hoje, $dt_dif, $tipo) {
 
         $data_hoje = new DateTime($dt_hoje);
         $data_diferenca = new DateTime($dt_dif);
         $dif = $data_hoje->diff($data_diferenca);
-        
-        if($tipo == 'd'){
+
+        if ($tipo == 'd') {
             return $dif->days;
-        }elseif($tipo == 'm'){
+        } elseif ($tipo == 'm') {
             return $dif->m;
-        }elseif($tipo == 'Y'){
+        } elseif ($tipo == 'Y') {
             return $dif->y;
         }
     }
-    
+
     /**
      * Volta pagina inicial
      */
     public function pgInicio($page) {
-        
+
         print "<script>";
-         print "window.location = '".$page."'";
-         print "</script>";
-        
+        print "window.location = '" . $page . "'";
+        print "</script>";
     }
-    
-    
+
     /**
      * Lock table
      */
-    public static function Lock($table){
-        
-    $con = Conexao::getInstance();
+    public static function Lock($table) {
+
+        $con = Conexao::getInstance();
 
         $sql = "lock tables {$table}";
 
         $result = $con->query($sql);
-    
     }
 
-    
     /**
      * Lock table
      */
-    public static function Unlocke(){
-        
-    $con = Conexao::getInstance();
+    public static function Unlocke() {
+
+        $con = Conexao::getInstance();
 
         $sql = "unlock tables {$table}";
 
         $result = $con->query($sql);
-    
     }
-    
-    
+
     /**
      * Lock table
      */
-    public static function VerificaLock($table){
-        
-    $con = Conexao::getInstance();
+    public static function VerificaLock($table) {
+
+        $con = Conexao::getInstance();
 
         $sql = "show open tables where table = {$table} and database = 'gestaocedec' and in_use =0";
 
         $result = $con->query($sql);
-    
     }
-    
-    
-    public static function implode($dados){
+
+    public static function implode($dados) {
         $result = "";
-        if(is_array($dados)){
+        if (is_array($dados)) {
             foreach ($dados as $key => $value) {
-                $result .= $value."<br>";
+                $result .= $value . "<br>";
             }
-        }else {
+        } else {
             $result = $dados;
         }
         return $result;
     }
-    
-    
+
     /**
      * 
      * @param type $param
      * 
      */
-    
     function implode_array($param) {
         
     }
-    
-    
-}?>
+
+    /*
+     *array['url]
+     * array['post'] [0,1]
+     * array['param'=>array['itens']] 
+     */
+
+    public static function Api(array $param) {
+        
+//        var_dump($param['items']);
+//        die();
+
+        $ch = curl_init();
+
+        curl_setopt_array($ch, [
+            CURLOPT_URL => $param['url'],
+            CURLOPT_POST => $param['post'],
+            CURLOPT_HTTPHEADER => [
+                //'Authorization: Bearer ' . $token,
+                'Content-Type: application/json',
+                'x-li-format: json'
+            ],
+//            CURLOPT_POSTFIELDS => json_encode([
+//            'content' => [
+//                $param['items']
+//            ],
+//            'visibility' => [
+//                'code' => 'anyone'
+//            ]
+//        ]),
+            CURLOPT_SSL_VERIFYHOST => 0,
+            CURLOPT_SSL_VERIFYPEER => 0,
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_PROTOCOLS => CURLPROTO_HTTPS,
+            CURLOPT_VERBOSE => true,
+            CURLOPT_STDERR => fopen($param['log_path'], 'w+'),
+        ]);
+
+        $resultado = curl_exec($ch);
+
+        if (curl_errno($ch)) {
+            print "log: " . curl_error($ch);
+        }
+
+        curl_close($ch);
+        
+        return json_decode($resultado, true);
+        
+    }
+
+}
+
+?>

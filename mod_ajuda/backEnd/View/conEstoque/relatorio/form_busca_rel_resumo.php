@@ -58,7 +58,7 @@ $singulars = $singular->singular();
 
         <div class="col-md-12">
             <label>Evento</label>
-            <select name="selEvento" id="selEvento" class="form form-control">
+            <select name="sel_evento" id="sel_evento" class="form form-control">
                 <option value="">Todos</option>
                 <?php
                 foreach ($eventos as $evento) {

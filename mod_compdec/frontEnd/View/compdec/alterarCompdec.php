@@ -22,6 +22,8 @@ $_territorio = new Territorio();
 
 $_compdec = new Compdec();
 
+$_equipe = new MembroEqCompdec();
+
 $_dados = array();
 
 $_loginEx = new LoginExterno();
@@ -34,14 +36,26 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 
 $status_anexo = Compdec::verificadoc($id_municipio);
 
+$lista_membros = $_equipe->listaMembro($id_municipio);
+
+$key_equipe = array_search("Coordenador", array_column($lista_membros, "funcao"));
+
+$cpf_coordenador = $lista_membros[$key_equipe]['cpf'];
+
 $desatualiza = count($status_anexo);
 
-if ($desatualiza > 0) {
+
+if ($desatualiza > 0 ) {
 
     $voltar = "<button class=\"btn btn-success\" type=\"button\" onclick=\"focus_secao('tblAnexoLeis')\" title='Favor REANEXAR a lei de criação o decreto de regulamentação da lei e a portaria de nomeação do Coordenador Municipal'>Voltar</button>";
     $gravar = "<button class=\"btn btn-success\" type=\"button\" onclick=\"focus_secao('tblAnexoLeis')\" title='Favor REANEXAR a lei de criação o decreto de regulamentação da lei e a portaria de nomeação do Coordenador Municipal'>Gravar</button>";
-    $alert = "<p class='alert alert-warning'>Prezado Coordenador, é necessário REANEXAR os documentos no SDC, Lei de Criação da COMPDEC, Decreto de Regulamentação e Portaria de Nomeação do Coordenador, é necessários que a Todos os Documentos sejan reanexados</p>";
-} else {
+    $alert = "<p class='alert alert-warning'>Prezado Coordenador, PARA continuar a usar o sistema, é necessário REANEXAR os documentos no SDC, Lei de Criação da COMPDEC, Decreto de Regulamentação e Portaria de Nomeação do Coordenador, é necessários que a Todos os Documentos sejan reanexados.</p>";
+} else if(is_null($cpf_coordenador)) {
+    $voltar = "<button class=\"btn btn-success\" type=\"button\" onclick=\"focus_secao('tblAnexoLeis')\" title='Favor Atualizar o CPF do Coordenador na Seção Equipe da COMPDEC'>Voltar</button>";
+    $gravar = "<button class=\"btn btn-success\" type=\"button\" onclick=\"focus_secao('tblAnexoLeis')\" title='Favor Atualizar o CPF do Coordenador na Seção Equipe da COMPDEC'>Gravar</button>";
+    $alert = "<p class='alert alert-warning'>Prezado Coordenador,, PARA continuar a usar o sistema, é necessário Atualizar o CPF do Coordenador da COMPDEC, vá na seção Equipe abaixo desta página para realizar a atualização</p>";
+    
+}else {
     $voltar = "<a class=\"btn btn-success\" href=" . FuncaoBase::geraLink("compdec", "compdec", "index") . ">Voltar</a>";
     $gravar = "<span class=\"btn btn-success\" name=\"btnDados2\" id=\"btnDados2\">Gravar</span>";
     $alert ="";
@@ -53,12 +67,12 @@ if ($desatualiza > 0) {
 
 
 <div class="col-md-3">
-    <div class="card card-block">
+<!--    <div class="card card-block">
         &nbsp;&nbsp;<img class="img-rounded" src="/anexo/brasao/<?= $_dados[0]['id_municipio'] . "_brasao.png"; ?>" width="115px;">
         &nbsp;&nbsp;
         <a class="btn btn-link" onClick="uploadModal('brasao')" title="Anexar Brasao" id="btnAlterarBrasao" name="btnAlterarBrasao">Alterar</a>
         <br><br>
-    </div>
+    </div>-->
 </div>
 
 <div class="col-md-9 text-center">
@@ -84,7 +98,16 @@ if ($desatualiza > 0) {
         <table class="table table-bordered">
             <tr>
                 <td width="20%">
-                    &nbsp;&nbsp;<img class="img-rounded" src="/anexo/prefeito/<?= AnexoPref::Foto($_dados[0]['id_municipio']); ?>" width="115px;"><br><br>
+                    <?php
+                    
+                    if( file_exists("/anexo/prefeito/".AnexoPref::Foto($_dados[0]['id_municipio'])) ){
+                        print "<img class='img-rounded' src='/anexo/prefeito/".AnexoPref::Foto($_dados[0]['id_municipio'])." width='115px;'>";
+                    }else {
+                        print "<img class='img-rounded' src='/core/imagem/padrao.png' width='115px;'><br><br>";
+                    
+                    }
+                    ?>
+                    <br><br>
                     &nbsp;&nbsp;
                     <a class="btn btn-primary glyphicon glyphicon-user" onClick="uploadModal('prefeito')" title="Anexar Foto Prefeito" id="btnAlterarFotoPrefeito" name="btnAlterarFotoPrefeito">Alterar</a>
                 </td>
@@ -517,9 +540,9 @@ if ($desatualiza > 0) {
                         <input class="form-control" type="hidden" name="txtIdMembro" id="txtIdMembro" maxlength="5">
                         <input class="form-control" type="hidden" name="txtIdMunicipio" id="txtIdMunicipio" value="<?php print $_dados[0]['id_municipio']; ?>" maxlength="5">
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-12 text-center">
                         <button class="btn btn-info" id="btnGravarMembro" type="button" title="Grava o Membro do Compdec Preenchido no Formulário.">Gravar Membro Equipe</button>
-                        <button type="button" id="btnAlterarMembro" class="btn btn-success">Alterar Membro</button>
+                        <button type="button" id="btnAlterarMembro" class="btn btn-success">Gravar Alteração</button>
                     </div>
                 </div>
                 <br>

@@ -34,13 +34,13 @@ define('CONTROLLER_EQUIPE', $_SERVER['DOCUMENT_ROOT']."/mod_equipe/controller");
 
 
 
-define('PATH', $_SERVER['DOCUMENT_ROOT']);
+define('PATH', $_SERVER['DOCUMENT_ROOT'].'/gestaocedec');
 
 define('TESTE', false);
 
 #@ versao
 if(!defined('VERSAO')){
-define('VERSAO', 'versão - 3.4.2.0-1 - 23.05.2023');
+define('VERSAO', 'versão - 3.4.2.3-1 - 25.10.2023');
 
 }
 
