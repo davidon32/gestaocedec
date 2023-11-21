@@ -32,9 +32,9 @@ define('CONTROLLER_EQUIPE', $_SERVER['DOCUMENT_ROOT']."/mod_equipe/controller");
 * 
 */
 
+define('LARAVEL_PATH', $_SERVER['DOCUMENT_ROOT'].'/cedec');
 
-
-define('PATH', $_SERVER['DOCUMENT_ROOT'].'/gestaocedec');
+define('PATH', $_SERVER['DOCUMENT_ROOT']);
 
 define('TESTE', false);
 
@@ -94,7 +94,7 @@ define("MODOACESSO", 0);
     $_path = $_SERVER['DOCUMENT_ROOT'];
 
 
-    if($_path == 'C:/wamp64/www/gestaocedec'){
+    if($_path == 'C:/wamp/www/gestaocedec'){
           
         $_sistema = '';
         

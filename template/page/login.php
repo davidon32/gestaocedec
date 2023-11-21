@@ -21,7 +21,7 @@
         <link rel="stylesheet" href="../template/plugins/iCheck/square/blue.css">
         <style>
             
-            @media (max-width:445px){
+            @media (max-width:400px){
                 
             }
 
@@ -110,7 +110,7 @@
             
                         }*/
             
-            @media (max-width: 450px) {
+            @media (max-width: 400px) {
                 
                 #login_fdo {
                     min-height: 50px !important; 
@@ -248,6 +248,10 @@
     <script>
 
         $(document).ready(function () {
+            
+            //alert(window.screen.width)
+    
+
 
 
 //            let timerInterval

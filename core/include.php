@@ -1,4 +1,4 @@
-<?php include_once $_SERVER['DOCUMENT_ROOT'] . '/gestaocedec/core/system/config/config.inc.php';
+<?php include_once $_SERVER['DOCUMENT_ROOT'] . '/core/system/config/config.inc.php';
 
 # plugins
 //include_once PATH . '/plugins/phplot-6.1.0/phplot.php';

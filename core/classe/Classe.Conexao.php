@@ -40,7 +40,7 @@ class Conexao {
                 }
 
                 /* local host cedec */
-            } else if ($_SERVER['DOCUMENT_ROOT'] == 'C:/wamp/www/cedec'){
+            } else if ($_SERVER['DOCUMENT_ROOT'] == 'C:/wamp/www/gestaocedec'){
                 
                 try {
                     self::$instance = new PDO('mysql:host=localhost;port=3307;dbname=gestaocedec', 'root', '', array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));

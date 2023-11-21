@@ -27,7 +27,7 @@ $secao = $_COOKIE['seguranca']['secao'];
 $id_redec = $_COOKIE['seguranca']['id_rpm'];
 
 //$listaPedido = $pedido_h->lista();
-
+//$_edicao = ($_SERVER['REQUEST_METHOD'] == "POST") ? ;
 
 if ($secao == 'REDEC') {
     $listaPedido1 = $pedido_h->listaPedidosTodos($id_redec);
@@ -35,7 +35,7 @@ if ($secao == 'REDEC') {
     $listaPedido1 = $pedido_h->listaPedidosTodos();
 }
 
-//var_dump($listaPedido1);
+
 
 $data = array();
 
@@ -63,11 +63,11 @@ $response = json_encode($data);
 <div class="col-md-4 text-center">
 <?php
 include('core/system/config/param.php');
-$lista = "<i class=\"fa fa-thumbs-down\"></i>";
+//$lista = "<i class=\"fa fa-thumbs-down\"></i>";
 
-foreach ($lista_devedores as $key => $value) {
-    $lista .= "<button type=\"button\" name=\"btnListaNegra\" id=\"" . $key . "\" class=\"btn btn-primary btnListaNegra\">Remover</button><i class=\"fa fa-thumbs-down\">&nbsp;&nbsp;" . ($key + 1) . "&nbsp;</i>" . Municipio::PegaNomeMunicipio($value) . "<br>";
-}
+//foreach ($lista_devedores as $key => $value) {
+//    $lista .= "<button type=\"button\" name=\"btnListaNegra\" id=\"" . $key . "\" class=\"btn btn-primary btnListaNegra\">Remover</button><i class=\"fa fa-thumbs-down\">&nbsp;&nbsp;" . ($key + 1) . "&nbsp;</i>" . Municipio::PegaNomeMunicipio($value) . "<br>";
+//}
 ?>
 <!--    <input type="button" class='btn btn-success' id='btn_lista' value="Lista de Municípios Impedidos" />-->
 </div>
@@ -323,21 +323,21 @@ foreach ($lista_devedores as $key => $value) {
 
         $(document).ready(function () {
 
-            $("#btn_lista").click(function () {
-                Swal.fire({
-                    title: '<strong>Lista de Municípios Impedidos de Realizar Pedidos de Ajuda Humanitária</strong>',
-                    icon: 'info',
-                    html: '<div class="text-left"' +
-                            '<?= $lista; ?>' +
-                            '</div>',
-                    showCloseButton: true,
-                    focusConfirm: false,
-                    confirmButtonText:
-                            'Fechar',
-                    confirmButtonAriaLabel: 'Thumbs up, great!',
-                    cancelButtonAriaLabel: 'Thumbs down'
-                })
-            });
+//            $("#btn_lista").click(function () {
+//                Swal.fire({
+//                    title: '<strong>Lista de Municípios Impedidos de Realizar Pedidos de Ajuda Humanitária</strong>',
+//                    icon: 'info',
+//                    html: '<div class="text-left"' +
+//                            '' +
+//                            '</div>',
+//                    showCloseButton: true,
+//                    focusConfirm: false,
+//                    confirmButtonText:
+//                            'Fechar',
+//                    confirmButtonAriaLabel: 'Thumbs up, great!',
+//                    cancelButtonAriaLabel: 'Thumbs down'
+//                })
+//            });
 
             var data1 = <?= $response ?>;
             $('#pedidos thead tr')
