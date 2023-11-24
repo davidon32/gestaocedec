@@ -7,13 +7,13 @@
         height: 100%;
         left: 0;
         top: 0;
-        background: rgba(70, 20, 15, 0.3);
+        background: rgba(70,20,15,0.3);
         z-index: 2;
         background-image: url(https://i.stack.imgur.com/BNGOI.gif);
         background-repeat: no-repeat;
         background-position: center center;
         background-size: 100px;
-    }
+    }    
 </style>
 
 <!--<div class="overlay1"> <i class="fa fa-cog fa-spin fa-5x fa-fw"></i><span class="sr-only">Loading...</span> </div>-->
@@ -47,27 +47,28 @@ if ($funcao == 'REDEC') {
     $orgao = strtolower($funcao);
 }
 
-
+# producao
 if (($_SERVER['HTTP_HOST'] == 'sistema.defesacivil.mg.gov.br') || ($_SERVER['HTTP_HOST'] == 'www.sistema.defesacivil.mg.gov.br')) {
     $url = 'https://sdcmg.com.br/api/auth/login';
     $url_redirect = 'https://sdcmg.com.br';
     $log_path = '/web/anexo/curl.log';
+# ca
 } else {
     //var_dump($_SERVER['HTTP_HOST']);
     //die();
-    $url = 'http://localhost:8083/cedec/public/api/auth/login';
-    $url_redirect = 'http://localhost:8083';
+    $url = 'http://sdc.net:8081/api/auth/login';
+    $url_redirect = 'http://sdc.net:8081';
     $log_path = 'log/curl.log';
 }
 
 
 if ((is_null($cpf)) && (!is_numeric($cpf))) {
-?>
+    ?>
     <!--<div class="modal fade" tabindex="-1" role="dialog" id="myModal" data-backdrop="static">-->
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+    <!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
                 <legend>Atualização Necessária</legend>
                 <h4 class="modal-title">Favor preencher o CPF Coordenador Municipal de Defesa Civil</h4>
             </div>
@@ -86,125 +87,72 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
     </div><!-- /.modal-dialog -->
     <!--</div> /.modal -->
 
-<?php
+    <?php
 } else {
 
-    $token = '09e18ed040300fdccbb7409c5ecc2aeb7877bc5142602f63aafdc175d8577430';
-    $opts = array(
-        'http' => array(
-            'method' => "GET",
-            'header' => "Content-Type: application/json en\r\n" .
-                "Authorization: Token " . $token . "\r\n"
-        )
-    );
+
+    $ch = curl_init();
+
+    curl_setopt_array($ch, [
+        CURLOPT_URL => $url,
+        CURLOPT_POST => 1,
+        CURLOPT_HTTPHEADER => [
+            //'Authorization: Bearer ' . $token,
+            'Content-Type: application/json',
+            'x-li-format: json'
+        ],
+        CURLOPT_POSTFIELDS => json_encode([
+            'content' => [
+                'cpf' => $cpf,
+                'password' => 'cedecmg@new',
+                'id_usuario' => $id_user,
+                'tipo' => $_COOKIE['seguranca']['tipo'],
+                'email' => $_COOKIE['seguranca']['email_rec'],
+                'us' => $orgao,
+            ],
+            'visibility' => [
+                'code' => 'anyone'
+            ]
+        ]),
+        CURLOPT_SSL_VERIFYHOST => 0,
+        CURLOPT_SSL_VERIFYPEER => 0,
+        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_PROTOCOLS => CURLPROTO_HTTP,
+        CURLOPT_VERBOSE => true,
+        CURLOPT_STDERR => fopen($log_path, 'w+'),
+    ]);
+
+    $resultado = curl_exec($ch);
+
+    if (curl_errno($ch)) {
+        print "log: " . curl_error($ch);
+    }
+
+    curl_close($ch);
+
+    $ret = json_decode($resultado);
 
 
-
-    
-
-    $response = file_get_contents("http://localhost:8083/cedec/public/api/auth/aut/?format=json", false, stream_context_create($opts));
-    
-    #$response = file_get_contents("http://localhost:8083/cedec/public/api/auth/aut/?format=json", false, stream_context_create($opts));
-    //$response = file_get_contents("http://localhost:8083/cedec/public/?format=json", false, stream_context_create($opts));
-
-    //var_dump($response);
-
-    //die();
+    $token = isset($ret->token->plainTextToken) ? $ret->token->plainTextToken : null;
 
 
-    // $hg = file_get_contents("http://localhost:8083/cedec/public/api/auth/login/public/?token=20|mBejUrmJkAlh4EnDjzgsZJBIzIvYkUEmKLpjkDI41561e643");
+    if (!is_null($token)) {
 
-    // //print $hg;
+        //print $token;
+        print "<script>";
+        print "window.location.href = '" . $url_redirect . '/' . $route . '?token=' . $token . '&routeInicio=' . $routeInicio . "'";
+        print "</script>";
+    } else {
+        print "Ocorreu um erro";
 
-    // var_dump($hg);  
-
-    // print "<script>";
-    // print "window.location.href = 'cedec/public/drrd/'"; #. $url_redirect . '/' . $route . '?token=' . $token . '&routeInicio=' . $routeInicio . "'";
-    // print "</script>";
-
-    //die();
-
+        // enviar email com erro 
+        $log_erro = file_get_contents($log_path, true);
+        var_dump($resultado, $log_erro);
+    }
 }
-
-//var_dump($_COOKIE['seguranca']['tipo'], $_COOKIE['seguranca']['email_rec'], $id_user, $cpf );
-
-// $ch = curl_init();
-
-// curl_setopt_array($ch, [
-//     //CURLOPT_URL => "https://sdcmg.com.br/api/auth/login", //Original
-//     CURLOPT_URL => $url,
-//     CURLOPT_POST => 1,
-//     CURLOPT_HTTPHEADER => [
-//         'Authorization: Bearer ' . $token,
-//         'Content-Type: application/json',
-//         'x-li-format: json'
-//     ],
-//     CURLOPT_POSTFIELDS => json_encode([
-//         'content' => [
-//             'cpf' => $cpf,
-//             'password' => 'cedecmg@new',
-//             'id_usuario' => $id_user,
-//             'tipo' => $_COOKIE['seguranca']['tipo'],
-//             'email' => $_COOKIE['seguranca']['email_rec'],
-//             'us' => $orgao,
-//         ],
-//         'visibility' => [
-//             'code' => 'anyone'
-//         ]
-//     ]),
-//     CURLOPT_RETURNTRANSFER => 1,
-//     CURLOPT_VERBOSE => true,
-//     CURLOPT_STDERR => fopen($log_path, 'w+'),
-// ]);
-
-// $resultado = curl_exec($ch);
-
-// if (curl_errno($ch)) {
-//     print "log: " . curl_error($ch);
-// }
-
-// curl_close($ch);
-
-// $ret = json_decode($resultado);
-
-
-// $token = isset($ret->token->plainTextToken) ? $ret->token->plainTextToken : null;
-
-// var_dump($ret);
-
-
-// if (!is_null($token)) {
-
-//print $token;
-// print "<script>";
-// print "window.location.href = '" . $url_redirect . '/' . $route . '?token=' . $token . '&routeInicio=' . $routeInicio . "'";
-// print "</script>";
-//     } else {
-//         print "Ocorreu um erro";
-
-//         // enviar email com erro 
-//         $log_erro = file_get_contents($log_path, true);
-//         //var_dump($resultado, $log_erro);
-//     }
-// }
 ?>
 <div style="height: 700px;">
-
-    <form action="/cedec/public/api/auth/aut" method="POST" name="frmAut">
-
-
-        <input type="text" name="password" id="password" value="cedecmg@new">
-        <input type="text" name="cpf" id="cpf" value="03260414606">
-        <input type="button" value="ENTRAR">
-    </form>
-
-
-
-
-
-
-
-</div>
+</div>    
 <!-- =================== RODAPE CORPO ==================== -->
 <?php include_once "template/page/corpoRodape.php"; ?>
 <!-- =================== RODAPE  ======================== -->
@@ -212,16 +160,17 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
 <!-- =============== HEADER HTML PAGE ================= -->
 <?php include_once "template/page/rodapePage.php"; ?>
 <script>
-    $(document).ready(function() {
+
+    $(document).ready(function () {
 
         $(".overlay1").show();
 
-        $('#cpf').keyup(function() {
+        $('#cpf').keyup(function () {
             $('#cpf').val($('#cpf').val().replace(/\D/g, ""));
         });
 
         /* salvar cpf banco*/
-        $("#btnSalvar").click(function() {
+        $("#btnSalvar").click(function () {
 
             var cpf = $("#cpf").val();
 
@@ -240,13 +189,13 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
                         tipo: '<?= $_COOKIE['seguranca']['tipo'] ?>',
                         opcao: 'updateCPF'
                     },
-                    success: function(e) {
+                    success: function (e) {
 
                         window.location.reload();
 
                         //window.location.href = '<?= $url_redirect . '/' . $route . '?token=' . $token . '&routeInicio=' . $routeInicio ?>';
                     },
-                    error: function(e) {
+                    error: function (e) {
                         //console.log(cpf);
                     }
 
@@ -254,4 +203,7 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
             }
         });
     });
+
 </script>
+
+
