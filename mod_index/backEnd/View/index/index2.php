@@ -5,7 +5,8 @@
 <!-- =================== HEADER ============================ -->
 <?php include_once "template/page/header.php"; ?>
 <!-- =================== MENU  ============================ -->
-<?php //include_once "template/page/menu.php";?>
+<?php //include_once "template/page/menu.php";
+?>
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php"; ?>
 
@@ -13,47 +14,42 @@
     <p style="text-center"><a href='<?= FuncaoBase::geraLink("index", "index", "index1") ?>' class='btn btn-primary'>Voltar</a></p>
 </div>
 <!-- modulos de acesso -->
-<div class="col-md-12">   
+<div class="col-md-12">
     <?php
-    
-    if($_COOKIE['seguranca']['tipo'] == "e") {
-        print "<script>";
-        print "window.location.href='".FuncaoBase::geraLink("index", "index", "menue")."'";
-        print "</script>";
 
+    if ($_COOKIE['seguranca']['tipo'] == "e") {
+        print "<script>";
+        print "window.location.href='" . FuncaoBase::geraLink("index", "index", "menue") . "'";
+        print "</script>";
     }
-    
+
     # MOSTRA MODULOS
     Login::mostraModulos(Login::acessoModulo($pageSession['session']['seguranca']['login']));
     ?>
 
-<!--    PAEBM  Desativado-->
-<!--    <div class="col-md-3 text-center">
+    <!--    PAEBM  Desativado-->
+    <!--    <div class="col-md-3 text-center">
         <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=paebm" ?>" title="Protocolo PaeBM"><img width="120" src="core/imagem/paebm_teste.png"><br />PaeBM</a>
     </div>-->
 
-    
-    <!--RAT-->
-    <div class="col-md-3 text-center" style="height: 190px; ">
-        <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=rat" ?>" title="Relatório de Atividades"><img width="155" src="core/imagem/rat_teste.png"><br />RAT</a>
-    </div>
-<!--    <div class="col-md-3 text-center" style="height: 190px; ">
-        <a class="thumbnail" title="Relatório de Atividades"><img width="155" src="core/imagem/rat_conversao.png"><br />RAT</a>
-    </div>-->
-    
+        <!--RAT-->
+        <div class="col-md-3 text-center" style="height: 190px; ">
+            <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=rat" ?>" title="Relatório de Atividades"><img width="155" src="core/imagem/rat_teste.png"><br />RAT</a>
+        </div>
+
     <!--VISTORIA-->
     <div class="col-md-3 text-center" style="height: 190px;">
         <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=vistoria" ?>" title="Relatório de Atividades"><img width="135" src="core/imagem/vistoria_interdicao_teste.png"><br />Vistoria/Interdição</a>
     </div>
-    
+
     <?php
-    
-        if($_COOKIE['seguranca']['idUser'] == 1) { ?>
-    <!--CADASTRO COMPDEC-->
-    <div class="col-md-3 text-center" style="height: 190px;">
-        <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=compdec" ?>" title="Relatório de Atividades"><img width="90" src="core/imagem/comdec.png"><br />Informações COMPDEC</a>
-    </div>
-    
+
+    if ($_COOKIE['seguranca']['idUser'] == 1) { ?>
+        <!--CADASTRO COMPDEC-->
+        <div class="col-md-3 text-center" style="height: 190px;">
+            <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=compdec" ?>" title="Relatório de Atividades"><img width="90" src="core/imagem/comdec.png"><br />Informações COMPDEC</a>
+        </div>
+
     <?php } ?>
 
 

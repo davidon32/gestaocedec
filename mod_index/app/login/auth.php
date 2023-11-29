@@ -47,14 +47,30 @@ if ($funcao == 'REDEC') {
     $orgao = strtolower($funcao);
 }
 
+//var_dump($_REQUEST);
+
 # producao
 if (($_SERVER['HTTP_HOST'] == 'sistema.defesacivil.mg.gov.br') || ($_SERVER['HTTP_HOST'] == 'www.sistema.defesacivil.mg.gov.br')) {
-    $url = 'https://sdcmg.com.br/api/auth/login';
-    $url_redirect = 'https://sdcmg.com.br';
-    $log_path = '/web/anexo/curl.log';
+    
+    if($actionApi == 'rat') {
+        
+        $protocolo = CURLPROTO_HTTP;
+        $url = "http://www.sdc.mg.gov.br/api/auth/login";
+        $url_redirect = "http://www.sdc.mg.gov.br";
+        //$log_path = '/web1/log/curl.log';
+       
+    # hostinger
+    }else {
+        $protocolo = CURLPROTO_HTTPS;
+        $url = "https://sdcmg.com.br/api/auth/login";
+        $url_redirect = "https://sdcmg.com.br";
+        $log_path = '/web/anexo/curl.log';
+    }
 # ca
 } else {
-    //var_dump($_SERVER['HTTP_HOST']);
+    //var_dump("opa");
+    $protocolo = CURLPROTO_HTTP;
+    var_dump($_SERVER['HTTP_HOST']);
     //die();
     $url = 'http://sdc.net:8081/api/auth/login';
     $url_redirect = 'http://sdc.net:8081';
@@ -138,7 +154,7 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
 
     if (!is_null($token)) {
 
-        //print $token;
+        print $token;
         print "<script>";
         print "window.location.href = '" . $url_redirect . '/' . $route . '?token=' . $token . '&routeInicio=' . $routeInicio . "'";
         print "</script>";
@@ -147,7 +163,9 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
 
         // enviar email com erro 
         $log_erro = file_get_contents($log_path, true);
-        var_dump($resultado, $log_erro);
+        //var_dump($resultado, $url, $actionApi, $url_redirect, $log_erro);
+        var_dump($resultado, $log_erro, $protocolo);
+        print $log_erro;
     }
 }
 ?>
@@ -191,7 +209,7 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
                     },
                     success: function (e) {
 
-                        window.location.reload();
+                        //window.location.reload();
 
                         //window.location.href = '<?= $url_redirect . '/' . $route . '?token=' . $token . '&routeInicio=' . $routeInicio ?>';
                     },
