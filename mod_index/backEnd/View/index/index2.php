@@ -31,15 +31,29 @@
     <!--    <div class="col-md-3 text-center">
         <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=paebm" ?>" title="Protocolo PaeBM"><img width="120" src="core/imagem/paebm_teste.png"><br />PaeBM</a>
     </div>-->
-
+    <?php
+    if ($_COOKIE['seguranca']['idUser'] == 1) { ?>
         <!--RAT-->
         <div class="col-md-3 text-center" style="height: 190px; ">
             <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=rat" ?>" title="Relatório de Atividades"><img width="155" src="core/imagem/rat_teste.png"><br />RAT</a>
         </div>
+    <!--VISTORIA-->
+        <div class="col-md-3 text-center" style="height: 190px;">
+        <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=vistoria" ?>" title="Relatório de Atividades"><img width="135" src="core/imagem/vistoria_interdicao_teste.png"><br />Vistoria/Interdição</a>
+    </div>
+    <?php } ?>
+        <!--RAT-->
+        <div class="col-md-3 text-center" style="height: 190px; ">
+            <a class="thumbnail" title="Relatório de Atividades"><img width="155" src="core/imagem/rat_conversao.png"><br />RAT</a>
+        </div>
 
     <!--VISTORIA-->
-    <div class="col-md-3 text-center" style="height: 190px;">
+<!--    <div class="col-md-3 text-center" style="height: 190px;">
         <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=vistoria" ?>" title="Relatório de Atividades"><img width="135" src="core/imagem/vistoria_interdicao_teste.png"><br />Vistoria/Interdição</a>
+    </div>-->
+    <!--VISTORIA-->
+    <div class="col-md-3 text-center" style="height: 190px;">
+        <a class="thumbnail" title="Relatório de Atividades"><img width="135" src="core/imagem/vistoria_conversao.png"><br />Vistoria/Interdição</a>
     </div>
 
     <?php

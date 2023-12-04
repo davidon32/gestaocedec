@@ -22,12 +22,12 @@ $userRpm = isset($_GET['user']) ? $_GET['user'] : "";
 $log_path = '';
 
 if (($_SERVER['HTTP_HOST'] == 'sistema.defesacivil.mg.gov.br') || ($_SERVER['HTTP_HOST'] == 'www.sistema.defesacivil.mg.gov.br')) {
-    $url = 'https://sdcmg.com.br/api/auth/user';
-    $url_ex = 'https://sdcmg.com.br/api/auth/userex';
+    $url = 'http://sdc.mg.gov.br/api/auth/user';
+    $url_ex = 'http://sdc.mg.gov.br/api/auth/userex';
     $log_path = '/web/anexo/curl.log';
 } else {
-    $url = 'http://localhost:8081/api/auth/user';
-    $url_ex = 'http://localhost:8081/api/auth/userex';
+    $url = 'http://sdc.net:8081/api/auth/user';
+    $url_ex = 'http://sec.net:8081/api/auth/userex';
     $log_path = 'log/curl.log';
 }
 
@@ -58,6 +58,7 @@ if (isset($api_ex) && !is_null($api_ex) && is_array($api_ex)) {
 }
 
 //var_dump($api_data_ex);
+//die();
 ?>
 
 <br>

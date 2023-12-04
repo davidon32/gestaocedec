@@ -47,7 +47,7 @@ if ($funcao == 'REDEC') {
     $orgao = strtolower($funcao);
 }
 
-//var_dump($_REQUEST);
+//var_dump($actionApi);
 
 # producao
 if (($_SERVER['HTTP_HOST'] == 'sistema.defesacivil.mg.gov.br') || ($_SERVER['HTTP_HOST'] == 'www.sistema.defesacivil.mg.gov.br')) {
@@ -58,23 +58,28 @@ if (($_SERVER['HTTP_HOST'] == 'sistema.defesacivil.mg.gov.br') || ($_SERVER['HTT
         $url = "http://www.sdc.mg.gov.br/api/auth/login";
         $url_redirect = "http://www.sdc.mg.gov.br";
         //$log_path = '/web1/log/curl.log';
-       
+        
+    }elseif($actionApi == 'vistoria') {
+        $protocolo = CURLPROTO_HTTP;
+        $url = "http://www.sdc.mg.gov.br/api/auth/login";
+        $url_redirect = "http://www.sdc.mg.gov.br";
+        //$log_path = '/web/curl.log';     
     # hostinger
-    }else {
-        $protocolo = CURLPROTO_HTTPS;
-        $url = "https://sdcmg.com.br/api/auth/login";
-        $url_redirect = "https://sdcmg.com.br";
-        $log_path = '/web/anexo/curl.log';
-    }
+    }//else {
+//        $protocolo = CURLPROTO_HTTPS;
+//        $url = "https://sdcmg.com.br/api/auth/login";
+//        $url_redirect = "https://sdcmg.com.br";
+//        $log_path = '/web/anexo/curl.log';
+//    }
 # ca
 } else {
     //var_dump("opa");
     $protocolo = CURLPROTO_HTTP;
-    var_dump($_SERVER['HTTP_HOST']);
+    //var_dump($_SERVER['HTTP_HOST']);
     //die();
     $url = 'http://sdc.net:8081/api/auth/login';
     $url_redirect = 'http://sdc.net:8081';
-    $log_path = 'log/curl.log';
+    //$log_path = 'log/curl.log';
 }
 
 
@@ -135,7 +140,7 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
         CURLOPT_RETURNTRANSFER => 1,
         CURLOPT_PROTOCOLS => CURLPROTO_HTTP,
         CURLOPT_VERBOSE => true,
-        CURLOPT_STDERR => fopen($log_path, 'w+'),
+        //CURLOPT_STDERR => fopen($log_path, 'w+'),
     ]);
 
     $resultado = curl_exec($ch);
@@ -159,12 +164,12 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
         print "window.location.href = '" . $url_redirect . '/' . $route . '?token=' . $token . '&routeInicio=' . $routeInicio . "'";
         print "</script>";
     } else {
-        print "Ocorreu um erro";
+        //print "Ocorreu um erro";
 
         // enviar email com erro 
         $log_erro = file_get_contents($log_path, true);
         //var_dump($resultado, $url, $actionApi, $url_redirect, $log_erro);
-        var_dump($resultado, $log_erro, $protocolo);
+        //var_dump($resultado, $log_erro, $protocolo);
         print $log_erro;
     }
 }

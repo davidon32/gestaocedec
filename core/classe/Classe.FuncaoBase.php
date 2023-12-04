@@ -1033,7 +1033,7 @@ class FuncaoBase extends Exception {
             CURLOPT_SSL_VERIFYHOST => 0,
             CURLOPT_SSL_VERIFYPEER => 0,
             CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_PROTOCOLS => CURLPROTO_HTTPS,
+            CURLOPT_PROTOCOLS => CURLPROTO_HTTP,
             CURLOPT_VERBOSE => true,
             CURLOPT_STDERR => fopen($param['log_path'], 'w+'),
         ]);
