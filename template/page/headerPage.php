@@ -48,6 +48,7 @@ if(isset($pageSession)){
 
 <script src="js/sweetalert2.all.min.js"></script>
 <link rel="stylesheet" href="/plugins/datetimepicker/jquery.datetimepicker.css"/>
+<link rel="stylesheet" href="/plugins/select2/css/select2.css"/>
 
    <!-- Google Font -->
   <!--<!--removido Google Fontes-->
@@ -138,7 +139,7 @@ if(isset($pageSession)){
     
 </style>
 
-<!-- Google tag (gtag.js) -->
+<!-- Google tag (gtag.js) 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-GE28TLKGS2"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -146,7 +147,7 @@ if(isset($pageSession)){
   gtag('js', new Date());
 
   gtag('config', 'G-GE28TLKGS2');
-</script>
+</script>-->
 
 </head>
 <!--<body class="hold-transition skin-blue sidebar-mini" id="menuLateral"> remover bara lateral --> 

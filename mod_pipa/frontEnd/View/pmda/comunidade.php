@@ -37,7 +37,9 @@ if(is_null($id_com_pmda) && $opcao == "novo") {
 /* alterar dados da comunidade do pmda */
 }else if($opcao == "alterar"){
 	
-	$comunidadePmda->alterarComunidade($_POST);
+	if($comunidadePmda->alterarComunidade($_POST)) {
+            print 'sucesso';
+        };
 	
 }
 

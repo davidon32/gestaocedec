@@ -38,6 +38,7 @@
 <script src="/plugins/jqueryValidation/additional-methods.min.js"></script>
 <script src="/js/script.js?v=<?=md5(VERSAO);?>"></script>
 <script src="/plugins/datetimepicker/jquery.datetimepicker.full.js"></script>
+<script src="/plugins/select2/js/select2.js"></script>
 <?php
     include_once('ajuda_php.php');
 ?>

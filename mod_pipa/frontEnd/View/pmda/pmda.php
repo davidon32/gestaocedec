@@ -30,6 +30,9 @@ $id_municipio = isset($_COOKIE['seguranca']['id_municipio']) ? $_COOKIE['seguran
 $inputLeitura = 'readonly="readonly" title="Campo não Editável !"';
 $btnLeitura = "disabled='disabled'";
 
+# comunidade do municipio
+$comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
+
 if (!empty($id_pmda)) {
     $dados = $pmda->dadosPmda($id_pmda);
     $protocolo = $id_pmda . str_replace("-", "", substr($dados['data'], 0, 10));
@@ -337,6 +340,7 @@ if (!empty($id_pmda)) {
                     <br>
                     <div>
 
+                                                    
                         <!-- Modal Adicionar comunidade -->
                         <div id="modalAddCom" class="modal">
                             <div class="modal-dialog">
@@ -347,10 +351,21 @@ if (!empty($id_pmda)) {
                                         <h4 class="modal-title">Adicionar Comunidade</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <div class="form-group">
-                                            <label>Comunidade&nbsp;</label>
-                                            <input class="form-control col-md-10" type="text" name="txtComunidade" id="txtComunidade" maxlength="45">
-                                            <br>
+                                        <div class="form-group col-12">
+                                            <label>Comunidade&nbsp;</label><br>
+<!--                                            <input class="form-control col-md-10" type="text" name="txtComunidade" id="txtComunidade" maxlength="45">;-->
+                                            <select width='100' class="js-example-basic-single form-control col-12" name="txtComunidade" id="txtComunidade">
+                                                <option>Selecione a Comunidade</option>
+                                                <?php
+                                                    foreach ($comMunicipio as $key => $value) {
+                                                        print "<option value='".$value['id_comunidade']."'>".$value['comunidade']."</option>";
+                                                                         
+                                                    }
+                                                
+                                                ?>
+                                                
+                                            </select>
+                                            <br><br>
                                             <button href="#" class="btn btn-primary " id="btnAdicionar">Adicionar</button>
                                         </div>    
                                         <input type="hidden" name="txtIdComunidadeSearch" id="txtIdComunidadeSearch" />
@@ -818,7 +833,7 @@ if (!empty($id_pmda)) {
 
 <?php
 //include_once "template/page/corpoRodape.php";
-$comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
+
 ?>
 
 <!-- =================== RODAPE  ============================ -->
@@ -829,6 +844,8 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
 <script type="text/javascript">
 
     $(document).ready(function () {
+        
+        $('.js-example-basic-single').select2();
 
         $("#fileAnexo").change(function () {
             tamanho = this.files;
@@ -878,8 +895,9 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
             }
         })(jQuery);
 
-        $("txtComunidade").blur(function () {
-            console.log($("txtComunidade").val());
+        $("#txtComunidade").blur(function () {
+            //alert();
+            //console.log($("#txtComunidade").val()+"-1");
 
         });
 
@@ -1048,52 +1066,54 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
         });
 
 
-        var itens = {
-            url: function (municipio, comunidade) {
-                return "index.php?modulo=pipa&controller=pipa&action=listaComunidadeParaPmda";
-            },
-            getValue: function (element) {
-                return element.nome;
-            },
-
-            ajaxSettings: {
-                method: "POST",
-                data: {
-                    dataType: "json"
-                }
-            },
-
-            preparePostData: function (data) {
-                data.municipio = <?= $id_municipio; ?>;
-                data.comunidade = $("#txtComunidade").val();
-                return data;
-            },
-            list: {
-                match: {
-                    enabled: true
-                },
-
-                onSelectItemEvent: function () {
-
-                    var value = $("#txtComunidade").getSelectedItemData().id_comunidade;
-                    $("#txtIdComunidadeSearch").val(value);
-                }
-
-            },
-            template: {
-                type: "custom",
-                method: function (value, item) {
-                    return item.nome;
-                }
-            },
-
-            requestDelay: 400
-
-        };
-
-        //console.log(itens);
-        /*********** autocomplete ***********/
-        $("#txtComunidade").easyAutocomplete(itens);
+//        var itens = {
+//            url: function (municipio, comunidade) {
+//                return "index.php?modulo=pipa&controller=pipa&action=listaComunidadeParaPmda";
+//            },
+//            listLocation: function (element) {
+//                return element.nome;
+//            },
+//
+//            ajaxSettings: {
+//                method: "POST",
+//                data: {
+//                    dataType: "json"
+//                }
+//            },
+//
+//
+//            preparePostData: function (data) {
+//                data.municipio = <?= $id_municipio; ?>;
+//                data.comunidade = $("#txtComunidade").val();
+//      //console.log(data);    
+//    return data;
+//            },
+//            list: {
+//                match: {
+//                    enabled: true
+//                },
+//
+//                onSelectItemEvent: function () {
+//
+//                    var value = $("#txtComunidade").getSelectedItemData().id_comunidade;
+//                    $("#txtIdComunidadeSearch").val(value);
+//                }
+//
+//            },
+//            template: {
+//                type: "custom",
+//                method: function (value, item) {
+//                    return item.nome;
+//                }
+//            },
+//
+//            requestDelay: 400
+//
+//        };
+//
+//        //console.log(itens);
+//        /*********** autocomplete ***********/
+//        $("#txtComunidade").easyAutocomplete(itens);;;
 
 
         // set campos dados iss inicial
@@ -1158,7 +1178,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
 
         /* inserir representante correcao exibição menu */
         $("img[name=lk_rep]").click(function () {
-            alert("aqui");
+            //alert("aqui");
 
             $("#tab_representante").attr("href", "#panel-representante");
             $("#tab_representamte").attr("data-toggle");
@@ -1230,18 +1250,19 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
 
         /*********** botao Adicionar MOdal pesquisa comunidade no input ***********/
         $("#btnAdicionar").click(function () {
-            $("#txtNomeComunidade").val($("#txtComunidade").val());
-            $("#idComunidade").val($("#txtIdComunidadeSearch").val());
+            $("#txtNomeComunidade").val($("#txtComunidade").select2('data')[0]['text']);
+            
+            $("#idComunidade").val($("#txtComunidade").val());
             $("#txtIdPmda").val(id_pmda);
             $("#txtComunidade").val("");
-            //$("#txtIdComunidadeSearch").val("");
             $("#modalAddCom").modal('hide');
             $("#txtIdMunAddCom").val('<?= $id_municipio; ?>');
         });
 
         /*********** verificar comunidade existe para adicionar  ***********/
-        $("#txtComunidade").blur(function () {
-            if ($("#txtIdComunidadeSearch").val() == "") {
+        $("#txtComunidade").change(function () {
+            
+            if ($("#txtComunidade").val() == "") {
                 /* desabilitar botão Adicionar */
                 $("#btnAdicionar").hide();
             } else {
@@ -1252,7 +1273,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
 
         $("#btnAdicionar").hover(function () {
 
-            if (($("#txtComunidade").val() == "") && ($("#txtIdComunidadeSearch").val() == "")) {
+            if ($("#txtComunidade").val() == "") {
                 /* desabilitar botão Adicionar */
                 $("#btnAdicionar").hide();
             } else {
@@ -1854,7 +1875,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
 
         /*********** Alterar dados Comunidade***********/
         $("#btnAlterarComunidade").click(function () {
-
+        
             $.ajax({
                 url: '/mod_index/app/login/ckLogin.php?v=<?= md5(VERSAO) ?>',
                 type: 'POST',
@@ -1884,7 +1905,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
                                 "txtTrecPavComunidade": $("#txtTrecPavComunidade").val(),
                                 "txtTrecNPavComunidade": $("#txtTrecNPavComunidade").val(),
                                 "txtPopAtComunidade": $("#txtPopAtComunidade").val(),
-                                "id_comunidade": $("#txtIdComunidadeSearch").val(),
+                                "id_comunidade": $("#idComunidade").val(),
                                 "id_pmda": $("#txtIdPmda").val(),
                                 "txtIdMunicipioCom": $("#txtIdMunicipioCom").val(),
                             };
@@ -1899,15 +1920,17 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
                                     data: dados,
                                     //dataType : 'json',
                                     success: function (response) {
+                                        
                                         /* ja existe comunidade em algum pmda*/
                                         if (response.substr(0, 7) == 'existe_') {
                                             alert("Esta comunidade ja faz parte de algum pmda em Edição !");
-                                            $("#txtIdComunidadeSearch").val("");
+                                            $("#idComunidade").val("");
                                         } else if (response.substr(0, 7) == 'sucesso') {
-                                            alert("Registro adicionado com sucesso !");
-                                            $("#tblComunidadePmda").html(response);
-                                            $("#txtIdComunidadeSearch").val("");
-                                            //location.reload();
+                                            alert("Registro alterado com sucesso !");
+                                            //$("#tblComunidadePmda").html(response);
+                                            //console.log(response);
+                                            $("#idComunidade").val("");
+                                            location.reload();
                                         }
 
                                     },
@@ -1923,7 +1946,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
                                 $("#txtTrecPavComunidade").val("");
                                 $("#txtTrecNPavComunidade").val("");
                                 $("#txtPopAtComunidade").val("");
-                                $("#txtIdComunidadeSearch").val("");
+                                $("#idComunidade").val("");
 
                                 $("#btnAddComunidade").show();
                                 $("#btnAlterarComunidade").hide();
@@ -1939,7 +1962,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
                     }
                 },
                 error: function (response) {
-                    console.log(JSON.stringify(response));
+                    console.log(JSON.stringify(response+"error"));
                 }
             });
 
@@ -1960,7 +1983,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
                 success: function (response) {
                     if (response == "sucesso") {
 
-                        if ($("#txtIdComunidadeSearch").val() == "") {
+                        if ($("#idComunidade").val() == "") {
                             alert("Esta Comunidade Ainda não está Cadastrada ou não foi liberada para Uso no PMDA !");
                         } else if (
                                 ($("#txtNomeComunidade").val() == "") ||
@@ -1980,7 +2003,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
 
                                 "opcao": "novo",
                                 "nomComunidade": $("#txtNomeComunidade").val(),
-                                "id_comunidade": $("#txtIdComunidadeSearch").val(),
+                                "id_comunidade": $("#idComunidade").val(),
                                 "txtLatComunidade": $("#txtLatComunidade").val(),
                                 "txtLongComunidade": $("#txtLongComunidade").val(),
                                 "selPontoCapCom": $("#selPontoCapCom").val(),
@@ -2008,7 +2031,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
                                     } else if (result === 'existe_') {
                                         alert('Essa Comunidade já faz parte de um pmda Em edição, Completo ou atendido, por favor verifique !');
                                     }
-                                    $("#txtIdComunidadeSearch").val("");
+                                    $("#idComunidade").val("");
 
                                 },
                                 error: function (e) {
@@ -2564,7 +2587,7 @@ $comMunicipio = $comunidade->buscaComunidadeMunicipio($id_municipio);
                     $("#txtTrecNPavComunidade").val(trecho_n_pav);
                     $("#txtPopAtComunidade").val(pop_atendida);
                     $("#selPontoCapCom").val(id_ponto);
-                    $("#txtIdComunidadeSearch").val(id);
+                    $("#idComunidade").val(id);
                     $("#txtIdPmda").val(id_pmda);
                     $("#txtDistTotComunidade").val(parseFloat(trecho_pav) + parseFloat(trecho_n_pav));
 

@@ -508,7 +508,7 @@ class Pmda extends Comunidade {
      * 
      */
     public static function alterarComunidade($dados) {
-
+        
         $con = Conexao::getInstance();
 
         try {
@@ -516,9 +516,9 @@ class Pmda extends Comunidade {
             /* alterar dados comunidade */
             $sql = "UPDATE pip_pmda_comun
 			SET latitude = :latitude,
-			longitude = :longitude,
-			id_ponto = :id_ponto,
-			trecho_pav = :trecho_pav,
+			longitude =    :longitude,
+			id_ponto =     :id_ponto,
+			trecho_pav =   :trecho_pav,
 			trecho_n_pav = :trecho_n_pav,
 			pop_atendida = :pop_atendida
                             WHERE id_comunidade = :id_comunidade
@@ -526,14 +526,14 @@ class Pmda extends Comunidade {
 
             $result = $con->prepare($sql);
 
-            $result->bindValue(":latitude", $dados['txtLatComunidade']);
-            $result->bindValue(":longitude", $dados['txtLongComunidade']);
-            $result->bindValue(":trecho_pav", $dados['txtTrecPavComunidade']);
+            $result->bindValue(":latitude",     $dados['txtLatComunidade']);
+            $result->bindValue(":longitude",    $dados['txtLongComunidade']);
+            $result->bindValue(":trecho_pav",   $dados['txtTrecPavComunidade']);
             $result->bindValue(":trecho_n_pav", $dados['txtTrecNPavComunidade']);
             $result->bindValue(":pop_atendida", $dados['txtPopAtComunidade']);
-            $result->bindValue(":id_ponto", $dados['selPontoCapCom']);
-            $result->bindValue(":id_comunidade", $dados['id_comunidade']);
-            $result->bindValue(":id_pmda", $dados['id_pmda']);
+            $result->bindValue(":id_ponto",     $dados['selPontoCapCom']);
+            $result->bindValue(":id_comunidade",$dados['id_comunidade']);
+            $result->bindValue(":id_pmda",      $dados['id_pmda']);
 
             $result->execute();
 

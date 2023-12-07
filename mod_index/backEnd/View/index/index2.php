@@ -34,34 +34,39 @@
     <?php
     if ($_COOKIE['seguranca']['idUser'] == 1) { ?>
         <!--RAT-->
-        <div class="col-md-3 text-center" style="height: 190px; ">
+<!--        <div class="col-md-3 text-center" style="height: 190px; ">
             <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=rat" ?>" title="Relatório de Atividades"><img width="155" src="core/imagem/rat_teste.png"><br />RAT</a>
-        </div>
+        </div>-->
     <!--VISTORIA-->
-        <div class="col-md-3 text-center" style="height: 190px;">
-        <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=vistoria" ?>" title="Relatório de Atividades"><img width="135" src="core/imagem/vistoria_interdicao_teste.png"><br />Vistoria/Interdição</a>
+<!--        <div class="col-md-3 text-center" style="height: 190px;">
+        <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=vistoria" ?>" title="Relatório de Vistoria/Interdição"><img width="135" src="core/imagem/vistoria_interdicao_teste.png"><br />Vistoria/Interdição</a>-->
     </div>
     <?php } ?>
-        <!--RAT-->
-        <div class="col-md-3 text-center" style="height: 190px; ">
+        <!--RAT DESABILITAR -->
+        <!--<div class="col-md-3 text-center" style="height: 190px; ">
             <a class="thumbnail" title="Relatório de Atividades"><img width="155" src="core/imagem/rat_conversao.png"><br />RAT</a>
+        </div>-->
+
+    <!--RAT-->
+        <div class="col-md-3 text-center" style="height: 190px; ">
+            <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=rat" ?>" title="Relatório de Atividades Técnicas"><img width="155" src="core/imagem/rat_teste.png"><br />RAT</a>
         </div>
 
     <!--VISTORIA-->
-<!--    <div class="col-md-3 text-center" style="height: 190px;">
-        <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=vistoria" ?>" title="Relatório de Atividades"><img width="135" src="core/imagem/vistoria_interdicao_teste.png"><br />Vistoria/Interdição</a>
-    </div>-->
-    <!--VISTORIA-->
     <div class="col-md-3 text-center" style="height: 190px;">
-        <a class="thumbnail" title="Relatório de Atividades"><img width="135" src="core/imagem/vistoria_conversao.png"><br />Vistoria/Interdição</a>
+        <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=vistoria" ?>" title="Relatório de Vistoria/Interdição"><img width="135" src="core/imagem/vistoria_interdicao_teste.png"><br />Vistoria/Interdição</a>
     </div>
+    <!--VISTORIA DESABILITAR -->
+<!--    <div class="col-md-3 text-center" style="height: 190px;">
+        <a class="thumbnail" title="Relatório de Vistoria/Interdição"><img width="135" src="core/imagem/vistoria_conversao.png"><br />Vistoria/Interdição</a>
+    </div>-->
 
     <?php
 
     if ($_COOKIE['seguranca']['idUser'] == 1) { ?>
         <!--CADASTRO COMPDEC-->
         <div class="col-md-3 text-center" style="height: 190px;">
-            <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=compdec" ?>" title="Relatório de Atividades"><img width="90" src="core/imagem/comdec.png"><br />Informações COMPDEC</a>
+            <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=compdec" ?>" title="Informações do Compdec"><img width="90" src="core/imagem/comdec.png"><br />Informações COMPDEC</a>
         </div>
 
     <?php } ?>

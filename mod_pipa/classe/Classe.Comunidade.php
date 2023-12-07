@@ -551,11 +551,12 @@ class Comunidade extends Log {
                             and pip_comunidade.id_municipio = " . $id_municipio . ";";
 
             $resultComMun = $con->query($sqlComMun);
+            
             while ($linha = $resultComMun->fetch(PDO::FETCH_ASSOC)) {
                 $dadosComMun[] = $linha;
             }
 
-            print json_encode($dadosComMun);
+            RETURN json_encode($dadosComMun);
             
         } catch (Exception $e) {
 
