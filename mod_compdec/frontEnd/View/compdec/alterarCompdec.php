@@ -150,9 +150,9 @@ if ($desatualiza > 0 ) {
                 <!--possui efetivo -->
                 <label>Possui Efetivo ? <span> Caso exista somente o Coordenador responda "sim"</span></label>
                 <select class="form-control" name="selEfetivo" id="selEfetivo">
-                    <option value="<?= $_dados[0]['efetivo']; ?>"><?= ($_dados[0]['efetivo'] == 0) ? "Sim" : "Não"; ?></option>
-                    <option value="0">Sim</option>
-                    <option value="1">Não</option>
+                    <option value="<?= $_dados[0]['efetivo']; ?>"><?= ($_dados[0]['efetivo'] == 0) ? "Não" : "Sim"; ?></option>
+                    <option value="0">Não</option>
+                    <option value="1">Sim</option>
                 </select>
             </div>
             <div class="col-md-3">
@@ -236,9 +236,9 @@ if ($desatualiza > 0 ) {
             <div class="col-md-4">
                 <label>Possui Nupdec ?</label>
                 <select class="form-control" name="selNudec" id="selNudec">
-                    <option value="<?= $_dados[0]['nudec']; ?>"><?= ($_dados[0]['nudec'] == 0) ? "Sim" : "Não"; ?></option>
-                    <option value="0">Sim</option>
-                    <option value="1">Não</option>
+                    <option value="<?= $_dados[0]['nudec']; ?>"><?= ($_dados[0]['nudec'] == 0) ? "Nao" : "Sim"; ?></option>
+                    <option value="0">Não</option>
+                    <option value="1">Sim</option>
                 </select>
             </div>
             <div class="col-md-4">
@@ -747,6 +747,16 @@ if ($desatualiza > 0 ) {
 <?php include_once "template/page/rodapePage.php"; ?>
 <script type="text/javascript">
     $(document).ready(function () {
+        
+        $("#selCompdec").bind('load, change', function(){
+           if($(this).find(":selected").val() == 0) {
+               $("#selAtivo").val("0").change();
+               $("#selNudec").val("0").change();
+               $("#selEfetivo").val("0").change();
+               $("#txt_qtd_nudec").val(0);
+               $("#txt_qtd_efetivo").val(0);
+           } 
+        });
 
         $('#span_info').hide();
         var info = '<?= $info ?>';

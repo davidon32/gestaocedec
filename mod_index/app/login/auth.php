@@ -55,26 +55,6 @@ if (($_SERVER['HTTP_HOST'] == 'sistema.defesacivil.mg.gov.br') || ($_SERVER['HTT
     $protocolo = CURLPROTO_HTTP;
         $url = "http://www.sdc.mg.gov.br/api/auth/login";
         $url_redirect = "http://www.sdc.mg.gov.br";
-        //$log_path = '/web1/log/curl.log';
-    
-//    if($actionApi == 'rat') {
-//        
-//        $protocolo = CURLPROTO_HTTP;
-//        $url = "http://www.sdc.mg.gov.br/api/auth/login";
-//        $url_redirect = "http://www.sdc.mg.gov.br";
-//        //$log_path = '/web1/log/curl.log';
-//        
-//    }elseif($actionApi == 'vistoria') {
-//        $protocolo = CURLPROTO_HTTP;
-//        $url = "http://www.sdc.mg.gov.br/api/auth/login";
-//        $url_redirect = "http://www.sdc.mg.gov.br";
-        //$log_path = '/web/curl.log';     
-    # hostinger
-    //}//else {
-//        $url = "https://sdcmg.com.br/api/auth/login";
-//        $url_redirect = "https://sdcmg.com.br";
-//        $log_path = '/web/anexo/curl.log';
-//    }
 # ca
 } else {
     $protocolo = CURLPROTO_HTTP;

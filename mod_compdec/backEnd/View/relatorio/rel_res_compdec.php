@@ -6,46 +6,49 @@
             
             $_listaPorRegiaoDesenv = $_regiao->qtdCompdecRegiaoDesenv();
             
-            $_totalExistente = $_compdec->qtdCompdecExitente();
+            /* Existe compdec e está ativa */
+            $_totalExistente = $_compdec->qtdCompdecExitente(true, true);
             
-            $_totalSemCompdec = $_compdec->qtdCompdecExitente(false);
+            # sem compdec
+            $_totalSemCompdec = $_compdec->qtdCompdecExitente(false, false);
             
             print "<br>
             		<table class=\"table table-bordered\">
             			<tr>
-            				<th>Possui Compdec</th>
-            				<th>Compdec Ativas</th>
-            				<th>Município com Nupdec</th>	
+            				<th>Municípios com COMPDEC Ativa</th>
+            				<th>Municípios COMPDEC Inativa</th>
+            				<th>Município Sem COMPDEC</th>	
             			</tr>
 						<tr>
             				<td width='33.3%'><canvas id=\"compdecExistente\"></canvas></td>
-            				<td width='33.3%'><canvas id=\"compdecAtivo\"></canvas></td>
-            				<td width='33.3%'><canvas id=\"possuiNupdec\"></canvas></td>	
+            				<td width='33.3%'><canvas id=\"compdecInativa\"></canvas></td>
+            				<td width='33.3%'><canvas id=\"semCompdec\"></canvas></td>	
             			</tr>
 				</table>";
             print "
             		<table class=\"table\">
             			<tr>
-            				<th width=\"33.3%\">Municípios com Cartão Proteção e Defesa Civil</th>
+            				<th width=\"33.3%\">Municípios com NUPDEC</th>
+                                        <th width=\"33.3%\">Plano de Contingência</th>                                        
             				<th width=\"33.3%\">Municipios com Mapeamento de Área de Risco</th>
-            				<th width=\"33.3%\">Municipios com Capacitação</th>
+            				
             			</tr>
-						<tr>
-            				<td><canvas id=\"possuiCartao\"></canvas></td>
-            				<td><canvas id=\"possuiMapeamento\"></canvas></td>
-            				<td><canvas id=\"possuiCapacitacao\"></canvas></td>
+                                <tr>
+            				<td><canvas id=\"possuiNupdec\"></canvas></td>
+                                        <td><canvas id=\"possuiPlano\"></canvas></td>
+            				<td><canvas id=\"possuiMapeamento\"></canvas></td>            				
             			</tr>";
             print "<br>
             		<table class=\"table\">
             			<tr>
             				<th width=\"33.3%\">Plano de Contingência</th>
-            				<th width=\"33.3%\"></th>
-            				<th width=\"33.3%\"></th>
+            				<th width=\"33.3%\">Municipios com Capacitação</th>
+            				<th width=\"33.3%\">Municipios com Capacitação</th>
             			</tr>
-						<tr>
+				<tr>
             				<td><canvas id=\"possuiPlano\"></canvas></td>
-            				<td>&nbsp</td>
-            				<td>&nbsp</td>
+            				<td><canvas id=\"possuiPlano\"></canvas></td>
+            				<td><canvas id=\"possuiPlano\"></canvas></td>
             			</tr>
 				</table>";
 
@@ -55,12 +58,17 @@
                             <th width='30%'>Qtd</th>
                         </tr>
                         <tr>
-                            <td>Total Compdec Existentes:</td>
+                            <td>Total Compdec Existentes ( Lei de criação e Coordenador atuante ):</td>
                             <td><b>".$_totalExistente."</b></td>
                         </tr>
                         <tr>
-                            <td>Total Municipios sem Compdec:</td>
+                            <td>Total Inexistente ( Não tem COMPDEC Regulamentada ):</td>
                             <td><b>".$_totalSemCompdec."</b></td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Total Inativa ( Existe Lei de Criação e não tem Coordenador atuante ):</td>
+                            <td><b>".$_totalInativa."</b></td>
                         </tr>
                         <tr>
                             <td><b>Total</b></td>
@@ -142,3 +150,5 @@
                                            </tr>
                                            </table>";
 ?>        
+
+

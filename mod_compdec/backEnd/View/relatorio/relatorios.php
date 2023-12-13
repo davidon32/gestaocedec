@@ -16,9 +16,6 @@ $_sel_associacao = isset($_REQUEST['sel_associacao']) ? utf8_decode($_REQUEST['s
 $_sel_regiao = isset($_REQUEST['sel_regiao']) ? utf8_decode($_REQUEST['sel_regiao']) : "";
 $_sel_regiaoDC = isset($_REQUEST['sel_regiaoDC']) ? utf8_decode($_REQUEST['sel_regiaoDC']) : "";
 $_btn_enviar = isset($_REQUEST['btn_enviar']) ? true : false;
-
-
-//var_dump($_POST);
 ?>
 <html>
     <head>
@@ -101,11 +98,11 @@ $_btn_enviar = isset($_REQUEST['btn_enviar']) ? true : false;
         <div class="container">
             <div class="text-center imprimir">
                 <br><br>
-                <?php
-                $_funcaBase->vifs("volta", "?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=compdec&controller=compdec&action=filtroRelatorio");
-                print "&nbsp;&nbsp;&nbsp;";
-                $_funcaBase->vifs("imprimir");
-                ?>
+<?php
+$_funcaBase->vifs("volta", "?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=compdec&controller=compdec&action=filtroRelatorio");
+print "&nbsp;&nbsp;&nbsp;";
+$_funcaBase->vifs("imprimir");
+?>
                 <!--<button class='btn btn-success' onclick="exportReportToExcel(this)">Exportar Excel</button>-->
                 <br>  
             </div>
@@ -116,183 +113,245 @@ $_btn_enviar = isset($_REQUEST['btn_enviar']) ? true : false;
                 Coordenadoria Estadual de Defesa Civil de Minas Gerais
             </div>
             <div class="span12">              
-                <?php
-                $compdecExist = 0;
-                $compdecInexist = 0;
+<?php
+$compdecExistente = 0;
+$compdecInexistente = 0;
 
-                $compdecAtiva = 0;
-                $compdecDesativada = 0;
+$compdecAtiva = 0;
+$compdecDesativada = 0;
 
-                $possuiNupdec = 0;
-                $naoTemNupdec = 0;
+$possuiNupdec = 0;
+$naoTemNupdec = 0;
 
-                $possuiCartao = 0;
-                $naoTemCartao = 0;
+$possuiCartao = 0;
+$naoTemCartao = 0;
 
-                $planoCont = 0;
-                $naoTemPlano = 0;
+$planoCont = 0;
+$naoTemPlano = 0;
 
-                $mapeamento = 0;
-                $naoTemMapeamento = 0;
+$mapeamento = 0;
+$naoTemMapeamento = 0;
 
-                $capacitacao = 0;
-                $naoTemCapacitacao = 0;
+$capacitacao = 0;
+$naoTemCapacitacao = 0;
 
 
 
-                if ($_btn_enviar) {
+if ($_btn_enviar) {
 
-                    //var_dump($_rb_filtro);
-                    //die();
-                    /* opção 0 - por associacoes */
-                    if ($_rb_filtro == "0") {
-                        include_once 'rel_associacao.php';
-                        /* opção 1 - de Endereço */
-                    } else if ($_rb_filtro == "1") {
-                        include_once 'rel_endereco.php';
+    //var_dump($_rb_filtro);
+    //die();
+    /* opção 0 - por associacoes */
+    if ($_rb_filtro == "0") {
+        include_once 'rel_associacao.php';
+        /* opção 1 - de Endereço */
+    } else if ($_rb_filtro == "1") {
+        include_once 'rel_endereco.php';
 
-                        /* opcao 2 - por regiao do estado */
-                    } else if ($_rb_filtro == "2") {
-                        include_once 'rel_regiao_estado.php';
+        /* opcao 2 - por regiao do estado */
+    } else if ($_rb_filtro == "2") {
+        include_once 'rel_regiao_estado.php';
 
-                        /* opcao 3 - por compdec existente */
-                    } else if ($_rb_filtro == "3") {
-                        $sel = $_POST['selExistente'];
-                        include_once 'rel_compdec.php';
+        /* opcao 3 - por compdec existente */
+    } else if ($_rb_filtro == "3") {
+        $sel = $_POST['selExistente'];
+        include_once 'rel_compdec.php';
 
-                        /* opcao 4 - por data de criação */
-                    } else if ($_rb_filtro == "4") {
-                        include_once 'rel_dt_criacao.php';
+        /* opcao 4 - por data de criação */
+    } else if ($_rb_filtro == "4") {
+        include_once 'rel_dt_criacao.php';
 
-                        # opcaso 5 - por regioes de desenvolvimento    
-                    } else if ($_rb_filtro == "5") {
-                        include_once 'rel_regiao_des.php';
-                        # resumo de compdecs    
-                    } else if ($_rb_filtro == "6") {
-                        
-                        include_once 'rel_res_compdec.php';
+        # opcaso 5 - por regioes de desenvolvimento    
+    } else if ($_rb_filtro == "5") {
+        include_once 'rel_regiao_des.php';
+        # resumo de compdecs    
+    } else if ($_rb_filtro == "6") {
 
-                        $compdec = Compdec::DadosResumoCompdec();
+        include_once 'rel_res_compdec.php';
 
-                        //var_dump($compdec);
+        $compdec = Compdec::DadosResumoCompdec();
 
-                        foreach ($compdec as $value) {
+        //var_dump($compdec);
 
-                            if ($value['com_const'] == 1) {
-                                $compdecExist += 1;
-                            } else {
-                                $compdecInexist += 1;
-                            }
-                            if ($value['com_ativa'] == 1) {
-                                $compdecAtiva += 1;
-                            } else {
-                                $compdecDesativada += 1;
-                            }
-                            if ($value['nudec'] == 1) {
-                                $possuiNupdec += 1;
-                            } else {
-                                $naoTemNupdec += 1;
-                            }
-                            if ($value['cartao_pdc'] == 1) {
-                                $possuiCartao += 1;
-                            } else {
-                                $naoTemCartao += 1;
-                            }
-                            if ($value['plano_cont'] == 1) {
-                                $planoCont += 1;
-                            } else {
-                                $naoTemPlano += 1;
-                            }
-                            if ($value['mapeamento'] == 1) {
-                                $mapeamento += 1;
-                            } else {
-                                $naoTemMapeamento += 1;
-                            }
-                            if ($value['capacitacao'] == 1) {
-                                $capacitacao += 1;
-                            } else {
-                                $naoTemCapacitacao += 1;
-                            }
-                        }
-                    } else if ($_rb_filtro == "7") {
-                        include_once 'rel_livro_compdec.php';
-                        # opcao 8 lista mail
-                    } else if ($_rb_filtro == "8") {
-                        include_once 'rel_lista_email.php';
-                        #envio email pelo outlook    
-                    } else if ($_rb_filtro == "9") {
-                        include_once 'rel_lista_email_outlook.php';
-                    } else if ($_rb_filtro == "10") {
-                        
-                        include_once 'rel_regiao_DC.php';
-                    }
-                } else {
-                    $_funcaBase->vifs('alerta', 'secao.php?secao=compdec&acao=filtroRel', "Escolha uma " . utf8_decode("Opção") . " para o filtro !");
-                }
-                ?>
+        foreach ($compdec as $value) {
+
+            if (($value['com_const'] == 1) && ($value['com_ativa'] == 1)) {
+                $compdecExistente += 1;
+            }
+
+
+            if ($value['com_const'] == 0) {
+                $compdecInexistente += 1;
+            }
+
+
+
+            /* desativada */
+            if (($value['com_ativa'] == 0) && ($value['com_const'] == 1)) {
+                $compdecDesativada += 1;
+            }
+
+
+            if ($value['nudec'] == 1) {
+                $possuiNupdec += 1;
+            }
+
+
+            if ($value['cartao_pdc'] == 1) {
+                $possuiCartao += 1;
+            } else {
+                $naoTemCartao += 1;
+            }
+            if ($value['plano_cont'] == 1) {
+                $planoCont += 1;
+            } else {
+                $naoTemPlano += 1;
+            }
+            if ($value['mapeamento'] == 1) {
+                $mapeamento += 1;
+            } else {
+                $naoTemMapeamento += 1;
+            }
+            if ($value['capacitacao'] == 1) {
+                $capacitacao += 1;
+            } else {
+                $naoTemCapacitacao += 1;
+            }
+        }
+    } else if ($_rb_filtro == "7") {
+        include_once 'rel_livro_compdec.php';
+        # opcao 8 lista mail
+    } else if ($_rb_filtro == "8") {
+        include_once 'rel_lista_email.php';
+        #envio email pelo outlook    
+    } else if ($_rb_filtro == "9") {
+        include_once 'rel_lista_email_outlook.php';
+    } else if ($_rb_filtro == "10") {
+
+        include_once 'rel_regiao_DC.php';
+    }
+} else {
+    $_funcaBase->vifs('alerta', 'secao.php?secao=compdec&acao=filtroRel', "Escolha uma " . utf8_decode("Opção") . " para o filtro !");
+}
+?>
             </div>   
         </div>
-        <script src="js/chartjs/Chart.js" type="text/javascript"></script>
+        <script type="module" src="js/chartjs/Chart.js" type="text/javascript"></script>
 
-        <script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
+        <script type="text/javascript">
+
+            Chart.register(ChartDataLabels);
+
+            // compdec existentes;
+            var ctx = document.getElementById("compdecExistente");
+            var myChart = new Chart(ctx, {
+                type: 'doughnut',   
+
+                data: {
+                    labels: ["Existente", "Sem Compdec", "Desativada"],
+                    datasets: [{
+                            data: [<?= $compdecExistente . ", " . $compdecInexistente . ", " . $compdecDesativada ?>],
+                            backgroundColor: [
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(242, 226, 100, 0.8)',
+                            ],
+                            borderColor: [
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255,99,132,1)',
+                                'rgba(242, 226, 100, 0.8)',
+                            ],
+                            borderWidth: 1
+                        }]
+                },
+                options: {
+                    plugins: {
+                        datalabels: {
+                            align: 'end',
+                            anchor: function (context) {
+                                if ( (context.chart.data.labels[context.dataIndex] % 2) === 1) {
+                                    return context.chart.data.position +'end';
+                                } else {
+                                    return 'end';
+                                }
+                            },
+                            rotation: 0,
+                            clamp: true,
+                            backgroundColor: '#ccc',
+                            borderRadius: 3,
+
+                            color: function (context) {
+                                //return context.dataset.backgroundColor;
+                            },
+                            font: function (context) {
+                                var w = context.chart.width;
+                                return {
+                                    size: w < 512 ? 12 : 14,
+                                    weight: '',
+                                };
+                                ;
+                            },
+                            formatter: function (value, context) {
+                                var val = value / 853 * 100;
+                                return val.toFixed(2) + "%";
+                                //return context.chart.data.labels[context.dataIndex]+" : "+value;
+                            }
+                        }
+                    }
+
+                }
+            });
 
 
+            /* COMPDEC ATIVO */
 
-            /* compdec existentes
-             var ctx = document.getElementById("compdecExistente");
-             var myChart = new Chart(ctx, {
-             type: 'pie',
-             data: {
-             labels: ["Existente", "Sem Compdec"],
-             datasets: [{
-             label: '-',
-             data: [<?= $compdecExist . ", " . $compdecInexist; ?>],
-             backgroundColor: [
-             'rgba(255, 99, 132, 0.2)',
-             'rgba(54, 162, 235, 0.2)',                
-             ],
-             borderColor: [
-             'rgba(255,99,132,1)',
-             'rgba(54, 162, 235, 1)',
-             ],
-             borderWidth: 1
-             }]
-             },
-             options: {
-             legend: {
-             
-             },
-             }
-             });
-             
-             /* COMPDEC ATIVO
-             var ctx = document.getElementById("compdecAtivo");
-             var myChart = new Chart(ctx, {
-             type: 'pie',
-             data: {
-             labels: ["Ativo", "Desativado"],
-             datasets: [{
-             label: '-',
-             data: [<?= $compdecAtiva . ", " . $compdecDesativada; ?>],
-             backgroundColor: [
-             'rgba(255, 99, 132, 0.2)',
-             'rgba(54, 162, 235, 0.2)',                
-             ],
-             borderColor: [
-             'rgba(255,99,132,1)',
-             'rgba(54, 162, 235, 1)',
-             ],
-             borderWidth: 1
-             }]
-             },
-             options: {
-             legend: {
-             
-             },
-             }
-             });
-             
-             /* POSSUI NUPDEC 
+            var ctx = document.getElementById("compdecInativa");
+            var compdecAtivo = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ["Existente", "Sem Compdec"],
+                    datasets: [{
+                            data: [<?= $compdecAtiva . ", " . $compdecDesativada; ?>],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                            ],
+                            borderColor: [
+                                'rgba(255,99,132,1)',
+                                'rgba(54, 162, 235, 1)',
+                            ],
+                            borderWidth: 1
+                        }]
+                },
+                options: {
+                    plugins: {
+                        datalabels: {
+                            align: '',
+                            anchor: '',
+                            color: function (context) {
+                                //return context.dataset.backgroundColor;
+                            },
+                            font: function (context) {
+                                var w = context.chart.width;
+                                return {
+                                    size: w < 512 ? 12 : 14,
+                                    weight: 'bold',
+                                };
+                            },
+                            formatter: function (value, context) {
+                                return context.chart.data.labels[context.dataIndex] + " : " + value;
+                            }
+                        }
+                    }
+
+                }
+            });
+
+
+            /* POSSUI NUPDEC 
              var ctx = document.getElementById("possuiNupdec");
              var myChart = new Chart(ctx, {
              type: 'pie',

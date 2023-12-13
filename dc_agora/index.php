@@ -317,7 +317,9 @@
                                                             
                                         //var_dump($categorias);
                                         foreach ($categorias as $key => $value) {
-                                            print "<li><a href=\"index.php?cat=" . FuncaoBase::slug($value['categoria']) . "\">" . $value['categoria'] . "<span>(" . $value['qtd'] . ")</span></a></li>";
+                                            if($value['categoria'] != "") {
+                                                print "<li><a href=\"index.php?cat=" . FuncaoBase::slug($value['categoria']) . "\">" . $value['categoria'] . "<span>(" . $value['qtd'] . ")</span></a></li>";
+                                            }
                                         }
                                         ?>
                                     </ul>

@@ -3,7 +3,8 @@
     $filtro = isset($_POST['selExistente']) ? $_POST['selExistente'] : "";
 
 	$dados = $_relatorioCompdec->relCompdec($filtro);
-            
+        
+           
             $totalCompdec = 0;
             $totalSemCompdec = 0;
             
@@ -15,6 +16,7 @@
                 $titulo = "Lista COMPDEC existentes";
             }
 
+            
             
             print "<table class=\"table table-condensed\" id=\"rel_compdec\">
             
@@ -47,13 +49,14 @@
             
             for ($i=0; $i < count($dados); $i++) {
                 
+                # só existe nupdec se existir compdec 
                 if( $dados[$i]['nudec'] == 1 && $dados[$i]['com_const'] == 1) {
                     $totalNupdec ++; 
                 }
                 
                 print "<tr>";
                 
-                if($dados[$i]['com_const'] == 0) {
+                if($dados[$i]['com_const'] == 0) { 
                     $_semCompdec = "style='background-color:#FF4040; color:#FFFFFF;vertical-align: middle;'";
                     $totalSemCompdec = $totalSemCompdec+1;
                 }elseif ($dados[$i]['com_const'] == 1) {

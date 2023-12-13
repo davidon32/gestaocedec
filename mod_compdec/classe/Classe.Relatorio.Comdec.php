@@ -151,7 +151,7 @@ Class RelatorioComdec {
                             WHERE com_comdec.num_lei <> 0 " . $_filtro . "
                             ORDER BY com_comdec.regiao, cedec_municipio.nome";
 
-        //print $sql;
+        #print $sql;
 
         $result = $con->query($sql);
 
@@ -186,9 +186,13 @@ Class RelatorioComdec {
                 cedec_municipio.nome AS municipio,
                 com_comdec.id_comdec,
                 com_comdec.email AS email_compdec,
+                com_comdec.com_const as compdec_existe,
+                com_comdec.com_ativa as compdec_ativa,
+                com_comdec.nudec as nupdec,
                 cedec_prefeitura.email AS email_prefeito,
                 cedec_rpm_mun.id_rpm,
-                cedec_rpm_mun.nome AS regiaodc
+                cedec_rpm_mun.nome AS regiaorpm,
+                cedec_rpm_mun.nome_rdc as regiaodc
                 FROM cedec_municipio
                 INNER JOIN cedec_prefeitura
                 ON cedec_municipio.id_municipio = cedec_prefeitura.id_municipio
@@ -198,7 +202,7 @@ Class RelatorioComdec {
                 ON cedec_municipio.id_municipio = cedec_rpm_mun.id_municipio
                 WHERE cedec_municipio.id_municipio <> '7221'". $_filtro." ORDER BY id_rpm";
 
-        //print $sql;
+//        print $sql;
 
         $result = $con->query($sql);
 

@@ -593,18 +593,21 @@ class Compdec {
      * @param false
      * @return lista total compdec existente
      */
-    function qtdCompdecExitente($_situacao = true) {
+    function qtdCompdecExitente($existe = true, $ativa= true) {
 
         $con = Conexao::getInstance();
 
         $dados = array();
 
-        $_filtro = ($_situacao) ? "=1" : "= 0";
+        $_existe = ($existe) ? " =1 " : " =0 ";
+        $_ativa = ($ativa) ? " =1 " : " =0 ";
 
         $sql = "SELECT count(id_comdec) as id_comdec
                 FROM com_comdec
-                WHERE com_const " . $_filtro . " 
-                AND id_comdec <> '854'";
+                WHERE com_const " .$_existe. " 
+                AND com_ativa " .$_ativa. " and id_comdec <> '854'";
+        
+        print $sql;
 
         $result = $con->query($sql);
 
@@ -857,7 +860,15 @@ class Compdec {
 
         try {
 
-            $sql = "select com_const, com_ativa, nudec, cartao_pdc, plano_cont, mapeamento, capacitacao from com_comdec where id_municipio <> '7221'";
+            $sql = "select com_const, 
+                    com_ativa, 
+                    nudec, 
+                    cartao_pdc,
+                    plano_cont,
+                    mapeamento, 
+                    capacitacao
+                    from com_comdec
+                    where id_municipio <> '7221'";
 
             $result = $con->query($sql);
 

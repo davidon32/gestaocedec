@@ -215,7 +215,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 							<div class="col-md-4">
 								<label>Possui Nupdec ?</label>
 								<span class="form-control">
-									<?=($_dados[0]['nudec'] == 0) ? "Sim" : "Não";?></option>
+									<?=($_dados[0]['nudec'] == 0) ? "Não" : "Sim";?></option>
 								</span>
 							</div>
 							<div class="col-md-4">	

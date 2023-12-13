@@ -100,9 +100,9 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
                     <!--possui efetivo -->
                     <label>Possui Efetivo ? <span> Caso exista somente o Coordenador responda "sim"</span></label>
                     <select class="form-control" name="selEfetivo" id="selEfetivo">
-                        <option value="<?= $_dados[0]['efetivo']; ?>"><?= ($_dados[0]['efetivo'] == 0) ? "Sim" : "Não"; ?></option>
-                        <option value="0">Sim</option>
-                        <option value="1">Não</option>
+                        <option value="<?= $_dados[0]['efetivo']; ?>"><?= ($_dados[0]['efetivo'] == 0) ? "Não" : "Sim"; ?></option>
+                        <option value="0">Não</option>
+                        <option value="1">Sim</option>
                     </select>
                 </div>
                 <div class="col-md-3">
@@ -186,9 +186,9 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
                 <div class="col-md-4">
                     <label>Possui Nupdec ?</label>
                     <select class="form-control" name="selNudec" id="selNudec">
-                        <option value="<?= $_dados[0]['nudec']; ?>"><?= ($_dados[0]['nudec'] == 0) ? "Sim" : "Não"; ?></option>
-                        <option value="0">Sim</option>
-                        <option value="1">Não</option>
+                        <option value="<?= $_dados[0]['nudec']; ?>"><?= ($_dados[0]['nudec'] == 0) ? "Não" : "Sim"; ?></option>
+                        <option value="0">Não</option>
+                        <option value="1">Sim</option>
                     </select>
                 </div>
                 <div class="col-md-4">	
@@ -432,7 +432,6 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
                         <div class="modal-body">
                             <input class="form-control btn" type="file" name="fileAnexo" id="fileAnexo" /> <br>
                             <p><span id="bytesFile"></span><br>
-                            <span id="file_size"></span>
                             <br>
                             <p class="alert alert-danger">Tamanho máximo da imagem : 400 Kb</p>
                             <p class="alert alert-danger">Resolução máxima da Imagem : 400x400 (pixels)</p>
@@ -440,6 +439,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                            <span id="file_size"></span>
                             <button type="button" class="btn btn-primary" name="btnGravarFoto" id="btnGravarFoto">Upload</button>
                         </div>
                     </div>
@@ -617,6 +617,16 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 <script type="text/javascript">
 
     $(document).ready(function () {
+        
+        $("#selCompdec").bind('load, change', function(){
+           if($(this).find(":selected").val() == 0) {
+               $("#selAtivo").val("0").change();
+               $("#selNudec").val("0").change();
+               $("#selEfetivo").val("0").change();
+               $("#txt_qtd_nudec").val(0);
+               $("#txt_qtd_efetivo").val(0);
+           } 
+        });
         
         
         $("#sp_email").hide();
@@ -1271,11 +1281,11 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
                                     contentType: false, // tell jQuery not to set contentType
                                     success: function (response) {
                                         //if(response == "sucesso"){
-                                        //console.log(response);
+                                        console.log(response);
                                         //$("#modal-default").modal('hide');
                                         //$("#tblAnexoLeis").html(response);
 
-                                        location.reload();
+                                        //location.reload();
                                         //}else{
                                         //console.log(response);
 
