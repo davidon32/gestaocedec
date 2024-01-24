@@ -159,7 +159,7 @@ class Municipio extends DataMysql {
      * @param $rpm = id_rpm
      */
 
-    function dadosSelectMunicipio($rpm ="") {
+    public static function dadosSelectMunicipio($rpm ="") {
 
         if (!empty($rpm) && ($rpm != 1)) {
             $sql = "select cedec_municipio.id_municipio, 

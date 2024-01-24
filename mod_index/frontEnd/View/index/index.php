@@ -119,6 +119,7 @@
                     },
                     error: function (e) {
                         console.log(JSON.stringify(e));
+                        alert('Ocorreu um erro : 050X0002');
                     }
                 });
             

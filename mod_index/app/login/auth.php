@@ -60,7 +60,7 @@ if (($_SERVER['HTTP_HOST'] == 'sistema.defesacivil.mg.gov.br') || ($_SERVER['HTT
     $protocolo = CURLPROTO_HTTP;
     $url = 'http://sdc.net:8081/api/auth/login';
     $url_redirect = 'http://sdc.net:8081';
-    //$log_path = 'log/curl.log';
+    $log_path = 'log/curl.log';
 }
 
 
@@ -120,7 +120,7 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
         CURLOPT_RETURNTRANSFER => 1,
         CURLOPT_PROTOCOLS => CURLPROTO_HTTP,
         CURLOPT_VERBOSE => true,
-        //CURLOPT_STDERR => fopen($log_path, 'w+'),
+        CURLOPT_STDERR => fopen($log_path, 'w+'),
     ]);
 
     $resultado = curl_exec($ch);
@@ -133,6 +133,10 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
 
     $ret = json_decode($resultado);
     $token = isset($ret->token->plainTextToken) ? $ret->token->plainTextToken : null;
+    
+    //var_dump($ret);
+    //die();
+    
 
     if (!is_null($token)) {
         print "<script>";
@@ -140,7 +144,7 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
         print "</script>";
     } else {
         # enviar email com erro 
-        $log_erro = file_get_contents($log_path, true);
+        //$log_erro = file_get_contents($log_path, true);
     }
 }
 ?>
@@ -189,7 +193,7 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
                         //window.location.href = '<?= $url_redirect . '/' . $route . '?token=' . $token . '&routeInicio=' . $routeInicio ?>';
                     },
                     error: function (e) {
-                        //console.log(cpf);
+                        //alert('Ocorreu um erro ! : ')
                     }
 
                 });

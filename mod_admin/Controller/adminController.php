@@ -6,12 +6,19 @@ class adminController extends Controller {
     public function esqueci_senha() {
         include_once 'mod_admin/View/usuario/esqueci_senha.php';
     }
+    
+    /* novo usuário */
+    public function novo_cadastro() {
+        include_once 'mod_admin/View/usuario/novo_cadastro.php';
+    }
 
     # trocar senha via esqueci a senha
 
     public function troca_senha_cedec_esqueci() {
         include_once 'mod_admin/View/usuario/troca_senha_cedec_esqueci.php';
     }
+    
+    
 
     # recuperar senha via esqueci a senha
 

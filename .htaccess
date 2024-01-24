@@ -1,6 +1,8 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
+        RewriteCond %{HTTPS} on
+        RewriteRule (.*) http://%{HTTP_HOST}%{REQUEST_URI}
     
         #RewriteRule %{HTTP_HOST} /%{DOCUMENT_ROOT}/cedec/index.php
 

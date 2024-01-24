@@ -133,8 +133,8 @@ class pipaController extends Controller {
         include_once "mod_pipa/backEnd/View/pmda/declaracao.php";
     }
 
+    /* resetar senha do usuario */
     public function resetarSenha() {
-
 
 
         $btn = isset($_POST['btnAtua']) ? $_POST['btnAtua'] : "";
@@ -147,8 +147,22 @@ class pipaController extends Controller {
 
 
             if (Usuario::atuaUsuarioExterno($_POST)) {
+                
+                /* atualizar email no lara */
+                //$url = "http://www.sdc.mg.gov.br/api/auth/update";
+                $url = "http://sdc.net:8081/api/auth/update";
+                $api = FuncaoBase::Api([
+                        'url' => $url,
+                        'post' => 1,
+                        'itens' => [
+                                      'email'=>$_POST['email_rec'],
+                                      'id_user_cedec' => $_POST['id_usuario']
+                                    ],      
+                        ]);
+
                 print "<script>
 	 		alert('Usuario atualizado com Sucesso !');      
+	 		alert('-');      
 	 		</script>";
 
                 if (isset($_POST['ckReset'])) {

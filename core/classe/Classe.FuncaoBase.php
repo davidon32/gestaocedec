@@ -1001,41 +1001,35 @@ class FuncaoBase extends Exception {
         
     }
 
-    /*
-     *array['url]
-     * array['post'] [0,1]
-     * array['param'=>array['itens']] 
+    /**
+     * @param array['url]
+     * @param array['post'] [0,1]
+     * @param array['param'=>array['itens']] 
      */
-
     public static function Api(array $param) {
-        
-//        var_dump($param['items']);
-//        die();
 
         $ch = curl_init();
-
+        
         curl_setopt_array($ch, [
             CURLOPT_URL => $param['url'],
             CURLOPT_POST => $param['post'],
             CURLOPT_HTTPHEADER => [
-                //'Authorization: Bearer ' . $token,
                 'Content-Type: application/json',
                 'x-li-format: json'
             ],
-//            CURLOPT_POSTFIELDS => json_encode([
-//            'content' => [
-//                $param['items']
-//            ],
-//            'visibility' => [
-//                'code' => 'anyone'
-//            ]
-//        ]),
+            CURLOPT_POSTFIELDS => json_encode([
+                'content' => 
+                    $param['itens']
+                ,
+                'visibility' => [
+                    'code' => 'anyone'
+                ]
+            ]),
             CURLOPT_SSL_VERIFYHOST => 0,
             CURLOPT_SSL_VERIFYPEER => 0,
-            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_RETURNTRANSFER => 0,
             CURLOPT_PROTOCOLS => CURLPROTO_HTTP,
             CURLOPT_VERBOSE => true,
-            CURLOPT_STDERR => fopen($param['log_path'], 'w+'),
         ]);
 
         $resultado = curl_exec($ch);

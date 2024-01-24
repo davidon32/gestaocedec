@@ -1,0 +1,19 @@
+*   Trying 127.0.0.1:8081...
+* Connected to sdc.net (127.0.0.1) port 8081 (#0)
+> POST /api/auth/update HTTP/1.1
+Host: sdc.net:8081
+Accept: */*
+Content-Type: application/json
+x-li-format: json
+Content-Length: 86
+
+* Mark bundle as not supporting multiuse
+< HTTP/1.1 500 Internal Server Error
+< Date: Tue, 16 Jan 2024 21:55:03 GMT
+< Server: Apache/2.4.51 (Win64) OpenSSL/1.1.1l PHP/8.1.0
+< X-Powered-By: PHP/8.1.0
+< Connection: close
+< Transfer-Encoding: chunked
+< Content-Type: text/html; charset=UTF-8
+< 
+* Closing connection 0

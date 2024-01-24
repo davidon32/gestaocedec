@@ -57,7 +57,7 @@ if($post['opcao'] == 'cadastro'){
 
 }elseif($post['opcao'] == 'comentario'){
     
-    $defesaAgora->comentario($post);
+    print $defesaAgora->comentario($post);
 
 }
 

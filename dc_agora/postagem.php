@@ -316,7 +316,7 @@
                                         <form class="form-wrapper" id="frmComentario">
                                             <input type="text" class="form-control" placeholder="Seu nome" name="txt_nome" id="txt_nome">
                                             <input type="text" class="form-control" placeholder="Email" name="txt_email" id="txt_email">
-                                            <textarea class="form-control" placeholder="Comentário" name="txt_comentario" id="txt_comentario"></textarea>
+                                            <textarea class="form-control" placeholder="Comentário" name="txt_comentario" id="txt_comentario" maxlength="1024"></textarea>
                                             <button type="button" class="btn btn-primary" name="btnGravar" id="btnGravar">Enviar comentário</button>
                                         </form>
                                     </div>
@@ -472,23 +472,36 @@ foreach ($categorias as $key => $value) {
                     "id_post" : '<?=$_GET['id'];?>',
                     "opcao" : "comentario",
                 };
+        
+        
 
-                $.ajax({
-                    type: 'POST',
-                    url: '/index.php<?=FuncaoBase::geraLink("cedec", "agora", "gravarComentario") ?>',
-                    data: dados,
-                    success: function (response) {
-                        if(response === "sucesso"){
-                            alert("Comentario gravado com Sucesso !");
-                            $("#txt_nome").val('');
-                            $("#txt_email").val('');
-                            $("#txt_comentario").val('');
-                            window.location.reload();
+                if( $("#txt_nome").val() != "" &&
+                    $("#txt_email").val() != "" &&
+                    $("#txt_comentario").val() != ""
+   
+                ){
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/index.php<?=FuncaoBase::geraLink("cedec", "agora", "gravarComentario") ?>',
+                        data: dados,
+                        success: function (response) {
+                            if(response == "sucesso"){
+                                alert("Comentario gravado com Sucesso !");
+                                $("#txt_nome").val('');
+                                $("#txt_email").val('');
+                                $("#txt_comentario").val('');
+                                window.location.reload();
+                            }
+
                         }
 
-                    }
-                            
-                });
+                    });
+                }else {
+                
+                    alert('Favor preencher os campos !');
+                
+                }
         });
         
         

@@ -56,16 +56,19 @@
                                                         :texto,
                                                         :id_post)";
             $result = $con->prepare($sql);
+            
+            $data_now = date('Y-m-d H:i:s');
 
-            $result->bindParam(":data_coment", date('Y-m-d H:i:s'), PDO::PARAM_STR);
+            $result->bindParam(":data_coment", $data_now, PDO::PARAM_STR);
             $result->bindParam(":nome", $dados['txt_nome'], PDO::PARAM_STR);
             $result->bindParam(":email", $dados['txt_email']);
             $result->bindParam(":texto", $dados['txt_comentario'], PDO::PARAM_STR);
             $result->bindParam(":id_post", $dados['id_post'], PDO::PARAM_STR);
 
-            $result->execute ();
+            if($result->execute()) {
+                print 'sucesso';
+            }
 
-            print 'sucesso';
 
         }
 

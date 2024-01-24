@@ -1565,22 +1565,20 @@ class Usuario extends UsuarioModel {
      *
      */
 
-    public function buscaUsuarioCpf($cpf) {
+    public static function buscaUsuarioCpf($cpf) {
 
         $dados = array();
 
         $con = Conexao::getInstance();
 
-        $sql = "Select id, usuario, senha, email_rec, id_municipio, trsenha, situacao, acesso, cpf
-    					FROM cedec_user_ex
-    						WHERE cpf = :cpf";
+        $sql = "Select id, usuario, senha, email_rec, id_municipio, trsenha, situacao, acesso, cpf FROM cedec_user_ex WHERE cpf = :cpf";
 
         $result = $con->prepare($sql);
         $result->bindValue(":cpf", $cpf);
         $result->execute();
-
+        
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-            $dados[] = $linha;
+            $dados = $linha;
         }
 
         return $dados;
@@ -2800,6 +2798,9 @@ and cedec_usuario.id_usuario != 79
 
         return $result->fetchAll(PDO::FETCH_ASSOC);
     }
+    
+    
+    
     
 
 }?>
