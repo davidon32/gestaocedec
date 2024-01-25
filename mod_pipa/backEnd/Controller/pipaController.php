@@ -2,6 +2,7 @@
 
 include_once PATH . "/core/Controller/Controller.php";
 include_once "core/Model/Model.php";
+include_once "core/model/UsuarioExternoModel.php";
 #include_once PATH. "/template/page/only_header.php";
 
 class pipaController extends Controller {
@@ -20,6 +21,7 @@ class pipaController extends Controller {
     # usuario index
 
     public function usuario() {
+        $new_users = UsuarioExternoModel::lista_user_valida();
         include_once "mod_pipa/backEnd/View/usuario/indexView.php";
     }
 

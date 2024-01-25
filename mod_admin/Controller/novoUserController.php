@@ -1,4 +1,6 @@
-<?php include_once "core/model/UsuarioExternoModel.php";
+<?php
+
+include_once "core/model/UsuarioExternoModel.php";
 
 class novoUserController extends Controller {
     /* gravar usuario da internet */
@@ -16,19 +18,19 @@ class novoUserController extends Controller {
         $cargo = htmlspecialchars($_POST['cargo']);
         $municipio = filter_input(INPUT_POST, 'municipio', FILTER_VALIDATE_INT);
         $oficio = $files;
-        
+
         $data = [
             'nome' => $nome,
-            'cpf'  => $cpf,
-            'email'=> $email,
-            'cel'  => $cel,
-            'ci'   => $ci,
-            'profissao'=> $profissao,
-            'cargo'=> $cargo,
-            'municipio'=>$municipio,
+            'cpf' => $cpf,
+            'email' => $email,
+            'cel' => $cel,
+            'ci' => $ci,
+            'profissao' => $profissao,
+            'cargo' => $cargo,
+            'municipio' => $municipio,
         ];
 
-        $nome_oficio = $municipio."_oficio_".date('is');
+        $nome_oficio = $municipio . "_oficio_" . date('is');
 
         /* veriricação upload file */
         if (
@@ -45,18 +47,21 @@ class novoUserController extends Controller {
 
         # verificar Upload
         if ($usuario && $upload) {
-            if(UsuarioExternoModel::store($data, $nome_oficio)){
+            if (UsuarioExternoModel::store($data, $nome_oficio)) {  
                 print "<script>";
-                print "window.location.href='".FuncaoBase::geraLink('admin', 'novoUser', 'sucesso')."'";
+                print "window.location.href='".FuncaoBase::geraLink('admin', 'novoUser', 'sucesso', ['result'=> true])."'";
                 print "</script>";
             }
-            
         } else {
-            
-            print "Usuário ja cadastrado no sistema !";
-                       
+            print "<script>";
+            print "window.location.href='".FuncaoBase::geraLink('admin', 'novoUser', 'sucesso', ['result'=>false])."'";
+            print "</script>";
         }
+    }
 
+    public function sucesso() {
+
+        include_once 'mod_admin/View/usuario/view.sucesso.php';
     }
 
 }

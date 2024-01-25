@@ -78,4 +78,7 @@ class Controller {
                  window.location.href = '" . $link . "';
                 </script>";
     }
+    
+    
+    
 }

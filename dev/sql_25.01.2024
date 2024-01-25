@@ -1,0 +1,4 @@
+ALTER TABLE `pae_empntos`
+	ADD COLUMN `coordenador_sub` VARCHAR(110) NULL DEFAULT NULL COMMENT 'Nome do Coordenador Substituto' AFTER `email_coord`,
+	ADD COLUMN `tel_coordenador_sub` VARCHAR(20) NULL DEFAULT NULL COMMENT 'Telefone do Coordenador Substituto' AFTER `coordenador_sub`,
+	ADD COLUMN `email_coord_subtituto` VARCHAR(120) NULL DEFAULT NULL COMMENT 'Email do Coordenador Substituto' AFTER `tel_coordenador_sub`;

@@ -1,4 +1,6 @@
-<?php
+<?php 
+
+
 
 Class UsuarioExternoModel {
     /* Gerador Automatico de Getters e Setters para nosso Amigo PHP 
@@ -219,6 +221,31 @@ Class UsuarioExternoModel {
         } catch (Exception $e) {
             return $e->getMessage();
         }
+    }
+    
+    
+    public static function lista_user_valida() {
+        
+        
+        $con = Conexao::getInstance();
+
+        $dados = array();
+
+        $sql = "select *from cedec_user_ex where situacao = 'DESATIVADO' AND user_id_valida is null";
+        
+        try {
+
+            $result = $con->query($sql);
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dados[] = $linha;
+            }
+
+            return $dados;
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+        
     }
 
 }
