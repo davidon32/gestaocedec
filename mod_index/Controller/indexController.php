@@ -35,25 +35,24 @@ class indexController extends Controller {
             print "<script type='text/javascript'>";
             print "window.location = 'index.php?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=itn&ac=&modulo=admin&controller=admin&action=troca_senha_cedec_esqueci';";
             print "</script>";
-        
+
             # login externo 
         } else {
-            $logarExterno = $loginExterno->logarExterno($usuarioLogin, $str_senha); 
+            $logarExterno = $loginExterno->logarExterno($usuarioLogin, $str_senha);
             //var_dump($usuarioLogin, $str_senha, $logarExterno);
-           //die();
+            //die();
 
             Usuario::gravarLogin(array('login' => $usuarioLogin, 'acao' => 'Login no sistema'));
 
             /** login frontend */
-            if ( isset($logarExterno['page']) && ($logarExterno['page'] == "index") ) {
-                
+            if (isset($logarExterno['page']) && ($logarExterno['page'] == "index")) {
+
 
                 /* atualizar o cpf */
-                if ($loginExterno::buscaCPF($logarExterno['id_municipio']) >0) {
+                if ($loginExterno::buscaCPF($logarExterno['id_municipio']) > 0) {
                     print "<script style='text/javascript'>";
                     print "window.location = 'index.php?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=etn&modulo=compdec&controller=compdec&action=compdec'";
                     print "</script>";
-                    
                 } else {
                     print "<script style='text/javascript'>";
                     print "window.location = 'index.php?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=etn&modulo=index&controller=index&action=index1e'";
@@ -61,11 +60,11 @@ class indexController extends Controller {
                 }
 
                 # troca de senha externo
-            } else if( isset($logarExterno['acesso']) && ($logarExterno['acesso'] == "trsenha") ){
+            } else if (isset($logarExterno['acesso']) && ($logarExterno['acesso'] == "trsenha")) {
                 $param = md5('use70');
                 $usuario = new Usuario();
 
-                
+
                 if (empty($logarExterno['reset'])) {
                     print "<script type='text/javascript'>";
                     print "window.location = 'index.php?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&modulo=equipe&controller=usuario&action=trsenha_compdec&has=" . $param . "';";
@@ -95,28 +94,26 @@ class indexController extends Controller {
             }
         }
     }
-    
-    
+
     /* filtro dados bi */
+
     public function filtro() {
-        
+
         include_once 'mod_index/backend/View/bi/index.php';
     }
 
     public function index1() {
 
         //$id_usuario = $_COOKIE['seguranca']['idUser'];
-
         # $numAcesso = Login::pegaQtdAcesso($id_usuario);
-
 //        if ($numAcesso[0]['qtd_acesso'] >= 20) {
 //            Login::atualizaAcesso($id_usuario, 0);
 //            print "<script style='text/javascript'>";
 //            print "window.location = '" . FuncaoBase::geraLink("equipe", "funcionario", "alterar") . "'";
 //            print "</script>";
 //        } else {
-          #  Login::atualizaAcesso($id_usuario, 1);
-            include_once 'mod_index/backEnd/View/index/index.php';
+        #  Login::atualizaAcesso($id_usuario, 1);
+        include_once 'mod_index/backEnd/View/index/index.php';
         #}
     }
 
@@ -224,59 +221,72 @@ class indexController extends Controller {
 
         include_once 'mod_index/backEnd/View/info/lista_municipio_reg.php';
     }
-    
-    
+
+    /**
+     * paebm
+     * 
+     */
+    public function paebmindex() {
+        include_once 'mod_index/backEnd/View/index/pae.php';
+    }
+
     /**
      * paebm
      * 
      */
     public function paebm() {
-        $routeInicio = 'modulo=index&controller=index&action=menu';
+        if ($_COOKIE['seguranca']['tipo'] == "i") {
+            $routeInicio = 'modulo=index&controller=index&action=menu';
+        } else {
+            $routeInicio = 'modulo=index&controller=index&action=menue';
+        }
         include_once 'mod_index/app/login/auth.php';
-        
     }
-    
+
     /**
      * RAT
      * 
      */
     public function rat() {
-        if($_COOKIE['seguranca']['tipo'] == "i"){
+        if ($_COOKIE['seguranca']['tipo'] == "i") {
             $routeInicio = 'modulo=index&controller=index&action=menu';
-        }else {
-            $routeInicio = 'modulo=index&controller=index&action=menue';    
+        } else {
+            $routeInicio = 'modulo=index&controller=index&action=menue';
         }
         include_once 'mod_index/app/login/auth.php';
-        
     }
-    
+
     /**
      * VISTORIA
      * 
      */
     public function vistoria() {
-        if($_COOKIE['seguranca']['tipo'] == "i"){
+        if ($_COOKIE['seguranca']['tipo'] == "i") {
             $routeInicio = 'modulo=index&controller=index&action=menu';
-        }else {
-            $routeInicio = 'modulo=index&controller=index&action=menue';    
+        } else {
+            $routeInicio = 'modulo=index&controller=index&action=menue';
         }
         include_once 'mod_index/app/login/auth.php';
-        
     }
-    
+
     /**
      * CADASTRO COMPDEC
      * 
      */
     public function compdec() {
-        if($_COOKIE['seguranca']['tipo'] == "i"){
+        if ($_COOKIE['seguranca']['tipo'] == "i") {
             $routeInicio = 'modulo=index&controller=index&action=menu';
-        }else {
-            $routeInicio = 'modulo=index&controller=index&action=menue';    
+        } else {
+            $routeInicio = 'modulo=index&controller=index&action=menue';
         }
         include_once 'mod_index/app/login/auth.php';
-        
     }
     
+    
+    public function userAtivo() {
+        
+        include_once 'mod_index/backEnd/View/index/userAtivo.php';
+        
+    }
 
 }

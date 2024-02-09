@@ -74,7 +74,7 @@ $municipios = Municipio::listaid_municipioAutocomplete();
         <a class="link-black" href="#">Clique aqui e baixe o Modelo do Ofício para o cadastro de novo Usuário do SDC </a>
         <br>
         <br>
-        <label>Ofício de Declaração:</label> <span style="color:red; font-weight: bold">( Tamanho Máximo 2MB )</span>
+        <label>Ofício de Solicitação de Cadastro :</label> <span style="color:red; font-weight: bold">( Tamanho Máximo 2MB )</span>
         <input id="max_id" type="hidden" name="MAX_FILE_SIZE" value="2097152" />
         <input type="file" onchange="upload_check()" class="form form-control" name="oficio" id="oficio" accept="application/pdf" required/><span id="msg"></span>
 

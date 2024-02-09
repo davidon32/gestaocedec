@@ -169,6 +169,9 @@ include_once PATH . '/mod_decreto/Model/CobradeModel.php';
 include_once PATH . '/mod_decreto/Model/ProcessodecretoModel.php';
 
 
+include_once PATH . '/mod_index/Controller/msgController.php';
+
+
 
 
 include_once PATH . '/mod_teste/Model/TesteModel.php';

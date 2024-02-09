@@ -252,6 +252,7 @@ class Email {
             $mail->FromName = "CEDEC/MG - SDC Sistema de Defesa Civl ";
 
             $mail->addAddress($dados['para'], $dados['nomePara']);
+            $mail->addReplyTo('sdc@defesacivil.mg.gov.br');
 
             $mail->isHTML(true);
 

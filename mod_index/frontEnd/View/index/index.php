@@ -27,7 +27,7 @@
 <div class="col-md-4 text-center"> 
     <legend>Notificações</legend>
     <?php
-    $login = new Login();
+    //$login = new Login();
     /* $liberacoes = $login->acessoLembreteCompdec($_COOKIE['seguranca']['id_municipio']);
 
 
@@ -61,7 +61,7 @@
     <legend>AVISOS / MENSAGENS</legend>
 
     <?php
-    MensagemSistema::mostraMensagem();
+    //MensagemSistema::mostraMensagem();
     
     
     ?>

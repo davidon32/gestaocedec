@@ -131,7 +131,10 @@ print "</script>";
                 <li class="dropdown notifications-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-bell-o"></i>
-                        <span class="label label-warning">0</span>
+                        <span class="label label-warning">
+                            <!--Qtd mensagens-->
+                            <?= msgController::mensagem(['municipio_id'=>7221]);?>
+                        </span>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="header">Voçê tem 1 notificação</li>

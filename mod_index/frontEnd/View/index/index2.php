@@ -28,6 +28,7 @@ $data_doc = Compdec::verificadoc($id_municipio);
 //var_dump($data_doc);
 
 
+   # necessidade de atualização de documentos
    if(count($data_doc) >0) {
     print "<script>";
     print "window.location.href='index.php?token=".hash('sha256', md5(VERSAO) . date('dmY'))."&modulo=compdec&controller=compdec&action=compdec'";  

@@ -38,9 +38,11 @@ $status_anexo = Compdec::verificadoc($id_municipio);
 
 $lista_membros = $_equipe->listaMembro($id_municipio);
 
-$key_equipe = array_search("Coordenador", array_column($lista_membros, "funcao"));
+$key_equipe = array_search("COORDENADOR", array_column($lista_membros, "funcao"));
 
 $cpf_coordenador = $lista_membros[$key_equipe]['cpf'];
+
+//var_dump($lista_membros);
 
 $desatualiza = count($status_anexo);
 
@@ -501,9 +503,9 @@ if ($desatualiza > 0 ) {
                         <select class="form-control" id="selFuncaoMembro" name="selFuncaoMembro" class="form-control">
 
                             <option>Selecione a Função</option>
-                            <option>Coordenador</option>
-                            <option>Secretário</option>
-                            <option>Agente</option>
+                            <option>COORDENADOR</option>
+                            <option>SECRETÁRIO</option>
+                            <option>AGENTE</option>
                         </select><span style="color: red; font-size: 13pt;">*</span>
                     </div>
                 </div>
@@ -1243,6 +1245,7 @@ if ($desatualiza > 0 ) {
                 "txtCelMembro": $("#txtCelMembro").val(),
                 "txtEmailMembro": $("#txtEmailMembro").val(),
                 "txtCpf": $("#txtCpf").val(),
+                "status":          1,
                 "ckWatsapp": $("#ckWatsapp").val(),
             };
             $.ajax({

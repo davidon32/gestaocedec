@@ -31,7 +31,9 @@ $routeList = [
     "paebm" => 'drrd',
     "rat" => 'rat',
     "vistoria" => 'vistoria',
-    "compdec" => 'compdec'
+    "compdec" => 'compdec',
+    "paebmindex" => 'drrd',
+    
 ];
 
 $actionApi = isset($_GET['action']) ? $_GET['action'] : "index";
@@ -47,7 +49,7 @@ if ($funcao == 'REDEC') {
     $orgao = strtolower($funcao);
 }
 
-//var_dump($actionApi);
+var_dump($actionApi);
 
 # producao
 if (($_SERVER['HTTP_HOST'] == 'sistema.defesacivil.mg.gov.br') || ($_SERVER['HTTP_HOST'] == 'www.sistema.defesacivil.mg.gov.br')) {
@@ -117,7 +119,7 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
         ]),
         CURLOPT_SSL_VERIFYHOST => 0,
         CURLOPT_SSL_VERIFYPEER => 0,
-        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_RETURNTRANSFER => 0,
         CURLOPT_PROTOCOLS => CURLPROTO_HTTP,
         CURLOPT_VERBOSE => true,
         CURLOPT_STDERR => fopen($log_path, 'w+'),

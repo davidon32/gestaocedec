@@ -2800,7 +2800,27 @@ and cedec_usuario.id_usuario != 79
     }
     
     
+    public static function busca($status = null, $tipo = null) {
+        
+        $paramStatus = (!is_null($status)) ? "and situacao = '".$status."'" : "";
+        
+        $paramTipo = (!is_null($tipo)) ? "and modulo = '".$tipo."'" : "";
+        
+        
+        $con = Conexao::getInstance();
+        
+        $sql = "Select *from cedec_user_ex where id > 0 ".$paramStatus.$paramTipo;
+        
+        $result = $con->query($sql);
+        
+        return $result->fetchAll(PDO::FETCH_ASSOC);
+        
+        
+    }
+    
+    
+    
     
     
 
-}?>
+}

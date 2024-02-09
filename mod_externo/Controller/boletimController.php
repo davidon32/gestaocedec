@@ -1,13 +1,12 @@
 <?php include_once PATH."/core/Controller/Controller.php";
     include_once PATH."/core/Model/Model.php";
 
-class indexController extends Controller {
+class index1Controller extends Controller {
 
     public function index()
     {  
 
         
     }
-
 
 }?>

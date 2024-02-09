@@ -151,12 +151,20 @@ class H_pedido_pedidajuda_hModel extends Model {
         }
     }
 
-    public static function listaPedidosTodos($_id_redec = null) {
-
+    public static function listaPedidosTodos($municipio=null, $id_redec =null) {
+        
         $con = Conexao::getInstance();
         $filtro = "";
-        if (($_id_redec != 1) && !is_null($_id_redec)) {
-            $filtro = " WHERE cedec_rpm_mun.id_rpm = '{$_id_redec}' ";
+        if (($id_redec != 1) && !is_null($id_redec)) {
+            $filtro = " WHERE cedec_rpm_mun.id_rpm = '{$id_redec}' ";
+        }
+        
+        if (($municipio != 1) && !is_null($municipio)) {
+            if(empty($filtro)) {
+                $filtro = " WHERE cedec_municipio.nome like '%{$municipio}%' ";
+            }else {
+                $filtro = " AND cedec_municipio.nome like '%{$municipio}%' ";
+            }
         }
 
         $sql = "SELECT aju_h_pedido_pedid.numero,

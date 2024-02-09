@@ -20,7 +20,7 @@
                 <th title='Email do Usuário'>email_rec</th>
                 <th title='Local Trabalho'>Função</th>
                 <th title='Local Trabalho' style="min-width: 65px;">RPM</th>
-                <th title='Local Trabalho'>Lotado</th>
+<!--                <th title='Local Trabalho'>Lotado</th>
                 <th title='Login do Usuário'>Login</th>
                 <th title='Data do Último acesso'>Ultimo Acesso</th>
                 <th title='Acesso ao Módulo Estoque'>Estoque</th>
@@ -29,28 +29,30 @@
                 <th title='Acesso ao Módulo Declaração'>Decretacao</th>
                 <th title='Acesso ao Módulo Compdec'>Compdec</th>
                 <th title='Acesso ao Módulo Informações da Prefeitura'>Prefeitura</th>
-                <th title='Acesso ao Módulo da Escola'>Escola</th>
+                <th title='Acesso ao Módulo da Escola'>Escola</th>-->
             </tr>
             <?php
                     
                 foreach ($dados as $key => $value) {
-                    print "<tr>";
-                    print "<td>".$value['id_usuario']."</td>";
+                    
+                        print "<tr>";
+                    
+                    print "<td style='height:80px;'>".$value['id_usuario']."</td>";
                     print "<td>".($value['desc_funcao'] == 'Agente Regional de DC' ? "<a href='".FuncaoBase::geraLink('index', 'index', 'lista_munic_reg', array('id_rpm'=>$value['id_rpm'], 'nome'=>$value['nome']))."' title='Municipios Relativos ao Agente Regional'>".$value['nome'] : $value['nome'])."</td>";
                     print "<td>".$value['telefone']."<br>".$value['celular']."</td>";
                     print "<td>".$value['email_rec']."</td>";
                     print "<td>".($value['desc_funcao'] == 'Agente Regional de DC' ? 'Regional' : '')."</td>";
                     print "<td>".$value['rpm']."/".$value['dep_avancado']."</td>";
-                    print "<td>".$value['orgao']."</td>";
-                    print "<td>".$value['login']."</td>";
-                    print "<td>". DataMysql::dataCompletaVisual($value['ultimo_acesso'])."</td>";
-                    print "<td>".($value['estoque'] == 1 ? "<i style='color:blue'>sim</i>": "<i style='color:red'>não</i>")."</td>";
-                    print "<td>".($value['pmda'] == 1 ? "<i style='color:blue'>sim</i>": "<i style='color:red'>não</i>")."</td>";
-                    print "<td>".($value['plantao'] == 1 ? "<i style='color:blue'>sim</i>": "<i style='color:red'>não</i>")."</td>";
-                    print "<td>".($value['decretacao'] == 1 ? "<i style='color:blue'>sim</i>": "<i style='color:red'>não</i>")."</td>";
-                    print "<td>".($value['compdec'] == 1 ? "<i style='color:blue'>sim</i>": "<i style='color:red'>não</i>")."</td>";
-                    print "<td>".($value['prefeitura'] == 1 ? "<i style='color:blue'>sim</i>": "<i style='color:red'>não</i>")."</td>";
-                    print "<td>".($value['escola'] == 1 ? "<i style='color:blue'>sim</i>": "<i style='color:red'>não</i>")."</td>"; 
+//                    print "<td>".$value['orgao']."</td>";
+//                    print "<td>".$value['login']."</td>";
+//                    print "<td>". DataMysql::dataCompletaVisual($value['ultimo_acesso'])."</td>";
+//                    print "<td>".($value['estoque'] == 1 ? "<i style='color:blue'>sim</i>": "<i style='color:red'>não</i>")."</td>";
+//                    print "<td>".($value['pmda'] == 1 ? "<i style='color:blue'>sim</i>": "<i style='color:red'>não</i>")."</td>";
+//                    print "<td>".($value['plantao'] == 1 ? "<i style='color:blue'>sim</i>": "<i style='color:red'>não</i>")."</td>";
+//                    print "<td>".($value['decretacao'] == 1 ? "<i style='color:blue'>sim</i>": "<i style='color:red'>não</i>")."</td>";
+//                    print "<td>".($value['compdec'] == 1 ? "<i style='color:blue'>sim</i>": "<i style='color:red'>não</i>")."</td>";
+//                    print "<td>".($value['prefeitura'] == 1 ? "<i style='color:blue'>sim</i>": "<i style='color:red'>não</i>")."</td>";
+//                    print "<td>".($value['escola'] == 1 ? "<i style='color:blue'>sim</i>": "<i style='color:red'>não</i>")."</td>"; 
                     print "</tr>";
                 }
             

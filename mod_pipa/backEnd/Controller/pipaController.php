@@ -2,7 +2,7 @@
 
 include_once PATH . "/core/Controller/Controller.php";
 include_once "core/Model/Model.php";
-include_once "core/model/UsuarioExternoModel.php";
+include_once PATH . "/core/Model/UsuarioExternoModel.php";
 #include_once PATH. "/template/page/only_header.php";
 
 class pipaController extends Controller {
@@ -136,6 +136,7 @@ class pipaController extends Controller {
     }
 
     /* resetar senha do usuario */
+
     public function resetarSenha() {
 
 
@@ -148,29 +149,126 @@ class pipaController extends Controller {
             $_POST['ck_ajuda'] = isset($_POST['ck_ajuda']) ? $_POST['ck_ajuda'] : 0;
 
 
+            # atualiza dados usuario
+            # atualizações futuras, desativar usuario e cadatrar outro novo
             if (Usuario::atuaUsuarioExterno($_POST)) {
-                
-                /* atualizar email no lara */
-                //$url = "http://www.sdc.mg.gov.br/api/auth/update";
-                $url = "http://sdc.net:8081/api/auth/update";
-                $api = FuncaoBase::Api([
-                        'url' => $url,
-                        'post' => 1,
-                        'itens' => [
-                                      'email'=>$_POST['email_rec'],
-                                      'id_user_cedec' => $_POST['id_usuario']
-                                    ],      
-                        ]);
 
-                print "<script>
-	 		alert('Usuario atualizado com Sucesso !');      
-	 		alert('-');      
-	 		</script>";
+                $dado = $_POST;
+
+                $data_coordenador = [
+                    'id_equipe' => $dado['membro_coord_id'],
+                    'txtCpf' => $dado['cpfCoord'],
+                    'txtNomeMembro' => $dado['nomeCoord'],
+                    'txtCelMembro' => $dado['celCoord'],
+                    'txtTelMembro' => $dado['telCoord'],
+                    'txtEmailMembro' => $dado['emailCoord'],
+                    'selFuncaoMembro' => "COORDENADOR",
+                    'id_municipio' => $dado['municipio_id'],
+                    'status' => 1,
+                    'txtIdMunicipio' => $dado['municipio_id'],
+                ];
+
+
+
+                # NÃO alterou o CPF do usuário Atualizar dados coordenador
+                if ($dado['cpfCoord'] == $dado['cpf_atual']) {
+
+                    //var_dump(MembroEqCompdec::alterar($data_coordenador). " Alteração somente os dados do coordenador");
+                    MembroEqCompdec::alterar($data_coordenador);
+
+
+                    # Cadastrar novo coordenador
+                } elseif ($dado['cpfCoord'] != $dado['cpf_atual']) {
+
+                    $coordAntigo = MembroEqCompdec::existeCoord($data_coordenador);
+
+                    # verifica se existe ex coordenador
+                    if ($coordAntigo['result'] == 1) {
+                        //var_dump($coordAntigo);
+
+                        $dadosCoorAnt = ['id_equipe' => $coordAntigo['dado']['id_equipe'],
+                            'txtCpf' => $dado['cpfCoord'],
+                            'txtNomeMembro' => $dado['nomeCoord'],
+                            'txtCelMembro' => $dado['celCoord'],
+                            'txtTelMembro' => $dado['telCoord'],
+                            'txtEmailMembro' => $dado['emailCoord'],
+                            'selFuncaoMembro' => "COORDENADOR",
+                            'status' => 1,
+                            'txtIdMunicipio' => $dado['municipio_id'],
+                        ];
+
+
+                        //var_dump("Novo : ".$dado['cpfCoord'], "Atual :". $dado['cpf_atual']);
+                        #desativa o coordenador atual
+                        //var_dump("Existe coordenador vou desativar o coordenador antigo ".MembroEqCompdec::desativaCoordAntigo($data_coordenador['id_municipio']));
+                        MembroEqCompdec::desativaCoordAntigo($data_coordenador['id_municipio']);
+
+
+                        # atualiza os dados do coordenador existente
+                        //var_dump(MembroEqCompdec::alterar($dadosCoorAnt)." Atualiza Existente");
+                        MembroEqCompdec::alterar($dadosCoorAnt);
+
+
+                        # cadastra um novo
+                    } else {
+                        # desativa o coordenador atual
+                        //var_dump("Desativei coordenador antigo ".MembroEqCompdec::desativaCoordAntigo($data_coordenador['id_municipio']));
+                        MembroEqCompdec::desativaCoordAntigo($data_coordenador['id_municipio']);
+
+                        # cadastra o novo
+                        //var_dump(MembroEqCompdec::novo($data_coordenador)." Cadastro novo coordenador");
+                        MembroEqCompdec::novo($data_coordenador);
+                    }
+                }
+
+                //var_dump($_POST, $data_coordenador, str_replace(['.','-'], "", $data_coordenador['txtCpf']));
+                //die();
+
+                if ($dado['cpfCoord'] != $dado['cpf_atual']) {
+
+                    /* atualizar email no lara */
+                    //$url = "http://www.sdc.mg.gov.br/api/auth/update";
+                    $url = "http://sdc.net:8081/api/auth/update";
+                    $api = FuncaoBase::Api([
+                                'url' => $url,
+                                'post' => 1,
+                                'itens' => [
+                                    'email' => $_POST['email_rec'],
+                                    'id_user_cedec' => $_POST['id_usuario'],
+                                    'cpf' => str_replace(['.', '-'], "", $data_coordenador['txtCpf']),
+                                    'ativo' => $data_coordenador['status'],
+                                    'tipo' => 'compdec',
+                                    'municipio_id' => $data_coordenador['txtIdMunicipio'],
+                                ],
+                    ]);
+
+
+                    $result = $api;
+
+//                var_dump($result);
+//                die();;
+                    # atualiza lara
+                    if ($result['result'] == 'duplicado') {
+                        print "<script>
+                            alert('COD:06 - Já existe esse usuário na base de dados !');          
+                            </script>";
+                    } elseif ($result['result'] == 'true') {
+                        print "<script>
+                            alert('Usuario atualizado com Sucesso !');         
+                            </script>";
+                    }
+                }
+
+
+//                print "<script>
+//                        alert('Dados do usuário atualizado com Sucesso !');      
+//                    </script>";
 
                 if (isset($_POST['ckReset'])) {
 
+                    $email_rec = $_POST['email_rec'];
 
-                    print "<style>
+                    $email = "<style>
                         body {
                         background-color: #F79A86 ;
                         }
@@ -201,7 +299,7 @@ class pipaController extends Controller {
                             http://sistema.defesacivil.mg.gov.br
                             <br>
                             <br>
-                            Usuario : <b>" . $_POST['email_rec'] . "</b> 
+                            Usuario : <b>" . $email_rec . "</b> 
                             <br>
                             <br>
                             Senha   : <b>defesa199</b>
@@ -214,8 +312,16 @@ class pipaController extends Controller {
                         </div>
                         <p class='text-center'><a class='btn btn-primary' href='" . FuncaoBase::geraLink('pipa', 'pipa', 'pesquisaUsuario') . "' >Voltar</a></p>
                         </div>";
+
+                    //Email::emailIndividual($email_rec, 'Senha SDC Recuperada', "<html>".$email."</html>");
+
+
+                    print $email;
                 } else {
 
+                    print "<script>";
+                    print "alert('Usuario atualizado com Sucesso !');";
+                    print "</script>";
                     print "<script>
                             window.location.href= '" . FuncaoBase::geraLink('pipa', 'pipa', 'cUserEx', array('id' => $_POST['id_usuario'], 'volta' => 'compdec')) . "';
                             </script>";
@@ -263,21 +369,19 @@ class pipaController extends Controller {
     # lista de pmda por status
 
     public function resumolist() {
-        $status = isset($_GET['st'])     ? $_GET['st']     : "";
-        $ano    = isset($_GET['ano'])    ? $_GET['ano']    : "";
+        $status = isset($_GET['st']) ? $_GET['st'] : "";
+        $ano = isset($_GET['ano']) ? $_GET['ano'] : "";
         $estado = isset($_GET['estado']) ? $_GET['estado'] : null;
-        
-        
+
+
         $param = [
-                    'status'=> $status, 
-                    'ano' => $ano,
-                    'estado' =>$estado
-                ];
-        
+            'status' => $status,
+            'ano' => $ano,
+            'estado' => $estado
+        ];
+
         $dados = Pmda::listaprocessosporstatus($param);
         include_once "mod_pipa/backEnd/View/pmda/listaprocessosporstatus.php";
-
-        
     }
 
 }

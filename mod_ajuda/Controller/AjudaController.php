@@ -12,8 +12,11 @@ class AjudaController {
         //$ajuda = new Ajuda();
         //$ajuda->cadFornecedor($dados);
     }
-
     
+    
+    
+    
+
 
 
 

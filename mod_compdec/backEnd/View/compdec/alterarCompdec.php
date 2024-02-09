@@ -350,26 +350,35 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
             <!-- Formulario cadastro membro equipe -->
             <br>
             <br>
+            
+            <!-- FORMULÁRIO CADASTRO DE MEMBRO DE COMPDEC -->
             <div class="span10" id="formMembro">
                 <p style="text-align: center">
                     <b>Adicionar Membro</b>
                 </p>
-                <label>Nome</label>
+                <label>Nome</label>:
                 <input class="form-control" type="text" name="txtNomeMembro" id="txtNomeMembro" maxlength="70">&nbsp;<span style="color: red; font-size: 13pt;">*</span>
                 <input class="form-control" type="hidden" name="txtIdMunicipio" id="txtIdMunicipio" value="<?php print $_dados[0]['id_municipio']; ?>">
                 <input class="form-control" type="hidden" name="txtIdMembro" id="txtIdMembro">
-                <label>Função</label>
-                <select class="form-control" id="selFuncaoMembro" name="selFuncaoMembro"	class="form-control" >
-                    <option>Selecione a Função</option>
-                    <option>Coordenador</option>
-                    <option>Secretário</option>
-                    <option>Agente</option>
+                
+                <label>Cpf</label>:
+                <input class="form-control" type="text" name="txtCpf" id="txtCpf" maxlength="14" required>
+                
+                <label>Função</label>:
+                <select class="form-control" id="selFuncaoMembro" name="selFuncaoMembro" class="form-control" required>
+                    <option>Selecione a Função</option> 
+                        <option>COORDENADOR</option>
+                    <option>SECRETÁRIO</option>
+                    <option>AGENTE</option>
                 </select><span style="color: red; font-size: 13pt;">*</span>
-                <label>Telefone</label>
+                
+                <label>Telefone</label>:
                 <input	class="form-control" type="text" name="txtTelMembro" id="txtTelMembro" maxlenght="20">
-                <label>Celular</label>
+                
+                <label>Celular</label>:
                 <input class="form-control" type="text" name="txtCelMembro" id="txtCelMembro" maxlength="20">
-                <label>Email</label>
+                
+                <label>Email</label>:
                 <input class="form-control" type="text" name="txtEmailMembro" id="txtEmailMembro" maxlength="100"><span style="color: red; font-size: 13pt;">*</span>
                 <br>
                 <span style="color: red; font-size: 13pt;">*</span>
@@ -377,7 +386,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
                 <br>
                 <button class="btn btn-info" id="btnGravarMembro" type="button"
                         title="Grava o Membro do Compdec Preenchido no Formulário.">Gravar</button>
-                <button type="button" id="btnAlterarMembro" class="btn">Alterar Membro</button>
+                <button type="button" id="btnAlterarMembro" class="btn btn-warning">Alterar Membro</button>
 
             </div>
 
@@ -797,6 +806,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
             defaultDate: null
         });
 
+        $("#txtCpf").mask("999.999.999-99");
         $("#txtTelMembro").mask("(00) 0-0000-0009");
         $("#txtCelMembro").mask("(00) 0-0000-0009");
         $("#txt_comp_fone1").mask("(00) 0-0000-0009");
@@ -867,6 +877,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
                 var dados = {
                     "opcao": "novo",
                     "txtNomeMembro": $("#txtNomeMembro").val(),
+                    "txtCpf": $("#txtCpf").val(),
                     "selFuncaoMembro": $("#selFuncaoMembro").val(),
                     "txtTelMembro": $("#txtTelMembro").val(),
                     "txtCelMembro": $("#txtCelMembro").val(),
@@ -892,6 +903,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 
                 // limpa os controles
                 $("#txtNomeMembro").val("");
+                $("#txtCpf").val("");
                 $("#selFuncaoMembro").val("Selecione a Função");
                 $("#txtTelMembro").val("");
                 $("#txtCelMembro").val("");
@@ -1049,22 +1061,25 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
         /*********** Alterar dados Membro Equipe ***********/
         $("#btnAlterarMembro").click(function () {
             var dados = {
-                "opcao": "alterar",
-                "id_equipe": $("#txtIdMembro").val(),
-                "txtNomeMembro": $("#txtNomeMembro").val(),
+                "opcao":           "alterar",
+                "id_equipe":       $("#txtIdMembro").val(),
+                "txtNomeMembro":   $("#txtNomeMembro").val(),
                 "selFuncaoMembro": $("#selFuncaoMembro").val(),
-                "txtTelMembro": $("#txtTelMembro").val(),
-                "txtCelMembro": $("#txtCelMembro").val(),
-                "txtEmailMembro": $("#txtEmailMembro").val(),
-                "ckWatsapp": $("#ckWatsapp").val(),
+                "txtTelMembro":    $("#txtTelMembro").val(),
+                "txtCelMembro":    $("#txtCelMembro").val(),
+                "txtEmailMembro":  $("#txtEmailMembro").val(),
+                "txtCpf":          $("#txtCpf").val(),
+                "status":          1,
+                "ckWatsapp":       $("#ckWatsapp").val(),
+                "municipio_id":    "<?=$_dados[0]['id_municipio']?>",
             };
             $.ajax({
                 type: 'POST',
                 url: 'mod_pipa/backEnd/View/pmda/membroEquipe.php?v=<?= md5(VERSAO) ?>',
                 data: dados,
                 success: function (response) {
-                    alert("Registro alterado com sucesso !");
-                    location.reload();
+                        alert("Registro alterado com sucesso !");
+                        location.reload();
                 }
             });
 
@@ -1444,7 +1459,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
 
 
     /*	Alterar o Membros Compdec */
-    function alterarMembro(id, nome, funcao, telefone, celular, email) {
+    function alterarMembro(id, nome, funcao, telefone, celular, email, cpf) {
 
         $("#formMembro").show();
         $("#btnGravar").hide();
@@ -1459,7 +1474,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
         $("#txtCelMembro").val(celular);
         $("#txtEmailMembro").val(email);
         $("#txtIdMembro").val(id);
-
+        $("#txtCpf").val(cpf);
 
     }
 

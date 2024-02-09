@@ -27,7 +27,20 @@ if(is_null($id) && $opcao == "novo") {
     
 }else if($opcao == "alterar"){
     
-    $eqCompdec->alterar($_POST);
+    $dados = $_POST;
+    
+   
+    if($dados['selFuncaoMembro'] == "COORDENADOR"){
+        $numCoord = $eqCompdec->existeCoordMun($_POST['municipio_id']);
+        
+        if($numCoord['total'] == 0 ){
+            return $eqCompdec->alterar($dados);
+        }
+    }else {
+        return $eqCompdec->alterar($dados);
+    }
+    
+}
     
     # atualizar cpf no lara
     
@@ -49,7 +62,7 @@ if(is_null($id) && $opcao == "novo") {
 //                'email'      => $_COOKIE['seguranca']['email_rec'],
 //                ],
 //        ]);
-}
+
 
 print "<div class='col-md-12' id='tbl_membro'>";
 print "<br><br><br>";
@@ -110,6 +123,48 @@ $back ="";
     
      
 print "</table>";
+
+print "<br>";
+
+
+
+$listMembroDesat = $eqCompdec->listaMembro($id_municipio, 0);
+
+print "<legend>Agentes / Coordenadores Anteriores da Equipe</legend>";
+print "<table class='table table-bordered table-striped'>
+            <th>#</th>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Função</th>
+            <th>Telefone</th>
+            <th>Celular</th>
+            <th>Email</th>
+            <th>Ação</th>";
+
+foreach ($listMembroDesat as $value) {
+
+    if ($value['status'] == 0) {
+        
+            $title = " title='Membro não faz parte da equipe de Compdec !' ";
+        
+
+        print "<tr>";
+        print "<td style='background-color:#FA5858' title='Membro não faz parte da equipe de Compdec !'>" . $num . "</td>";
+        print "<td style='background-color:#FA5858' title='Membro não faz parte da equipe de Compdec !' width='25%' >" . $value['nome'] . "</td>";
+        print "<td style='background-color:#FA5858' title='Membro não faz parte da equipe de Compdec !' width='25%'>" . $value['cpf'] . "</td>";
+        print "<td style='background-color:#FA5858' title='Membro não faz parte da equipe de Compdec !' width='20%'>" . $value['funcao'] . "</td>";
+        print "<td style='background-color:#FA5858' title='Membro não faz parte da equipe de Compdec !' width='15%'>" . $value['telefone'] . "</td>";
+        print "<td style='background-color:#FA5858' title='Membro não faz parte da equipe de Compdec !' width='15%'>" . $value['celular'] . "</td>";
+        print "<td style='background-color:#FA5858' title='Membro não faz parte da equipe de Compdec !' width='10%'>" . $value['email'] . "</td>";
+        print "<td style='background-color:#FA5858' title='Membro não faz parte da equipe de Compdec !' width='10%'>Inativo</td>";
+        print "</tr>";
+        $num++;
+    }
+}
+
+
+print "</table>";
+
 print "</div>";
 
 
