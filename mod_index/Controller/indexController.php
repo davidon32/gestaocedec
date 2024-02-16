@@ -2,6 +2,7 @@
 
 include_once PATH . "/core/Controller/Controller.php";
 include_once PATH . "/core/Model/Model.php";
+include_once PATH . "/core/Model/UsuarioExternoModel.php";
 
 class indexController extends Controller {
 
@@ -228,6 +229,32 @@ class indexController extends Controller {
      */
     public function paebmindex() {
         include_once 'mod_index/backEnd/View/index/pae.php';
+    }
+    
+    
+    /**
+     * atualização status usuario externo PAE
+     * 
+     */
+    public function userManager() {
+        
+        $dados = $_REQUEST;
+        
+        
+        if(UsuarioExternoModel::updateStatus($dados)){
+            print "<script>";
+            print "alert('Usuário ".$dados['status']." com Sucesso !');";
+            print "window.location.href = '".FuncaoBase::geraLink('index', 'index', 'paebmindex')."'";
+            print "</script>";
+            
+        }else {
+            print "<script>";
+            print "alert('Ocorreu um erro na operação, favor consultar o Suporte !')";
+            print "window.location.href = '".FuncaoBase::geraLink('index', 'index', 'paebmindex')."'";
+            print "</script>";
+            
+        }
+              
     }
 
     /**

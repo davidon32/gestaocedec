@@ -2813,6 +2813,8 @@ and cedec_usuario.id_usuario != 79
         
         $result = $con->query($sql);
         
+        //var_dump($sql, $status);
+        
         return $result->fetchAll(PDO::FETCH_ASSOC);
         
         

@@ -22,13 +22,13 @@
     </div>
     <div class="col-md-6 text-center">
         <a class="" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=userAtivo" ?>" title="Usuários Ativos"><img width="120" src="core/imagem/manager_user.png"><br />Usuários Ativos no sistema</a>
-        
+
     </div>
     <p>Os Usuários abaixo precisam ser validados para acesso os seus respectivos Processos de PAE </p>
     <div class="col-md-12 text-center">
         <legend>Usuários para Validação</legend>
-        
-        
+
+
         <table class="table table-bordered">
             <tr>
                 <th>#</th>
@@ -36,36 +36,47 @@
                 <th>CNPJ</th>
                 <th>Nome Usuário</th>
                 <th>CPF</th>
+                <th>Situação</th>
                 <th>Opções</th>
             </tr>
-            
+
             <?php
-            
-            $usuarios = Usuario::busca("DESATIVADO", "pae");
-            
-            
+            $usuarios = Usuario::busca(null, "pae");
+
+
             foreach ($usuarios as $key => $usuario) {
-                
+
+
+                if ($usuario['situacao'] == "ATIVADO") {
+                    $opcao = true;
+                    $status = "class='text-success'";
+                } else {
+                    $opcao = false;
+                    $status = "class='text-danger'";
+                }
+
                 print "<tr>";
-                print "<td>".($key+1)."</td>";
-                print "<td>".$usuario['usuario']."</td>";
-                print "<td>".$usuario['usuario']."</td>";
-                print "<td>".$usuario['usuario']."</td>";
-                print "<td>".$usuario['cpf']."</td>";
-                
-                print "<td>";
-                print "<a href='#' title='Validar usuário'><img src='/core/imagem/check.png' width='25'></a>";
+                print "<td>" . ($key + 1) . "</td>";
+                print "<td>" . $usuario['empreendedor'] . "</td>";
+                print "<td>" . $usuario['cnpj'] . "</td>";
+                print "<td>" . $usuario['usuario'] . "</td>";
+                print "<td>" . $usuario['usuario'] . "</td>";
+                print "<td>" . $usuario['cpf'] . "</td>";
+
+                print "<td " . $status . ">";
+
+                print ($opcao) ? 
+                //"<a href='".FuncaoBase::geraLink("index", "index", "userManager", array('id'=>$usuario['id'], 'status' => 'DESATIVADO'))."' onclick=\"return confirm('Deseja Realmente desativar o o usuário ?')\"  title='Clique aqui para DESATIVAR Acesso !'><img src='/core/imagem/check.png' width='25'></a>" :
+                "<a href='".FuncaoBase::geraLink("index", "index", "userManager", array('id'=>$usuario['id'], 'status' => 'DESATIVADO'))."' onclick=\"if(!confirm('Deseja Realmente desativar o o usuário ?')) event.preventDefault()\"  title='Clique aqui para DESATIVAR Acesso !'><img src='/core/imagem/check.png' width='25'></a>" :
+                                "<a href='".FuncaoBase::geraLink("index", "index", "userManager", array('id'=>$usuario['id'],'status' => 'ATIVADO'))."' title='Clique aqui para ATIVAR Acesso !'><img src='/core/imagem/cancela.png' width='25'></a>";
+
                 print "</td>";
                 print "</tr>";
-                
             }
-            
-            
-            
             ?>
-            
-            
-            
+
+
+
         </table>
     </div>
 </div>
@@ -79,3 +90,19 @@
 <?php include_once "template/page/barra_config_template.php"; ?>
 <!-- =============== HEADER HTML PAGE ================= -->
 <?php include_once "template/page/rodapePage.php"; ?>
+<script>
+    
+    
+    $(document).ready(function(){
+       
+//       $("a").click(function(){
+//          
+//          //alert($(this).data('id'));
+//           
+//       });        
+        
+    });
+    
+    
+    
+    </script>

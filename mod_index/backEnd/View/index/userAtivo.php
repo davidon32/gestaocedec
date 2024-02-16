@@ -20,7 +20,7 @@
     <div class="col-md-12 text-center">
         <legend>Usuários Ativos no Sistema</legend>
         
-        <p>Os usuários abaixo, são os usuários queestá aptos a consultar os processos de Protocolo de PAE</p>
+        <p>Os usuários abaixo, são os usuários que estão aptos a consultar os processos de Protocolo de PAE</p>
         
         <table class="table table-bordered">
             <tr>
@@ -34,7 +34,7 @@
             
             <?php
             
-            $usuarios = Usuario::busca("ATIVADO", "pae");
+            $usuarios = Usuario::busca(NULL, "pae");
             
             
             foreach ($usuarios as $key => $usuario) {
@@ -52,9 +52,7 @@
                 print "</tr>";
                 
             }
-            
-            
-            
+
             ?>
             
             

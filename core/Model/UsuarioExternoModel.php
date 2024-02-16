@@ -247,5 +247,24 @@ Class UsuarioExternoModel {
         }
         
     }
+    
+    
+    public static function updateStatus($dados) {
+        
+        
+        $con = Conexao::getInstance();
+        
+        $sql = "Update cedec_user_ex set situacao=:status where id=:id";
+        
+        $result = $con->prepare($sql);    
+        
+        $result->bindParam(':id', $dados['id'], PDO::PARAM_INT); 
+        $result->bindParam(':status', $dados['status']);
+        
+
+        
+        return $result->execute();
+               
+    }
 
 }

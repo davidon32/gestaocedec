@@ -7,7 +7,7 @@ if (!isset($_SESSION)) {
 
 
 if (!defined('VERSAO')) {
-    define('VERSAO', 'versão - 3.5.1.1-1 - 07.02.2024');
+    define('VERSAO', 'versão - 3.5.1.1-2 - 16.02.2024');
 }
 include 'core/system/config/config.inc.php';
 include_once 'core/include.php';

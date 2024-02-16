@@ -54,6 +54,7 @@ $municipios = Municipio::listaid_municipioAutocomplete();
             <option value="">Selecione uma Função</option>
             <option value="Coordenador">Coordenador</option>
             <option value="Coordenador ">Membro da COMPDEC</option>
+            <option value="Coordenador "></option>
                 
         </select>
 
