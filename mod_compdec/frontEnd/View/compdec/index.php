@@ -20,13 +20,13 @@
         <a href='<?=FuncaoBase::geraLink('compdec', 'compdec', 'compdec')?>'><img class='card' src='core/imagem/compdec1.png' width="100"><br><br>Cadastro Compdec</a>
     </div>
     
-    <div class="col-md-4 text-center">
+<!--    <div class="col-md-4 text-center">
         <a href='<?=FuncaoBase::geraLink('compdec', 'compdec', 'vistoria')?>' title='Laudo de Vistoria'><img src='core/imagem/vistoria1.png' width="105"><br><br>Termo de Vistoria</a>
-<!--        <a href='<?=FuncaoBase::geraLink('compdec', 'vistoria', 'index')?>' title='Laudo de Vistoria'><img src='core/imagem/vistoria1.png' width="105"><br><br>Termo de Vistoria</a>-->
+        <a href='<?=FuncaoBase::geraLink('compdec', 'vistoria', 'index')?>' title='Laudo de Vistoria'><img src='core/imagem/vistoria1.png' width="105"><br><br>Termo de Vistoria</a>
     </div>
     <div class="col-md-4 text-center">
         <a href='<?=FuncaoBase::geraLink('compdec', 'interdicao', 'index')?>'><img src='core/imagem/interdicao.png' width="100"><br><br>Termo de Interdição</a>
-    </div>
+    </div>-->
     
     
 </div>

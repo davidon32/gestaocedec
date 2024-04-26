@@ -10,7 +10,8 @@
  *
  * ********************************************************************************** */
 
-class FuncaoBase extends Exception {
+class FuncaoBase extends Exception
+{
 
     /**
      * Converter Texto em Letra Maiuscula
@@ -19,7 +20,8 @@ class FuncaoBase extends Exception {
      * @return texto em caixa alta
      * 
      */
-    function formulario($texto) {
+    function formulario($texto)
+    {
 
         $_retorno = strtoupper(utf8_decode($texto));
 
@@ -36,7 +38,8 @@ class FuncaoBase extends Exception {
      * @example <?php $param = array("teste"=>"1", "teste2" => "2", "teste3"=>"3");
      * 	echo FuncaoBase::geraLink("itn","ajuda","relatorio", "rel1", $param);?>
      */
-    public static function geraLink($modulo, $controller, $action, array $param = null) {
+    public static function geraLink($modulo, $controller, $action, array $param = null)
+    {
         if (!is_null($param)) {
             $strParam = "&" . http_build_query($param);
         } else {
@@ -45,7 +48,7 @@ class FuncaoBase extends Exception {
         return "?token=" . hash('sha256', md5(VERSAO)) . "&modulo=" . $modulo . "&controller=" . $controller . "&action=" . $action . $strParam;
     }
 
-######################################################################################
+    ######################################################################################
 
     /**
      * Retorna o numero no formato moeda monetário Brasil 1.000,00
@@ -53,12 +56,13 @@ class FuncaoBase extends Exception {
      * @param string valor 
      * @return texto string munérico
      */
-    static function real($_valor) {
+    static function real($_valor)
+    {
 
         return number_format($_valor, 2, ',', '.');
     }
 
-######################################################################################
+    ######################################################################################
 
     /**
      * retorna um elemento HTML select com os meses do ano
@@ -67,7 +71,8 @@ class FuncaoBase extends Exception {
      * @return select html com os meses do ano
      * 
      */
-    static function mes() {
+    static function mes()
+    {
 
         print '<select name="mes" id="mes" title="Escolha o Mês">
 	<option>Mes</option>
@@ -86,7 +91,7 @@ class FuncaoBase extends Exception {
 	</select>';
     }
 
-######################################################################################
+    ######################################################################################
 
     /**
      * Converter string do mes para o formato cardinal
@@ -95,9 +100,11 @@ class FuncaoBase extends Exception {
      * @return  transforma o mes no formato letra para o numero ex janeiro = 1, dezembro = 12
      * 
      */
-    static function mesTonum($_mes) {
+    static function mesTonum($_mes)
+    {
 
-        $num_mes = array('1' => 'Janeiro',
+        $num_mes = array(
+            '1' => 'Janeiro',
             '2' => 'Fevereiro',
             '3' => 'Março',
             '4' => 'Abril',
@@ -108,7 +115,8 @@ class FuncaoBase extends Exception {
             '9' => 'Setembro',
             '10' => 'Outubro',
             '11' => 'Novembro',
-            '12' => 'Dezembro',);
+            '12' => 'Dezembro',
+        );
 
         foreach ($num_mes as $key => $value) {
 
@@ -119,7 +127,7 @@ class FuncaoBase extends Exception {
         }
     }
 
-######################################################################################
+    ######################################################################################
 
     /**
      * transforma o mes no formato letra para o numero ex janeiro = 1, dezembro = 12
@@ -128,9 +136,11 @@ class FuncaoBase extends Exception {
      * @return mes formato string
      * 
      */
-    static function numTomes($_mes) {
+    static function numTomes($_mes)
+    {
 
-        $num_mes = array('1' => 'Janeiro',
+        $num_mes = array(
+            '1' => 'Janeiro',
             '2' => 'Fevereiro',
             '3' => 'Março',
             '4' => 'Abril',
@@ -141,7 +151,8 @@ class FuncaoBase extends Exception {
             '9' => 'Setembro',
             '10' => 'Outubro',
             '11' => 'Novembro',
-            '12' => 'Dezembro',);
+            '12' => 'Dezembro',
+        );
 
         foreach ($num_mes as $key => $value) {
 
@@ -152,7 +163,7 @@ class FuncaoBase extends Exception {
         }
     }
 
-######################################################################################
+    ######################################################################################
 
     /**
      * Funcao mensagem de ok na tela
@@ -160,7 +171,8 @@ class FuncaoBase extends Exception {
      * @param $volta - booleano faz history.back(); 
      * @return null 
      */
-    static function alert($msg, $volta = false) {
+    static function alert($msg, $volta = false)
+    {
 
         if ($volta) {
 
@@ -174,14 +186,15 @@ class FuncaoBase extends Exception {
             print '<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript">
 		alert ("' . $msg . '");
 		</SCRIPT>';
-//FuncaoBase::vd($msg);
+            //FuncaoBase::vd($msg);
         }
     }
 
-######################################################################################
-#@ function FuncaoBase::vd()
+    ######################################################################################
+    #@ function FuncaoBase::vd()
 
-    static function vd($_deb) {
+    static function vd($_deb)
+    {
 
         if (DEBUG == 1) {
 
@@ -192,31 +205,33 @@ class FuncaoBase extends Exception {
         }
     }
 
-######################################################################################
+    ######################################################################################
 
     /**
      * Funcao para fechar janela (popup)
      * @param null
      * @return elemento HTML link botão fechar
      */
-    static function Fechar() {
+    static function Fechar()
+    {
 
         return print '<a class="btn btn-primary" href="#" onclick="javascript:window.close();" title="Fechar Janela">Fechar</a>';
     }
 
-######################################################################################
+    ######################################################################################
 
     /**
      * Funcao para imprimir
      * @param null
      * @return elemento HTML link botão Imprimir
      */
-    static function Imprimir() {
+    static function Imprimir()
+    {
 
         return print '<a class="btn btn-info" href="javascript:window.print();" title="Impressão">Impressão&nbsp;<i class="icon-list-alt"></i></a>';
     }
 
-######################################################################################
+    ######################################################################################
 
     /**
      * Funcao para voltar com quantidade de páginas a retroceder, se nao for passado parametro volta uma página.
@@ -224,7 +239,8 @@ class FuncaoBase extends Exception {
      * @param  $pg - Inteiro opcional quantidade de páginas para history.back()
      * @return botão foltar
      */
-    static function voltar($pg = false, $link = "") {
+    static function voltar($pg = false, $link = "")
+    {
 
         if (strlen($link) == 0) {
             $link = "javascript:history.back();";
@@ -238,38 +254,41 @@ class FuncaoBase extends Exception {
         }
     }
 
-######################################################################################
+    ######################################################################################
 
     /**
      * Funcao para abrir janela popup
      * @param $pagina - endereco html
      * @return popup com página como parametro
      */
-    function AbriJanela($pagina) {
+    function AbriJanela($pagina)
+    {
 
         print "<script language=\"javascript\">window.open('.$pagina.', '_blank')></script>";
     }
 
-######################################################################################
-#@ backup do sistema
+    ######################################################################################
+    #@ backup do sistema
 
-    function backup($nome) {
+    function backup($nome)
+    {
 
         $con = Conexao::getInstance();
         $sql = '';
         $result = $con->query($sql);
 
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-//self::static_var[] = $linha;
+            //self::static_var[] = $linha;
         }
 
-//return self::static_var$;
+        //return self::static_var$;
     }
 
-######################################################################################
-#@ tamanho da base
+    ######################################################################################
+    #@ tamanho da base
 
-    function TamanhoBase() {
+    function TamanhoBase()
+    {
 
         $tamanho = 0;
 
@@ -284,16 +303,18 @@ class FuncaoBase extends Exception {
         return $tamanho . ' MB';
     }
 
-######################################################################################
+    ######################################################################################
 
     /**
      * Funcao retorna o ultimo dia do mes
      * @param $mes - inteiro 
      * @return ultimo dia do mes
      */
-    function UltimoDiaMes($mes = false) {
+    function UltimoDiaMes($mes = false)
+    {
 
-        $ultimo = array('1' => 31,
+        $ultimo = array(
+            '1' => 31,
             '2' => 28,
             '3' => 31,
             '4' => 30,
@@ -304,7 +325,8 @@ class FuncaoBase extends Exception {
             '9' => 30,
             '10' => 31,
             '11' => 30,
-            '12' => 31);
+            '12' => 31
+        );
 
         for ($i = 1; $i < count($ultimo); $i++) {
             if (key($ultimo) == $mes) {
@@ -313,7 +335,7 @@ class FuncaoBase extends Exception {
         }
     }
 
-######################################################################################
+    ######################################################################################
 
     /**
      * Funcao para pular linhas, default uma linha quebrada
@@ -321,27 +343,29 @@ class FuncaoBase extends Exception {
      * @param $nrLinha - inteiro opcional quantidade de linhas para espaco, 
      * @return elemento HTML "<br>" conforme quantidade passada no parametro
      */
-    function linha($nr_linha = 1) {
+    function linha($nr_linha = 1)
+    {
         for ($i = 0; $i < $nr_linha; $i++) {
             print '<br />';
         }
     }
 
-    public static function espaco($nr) {
+    public static function espaco($nr)
+    {
         for ($i = 0; $i < $nr; $i++) {
             print "&nbsp;";
         }
     }
 
-######################################################################################
-#@protecao imput
+    ######################################################################################
+    #@protecao imput
 
-    function prot() {
-        
+    function prot()
+    {
     }
 
-######################################################################################
-#@ combo, select dinamico universal
+    ######################################################################################
+    #@ combo, select dinamico universal
     /*
       parametros:
       - nometabela - nome da tabela
@@ -352,12 +376,14 @@ class FuncaoBase extends Exception {
       - debug ? necessidade de analisar o sql ? true, false
      */
 
-    function comboDinamico($nomeTabela,
-            $nomeCampo,
-            $selected = false,
-            $dadoNomeCampoSelected = false,
-            $dadoCampoSelected = false,
-            $debub = true) {
+    function comboDinamico(
+        $nomeTabela,
+        $nomeCampo,
+        $selected = false,
+        $dadoNomeCampoSelected = false,
+        $dadoCampoSelected = false,
+        $debub = true
+    ) {
 
         $con = Conexao::getInstance();
 
@@ -393,10 +419,11 @@ class FuncaoBase extends Exception {
         }
     }
 
-######################################################################################
-#@ verifica campo em branco com mensagem de aviso
+    ######################################################################################
+    #@ verifica campo em branco com mensagem de aviso
 
-    static function campoBranco($campos) {
+    static function campoBranco($campos)
+    {
 
         $mensagem = array();
 
@@ -406,7 +433,7 @@ class FuncaoBase extends Exception {
             }
         }
 
-// Total campos em branco
+        // Total campos em branco
         $totCampoBranco = count($mensagem);
 
         if ($totCampoBranco > 0) {
@@ -420,10 +447,11 @@ class FuncaoBase extends Exception {
         }
     }
 
-######################################################################################
-#@ Faz a Validação de Campos em Branco
+    ######################################################################################
+    #@ Faz a Validação de Campos em Branco
 
-    static function ValidaCampoBranco($campos) {
+    static function ValidaCampoBranco($campos)
+    {
 
         $mensagem = array();
         foreach ($campos as $key => $value) {
@@ -432,7 +460,7 @@ class FuncaoBase extends Exception {
             }
         }
 
-//var_dump($mensagem)  ;
+        //var_dump($mensagem)  ;
         $totCampoBranco = count($mensagem);
         if ($totCampoBranco == 0) {
             return true;
@@ -441,10 +469,11 @@ class FuncaoBase extends Exception {
         }
     }
 
-######################################################################################
-#@ pesquisa generica
+    ######################################################################################
+    #@ pesquisa generica
 
-    function pesquisaGenerica($campo, $tabela, $pesquisa) {
+    function pesquisaGenerica($campo, $tabela, $pesquisa)
+    {
 
         $con = Conexao::getInstance();
 
@@ -463,10 +492,11 @@ class FuncaoBase extends Exception {
         }
     }
 
-######################################################################################
-#@ metodo para incluir javascript automaticamento da pasta js
+    ######################################################################################
+    #@ metodo para incluir javascript automaticamento da pasta js
 
-    function include_arquivos() {
+    function include_arquivos()
+    {
 
         $diretorio = "js";
         $leitura = opendir('js');
@@ -479,7 +509,7 @@ class FuncaoBase extends Exception {
         }
     }
 
-######################################################################################
+    ######################################################################################
 
     /**
      * Espacos para texto em html
@@ -487,13 +517,14 @@ class FuncaoBase extends Exception {
      * @return elemento html espaco &nbsp
      * 
      */
-    function TamanhoCampo($tamanho) {
+    function TamanhoCampo($tamanho)
+    {
         for ($i = 0; $i <= $tamanho; $i++) {
             print "&nbsp;";
         }
     }
 
-######################################################################################
+    ######################################################################################
 
     /**
      * Faz a validação de email sem tem um comprimento minimo e existe arroba
@@ -501,7 +532,8 @@ class FuncaoBase extends Exception {
      * @return boolean
      * 
      */
-    public static function validarEmail($email, $dominio = false) {
+    public static function validarEmail($email, $dominio = false)
+    {
 
         if (strlen($dominio) == 0) {
             $domino = "#[a-zA-Z0-9\._-]+.#";
@@ -517,7 +549,7 @@ class FuncaoBase extends Exception {
             return false;
     }
 
-######################################################################################
+    ######################################################################################
 
     /**
      * funcao para auxiliar nos botoes de voltar, imprimir, fechar, sucesso de operação
@@ -530,7 +562,8 @@ class FuncaoBase extends Exception {
      * @param string $_msg mensagem personalizada no botal
      * @return elemento HTML
      */
-    static function vifs($_tipo = false, $_redireciona = false, $_msg = 'Procedimento realizado com Sucesso !') {
+    static function vifs($_tipo = false, $_redireciona = false, $_msg = 'Procedimento realizado com Sucesso !')
+    {
 
         ($_tipo == "volta") ? print "<a href=\"#\" class=\"btn btn-success\" onclick=\"javascript:window.location = '" . $_redireciona . "';\">Voltar</a>" : "";
         ($_tipo == "imprimir") ? print "<a href=\"#\" class=\"btn btn-success\" onclick=\"javascript:window.print();\">Imprimir</a>" : "";
@@ -546,7 +579,8 @@ class FuncaoBase extends Exception {
      * @return texto sem caracteres especiais
      * 
      */
-    public static function noSqlInjection($texto) {
+    public static function noSqlInjection($texto)
+    {
 
         $texto = str_replace(array("<", ">", "\\", "/", "=", "'", "?"), "", $texto);
 
@@ -558,18 +592,19 @@ class FuncaoBase extends Exception {
      * @param $cpf String 
      * @return true / false
      */
-    function validaCPF($cpf) {
+    function validaCPF($cpf)
+    {
 
-// Verifiva se o número digitado contém todos os digitos
+        // Verifiva se o número digitado contém todos os digitos
         $cpf = str_pad(preg_replace('[^0-9]', '', $cpf), 11, '0', STR_PAD_LEFT);
 
-// Verifica se nenhuma das sequências abaixo foi digitada, caso seja, retorna falso
+        // Verifica se nenhuma das sequências abaixo foi digitada, caso seja, retorna falso
         if (strlen($cpf) != 11 || $cpf == '00000000000' || $cpf == '11111111111' || $cpf == '22222222222' || $cpf == '33333333333' || $cpf == '44444444444' || $cpf == '55555555555' || $cpf == '66666666666' || $cpf == '77777777777' || $cpf == '88888888888' || $cpf == '99999999999') {
 
             return false;
         } else {
 
-// Calcula os números para verificar se o CPF é verdadeiro
+            // Calcula os números para verificar se o CPF é verdadeiro
             for ($t = 9; $t < 11; $t++) {
 
                 for ($d = 0, $c = 0; $c < $t; $c++) {
@@ -595,7 +630,8 @@ class FuncaoBase extends Exception {
      * @return array
      * 
      */
-    static function pegaParametro() {
+    static function pegaParametro()
+    {
 
         $array = array();
 
@@ -617,7 +653,7 @@ class FuncaoBase extends Exception {
             return $linha;
         } catch (Exception $e) {
 
-            return $e->getMessage . " ";
+            return $e->getMessage() . " ";
         }
     }
 
@@ -625,14 +661,16 @@ class FuncaoBase extends Exception {
      * REMOVER ACENTOS 
      * */
 
-    static function tirarAcentos($string) {
+    static function tirarAcentos($string)
+    {
         $result = self::sanitizeString($string);
         return $result;
     }
 
     /* retirar acentos e espaco string */
 
-    static function sanitizeString($string) {
+    static function sanitizeString($string)
+    {
         // matriz de entrada
         $what = array('ä', 'ã', 'à', 'á', 'â', 'ê', 'ë', 'è', 'é', 'ï', 'ì', 'í', 'ö', 'õ', 'ò', 'ó', 'ô', 'ü', 'ù', 'ú', 'û', 'À', 'Á', 'É', 'Í', 'Ó', 'Ú', 'ñ', 'Ñ', 'ç', 'Ç', '-', '(', ')', ',', ';', ':', '|', '!', '"', '#', '$', '%', '&', '/', '=', '?', '~', '^', '>', '<', 'ª', 'º');
         // matriz de saída
@@ -647,14 +685,16 @@ class FuncaoBase extends Exception {
      * Converte String em mauisculo
      * 
      */
-    static function maiusculoAcento($_campo) {
+    static function maiusculoAcento($_campo)
+    {
 
         return strtoupper(preg_replace(array("/(á|à|ã|â|ä)/", "/(Á|À|Ã|Â|Ä)/", "/(é|è|ê|ë)/", "/(É|È|Ê|Ë)/", "/(í|ì|î|ï)/", "/(Í|Ì|Î|Ï)/", "/(ó|ò|õ|ô|ö)/", "/(Ó|Ò|Õ|Ô|Ö)/", "/(ú|ù|û|ü)/", "/(Ú|Ù|Û|Ü)/", "/(ñ)/", "/(Ñ)/"), explode(" ", "a A e E i I o O u U n N"), $_campo));
-//$_campo = preg_replace( '/[`^~\'"]/', null, iconv( 'UTF-8', 'ASCII//TRANSLIT', $_campo) );
-//return strtoupper($_campo);
+        //$_campo = preg_replace( '/[`^~\'"]/', null, iconv( 'UTF-8', 'ASCII//TRANSLIT', $_campo) );
+        //return strtoupper($_campo);
     }
 
-    static function getModulo($_modulo) {
+    static function getModulo($_modulo)
+    {
 
         switch ($_modulo) {
 
@@ -688,7 +728,7 @@ class FuncaoBase extends Exception {
             case 'admin':
                 return "CONFIGURAÇÃO";
                 break;
-            default :
+            default:
                 return "Opção Inválida !";
                 break;
         }
@@ -703,7 +743,8 @@ class FuncaoBase extends Exception {
      * 
      * 
      */
-    public static function getError($e, $mensagem = 'Erro !', $volta = true) {
+    public static function getError($e, $mensagem = 'Erro !', $volta = true)
+    {
 
         /* sem botão voltar */
         if (!$volta) {
@@ -731,12 +772,12 @@ class FuncaoBase extends Exception {
      * Lista arquivos PDF de um diretorio e cria um link para download
      * $path - caminho do diretorio
      */
-    function listaArquivoLink($path, $semLista = false) {
+    function listaArquivoLink($path, $semLista = false)
+    {
 
         $interno = "";
 
         if (true) {
-            
         } else {
             $interno = "( <i>Documento Uso Interno</i> )";
         }
@@ -768,12 +809,14 @@ class FuncaoBase extends Exception {
         }
     }
 
-    public static function mensagem($voltar, $classMsg, $texto) {
+    public static function mensagem($voltar, $classMsg, $texto)
+    {
 
         include_once PATH . "/mod_index/View/mensagem.php";
     }
 
-    public static function slug($string) {
+    public static function slug($string)
+    {
         if (strlen($string) > 0) {
             $result = self::tirarAcentos($string);
             $result = strtolower($result);
@@ -787,7 +830,8 @@ class FuncaoBase extends Exception {
      * Pipe to array
      * 
      */
-    public static function pipeToString($string) {
+    public static function pipeToString($string)
+    {
         $text = '"' . str_replace('|', '","', $string) . '"';
         return $text;
     }
@@ -800,10 +844,12 @@ class FuncaoBase extends Exception {
      *  @param campo nome
      *  @param id's com funcao pipeToString para condicao IN sql
      */
-    public static function listaBreakLine($tabela,
-            $primaryKey,
-            $nomeDescricao,
-            $ids) {
+    public static function listaBreakLine(
+        $tabela,
+        $primaryKey,
+        $nomeDescricao,
+        $ids
+    ) {
 
         $con = Conexao::getInstance();
 
@@ -838,7 +884,8 @@ class FuncaoBase extends Exception {
      * @return type
      * 
      */
-    public static function buscaIds($tabela, $primaryKey, $nome, $texto) {
+    public static function buscaIds($tabela, $primaryKey, $nome, $texto)
+    {
 
         $con = Conexao::getInstance();
         $dados = "";
@@ -856,14 +903,15 @@ class FuncaoBase extends Exception {
         return $dados;
     }
 
-    public static function download($param) {
+    public static function download($param)
+    {
         if (isset($param)) {
-//Read the filename
+            //Read the filename
             $filename = $param;
-//Check the file exists or not
+            //Check the file exists or not
             if (file_exists($filename)) {
 
-//Define header information
+                //Define header information
                 header('Content-Description: File Transfer');
                 header('Content-Type: application/octet-stream');
                 header("Cache-Control: no-cache, must-revalidate");
@@ -872,13 +920,13 @@ class FuncaoBase extends Exception {
                 header('Content-Length: ' . filesize($filename));
                 header('Pragma: public');
 
-//Clear system output buffer
+                //Clear system output buffer
                 flush();
 
-//Read the size of the file
+                //Read the size of the file
                 readfile($filename);
 
-//Terminate from the script
+                //Terminate from the script
                 die();
             } else {
                 echo "File does not exist.";
@@ -887,7 +935,8 @@ class FuncaoBase extends Exception {
             echo "Filename is not defined.";
     }
 
-    public static function BloqueioIP($obs) {
+    public static function BloqueioIP($obs)
+    {
 
         $id_usuario = isset($_COOKIE['seguranca']['idUser']) ? $_COOKIE['seguranca']['idUser'] : "";
         $tp_usuario = isset($_COOKIE['seguranca']['externo']) ? $_COOKIE['seguranca']['externo'] : "";
@@ -919,7 +968,8 @@ class FuncaoBase extends Exception {
      * @param type $tipo d = dias, m = meses, Y = anos
      * 
      */
-    public static function DiferencaDt($dt_hoje, $dt_dif, $tipo) {
+    public static function DiferencaDt($dt_hoje, $dt_dif, $tipo)
+    {
 
         $data_hoje = new DateTime($dt_hoje);
         $data_diferenca = new DateTime($dt_dif);
@@ -937,7 +987,8 @@ class FuncaoBase extends Exception {
     /**
      * Volta pagina inicial
      */
-    public function pgInicio($page) {
+    public function pgInicio($page)
+    {
 
         print "<script>";
         print "window.location = '" . $page . "'";
@@ -947,7 +998,8 @@ class FuncaoBase extends Exception {
     /**
      * Lock table
      */
-    public static function Lock($table) {
+    public static function Lock($table)
+    {
 
         $con = Conexao::getInstance();
 
@@ -959,7 +1011,8 @@ class FuncaoBase extends Exception {
     /**
      * Lock table
      */
-    public static function Unlocke() {
+    public static function Unlocke()
+    {
 
         $con = Conexao::getInstance();
 
@@ -971,7 +1024,8 @@ class FuncaoBase extends Exception {
     /**
      * Lock table
      */
-    public static function VerificaLock($table) {
+    public static function VerificaLock($table)
+    {
 
         $con = Conexao::getInstance();
 
@@ -980,7 +1034,8 @@ class FuncaoBase extends Exception {
         $result = $con->query($sql);
     }
 
-    public static function implode($dados) {
+    public static function implode($dados)
+    {
         $result = "";
         if (is_array($dados)) {
             foreach ($dados as $key => $value) {
@@ -997,8 +1052,8 @@ class FuncaoBase extends Exception {
      * @param type $param
      * 
      */
-    function implode_array($param) {
-        
+    function implode_array($param)
+    {
     }
 
     /**
@@ -1006,10 +1061,11 @@ class FuncaoBase extends Exception {
      * @param array['post'] [0,1]
      * @param array['param'=>array['itens']] 
      */
-    public static function Api(array $param) {
+    public static function Api(array $param)
+    {
 
         $ch = curl_init();
-        
+
         curl_setopt_array($ch, [
             CURLOPT_URL => $param['url'],
             CURLOPT_POST => $param['post'],
@@ -1018,9 +1074,8 @@ class FuncaoBase extends Exception {
                 'x-li-format: json'
             ],
             CURLOPT_POSTFIELDS => json_encode([
-                'content' => 
-                    $param['itens']
-                ,
+                'content' =>
+                $param['itens'],
                 'visibility' => [
                     'code' => 'anyone'
                 ]
@@ -1029,7 +1084,7 @@ class FuncaoBase extends Exception {
             CURLOPT_SSL_VERIFYPEER => 0,
             CURLOPT_RETURNTRANSFER => 1,
             CURLOPT_PROTOCOLS => CURLPROTO_HTTP,
-            CURLOPT_VERBOSE => true,
+            CURLOPT_VERBOSE => false,
         ]);
 
         $resultado = curl_exec($ch);
@@ -1039,11 +1094,28 @@ class FuncaoBase extends Exception {
         }
 
         curl_close($ch);
-        
+
         return json_decode($resultado, true);
-        
     }
 
-}
 
-?>
+
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public static function ApiEx($url)
+    {
+
+        $cURLConnection = curl_init();
+
+        curl_setopt($cURLConnection, CURLOPT_URL, $url);
+        curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
+
+        $result = curl_exec($cURLConnection);
+        curl_close($cURLConnection);
+
+        return json_decode($result, true);
+    }
+}

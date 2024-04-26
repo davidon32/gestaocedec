@@ -6,7 +6,11 @@ $_diario = new Diario();
 
 $boletim = new Boletim();
 
-$dados = $boletim->relatoriosite();
+$getAno = isset($_GET['ano']) ? $_GET['ano'] : date("Y");
+
+$dados = $boletim->relatoriosite($getAno);
+
+
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -32,20 +36,38 @@ $dados = $boletim->relatoriosite();
 	table, tr, td{
 		background-color: #ffffff;
 	}
+
+	@media print {
+		#selAno{ display: none;}
+		.print {display: none;}
+
+	}
+
 </style>
 </head>
 <body>
 	<br>
 	<div class="container">
-	<?php if(isset($_COOKIE['seguranca']['tipo'])) { ?>
-
-		<div class="col-md-12 text-center">
-			<a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=cce&controller=cce&action=index"class="btn btn-success">Voltar</a>
-		</div>
-
-		<?php	}
+		<?php if(isset($_COOKIE['seguranca']['tipo'])) { ?>
+			
+			<div class="col-md-12 text-center print">
+				<a href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'))?>&ac=itn&modulo=cce&controller=cce&action=index"class="btn btn-success">Voltar</a>
+			</div>
+			
+			<?php	}
 	?>
+	<h3><p style="text-align:center">Boletim Diário de Defesa Civil</p></h3>
 <br>
+
+
+<select id="selAno">
+	<option>Selecione o Ano</option>
+	<?php
+	foreach ($anos as $key => $ano) {
+		print "<option>".$ano."</option>";
+	}
+	?>	
+</select>
 		<!-- CORPO -->
 			<div class="row-fluid fdo_corpo">
                 <!-- CONTEUDO -->
@@ -54,7 +76,7 @@ $dados = $boletim->relatoriosite();
 					   	<thead>
 					       <tr>
 						   		<th>#</th>
-                               <th style="text-align:center;" width="80%">Documento</th>
+                               <th style="text-align:center;" width="80%">Documento / <?=$getAno?></th>
                                <th style="text-align:center;" width="10%">Tipo</th>
                                <th style="text-align:center;" width="10%">Tamanho</th>
                            </tr>
@@ -64,7 +86,7 @@ $dados = $boletim->relatoriosite();
                            			
                            		$extensao = substr($value['nome'], -3, 3);
 									print "<tr>";
-									print "<td>".$key."</td>";
+									print "<td>".($key+1)."</td>";
 									print "<td>";
 									print "<a href='anexo/boletim/".$value['nome']."' style='text-decoration:none; color:#F00;' title='Clique para fazer download do documento !' download>";
 									print ($extensao == "pdf") ? "<img src='core/imagem/pdf.png' width='25'> " : "<img src='core/imagem/odt.png' width='25'>";
@@ -82,5 +104,28 @@ $dados = $boletim->relatoriosite();
     <script src="/js/jquery.js"></script>
     <script src="/js/bootstrap.js"></script>
     <script src="/js/jasny-bootstrap.js"></script>
+	<script>
+
+		$(document).ready(function(){
+
+			$('#selAno').change(function(){
+
+				var ano = $(this).find(":selected").val();
+				var url = window.location.href;
+				var url1 = url.search("&ano=");
+				var novaurl = url.substr(0, url1);
+				if(url1 == "-1") {
+					window.location.href = url+"&ano="+ano;	
+				}else {
+					window.location.href = novaurl+"&ano="+ano;
+				}
+				
+			});
+
+
+		})
+
+
+	</script>
 </body>
 </html> 

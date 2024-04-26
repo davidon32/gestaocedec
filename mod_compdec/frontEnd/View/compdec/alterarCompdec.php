@@ -58,7 +58,7 @@ if ($desatualiza > 0 ) {
     $alert = "<p class='alert alert-warning'>Prezado Coordenador,, PARA continuar a usar o sistema, é necessário Atualizar o CPF do Coordenador da COMPDEC, vá na seção Equipe abaixo desta página para realizar a atualização</p>";
     
 }else {
-    $voltar = "<a class=\"btn btn-success\" href=" . FuncaoBase::geraLink("compdec", "compdec", "index") . ">Voltar</a>";
+    $voltar = "<a class=\"btn btn-success\" href=" . FuncaoBase::geraLink("index", "index", "menue") . ">Voltar</a>";
     $gravar = "<span class=\"btn btn-success\" name=\"btnDados2\" id=\"btnDados2\">Gravar</span>";
     $alert ="";
 }

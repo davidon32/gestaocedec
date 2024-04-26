@@ -227,8 +227,8 @@ class pipaController extends Controller {
                 if ($dado['cpfCoord'] != $dado['cpf_atual']) {
 
                     /* atualizar email no lara */
-                    //$url = "http://www.sdc.mg.gov.br/api/auth/update";
-                    $url = "http://sdc.net:8081/api/auth/update";
+                    $url = "http://www.sdc.mg.gov.br/api/auth/update";
+                    //$url = "http://sdc.net:8081/api/auth/update";
                     $api = FuncaoBase::Api([
                                 'url' => $url,
                                 'post' => 1,

@@ -125,7 +125,7 @@ $permissaoAjudaH = Usuario::getPermissaoAjudaH($_COOKIE['seguranca']['login']);
             <option>DEDC</option>
             <option>CCE</option>
             <option>DTEC</option>
-            <option>DAR</option>
+<!--            <option>DAR - Inativo</option>-->
             <option>SECRETARIA</option>
             <option>DPLAN</option>
             <option>DLOG</option>
@@ -137,6 +137,12 @@ $permissaoAjudaH = Usuario::getPermissaoAjudaH($_COOKIE['seguranca']['login']);
             <option>GOV</option>
             <option>CEDEC</option>
         </select>
+        
+        <script>
+        
+            $('#sel_secao').
+        
+        </script>
 
         <label>Função</label>
         <select name="sel_funcao" id="sel_funcao" class="form form-control">

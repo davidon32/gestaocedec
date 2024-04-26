@@ -57,7 +57,7 @@ class Login extends Liberacao {
                 cedec_funcionario.diretor,
 				cedec_funcionario.secao,
                                 cedec_funcionario.orgao,
-                                cedec_funcionario.funcao,
+                                cedec_funcionario.funcao as funcao,
                 pip_permissao.pmda_operador as pmdaoperador,
                 pip_permissao.pmda_dlog as pmdadlog
 		FROM cedec_usuario
@@ -144,6 +144,8 @@ class Login extends Liberacao {
                 setcookie("seguranca[id_rpm]", $_COOKIE['seguranca']['id_rpm'], time() + SESSAOADM);
                 setcookie("seguranca[orgao]", $_COOKIE['seguranca']['orgao'], time() + SESSAOADM);
                 setcookie("seguranca[funcao]", $_COOKIE['seguranca']['funcao'], time() + SESSAOADM);
+                
+
                 ob_end_clean();
 
                 return true;
@@ -182,7 +184,8 @@ class Login extends Liberacao {
                 setcookie("seguranca[id_rpm]", $dados['id_rpm'], time() + SESSAOADM);
                 setcookie("seguranca[orgao]", $dados['orgao'], time() + SESSAOADM);
                 setcookie("seguranca[funcao]", $dados['funcao'], time() + SESSAOADM);
-
+                
+                 
                 if (isset($_COOKIE['seguranca']['sessao_id'])) {
                     session_regenerate_id();
                 } else {
@@ -204,35 +207,35 @@ class Login extends Liberacao {
     static function UnsetCookieAdm() {
 
         ob_start();
-        setcookie("seguranca", null, -3600);
-        setcookie("seguranca[acesso][m_pipa]", null, - 3600);
-        setcookie("seguranca[acesso][m_cce]", null, - 3600);
-        setcookie("seguranca[acesso][m_decretacao]", null, - 3600);
-        setcookie("seguranca[acesso][m_deposito]", null, - 3600);
+        setcookie("seguranca", "", -3600);
+        setcookie("seguranca[acesso][m_pipa]", "", - 3600);
+        setcookie("seguranca[acesso][m_cce]", "", - 3600);
+        setcookie("seguranca[acesso][m_decretacao]", "", - 3600);
+        setcookie("seguranca[acesso][m_deposito]", "", - 3600);
 
-        setcookie("seguranca[idUser]", null, - 3600);
-        setcookie("seguranca[login]", null, - 3600);
-        setcookie("seguranca[nome_usuario]", null, - 3600);
-        setcookie("seguranca[email_rec]", null, - 3600);
+        setcookie("seguranca[idUser]", "", - 3600);
+        setcookie("seguranca[login]", "", - 3600);
+        setcookie("seguranca[nome_usuario]", "", - 3600);
+        setcookie("seguranca[email_rec]", "", - 3600);
 
-        setcookie("seguranca[nivel]", null, - 3600);
-        setcookie("seguranca[id_deposito]", null, - 3600);
-        setcookie("seguranca[id_funcionario]", null, - 3600);
-        setcookie("seguranca[adm]", null, - 3600);
-        setcookie("seguranca[tipo]", null, - 3600);
-        setcookie("seguranca[sessao]", null, - 3600);
-        setcookie("seguranca[matricula]", null, - 3600);
-        setcookie("seguranca[sessao_id]", null, - 3600);
-        setcookie("seguranca[sess]", null, - 3600);
-        setcookie("seguranca[rpm]", null, - 3600);
-        setcookie("seguranca[posto]", null, - 3600);
-        setcookie("seguranca[diretor]", null, - 3600);
-        setcookie("seguranca[pmdaoperador]", null, - 3600);
-        setcookie("seguranca[pmdadlog]", null, - 3600);
-        setcookie("seguranca[secao]", null, - 3600);
-        setcookie("seguranca[id_rpm]", null, - 3600);
-        setcookie("seguranca[orgao]", null, - 3600);
-        setcookie("seguranca[funcao]", null, - 3600);
+        setcookie("seguranca[nivel]", "", - 3600);
+        setcookie("seguranca[id_deposito]", "", - 3600);
+        setcookie("seguranca[id_funcionario]", "", - 3600);
+        setcookie("seguranca[adm]", "", - 3600);
+        setcookie("seguranca[tipo]", "", - 3600);
+        setcookie("seguranca[sessao]", "", - 3600);
+        setcookie("seguranca[matricula]", "", - 3600);
+        setcookie("seguranca[sessao_id]", "", - 3600);
+        setcookie("seguranca[sess]", "", - 3600);
+        setcookie("seguranca[rpm]", "", - 3600);
+        setcookie("seguranca[posto]", "", - 3600);
+        setcookie("seguranca[diretor]", "", - 3600);
+        setcookie("seguranca[pmdaoperador]", "", - 3600);
+        setcookie("seguranca[pmdadlog]", "", - 3600);
+        setcookie("seguranca[secao]", "", - 3600);
+        setcookie("seguranca[id_rpm]", "", - 3600);
+        setcookie("seguranca[orgao]", "", - 3600);
+        setcookie("seguranca[funcao]", "", - 3600);
         
         
         ob_end_clean();

@@ -18,7 +18,7 @@
 
     <!--    PAEBM  -->
     <div class="col-md-6 text-center">
-        <a class="" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=paebm" ?>" title="Protocolo PaeBM"><img width="120" src="core/imagem/paebm.png"><br />Acessar Protocolo PAE</a>
+        <a class="" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=paebm" ?>" title="Protocolo PaeBM"><img width="120" src="core/imagem/pae.png"><br />Acessar Protocolo PAE</a>
     </div>
     <div class="col-md-6 text-center">
         <a class="" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=userAtivo" ?>" title="Usuários Ativos"><img width="120" src="core/imagem/manager_user.png"><br />Usuários Ativos no sistema</a>
@@ -60,15 +60,22 @@
                 print "<td>" . $usuario['empreendedor'] . "</td>";
                 print "<td>" . $usuario['cnpj'] . "</td>";
                 print "<td>" . $usuario['usuario'] . "</td>";
-                print "<td>" . $usuario['usuario'] . "</td>";
                 print "<td>" . $usuario['cpf'] . "</td>";
+                print "<td>" . $usuario['situacao'] . "</td>";
 
                 print "<td " . $status . ">";
 
-                print ($opcao) ? 
-                //"<a href='".FuncaoBase::geraLink("index", "index", "userManager", array('id'=>$usuario['id'], 'status' => 'DESATIVADO'))."' onclick=\"return confirm('Deseja Realmente desativar o o usuário ?')\"  title='Clique aqui para DESATIVAR Acesso !'><img src='/core/imagem/check.png' width='25'></a>" :
-                "<a href='".FuncaoBase::geraLink("index", "index", "userManager", array('id'=>$usuario['id'], 'status' => 'DESATIVADO'))."' onclick=\"if(!confirm('Deseja Realmente desativar o o usuário ?')) event.preventDefault()\"  title='Clique aqui para DESATIVAR Acesso !'><img src='/core/imagem/check.png' width='25'></a>" :
-                                "<a href='".FuncaoBase::geraLink("index", "index", "userManager", array('id'=>$usuario['id'],'status' => 'ATIVADO'))."' title='Clique aqui para ATIVAR Acesso !'><img src='/core/imagem/cancela.png' width='25'></a>";
+                if($opcao) {
+                    //print "<a href='".FuncaoBase::geraLink("index", "index", "userManager", array('id'=>$usuario['id'], 'status' => 'DESATIVADO'))."' onclick=\"return confirm('Deseja Realmente desativar o o usuário ?')\"  title='Clique aqui para DESATIVAR Acesso !'><img src='/core/imagem/check.png' width='25'></a>";
+                    # desativar usuario
+                    print "<a href='".FuncaoBase::geraLink("index", "index", "userManager", array('id'=>$usuario['id'], 'status' => 'DESATIVADO'))."' onclick=\"if(!confirm('Deseja Realmente desativar o o usuário ?')) event.preventDefault()\"  title='Clique aqui para DESATIVAR Acesso !'><img src='/core/imagem/check.png' width='25'></a>";
+                }else {
+                 
+                    # ativar usuario
+                    print "<a href='".FuncaoBase::geraLink("index", "index", "userManager", array('id'=>$usuario['id'],'status' => 'ATIVADO'))."' onclick=\"if(!confirm('Deseja Realmente desativar o o usuário ?')) event.preventDefault()\" title='Clique aqui para ATIVAR Acesso !'><img src='/core/imagem/cancela.png' width='25'></a>";
+                }
+                    # resetar Senha
+                    print "&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href='".FuncaoBase::geraLink("index", "index", "resetarSenha", array('id'=>$usuario['id']))."' onclick=\"if(!confirm('Deseja Resetar a senha do usuário ".$usuario['usuario']." ?')) event.preventDefault()\" title='Clique aqui para RESETAR A Senha !'><img src='/core/imagem/acesso40x40.png' width='25'></a>";
 
                 print "</td>";
                 print "</tr>";

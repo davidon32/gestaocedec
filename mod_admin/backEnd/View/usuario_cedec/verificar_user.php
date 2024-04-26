@@ -10,14 +10,15 @@
 <?php include_once "template/page/corpoHeader.php"; ?>
 
 <?php
+
+
 $usuario_gestao = Usuario::UsuarioCedecDados();
 
 $usuario_externo = Usuario::UsuariocomdecDados();
 
-//var_dump($usuario_externo[0]);
+//var_dump($usuario_externo);
 
 $userRpm = isset($_GET['user']) ? $_GET['user'] : "";
-
 
 $log_path = '';
 
@@ -26,8 +27,8 @@ if (($_SERVER['HTTP_HOST'] == 'sistema.defesacivil.mg.gov.br') || ($_SERVER['HTT
     $url_ex = 'http://sdc.mg.gov.br/api/auth/userex';
     $log_path = '/web/anexo/curl.log';
 } else {
-    $url = 'http://sdc.net:8081/api/auth/user';
-    $url_ex = 'http://sec.net:8081/api/auth/userex';
+    $url = 'http://sdcold.net:8081/api/auth/user';
+    $url_ex = 'http://sdcold.net:8081/api/auth/userex';
     $log_path = 'log/curl.log';
 }
 
@@ -39,15 +40,15 @@ $api_data_ex = array();
 $api = FuncaoBase::Api([
             'url' => $url,
             'post' => 0,
-            'log_path' => $log_path,
+            'itens' => ['log_path' => $log_path],
         ]);
 
-$api_ex = FuncaoBase::Api([
-            'url' => $url_ex,
-            'post' => 0,
-            'log_path' => $log_path,
-        ]);
+$api_ex = FuncaoBase::ApiEx($url_ex);
 
+        
+
+//var_dump($api_ex, $api);
+//die();
 
 if (isset($api) && !is_null($api) && is_array($api)) {
     $api_data = $api;
@@ -57,8 +58,6 @@ if (isset($api_ex) && !is_null($api_ex) && is_array($api_ex)) {
     $api_data_ex = $api_ex;
 }
 
-//var_dump($api_data_ex);
-//die();
 ?>
 
 <br>
@@ -88,9 +87,13 @@ if (isset($api_ex) && !is_null($api_ex) && is_array($api_ex)) {
                 <tbody>
 
     <?php
-    foreach ($usuario_gestao as $key => $value) {
 
-        if (!is_null($api['data'])) {
+
+foreach ($usuario_gestao as $key => $value) {
+
+    $ret_key = null;
+
+        if (!is_null($api)) {
             if (!is_null($value['cpf'])) {
                 $ret_key = array_search($value['cpf'], array_column($api_data['data'], 'cpf'));
             } else {
@@ -128,6 +131,7 @@ if (isset($api_ex) && !is_null($api_ex) && is_array($api_ex)) {
         print "<td {$style} >" . Usuario::getNomeId($value['id_usuario']) . "</td>";
         print "<td {$style} >" . $value['cpf'] . "</td>";
         print "<td {$style} >" . $value['email_rec'] . "</td>";
+        
 
         print "<td {$style} >" . $id_user_cedec . "</td>";
         print "<td {$style} >" . $cpf . "</td>";
@@ -146,7 +150,7 @@ if (isset($api_ex) && !is_null($api_ex) && is_array($api_ex)) {
 
         <!-- USUARIOS compdec-->
         <legend>LISTA DE USUARIOS COMPDEC</legend>
-        <table class="table table-condensed">
+        <table class="table table-condensed table-bordered">
             <thead>
                 <tr>
                     <th>#</th>
@@ -155,17 +159,22 @@ if (isset($api_ex) && !is_null($api_ex) && is_array($api_ex)) {
                     <th>RPM_CEDEC</th>
                     <th>CPF</th>
                     <th>EMAIL_REC</th>
+                    <th>SITUAÇÃO</th>
+                    <th>______</th>
                     <th>ID_USER_CEDEC</th>
                     <th>CPF_LARA</th>
                     <th>EMAIL_LARA</th>
+                    <th>SITUAÇÃO</th>
                 </tr>
             </thead>
             <tbody>
 
 <?php
+
+
 foreach ($usuario_externo as $key => $value) {
 
-    if (!is_null($api_ex['data_compdec'])) {
+    if (!is_null($api_ex)) {
         if (!is_null($value['cpf'])) {
             $ret_key = array_search($value['cpf'], array_column($api_data_ex['data_compdec'], 'cpf'));
         } else {
@@ -175,6 +184,7 @@ foreach ($usuario_externo as $key => $value) {
     $id_user_cedec_comp = '';
     $cpf_comp = '';
     $email_comp = '';
+    $situacao = '';
 
     $style = '';
 
@@ -192,10 +202,12 @@ foreach ($usuario_externo as $key => $value) {
         $id_user_cedec_comp = $api_ex['data_compdec'][$ret_key]['id_user_cedec'];
         $cpf_comp = $api_ex['data_compdec'][$ret_key]['cpf'];
         $email_comp = $api_ex['data_compdec'][$ret_key]['email'];
+        $situacao = $api_ex['data_compdec'][$ret_key]['ativo'];
     } else {
         $id_user_cedec_comp = '-';
         $cpf_comp = '-';
         $email_comp = '-';
+        $situacao = '-';
     }
 
 
@@ -207,10 +219,13 @@ foreach ($usuario_externo as $key => $value) {
     print "<td {$style} >" . Usuario::getUserExNomeId($value['id'])['rpm'] . "</td>";
     print "<td {$style} >" . (empty($value['cpf']) ? "<span style='color:red'>sem CPF</span>" : substr($value['cpf'], 0, 4) . "******") . "</td>";
     print "<td {$style} >" . $value['email_rec'] . "</td>";
+    print "<td {$style} >" . $value['situacao'] . "</td>";
+    print "<td {$style} ></td>";
 
     print "<td {$style} >" . $id_user_cedec_comp . "</td>";
     print "<td {$style} >" . (empty($cpf_comp) ? "<span style='color:red'>sem CPF</span>" : substr($cpf_comp, 0, 4) . "******") . "</td>";
     print "<td {$style} >" . $email_comp . "</td>";
+    print "<td {$style} >" . $situacao . "</td>";
 
     print "</tr>";
 }

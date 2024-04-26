@@ -501,6 +501,7 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
                     </tr>
                 </table>
             </div>
+            
             <!--upload documento -->
             <div class="col-md-6">
                 <button type="button" onClick="uploadModal('leis')" class="btn btn-primary" title="Clique para Anexar Leis e Decretos">Upload</button>
@@ -544,6 +545,8 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
                  */
                 ?>
             </div>
+            
+            
             <!-- Modal Adicionar Anexo Leis  -->
             <div class="modal fade" id="modal-default">
                 <div class="modal-dialog">
@@ -557,9 +560,9 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
                             <form name="frmAnexoLeis" enctype="multipart/form-data">
                                 <input class="form-control" type="file" name="fileAnexoLeis" id="fileAnexoLeis" />
                                 <br>
-                                <p class="alert alert-danger">
-                                -> Evite nome de arquivos con espaços.<br>                                
-                                </p>
+                                <p id="fileSize"></p>
+                                
+                                
                                 <span class="obs" id="formato_file"> (Formato PDF / JPEG / PDF)</span><br>
                                 <span class="obs" id="tamanho_file">Tamanho máximo Arquivo: 2Mb (mega bytes) ou 2.000 KB (kilo bytes) </span> <br>
                                 <span class="obs" id="nome_arquivo_file"></span> <br>
@@ -1352,7 +1355,8 @@ $dadosMunicipio = $_municipio->dadosMunicipio($_dados[0]['id_municipio']);
                 $('#btnGravarLeis').hide();
                 $('#btnGravarLeis_fake').show();
                 
-            }else if(this.files[0].type != 'application/pdf' && this.files[0].type != 'image/png' && this.files[0].type != 'image/jpg'){
+            }else if(this.files[0].type != 'application/pdf' && this.files[0].type != 'image/png' && this.files[0].type != 'image/jepg'){
+                //console.log(this.files[0].type);
                 $('#formato_file').text('O arquivo não está no formato aceito : PNG / JPG / PDF');
                 $('#formato_file').addClass('alert alert-danger');
                 $('#btnGravarLeis').hide();

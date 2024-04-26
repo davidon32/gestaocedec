@@ -63,8 +63,8 @@ $semArquivoPlano = $comPlano - count($comArquivoPlano);
         <button class="btn btn-primary">Pesquisar</button>
         <br>
         <br>
-    </div>-->
-<div class='col-md-6 p-3'></div>
+    </div>
+<div class='col-md-6 p-3'></div>-->
     <div class='col-md-2 text-center'></div>
     <div class='col-md-4'>
 <!--        <a href="#" class='' onClick="uploadModal()" title="Envio de Plano de Contingência"><img src="core/imagem/upload1.png" width="35px;" alt="Upload de Plano de Contingência"> Upload de Plano de Contigencia</a>-->
@@ -188,7 +188,7 @@ $semArquivoPlano = $comPlano - count($comArquivoPlano);
                     ]);
 
                     var options1 = {
-                        title: 'Total de Planos a serem regularizados no SDC'
+                        title: 'Situação dos Planos Inseridos no Sistema'
                     };
                     var chart1 = new google.visualization.PieChart(document.getElementById('piechart2'));
                     chart1.draw(data1, options1);

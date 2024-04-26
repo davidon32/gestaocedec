@@ -44,10 +44,10 @@ class msgController extends Controller {
         
 
         $sql = "select *from cedec_mensagem ".$filtro;
-
+        
         $result = $con->query($sql);
 
-        return $result->fetch(PDO::FETCH_ASSOC);
+        return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**

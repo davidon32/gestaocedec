@@ -7,10 +7,11 @@ if (!isset($_SESSION)) {
 
 
 if (!defined('VERSAO')) {
-    define('VERSAO', 'versão - 3.5.1.1-2 - 16.02.2024');
+    define('VERSAO', 'versão - 3.5.1.2-6 - 19.03.2024');
 }
 include 'core/system/config/config.inc.php';
 include_once 'core/include.php';
+include 'core/system/msg/msg.php';
 
 if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
     include('index_manutencao.php');
@@ -144,17 +145,16 @@ if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
                 header('Location:index.php');
             }
         } else if (!isset($_COOKIE['seguranca']['tipo'])) { # redireciona para pagina de login
-            
             ##### Acesso gravar usuario novo
             if ($controller == 'novoUserController') {
                 if (file_exists("mod_" . $modulo . "/Controller/" . $controller . ".php")) {
                     include_once "mod_" . $modulo . "/" . "Controller/" . $controller . ".php";
-                }else {
+                } else {
                     print "p";
                 }
- 
 
-            # acesso defesa civil agora
+
+                # acesso defesa civil agora
             } else if (
             //($controller == 'agoraController') && ($action == 'listasite') ||
                     ($action == 'cadastro') ||
@@ -241,6 +241,21 @@ if (preg_match('#\b(Edg|Firefox|OPR)\b#', $useragent)) {
     print "alert('Navegador nao homologado \n Favor Entrar pelo Google Chrome ! ');";
     print "setTimeout(function() {window.location = 'http://www.defesacivil.mg.gov.br';}, 1000);";
     print "</script>";
+}
+
+//var_dump($msgs);
+
+foreach ($msgs as $msg) {
+    if ($msg['status'] == true) {
+        print "<script type='text/javascript'>";
+        print "Swal.fire({
+            width : 800,
+            icon: 'info',
+            title: 'Informativo',
+            html: '<h3>" . $msg['msg'] . "</h3>',
+            });";
+        print "</script>";
+    }
 }
 
 

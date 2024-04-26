@@ -13,9 +13,11 @@
 $dados = Usuario::buscaUsuarioId($_GET['id']);
 
 
+
+
 $membro_compdec = MembroEqCompdec::getMembro($dados);
 
-//var_dump($membro_compdec, $dados);
+var_dump($membro_compdec, $dados);
 
 if (!$membro_compdec) {
     $membro_compdec = [
@@ -245,12 +247,20 @@ if (!$membro_compdec) {
 
         $('#btnAtua').hover(function () {
 
-            var cpf_atual = $("#cpf_atual").val();
-            var cpf_novo = $("#cpfCoord").val();
+            var cpf_coord_atual  = $("#cpf_atual").val();
+            var cpf_coord  = $("#cpfCoord").val();
             var nome_atual = $("#nomeCoordAtual").val();
             var nome_coord = $("#nomeCoord").val();
+            
+            var cpf_novo = cpf_coord.replaceAll('.',"").replace('-',"");
+            var cpf_atual = cpf_coord_atual.replaceAll('.',"").replace('-',"");
+        
+//        console.log(cpf_atual);;
+//        console.log(cpf_novo);
+//        console.log(nome_atual);
+//        console.log(nome_coord);
 
-            if (cpf_atual != cpf_novo && nome_atual == nome_coord) {
+            if (cpf_atual !== cpf_novo && nome_atual === nome_coord) {
 
                 Swal.fire({
                     title: "<h3>Para mudar o Coordenador do COMPDEC é,<br> necessário que o nome também seja mudado !</h3>",
@@ -276,9 +286,10 @@ if (!$membro_compdec) {
                         console.log(result);
                         /* Read more about isConfirmed, isDenied below */
                         if (result.isConfirmed) {
-                            Swal.fire("Saved!", "", "success");
+                            //Swal.fire("Saved!", "", "success");
+                            $('#btnAtua').trigger("click");
                         } else if (result.isDismissed) {
-                            Swal.fire("Changes are not saved", "", "info");
+                            Swal.fire("Ação Cancelada !", "", "info");
                         }
                     });
                 }

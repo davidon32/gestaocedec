@@ -5,6 +5,7 @@
     $anexo = new Anexo();
     $identificador = isset($_POST['identificador']) ? $_POST['identificador'] : "";
 
+
     # grava vias de acesso
     if($identificador == "viasAcesso") {
     
@@ -35,6 +36,8 @@
 
         if(!isset($_FILES['file'])){
             print "Favor Carregar o arquivo !";
+        }else if($_FILES['file']['size'] > 120000000) {
+            print "O Tamanho máximo permitido é 120 MB";
         }else {
             
             $extensao = $anexo->getExtensao($_FILES['file']['name']);
@@ -49,7 +52,7 @@
 
             $id_municipio = isset($_POST['id']) ? $_POST['id'] :"";
             
-            $tamanho_size = isset($_POST['tamanho']) ? $_POST['tamanho'] :"";
+            $tamanho_size = isset($_FILES['file']['size']) ? $_FILES['file']['size'] :"0";
  
             # dados para gravar registro upload
             $dados = array('id_municipio'=>$id_municipio,
@@ -57,7 +60,7 @@
                             'filePlano'=> strtoupper($arquivo).".".$extensao,
                             'versao' => '-',
                             'dt_upload' => $data_upload,
-                            'tamanho_size' => $tamanho_size
+                            'tamanho_size' => $tamanho_size,
             );
 
 

@@ -6,6 +6,7 @@
   			<b><i><?php print Municipio::PegaNomeMunicipio($_SESSION['seguranca']['id_municipio']);?></i></b> 
 
   		</div>
+		<!-- TESTE UPLOAD-->
   		<?php if(isset($_GET['a'])){
   			
 	  			print "<div class='col-xs-5' style='height: 50px; line-height: 50px; text-align:rigth'>

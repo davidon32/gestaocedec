@@ -133,7 +133,14 @@ print "</script>";
                         <i class="fa fa-bell-o"></i>
                         <span class="label label-warning">
                             <!--Qtd mensagens-->
-                            <?= msgController::mensagem(['municipio_id'=>7221]);?>
+                            
+                            
+                            <?php 
+                            
+                            //var_dump(class_exists(msgController::class));
+                            print count(msgController::mensagem(['municipio_id'=>7221]));
+                            
+                            ?>
                         </span>
                     </a>
                     <ul class="dropdown-menu">
@@ -188,7 +195,7 @@ print "</script>";
                 </li>
                 <li class="dropdown tasks-menu">
                     <a class="dropdown-toggle" href="<?= FuncaoBase::geraLink("index", "index", "logout") ?>" title="Sair com Segurança do Sistema">
-                        <i class="fa fa-sign-out"></i>
+                        <img src="/core/imagem/desligar.png">
                     </a>
                 </li>
                 

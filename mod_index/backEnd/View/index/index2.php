@@ -27,10 +27,7 @@
     Login::mostraModulos(Login::acessoModulo($pageSession['session']['seguranca']['login']));
     ?>
 
-        <!--    PAEBM  Desativado-->
-        <div class="col-md-3 text-center">
-            <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=paebmindex" ?>" title="Protocolo PaeBM"><img width="120" src="core/imagem/paebm.png"><br />Pae</a>
-        </div>
+        
     <?php
     if ($_COOKIE['seguranca']['idUser'] == 1) { ?>
         <!--RAT-->
@@ -48,7 +45,7 @@
         </div>-->
 
     <!--RAT-->
-        <div class="col-md-3 text-center" style="height: 190px; ">
+        <div class="col-md-3 text-center" style="height:190px">
             <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=rat" ?>" title="Relatório de Atividades Técnicas"><img width="155" src="core/imagem/rat_teste.png"><br />RAT</a>
         </div>
 
@@ -69,9 +66,17 @@
             <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=compdec" ?>" title="Informações do Compdec"><img width="90" src="core/imagem/comdec.png"><br />Informações COMPDEC</a>
         </div>
         
-    <?php } ?>
+        <?php } ?>
         
-        
+    <?php
+
+        if($_COOKIE['seguranca']['funcao'] != "REDEC") { ?>
+        <!--    PAEBM  Desativado-->
+        <div class="col-md-3 text-center">
+            <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=paebmindex" ?>" title="Protocolo PaeBM"><img width="120" src="core/imagem/pae.png"><br />Pae</a>
+        </div>
+
+        <?php } ?>
 
 
 

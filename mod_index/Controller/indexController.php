@@ -310,6 +310,22 @@ class indexController extends Controller {
     }
     
     
+    /**
+     * PEDIDO DE AJUDA HUMANITARIA
+     * 
+     */
+    public function mah() {
+        if ($_COOKIE['seguranca']['tipo'] == "i") {
+            $routeInicio = 'modulo=index&controller=index&action=menu';
+        } else {
+            $routeInicio = 'modulo=index&controller=index&action=menue';
+        }
+        include_once 'mod_index/app/login/auth.php';
+    }
+    
+    
+    
+    
     public function userAtivo() {
         
         include_once 'mod_index/backEnd/View/index/userAtivo.php';

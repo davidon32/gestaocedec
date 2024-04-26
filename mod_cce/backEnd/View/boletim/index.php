@@ -38,7 +38,7 @@ $dados = $boletim->listBoletim(10);
 					   <table class="table table-bordered table-condensed table-striped">
 					   		<thead>
 					   		<tr>
-					   			<th colspan="6" style="text-align:center">Últimos Boletins Publicados</th>
+					   			<th colspan="7" style="text-align:center">Últimos Boletins Publicados</th>
 					   		</tr>
 					   		<thead>
 					       <tr>

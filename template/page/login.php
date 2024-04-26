@@ -25,11 +25,16 @@
                 
             }
 
+            * {
+                background-image: none;
+                
+            }
+
             /* tela background */
             div#login_fdo {
                 min-height: 100vh;  /*For 100% screen height */
                 /* width:  100vw;  For 100% screen width 100;*/
-                background-image: url("/core/imagem/background1_.jpg");
+                /*background-image: url("/core/imagem/background1_.jpg");*/
                 background-repeat: no-repeat;
                 background-size: cover;
                 margin: auto;
@@ -40,7 +45,7 @@
 
             /* col-5 tela login */
             div#login_sdc {
-                margin-top: 30vh;
+                margin-top: 10vh;
                 position: relative;
             }
 
@@ -136,13 +141,13 @@
         <div class="flex-contaner">
 
 
-            <div class="row" id="row1">
-                <div class="col col-md-7 responsive" id="login_fdo">
-                    <img class="img-responsive" src="/core/imagem/logo_sdc.png" alt="" id="background">
-    <!--                <div id="ww_faf7fd42cfdd2" v='1.3' loc='auto' a='{"t":"horizontal","lang":"pt","sl_lpl":1,"ids":[],"font":"Arial","sl_ics":"one_a","sl_sot":"celsius","cl_bkg":"image","cl_font":"#FFFFFF","cl_cloud":"#FFFFFF","cl_persp":"#81D4FA","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722"}'><a href="https://weatherwidget.org/android-app/" id="ww_faf7fd42cfdd2_u" target="_blank">Best free weather app for android</a></div><script async src="https://app1.weatherwidget.org/js/?id=ww_faf7fd42cfdd2"></script>;-->
+            <div class="row">
+                <div class="center" style="margin-top: 5%;">
+                    <img class="img-responsive" src="/core/imagem/logo_sdc.png" alt="" width="10%">
                 </div>
+            </div>
+            <div class="row">
 
-                <div class="col col-md-5">
                     <div id="login_sdc">
                         <div class="login-box1" >
                             <div class="login-logo1">
@@ -172,7 +177,7 @@
                                                                                     </label>-->
                                             <a class='btn btn-link' href="index.php<?= FuncaoBase::geraLink("admin", "admin", "esqueci_senha", array('externo' => md5('externo'))) ?>">Esqueci minha senha</a>
                                             
-                                            <a class='btn btn-link' href="index.php<?= FuncaoBase::geraLink("admin", "admin", "novo_cadastro", array('externo' => md5('externo'))) ?>">Não Tenho Cadastro</a>
+                                            <!--<a class='btn btn-link' href="index.php<?= FuncaoBase::geraLink("admin", "admin", "novo_cadastro", array('externo' => md5('externo'))) ?>">Não Tenho Cadastro</a>-->
 
                                         </div>
                                         <!-- /.col -->
@@ -193,7 +198,7 @@
                                             <div class="">
                                                 Suporte Técnico SDC :<br>
                                                 <span style="font-size:20px; color:blue"><a style="text-decoration:none" href='malito:sdc@defesacivil.mg.gov.br'>sdc@defesacivil.mg.gov.br</a></span><br>
-                                                Contatos :
+                                                <!--Contatos :-->
 
                                             </div>
 

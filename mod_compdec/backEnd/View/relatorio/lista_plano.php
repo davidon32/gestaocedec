@@ -14,6 +14,8 @@ if ($opcao == "lista_geral") {
     $dadosPlanos = $_relatorioCompdec->countPlanoPorMunicipio();
     $planos = $_relatorioCompdec->listPlano();
     $titulo = "Lista de Municípios Com Plano de Contingência";
+
+    
 } elseif ($opcao == "lista_sem_plano") {
     $dadosPlanos = $_relatorioCompdec->countPlanoPorMunicipio();
     $planos = $_relatorioCompdec->relSemPlano();
@@ -329,8 +331,9 @@ print "</table>";
 print "<table class='table table-bordered'>";
 
 print "<tr>";
-print "<td align=right><label>Municipios com Plano de Contingência Inseridos no sistema: </label></td>";
-print "<td> " . ($num - 1 - $sem_arquivo) . "</td>";
+print "<td align=right><label>Número de Municipios com Plano de Contingência : </label></td>";
+//print "<td> " . ($num - 1 - $sem_arquivo) . "</td>";
+print "<td> " . --$num . "</td>";
 print "</tr>";
 /* print "<tr>";
   print "<td align=right><label>Total Planos de Contingência Hospedados : </label></td>";

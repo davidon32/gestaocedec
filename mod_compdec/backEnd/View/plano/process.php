@@ -5,7 +5,7 @@
 
     $dados = $_POST;
 
-   
+ 
 
     $identificador = isset($_POST['identificador']) ? $_POST['identificador'] : "";
 
@@ -55,13 +55,16 @@
             $arquivo = "Plano_".date('d-m-Y_h-i-s')."_V.".$_POST['versao'];
 
             $id_municipio = isset($_POST['id']) ? $_POST['id'] :"";
+            
+            
  
             # dados para gravar registro upload
             $dados = array('id_municipio'=>$id_municipio,
                             'id_plano'=> "0",
                             'filePlano'=> $arquivo.".".$extensao,
                             'versao' => $versao,
-                            'dt_upload' => $data_upload           
+                            'dt_upload' => $data_upload ,
+                            'tamanho' => $tamanho,
             );
 
             if($extensao == 'pdf' || $extensao == 'doc' || $extensao == 'docx'){

@@ -2786,7 +2786,8 @@ and cedec_usuario.id_usuario != 79
                         cedec_user_ex.email_rec,
                         cedec_user_ex.id_municipio,
                         cedec_user_ex.cpf,
-                        cedec_rpm_mun.nome
+                        cedec_rpm_mun.nome,
+                        cedec_user_ex.situacao
                         FROM cedec_user_ex
                         inner join cedec_rpm_mun
                         on cedec_user_ex.id_municipio = cedec_rpm_mun.id_municipio                        

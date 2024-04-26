@@ -32,18 +32,18 @@
         <!-- INICIO DO CORPO-->
         <form action="<?= FuncaoBase::geraLink("pipa", "pipa", "pesquisaUsuario", isset($_GET['volta']) ? array('volta' => 'compdec') : array()) ?>" class="form-search" method="post">
             <div class="col-md-12">
-                <label>
+<!--                <label>
                     <input type="radio" name="rbOpcao" id="0" value="0" >
                     Nome de Usuário
-                </label><br>
+                </label><br>-->
                 <label>
                     <input type="radio" name="rbOpcao" id="1" value="1" checked>
                     Município
                 </label><br>
-                <label>
+<!--                <label>
                     <input type="radio" name="rbOpcao" id="2" value="2" >
                     Email
-                </label>
+                </label>-->
             </div>
             <div class="col-md-4">
                 <br>

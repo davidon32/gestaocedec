@@ -57,6 +57,7 @@
         # boletim Site
         public function boletimsite()
         {
+            $anos = Boletim::getBoletimAno();
             include_once "mod_cce/backEnd/View/relatorio/boletimSite.php";
         }
 

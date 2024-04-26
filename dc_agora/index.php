@@ -171,6 +171,7 @@
                         </div><!-- end post-media -->
                     </div><!-- end left-side -->
 
+                    <?php if(key_exists(2, $ultimas_postagens)){ ?>
                     <div class="right-side hidden-md-down">
                         <div class="masonry-box post-media" data-id="<?= $ultimas_postagens[2]['id'] ?>">
                             <img src="/anexo/def_civil_agora/<?= $ultimas_postagens[2]['imagem1'] ?>" width="534" height="468"" alt="" class="img-fluid">
@@ -188,6 +189,7 @@
                             </div><!-- end shadow -->
                         </div><!-- end post-media -->
                     </div><!-- end right-side -->
+                    <?php }?>
                 </div><!-- end masonry -->
             </div>
         </section>
@@ -473,6 +475,15 @@
         }
 
     </script>
+   <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SN75N3HHP1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-SN75N3HHP1');
+</script>
 
 </body>
 </html>

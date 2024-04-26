@@ -48,20 +48,21 @@ class Boletim {
 		}	
 	}
 	
-	public function relatoriosite(){
+	public function relatoriosite($ano){
 	
-		$con = Conexao::getInstance();
+	$con = Conexao::getInstance();
 	
 		$linha = array();
 		
-		$sql ='SELECT
+		$sql ="SELECT
 				id,
 				nome,
 				data,
 				descricao,
 				tamanho,
 				complemento
-				FROM cce_boletim order by data desc limit 122' ;
+				FROM cce_boletim
+				WHERE YEAR(data) = '{$ano}'" ;
 	
 		$result = $con->query($sql);
 	
@@ -72,7 +73,22 @@ class Boletim {
 		return $linha;
 	
 	}
-	
-	
-	
+
+
+	public static function getBoletimAno(){
+
+		$con = Conexao::getInstance();
+
+		$sql = "SELECT DISTINCT(YEAR(data)) AS ano 
+					FROM cce_boletim
+					GROUP BY data
+					ORDER BY data desc
+					LIMIT 5";	
+
+		$result = $con->query($sql);
+
+		return $result->fetchAll(PDO::FETCH_COLUMN);
+
+	}
+
 }

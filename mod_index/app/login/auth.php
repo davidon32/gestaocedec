@@ -33,6 +33,7 @@ $routeList = [
     "vistoria" => 'vistoria',
     "compdec" => 'compdec',
     "paebmindex" => 'drrd',
+    "mah" => 'mah',
     
 ];
 
@@ -49,7 +50,7 @@ if ($funcao == 'REDEC') {
     $orgao = strtolower($funcao);
 }
 
-var_dump($actionApi);
+//var_dump($actionApi);
 
 # producao
 if (($_SERVER['HTTP_HOST'] == 'sistema.defesacivil.mg.gov.br') || ($_SERVER['HTTP_HOST'] == 'www.sistema.defesacivil.mg.gov.br')) {
@@ -57,6 +58,7 @@ if (($_SERVER['HTTP_HOST'] == 'sistema.defesacivil.mg.gov.br') || ($_SERVER['HTT
     $protocolo = CURLPROTO_HTTP;
         $url = "http://www.sdc.mg.gov.br/api/auth/login";
         $url_redirect = "http://www.sdc.mg.gov.br";
+        $log_path = 'log/curl.log';
 # ca
 } else {
     $protocolo = CURLPROTO_HTTP;
@@ -119,7 +121,7 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
         ]),
         CURLOPT_SSL_VERIFYHOST => 0,
         CURLOPT_SSL_VERIFYPEER => 0,
-        CURLOPT_RETURNTRANSFER => 0,
+        CURLOPT_RETURNTRANSFER => 1,
         CURLOPT_PROTOCOLS => CURLPROTO_HTTP,
         CURLOPT_VERBOSE => true,
         CURLOPT_STDERR => fopen($log_path, 'w+'),
