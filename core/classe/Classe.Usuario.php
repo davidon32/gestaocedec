@@ -2801,16 +2801,18 @@ and cedec_usuario.id_usuario != 79
     }
     
     
-    public static function busca($status = null, $tipo = null) {
+    public static function busca($status = null, $tipo = null, $cpf = null) {
         
         $paramStatus = (!is_null($status)) ? "and situacao = '".$status."'" : "";
         
         $paramTipo = (!is_null($tipo)) ? "and modulo = '".$tipo."'" : "";
         
+        $paramCpf = (!is_null($cpf)) ? "and cpf = '".$cpf."'" : "";
+        
         
         $con = Conexao::getInstance();
         
-        $sql = "Select *from cedec_user_ex where id > 0 ".$paramStatus.$paramTipo;
+        $sql = "Select *from cedec_user_ex where id > 0 ".$paramStatus.$paramTipo.$paramCpf;
         
         $result = $con->query($sql);
         

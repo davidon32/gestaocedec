@@ -21,7 +21,7 @@
         <a class="" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=paebm" ?>" title="Protocolo PaeBM"><img width="120" src="core/imagem/pae.png"><br />Acessar Protocolo PAE</a>
     </div>
     <div class="col-md-6 text-center">
-        <a class="" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=userAtivo" ?>" title="Usuários Ativos"><img width="120" src="core/imagem/manager_user.png"><br />Usuários Ativos no sistema</a>
+        <a class="" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=userAtivo" ?>" title="Usuários Ativos"><img width="120" src="core/imagem/manager_user.png"><br />Acesso Empreendedores</a>
 
     </div>
     <p>Os Usuários abaixo precisam ser validados para acesso os seus respectivos Processos de PAE </p>

@@ -324,12 +324,20 @@ class indexController extends Controller {
     }
     
     
-    
-    
+    # visualização usuarios externos,
     public function userAtivo() {
         
         include_once 'mod_index/backEnd/View/index/userAtivo.php';
         
     }
 
+
+    # cadastro usuarios externos (empreendedores)
+    public function cadastroEmpr() {
+        
+        include_once 'mod_index/backEnd/View/index/cadastro_empr.php';
+        
+    }
+    
+    
 }
