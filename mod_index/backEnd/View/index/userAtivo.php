@@ -32,55 +32,7 @@
 
 <div class="row">
 
-    <div class="col-md-12 text-center">
-        <legend>Usuários Ativos no Sistema</legend>
-
-        <p>Os usuários abaixo, são os usuários que estão aptos a consultar os processos de Protocolo de PAE</p>
-
-        <table class="table table-bordered">
-            <tr>
-                <th>#</th>
-                <th>Empreendedor</th>
-                <th>CNPJ</th>
-                <th>Nome Usuário</th>
-                <th>CPF</th>
-                <th>Opções</th>
-            </tr>
-
-            <?php
-
-            $pesquisa = isset($_POST['pesquisa']) ? $_POST['pesquisa'] : "";
-            $btn      = isset($_POST['btn'])      ? $_POST['btn'] : null;
-
-
-            
-
-            if ($btn) {
-                $usuarios = Usuario::busca(NULL, "pae", str_replace(['.','-'], "", $pesquisa) );
-            } else {
-                $usuarios = Usuario::busca(NULL, "pae");
-            }
-
-            //var_dump($pesquisa, $btn, $usuarios, $_POST);
-            foreach ($usuarios as $key => $usuario) {
-
-                print "<tr>";
-                print "<td>" . ($key + 1) . "</td>";
-                print "<td>" . $usuario['usuario'] . "</td>";
-                print "<td>" . $usuario['usuario'] . "</td>";
-                print "<td>" . $usuario['usuario'] . "</td>";
-                print "<td>" . $usuario['cpf'] . "</td>";
-
-                print "<td>";
-                print "<a href='#' title='Desativar o Acesso do Usuário'><img src='/core/imagem/cancela.png' width='25'></a>";
-                print "</td>";
-                print "</tr>";
-            }
-
-            ?>
-
-        </table>
-    </div>
+    
 </div>
 
 

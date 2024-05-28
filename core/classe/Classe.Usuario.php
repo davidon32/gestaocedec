@@ -2822,10 +2822,6 @@ and cedec_usuario.id_usuario != 79
         
         
     }
-    
-    
-    
-    
-    
+
 
 }
