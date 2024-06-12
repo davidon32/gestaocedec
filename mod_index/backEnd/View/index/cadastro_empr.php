@@ -334,7 +334,7 @@ if (curl_errno($ch)) {
 <div class="row">
     <div class="col-md-2"></div>
     <div class="col-md-12">
-        <form action="#" method="POST" name="frmPesquisa" id="frmPesquisa">
+        <form action="<?=?>" method="POST" name="frmPesquisa" id="frmPesquisa">
             <label>Empreendedor ( Mineradora )</label><br>
 
             <select name="selEmpreendedor" id="selEmpreendedor" class="form form-control">

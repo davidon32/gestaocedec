@@ -18,6 +18,7 @@
 
             
             
+            //print "<button onclick='exportExcel()' class='btn btn-success'>Exportar Excel</button>";
             print "<table class=\"table table-condensed\" id=\"rel_compdec\">
             
                     <tr>
@@ -93,3 +94,4 @@
              
              </table>";
 ?>
+

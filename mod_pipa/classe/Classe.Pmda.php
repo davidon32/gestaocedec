@@ -436,6 +436,8 @@ class Pmda extends Comunidade {
             # atendimento
             # completo
             # em analise
+            //var_dump(self::buscaComunidaPmda($dados));
+            //die();
             if (self::buscaComunidaPmda($dados)) {
 
                 print "existe_";

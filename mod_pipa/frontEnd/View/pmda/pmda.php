@@ -354,8 +354,10 @@ if (!empty($id_pmda)) {
                                         <div class="form-group col-12">
                                             <label>Comunidade&nbsp;</label><br>
 <!--                                            <input class="form-control col-md-10" type="text" name="txtComunidade" id="txtComunidade" maxlength="45">;-->
-                                            <select width='100' class="js-example-basic-single form-control col-12" name="txtComunidade" id="txtComunidade">
-                                                <option>Selecione a Comunidade</option>
+                                            <select width='100%' class="js-example-basic-single form-control col-12" name="txtComunidade" id="txtComunidade">
+                                                <option>Selecione a Comunidade&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'</option>
                                                 <?php
                                                     foreach ($comMunicipio as $key => $value) {
                                                         print "<option value='".$value['id_comunidade']."'>".$value['comunidade']."</option>";
@@ -1250,6 +1252,8 @@ if (!empty($id_pmda)) {
 
         /*********** botao Adicionar MOdal pesquisa comunidade no input ***********/
         $("#btnAdicionar").click(function () {
+
+
             $("#txtNomeComunidade").val($("#txtComunidade").select2('data')[0]['text']);
             
             $("#idComunidade").val($("#txtComunidade").val());
@@ -2024,12 +2028,34 @@ if (!empty($id_pmda)) {
 
                                     var result = response.substr(0, 7);
 
+                                    console.log(result);
+
                                     //$("#tblComunidadePmda").html(response);
                                     if (result === 'sucesso') {
                                         alert("Registro adicionado com sucesso !");
                                         location.reload();
                                     } else if (result === 'existe_') {
-                                        alert('Essa Comunidade já faz parte de um pmda Em edição, Completo ou atendido, por favor verifique !');
+                                        //alert('Essa Comunidade já faz parte de um pmda Em edição, Completo ou atendido, por favor verifique !');
+
+                                            Swal.fire({
+                                                            title: "<strong>ESTA COMUNIDADE FAZ PARTE DE UM PMDA ATIVO</strong>:",
+                                                            icon: "error",
+                                                            width: 600,
+                                                            html: `
+                                                            Verifique se exite um PMDA nas seguintes condições :
+                                                            <br> Em Edição:
+                                                            <br>Completo :
+                                                            <br>Atendido: -(estado em atendimento)
+                                                            <br>
+                                                            <br> faça a correção ou peça junto aos analistas da CEDEC para avaliarem !
+                                                            `,
+                                                            showCloseButton: true,
+                                                            showCancelButton: false,
+                                                            focusConfirm: false,                                                            
+                                                            });
+
+
+                                        
                                     }
                                     $("#idComunidade").val("");
 

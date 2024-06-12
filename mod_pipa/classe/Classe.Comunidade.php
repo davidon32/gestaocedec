@@ -198,7 +198,7 @@ class Comunidade extends Log {
 
         try {
             
-            $sql = 'SELECT pip_pmda_comun.id_com_pmda
+            $sql = 'SELECT count(pip_pmda_comun.id_com_pmda) as id_com_pmda
                         from pip_pmda_comun
                             inner join pip_pmda
                             on pip_pmda_comun.id_pmda = pip_pmda.id_pmda
@@ -214,13 +214,19 @@ class Comunidade extends Log {
             $result->bindValue(":id_comunidade", $dados['id_comunidade']);
             $result->execute();
 
-            $row = $result->rowCount();
+            $row = $result->fetchColumn();
+            //var_dump($row) ;
+            
+            // while( $row = $result->fetch(PDO::FETCH_ASSOC )) {
+            //     var_dump($row) ;        
+            // }
+            
 
-            if ($row > 0) {
-                return true;
-            } else {
-                return false;
-            }
+             if ($row > 0) {
+                 return true;
+             } else {
+                 return false;
+             }
         } catch (Exception $e) {
 
             print FuncaoBase::getError($e->getMessage(), 'Mensagem');
@@ -490,23 +496,23 @@ class Comunidade extends Log {
 
         try {
 
-//    		$sql = "SELECT id_comunidade,
-//							 comunidade
-//								 FROM pip_comunidade
-//									WHERE id_municipio = :id_municipio
-//    									AND tipo_cad = 'Ativo'";
+   		$sql = "SELECT id_comunidade,
+							 comunidade
+								 FROM pip_comunidade
+									WHERE id_municipio = :id_municipio
+   									AND tipo_cad = 'Ativo'";
 
-            $sql = "select pip_pmda.id_pmda,
-                    pip_pmda.status,
-                    pip_pmda_comun.id_comunidade,
-                    pip_comunidade.comunidade
-                    from pip_pmda
-                    inner join pip_pmda_comun
-                    on pip_pmda_comun.id_pmda = pip_pmda.id_pmda
-                    inner join pip_comunidade
-                    on pip_pmda_comun.id_comunidade = pip_comunidade.id_comunidade
-                    where pip_pmda_comun.id_municipio = :id_municipio
-                    order by pip_pmda.id_pmda";
+            // $sql = "select pip_pmda.id_pmda,
+            //         pip_pmda.status,
+            //         pip_pmda_comun.id_comunidade,
+            //         pip_comunidade.comunidade
+            //         from pip_pmda
+            //         inner join pip_pmda_comun
+            //         on pip_pmda_comun.id_pmda = pip_pmda.id_pmda
+            //         inner join pip_comunidade
+            //         on pip_pmda_comun.id_comunidade = pip_comunidade.id_comunidade
+            //         where pip_pmda_comun.id_municipio = :id_municipio
+            //         order by pip_pmda.id_pmda";
 
             $result = $con->prepare($sql);
 
