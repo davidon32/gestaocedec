@@ -37,7 +37,6 @@ $dtFinal       = isset($_POST['txtDtFinal']) ? DataMysql::dataForm($_POST['txtDt
 $ordem         = isset($_POST['rbOrdem']) ? $_POST['rbOrdem'] : false;
 $nome_material = isset($_POST['txtMaterial']) ? $_POST['txtMaterial'] : false;
 $deposito      = isset($_POST['id_deposito']) ? $_POST['id_deposito'] : false;
-$tipo  = isset($_POST['rbTipo']) ? $_POST['rbTipo'] : false;
  
 
 $ajudaRelatorioModel = new AjudaRelatorioModel();
@@ -49,57 +48,20 @@ $ajudaRelatorioModel->setDt_final($dtFinal);
 $ajudaRelatorioModel->setOrdem($ordem);
 $ajudaRelatorioModel->setMaterial($nome_material);
 $ajudaRelatorioModel->setDeposito($deposito);
-$ajudaRelatorioModel->setQuantit($tipo);
-
-
 
 $dados = $ajudaRelatorioController->relatorioCadastroMaterial($ajudaRelatorioModel);
 
 
-
-
 ?>
 <br>
-<div class='text-center'>
-    <a class="btn btn-success" href='index.php?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=ajuda&controller=relatorio&action=fbusca_cad_mat' class="btn">Voltar</a>
-</div>
+<div class='text-center'><a class="btn btn-success" href='index.php?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=ajuda&controller=relatorio&action=fbusca_cad_mat' class="btn">Voltar</a></div>
 </br>
 
-<?php 
-
-    # relatorio normal
-    if($tipo == "normal") {
-?>
-
 <p class="text-center"><legend> Relatório Entrada de Materiais</legend></p>
-
-<!--Label data inicio-->
-<h3>Período : 
-<?php    
-if($dtInicio) {
-    print DataMysql::dataVisual($dtInicio);
- }else {
-    print "01/01/2022";
- }
- ?>
-  à 
-<?php
-
-    if($dtFinal){
-        print DataMysql::dataVisual($dtFinal);
-    }else {
-        print date('d/m/Y');
-    } 
-?>
-    
- -   Ordenado por : <?= ucfirst($ajudaRelatorioController->SwOrder($ordem));?></h3>
-
-
+<h3>Período : <?= DataMysql::dataVisual($dtInicio); ?> à <?= DataMysql::dataVisual($dtFinal); ?><br> Ordenado : <?= ucfirst($ajudaRelatorioController->SwOrder($ordem));?></h3>
 <table class="table table-bordered table-condensed">
-    <th style='font-size:10px; text-align:center;'>Cod.Entrada</th>
-    <th style='font-size:10px; text-align:center;'>Cod.Material</th>
+    <th style='font-size:10px; text-align:center;'>Código</th>
     <th style='font-size:10px; text-align:center;'>Nome</th>
-    <th style='font-size:10px; text-align:center;'>Tipo</th>
     <th style='font-size:10px; text-align:center;'>Quantidade</th>
     <th style='font-size:10px; text-align:center;'>Origem </th>
     <th style='font-size:10px; text-align:center;'>Depósito Destino</th>
@@ -116,13 +78,9 @@ if($dtInicio) {
     $title = "";
 
     for ($i = 0; $i < count($dados[0]); $i++) {
-
-        $nom_origem = "";
         
-        # origem do material
         if(!empty($dados[0][$i]['id_entrada'])){
-            $nom_origem = (Material::getMaterial1($dados[0][$i]['id_entrada']) == null) ? "" : Material::getMaterial1($dados[0][$i]['id_entrada'])['origem'];
-            // var_dump(($nom_origem));
+            $nom_origem = Material::getMaterial1($dados[0][$i]['id_entrada'])['origem'];
         }
         
         if($dados[0][$i]['cancelado'] == 1){
@@ -134,9 +92,7 @@ if($dtInicio) {
         $totalRegistro++;
         print "<tr>";
         print "<td $title style='font-size:10px;{$cancela}'>" . $dados[0][$i]['id_produto'] . "</td>";
-        print "<td $title style='font-size:10px;{$cancela}'>" . $dados[0][$i]['codProd']. "</td>";
-        print "<td $title style='font-size:10px;{$cancela}'>" . $dados[0][$i]['nome'] . "</td>";
-        print "<td $title style='font-size:10px;{$cancela}'>" . $dados[0][$i]['tipo'] . "</td>";
+        print "<td $title style='font-size:10px;{$cancela}'>" . $dados[0][$i]['codProd']."-".$dados[0][$i]['nome'] . "</td>";
         print "<td $title style='font-size:15px;{$cancela}'><b>" . $dados[0][$i]['quantidade'] . "</b></td>";
         print "<td $title style='font-size:10px;{$cancela}'>" . utf8_encode($dados[0][$i]['origem']). "- " .( ($dados[0][$i]['origem'] == 'Transferencia entre Depositos') ? " ID Entrada : <b>".$dados[0][$i]['id_entrada']."-".$nom_origem."</b>" :  "" )."</td>";
         print "<td $title style='font-size:10px;{$cancela}'>" . $dados[0][$i]['depDestino'] . "</td>";
@@ -151,9 +107,10 @@ if($dtInicio) {
     }
     print "<tr><td colspan='7'>&nbsp;</td><td style='text-align:right'>Total Registro</td><td>" . $totalRegistro . "</td></tr>";
     print "</table>";
-
     ?>
-     <!--<table class="table table-bordered table-condensed">
+    
+     
+    <table class="table table-bordered table-condensed">
         
             <tr>
                 <th>Material</th>
@@ -172,111 +129,15 @@ if($dtInicio) {
         
         }?>
         
-    </table> -->
-<?PHP
+    </table>
+
     
-    }else if($tipo == 'qtd') {
-
-    ?>
-
-    <!-- RELATORIO QUANTITATIVO-->
-        <p class="text-center"><legend> Relatório de Entrada de Materiais Quantitativo</legend></p>
-
-        <!--Label data inicio-->
-<h3>Período : 
-<?php    
-if($dtInicio) {
-    print DataMysql::dataVisual($dtInicio);
- }else {
-    print "01/01/2022";
- }
- ?>
-  à 
-<?php
-
-    if($dtFinal){
-        print DataMysql::dataVisual($dtFinal);
-    }else {
-        print date('d/m/Y');
-    } 
-?>
- -  Ordenado por : <?= ucfirst($ajudaRelatorioController->SwOrder($ordem));?></h3>
-<table class="table table-bordered table-condensed">
-    <th style='font-size:10px; text-align:center;'>Código</th>
-    <th style='font-size:10px; text-align:center;'>Nome</th>
-    <th style='font-size:10px; text-align:center;'>Quantidade</th>
+<div class="row">
+    <div class="col-md-12">
     
-    <?php
-
-    $total =0;
-   
-
-        for ($i = 0; $i < count($dados[0]); $i++) {
-
-            $total += $dados[0][$i]['qtd'];
-            
-            print "<tr>";
-            print "<td style='font-size:10px;'>" . $dados[0][$i]['id_unidade'] . "</td>";
-            print "<td style='font-size:10px;'>" . $dados[0][$i]['nome'] . "</td>";
-            print "<td style='font-size:15px;'><b>" . number_format($dados[0][$i]['qtd'],0,",",".") . "</b></td>";
-            
-        }
-
-        print "<tr>";
-                print "<td colspan='2' style='font-size:15px;' class='text-right'><b>Total de Materiais</b></td>";
-                print "<td colspan='3' style='font-size:15px;' class='text-right'><b>" . number_format($total,0,",",".") . "</b></td>";
-                print "<tr>";
-
-                print "</table>";
-
-        print "</table>";
-
-
-    #relatorio por deposito
-    }elseif($tipo == 'dep') {
-
-    ?>
-
-        <!-- RELATORIO DEPOSITO-->
-        <p class="text-center"><legend> Relatório por Deposito</legend></p>
-        <h3>Período : <?= DataMysql::dataVisual($dtInicio); ?> à <?= DataMysql::dataVisual($dtFinal); ?>
-        <br>
-        Ordenado : <?= ucfirst($ajudaRelatorioController->SwOrder($ordem));?></h3>
-        <table class="table table-bordered table-condensed">
-            <th style='font-size:10px; text-align:center;'>Depósito</th>
-            <th style='font-size:10px; text-align:center;'>Nome</th>
-            <th style='font-size:10px; text-align:center;'>Quantidade</th>
-            
-            <?php
-
-                $total =0;
-        
-
-                for ($i = 0; $i < count($dados[0]); $i++) {
-
-                    $total += $dados[0][$i]['qtd'];
-                    
-                    print "<tr>";
-                    print "<td style='font-size:10px;'>" . $dados[0][$i]['depDestino'] . "</td>";
-                    print "<td style='font-size:10px;'>" . $dados[0][$i]['nome'] . "</td>";
-                    print "<td style='font-size:15px;'><b>" . number_format($dados[0][$i]['qtd'],0,",",".") . "</b></td>";
-                    print "<tr>";
-                    
-                }
-
-                print "<tr>";
-                print "<td colspan='3' style='font-size:15px;'><b>" . number_format($total,0,",",".") . "</b></td>";
-                print "<tr>";
-
-                print "</table>";
-
-    }
-    ?>
-    
-     
-    
-    
-
+        <p class="p-4"><span style="color: red">Obs: Entradas Canceladas não são Somadas no Relatório</span></p>
+    </div>
+</div>
       
         
         

@@ -43,7 +43,7 @@
     <div class="col-md-12 text-center">
         <a class='btn btn-info' href='index.php?token=<?= hash('sha256', md5(VERSAO) . date('dmY')); ?>&ac=itn&modulo=ajuda&controller=relatorio&action=busca_resumog'>Voltar</a><br><br>
         <br>
-        <p style="text-align:text-center"><h3>Liberações</h3></p>
+        <p style="text-align:text-center"><h3>Relatorio de Liberações por Municípios</h3></p>
     </div>
 
     <?php
@@ -55,14 +55,28 @@
     
     $dados1 = Ajuda::gravaOrigem($dad);
     
-    Ajuda::gravaOrigem1($dados1);
+    //Ajuda::gravaOrigem1($dados1);
     
     ?>
 
     <div class="row">
         <div class="col-md-12 text-center">
             <br>
-            <p class="">Periodo <?= $_POST['txtDtInicial'] ?> a <?= $_POST['txtDtFinal'] ?></p>
+            <p class="">Periodo 
+                <?php if(empty($_POST['txtDtInicial'])){
+                    print "01/01/2020";
+                }else {
+                    print $_POST['txtDtInicial'];
+                }
+                ?>
+                a
+                <?php if(empty($_POST['txtDtFinal'])){
+                    print date('d/m/Y');
+                }else {
+                    print $_POST['txtDtFinal'];
+                }
+                ?>
+                </p>
             <br>
             <br>
         </div>

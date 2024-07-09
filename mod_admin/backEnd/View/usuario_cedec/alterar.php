@@ -26,6 +26,7 @@ $permissaoAjudaH = Usuario::getPermissaoAjudaH($usuario['login']);
 
 $permissaoEstoque = Usuario::getPermissaoEstoque($usuario['login']);
 $permissaoCompdec = Usuario::getPermissaoCompdec($usuario['login']);
+
 $permissaoCedec = Usuario::getPermissaoCedec($usuario['login']);
 
 $maspNumPol = Usuario::dadosFuncionario($usuario['id_funcionario']);
@@ -375,6 +376,18 @@ if(!empty($usuario)){
                 <legend>Escola</legend>
                 <input type="checkbox" id="it_m_escola" data-tabela="cedec_usuario" data-chave="id_usuario" <?= ($permissaoModulo['it_m_escola']) ? " checked='checked'" : ""; ?>>
                 <label>Visualizar Módulo Escola</label>
+
+                <br><br>
+            </div>
+
+            <div class="col-md-12">
+                <br>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+                </div>
+                <legend>Defesa Civil Agora</legend>
+                <input type="checkbox" id="defesa_agora" data-tabela="cedec_permissao" data-chave="id_permissao" <?= ($permissaoCedec['defesa_agora']) ? " checked='checked'" : ""; ?>>
+                <label>Visualizar Defesa Civil Agora</label>
 
                 <br><br>
             </div>

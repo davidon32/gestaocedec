@@ -23,6 +23,8 @@ class indexController extends Controller {
         Login::UnsetCookieAdm();
         LoginExterno::UnsetCookieExterno();
         $logar = $login->logar($usuarioLogin, $senha);
+        //  var_dump ($logar = $login->logar($usuarioLogin, $senha));
+        //  die();
 
         if ($logar == "indexAdm") {
 

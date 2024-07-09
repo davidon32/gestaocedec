@@ -214,4 +214,14 @@ function caracterestante(textarea, span, length) {
 }
 
 
+/* comversao data padrao DB */
+function DataBanco(data) {
+    return data.substr(6,4)+"-"+data.substr(3,2)+"-"+data.substr(0,2);
+}
+
+
+function DataVisual(data) {
+    return data.substr(6,4)+"-"+data.substr(3,2)+"-"+data.substr(0,2);
+}
+
 

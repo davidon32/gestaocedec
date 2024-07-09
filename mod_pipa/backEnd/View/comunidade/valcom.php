@@ -62,6 +62,7 @@ $municipio = new Municipio();
 									print "<table class='table table-bordered'>";
 									print "<tr>";
 									print "<th>Municpio</th>";
+									print "<th>Id Compunidade</th>";
 									print "<th>Nome Comunidade</th>";
 									print "<th>Validado por</th>";
 									print "<th>Opção</th>";
@@ -73,6 +74,7 @@ $municipio = new Municipio();
 
 										print "<tr>";
 		 								print "<td $preCad>".$value['municipio']."</td>";
+										print "<td $preCad>".$value['id_comunidade']."</td>";						
 										print "<td $preCad>".$value['comunidade']."</td>";						
 										print "<td $preCad>".Usuario::getNomeId($value['id_user_validador'])."</td>";						
 										print "<td $preCad>";

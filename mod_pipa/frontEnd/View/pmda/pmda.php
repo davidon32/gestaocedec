@@ -765,9 +765,10 @@ if (!empty($id_pmda)) {
                             </div>
                             <div class="col-xs-2 text-center">
                                 <h4>Download</h4>
-                                <button type="button" onclick="javascript:termo_compromisso()" title="declaracao_termo" class="btn btn-default">Termo de Compromisso</button><br>
+                                <button id='btnDoc' type="button" class='btn btn-primary' >Termo de Compromisso / Declaração Iss</button>
+                                <!--<button type="button" onclick="javascript:termo_compromisso()" title="declaracao_termo" class="btn btn-default">Termo de Compromisso</button><br>
                                 <br> 
-                                <button type="button" onclick="javascript:declaracaoiss()" class="btn btn-default" title="declaracao_iss">Declaração de ISS</button>
+                                <button type="button" onclick="javascript:declaracaoiss()" class="btn btn-default" title="declaracao_iss">Declaração de ISS</button>-->
 
                             </div>
                         </div>
@@ -846,6 +847,10 @@ if (!empty($id_pmda)) {
 <script type="text/javascript">
 
     $(document).ready(function () {
+
+        $('#btnDoc').click(function(){
+                window.open("https://drive.google.com/drive/folders/1hW0H0w1lm7ERU89k6U3kXPoK9XBa6ML6?usp=drive_link");
+        });
         
         $('.js-example-basic-single').select2();
 

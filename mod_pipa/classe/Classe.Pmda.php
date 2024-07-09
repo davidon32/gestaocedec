@@ -935,7 +935,7 @@ class Pmda extends Comunidade {
         /* var_dump($tot_comunidade);
           var_dump($tot_representante); */
 
-        $valStatus = Pmda::buscaStatus($array['id_pmda']);
+        $valStatus = (int) Pmda::buscaStatus($array['id_pmda']);
 
         $dt_analise = null;
 
@@ -945,7 +945,6 @@ class Pmda extends Comunidade {
             $status = "0";
             // verifica se o status esta em homologação	
         } elseif (($valStatus != 2)) {
-
             $dt_analise = date('Y/m/d H:i:s');
             $status = "1";
         }
@@ -956,6 +955,8 @@ class Pmda extends Comunidade {
 	    				SET status = :status,
 						dt_analise = :dt_analise
 		                        WHERE id_pmda = :id_pmda";
+
+        
 
         $result = $con->prepare($sql);
         $result->bindParam(":id_pmda", $array['id_pmda']);

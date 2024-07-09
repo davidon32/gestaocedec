@@ -362,14 +362,24 @@ class Ajuda {
 
         $con = Conexao::getInstance();
 
-        $material = isset($param['selMaterial']) ? $param['selMaterial'] : "";
-        $dt_inicial = isset($param['txtDtInicial']) ? $param['txtDtInicial'] : "";
-        $dt_final = isset($param['txtDtFinal']) ? $param['txtDtFinal'] : "";
+        //var_dump($param);
 
-        $filtro = " where ";
-        $filtro .= (!empty($material)) ? " aju_unidade.singular = '" . $material . "' and " : "";
+        $material     = isset($param['selMaterial'])  ? $param['selMaterial'] : "";
+        $dt_inicial   = isset($param['txtDtInicial']) ? $param['txtDtInicial'] : "";
+        $dt_final     = isset($param['txtDtFinal'])   ? $param['txtDtFinal'] : "";
+        $id_municipio = isset($param['id_municipio']) ? $param['id_municipio'] : "";
 
-        $filtro .= " aju_item.dataLibera between '".DataMysql::dataForm($dt_inicial)."' and '".DataMysql::dataForm($dt_final)."' ";
+        $filtro = "";
+        $filtro .= (!empty($material)) ? " and aju_unidade.singular = '" . $material . "' " : "";
+
+        #data Inicial       
+        $filtro .= ( (!empty($dt_inicial)) && (empty($dt_final)) ) ? " and aju_item.dataLibera >='".DataMysql::dataForm($dt_inicial)."' " : "";
+
+        #data final        
+        $filtro .= ( (empty($dt_inicial)) && (!empty($dt_final)) ) ? " and aju_item.dataLibera <='".DataMysql::dataForm($dt_final)."' " :"";
+        
+        #data inicial e final        
+        $filtro .= ( (!empty($dt_inicial)) && (!empty($dt_final)) ) ? " and aju_item.dataLibera between '".DataMysql::dataForm($dt_inicial)."' and '".DataMysql::dataForm($dt_final)."' " : "";
 
         $sql = "select sum(aju_item.quantidade) as quantidade,
                 aju_unidade.singular,
@@ -381,8 +391,11 @@ class Ajuda {
                 ON aju_item.id_liberacao = aju_liberacao.id_liberacao
                 INNER JOIN cedec_municipio
                 ON aju_liberacao.id_municipio = cedec_municipio.id_municipio
+                Where aju_item.id_item > 0
+                and aju_item.situacao < 2
                 " . $filtro . "
                 group by aju_unidade.singular, cedec_municipio.id_municipio";
+
         
         /*
 
@@ -408,7 +421,7 @@ aju_produto.origem
          *          */
 
         $result = $con->query($sql);
-        print $sql;
+        //print $sql;
         
         return $result->fetchAll(PDO::FETCH_OBJ);
     }

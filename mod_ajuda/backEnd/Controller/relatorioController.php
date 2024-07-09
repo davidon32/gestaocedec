@@ -8,10 +8,12 @@ include_once(MODEL_AJUDA_BACKEND.'/AjudaRelatorioModel.php');
         }
         
         ################ Material #####################
+        
         /* form busca relatrio cad. material */
         public function fbusca_cad_mat(){
             include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/form_busca_rel_cad_mat.php';
         }
+        
         /* relatorio Cadastro material */
         public function rel_cad_mat(){
             include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/rel_cad_mat.php';

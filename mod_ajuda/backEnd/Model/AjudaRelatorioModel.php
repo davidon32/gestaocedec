@@ -17,6 +17,7 @@ private $material = null;
 private $regiao = null;
 private $id_transferencia = null;
 private $ordem = null;
+private $quantit = null;
 
 function setOrdem($ordem) {
     $this->ordem = $ordem;
@@ -55,8 +56,16 @@ function setDeposito($deposito) {
     $this->deposito = $deposito;
  }
 
+function setQuantit($quantit) {
+    $this->quantit = $quantit;
+ }
+
 function getDeposito(){ 
     return $this->deposito; 
+}
+
+function getQuantit(){ 
+    return $this->quantit; 
 }
 
 function setMaterial($material) {
@@ -81,7 +90,8 @@ public function popular($post){
     $dados = array($this->dt_inicial,
                     $this->dt_final,
                     $this->deposito,
-                    $this->ordem);
+                    $this->ordem,
+                    $this->quantit);
 
     return $dados;
 

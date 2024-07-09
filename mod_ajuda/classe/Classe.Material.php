@@ -513,13 +513,13 @@ class Material {
      *  Fonte de Material select html
      * 
      */
-    static function getMaterial1($id_material) {
+    static function getMaterial1($id_entrada) {
 
         $dados = "";
         $con = Conexao::getInstance();
 
         try {
-            $sql = "SELECT * from aju_produto where id_produto = {$id_material}";
+            $sql = "SELECT * from aju_produto where id_produto = {$id_entrada}";
 
             $result = $con->query($sql);
 

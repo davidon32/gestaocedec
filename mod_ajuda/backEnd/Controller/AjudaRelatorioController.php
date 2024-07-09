@@ -5,9 +5,11 @@ require_once('AppController.php');
 /**
  * 
  */
-class AjudaRelatorioController extends AppController {
+class AjudaRelatorioController extends AppController
+{
 
-    public function relResumoLiberacaoDados() {
+    public function relResumoLiberacaoDados()
+    {
 
         $con = Conexao::getInstance();
 
@@ -49,7 +51,8 @@ class AjudaRelatorioController extends AppController {
      * @param dtFinal
      * 
      */
-    public function tabelaAuxiliarResumo(AjudaRelatorioModel $ajudaRelatorioModel) {
+    public function tabelaAuxiliarResumo(AjudaRelatorioModel $ajudaRelatorioModel)
+    {
 
 
         $con = Conexao::getInstance();
@@ -115,7 +118,8 @@ class AjudaRelatorioController extends AppController {
      * @param idDeposito
      * @param idMunicipio
      */
-    static function materialTransferencia(AjudaRelatorioModel $ajudaRelatorioModel) {
+    static function materialTransferencia(AjudaRelatorioModel $ajudaRelatorioModel)
+    {
 
         $con = Conexao::getInstance();
 
@@ -123,7 +127,7 @@ class AjudaRelatorioController extends AppController {
 
             $statement = "";
 
-            if ((strlen($ajudaRelatorioModel->getDt_inicial())) <= 10 && ( strlen($ajudaRelatorioModel->getDt_final()) <= 10)) {
+            if ((strlen($ajudaRelatorioModel->getDt_inicial())) <= 10 && (strlen($ajudaRelatorioModel->getDt_final()) <= 10)) {
 
                 $statement = $con->prepare("select aju_transferencia.id_transferencia,
                                                 aju_transferencia.dt_transferencia,
@@ -163,7 +167,8 @@ class AjudaRelatorioController extends AppController {
         }
     }
 
-    function itemTransferencia(AjudaRelatorioModel $ajudaItemTransferenciaModel) {
+    function itemTransferencia(AjudaRelatorioModel $ajudaItemTransferenciaModel)
+    {
 
         $con = Conexao::getInstance();
 
@@ -195,7 +200,8 @@ class AjudaRelatorioController extends AppController {
         }
     }
 
-    public static function SwOrder($ordem) {
+    public static function SwOrder($ordem)
+    {
 
         switch ($ordem) {
             case '0':
@@ -219,49 +225,90 @@ class AjudaRelatorioController extends AppController {
         }
     }
 
-    function relatorioCadastroMaterial(AjudaRelatorioModel $ajudaRelatorioModel) {
+    function relatorioCadastroMaterial(AjudaRelatorioModel $ajudaRelatorioModel)
+    {
 
         $con = Conexao::getInstance();
-        
+
         $dt_inicio = $ajudaRelatorioModel->getDt_inicial();
         $dt_final = $ajudaRelatorioModel->getDt_final();
         $material = $ajudaRelatorioModel->getMaterial();
         $deposito1 = $ajudaRelatorioModel->getDeposito();
-        
-        $filtro ="";
-        $filtro .= !empty($dt_inicio)  ? " and dtEntradaSaida >= '".$dt_inicio."'" : "";
-        $filtro .= !empty($dt_final)   ? " and dtEntradaSaida <= '".$dt_final."'"   : "";
-        $filtro .= !empty($material)   ? " and nome like '%".$material."%'"   : "";
-        $filtro .= !empty($deposito1)  ? " and id_dep_destino = '".$deposito1."'" : "";
+
+        $tipo = $ajudaRelatorioModel->getQuantit();
+
+        $filtro = "";
+        $filtro .= !empty($dt_inicio)  ? " and aju_produto.dtEntradaSaida >= '" . $dt_inicio . "'" : "";
+        $filtro .= !empty($dt_final)   ? " and aju_produto.dtEntradaSaida <= '" . $dt_final . "'"   : "";
+        $filtro .= !empty($material)   ? " and aju_produto.nome like '%" . $material . "%'"   : "";
+        $filtro .= !empty($deposito1)  ? " and aju_produto.id_dep_destino = '" . $deposito1 . "'" : "";
+
+
+        if ($tipo == "qtd") {
+
+            $sql = "SELECT aju_unidade.id_unidade,
+                             aju_unidade.singular as nome, 
+                             SUM(aju_produto.quantidade) as qtd 
+                                FROM aju_produto
+                                INNER JOIN aju_unidade
+                                ON aju_produto.codProd = aju_unidade.id_unidade
+                            WHERE aju_produto.cancelado = 0
+                            AND aju_produto.origem NOT LIKE \"Transfer%\"" .
+                            $filtro . " 
+                            GROUP BY aju_unidade.singular
+                            ORDER BY aju_unidade.id_unidade";
+        } else if ($tipo == "dep") {
+
+            $sql = "SELECT aju_produto.depDestino, 
+                            aju_unidade.id_unidade, 
+                            aju_unidade.singular as nome, 
+                            SUM(aju_produto.quantidade) as qtd 
+                            FROM aju_produto
+                            INNER JOIN aju_unidade
+                            ON aju_produto.codProd = aju_unidade.id_unidade
+                            WHERE aju_produto.cancelado = 0 ".
+                            $filtro . "
+                            GROUP BY aju_unidade.singular, aju_produto.depDestino
+                            ORDER BY aju_produto.depDestino, 
+                            aju_unidade.NOME";
+
+        }else {
+            $sql = "select aju_produto.id_produto,
+                                            aju_produto.codProd,
+                                            aju_produto.nome,
+                                            aju_produto.dtEntradaSaida,
+                                            aju_produto.origem,
+                                            aju_produto.obs,
+                                            aju_produto.quantidade,
+                                            aju_produto.depDestino,
+                                            aju_produto.validade,
+                                            aju_produto.id_entrada,
+                                            aju_produto.id_usuario,
+                                            aju_produto.cancelado,
+                                            aju_produto.nota_fiscal,
+                                            aju_unidade.singular as tipo
+                                            from aju_produto
+                                            inner JOIN aju_unidade
+                                            ON aju_produto.codProd = aju_unidade.id_unidade
+                                            where aju_produto.id_produto > 0 " .
+                $filtro . " order by " . self::SwOrder($ajudaRelatorioModel->getOrdem());
+        }
+
+        //var_dump($sql);
 
         try {
-            
-            $sql = "select id_produto,
-                                            codProd,
-                                            nome,
-                                            dtEntradaSaida,
-                                            origem,
-                                            obs,
-                                            quantidade,
-                                            depDestino,
-                                            validade,
-                                            id_entrada,
-                                            id_usuario,
-                                            cancelado,
-                                            nota_fiscal
-                                            from aju_produto
-                                            where id_produto > 0 ".
-                                            $filtro." order by ".self::SwOrder($ajudaRelatorioModel->getOrdem());
-           
+
+
+
             /* resumo*/
             $sql1 = "select codProd, nome, origem, SUM(quantidade) as qtd from aju_produto
                         where cancelado = 0 and id_produto > 0 {$filtro} GROUP BY codProd";
 
-                        /* resumo */
+            /* resumo */
             $statement1 = $con->query($sql1);
             $statement1->execute();
             $linha1 = $statement1->fetchAll(PDO::FETCH_ASSOC);
-            
+
             $statement = $con->query($sql);
             $statement->execute();
 
@@ -274,10 +321,4 @@ class AjudaRelatorioController extends AppController {
             print "<br><a href='javascript:history.back();'>Voltar</a>";
         }
     }
-    
-    
-    
-
 }
-
-?>

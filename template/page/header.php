@@ -7,6 +7,10 @@ print "window.location.href='index.php'";
 print "</script>";
 }
 
+$posto = isset($pageSession['session']['seguranca']['posto']) ? $pageSession['session']['seguranca']['posto'] : "";
+
+$secao = isset($pageSession['session']['seguranca']['secao']) ? $pageSession['session']['seguranca']['secao'] : "";
+
 ?>
 <script type="text/javascript">
     function start_countdown()
@@ -207,8 +211,8 @@ print "</script>";
                         if (isset($pageSession['session']['seguranca']['externo'])) {
                             print $pageSession['session']['seguranca']['nome_usuario'];
                         } else {
-                            print $pageSession['session']['seguranca']['posto']." ".substr($pageSession['session']['seguranca']['nome_usuario'], 0, 20)."..";
-                            print "( ".$pageSession['session']['seguranca']['secao']." )";
+                            print $posto." ".substr($pageSession['session']['seguranca']['nome_usuario'], 0, 20)."..";
+                            print "( ".$secao." )";
                         }
                         ?>
                         <script>start_countdown();</script>

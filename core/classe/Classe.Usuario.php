@@ -2208,11 +2208,15 @@ class Usuario extends UsuarioModel {
                         alterar_municipio,
                         info_municipio,
                         relatorio,
-                        permissao_usuario
+                        permissao_usuario,
+                        defesa_agora,
+                        ger_demanda
                             FROM cedec_permissao
                             WHERE login = '" . $login . "'";
 
         $result = $con->query($sql);
+
+        print($sql);
 
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
             $dados = $linha;

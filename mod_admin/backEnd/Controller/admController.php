@@ -248,6 +248,8 @@
      * 
      */
     public function gravaPermissao(){
+
+        var_dump($_POST);
         
         if(isset($_POST)){
             $con = Conexao::getInstance();

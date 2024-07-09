@@ -2,7 +2,8 @@
 
 include_once PATH . '/core/include.php';
 
-class RelatorioAju extends DataMysql {
+class RelatorioAju extends DataMysql
+{
 
     private static $sql;
     private $dados = array();
@@ -12,7 +13,8 @@ class RelatorioAju extends DataMysql {
      * #@ saldo geral dos depsitos
      * 
      */
-    function SaldoGeral() {
+    function SaldoGeral()
+    {
 
         $con = Conexao::getInstance();
 
@@ -55,7 +57,8 @@ class RelatorioAju extends DataMysql {
      * 
      * # @ fornece o saldo filtrado por deposito baseado no nome do deposito com opcao de transferencia fitrada por nivel de usuario
      */
-    function SaldoDeposito($_id_deposito, $_nivel, $_id_usuario) {
+    function SaldoDeposito($_id_deposito, $_nivel, $_id_usuario)
+    {
 
         $con = Conexao::getInstance();
 
@@ -111,7 +114,8 @@ class RelatorioAju extends DataMysql {
 
     /* relacao de materiais preferencia */
 
-    public function listMateriaisInvent() {
+    public function listMateriaisInvent()
+    {
 
         $con = Conexao::getInstance();
 
@@ -134,13 +138,13 @@ class RelatorioAju extends DataMysql {
 
             return $dados;
         } catch (Exception $e) {
-            
         }
     }
 
     /* INVENTARIO DE MATERIAIS */
 
-    public function inventarioGeral($id_deposito = null) {
+    public function inventarioGeral($id_deposito = null)
+    {
 
         try {
             $dados = array();
@@ -181,17 +185,17 @@ class RelatorioAju extends DataMysql {
 
             return $dados;
         } catch (Exception $e) {
-            
         }
     }
 
     /**
      * INVENTARIO GERENCIAL
      */
-    public function inventarioGerencial($id_deposito = "") {
+    public function inventarioGerencial($id_deposito = "")
+    {
         $filtro = "";
-        if(!empty($id_deposito)) {
-           $sql = "SELECT sum(aju_estoque.saldo) as saldo,
+        if (!empty($id_deposito)) {
+            $sql = "SELECT sum(aju_estoque.saldo) as saldo,
                 aju_estoque.id_deposito, 
                 aju_unidade.categoria
                 FROM aju_estoque
@@ -202,8 +206,8 @@ class RelatorioAju extends DataMysql {
                 WHERE aju_estoque.id_deposito = {$id_deposito} 
                 AND aju_estoque.saldo <> 0
                 GROUP BY aju_unidade.categoria";
-        }else {
-            
+        } else {
+
             $sql = "SELECT sum(aju_estoque.saldo) as saldo,
                 aju_unidade.categoria
                 FROM aju_estoque
@@ -211,24 +215,24 @@ class RelatorioAju extends DataMysql {
                 ON aju_estoque.id_produto = aju_unidade.id_unidade
                 AND aju_estoque.saldo <> 0
                 GROUP BY aju_unidade.categoria";
-            
         }
-                
+
         $con = Conexao::getInstance();
 
         $result = $con->query($sql);
-        
+
         return $result->fetchAll(PDO::FETCH_ASSOC);
     }
-    
-    
+
+
     /**
      * INVENTARIO MATERIAIS GERENCIAL
      */
-    public function inventarioMateriaisGerencial($id_deposito, $categoria) {
-        
-        if(empty($id_deposito)) {
-            $sql ="SELECT aju_unidade.id_unidade,
+    public function inventarioMateriaisGerencial($id_deposito, $categoria)
+    {
+
+        if (empty($id_deposito)) {
+            $sql = "SELECT aju_unidade.id_unidade,
                 aju_unidade.nome as material,
                 aju_estoque.id_deposito,
                 aju_unidade.descricao,
@@ -241,10 +245,9 @@ class RelatorioAju extends DataMysql {
                 ON aju_estoque.id_produto = aju_unidade.id_unidade
                 AND aju_unidade.categoria = '{$categoria}'
                 AND aju_estoque.saldo <> 0";
-            
-        }else {
-        
-        $sql = "SELECT aju_unidade.id_unidade,
+        } else {
+
+            $sql = "SELECT aju_unidade.id_unidade,
                 aju_unidade.nome as material,
                 aju_unidade.descricao,
                 aju_estoque.id_deposito,
@@ -266,13 +269,14 @@ class RelatorioAju extends DataMysql {
         $con = Conexao::getInstance();
 
         $result = $con->query($sql);
-        
+
         return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /* INVENTARIO DE MATERIAIS */
 
-    public function inventarioGeralSaldoAnterior($data_saldo, $id_deposito = null) {
+    public function inventarioGeralSaldoAnterior($data_saldo, $id_deposito = null)
+    {
 
         try {
             $dados = array();
@@ -314,14 +318,13 @@ class RelatorioAju extends DataMysql {
 
             return $dados;
         } catch (Exception $e) {
-            
         }
     }
 
     /* INVENTARIO DE MATERIAIS COM SALDO ZERADO */
 
-    public function inventarioGeralZerado() {
-        
+    public function inventarioGeralZerado()
+    {
     }
 
     /**
@@ -382,7 +385,8 @@ class RelatorioAju extends DataMysql {
      * conferir o uso para remover
      * 
      */
-    static function relatorioMaterialTransfResumoDiario($dt_inicial = false, $dt_final = false, $_id_municipio = null, $_id_deposito = null) {
+    static function relatorioMaterialTransfResumoDiario($dt_inicial = false, $dt_final = false, $_id_municipio = null, $_id_deposito = null)
+    {
 
         $filtro = "";
 
@@ -414,7 +418,7 @@ class RelatorioAju extends DataMysql {
 							FROM aju_transferencia t
 							inner join aju_item_transf i
 							on t.id_transferencia = i.id_transferencia"
-                    . $filtro;
+                . $filtro;
 
             $result = $con->query($sql);
 
@@ -424,7 +428,6 @@ class RelatorioAju extends DataMysql {
 
             return $dados;
         } catch (Exception $e) {
-            
         }
     }
 
@@ -449,13 +452,15 @@ class RelatorioAju extends DataMysql {
      * 
      * #@ relatorio de pagamento de materiais 
      */
-    static function MaterialPago($_nivel,
-            $_dt_inicial = false,
-            $_dt_final = false,
-            $_municipio = false,
-            $_deposito = false,
-            $_material = false,
-            $getMaterial = false) {
+    static function MaterialPago(
+        $_nivel,
+        $_dt_inicial = false,
+        $_dt_final = false,
+        $_municipio = false,
+        $_deposito = false,
+        $_material = false,
+        $getMaterial = false
+    ) {
 
         $data = "";
         $id_municipio = "";
@@ -479,7 +484,7 @@ class RelatorioAju extends DataMysql {
                                     on aju_item.cod = aju_unidade.id_unidade ";
         }
 
-        if ( !is_null($_dt_inicial) && !is_null($_dt_final) ) {
+        if (!is_null($_dt_inicial) && !is_null($_dt_final)) {
             $data = ' AND aju_pagamento.dtPagto BETWEEN "' . $_dt_inicial . '" AND "' . $_dt_final . '" ';
         }
 
@@ -530,7 +535,8 @@ class RelatorioAju extends DataMysql {
      * 
      * #@ relatorio de pagamento de materiais  resimo diario
      */
-    static function MaterialPagoResumoDiario($_dt_inicial = false, $_dt_final = false, $_municipio = false, $_deposito = false) {
+    static function MaterialPagoResumoDiario($_dt_inicial = false, $_dt_final = false, $_municipio = false, $_deposito = false)
+    {
 
         $data = "";
         $id_municipio = "";
@@ -541,7 +547,7 @@ class RelatorioAju extends DataMysql {
         $dados = array();
 
         /* data inicial e final */
-        if (( strlen($_dt_inicial) > 0) && (strlen($_dt_final) > 0)) {
+        if ((strlen($_dt_inicial) > 0) && (strlen($_dt_final) > 0)) {
             $data = ' AND aju_pagamento.dtPagto BETWEEN "' . DataMysql::dataForm($_dt_inicial) . '" AND "' . DataMysql::dataForm($_dt_final) . '" ';
         }
 
@@ -585,11 +591,13 @@ class RelatorioAju extends DataMysql {
      * 
      * #@ relatorio material liberado 
      */
-    function MaterialLiberado($_dt_inicial,
-            $_dt_final,
-            $_id_municipio = false,
-            $_dep_destino = false,
-            $_evento = false) {
+    function MaterialLiberado(
+        $_dt_inicial,
+        $_dt_final,
+        $_id_municipio = false,
+        $_dep_destino = false,
+        $_evento = false
+    ) {
 
         $con = Conexao::getInstance();
 
@@ -743,8 +751,16 @@ class RelatorioAju extends DataMysql {
                             </tr>";
 
             while ($_prod = $r_prod->fetch(PDO::FETCH_ASSOC)) {
+
+
+                if(Material::getMaterial1($_prod['id_entrada'])) {
+                    $origem_null = Material::getMaterial1($_prod['id_entrada'])['origem'];
+                }else {
+                    $origem_null = "";
+                }
+
                 print "<tr>
-								<td style='font-size:10px;text-align:left'><i>" . Produto::PegaNomeProduto($_prod['cod']) . "-".Material::getMaterial1($_prod['id_entrada'])['origem']."</i></td>
+								<td style='font-size:10px;text-align:left'><i>" . Produto::PegaNomeProduto($_prod['cod']) . "-" . $origem_null . "</i></td>
 								<td style='font-size:10px;text-align:left'>" . $_prod['id_entrada'] . "</td>
 								<td style='font-size:10px;text-align:left'>" . $_prod['descricao'] . "</td>
 								<td style='font-size:10px;text-align:left'>" . $_prod['quantidade'] . "</td>
@@ -782,10 +798,12 @@ class RelatorioAju extends DataMysql {
      * 
      * #@ relatorio material liberado 
      */
-    function MaterialLiberadoResumoDiario($_dt_inicial = false,
-            $_dt_final = false,
-            $_id_municipio = false,
-            $_dep_destino = false) {
+    function MaterialLiberadoResumoDiario(
+        $_dt_inicial = false,
+        $_dt_final = false,
+        $_id_municipio = false,
+        $_dep_destino = false
+    ) {
 
 
         $liberacoes = array();
@@ -849,8 +867,8 @@ class RelatorioAju extends DataMysql {
 						 id_user_pgto
 							FROM aju_liberacao 
 							where situacao <=1 '
-                . $filtro .
-                'order by id_municipio';
+            . $filtro .
+            'order by id_municipio';
 
         #@ concatenacao de sql com resultado da escolha 
         $result = $con->query($sql1);
@@ -874,7 +892,8 @@ class RelatorioAju extends DataMysql {
      * 
      * #@  visualizacao de visualizacao de lembrete de liberação 
      */
-    function RelatorioVisualizaLiberacao($idLiberacao = false, $depDestino = false) {
+    function RelatorioVisualizaLiberacao($idLiberacao = false, $depDestino = false)
+    {
 
         $filtro = "";
 
@@ -1011,7 +1030,8 @@ class RelatorioAju extends DataMysql {
      * 
      * 
      */
-    function relCadastroMaterial($filtro, $ordem) {
+    function relCadastroMaterial($filtro, $ordem)
+    {
 
         $dados = array();
 
@@ -1063,7 +1083,8 @@ class RelatorioAju extends DataMysql {
         return $dados;
     }
 
-    public function resumoLiberacao($post = null) {
+    public function resumoLiberacao($post = null)
+    {
 
 
 
@@ -1074,7 +1095,8 @@ class RelatorioAju extends DataMysql {
 
     /* lista de entrada por Material */
 
-    public static function EntradaMaterial($post) {
+    public static function EntradaMaterial($post)
+    {
         $con = Conexao::getInstance();
 
         $dados = array();
@@ -1120,7 +1142,8 @@ class RelatorioAju extends DataMysql {
         return $dados;
     }
 
-    public static function num_entradas($id_unidade, $id_dep_destino) {
+    public static function num_entradas($id_unidade, $id_dep_destino)
+    {
         $con = Conexao::getInstance();
         $dados = "";
 
@@ -1144,7 +1167,8 @@ class RelatorioAju extends DataMysql {
      *
      */
 
-    public static function SaidaItemTotal($id_entrada) {
+    public static function SaidaItemTotal($id_entrada)
+    {
 
         $dados = 0;
 
@@ -1168,7 +1192,8 @@ class RelatorioAju extends DataMysql {
      *
      */
 
-    public static function TransfereciaTotal($id_entrada) {
+    public static function TransfereciaTotal($id_entrada)
+    {
 
         $dados = "";
 
@@ -1193,7 +1218,8 @@ class RelatorioAju extends DataMysql {
      *
      */
 
-    public static function Liberacao($id_entrada) {
+    public static function Liberacao($id_entrada)
+    {
 
         $dados = array();
 
@@ -1224,7 +1250,8 @@ class RelatorioAju extends DataMysql {
      *
      */
 
-    public static function MaterialLibera($id_liberacao, $id_unidade) {
+    public static function MaterialLibera($id_liberacao, $id_unidade)
+    {
 
         $dados = "";
 
@@ -1248,7 +1275,8 @@ class RelatorioAju extends DataMysql {
      *
      */
 
-    public static function CorrecaoSaldoTotal($id_entrada) {
+    public static function CorrecaoSaldoTotal($id_entrada)
+    {
 
         $dados = "";
 
@@ -1268,7 +1296,8 @@ class RelatorioAju extends DataMysql {
 
     /* lista de entrada por Material */
 
-    public static function EntradaMaterialTransf($codProd, $id_entrada = null) {
+    public static function EntradaMaterialTransf($codProd, $id_entrada = null)
+    {
         $con = Conexao::getInstance();
 
         $dados = array();
@@ -1306,7 +1335,8 @@ class RelatorioAju extends DataMysql {
 
     /* lista de entrada por Material */
 
-    public static function EntradaMaterialCorrecaoSaldo($codProd, $id_entrada) {
+    public static function EntradaMaterialCorrecaoSaldo($codProd, $id_entrada)
+    {
         $con = Conexao::getInstance();
 
         $dados = array();
@@ -1345,7 +1375,8 @@ class RelatorioAju extends DataMysql {
     /**
      *  lista para conferencia de liberacoes por materiais
      */
-    public function RelatorioListaMat($post) {
+    public function RelatorioListaMat($post)
+    {
 
         $con = Conexao::getInstance();
 
@@ -1389,7 +1420,8 @@ class RelatorioAju extends DataMysql {
     /**
      * Itens select unidade
      */
-    public static function itensUnidade() {
+    public static function itensUnidade()
+    {
 
         $dados = array();
 
@@ -1416,14 +1448,16 @@ class RelatorioAju extends DataMysql {
 
     /* salvar diario controle estoque */
 
-    public static function Diario() {
+    public static function Diario()
+    {
         print "ok";
-        include_once ('/mod_ajuda/backEnd/View/conEstoque/relatorio/diario.php');
+        include_once('/mod_ajuda/backEnd/View/conEstoque/relatorio/diario.php');
     }
 
     /**/
 
-    public static function saldoAnterior(array $filtro) {
+    public static function saldoAnterior(array $filtro)
+    {
         $dados = array();
 
         $con = Conexao::getInstance();
@@ -1443,14 +1477,14 @@ class RelatorioAju extends DataMysql {
                             AND aju_estoque_anterior.id_deposito = 1
                             AND aju_estoque_anterior.saldo > 0
                             AND aju_unidade.nome REGEXP 'CESTA|"
-                    . "KIT HIGIENE|"
-                    . "KIT LIMPEZA|"
-                    . "LEITE|"
-                    . "AGUA|"
-                    . "COLCHAO|"
-                    . "LONA|"
-                    . "COBERTOR|"
-                    . "KIT DORMITORIO {$filtro['material']}'
+                . "KIT HIGIENE|"
+                . "KIT LIMPEZA|"
+                . "LEITE|"
+                . "AGUA|"
+                . "COLCHAO|"
+                . "LONA|"
+                . "COBERTOR|"
+                . "KIT DORMITORIO {$filtro['material']}'
                                                         order by aju_unidade.nome";
 
             $result = $con->query($sql);
@@ -1468,7 +1502,8 @@ class RelatorioAju extends DataMysql {
 
     /* saldo individual de material */
 
-    public static function saldoIndividual($id_produto, $id_deposito) {
+    public static function saldoIndividual($id_produto, $id_deposito)
+    {
         $dados = "";
 
         $con = Conexao::getInstance();
@@ -1491,6 +1526,88 @@ class RelatorioAju extends DataMysql {
         }
     }
 
-}
 
-?>
+    public function MaterialLiberadoListagem($post)
+    {
+        try {
+
+        $dados = array();
+
+        $con = Conexao::getInstance();
+
+        $data_inicio    = !empty($post["txtDtInicial"]) ? DataMysql::dataForm($post["txtDtInicial"])   : "";
+        $data_final     = !empty($post["txtDtFinal"])   ? DataMysql::dataForm($post["txtDtFinal"])     : "";
+
+        $filtro_deposito  = !empty($post["id_deposito"])  ? " AND aju_deposito.id_deposito = '{$post["id_deposito"]}' " : "";
+        $filtro_data      = (!empty($data_inicio) && !empty($data_final)) ? " AND aju_item.dataLibera BETWEEN '{$data_inicio}' AND '{$data_final}' " : "";
+        $filtro_municipio = !empty($post["id_municipio"]) ? " AND aju_liberacao.id_municipio = '{$post["id_municipio"]}' " : "";
+        $filtro_evento    = !empty($post["selEvento"])    ? " AND aju_liberacao.evento = '{$post["selEvento"]}' " : "";
+        $filtro_regiao    = !empty($post["selRegiao"])    ? " AND cedec_rpm_mun.id_rpm = '{$post["selRegiao"]}' " : "";
+        $filtro_material  = !empty($post["id_material"])  ? " AND aju_item.cod = '{$post["id_material"]}' " : "";
+
+        
+        switch ($post['rbOrdem']) {
+            case '1': # id_liberacao
+                $ordem = " ORDER BY aju_liberacao.id_liberacao";
+                break;
+            case '2': # origem
+                $ordem = " ORDER BY aju_liberacao.origem";
+                break;
+            case '3': #4 dep origem
+                $ordem = " ORDER BY aju_deposito.nome";
+                break;
+            case '4': # regiao DC 
+                $ordem = " ORDER BY cedec_rpm_mun.nome_rdc";
+                break;
+            
+            default: # id_liberacao
+                $ordem = " ORDER BY aju_liberacao.id_liberacao";
+                break;
+        }
+
+        $ordem = " ORDER BY aju_liberacao.id_liberacao";
+
+            $sql = "SELECT aju_liberacao.id_liberacao, aju_liberacao.id_municipio,
+                        aju_item.dataLibera, aju_item.id_liberacao, aju_item.descricao, aju_item.quantidade, aju_item.id_entrada, aju_item.cod, aju_item.evento,
+                        aju_unidade.singular,
+                        aju_deposito.nome AS deposito_origem,
+                        cedec_municipio.nome AS municipio,
+                        cedec_rpm_mun.nome_rdc,
+                        cedec_rpm_mun.id_rpm
+                        FROM aju_liberacao
+                        inner join aju_item
+                        ON aju_liberacao.id_liberacao = aju_item.id_liberacao
+                        INNER JOIN aju_unidade
+                        ON aju_item.cod = aju_unidade.id_unidade
+                        INNER JOIN aju_deposito
+                        ON aju_item.id_dep_origem = aju_deposito.id_deposito
+                        INNER JOIN cedec_rpm_mun
+                        ON aju_deposito.id_rpm = cedec_rpm_mun.id_rpm
+                        INNER JOIN cedec_municipio
+                        ON aju_liberacao.id_municipio = cedec_municipio.id_municipio
+                        WHERE aju_item.situacao < 2 " .
+                $filtro_deposito .
+                $filtro_data .
+                $filtro_municipio .
+                $filtro_evento .
+                $filtro_regiao .
+                $filtro_material .
+                $ordem . "";
+
+
+            $result = $con->query($sql);
+
+            //print $sql;
+
+            while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                $dados[] = $linha;
+            }
+
+            
+
+            return $dados;
+        } catch (Exception $e) {
+            print FuncaoBase::getError($e->getMessage());
+        }
+    }
+}

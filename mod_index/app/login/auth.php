@@ -57,14 +57,14 @@ if (($_SERVER['HTTP_HOST'] == 'sistema.defesacivil.mg.gov.br') || ($_SERVER['HTT
     
     $protocolo = CURLPROTO_HTTP;
         $url = "http://www.sdc.mg.gov.br/api/auth/login";
-        $url_redirect = "http://www.sdc.mg.gov.br";
-        $log_path = 'log/curl.log';
+        $url_redirect = "http://sdc.mg.gov.br";
+        //$log_path = 'log/curl.log';
 # ca
 } else {
     $protocolo = CURLPROTO_HTTP;
     $url = 'http://sdc.net:8081/api/auth/login';
     $url_redirect = 'http://sdc.net:8081';
-    $log_path = 'log/curl.log';
+    //$log_path = 'log/curl.log';
 }
 
 
@@ -124,7 +124,7 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
         CURLOPT_RETURNTRANSFER => 1,
         CURLOPT_PROTOCOLS => CURLPROTO_HTTP,
         CURLOPT_VERBOSE => true,
-        CURLOPT_STDERR => fopen($log_path, 'w+'),
+        //CURLOPT_STDERR => fopen($log_path, 'w+'),
     ]);
 
     $resultado = curl_exec($ch);

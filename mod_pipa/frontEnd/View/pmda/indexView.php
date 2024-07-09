@@ -764,9 +764,9 @@ foreach ($dadosPmda as $value) {
                                         window.location.reload();
                                     });
 
-                                    //window.location.reload();
+                                    window.location.reload();
 
-                                    //alert("Este PMDA está com o mínino de condições para ser homologado, \nesta condição porém, deve ser avaliada pelo corpo técnico da Diretoria de Resposta à Desastres ! \n Por favor Clique em \"Enviar p/ Homologação\"");
+                                    alert("Este PMDA está com o mínino de condições para ser homologado, \nesta condição porém, deve ser avaliada pelo corpo técnico da Diretoria de Resposta à Desastres ! \n Por favor Clique em \"Enviar p/ Homologação\"");
                                 }
                             },
                             error: function (response) {
