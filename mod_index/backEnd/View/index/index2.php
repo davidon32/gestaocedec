@@ -69,7 +69,7 @@ if ($_COOKIE['seguranca']['idUser'] == 1) { ?>
 <?php } ?>
 
 <div class="col-md-3 text-center">
-    <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=paebmindex" ?>" title="Protocolo PaeBM"><img width="120" src="core/imagem/pae.png"><br />Pae</a>
+    <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=paebm" ?>" title="Protocolo PaeBM"><img width="120" src="core/imagem/pae.png"><br />Pae</a>
 </div>
 
 
