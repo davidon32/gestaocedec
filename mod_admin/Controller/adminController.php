@@ -54,9 +54,10 @@ class adminController extends Controller {
                             $mensagem = <<<MSG
                                     <p style='font-size:15pt'>Prezado membro da CEDEC,</p>
 
-<p style='font-size:15pt'>Foi registrado um pedido de alteração de senha para acesso ao Sistema de Defesa Civil (SDC). 
-    Caso o senhor {$email_rec[0]['nome']}, não tenha solicitado a recuperação da senha no sistema, pedimos que desconsidere 
-        este e-mail. No entanto, se o pedido foi feito por si, solicitamos que clique no link abaixo:</p>
+<p style='font-size:15pt'>Prezado(a) Senhor(a),<br>
+Detectamos uma solicitação de alteração de senha para sua conta no Sistema de Defesa Civil (SDC).<br>
+Caso não tenha realizado essa solicitação, por favor, desconsidere este e-mail.<br>
+Caso contrário, para concluir o processo de alteração de senha, clique no link abaixo:</p>
 
 <p style='font-size:15pt'>1)    Clique aqui para efetuar a alteração da senha: <a href='{$link}'>Trocar Senha</a></p>
 
@@ -68,10 +69,6 @@ class adminController extends Controller {
     Observação: O seu nome de usuário para acesso ao sistema é: 
         <br>
         <span style='color:blue'>{$email_rec[0]['email_rec']}</span>.
-</p>
-
-<p style='font-size:15pt'> 
-    Caso você não tenha solicitado a alteração de senha, pedimos que desconsidere este e-mail.
 </p>
         
 <p style='font-size:15pt'> Att.</p>

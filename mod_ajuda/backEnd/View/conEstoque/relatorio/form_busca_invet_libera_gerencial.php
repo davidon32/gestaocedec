@@ -23,7 +23,9 @@ $unidade = Unidade::ListUnidade();
 $eventoModel = new EventoConEstoqueModel;
 $eventos = $eventoModel->listaEvento();
 
-$voltar = isset($_GET['voltar']) ? array('voltar' => 'menu') : "";
+$voltar = isset($_GET['voltar']) ? array('voltar' => $_GET['voltar']) : "";
+
+
 if ($voltar != "") {
     $url_form = FuncaoBase::geraLink("ajuda", "relatorio", "inventario_gerencial", $voltar);
 } else {
@@ -89,10 +91,14 @@ $id_deposito = $_COOKIE['seguranca']['id_deposito'];
         <input class="btn btn-primary" type="submit" name="pesquisar" value="Pesquisar" />
 
         <?php
-        if (isset($_GET['voltar'])) {
+
+        if ($voltar['voltar'] == 'menu') {
             print "<a class=\"btn btn-success imprimir\" href=\"" . FuncaoBase::geraLink('index', 'index', 'index1') . "\">Voltar</a>";
-        } else {
-            print "<a class=\"btn btn-success imprimir\" href=\"?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=relIndex\">Voltar</a>";
+        } elseif ($voltar['voltar'] == 'estoque'){
+            print "<a class=\"btn btn-success imprimir\" href=\"" . FuncaoBase::geraLink('ajuda', 'conestoque', 'index') . "\">Voltar</a>";
+        }else {
+
+            print "<a class=\"btn btn-success imprimir\" href=\"".FuncaoBase::geraLink('ajuda', 'conestoque', 'relIndex')."\">Voltar</a>";
         }
         ?>
 

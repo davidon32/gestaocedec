@@ -13,7 +13,6 @@ $_login->logado();
 $_funcionario = new EquipeFuncionario();
 
 
-
 ?>
 
 <html xmlns="http://www.w3.org/1999/xhtml">

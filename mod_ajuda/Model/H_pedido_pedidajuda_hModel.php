@@ -15,7 +15,8 @@
  *      Atualização {VERSAO}
  * @param VERSAO														*
  * ********************************************************************************** */
-class H_pedido_pedidajuda_hModel extends Model {
+class H_pedido_pedidajuda_hModel extends Model
+{
 
     private $table = "aju_h_pedido_pedid";
     public static $model;
@@ -48,7 +49,8 @@ class H_pedido_pedidajuda_hModel extends Model {
 
     #################  CONSTRUTOR ##################
 
-    function __construct() {
+    function __construct()
+    {
 
         self::$model = $this->Tabela('aju_h_pedido_pedid');
 
@@ -57,18 +59,21 @@ class H_pedido_pedidajuda_hModel extends Model {
         self::$con = Conexao::getInstance();
     }
 
-    public function getData_hora_envio() {
+    public function getData_hora_envio()
+    {
         return $this->data_hora_envio;
     }
 
-    public function setData_hora_envio($data_hora_envio) {
+    public function setData_hora_envio($data_hora_envio)
+    {
         $this->data_hora_envio = $data_hora_envio;
     }
 
     #################  LISTA  ##################
     # lista {$model}
 
-    public static function lista($id = null) {
+    public static function lista($id = null)
+    {
 
 
         $dados = array();
@@ -106,7 +111,8 @@ class H_pedido_pedidajuda_hModel extends Model {
         }
     }
 
-    public static function listaProcessos($id_municipio) {
+    public static function listaProcessos($id_municipio)
+    {
 
 
         try {
@@ -151,21 +157,37 @@ class H_pedido_pedidajuda_hModel extends Model {
         }
     }
 
-    public static function listaPedidosTodos($municipio=null, $id_redec =null) {
-        
+    public static function listaPedidosTodos($municipio = null, $id_redec = null, $status = null, $tramit = null)
+    {
+
         $con = Conexao::getInstance();
-        $filtro = "";
-        if (($id_redec != 1) && !is_null($id_redec)) {
-            $filtro = " WHERE cedec_rpm_mun.id_rpm = '{$id_redec}' ";
-        }
-        
-        if (($municipio != 1) && !is_null($municipio)) {
-            if(empty($filtro)) {
-                $filtro = " WHERE cedec_municipio.nome like '%{$municipio}%' ";
-            }else {
-                $filtro = " AND cedec_municipio.nome like '%{$municipio}%' ";
+        $filtro = " WHERE aju_h_pedido_pedid.id > 0 ";
+        $order = " ORDER BY aju_h_pedido_pedid.id ";
+        $limit = "";
+
+        //var_dump($municipio);
+
+        # busca por municipio
+        if (!is_null($municipio)) {
+
+            if ($municipio != 1) {
+                $filtro .= " AND cedec_municipio.nome like '%{$municipio}%' ";
+            } elseif (($id_redec != 1) && !is_null($id_redec)) {
+                $filtro .= " AND cedec_rpm_mun.id_rpm = '{$id_redec}' ";
             }
+        } elseif (!is_null($status)) {
+            $filtro .= " AND aju_h_pedido_pedid.status ='" . $status . "' ";
+            $order = " ORDER BY aju_h_pedido_pedid.id desc ";
+        } elseif (!is_null($tramit)) {
+            $filtro .= " AND aju_h_pedido_pedid.tramit ='" . $tramit . "' ";
+            $order = " ORDER BY aju_h_pedido_pedid.id desc ";
+            
+        } else {
+            $order = " ORDER BY aju_h_pedido_pedid.id desc ";
+            $limit = " limit 50 ";
         }
+
+        
 
         $sql = "SELECT aju_h_pedido_pedid.numero,
                 aju_h_pedido_pedid.id_municipio,
@@ -186,8 +208,9 @@ class H_pedido_pedidajuda_hModel extends Model {
                 ON cedec_rpm_mun.id_municipio = cedec_municipio.id_municipio
                 inner join dec_cobrade
                 on aju_h_pedido_pedid.id_cobrade = dec_cobrade.id_cobrade
-                {$filtro}
-                ORDER BY aju_h_pedido_pedid.status";
+                {$filtro} {$order} {$limit}";
+
+        //var_dump($filtro, $status);
 
         try {
 
@@ -199,7 +222,8 @@ class H_pedido_pedidajuda_hModel extends Model {
         }
     }
 
-    public static function listaPedidosParaDespacho($id_redec = null) {
+    public static function listaPedidosParaDespacho($id_redec = null)
+    {
 
         $con = Conexao::getInstance();
         $filtro = "";
@@ -222,7 +246,7 @@ class H_pedido_pedidajuda_hModel extends Model {
                 {$filtro} ORDER BY aju_h_pedido_pedid.data_entrada_sistema";
 
         try {
-            
+
             $result = $con->query($sql);
 
             return $result->fetchAll(PDO::FETCH_ASSOC);
@@ -238,7 +262,8 @@ class H_pedido_pedidajuda_hModel extends Model {
      * 
 
      */
-    public function getNomeIdFk($nome_tabela, $id_tabela, $id) {
+    public function getNomeIdFk($nome_tabela, $id_tabela, $id)
+    {
 
         if (!is_null($id)) {
 
@@ -273,7 +298,8 @@ class H_pedido_pedidajuda_hModel extends Model {
     #################  LISTA NOME ##################
     # lista nome {$model}
 
-    public static function listaNome($nome = null) {
+    public static function listaNome($nome = null)
+    {
 
         try {
 
@@ -313,7 +339,8 @@ class H_pedido_pedidajuda_hModel extends Model {
     #################  GRAVAR  ##################
     # @ grava {$model} em banco
 
-    public static function gravar(array $dados) {
+    public static function gravar(array $dados)
+    {
 
         $sql = "INSERT INTO aju_h_pedido_pedid (numero,
 data_entrada_sistema,
@@ -394,8 +421,7 @@ ano) VALUES (:numero,
                 $result1['result'] = true;
                 $result1['id'] = $id;
             } else {
-                return $result1['result'] = false;
-                ;
+                return $result1['result'] = false;;
             }
 
             return $result1;
@@ -409,7 +435,8 @@ ano) VALUES (:numero,
     #################  EDIT ##################
     ################  Atualizar dados h_pedido_pedid  ###################
 
-    public static function edit(array $dados) {
+    public static function edit(array $dados)
+    {
 
         $con = Conexao::getInstance();
 
@@ -475,7 +502,8 @@ ano) VALUES (:numero,
     /**
      * View Marca
      */
-    public static function view($id_h_pedido_pedid) {
+    public static function view($id_h_pedido_pedid)
+    {
 
         $con = Conexao::getInstance();
 
@@ -540,7 +568,8 @@ on cedec_municipio.id_municipio = cedec_rpm_mun.id_municipio
     #################  PAGINACAO  ##################
     /* paginacao */
 
-    public function paginacao($start, $regPorPagina, $id_municipio) {
+    public function paginacao($start, $regPorPagina, $id_municipio)
+    {
         $con = Conexao::getInstance();
 
         $stmt = $con->prepare("SELECT aju_h_pedido_pedid.id,
@@ -592,7 +621,8 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
     #################  DELETAR itens pedido  ##################
     # @ deletar itens pedido
 
-    public static function deleteItemPedido($id) {
+    public static function deleteItemPedido($id)
+    {
 
         $con = Conexao::getInstance();
 
@@ -610,7 +640,8 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
     #################  DELETAR  ##################
     # @ deletar o h_pedido_pedid
 
-    public static function delete($id) {
+    public static function delete($id)
+    {
 
         $con = Conexao::getInstance();
 
@@ -628,7 +659,8 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
 
     #####################  Itens pedido  ######################
 
-    public static function item_pedido($id_pedido, $tipo = "P") {
+    public static function item_pedido($id_pedido, $tipo = "P")
+    {
 
 
         $con = Conexao::getInstance();
@@ -661,7 +693,8 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
 
     #####################  Itens pedido  ######################
 
-    public static function get_item_pedido($id_item, $id_pedido, $tipo) {
+    public static function get_item_pedido($id_item, $id_pedido, $tipo)
+    {
 
 
         $con = Conexao::getInstance();
@@ -677,7 +710,7 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
                 from aju_h_pedido_itens
                 where aju_h_pedido_itens.id_pedido = " . $id_pedido . "
                 And tp_item = '" . $tipo . "'"
-                . " AND aju_h_pedido_itens.id = " . $id_item;
+            . " AND aju_h_pedido_itens.id = " . $id_item;
 
         try {
 
@@ -697,7 +730,8 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
      * 
      * Lista dos materiais originais do pedido
      */
-    public static function item_pedido_original($id_pedido) {
+    public static function item_pedido_original($id_pedido)
+    {
 
 
         $con = Conexao::getInstance();
@@ -734,7 +768,8 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
      * 
 
      */
-    public function listaid_municipioAutocomplete() {
+    public function listaid_municipioAutocomplete()
+    {
 
 
         $con = Conexao::getInstance();
@@ -763,7 +798,8 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
      * 
 
      */
-    public function parecer_favoravel() {
+    public function parecer_favoravel()
+    {
 
         $con = Conexao::getInstance();
 
@@ -784,14 +820,15 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
         }
     }
 
-#####################  lista autocomplete ######################
+    #####################  lista autocomplete ######################
 
     /** lista autocomplete 
 
      * 
 
      */
-    public function listaid_regiaoAutocomplete() {
+    public function listaid_regiaoAutocomplete()
+    {
 
 
         $con = Conexao::getInstance();
@@ -820,7 +857,8 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
      * 
 
      */
-    public function listaid_mesoAutocomplete() {
+    public function listaid_mesoAutocomplete()
+    {
 
 
         $con = Conexao::getInstance();
@@ -844,14 +882,15 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
         }
     }
 
-#####################  lista autocomplete ######################
+    #####################  lista autocomplete ######################
 
     /** lista autocomplete 
 
      * 
 
      */
-    public function listaid_cobradeAutocomplete() {
+    public function listaid_cobradeAutocomplete()
+    {
 
 
         $con = Conexao::getInstance();
@@ -878,7 +917,8 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
     /**
      * Lista h_pedido_pedid
      */
-    public function listah_pedido_pedids() {
+    public function listah_pedido_pedids()
+    {
 
         $con = Conexao::getInstance();
 
@@ -914,7 +954,8 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
      * @return int
      * 
      */
-    public static function listaPedidos($id_municipio) {
+    public static function listaPedidos($id_municipio)
+    {
 
         $con = Conexao::getInstance();
 
@@ -940,7 +981,8 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
       numeração pedido por ano
      */
 
-    public function gerarNumero() {
+    public function gerarNumero()
+    {
 
         $con = Conexao::getInstance();
 
@@ -972,7 +1014,8 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
 
      *      */
 
-    public function buscaDadosPedido($id_municipio) {
+    public function buscaDadosPedido($id_municipio)
+    {
 
         $con = Conexao::getInstance();
 
@@ -1025,7 +1068,8 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
      * 
      */
 
-    public static function enumStatus($status) {
+    public static function enumStatus($status)
+    {
 
         switch ($status) {
             case 0:
@@ -1066,7 +1110,8 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
 
     /* enumStatus get status */
 
-    public static function enumFase($fase) {
+    public static function enumFase($fase)
+    {
 
         switch ($fase) {
             case 'edicao_compdec':
@@ -1107,7 +1152,8 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
 
     /* busca material para pedido ajuda */
 
-    public static function MaterialPedido($situacao = 1) {
+    public static function MaterialPedido($situacao = 1)
+    {
 
         $con = Conexao::getInstance();
 
@@ -1133,7 +1179,8 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
 
     /* busca material disponivel para pedidos */
 
-    public static function MaterialDisponivelPedido($situacao = 1) {
+    public static function MaterialDisponivelPedido($situacao = 1)
+    {
 
         $con = Conexao::getInstance();
 
@@ -1166,7 +1213,8 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
      * 
      * 
      */
-    public function getCorStatus($status) {
+    public function getCorStatus($status)
+    {
 
         switch ($status) {
             case 0:
@@ -1214,7 +1262,8 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
     /**
      * Lista de usuario cadastrados como analista
      */
-    public static function listaAnalistaPedidoAjuda() {
+    public static function listaAnalistaPedidoAjuda()
+    {
 
         $con = Conexao::getInstance();
         $dado = array();
@@ -1243,7 +1292,8 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
     /**
      * Busca analista 
      */
-    public function buscaAnalista($id_usuario) {
+    public function buscaAnalista($id_usuario)
+    {
 
         $con = Conexao::getInstance();
 
@@ -1270,7 +1320,8 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
     /**
      * Adicionar permissao usuario
      */
-    public function AddPermissao(array $dados) {
+    public function AddPermissao(array $dados)
+    {
 
         $con = Conexao::getInstance();
         $sql = "INSERT INTO aju_h_permissao (login,
@@ -1302,7 +1353,8 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
     /**
      * atualizar permissao usuario
      */
-    public function AtualizarPermissao(array $dados) {
+    public function AtualizarPermissao(array $dados)
+    {
 
         $con = Conexao::getInstance();
         $sql = "update aju_h_permissao set analista_drd = :analista_drd,
@@ -1327,7 +1379,8 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
     /**
      * Remover permissao usuario 
      */
-    public function removerPermissao($dados) {
+    public function removerPermissao($dados)
+    {
 
         $con = Conexao::getInstance();
         $sql = "update aju_h_permissao set analista_drd = 0,
@@ -1351,7 +1404,8 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
      *  busca dados do pedido
      * 
      */
-    public function buscaPedidoH() {
+    public function buscaPedidoH()
+    {
 
         $con = Conexao::getInstance();
         $dados = array();
@@ -1403,7 +1457,8 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
      *  busca dados do pedido
      * 
      */
-    public static function buscaPedidoId($id) {
+    public static function buscaPedidoId($id)
+    {
 
         $con = Conexao::getInstance();
         $sql = "SELECT aju_h_pedido_pedid.id,
@@ -1451,7 +1506,8 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
      * 
      * verifica pedido estado de envio para analise
      */
-    public static function compdecVerificaPedido($id_municipio) {
+    public static function compdecVerificaPedido($id_municipio)
+    {
 
         $con = Conexao::getInstance();
         $dados = array();
@@ -1477,7 +1533,8 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
      *  inicia prestação de contas
      * 
      */
-    public static function iniciaPrestContas($id_pedido) {
+    public static function iniciaPrestContas($id_pedido)
+    {
 
 
         $h_pedido_pedid = new H_pedido_pedidajuda_hModel();
@@ -1501,7 +1558,8 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
      * Lancamento de materiais para prestação de contas
      * 
      */
-    public function lancaMaterialPrest($dados) {
+    public function lancaMaterialPrest($dados)
+    {
 
         $con = Conexao::getInstance();
         $sql = "INSERT INTO aju_h_pedido_prest (id_pedido,
@@ -1534,7 +1592,8 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
      *  busca status em edição para novo pedido
      * 
      */
-    public static function buscaStatus($id_municipio) {
+    public static function buscaStatus($id_municipio)
+    {
 
         $con = Conexao::getInstance();
         $dados = "";
@@ -1561,7 +1620,8 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
      * @param id_pedido
      * @param tramit
      */
-    public function envia_pedido(array $dados) {
+    public function envia_pedido(array $dados)
+    {
 
         $con = Conexao::getInstance();
         $sql = "update aju_h_pedido_pedid set tramit = :tramit,
@@ -1588,7 +1648,8 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
      * remove permissao de pedir material
      * 
      */
-    public function PermissaoMaterial($dados) {
+    public function PermissaoMaterial($dados)
+    {
 
         $con = Conexao::getInstance();
         $sql = "update aju_unidade set pedido_h = :pedido_h
@@ -1610,7 +1671,8 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
     /**
      *  prazo Prestacao d contas
      */
-    public static function prazo_presta_conta($dt_aprovacao) {
+    public static function prazo_presta_conta($dt_aprovacao)
+    {
 
         //var_dump($dt_aprovacao);
 
@@ -1618,7 +1680,11 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
 
         $prazo_prest_conta = '+' . $config['aju_prazo_prest_conta'] . ' day';
 
-        $data_aprovacao = date("d/m/Y", strtotime($prazo_prest_conta, strtotime($dt_aprovacao)));
+        if (!is_null($dt_aprovacao)) {
+            $data_aprovacao = date("d/m/Y", strtotime($prazo_prest_conta, strtotime($dt_aprovacao)));
+        } else {
+            $data_aprovacao = "";
+        }
 
         return $data_aprovacao;
     }
@@ -1626,7 +1692,8 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
     /**
      * Tramitar Pedido
      */
-    public static function tramitar($dados) {
+    public static function tramitar($dados)
+    {
 
         $con = Conexao::getInstance();
         $sql = "update aju_h_pedido_pedid set status = :status,
@@ -1646,12 +1713,13 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
             return $e->getMessage() . "-";
         }
     }
-    
+
     /**
      * Log de tramitação Pedido
      */
-    public static function logTramita($dados) {
-        
+    public static function logTramita($dados)
+    {
+
         //var_dump($dados);
 
         $con = Conexao::getInstance();
@@ -1679,18 +1747,18 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
         } catch (Exception $e) {
             return $e->getMessage() . "erro ao gravar log tramitação";
         }
-        
     }
 
-    
-    
-    
+
+
+
     /**
      *  total de Processos
      * @param status
      * 
      */
-    public static function processosQtd($status) {
+    public static function processosQtd($status)
+    {
 
         $con = Conexao::getInstance();
         $dados = "";
@@ -1702,15 +1770,36 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
 
         return $result->fetchColumn();
     }
-    
-    
-    
+
+
+    /**
+     *  total de Processos por Tramit
+     * @param status
+     * 
+     */
+    public static function processosQtdTramit($tramit)
+    {
+
+        $con = Conexao::getInstance();
+        $dados = "";
+
+        $sql = "select count(id) as id from aju_h_pedido_pedid
+                where tramit = '{$tramit}'";
+
+        $result = $con->query($sql);
+
+        return $result->fetchColumn();
+    }
+
+
+
     /**
      *  total de Processos
      * @param status
      * 
      */
-    public static function listTramitacao($id_pedido) {
+    public static function listTramitacao($id_pedido)
+    {
 
         $con = Conexao::getInstance();
         $dados = "";
@@ -1721,10 +1810,4 @@ WHERE aju_h_pedido_pedid.id_municipio = {$id_municipio}
 
         return $result->fetchAll();
     }
-    
-    
-    
-    
-    
-
 }

@@ -41,6 +41,26 @@ if ($_COOKIE['seguranca']['id_deposito'] == 1) {
             ?>
         </div>
 
+        <!-- pedido Novo--> 
+        <div class="col-md-4 text-center">
+            <!--####################### PEDIDO DE AJUDA HUMANITARIO ###########################-->
+            <?php
+
+            if ($_COOKIE['seguranca']['login'] == "M1296844") {
+                ?>
+                <a href="<?= FuncaoBase::geraLink("index", "index", "mah") ?>">
+                    <img src="core/imagem/pedido_cesta.png" width="80px">
+                    <br>
+                    Pedido Ajuda Humanitária LARA
+                </a>
+                <?php
+            } else {
+                print "<img class=\"imgCinza\" src=\"core/imagem/pedido_cesta.png\" width=\"80px\" title=\"Usuario sem Acesso !\">";
+                print " <br>Pedido Ajuda Humanitária";
+            }
+            ?>
+        </div>
+
         
 
         <!--###################### CONTROLE DE ESTOQUE ##########################-->

@@ -129,7 +129,7 @@ $(document).ready(function(){
                         if(response.trim() == 'sucesso'){
                             alert('Procedimento Realizado com Sucesso ! senha provisória :    gmgcedec199');
                         }else {
-                            alert('erro');
+                            //alert('erro'+ response);
                         }
                     }
                 });

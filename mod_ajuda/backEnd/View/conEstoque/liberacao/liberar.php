@@ -49,14 +49,32 @@ $dadosDeposito = Deposito::ListaDeposito();
         $id_deposito = "";
         $nome_deposito = "";
 
-        if ($_COOKIE['seguranca']['id_deposito'] != 1) {
-            $attr = 'readonly';
-            $id_deposito = isset($_COOKIE['seguranca']['id_deposito']) ? $_COOKIE['seguranca']['id_deposito'] : "";
-            $nome_deposito = Deposito::PegaNomeDeposito($id_deposito);
-        }
+        if($_COOKIE['seguranca']['idUser'] == 157) {
+
+            if ($_COOKIE['seguranca']['id_deposito'] != 1) {
+                $attr = 'readonly';
+                $id_deposito = isset($_COOKIE['seguranca']['id_deposito']) ? $_COOKIE['seguranca']['id_deposito'] : "";
+                $nome_deposito = Deposito::PegaNomeDeposito($id_deposito);
+            }
+            print "<select class='form form-control col-md-12' name='id_deposito' id='id_deposito'>";
+            print "<option value='11'>TEOFILO OTONI</option>";
+            print "<option value='16'>ALMENARA</option>";
+            print "</select>";
+            //print "<input type='hidden' name='id_deposito' id='id_deposito' value='<?= $id_deposito '> ";
+        
+        }else {
+
+                if ($_COOKIE['seguranca']['id_deposito'] != 1) {
+                    $attr = 'readonly';
+                    $id_deposito = isset($_COOKIE['seguranca']['id_deposito']) ? $_COOKIE['seguranca']['id_deposito'] : "";
+                    $nome_deposito = Deposito::PegaNomeDeposito($id_deposito);
+                }
+
+         print "<input type=\"text\" class=\"form col-md-12\" name=\"nome_deposito\" id=\"nome_deposito\" ".$attr." value='".$nome_deposito."' placeholder=\"Deposito Retirada\">";
+                print "<input type=\"hidden\" name=\"id_deposito\" id=\"id_deposito\" value=\"".$id_deposito."\"> ";
+
+            }
         ?>
-        <input type="text" class="form col-md-12" name="nome_deposito" id="nome_deposito" <?= $attr ?> value='<?= $nome_deposito ?>' placeholder="Deposito Retirada">
-        <input type="hidden" name="id_deposito" id="id_deposito" value="<?= $id_deposito ?>"> 
         <span class="input-group-btn">
             <button type="button" class="btn btn-default" id='btnAddMaterial'>Adicionar Materiais</button>
         </span>

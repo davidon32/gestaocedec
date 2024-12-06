@@ -33,6 +33,26 @@
         Usuario::Acesso('aju_permissao', 'cad_material', 'estoque/entrada.png', '&modulo=ajuda&controller=conestoque&action=material', 'Entrada de Materiais', 'class="col-md-4 text-center"');
         ?>
   
+
+            <!-- Saldo Estoque novo -->
+            <?php
+            if (Usuario::getPermissao('aju_permissao', 'rel_saldo_geral')) {
+                ?>
+                <div class="col-md-4 text-center">
+                    <a href="?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=ajuda&controller=relatorio&action=form_busca_invet_libera_gerencial&voltar=estoque" title="Saldo Estoque Resumido">
+                        <img src="/core/imagem/estoque/estoque.png" width="80"><br>
+                        Saldo Resumido
+                    </a>
+                </div>
+                <?php
+            } else {
+                print '<div class="col-md-4 text-center">';
+                print "<img class=\"imgCinza\" src=\"core/imagem/estoque/estoque.png\" width=\"80px\" title=\"Saldo Estoque\">";
+                print "<br> Estoque";
+                print "</div>";
+            }
+            ?>
+
         <!-- Saldo Estoque -->
         <?php
         if (Usuario::getPermissao('aju_permissao', 'rel_saldo_geral')) {
@@ -51,6 +71,8 @@
             print "</div>";
         }
         ?>
+
+
 
         <!--Liberacao de Materiais -->
         <?php
@@ -115,7 +137,7 @@
         }
         ?>
 
-        <!--Transferencia de Materiais -->
+        <!--Relatorios -->
         <?php
         if (Usuario::getPermissao('aju_permissao', 'relatorio')) {
             ?> 

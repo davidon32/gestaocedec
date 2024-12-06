@@ -680,7 +680,8 @@ class Compdec {
                                                         on cedec_municipio.id_municipio = com_eq_comdec.id_municipio
 							where com_comdec.com_const = 1
 							and cedec_municipio.id_municipio <> 7221
-                                                        and com_eq_comdec.funcao = 'Coordenador' 
+                                                        and com_eq_comdec.funcao = 'Coordenador'
+                                                        AND com_eq_comdec.status = 1 
 							order by cedec_municipio.nome";
 
             $result = $con->query($sql);

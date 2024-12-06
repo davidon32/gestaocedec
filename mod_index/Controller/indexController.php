@@ -231,6 +231,7 @@ class indexController extends Controller {
      */
     public function paebmindex() {
         include_once 'mod_index/backEnd/View/index/pae.php';
+        
     }
     
     
@@ -317,6 +318,20 @@ class indexController extends Controller {
      * 
      */
     public function mah() {
+        if ($_COOKIE['seguranca']['tipo'] == "i") {
+            $routeInicio = 'modulo=index&controller=index&action=menu';
+        } else {
+            $routeInicio = 'modulo=index&controller=index&action=menue';
+        }
+        include_once 'mod_index/app/login/auth.php';
+    }
+
+
+    /**
+     * USUARIOS
+     * 
+     */
+    public function usuario() {
         if ($_COOKIE['seguranca']['tipo'] == "i") {
             $routeInicio = 'modulo=index&controller=index&action=menu';
         } else {

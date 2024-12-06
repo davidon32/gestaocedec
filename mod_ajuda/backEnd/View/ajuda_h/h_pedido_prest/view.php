@@ -66,7 +66,7 @@
         
     
         print "<tr>";
-        print "<td>".$beneficiario['id']."</td>";
+        print "<td>".($key+1)."</td>";
         print "<td>".$beneficiario['nome_beneficiario']."</td>";
         print "<td>".$beneficiario['rg']."</td>";
         print "<td>".$beneficiario['comunidade']."</td>";

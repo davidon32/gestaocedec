@@ -71,10 +71,13 @@
 
     <div class='col-md-12 text-center'>
         <?php
-        if (isset($_GET['voltar'])) {
+        if (isset($_GET['voltar']) && $_GET['voltar'] == 'estoque') {
+
+            print "<a class=\"btn btn-success imprimir\" href=\"" . FuncaoBase::geraLink('ajuda', 'conestoque', 'index') . "\">Voltar</a>";
+        }elseif($_GET['voltar'] == 'menu') {
             print "<a class=\"btn btn-success imprimir\" href=\"" . FuncaoBase::geraLink('index', 'index', 'index1') . "\">Voltar</a>";
         } else {
-            print "<a class=\"btn btn-success imprimir\" href=\"?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=itn&modulo=ajuda&controller=conestoque&action=relIndex\">Voltar</a>";
+            print "<a class=\"btn btn-success imprimir\" href=\"".FuncaoBase::geraLink('ajuda', 'conestoque', 'relIndex') ."\">Voltar</a>";
         }
         ?>
 
@@ -267,7 +270,7 @@
                    /* ajax */
                    
                    
-                   ".FuncaoBase::geraLink('ajuda', 'relatorio', 'rel_prest_conta', ['voltar'=>'menu'])
+                   //".FuncaoBase::geraLink('ajuda', 'relatorio', 'rel_prest_conta', ['voltar'=>'menu'])
                    
                    
                     

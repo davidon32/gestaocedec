@@ -41,31 +41,42 @@ if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
 
     $acesso = isset($_COOKIE['seguranca']['tipo']) ? $_COOKIE['seguranca']['tipo'] : null;
 
-# Acesso Externo
-# Acesso Interno
-# Acesso sem login
-# Acesso Comun (raiz modulo)
-# acesso externo
+    # Acesso Externo
+    # Acesso Interno
+    # Acesso sem login
+    # Acesso Comun (raiz modulo)
+    # acesso externo
 
     $acesso1 = isset($_GET['externo']) ? $_GET['externo'] : "";
 
     $email = isset($caminho[2]) ? substr($caminho[2], strpos($caminho[2], 'email') + 6) : "";
     $hash = isset($caminho[2]) ? substr($caminho[2], 0, 32) : "";
 
+
     /* usuario externo */
-    $verificaTrSenhaEx = Usuario::buscaTrSenha($email, $hash);
 
-    /* interno */
-    $verificaTrSenhaCedec = Usuario::buscaTrSenhaCedec($email, $hash);
+    if(!empty($email) && !empty($hash)) {
+        $verificaTrSenhaEx = Usuario::buscaTrSenha($email, $hash);
+        /* interno */
+        $verificaTrSenhaCedec = Usuario::buscaTrSenhaCedec($email, $hash);
+    }
 
+    
+    //print_r($parametro);
+    //print(Usuario::buscaTrSenhaCedec($email, $hash));
+    //die();
 
+    # compdec
     if (isset($verificaTrSenhaEx['troca'])) {
+        $tipo = 'Compdec';
         include_once 'mod_equipe/View/usuario/trsenha_compdec.php';
+    
+    # cedec
+    } else if (isset($verificaTrSenhaCedec) && ($verificaTrSenhaCedec)) {
+        $tipo = 'Cedec';
+        include_once 'mod_equipe/View/usuario/trsenha_cedec.php';
+        //die();
     } else {
-
-//        if(isset($verificaTrSenhaCedec)) {
-//        //include_once 'mod_equipe/View/usuario/trsenha_compdec.php';
-//    }else {
 
         if (preg_match('/email/', $_SERVER['REQUEST_URI'])) {
             header('Location:/index.php');
@@ -75,7 +86,7 @@ if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
         /* if ($evento == 'evento') {
           header('Location :evento.php');
           } else */
-        if ((isset($caminho[2]) && ($caminho[2] === 'mapa')) && ( (isset($caminho[3]) && $caminho[3] === 'site'))) { # mapas
+        if ((isset($caminho[2]) && ($caminho[2] === 'mapa')) && ((isset($caminho[3]) && $caminho[3] === 'site'))) { # mapas
             $controller = 'relatorio';
             $action = 'mapa';
             include_once "mod_ajuda/backEnd/Controller/relatorioController.php";
@@ -94,16 +105,16 @@ if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
                 header('Location:index.php');
             }
         } else if (
-                ($action === 'recsenha') ||
-                ($action === 'recsenha_compdec') ||
-                ($action === 'trsenha_cedec') ||
-                ($action === 'trsenha_compdec') ||
-                ($modulo === 'index') ||
-                ($action === 'visualiza') ||
-                ($action === 'troca_senha_cedec_esqueci') ||
-                ($action === 'mapa') ||
-                ($action === 'usuarioRegionaisSite') ||
-                ($action === 'lista_munic_reg_site')
+            ($action === 'recsenha') ||
+            ($action === 'recsenha_compdec') ||
+            ($action === 'trsenha_cedec') ||
+            ($action === 'trsenha_compdec') ||
+            ($modulo === 'index') ||
+            ($action === 'visualiza') ||
+            ($action === 'troca_senha_cedec_esqueci') ||
+            ($action === 'mapa') ||
+            ($action === 'usuarioRegionaisSite') ||
+            ($action === 'lista_munic_reg_site')
         ) {
             /* não exist Controller */
             if (file_exists("mod_" . $modulo . "/Controller/" . $controller . ".php")) {
@@ -156,15 +167,15 @@ if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
 
                 # acesso defesa civil agora
             } else if (
-            //($controller == 'agoraController') && ($action == 'listasite') ||
-                    ($action == 'cadastro') ||
-                    ($controller == "cceController" && $action == 'boletimsite') ||
-                    //($controller == "cceController" && $action == 'boletimsite1') ||
-                    ($action == "listacompdecativa") ||
-                    ($controller == 'agoraController' && $action == 'view') ||
-                    ($controller == 'agoraController' && $action == 'gravarComentario') ||
-                    ($controller == 'agoraController' && $action == 'cadpost') ||
-                    ($controller == 'agoraController' && $action == 'postagem')
+                //($controller == 'agoraController') && ($action == 'listasite') ||
+                ($action == 'cadastro') ||
+                ($controller == "cceController" && $action == 'boletimsite') ||
+                //($controller == "cceController" && $action == 'boletimsite1') ||
+                ($action == "listacompdecativa") ||
+                ($controller == 'agoraController' && $action == 'view') ||
+                ($controller == 'agoraController' && $action == 'gravarComentario') ||
+                ($controller == 'agoraController' && $action == 'cadpost') ||
+                ($controller == 'agoraController' && $action == 'postagem')
             ) {
 
                 //($controller == 'agoraController' && $action == 'view') ||
@@ -261,20 +272,19 @@ foreach ($msgs as $msg) {
 
 
 
-/* verificar email de é gmail */
-//    $email = $_COOKIE['seguranca']['email_rec'];
-//
-//    //var_dump(preg_match('#\b(hotmail|gmail)\b#', $email), $_COOKIE['seguranca']['email_rec']);
-//    if(preg_match('#\b(hotmail|gmail)\b#', $email)){
-//        
-//        /*print "<script type='text/javascript'>";
-//        print "Swal.fire({
-//        icon: 'error',
-//        title: 'Atualização de Email necessária...',
-//        width: 600,
-//        text: 'Seu email cadastrado no sistema é : ".$email." Favor atualiar seu email para um email institucional',
-//        footer: '<a href=".FuncaoBase::geraLink('compdec', 'compdec', 'index').">Clique aqui acessar os dados cadatrais</a>'
-//        });";
-//        print "</script>";*/
-//    }
-
+    /* verificar email de é gmail */
+    //    $email = $_COOKIE['seguranca']['email_rec'];
+    //
+    //    //var_dump(preg_match('#\b(hotmail|gmail)\b#', $email), $_COOKIE['seguranca']['email_rec']);
+    //    if(preg_match('#\b(hotmail|gmail)\b#', $email)){
+    //        
+    //        /*print "<script type='text/javascript'>";
+    //        print "Swal.fire({
+    //        icon: 'error',
+    //        title: 'Atualização de Email necessária...',
+    //        width: 600,
+    //        text: 'Seu email cadastrado no sistema é : ".$email." Favor atualiar seu email para um email institucional',
+    //        footer: '<a href=".FuncaoBase::geraLink('compdec', 'compdec', 'index').">Clique aqui acessar os dados cadatrais</a>'
+    //        });";
+    //        print "</script>";*/
+    //    }

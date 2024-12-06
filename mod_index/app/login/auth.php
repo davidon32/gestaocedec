@@ -55,9 +55,9 @@ if ($funcao == 'REDEC') {
 # producao
 if (($_SERVER['HTTP_HOST'] == 'sistema.defesacivil.mg.gov.br') || ($_SERVER['HTTP_HOST'] == 'www.sistema.defesacivil.mg.gov.br')) {
     
-    $protocolo = CURLPROTO_HTTP;
+    $protocolo = CURLPROTO_HTTPS;
         $url = "http://www.sdc.mg.gov.br/api/auth/login";
-        $url_redirect = "http://sdc.mg.gov.br";
+        $url_redirect = "http://sdc.mg.gov.br/index.php";
         //$log_path = 'log/curl.log';
 # ca
 } else {
@@ -120,7 +120,7 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
             ]
         ]),
         CURLOPT_SSL_VERIFYHOST => 0,
-        CURLOPT_SSL_VERIFYPEER => 0,
+        CURLOPT_SSL_VERIFYPEER => 1,
         CURLOPT_RETURNTRANSFER => 1,
         CURLOPT_PROTOCOLS => CURLPROTO_HTTP,
         CURLOPT_VERBOSE => true,
