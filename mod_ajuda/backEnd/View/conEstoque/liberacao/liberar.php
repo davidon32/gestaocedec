@@ -164,7 +164,7 @@ $dadosDeposito = Deposito::ListaDeposito();
         <?php
         $_login = new Login();
 
-        $dados = $_login->getFuncionario();
+        $dados = (array)$_login->getFuncionario();
 
         print "<select name=\"responsavel\" id=\"responsavel\" class=\"form-control\" required>";
         print "<option value=''></<option>";
@@ -182,7 +182,7 @@ $dadosDeposito = Deposito::ListaDeposito();
 
     <div class="col-md-12">
         <label title="Observações gerais">Observação:</label>
-        <textarea class="col-md-5 form-control" name="obs" id="obs" rows="6" maxlength=255">-</textarea>
+        <textarea class="col-md-5 form-control" name="obs" id="obs" rows="6" maxlength="255">-</textarea>
     </div>
 
     <div class="col-md-6">
@@ -225,8 +225,8 @@ $dadosDeposito = Deposito::ListaDeposito();
         });
 
         $("#dt_libera").datepicker({
-            maxDate: 3,
-            minDate: -5,
+            // maxDate: 3,
+             minDate: -30,
             dateFormat: 'dd/mm/yy',
             orientation: "bottom left",
             beforeShow: function () { /* problema datapicker atras controle input*/

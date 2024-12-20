@@ -45,7 +45,7 @@
         </div>-->
 
 <!--RAT-->
-<div class="col-md-3 text-center" style="height:190px">
+<div class="col-md-3 text-center" style="height: 190px;">
     <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=rat" ?>" title="Relatório de Atividades Técnicas"><img width="155" src="core/imagem/rat_teste.png"><br />RAT</a>
 </div>
 
@@ -57,6 +57,27 @@
 <!--    <div class="col-md-3 text-center" style="height: 190px;">
         <a class="thumbnail" title="Relatório de Vistoria/Interdição"><img width="135" src="core/imagem/vistoria_conversao.png"><br />Vistoria/Interdição</a>
     </div>-->
+
+
+<?php
+# autorização entrada sistema cisterna
+$autorizacao = [
+    "M1296844",
+    "S126282",
+];
+    if (in_array($_COOKIE['seguranca']['login'], $autorizacao) ) {
+//<!--CISTERNA -->
+?>
+<div class="col-md-3 text-center" style="height: 190px;">
+    <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=cisterna" ?>" title="Relatório de Vistoria/Interdição"><img width="105" src="core/imagem/poco.png"><br />Projeto Convivência com a Seca</a>
+</div>
+<?php
+    }else {
+    print "<img class=\"imgCinza\" src=\"core/imagem/poco.png\" width=\"105\" title=\"Usuario sem Acesso !\">";
+    print " <br>Projeto Convivência com a Seca";
+    }
+?>
+
 
 <?php
 

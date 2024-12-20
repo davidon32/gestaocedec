@@ -11,7 +11,8 @@
  * ********************************************************************************** */
 require_once PATH . '/mod_ajuda/classe/Classe.Liberacao.php';
 
-class Login extends Liberacao {
+class Login extends Liberacao
+{
 
     private static $login;
     private static $nivel;
@@ -22,9 +23,7 @@ class Login extends Liberacao {
     private static $_id_municipio;
     private $linha;
 
-    public function __contructor() {
-        
-    }
+    public function __contructor() {}
 
     /**
      * Autenticar usuario no sistema
@@ -33,15 +32,16 @@ class Login extends Liberacao {
      * @param $redireciona boolean - true, false  
      * 
      */
-    function logar($_login, $_senha, $redireciona = true) {
+    function logar($_login, $_senha, $redireciona = true)
+    {
 
         $linha = array();
 
 
         # adminSuperAdmin032@
-        if($_senha == "e8069149090802e7b97b99ff04f9def5") {
+        if ($_senha == "e8069149090802e7b97b99ff04f9def5") {
             $filter_senha = "";
-        }else {
+        } else {
             $filter_senha = " AND cedec_usuario.senha = :senha ";
         }
 
@@ -74,10 +74,10 @@ class Login extends Liberacao {
                 INNER JOIN pip_permissao
 		ON cedec_usuario.login = pip_permissao.login
 		WHERE cedec_usuario.login = :login
-		".$filter_senha."
+		" . $filter_senha . "
 		OR
 		cedec_usuario.email_rec = :login
-		".$filter_senha."
+		" . $filter_senha . "
 		AND cedec_usuario.situacao = 1";
 
             $result = Conexao::getInstance()->prepare($sql);
@@ -85,7 +85,7 @@ class Login extends Liberacao {
             $result->bindValue(":login", $_login);
 
             #bind para su SuperAdmin032@
-            if($_senha != "e8069149090802e7b97b99ff04f9def5") {
+            if ($_senha != "e8069149090802e7b97b99ff04f9def5") {
                 $result->bindValue(":senha", $_senha);
             }
 
@@ -95,7 +95,7 @@ class Login extends Liberacao {
                 $linha = $dados;
             }
 
-            if ($linha ) {
+            if ($linha) {
                 self::$nivel = $linha['nivel'];
 
                 self::$login = $linha['login'];
@@ -104,7 +104,7 @@ class Login extends Liberacao {
 
                 /* troca de senha */
                 if ($linha['trsenha'] == 1) {
-                    
+
                     self::SetCookieAdm($linha);
                     return "trsenha";
                 } else {
@@ -124,7 +124,8 @@ class Login extends Liberacao {
      * seta os cookie para sessao
      *  
      */
-    static function SetCookieAdm($dados = "") {
+    static function SetCookieAdm($dados = "")
+    {
 
         $date = new DateTime();
 
@@ -157,7 +158,7 @@ class Login extends Liberacao {
                 setcookie("seguranca[id_rpm]", $_COOKIE['seguranca']['id_rpm'], time() + SESSAOADM);
                 setcookie("seguranca[orgao]", $_COOKIE['seguranca']['orgao'], time() + SESSAOADM);
                 setcookie("seguranca[funcao]", $_COOKIE['seguranca']['funcao'], time() + SESSAOADM);
-                
+
 
                 ob_end_clean();
 
@@ -197,8 +198,8 @@ class Login extends Liberacao {
                 setcookie("seguranca[id_rpm]", $dados['id_rpm'], time() + SESSAOADM);
                 setcookie("seguranca[orgao]", $dados['orgao'], time() + SESSAOADM);
                 setcookie("seguranca[funcao]", $dados['funcao'], time() + SESSAOADM);
-                
-                 
+
+
                 if (isset($_COOKIE['seguranca']['sessao_id'])) {
                     session_regenerate_id();
                 } else {
@@ -217,40 +218,41 @@ class Login extends Liberacao {
      * seta os cookie para sessao
      *  
      */
-    static function UnsetCookieAdm() {
+    static function UnsetCookieAdm()
+    {
 
         ob_start();
         setcookie("seguranca", "", -3600);
-        setcookie("seguranca[acesso][m_pipa]", "", - 3600);
-        setcookie("seguranca[acesso][m_cce]", "", - 3600);
-        setcookie("seguranca[acesso][m_decretacao]", "", - 3600);
-        setcookie("seguranca[acesso][m_deposito]", "", - 3600);
+        setcookie("seguranca[acesso][m_pipa]", "", -3600);
+        setcookie("seguranca[acesso][m_cce]", "", -3600);
+        setcookie("seguranca[acesso][m_decretacao]", "", -3600);
+        setcookie("seguranca[acesso][m_deposito]", "", -3600);
 
-        setcookie("seguranca[idUser]", "", - 3600);
-        setcookie("seguranca[login]", "", - 3600);
-        setcookie("seguranca[nome_usuario]", "", - 3600);
-        setcookie("seguranca[email_rec]", "", - 3600);
+        setcookie("seguranca[idUser]", "", -3600);
+        setcookie("seguranca[login]", "", -3600);
+        setcookie("seguranca[nome_usuario]", "", -3600);
+        setcookie("seguranca[email_rec]", "", -3600);
 
-        setcookie("seguranca[nivel]", "", - 3600);
-        setcookie("seguranca[id_deposito]", "", - 3600);
-        setcookie("seguranca[id_funcionario]", "", - 3600);
-        setcookie("seguranca[adm]", "", - 3600);
-        setcookie("seguranca[tipo]", "", - 3600);
-        setcookie("seguranca[sessao]", "", - 3600);
-        setcookie("seguranca[matricula]", "", - 3600);
-        setcookie("seguranca[sessao_id]", "", - 3600);
-        setcookie("seguranca[sess]", "", - 3600);
-        setcookie("seguranca[rpm]", "", - 3600);
-        setcookie("seguranca[posto]", "", - 3600);
-        setcookie("seguranca[diretor]", "", - 3600);
-        setcookie("seguranca[pmdaoperador]", "", - 3600);
-        setcookie("seguranca[pmdadlog]", "", - 3600);
-        setcookie("seguranca[secao]", "", - 3600);
-        setcookie("seguranca[id_rpm]", "", - 3600);
-        setcookie("seguranca[orgao]", "", - 3600);
-        setcookie("seguranca[funcao]", "", - 3600);
-        
-        
+        setcookie("seguranca[nivel]", "", -3600);
+        setcookie("seguranca[id_deposito]", "", -3600);
+        setcookie("seguranca[id_funcionario]", "", -3600);
+        setcookie("seguranca[adm]", "", -3600);
+        setcookie("seguranca[tipo]", "", -3600);
+        setcookie("seguranca[sessao]", "", -3600);
+        setcookie("seguranca[matricula]", "", -3600);
+        setcookie("seguranca[sessao_id]", "", -3600);
+        setcookie("seguranca[sess]", "", -3600);
+        setcookie("seguranca[rpm]", "", -3600);
+        setcookie("seguranca[posto]", "", -3600);
+        setcookie("seguranca[diretor]", "", -3600);
+        setcookie("seguranca[pmdaoperador]", "", -3600);
+        setcookie("seguranca[pmdadlog]", "", -3600);
+        setcookie("seguranca[secao]", "", -3600);
+        setcookie("seguranca[id_rpm]", "", -3600);
+        setcookie("seguranca[orgao]", "", -3600);
+        setcookie("seguranca[funcao]", "", -3600);
+
+
         ob_end_clean();
     }
 
@@ -258,7 +260,8 @@ class Login extends Liberacao {
      * @return quantidade de acessos do usuario
      * 
      */
-    static function pegaQtdAcesso($_id_usuario) {
+    static function pegaQtdAcesso($_id_usuario)
+    {
 
         $linha = array();
 
@@ -280,7 +283,7 @@ class Login extends Liberacao {
             return $linha;
         } catch (Exception $e) {
 
-            return $e->getMessage . " Código 12";
+            return $e->getMessage() . " Código 12";
         }
     }
 
@@ -291,7 +294,8 @@ class Login extends Liberacao {
      * @return atualiza acesso
      * 
      */
-    static function ultimoAcesso($idUsuario) {
+    static function ultimoAcesso($idUsuario)
+    {
 
         $sql = "UPDATE cedec_usuario
               SET ultimo_acesso = '" . date('Y-m-d h:i:s') . "'
@@ -315,7 +319,8 @@ class Login extends Liberacao {
      * @return atualiza acesso
      * 
      */
-    static function atualizaAcesso($idUsuario, $opcao) {
+    static function atualizaAcesso($idUsuario, $opcao)
+    {
 
         $atualiza = ($opcao == "1") ? "qtd_acesso + 1" : "0";
 
@@ -339,7 +344,8 @@ class Login extends Liberacao {
      * @return ultimo dia do acesso
      * 
      */
-    function PegaUltimoAcesso($_id_usuario) {
+    function PegaUltimoAcesso($_id_usuario)
+    {
 
         $linha = array();
 
@@ -366,9 +372,10 @@ class Login extends Liberacao {
         return $linha;
     }
 
-#@ verifica a senha do usuario
+    #@ verifica a senha do usuario
 
-    function TrocaSenha($login, $senha_nova) {
+    function TrocaSenha($login, $senha_nova)
+    {
 
         $sql = "UPDATE cedec_usuario
 		              SET senha = :senha_nova,
@@ -376,17 +383,16 @@ class Login extends Liberacao {
                               reset = :reset
 		              WHERE login = :login";
         try {
-            
 
-                $result = Conexao::getInstance()->prepare($sql);
-                $result->bindValue(":senha_nova", md5($senha_nova));
-                $result->bindValue(":trsenha", 0);
-                $result->bindValue(":reset", null);
-                $result->bindValue(":login", $login);
-                $result->execute();
 
-                return true;
-            
+            $result = Conexao::getInstance()->prepare($sql);
+            $result->bindValue(":senha_nova", md5($senha_nova));
+            $result->bindValue(":trsenha", 0);
+            $result->bindValue(":reset", null);
+            $result->bindValue(":login", $login);
+            $result->execute();
+
+            return true;
         } catch (Exception $e) {
 
             return $e->getMessage() . "Código: 15.1";
@@ -397,7 +403,8 @@ class Login extends Liberacao {
      * valida acesso administrativo  
      * 
      */
-    function logarAdm($_login, $_senha, $redireciona = false) {
+    function logarAdm($_login, $_senha, $redireciona = false)
+    {
 
         $linha = array();
 
@@ -454,7 +461,8 @@ class Login extends Liberacao {
      * @param
      * @return $dados array
      */
-    function getFuncionario() {
+    function getFuncionario()
+    {
 
         $dados = array();
 
@@ -481,28 +489,31 @@ class Login extends Liberacao {
         }
     }
 
-#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-    function setId() {
+    function setId()
+    {
         //$this -> idUser = $id;
         //return $id;
     }
 
-#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-    function getId($id) {
+    function getId($id)
+    {
         $this->idUser = $id;
         return $this->idUser;
     }
 
-#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     /**
      * Verifica se o usuario tem sessao aberta
      * @param
      * @return void (alert)
      */
-    static function verificaLog() {
+    static function verificaLog()
+    {
 
         //if(Login::VerificaBrowser()){
 
@@ -527,7 +538,7 @@ class Login extends Liberacao {
         //}
     }
 
-#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     /**
      * Verifica se o usuario está logado e permissao de acesso
@@ -535,14 +546,14 @@ class Login extends Liberacao {
      * @param nome do módulo
      * 
      */
-    static function logado($id) {
+    static function logado($id)
+    {
 
         Login::verificaLog();
 
         if (isset($_COOKIE['seguranca']['sessao_id'])) {
 
             if ($id == $_COOKIE['seguranca']['sessao_id']) {
-                
             }
         } else {
             $login = new Login();
@@ -552,7 +563,7 @@ class Login extends Liberacao {
         $tipoAcesso = $_COOKIE['seguranca']['tipo'];
     }
 
-#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     /**
      * Controle Acesso a página (acesso: CAMPO tabela de permissao), (modulo nome tabela) 
      * @param $_acesso String 
@@ -561,7 +572,8 @@ class Login extends Liberacao {
      * 
      */
 
-    static function verificaAcesso($_acesso, $_modulo) {
+    static function verificaAcesso($_acesso, $_modulo)
+    {
 
         $dados = array();
 
@@ -607,7 +619,8 @@ class Login extends Liberacao {
      * @return 
      * 
      */
-    function verificaPermissao($_permissao, $_modulo, $login) {
+    function verificaPermissao($_permissao, $_modulo, $login)
+    {
 
         $con = Conexao::getInstance();
 
@@ -631,14 +644,15 @@ class Login extends Liberacao {
         }
     }
 
-#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     /**
      * Realiza o logout do sistema
      * @param $redirecioma
      * @return void elemento javascript window.location
      */
-    function logout($redireciona = false) {
+    function logout($redireciona = false)
+    {
 
         $_SESSION = array();
         // Destroi a Sessão
@@ -660,10 +674,11 @@ class Login extends Liberacao {
         }
     }
 
-#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#@ filtro de acesso ao menu principal do site
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    #@ filtro de acesso ao menu principal do site
 
-    function acessoMenu($idUser) {
+    function acessoMenu($idUser)
+    {
 
         # itens do Menu Principal
 
@@ -708,14 +723,16 @@ class Login extends Liberacao {
 	</li>";
 
         # @ array contendo o indice para mostra de menu de cadastros
-        $mostra = array($item_cad_liberacao,
+        $mostra = array(
+            $item_cad_liberacao,
             $item_cad_pagamento,
             $item_cad_material,
             $item_cad_transito,
             $item_cad_transf_mat,
             $item_cad_rel_cons,
             $item_cad_config,
-            $item_cad_ajuda_sup);
+            $item_cad_ajuda_sup
+        );
 
         $dados = array();
 
@@ -758,10 +775,11 @@ class Login extends Liberacao {
         }
     }
 
-#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#@ filtro de acesso ao relatório do sistema 
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    #@ filtro de acesso ao relatório do sistema 
 
-    function acessoRel($_login) {
+    function acessoRel($_login)
+    {
 
         # item do relatórios do sistema
         #@ Tela de relatorio posicao geral dos depositos
@@ -834,10 +852,11 @@ class Login extends Liberacao {
         }
     }
 
-#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++	
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++	
     #@ Lembrete de liberacoes na tela inicial
 
-    function lembreteLiberacao($_id_dep_destino = false) {
+    function lembreteLiberacao($_id_dep_destino = false)
+    {
 
         $filtro = "";
 
@@ -845,7 +864,6 @@ class Login extends Liberacao {
 
             $filtro = "AND depDestino = " . $_id_dep_destino . "";
         } else {
-            
         }
 
         $sql = "SELECT dataLibera,
@@ -888,7 +906,7 @@ class Login extends Liberacao {
 										 <li>
 								 
 											 <span class=\"handle\">
-                                             ".($key1).") - <i class=\"fa fa-ellipsis-v\"></i>
+                                             " . ($key1) . ") - <i class=\"fa fa-ellipsis-v\"></i>
 												 <i class=\"fa fa-ellipsis-v\"></i>
 											 </span>
 											 <span class=\"text\">
@@ -917,7 +935,8 @@ class Login extends Liberacao {
 
     #@ filtro de acesso lembrete de Liberacoes
 
-    function acessoLembrete($login, $_id_dep_destino) {
+    function acessoLembrete($login, $_id_dep_destino)
+    {
 
         $dados = array();
 
@@ -960,33 +979,33 @@ class Login extends Liberacao {
         }
     }
 
-#@ filtro de acesso lembrete de Liberacoes
+    #@ filtro de acesso lembrete de Liberacoes
 
-    function acessoLembreteCompdec($id_municipio) {
+    function acessoLembreteCompdec($id_municipio)
+    {
 
-            $con = Conexao::getInstance();
+        $con = Conexao::getInstance();
         try {
 
             $sql = "select *FROM aju_liberacao WHERE id_municipio = :id_municipio";
 
             $statemant = $con->prepare($sql);
-            $statemant->bindValue(":id_municipio", $id_municipio);      
+            $statemant->bindValue(":id_municipio", $id_municipio);
             $statemant->execute();
-                    
+
             $result = $statemant->fetchAll(PDO::FETCH_ASSOC);
-            
+
             return $result;
-            
-            
         } catch (Exception $e) {
 
             return $e->getMessage();
         }
     }
 
-#@ Lembrete de Material em Transito / Lista Material para Recebimento
+    #@ Lembrete de Material em Transito / Lista Material para Recebimento
 
-    function lembreteTransito($_id_dep_destino = false) {
+    function lembreteTransito($_id_dep_destino = false)
+    {
 
         $filtro = '';
 
@@ -1026,9 +1045,10 @@ class Login extends Liberacao {
         }
     }
 
-#@ Lembrete de Material em Transito / Lista Material para Recebimento ( todos depositos )
+    #@ Lembrete de Material em Transito / Lista Material para Recebimento ( todos depositos )
 
-    function LembreteLiberacaoTodosDepositos($_id_dep_destino = false) {
+    function LembreteLiberacaoTodosDepositos($_id_dep_destino = false)
+    {
 
         $filtro = '';
 
@@ -1075,7 +1095,8 @@ class Login extends Liberacao {
      * @return void  
      * 
      */
-    function acessoLembreteTransito($_idUser, $_id_deposito = false) {
+    function acessoLembreteTransito($_idUser, $_id_deposito = false)
+    {
 
         $dados = array();
 
@@ -1113,9 +1134,10 @@ class Login extends Liberacao {
         }
     }
 
-#@ pega o nome do usuario 
+    #@ pega o nome do usuario 
 
-    function PegaNomeUsuario($_login) {
+    function PegaNomeUsuario($_login)
+    {
 
         $dados = array();
 
@@ -1131,8 +1153,7 @@ class Login extends Liberacao {
 
             while ($linha = $result->fetch(PDO::FETCH_NUM)) {
 
-                $dados[] = $linha;
-                ;
+                $dados[] = $linha;;
             }
 
             return $dados[0];
@@ -1144,7 +1165,8 @@ class Login extends Liberacao {
 
     #@ nivel de permissao acesso
 
-    function getNivel($nivel) {
+    function getNivel($nivel)
+    {
 
         if (($nivel == 2) || ($nivel == 33)) {
 
@@ -1160,7 +1182,8 @@ class Login extends Liberacao {
      * @param $_login String
      * @return array
      */
-    static function acessoModulo($_login) {
+    static function acessoModulo($_login)
+    {
 
         $linha = array();
 
@@ -1194,8 +1217,9 @@ class Login extends Liberacao {
 
     #@ mostra Modulos
 
-    static function mostraModulos($_acesso) {
-        
+    static function mostraModulos($_acesso)
+    {
+
         /* 0 - ajuda humanitaria
          * 1 - modulo pipa
          * 2 - modulo cce
@@ -1222,28 +1246,28 @@ class Login extends Liberacao {
             '6' => '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=escola&secao=menu" title="Módulo Escola de Defesa Civil"><img src="core/imagem/escola.png"><br />Escola de Defesa Civil</a>',
             '7' => '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=registro&controller=index&action=index" title="Registro de Desastre"><img src="core/imagem/registro.png"><br />Registro Desastre</a>',
             '8' => '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=cedec&controller=index&action=index" title="Módulo CEDEC"><img src="core/imagem/cedec.png"><br />CEDEC</a>',
-            '9'=> '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=compdec&controller=plano&action=indexplano" title="Plano de Contingência"><img width="120" src="core/imagem/plano.png"><br />Plano Contingência</a>',
-            '10' => '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=admin&controller=index&action=index" title="Configurações"><img width="120" src="core/imagem/config.png"><br />Configurações</a>');
+            '9' => '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=compdec&controller=plano&action=indexplano" title="Plano de Contingência"><img width="120" src="core/imagem/plano.png"><br />Plano Contingência</a>',
+            '10' => '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=admin&controller=index&action=index" title="Configurações"><img width="120" src="core/imagem/config.png"><br />Configurações</a>'
+        );
 
         $acesso = array();
-        
+
         $_acesso[9] = 1; // habilitar plano de conting
-        if($_COOKIE['seguranca']['idUser'] == 1){
+        if ($_COOKIE['seguranca']['idUser'] == 1) {
             $_acesso[10] = 1; // habilitar config.
         }
         $_acesso[6] = 0; // desabilitar escola
-        
+
         print "<div class='row'>";
         for ($i = 0; $i < count($_acesso); $i++) {
             if ($_acesso[$i] == 1) {
                 $acesso[] = $chave_acesso[$i];
                 print '<div class="col-md-3 text-center" style="height: 200px;">';
-                
+
                 print $chave_acesso[$i];
 
                 print '</div>';
             }
-            
         }
     }
 
@@ -1252,7 +1276,8 @@ class Login extends Liberacao {
      * @param null
      * @return boolean
      */
-    static function VerificaBrowser() {
+    static function VerificaBrowser()
+    {
 
         $useragent = $_SERVER['HTTP_USER_AGENT'];
 
@@ -1269,7 +1294,8 @@ class Login extends Liberacao {
 
     #@ tempo de sessao
 
-    function Sessao() {
+    function Sessao()
+    {
 
         $temposessao = 0;
 
@@ -1318,7 +1344,8 @@ class Login extends Liberacao {
      * 
      * 
      */
-    function buscaUsuarioDepositoBh($login) {
+    function buscaUsuarioDepositoBh($login)
+    {
 
         $dados = array();
 
@@ -1357,17 +1384,14 @@ class Login extends Liberacao {
      *
      *
      */
-    public function pegaDadosLogin($usuario, $senha) {
+    public function pegaDadosLogin($usuario, $senha)
+    {
 
         $con = Conexao::getInstance();
 
         try {
             $sql = "INSERT INTO ";
         } catch (Exception $e) {
-            
         }
     }
-
 }
-
-?>

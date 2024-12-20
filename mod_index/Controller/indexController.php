@@ -326,6 +326,19 @@ class indexController extends Controller {
         include_once 'mod_index/app/login/auth.php';
     }
 
+    /**
+     * CISTERNA
+     * 
+     */
+    public function cisterna() {
+        if ($_COOKIE['seguranca']['tipo'] == "i") {
+            $routeInicio = 'modulo=index&controller=index&action=menu';
+        } else {
+            $routeInicio = 'modulo=index&controller=index&action=menue';
+        }
+        include_once 'mod_index/app/login/auth.php';
+    }
+
 
     /**
      * USUARIOS

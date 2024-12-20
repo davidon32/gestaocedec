@@ -1,6 +1,6 @@
 <?php include_once PATH . '/core/include.php'; ?>
 <?php include_once "core/Model/indexModel.php"; ?>
-<?php include_once "mod_ajuda/Model/indexModel.php"; ?>
+    <?php include_once "mod_ajuda/Model/indexModel.php"; ?>
 
 <!-- =============== HEADER HTML PAGE ================= -->
 <?php include_once "template/page/headerPage.php"; ?>
@@ -46,7 +46,13 @@ if ($_COOKIE['seguranca']['id_deposito'] == 1) {
             <!--####################### PEDIDO DE AJUDA HUMANITARIO ###########################-->
             <?php
 
-            if ($_COOKIE['seguranca']['login'] == "M1296844") {
+                    # autorização entrada sistema cisterna
+                    $autorizacao = [
+                        "M1296844",
+                        "S126282",
+                    ];
+
+            if (in_array($_COOKIE['seguranca']['login'], $autorizacao) ) {
                 ?>
                 <a href="<?= FuncaoBase::geraLink("index", "index", "mah") ?>">
                     <img src="core/imagem/pedido_cesta.png" width="80px">
@@ -60,6 +66,9 @@ if ($_COOKIE['seguranca']['id_deposito'] == 1) {
             }
             ?>
         </div>
+
+
+       
 
         
 

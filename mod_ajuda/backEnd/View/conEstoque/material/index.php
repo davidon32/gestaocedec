@@ -26,13 +26,12 @@
 <br>
 <?php
 
-    $loginAcesso = ['m1296844',
-                    's149704'
+    /** PERMISSAO AJUSTE DE SALDO */
+    $loginAcesso = ['M1296844',
+                    'X94225'
                     ];
     
-    
-  
-    if( ($_COOKIE['seguranca']['tipo'] == "i") && (in_array(strtolower($_COOKIE['seguranca']['login']), $loginAcesso)) ) 
+    if( ($_COOKIE['seguranca']['tipo'] == "i") && (in_array($_COOKIE['seguranca']['login'], $loginAcesso)) ) 
      {
         print "<a href=\"?token=".hash('sha256', md5(VERSAO).date('dmY'))."&ac=itn&modulo=ajuda&controller=conestoque&action=ajuste\" class=\"btn btn-primary\">Ajuste Saldo</a>";
     }
