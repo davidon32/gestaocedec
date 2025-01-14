@@ -91,6 +91,7 @@
             }
 
             foreach ($dados as $key => $value) {
+                $id_coordenador = MembroEqCompdec::getMembroCoordenador($value['id_municipio']);
 
                 print "<tr>";
                 print "<td>" . $value['usuario'] . "</td>";
@@ -98,8 +99,9 @@
                 print "<td>" . $value['email_rec'] . "</td>";
                 print "<td>" . $value['situacao'] . "</td>";
                 print "<td>
-						                      <a href='?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=pipa&controller=pipa&action=cUserEx&id=" . $value['id'] . $volta . "'><img src='core/imagem/editar.png' title='Editar dados do usuario externo'></a>
-						                      <!--<a href='#'><img src='core/imagem/view.png'></a>-->						        
+						                    <a href='?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=pipa&controller=pipa&action=cUserEx&id=" . $value['id'] . $volta . "'><img src='core/imagem/editar.png' title='Editar dados do usuario externo'></a>
+						                    <!--<a href='#'><img src='core/imagem/view.png'></a>-->
+						                    <a href='".FuncaoBase::geraLink('compdec', 'compdec', 'alterarCoordenador', array('id'=> $id_coordenador['id_equipe'], 'mun' => $value['id_municipio']))."'><img src='core/imagem/coordenador.png' width='30' title='Dados do Coordenador'></a>
 						          </td>";
             }
             print "</tr>";//var_dump($_POST);

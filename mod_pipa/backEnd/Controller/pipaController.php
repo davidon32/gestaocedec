@@ -139,8 +139,11 @@ class pipaController extends Controller {
 
     public function resetarSenha() {
 
+        //var_dump($_POST);
+        //die();
 
         $btn = isset($_POST['btnAtua']) ? $_POST['btnAtua'] : "";
+        $funcao = isset($_POST['funcao']) ? $_POST['funcao'] : "";
 
         if ($btn == 'btnAtua') {
 
@@ -149,82 +152,17 @@ class pipaController extends Controller {
             $_POST['ck_ajuda'] = isset($_POST['ck_ajuda']) ? $_POST['ck_ajuda'] : 0;
 
 
+            //var_dump(Usuario::atuaUsuarioExterno($_POST));
+           // die();
+
             # atualiza dados usuario
             # atualizações futuras, desativar usuario e cadatrar outro novo
             if (Usuario::atuaUsuarioExterno($_POST)) {
 
                 $dado = $_POST;
 
-                $data_coordenador = [
-                    'id_equipe' => $dado['membro_coord_id'],
-                    'txtCpf' => $dado['cpfCoord'],
-                    'txtNomeMembro' => $dado['nomeCoord'],
-                    'txtCelMembro' => $dado['celCoord'],
-                    'txtTelMembro' => $dado['telCoord'],
-                    'txtEmailMembro' => $dado['emailCoord'],
-                    'selFuncaoMembro' => "COORDENADOR",
-                    'id_municipio' => $dado['municipio_id'],
-                    'status' => 1,
-                    'txtIdMunicipio' => $dado['municipio_id'],
-                ];
-
-
-
-                # NÃO alterou o CPF do usuário Atualizar dados coordenador
-                if ($dado['cpfCoord'] == $dado['cpf_atual']) {
-
-                    //var_dump(MembroEqCompdec::alterar($data_coordenador). " Alteração somente os dados do coordenador");
-                    MembroEqCompdec::alterar($data_coordenador);
-
-
-                    # Cadastrar novo coordenador
-                } elseif ($dado['cpfCoord'] != $dado['cpf_atual']) {
-
-                    $coordAntigo = MembroEqCompdec::existeCoord($data_coordenador);
-
-                    # verifica se existe ex coordenador
-                    if ($coordAntigo['result'] == 1) {
-                        //var_dump($coordAntigo);
-
-                        $dadosCoorAnt = ['id_equipe' => $coordAntigo['dado']['id_equipe'],
-                            'txtCpf' => $dado['cpfCoord'],
-                            'txtNomeMembro' => $dado['nomeCoord'],
-                            'txtCelMembro' => $dado['celCoord'],
-                            'txtTelMembro' => $dado['telCoord'],
-                            'txtEmailMembro' => $dado['emailCoord'],
-                            'selFuncaoMembro' => "COORDENADOR",
-                            'status' => 1,
-                            'txtIdMunicipio' => $dado['municipio_id'],
-                        ];
-
-
-                        //var_dump("Novo : ".$dado['cpfCoord'], "Atual :". $dado['cpf_atual']);
-                        #desativa o coordenador atual
-                        //var_dump("Existe coordenador vou desativar o coordenador antigo ".MembroEqCompdec::desativaCoordAntigo($data_coordenador['id_municipio']));
-                        MembroEqCompdec::desativaCoordAntigo($data_coordenador['id_municipio']);
-
-
-                        # atualiza os dados do coordenador existente
-                        //var_dump(MembroEqCompdec::alterar($dadosCoorAnt)." Atualiza Existente");
-                        MembroEqCompdec::alterar($dadosCoorAnt);
-
-
-                        # cadastra um novo
-                    } else {
-                        # desativa o coordenador atual
-                        //var_dump("Desativei coordenador antigo ".MembroEqCompdec::desativaCoordAntigo($data_coordenador['id_municipio']));
-                        MembroEqCompdec::desativaCoordAntigo($data_coordenador['id_municipio']);
-
-                        # cadastra o novo
-                        //var_dump(MembroEqCompdec::novo($data_coordenador)." Cadastro novo coordenador");
-                        MembroEqCompdec::novo($data_coordenador);
-                    }
-                }
-
-                //var_dump($_POST, $data_coordenador, str_replace(['.','-'], "", $data_coordenador['txtCpf']));
+                //var_dump($dado);
                 //die();
-
-                if ($dado['cpfCoord'] != $dado['cpf_atual']) {
 
                     /* atualizar email no lara */
                     $url = "http://www.sdc.mg.gov.br/api/auth/update";
@@ -232,103 +170,100 @@ class pipaController extends Controller {
                     $api = FuncaoBase::Api([
                                 'url' => $url,
                                 'post' => 1,
+                                'debug' => 1,
                                 'itens' => [
-                                    'email' => $_POST['email_rec'],
+                                    'nome' => $_POST['textUsuario'],
+                                    'municipio_id' => $dado['id_municipio'],
                                     'id_user_cedec' => $_POST['id_usuario'],
-                                    'cpf' => str_replace(['.', '-'], "", $data_coordenador['txtCpf']),
-                                    'ativo' => $data_coordenador['status'],
+                                    'email' => $_POST['email_rec'],
+                                    'cpf' => str_replace(['.', '-'], "", $dado['cpf']),
+                                    'ativo' => ($dado['txtSituacao'] == 'ATIVADO' ? 1 : 0),
                                     'tipo' => 'compdec',
-                                    'municipio_id' => $data_coordenador['txtIdMunicipio'],
                                 ],
-                    ]);
-
+                    ] );
 
                     $result = $api;
 
-//                var_dump($result);
-//                die();;
                     # atualiza lara
-                    if ($result['result'] == 'duplicado') {
-                        print "<script>
-                            alert('COD:06 - Já existe esse usuário na base de dados !');          
-                            </script>";
-                    } elseif ($result['result'] == 'true') {
+                    if ($result['result'] == 1) {
                         print "<script>
                             alert('Usuario atualizado com Sucesso !');         
                             </script>";
-                    }
-                }
 
 
-//                print "<script>
-//                        alert('Dados do usuário atualizado com Sucesso !');      
-//                    </script>";
+                            if (isset($dado['ckReset'])) {
+            
+                                $email_rec = $_POST['email_rec'];
+            
+                                $email = "<style>
+                                    body {
+                                    background-color: #F79A86 ;
+                                    }
+                                    .message{
+                                        width: 600px;
+                                        margin: 0 auto;
+                                        
+                                        padding: 10px;
+                                        font-size: 15pt;
+                                        text-align:justify;
+                                        border-radius: 13px;
+                                        border:0.1 solid;
+                                        background-color: #AACCF3;
+                                        font-family: 'calibri';
+                                    }
+                                    b {
+                                        color:red;
+                                    }
+                                </style>
+                                    <br>
+                                    <br>
+                                    <div class='container message'>
+                                    <div class='col alert alert-success'>
+                                    <p style='text-align:center'><img width='80' src='/core/imagem/DEFESACIVILMG_400.png'></p>
+                                        <br>
+                                        <h4>Prezado Coordenador,<br><br>
+                                        Sua senha foi resetada, acesse : <br>
+                                        http://sistema.defesacivil.mg.gov.br
+                                        <br>
+                                        <br>
+                                        Usuario : <b>" . $email_rec . "</b> 
+                                        <br>
+                                        <br>
+                                        Senha   : <b>defesa199</b>
+                                        <br>
+                                        <br>
+                                        Efetue a Troca de Senha !
+                                        <br><br></h4>
+                                        <h3><p style='color:#35231F'>Obs:<br> <i>O usuario de acesso, é o email que usamos para resetar a senha, fique atento pois alterar o email de resetar senha é também alterado o usuario de acesso.</i></p></h3>
+                                        
+                                    </div>
+                                    <p class='text-center'><a class='btn btn-primary' href='" . FuncaoBase::geraLink('pipa', 'pipa', 'pesquisaUsuario') . "' >Voltar</a></p>
+                                    </div>";
+            
+                                //Email::emailIndividual($email_rec, 'Senha SDC Recuperada', "<html>".$email."</html>");
+            
+            
+                                print $email;
+                            }else {
+                                print "<script>
+                                        window.location.href= '" . FuncaoBase::geraLink('pipa', 'pipa', 'cUserEx', array('id' => $_POST['id_usuario'], 'volta' => 'compdec')) . "';
+                                        </script>";
 
-                if (isset($_POST['ckReset'])) {
+                            } 
 
-                    $email_rec = $_POST['email_rec'];
-
-                    $email = "<style>
-                        body {
-                        background-color: #F79A86 ;
-                        }
-                        .message{
-                            width: 600px;
-                            margin: 0 auto;
                             
-                            padding: 10px;
-                            font-size: 15pt;
-                            text-align:justify;
-                            border-radius: 13px;
-                            border:0.1 solid;
-                            background-color: #AACCF3;
-                            font-family: 'calibri';
-                        }
-                        b {
-                            color:red;
-                        }
-                    </style>
-                        <br>
-                        <br>
-                        <div class='container message'>
-                        <div class='col alert alert-success'>
-                        <p style='text-align:center'><img width='80' src='/core/imagem/DEFESACIVILMG_400.png'></p>
-                            <br>
-                            <h4>Prezado Coordenador,<br><br>
-                            Sua senha foi resetada, acesse : <br>
-                            http://sistema.defesacivil.mg.gov.br
-                            <br>
-                            <br>
-                            Usuario : <b>" . $email_rec . "</b> 
-                            <br>
-                            <br>
-                            Senha   : <b>defesa199</b>
-                            <br>
-                            <br>
-                            Efetue a Troca de Senha !
-                            <br><br></h4>
-                            <h3><p style='color:#35231F'>Obs:<br> <i>O usuario de acesso, é o email que usamos para resetar a senha, fique atento pois alterar o email de resetar senha é também alterado o usuario de acesso.</i></p></h3>
                             
-                        </div>
-                        <p class='text-center'><a class='btn btn-primary' href='" . FuncaoBase::geraLink('pipa', 'pipa', 'pesquisaUsuario') . "' >Voltar</a></p>
-                        </div>";
-
-                    //Email::emailIndividual($email_rec, 'Senha SDC Recuperada', "<html>".$email."</html>");
-
-
-                    print $email;
-                } else {
-
-                    print "<script>";
-                    print "alert('Usuario atualizado com Sucesso !');";
-                    print "</script>";
-                    print "<script>
-                            window.location.href= '" . FuncaoBase::geraLink('pipa', 'pipa', 'cUserEx', array('id' => $_POST['id_usuario'], 'volta' => 'compdec')) . "';
+                    }elseif ($result['result'] == 2) {
+                            print "<script>
+                            alert('COD:06 - Já existe esse usuário na base de dados !');          
                             </script>";
-                }
+                            print "<p class='text-center'><a class='btn btn-primary' href='" . FuncaoBase::geraLink('pipa', 'pipa', 'pesquisaUsuario') . "' >Voltar</a></p>";
+                    }
+                        
+
             } else {
 
-                print "oi";
+                //print "oi";
             }
         }
     }

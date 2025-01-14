@@ -183,6 +183,8 @@ class Usuario extends UsuarioModel {
 
         try {
 
+            $cpf1 = str_replace(['.', '-'], "", $dados['cpf']);
+
             $con = Conexao::getInstance();
 
             $sql = "UPDATE cedec_user_ex SET 
@@ -193,8 +195,9 @@ class Usuario extends UsuarioModel {
 						mod_compdec = :mod_compdec,
 						mod_ajuda  = :mod_ajuda,
 						trSenha = :trSenha,
-                                                reset =   :reset
-							WHERE id = :id";
+                        cpf = :cpf,
+                        reset =   :reset
+						WHERE id = :id";
 
             $result = $con->prepare($sql);
             $result->bindParam(":email", $dados['email_rec']);
@@ -205,6 +208,7 @@ class Usuario extends UsuarioModel {
             $result->bindParam(":mod_compdec", $dados['ck_compdec']);
             $result->bindParam(":mod_ajuda", $dados['ck_ajuda']);
             $result->bindParam(":trSenha", $dados['trSenha']);
+            $result->bindParam(":cpf", $cpf1);
             $result->bindParam(":reset", $dados['reset']);
             $result->execute();
 
@@ -1632,7 +1636,7 @@ class Usuario extends UsuarioModel {
         $con = Conexao::getInstance();
 
         $sql = "Select id, usuario, senha, email_rec, id_municipio, trsenha, tmpAnexo, situacao,
-    					mod_pipa, mod_ajuda, mod_compdec
+                        cpf, mod_pipa, mod_ajuda, mod_compdec
     					FROM cedec_user_ex
     						WHERE id = :id";
 

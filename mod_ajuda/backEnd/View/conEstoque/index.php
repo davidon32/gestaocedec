@@ -55,21 +55,21 @@
 
         <!-- Saldo Estoque -->
         <?php
-        if (Usuario::getPermissao('aju_permissao', 'rel_saldo_geral')) {
-            ?>
-            <div class="col-md-4 text-center">
-                <a href="?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=salindex" title="Saldo Estoque">
-                    <img src="/core/imagem/estoque/estoque.png" width="80"><br>
-                    Estoque
-                </a>
-            </div>
-            <?php
-        } else {
-            print '<div class="col-md-4 text-center">';
-            print "<img class=\"imgCinza\" src=\"core/imagem/estoque/estoque.png\" width=\"80px\" title=\"Saldo Estoque\">";
-            print "<br> Estoque";
-            print "</div>";
-        }
+        // if (Usuario::getPermissao('aju_permissao', 'rel_saldo_geral')) {
+             ?>
+        <!--     <div class="col-md-4 text-center">
+                 <a href="?token=<?= hash('sha256', md5(VERSAO).date('dmY')); ?>&ac=itn&modulo=ajuda&controller=conestoque&action=salindex" title="Saldo Estoque">
+                     <img src="/core/imagem/estoque/estoque.png" width="80"><br>
+                     Estoque
+                 </a>
+             </div>-->
+             <?php
+        // } else {
+        //     print '<div class="col-md-4 text-center">';
+        //     print "<img class=\"imgCinza\" src=\"core/imagem/estoque/estoque.png\" width=\"80px\" title=\"Saldo Estoque\">";
+        //     print "<br> Estoque";
+        //     print "</div>";
+        // }
         ?>
 
 

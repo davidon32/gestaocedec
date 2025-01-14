@@ -13,11 +13,12 @@ public static function AnexoBoletim($dados, $arquivo, $caminho) {
 	try {
 
 		/* 1.7mb = 1762762 */
+		/*2.5  tamanho atual */
 		if(
 				($arquivo['fileAnexo']['error'] == '0') &&
 				(strlen($arquivo['fileAnexo']['name']) <="60") &&
 				($arquivo['fileAnexo']['size'] > '10') &&
-				($arquivo['fileAnexo']['size'] <= '2000000' )
+				($arquivo['fileAnexo']['size'] <= '2621440' )
 					
 				){
 

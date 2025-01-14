@@ -17,7 +17,13 @@ class compdecController extends Controller {
     }
 
     #cadastro Usuario
+    public function alterarCoordenador() {
 
+        include_once "mod_pipa/backEnd/View/usuario/coordenador.php";
+    }
+
+
+    #cadastro Usuario
     public function alterarCompdec() {
 
         include_once "mod_compdec/backEnd/View/compdec/alterarCompdec.php";
@@ -135,6 +141,40 @@ if(!$mail->send()) {
     public function informacoes() {
         
         include_once "mod_compdec/backEnd/View/compdec/informacoes.php";
+    }
+
+
+    /* atualizar coordenador */
+    public function storeCoordenador() {
+
+        $dado = $_POST;
+
+        $data_coordenador = [
+            'id_equipe' => $dado['id_equipe'],
+            'txtCpf' => $dado['cpfCoord'],
+            'txtNomeMembro' => $dado['nome'],
+            'txtCelMembro' => $dado['cel'],
+            'txtTelMembro' => $dado['tel'],
+            'txtEmailMembro' => $dado['email'],
+            'selFuncaoMembro' => "COORDENADOR",
+            'id_municipio' => $dado['id_municipio'],
+            'status' => 1,
+            'txtIdMunicipio' => $dado['id_municipio'],
+        ];
+
+        if($dado['funcao'] == 'update') {
+            if(MembroEqCompdec::alterar($data_coordenador)) {
+                print "<script>alert('Dados Atualizados com Sucesso !')</script>";
+                print "<script>window.location.href='/index.php?token=0a25a4ce95013c470baf6f8f1d623c6792e8b81d4b4cc2506f8601f01c02ef8c&modulo=compdec&controller=compdec&action=alterarCoordenador&id={$data_coordenador['id_equipe']}&mun={$data_coordenador['id_municipio']}'</script>";
+            }
+
+        }elseif($dado['funcao'] == 'novo') {
+            MembroEqCompdec::desativaCoordAntigo($data_coordenador['id_municipio']);
+            MembroEqCompdec::novo($data_coordenador);
+            print "<script>alert('Dados Atualizados com Sucesso !')</script>";
+                print "<script>window.location.href='/index.php?token=0a25a4ce95013c470baf6f8f1d623c6792e8b81d4b4cc2506f8601f01c02ef8c&modulo=pipa&controller=pipa&action=pesquisaUsuario&volta=compdec'</script>";
+        }
+
     }
 
 }

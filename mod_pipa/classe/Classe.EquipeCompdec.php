@@ -186,13 +186,35 @@ class MembroEqCompdec {
      * @return array
      * 
      */
-    public static function getMembro($dados){
+    public static function getMembroCoordenador($id_municipio){
         
         $con = Conexao::getInstance();
         
         $sql = "SELECT *from com_eq_comdec
-                where id_municipio = ".$dados['id_municipio']."
+                where id_municipio = {$id_municipio}
                 and lower(funcao) = 'coordenador'
+                and status = 1";
+        
+        $result = $con->query($sql);
+               
+        return $result->fetch(PDO::FETCH_ASSOC);
+    }
+
+    
+    /**
+     * 
+     * @param type $id
+     * @return array
+     * 
+     */
+    public static function getMembro($dados){
+        
+        $con = Conexao::getInstance();
+
+        //var_dump($dados);
+        
+        $sql = "SELECT *from com_eq_comdec
+                where id_municipio = ".$dados['id_municipio']."
                 and status = 1";
         
         $result = $con->query($sql);

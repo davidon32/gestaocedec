@@ -956,7 +956,7 @@ class Compdec {
         $con = Conexao::getInstance();
         
         $sql = "SELECT *from com_anexo WHERE id_municipio = '".$id_municipio."'
-                and dt_anexo <= '2023-06-01'";
+                and dt_anexo >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH)";
         
         $result = $con->query($sql);
         

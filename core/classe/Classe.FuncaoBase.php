@@ -1059,9 +1059,10 @@ class FuncaoBase extends Exception
     /**
      * @param array['url]
      * @param array['post'] [0,1]
+     * @param array['debug'] [0,1]
      * @param array['param'=>array['itens']] 
      */
-    public static function Api(array $param)
+    public static function Api(array $param, $debug = 1)
     {
 
         $ch = curl_init();
@@ -1082,7 +1083,7 @@ class FuncaoBase extends Exception
             ]),
             CURLOPT_SSL_VERIFYHOST => 0,
             CURLOPT_SSL_VERIFYPEER => 0,
-            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_RETURNTRANSFER => $param['debug'],
             CURLOPT_PROTOCOLS => CURLPROTO_HTTP,
             CURLOPT_VERBOSE => false,
         ]);

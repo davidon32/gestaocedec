@@ -67,7 +67,7 @@ $plano = new Plano();
                 print "<td " . $kits . ">";
 
                 if ($value['dt_upload'] > "2021-08-11") {
-                    print "<a href=\"#\" title=\"Deletar Plano\" onclick=\"removerPlano(" . $value['id'] . ")\"><img width=\"20px;\" src=\"core/imagem/delete.png\"></a>";
+                    //print "<a href=\"#\" title=\"Deletar Plano\" onclick=\"removerPlano(" . $value['id'] . ")\"><img width=\"20px;\" src=\"core/imagem/delete.png\"></a>";
                 }
                 print "</td>";
                 print "</tr>";

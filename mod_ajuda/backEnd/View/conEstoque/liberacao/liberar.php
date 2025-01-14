@@ -225,8 +225,8 @@ $dadosDeposito = Deposito::ListaDeposito();
         });
 
         $("#dt_libera").datepicker({
-            // maxDate: 3,
-             minDate: -30,
+             maxDate: 3,
+             minDate: -3,
             dateFormat: 'dd/mm/yy',
             orientation: "bottom left",
             beforeShow: function () { /* problema datapicker atras controle input*/

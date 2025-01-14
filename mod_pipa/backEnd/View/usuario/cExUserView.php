@@ -5,7 +5,8 @@
 <!-- =================== HEADER ============================ -->
 <?php include_once "template/page/header.php"; ?>
 <!-- =================== MENU  ============================ -->
-<?php //include_once "template/page/menu.php";?>
+<?php //include_once "template/page/menu.php";
+?>
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php"; ?>
 
@@ -17,7 +18,7 @@ $dados = Usuario::buscaUsuarioId($_GET['id']);
 
 $membro_compdec = MembroEqCompdec::getMembro($dados);
 
-var_dump($membro_compdec, $dados);
+//var_dump($membro_compdec, $dados);
 
 if (!$membro_compdec) {
     $membro_compdec = [
@@ -32,40 +33,41 @@ if (!$membro_compdec) {
     ];
 }
 
-
-
-//var_dump($membro_compdec['cpf']);
 ?>
 
 
-<form class="form-horizontal" action="<?= FuncaoBase::geraLink("pipa", "pipa", "resetarSenha") ?>" method="POST" id="cadUserEx" name="frm" lang='pt-Br'> 
+<form class="form-horizontal" action="<?= FuncaoBase::geraLink("pipa", "pipa", "resetarSenha") ?>" method="POST" id="cadUserEx" name="frm" lang='pt-Br'>
 
 
     <!-- Form Name -->
-    <legend>Alteração / Ativação Senha de Acesso - <i style="color:blue; font-weight: bolder"><?= $dados['usuario'] ?></i>  </legend>
+    <legend>Alteração / Ativação Senha de Acesso - <i style="color:blue; font-weight: bolder"><?= $dados['usuario'] ?></i> </legend>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col">
             <p class="text-center"><a onclick="openInfo()"> Necessita de Ajuda <img src="/core/imagem/help.png" width="30"></a></p>
         </div>
-        <div class="col-md-6">
-            <p class="text-center"><a onclick="openInfo1()"> Necessita de Ajuda <img src="/core/imagem/help.png" width="30"></a></p>
-        </div>
 
-        <div class="col-md-6">
+        <div class="col">
             <legend>Dados do Usuário</legend>
             <label class="" for="textinput">Login Usuário:</label>
 
             <input id="textUsuario" name="textUsuario" type="text" value="<?= $dados['usuario'] ?>" class="form-control " readonly="readonly">
-            <input id="id_usuario" name="id_usuario" type="hidden" value="<?= $dados['id'] ?>" >
-            <input id="reset" name="reset" type="hidden" value="">
+            <input id="id_municipio" name="id_municipio" type="hidden" value="<?= $dados['id_municipio'] ?>" class="form-control " readonly="readonly">
+            <input id="id_usuario" name="id_usuario" type="hidden" value="<?= $dados['id'] ?>">
+            
+            <input id="funcao" name="funcao" type="hidden" value="reset">
 
-            <input id="ck_pmda"    name="ck_pmda"    type="hidden" value="<?= $dados['mod_pipa'] ?>">
-            <input id="ck_ajuda"   name="ck_ajuda"   type="hidden" value="<?= $dados['mod_ajuda'] ?>">
+            <input id="ck_pmda" name="ck_pmda" type="hidden" value="<?= $dados['mod_pipa'] ?>">
+            <input id="ck_ajuda" name="ck_ajuda" type="hidden" value="<?= $dados['mod_ajuda'] ?>">
             <input id="ck_compdec" name="ck_compdec" type="hidden" value="<?= $dados['mod_compdec'] ?>">
 
             <br>
             <label class="" for="textinput">Email login / Recuperar Senha</label>: <small>(email institucional ex. nomemunicipio@municipio.mg.gov.br)</small>
             <input id="email_rec" name="email_rec" type="email" value="<?= $dados['email_rec']; ?>" class="form-control">
+
+            <br>
+            <label class="" for="textinput">CPF</label>: <small>CPF do Usuário</small>
+            <input id="cpf" name="cpf" type="text" value="<?= $dados['cpf']; ?>" class="form-control">
+
             <br>
             <span class="alert alert-danger" id="email_branco" style="font-size:12px;">* Email não pode ficar em branco, pois o mesmo é usado para a recuperação de senha </span>
 
@@ -75,79 +77,17 @@ if (!$membro_compdec) {
                 <option>ATIVADO</option>
                 <option>DESATIVADO</option>
                 <option>CADASTRO_RECUSADO</option>
-            </select>  
+            </select>
 
             <br>
             <input id="senha" name="senha" type="hidden" value="<?= $dados['senha'] ?>" class="form-control" readonly="readonly">
             <input id="trSenha" name="trSenha" type="hidden" value="0">
-
-
-
             <br>
-            <input type="checkbox" id="ckReset" name="ckReset" >
+            <input type="checkbox" id="ckReset" name="ckReset">
 
-            <label>Resetar Senha</label>:( <b style='color:red'>defesa199</b> )
+            <label>Resetar Senha</label><br>Padrão:   <b style='color:red'>defesa199</b> 
         </div>
 
-        <div class="col-md-6">
-            <legend>Dados do Coordenador</legend>
-
-            <input class="form-control" type="hidden" name="cpf_atual" id="cpf_atual" required maxlength="14" value="<?= $membro_compdec['cpf'] ?>">
-            <input class="form-control" type="hidden" name="membro_coord_id" id="membro_coord_id" required maxlength="4" value="<?= $membro_compdec['id_equipe'] ?>">
-            <input class="form-control" type="hidden" name="municipio_id" id="municipio_id" required maxlength="4" value="<?= $membro_compdec['id_municipio'] ?>">               
-
-
-            <label>CPF do Coordenador</label>:
-            <input class="form-control" type="text" name="cpfCoord" id="cpfCoord" required maxlength="14" value="<?= $membro_compdec['cpf'] ?>">
-
-
-            <br>
-            <label>Nome Coordenador</label>:
-            <input class="form-control" type="text" name="nomeCoord" id="nomeCoord" required maxlength="50" value="<?= $membro_compdec['nome'] ?>">
-
-            <input class="form-control" type="hidden" name="nomeCoordAtual" id="nomeCoordAtual" required maxlength="50" value="<?= $membro_compdec['nome'] ?>">
-
-
-            <br>
-            <label>Telefone Coordenador</label>:
-            <input class="form form-control" type="text" name="telCoord" id="telCoord" maxlength="16" required value="<?= $membro_compdec['telefone'] ?>" >
-
-            <br>
-            <label>Celular Coordenador</label>:
-            <input class="form-control" type="text" name="celCoord" id="celCoord" maxlength="16" required value="<?= $membro_compdec['celular'] ?>" >
-
-            <br>
-            <label>E-mail Coordenador</label>:
-            <input class="form-control" type="mail" name="emailCoord" id="emailCoord" maxlength="100" required value="<?= $membro_compdec['email'] ?>" >
-
-
-        </div>
-        <!--            <div class="col-md-6">
-                        <legend>Log Tentativa Acesso</legend>
-                        <div class='table table-responsive' style="height: 200px;overflow: auto;">
-                        <table class="table table-bordered">
-                                <tr>
-                                    <th>Login Digitado</th>
-                                    <th>Senha</th>
-                                    <th>Data/Hora</th>
-                                </tr>
-        <?php
-//$tentativa_acesso = Usuario::listaTentativaAcesso();
-//foreach ($tentativa_acesso as $key => $value) {
-//$erro = (strtoupper($dados['usuario']) != strtoupper($value['login'])) ? "style='color:red;' title='Usuario Digitou Login errado !'":"";
-//if(substr($value['acao'], 0, 5) == "Login"){
-//print "<tr>
-//   <td ".$erro.">".strtoupper($value['login'])."</td>
-//    <td>".substr($value['acao'], (strpos($value['acao'], "Senha:")+6))."</td>
-//    <td>". DataMysql::dataCompletaVisual($value['dt_user'])."</td>
-//</tr>";
-// }
-//}
-        ?>
-                            </table>
-                        </div>
-                        
-                    </div>-->
     </div>
 
     <div class="row">
@@ -202,16 +142,16 @@ if (!$membro_compdec) {
                             </tr>
                         </table>-->
     </div>
-</div>
-
-
-<!-- Button -->
-<div class="control-group">
-    <label class="control-label" for="singlebutton"></label>
-    <div class="controls">
-        <button id="btnAtua" name="btnAtua" class="btn btn-primary" id="btnAtua" value="btnAtua">Gravar / Salvar</button>
     </div>
-</div>
+
+
+    <!-- Button -->
+    <div class="control-group">
+        <label class="control-label" for="singlebutton"></label>
+        <div class="controls">
+            <button id="btnAtua" name="btnAtua" class="btn btn-primary" id="btnAtua" value="btnAtua">Gravar / Salvar</button>
+        </div>
+    </div>
 
 
 </form>
@@ -228,8 +168,8 @@ if (!$membro_compdec) {
 
 </div>
 
-</div>       
-</div> 
+</div>
+</div>
 <!-- =================== RODAPE CORPO ==================== -->
 <?php include_once "template/page/corpoRodape.php"; ?>
 
@@ -242,23 +182,22 @@ if (!$membro_compdec) {
 <?php include_once "template/page/rodapePage.php"; ?>
 
 <script type="text/javascript">
+    $(document).ready(function() {
 
-    $(document).ready(function () {
+        $('#btnAtua').hover(function() {
 
-        $('#btnAtua').hover(function () {
-
-            var cpf_coord_atual  = $("#cpf_atual").val();
-            var cpf_coord  = $("#cpfCoord").val();
+            var cpf_coord_atual = $("#cpf_atual").val();
+            var cpf_coord = $("#cpfCoord").val();
             var nome_atual = $("#nomeCoordAtual").val();
             var nome_coord = $("#nomeCoord").val();
-            
-            var cpf_novo = cpf_coord.replaceAll('.',"").replace('-',"");
-            var cpf_atual = cpf_coord_atual.replaceAll('.',"").replace('-',"");
-        
-//        console.log(cpf_atual);;
-//        console.log(cpf_novo);
-//        console.log(nome_atual);
-//        console.log(nome_coord);
+
+            var cpf_novo = cpf_coord.replaceAll('.', "").replace('-', "");
+            var cpf_atual = cpf_coord_atual.replaceAll('.', "").replace('-', "");
+
+            //        console.log(cpf_atual);;
+            //        console.log(cpf_novo);
+            //        console.log(nome_atual);
+            //        console.log(nome_coord);
 
             if (cpf_atual !== cpf_novo && nome_atual === nome_coord) {
 
@@ -295,7 +234,7 @@ if (!$membro_compdec) {
                 }
             }
 
-//            alert("-");
+            //            alert("-");
 
 
         });
@@ -304,6 +243,7 @@ if (!$membro_compdec) {
         //$("#senha").val("");
 
         $('#cpfCoord').mask("999.999.999-99");
+        $('#cpf').mask("999.999.999-99");
 
         $("#cadUserEx").validate();
 
@@ -316,7 +256,7 @@ if (!$membro_compdec) {
 
 
 
-        $("#email_rec").blur(function () {
+        $("#email_rec").blur(function() {
 
             var email = $("#email_rec").val();
 
@@ -338,23 +278,23 @@ if (!$membro_compdec) {
 
         });
 
-        $("#ck_compdec").click(function () {
+        $("#ck_compdec").click(function() {
             if ($("#ck_compdec").is(':checked')) {
                 $("#ck_compdec").attr('value', '1');
             }
         });
-        $("#ck_pmda").click(function () {
+        $("#ck_pmda").click(function() {
             if ($("#ck_pmda").is(':checked')) {
                 $("#ck_pmda").attr('value', '1');
             }
         });
-        $("#ck_ajuda").click(function () {
+        $("#ck_ajuda").click(function() {
             if ($("#ck_ajuda").is(':checked')) {
                 $("#ck_ajuda").attr('value', '1');
             }
         });
 
-        $("#ckReset").click(function () {
+        $("#ckReset").click(function() {
 
             if ($("#ckReset").is(":checked")) {
                 $("#senha").val("<?= md5('defesa199'); ?>");
@@ -366,7 +306,7 @@ if (!$membro_compdec) {
             }
         });
 
-        $("#email_rec").blur(function () {
+        $("#email_rec").blur(function() {
             if ($("#email_rec").val() != "") {
                 $("#btnAtua").removeProp("disabled", "disabled");
             }
@@ -384,7 +324,7 @@ if (!$membro_compdec) {
             width: 700
         });
     }
-    
+
     /* ajuda com informações do coordenador*/
     function openInfo1() {
         Swal.fire({
@@ -395,5 +335,4 @@ if (!$membro_compdec) {
             width: 800
         });
     }
-
 </script>

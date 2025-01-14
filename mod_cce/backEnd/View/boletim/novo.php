@@ -82,6 +82,10 @@ $_id_usuario = $pageSession['session']['seguranca']['idUser'];
 	
 		$post = isset($_POST) ? $_POST :"";
 		$file = isset($_FILES)? $_FILES :"";
+
+		try{
+		//var_dump($anexo->AnexoBoletim($post, $file, 'anexo/boletim'));
+
 			
 		if($anexo->AnexoBoletim($post, $file, 'anexo/boletim')){
 			
@@ -97,6 +101,11 @@ $_id_usuario = $pageSession['session']['seguranca']['idUser'];
 			
 			echo "Erro";
 		}
+	}catch (Exception $e) {
+
+		echo $e->getMessage();
+
+	}
 	
 	}
 

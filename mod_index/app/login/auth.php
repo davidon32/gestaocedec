@@ -19,11 +19,14 @@
 <!--<div class="overlay1"> <i class="fa fa-cog fa-spin fa-5x fa-fw"></i><span class="sr-only">Loading...</span> </div>-->
 
 <?php
+
 $user = Usuario::getUserData($_COOKIE['seguranca']);
 $cpf = isset($user['cpf']) ? $user['cpf'] : null;
 $email = isset($user['email_rec']) ? $user['email_rec'] : null;
 $id_user = $_COOKIE['seguranca']['idUser'];
 
+// var_dump($user);
+// die();
 
 
 /* route sdclara */
@@ -124,7 +127,7 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
         CURLOPT_SSL_VERIFYPEER => 1,
         CURLOPT_RETURNTRANSFER => 1,
         CURLOPT_PROTOCOLS => CURLPROTO_HTTP,
-        CURLOPT_VERBOSE => true,
+        CURLOPT_VERBOSE => false,
         //CURLOPT_STDERR => fopen($log_path, 'w+'),
     ]);
 
