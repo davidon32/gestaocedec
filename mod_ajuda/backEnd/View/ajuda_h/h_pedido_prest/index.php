@@ -16,6 +16,7 @@ $h_pedido = H_pedido_pedidajuda_hModel::buscaPedidoId($id);
 //var_dump($h_pedido[0]['status']);
 
 $h_pedido_prest = new H_pedido_prestajuda_hModel();
+$perfil = $_COOKIE['seguranca']['funcao'];
 ?>
 
 <div class="col-md-6 text-left">
@@ -23,7 +24,7 @@ $h_pedido_prest = new H_pedido_prestajuda_hModel();
 </div>
 <div class="col-md-6 text-right">
     <?php
-    if ($h_pedido[0]['status'] == 6) {
+    if (($h_pedido[0]['status'] == 6) && ($perfil != "REDEC") ){
         print "<a class=\"btn btn-primary\" href=\"" . FuncaoBase::geraLink("ajuda", "h_pedido_prest", "homologa", array('id' => $_GET['id'])) . "\">Homologar</a>";
     }
     ?>
@@ -54,6 +55,7 @@ print "<div class=\"table-responsive\"><table class=\"table table-bordered table
 
 
 $materiais = $h_pedido_prest::listaPrestContasporPedido($id);
+
 
 
 foreach ($materiais as $key => $material) {

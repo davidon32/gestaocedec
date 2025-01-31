@@ -52,6 +52,19 @@
         if(FuncaoBase::campoBranco($campos)){
             
             if(true) {
+
+                $liberacao = new Liberacao();
+                $dado_benef = $liberacao->buscaLiberacaoId($_nLibera);
+
+                $benef = [
+                            'resp_receb' => $_resp,
+                            'resp_receb_ci' => $_nDoc,
+                            'resp_receb_cpf' => $_cpfResp,
+                            'resp_receb_veiculo' => $_veiculo,
+                            'resp_receb_placa' => $_placa,
+                            'id_liberacao'  => $_nLibera
+                ];
+
         
                     if ($_pagamento->Pagar($_dtLibera,
                             $_nLibera,
@@ -74,8 +87,11 @@
                             $_cel_dest)){
 
 
-                         $_pagamento->marcarPagoAjuItem($_nLibera);
-        
+                        $liberacao->atualizaBenef($benef);
+                        $_pagamento->marcarPagoAjuItem($_nLibera);
+
+
+                         
                         Log::GravaLog("Foi realizado o pagamento da liberacao : ".$_nLibera." Recibo Nr: ".$_nRecibo, "aju_log");
                         
                         print "<script text/javascript>";

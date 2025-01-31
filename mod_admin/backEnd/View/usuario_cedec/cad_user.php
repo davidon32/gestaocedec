@@ -5,7 +5,8 @@
 <!-- =================== HEADER ============================ -->
 <?php include_once "template/page/header.php"; ?>
 <!-- =================== MENU  ============================ -->
-<?php //include_once "template/page/menu.php";?>
+<?php //include_once "template/page/menu.php";
+?>
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php"; ?>
 <?php
@@ -48,16 +49,20 @@ $permissaoAjudaH = Usuario::getPermissaoAjudaH($_COOKIE['seguranca']['login']);
     <legend><?= $title; ?></legend>
     <form <?= $formaction; ?> method="POST" name="frmCadUserRapido" id="frmCadUserRapido">
         <label>Numero Policia</label>
-        <input class="form-control" type="text" name="txtNumPol" value="<?= !empty($usuario) ? $usuario['num_masp'] : ""; ?>" id="txtNumPol" maxlenght="9" data-mask='9999999-9' <?= $readonly; ?>
+        <input class="form-control" type="text" name="txtNumPol" value="<?= !empty($usuario) ? $usuario['num_masp'] : ""; ?>" id="txtNumPol" maxlenght="9" data-mask='9999999-9' <?= $readonly; ?> required/>
 
-               <label>Nome Completo</label>
-        <input class="form-control" type="text" name="txtNome" value="<?= !empty($usuario) ? $usuario['nome'] : ""; ?>" id="txtNome" maxlength="39" <?= $readonly; ?> />
+        <label>Nome Completo</label>
+        <input class="form-control" type="text" name="txtNome" value="<?= !empty($usuario) ? $usuario['nome'] : ""; ?>" id="txtNome" maxlength="39" <?= $readonly; ?> required/>
+        
+        <label>CPF</label>
+        <input class="form-control" type="text" name="txtCpf" value="<?= !empty($usuario) ? $usuario['cpf'] : ""; ?>" id="txtCpf" maxlength="39" <?= $readonly; ?> required/>
+        
         <label>Usuario (alternativo S999999)</label>
-        <input class="form-control" type="text" name="txtUsuario" value="<?= !empty($usuario) ? $usuario['login'] : ""; ?>" id="txtUsuario" maxlength="9" <?= $readonly; ?> >
+        <input class="form-control" type="text" name="txtUsuario" value="<?= !empty($usuario) ? $usuario['login'] : ""; ?>" id="txtUsuario" maxlength="9" <?= $readonly; ?> required/>
 
         <label>POSTO</label>
-        <select name="sel_posto" id="sel_posto" class="form form-control">
-            <option>Escolha uma Opção</option>
+        <select name="sel_posto" id="sel_posto" class="form form-control" >
+            <option>1º SGT PM</option>
             <option>GOVERNADOR</option>
             <option>SECRET.GOV</option>
             <option>CEL PM</option>
@@ -72,7 +77,6 @@ $permissaoAjudaH = Usuario::getPermissaoAjudaH($_COOKIE['seguranca']['login']);
             <option>TEN PM</option>
             <option>SUB TEN PM</option>
             <option>SUB TEN BM</option>
-            <option>1º SGT PM</option>
             <option>1º SGT BM</option>
             <option>2º SGT PM</option>
             <option>2º SGT BM</option>
@@ -88,7 +92,6 @@ $permissaoAjudaH = Usuario::getPermissaoAjudaH($_COOKIE['seguranca']['login']);
 
         <label>RPM</label>
         <select name="sel_rpm" id="sel_rpm" class="form form-control">
-            <option>Escolha uma Opção</option>
             <option value="1">1 RPM</option>
             <option value="2">2 RPM</option>
             <option value="3">3 RPM</option>
@@ -110,9 +113,36 @@ $permissaoAjudaH = Usuario::getPermissaoAjudaH($_COOKIE['seguranca']['login']);
             <option value="19">19 RPM</option>
         </select>
 
+        <label>DEPOSITO AVANÇADO</label>
+        <select name="sel_deposito" id="sel_deposito" class="form form-control">
+            <option value="1">BELO HORIZONTE</option>
+            <option value="2">JUIZ DE FORA</option>
+            <option value="3">BARBACENA</option>
+            <option value="4">DIVINOPOLIS</option>
+            <option value="5">DIAMANTINA</option>
+            <option value="6">GOV. VALADARES</option>
+            <option value="7">LAVRAS</option>
+            <option value="8">MANHUACU</option>
+            <option value="9">MONTES CLAROS</option>
+            <option value="10">PASSOS</option>
+            <option value="11">TEOFILO OTONI</option>
+            <option value="12">UBA</option>
+            <option value="13">UBERABA</option>
+            <option value="14">UBERLANDIA</option>
+            <option value="15">POUSO ALEGRE</option>
+            <option value="16">ALMENARA</option>
+            <option value="17">PATOS DE MINAS</option>
+            <option value="18">IPATINGA</option>
+            <option value="19">CURVELO</option>
+            <option value="20">UNAI</option>
+            <option value="21">POCOS DE CALDAS</option>
+            <option value="22">CONTAGEM</option>
+            <option value="23">SANTA LUZIA</option>
+            <option value="24">SETE LAGOAS</option>
+        </select>
         <label>SECAO</label>
         <select name="sel_secao" id="sel_secao" class="form form-control">
-            <option>Escolha uma Opção</option>
+            <option>STO</option>
             <option>CHEFIA</option>
             <option>SGRD</option>
             <option>DRD</option>
@@ -125,7 +155,7 @@ $permissaoAjudaH = Usuario::getPermissaoAjudaH($_COOKIE['seguranca']['login']);
             <option>DEDC</option>
             <option>CCE</option>
             <option>DTEC</option>
-<!--            <option>DAR - Inativo</option>-->
+            <!--            <option>DAR - Inativo</option>-->
             <option>SECRETARIA</option>
             <option>DPLAN</option>
             <option>DLOG</option>
@@ -137,21 +167,18 @@ $permissaoAjudaH = Usuario::getPermissaoAjudaH($_COOKIE['seguranca']['login']);
             <option>GOV</option>
             <option>CEDEC</option>
         </select>
-        
+
         <script>
-        
-            $('#sel_secao').
-        
+            //$('#sel_secao').
         </script>
 
         <label>Função</label>
         <select name="sel_funcao" id="sel_funcao" class="form form-control">
-            <option>Escolha uma Opção</option>
+            <option>AUXILIAR I</option>
             <option>CHEFIA</option>
             <option>SUPERINTENDÊNCIA</option>
             <option>DIRETORIA</option>
             <option>MOTORISTA</option>
-            <option>AUXILIAR I</option>
             <option>DIRETOR</option>
             <option>ASSESSORIA</option>
             <option>AUXILIAR II</option>
@@ -164,7 +191,7 @@ $permissaoAjudaH = Usuario::getPermissaoAjudaH($_COOKIE['seguranca']['login']);
 
         <label>Função Descricao</label>
         <select name="sel_func_desc" id="sel_func_desc" class="form form-control">
-            <option>Escolha uma Opção</option>
+            <option>AUXILIAR ADMINISTRATIVO</option>
             <option>GOVERNADOR</option>
             <option>VICE GOVERNADOR</option>
             <option>SECRETARIO GOVERNO</option>
@@ -183,7 +210,6 @@ $permissaoAjudaH = Usuario::getPermissaoAjudaH($_COOKIE['seguranca']['login']);
             <option>DIRETOR DE PLANEJAMENTO DA CEDEC/MG</option>
             <option>SUBCHEFE DO CENTRO DE CONTROLE DE EMERGÊNCIAS DA CEDEC/MG</option>
             <option>CHEFE DEPOSITO CENTRAL</option>
-            <option>AUXILIAR ADMINISTRATIVO</option>
             <option>MOTORISTA</option>
             <option>Auxiliar de Informática</option>
             <option>SECRETARIA DA CEDEC/MG</option>
@@ -191,6 +217,13 @@ $permissaoAjudaH = Usuario::getPermissaoAjudaH($_COOKIE['seguranca']['login']);
             <option>DIRETOR LOGISTICA E SUPRIMENTOS</option>
             <option>Agente Regional de DC</option>
             <option>DIRETOR DE APOIO AS REGIONAIS</option>
+        </select>
+
+        <label>CARGO</label>
+        <select class="form-control" name="selCargo" value="" id="selCargo">
+            <option>AUXILIAR</option>
+            <option>AUX.REDEC</option>
+            <option>CHEFIA</option>
         </select>
 
         <label>Lotado</label>
@@ -205,18 +238,18 @@ $permissaoAjudaH = Usuario::getPermissaoAjudaH($_COOKIE['seguranca']['login']);
         </select>
         <br>
         <label style='color: red'>Email Recuperação Senha</label>
-        <input class="form-control" type="email" name="txtEmail" value="<?= !empty($usuario) ? $usuario['email_rec'] : ""; ?>" id="txtEmail" <?= $readonly; ?> >
+        <input class="form-control" type="email" name="txtEmail" value="<?= !empty($usuario) ? $usuario['email_rec'] : ""; ?>" id="txtEmail" <?= $readonly; ?> required/>
         <br>
         <label>Email Informações 1</label>
-        <input class="form-control" type="email" name="txtEmailInfo1" value="<?= !empty($usuario) ? $usuario['email_info1'] : ""; ?>" id="txtEmailInfo1" <?= $readonly; ?> >
+        <input class="form-control" type="email" name="txtEmailInfo1" value="<?= !empty($usuario) ? $usuario['email_info1'] : ""; ?>" id="txtEmailInfo1" <?= $readonly; ?> required />
         <br>
         <label>Email Informações 2</label>
-        <input class="form-control" type="email" name="txtEmailInfo2" value="<?= !empty($usuario) ? $usuario['email_info2'] : ""; ?>" id="txtEmailInfo2" <?= $readonly; ?> >
+        <input class="form-control" type="email" name="txtEmailInfo2" value="<?= !empty($usuario) ? $usuario['email_info2'] : ""; ?>" id="txtEmailInfo2" <?= $readonly; ?> required />
         <br>
 
-        <input type="hidden" name="opcao" value="<?= !empty($usuario) ? "atualiza" : "caduser"; ?>" >
-        <input type="hidden" name="id_usuario" value="<?= !empty($usuario) ? $usuario['id_usuario'] : ""; ?>" >
-        <input type="hidden" name="selSituacao" value="1" >
+        <input type="hidden" name="opcao" value="<?= !empty($usuario) ? "atualiza" : "caduser"; ?>">
+        <input type="hidden" name="id_usuario" value="<?= !empty($usuario) ? $usuario['id_usuario'] : ""; ?>">
+        <input type="hidden" name="selSituacao" value="1">
         <br>
 
 
@@ -238,3 +271,9 @@ $permissaoAjudaH = Usuario::getPermissaoAjudaH($_COOKIE['seguranca']['login']);
 <?php include_once "template/page/barra_config_template.php"; ?>
 <!-- =============== HEADER HTML PAGE ================= -->
 <?php include_once "template/page/rodapePage.php"; ?>
+
+<script>
+    $(document).ready(function () {     
+      $("#txtCpf").mask("999.999.999-99");
+    });
+</script>

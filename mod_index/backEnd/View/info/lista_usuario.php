@@ -15,7 +15,7 @@
         <div class='col-md-12'><?=FuncaoBase::voltar();?><br><br></div>
         <table class='table table-bordered table-condensed'>
             <tr>
-                <th title='Código do Usuário'>Código</th>
+                <th title='Código do Usuário'>id</th>
                 <th title='Nome do Usuário' style="min-width: 110px;">Nome</th>
                 <th title='Telefone do Usuário' style="min-width: 110px;">Telefone</th>
                 <th title='Email do Usuário'>email_rec</th>
@@ -36,23 +36,54 @@
             <?php
 
             
+                $dadosAgrupados = [];
                     
                 foreach ($dados as $key => $value) {
 
-                    $nome = ($value['desc_funcao'] == 'Agente Regional de DC' ? "<a href='".FuncaoBase::geraLink('index', 'index', 'lista_munic_reg', array('id_rpm'=>$value['id_rpm'], 'nome'=>$value['nome']))."' title='Municipios Relativos ao Agente Regional'>".$value['nome'] : $value['nome']);
+                    $id_rpm = $value['id_rpm'];
 
-                    if(isset($dados['']))
+                    $value['nome'] = $value['posto']." ".$value['nome'];
+
+                    ($value['cargo'] == 'AUX.REDEC') ? $value['nome'] = $value['nome']." <span style='color:red'>( Auxiliar )</span>" : "";
+                   
+                    if(isset($dadosAgrupados[$id_rpm])) {       
+                        
+                        $dadosAgrupados[$id_rpm]['nome'] .= '<br> '.$value['nome'];
+                        
+                    }else {
+                        $dadosAgrupados[$id_rpm] = $value;
+                    }
+                    
+                }
+                $num =0;
+
+              
+                foreach($dadosAgrupados as $key=>$value) {
+
+                    $num++;
+                    
+                    if($value['desc_funcao'] == 'Agente Regional de DC') {
+
+                        //$auxiliar = ($value['cargo'] == 'AUX.REDEC') ? "( Auxiliar )" : "";
+
+                        $nome = "<a href='".FuncaoBase::geraLink('index', 'index', 'lista_munic_reg', array('id_rpm'=>$value['id_rpm'], 'nome'=>$value['nome']))."' title='Municipios Relativos ao Agente Regional'>".$value['nome'];
+
+                    }else {
+                        $nome = $value['nome'];
+                    }
+                    
+                    if(isset($dadosAgrupados))
                     $tot_municipio = count(Municipio::listaMunicipioRegional($value['id_rpm']));
                     
                         print "<tr>";
 
-                    print "<td>".$value['id_usuario']."</td>";
-                    print "<td>".$nome."</td>";
-                    print "<td>".$value['telefone']."<br>".$value['celular']."</td>";
-                    print "<td>".$value['email_rec']."</td>";
-                    print "<td>".($value['desc_funcao'] == 'Agente Regional de DC' ? 'Regional' : '')."</td>";
-                    print "<td>".$value['rpm']."/".$value['dep_avancado']."</td>";
-                    print "<td><a href=''>".$tot_municipio."</a></td>";
+                        print "<td title=".$value['id_usuario'].">".$num."</td>";
+                        print "<td>".$nome."</td>";
+                        print "<td>".$value['telefone']."<br>".$value['celular']."</td>";
+                        print "<td>".$value['email_rec']."</td>";
+                        print "<td>".($value['desc_funcao'] == 'Agente Regional de DC' ? 'Regional' : '')."</td>";
+                        print "<td>".$value['rpm']."/".$value['dep_avancado']."</td>";
+                        print "<td><a href=''>".$tot_municipio."</a></td>";
 //                    print "<td>".$value['orgao']."</td>";
 //                    print "<td>".$value['login']."</td>";
 //                    print "<td>". DataMysql::dataCompletaVisual($value['ultimo_acesso'])."</td>";

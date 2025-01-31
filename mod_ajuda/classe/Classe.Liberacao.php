@@ -572,7 +572,12 @@ class Liberacao extends DataMysql{
 						dtLimite,
 						responsavel,
 						entrega,
-						situacao
+						situacao,
+						resp_receb,
+						resp_receb_ci,
+						resp_receb_cpf,
+						resp_receb_veiculo,
+						resp_receb_placa
 						FROM aju_liberacao
 						WHERE id_liberacao = ".$_id_liberacao;
 
@@ -1180,10 +1185,23 @@ class Liberacao extends DataMysql{
             
         }
         
-        
-        
 
- 
- 
+		/* Atualiza dados do beneficiario */
+		public function atualizaBenef($benef)
+		{
+			$con = Conexao::getInstance();
+
+			$sql = "update aju_liberacao 
+						set resp_receb = '".$benef['resp_receb']."',
+							resp_receb_ci = '".$benef['resp_receb_ci']."',
+							resp_receb_cpf = '".$benef['resp_receb_cpf']."',
+							resp_receb_veiculo = '".$benef['resp_receb_veiculo']."',
+							resp_receb_placa = '".$benef['resp_receb_placa']."'
+							where id_liberacao = ".$benef['id_liberacao'];
+
+			$result = $con->query($sql);
+			return $result;
+
+		}
 
 }?>

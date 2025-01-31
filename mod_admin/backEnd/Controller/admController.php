@@ -1,5 +1,8 @@
 <?php
 
+
+//require_once('../core/Controller/Controller.php');
+
     class admController extends Controller{
 
         /* Cadastrar Usuario */
@@ -38,6 +41,8 @@
 
         /** valida cadatro usuario */
         public function cad_user_valida(){
+
+            $dados = $_POST;
                      
             $usuario = new Usuario();
 
@@ -54,17 +59,21 @@
             $posto      = isset($_POST['sel_posto'])? $_POST['sel_posto'] : false;
             $id_rpm     = isset($_POST['sel_rpm'])? $_POST['sel_rpm'] : false;
             $secao      = isset($_POST['sel_secao'])? $_POST['sel_secao'] : false;
+            $deposito   = isset($_POST['sel_deposito'])? $_POST['sel_deposito'] : false;
+            $desc_funcao= isset($_POST['sel_func_desc'])? $_POST['sel_func_desc'] : false;
+            $cargo= isset($_POST['cargo'])? $_POST['cargo'] : false;
+            $cpf   = isset($_POST['txtCpf'])? str_replace(['.', '-'], '', $_POST['txtCpf']) : false;
 
             $opcao = isset($_POST['opcao'])  ? $_POST['opcao']   : false;
 
             if($opcao == "caduser"){
                 
                 # cadastro "cedec_funcionario"
-                if($usuario->cadFuncionario($numPolicia, $nomeComp, $username, $setor, $email_info1, $email_info2, $posto, $id_rpm, $secao)){
+                if($usuario->cadFuncionario($numPolicia, $nomeComp, $setor, $email_info1, $email_info2, $posto, $id_rpm, $secao, $desc_funcao, $cpf, $cargo)){
                     
                 /* inserir usuario "cedec_usuario" */
                 SqlGenerics::Inserir('cedec_usuario',
-                        array('id_deposito'=>1,
+                        array('id_deposito'=> $deposito,
                             'nome'=> $nomeComp,
                             'senha'=>md5('cedec199'),
                             'email_rec'=>$email,
@@ -77,9 +86,51 @@
                             'trsenha' => 1,
                             'it_m_apoio' => 1,
                             'it_m_poco' => 1,
-                            'it_m_cce' =>1
+                            'it_m_cce' =>1,
+                            'cpf' => $cpf
                         )
                 );
+
+
+                #####
+
+                # aju_permissao 
+                $redec['cad_liberacao'] = 0;
+                $redec['relatorio']     = 0;
+                $redec['liberacao']     = 0;
+                $redec['pedido_ajuda']  = 0;
+                $redec['controle_estoque']  = 0;
+                $redec['cancLibPaga']       = 0;
+
+                #com_permissao
+                $redec['nivel'] = 0;
+                $redec['cad_compdec'] = 0;
+                $redec['cad_consulta'] = 0;
+                $redec['cad_user_valida'] = 0;
+                $redec['alt_comdec'] = 0;
+
+                #pmda
+                $rede['pmda'] =0;
+
+                if($secao == "REDEC") {
+
+                    # aju_permissao
+                    $redec['cad_liberacao'] = 1; 
+                    $redec['relatorio']     = 1; 
+                    $redec['liberacao']     = 1;
+                    $redec['pedido_ajuda']  = 1;
+                    $redec['controle_estoque'] = 1;
+                    $redec['cancLibPaga']      = 1; 
+
+                    #com_permissao
+                    $redec['nivel'] = 1;
+                    $redec['cad_compdec'] = 1;
+                    $redec['cad_consulta'] = 1;
+                    $redec['cad_user_valida'] = 1;
+                    $redec['alt_comdec'] = 1;
+
+                    $redec['pmda'] = 1;
+                }
                 
                 /* inserir permissoes CEDEC PERMISSAO */
                 SqlGenerics::Inserir('cedec_permissao', array('login'=>$username,
@@ -100,7 +151,13 @@
                 /* inserir permissoes AJUDA */
                 SqlGenerics::Inserir('aju_permissao', array('login'=>$username,
                                                             'nivel'=>0,
-                                                            'id_usuario'=> Usuario::getIdUsuario($username)));
+                                                            'id_usuario'=> Usuario::getIdUsuario($username),
+                                                            'cad_liberacao' => $redec['liberacao'],
+                                                            'relatorio' => $redec['relatorio'],
+                                                            'pedido_ajuda' => $redec['pedido_ajuda'],
+                                                            'controle_estoque' => $redec['controle_estoque'],
+                                                            'cancLibPaga' => $redec['cancLibPaga']
+                                                        ));
                 
                 /* inserir permissoes AJUDA Humanitaria */
                 SqlGenerics::Inserir('aju_h_permissao', array('login'=>$username,
@@ -119,7 +176,13 @@
                 /* inserir permissoes COMPDEC */
                 SqlGenerics::Inserir('com_permissao', array('login'=>$username,
                                                             'nivel'=>0,
-                                                            'id_usuario'=> Usuario::getIdUsuario($username)));
+                                                            'id_usuario'=> Usuario::getIdUsuario($username),
+                                                            'nivel' => $redec['nivel'],
+                                                            'cad_compdec' => $redec['cad_compdec'],
+                                                            'cad_consulta' => $redec['cad_consulta'],
+                                                            'cad_user_valida' => $redec['cad_user_valida'],
+                                                            'alt_comdec' => $redec['alt_comdec']
+                                                        ));
                 
                 /* inserir permissoes EQUIPE */
                 SqlGenerics::Inserir('equ_permissao', array('login'=>$username,
@@ -130,7 +193,9 @@
                 /* inserir permissoes PIPA */
                 SqlGenerics::Inserir('pip_permissao', array('login'=>$username,
                                                             'nivel'=>0,
-                                                            'id_usuario'=> Usuario::getIdUsuario($username)));
+                                                            'id_usuario'=> Usuario::getIdUsuario($username),
+                                                            'pmda' => $rede['pmda']
+                                                        ));
                 
                 
                                

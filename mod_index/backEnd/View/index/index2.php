@@ -25,6 +25,8 @@
 
     # MOSTRA MODULOS
     Login::mostraModulos(Login::acessoModulo($pageSession['session']['seguranca']['login']));
+
+    //var_dump(Login::acessoModulo($pageSession['session']['seguranca']['login']));
     ?>
 
 
@@ -45,18 +47,32 @@
         </div>-->
 
 <!--RAT-->
-<div class="col-md-3 text-center" style="height: 190px;">
+<div class="col-md-3 text-center" style="height: 200px">
     <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=rat" ?>" title="Relatório de Atividades Técnicas"><img width="155" src="core/imagem/rat_teste.png"><br />RAT</a>
 </div>
 
 <!--VISTORIA-->
-<div class="col-md-3 text-center" style="height: 190px;">
+<div class="col-md-3 text-center" style="height: 200px">
     <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=vistoria" ?>" title="Relatório de Vistoria/Interdição"><img width="135" src="core/imagem/vistoria_interdicao_teste.png"><br />Vistoria/Interdição</a>
 </div>
 <!--VISTORIA DESABILITAR -->
 <!--    <div class="col-md-3 text-center" style="height: 190px;">
         <a class="thumbnail" title="Relatório de Vistoria/Interdição"><img width="135" src="core/imagem/vistoria_conversao.png"><br />Vistoria/Interdição</a>
     </div>-->
+
+<div class="col-md-3 text-center" style="height: 200px;">
+    <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=paebm" ?>" title="Protocolo PaeBM"><img width="120" src="core/imagem/pae.png"><br />Pae</a>
+</div>
+
+<?php
+
+if ($_COOKIE['seguranca']['idUser'] == 1) { ?>
+    <!--CADASTRO COMPDEC-->
+    <div class="col-md-3 text-center" style="height: 200px;">
+        <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=compdec" ?>" title="Informações do Compdec"><img width="90" src="core/imagem/comdec.png"><br />Informações COMPDEC</a>
+    </div>
+
+<?php } ?>
 
 
 <?php
@@ -65,33 +81,20 @@ $autorizacao = [
     "M1296844",
     "S126282",
 ];
-    if (in_array($_COOKIE['seguranca']['login'], $autorizacao) ) {
-//<!--CISTERNA -->
+if (in_array($_COOKIE['seguranca']['login'], $autorizacao)) {
+    //<!--CISTERNA -->
 ?>
-<div class="col-md-3 text-center" style="height: 190px;">
-    <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=cisterna" ?>" title="Relatório de Vistoria/Interdição"><img width="105" src="core/imagem/poco.png"><br />Projeto Convivência com a Seca</a>
-</div>
+    <div class="col-md-3 text-center" style="height: 200px;">
+        <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=cisterna" ?>" title="Relatório de Vistoria/Interdição"><img width="105" src="core/imagem/poco.png"><br />Projeto Convivência com a Seca</a>
+    </div>
 <?php
-    }else {
+} else {
+    print "<div class=\"col-md-3 text-center\" style=\"height: 200px;\">";
     print "<img class=\"imgCinza\" src=\"core/imagem/poco.png\" width=\"105\" title=\"Usuario sem Acesso !\">";
     print " <br>Projeto Convivência com a Seca";
-    }
+    print "</div>";
+}
 ?>
-
-
-<?php
-
-if ($_COOKIE['seguranca']['idUser'] == 1) { ?>
-    <!--CADASTRO COMPDEC-->
-    <div class="col-md-3 text-center" style="height: 190px;">
-        <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=compdec" ?>" title="Informações do Compdec"><img width="90" src="core/imagem/comdec.png"><br />Informações COMPDEC</a>
-    </div>
-
-<?php } ?>
-
-<div class="col-md-3 text-center">
-    <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=paebm" ?>" title="Protocolo PaeBM"><img width="120" src="core/imagem/pae.png"><br />Pae</a>
-</div>
 
 
 

@@ -250,9 +250,9 @@ if((int)$id_libera){
 			}
 		}
                 
-                $("#btnPag").hover(function(){
-                   alert(); 
-                });
+        // $("#btnPag").hover(function(){
+        //     alert(''); 
+        // });
 
 		/* form validation */
 		$("#frmPagamento").validate({

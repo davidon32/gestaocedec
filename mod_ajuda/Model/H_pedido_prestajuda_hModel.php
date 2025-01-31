@@ -14,7 +14,8 @@
  * 	Criacao : 21/06/2021															*
  * ********************************************************************************** */
 
-class H_pedido_prestajuda_hModel extends Model {
+class H_pedido_prestajuda_hModel extends Model
+{
 
     private $table = "aju_h_pedido_prest";
     public static $model;
@@ -27,17 +28,20 @@ class H_pedido_prestajuda_hModel extends Model {
     private $nome_material = null;
     private $total_familia_at = null;
 
-    public function getTotal_familia_at() {
+    public function getTotal_familia_at()
+    {
         return $this->total_familia_at;
     }
 
-    public function setTotal_familia_at($total_familia_at) {
+    public function setTotal_familia_at($total_familia_at)
+    {
         $this->total_familia_at = $total_familia_at;
     }
 
     #################  CONSTRUTOR ##################
 
-    function __construct() {
+    function __construct()
+    {
 
         self::$model = $this->Tabela('aju_h_pedido_prest');
 
@@ -49,7 +53,8 @@ class H_pedido_prestajuda_hModel extends Model {
     #################  LISTA  ##################
     # lista {$model}
 
-    public static function lista($id = null) {
+    public static function lista($id = null)
+    {
 
         $dados = array();
 
@@ -89,7 +94,8 @@ class H_pedido_prestajuda_hModel extends Model {
     #################  LISTA NOME ##################
     # lista nome {$model}
 
-    public static function listaNome($nome = null) {
+    public static function listaNome($nome = null)
+    {
 
         try {
 
@@ -129,7 +135,8 @@ class H_pedido_prestajuda_hModel extends Model {
     #################  GRAVAR  ##################
     # @ grava {$model} em banco
 
-    public static function gravar(array $dados) {
+    public static function gravar(array $dados)
+    {
 
 
         var_dump(self::$model);
@@ -166,9 +173,10 @@ total_familia_at
     #################  EDIT ##################
     ################  Atualizar dados h_pedido_prest  ###################
 
-    public static function edit(array $dados) {
-        
-        
+    public static function edit(array $dados)
+    {
+
+
         $con = Conexao::getInstance();
 
         $sql = "UPDATE aju_h_pedido_prest SET 
@@ -200,11 +208,12 @@ total_familia_at
             return $e->getMessage() . "Erro ao Atualizar Marca";
         }
     }
-    
+
     ################  Atualizar dados h_pedido_prest quanto altera o material ###################
 
-    public static function editPrest(array $dados) {
-        
+    public static function editPrest(array $dados)
+    {
+
         $con = Conexao::getInstance();
 
         $sql = "UPDATE aju_h_pedido_prest SET 
@@ -232,14 +241,15 @@ total_familia_at
             return $e->getMessage() . "Erro ao Atualizar Marca";
         }
     }
-    
+
 
     #################  VIEW  ##################
 
     /**
      * View 
      */
-    public static function view($id_h_pedido_prest) {
+    public static function view($id_h_pedido_prest)
+    {
 
         $con = Conexao::getInstance();
 
@@ -276,7 +286,8 @@ aju_h_pedido_prest.total_familia_at
     /**
      * View 
      */
-    public static function viewPrestConta($id_h_pedido_prest) {
+    public static function viewPrestConta($id_h_pedido_prest)
+    {
 
         $con = Conexao::getInstance();
 
@@ -309,7 +320,8 @@ aju_h_pedido_prest.total_familia_at
     #################  PAGINACAO  ##################
     /* paginacao */
 
-    public function paginacao($start, $regPorPagina) {
+    public function paginacao($start, $regPorPagina)
+    {
         $con = Conexao::getInstance();
 
         $stmt = $con->prepare("SELECT aju_h_pedido_prest.id,
@@ -330,7 +342,8 @@ aju_h_pedido_prest.total_familia_at
     #################  DELETAR  ##################
     # @ deletar o h_pedido_prest
 
-    public static function delete($id) {
+    public static function delete($id)
+    {
 
         $con = Conexao::getInstance();
 
@@ -345,15 +358,16 @@ aju_h_pedido_prest.total_familia_at
             return $e->getMessage() . "Erro Deletar H_pedido_prest !";
         }
     }
-    
-    
+
+
     # @ deletar o h_pedido_prest
 
-    public static function deletePrest($dados) {
-        
+    public static function deletePrest($dados)
+    {
+
         $con = Conexao::getInstance();
 
-        $sql = "DELETE FROM aju_h_pedido_prest WHERE id_pedido = ". $dados['id_pedido']. " and cod_material = ".$dados['cod_material'];
+        $sql = "DELETE FROM aju_h_pedido_prest WHERE id_pedido = " . $dados['id_pedido'] . " and cod_material = " . $dados['cod_material'];
 
         try {
             $con->query($sql);
@@ -363,14 +377,15 @@ aju_h_pedido_prest.total_familia_at
             return $e->getMessage() . "Erro Deletar H_pedido_prest !";
         }
     }
-    
-    
-    
+
+
+
 
     /**
      * Lista h_pedido_prest
      */
-    public function listah_pedido_prests() {
+    public function listah_pedido_prests()
+    {
 
         $con = Conexao::getInstance();
 
@@ -404,7 +419,8 @@ aju_h_pedido_prest.total_familia_at
     /**
      * Lista Fornecedoress
      */
-    public static function listaFornecedor($id) {
+    public static function listaFornecedor($id)
+    {
 
         $con = Conexao::getInstance();
 
@@ -435,7 +451,8 @@ aju_h_pedido_prest.total_familia_at
     /**
      * Cadastro Dispositivos
      */
-    public static function cDispositivo(array $dados) {
+    public static function cDispositivo(array $dados)
+    {
 
 
         $con = Conexao::getInstance();
@@ -462,7 +479,8 @@ aju_h_pedido_prest.total_familia_at
     /**
      * Cadastro Dispositivos
      */
-    public static function qrCode(array $dados) {
+    public static function qrCode(array $dados)
+    {
 
 
         $con = Conexao::getInstance();
@@ -495,15 +513,16 @@ aju_h_pedido_prest.total_familia_at
     /**
      * Get nome fornecedor
      */
-    public static function getFornecedorNome($id) {
+    public static function getFornecedorNome($id)
+    {
 
         $con = Conexao::getInstance();
 
         $dados = array();
 
         $sql = "SELECT nome"
-                . " FROM pip_fornecedor"
-                . " WHERE id = " . $id;
+            . " FROM pip_fornecedor"
+            . " WHERE id = " . $id;
 
         try {
 
@@ -523,7 +542,8 @@ aju_h_pedido_prest.total_familia_at
      *  Lista de materiais para fazer a prestacao d contas
      *  
      */
-    public static function listaPrestContasporPedido($id_pedido) {
+    public static function listaPrestContasporPedido($id_pedido)
+    {
 
         $con = Conexao::getInstance();
 
@@ -556,7 +576,8 @@ aju_h_pedido_prest.total_familia_at
      *  qtd benefiarios prestação de contas 
      * @param id do item da prestacao de contas (material para prestar contas)
      */
-    public static function percBenef($id_prest_conta) {
+    public static function percBenef($id_prest_conta)
+    {
 
         $con = Conexao::getInstance();
 
@@ -584,7 +605,8 @@ aju_h_pedido_prest.total_familia_at
      *  qtd material pedido 
      * @param id_prest_cont
      */
-    public static function QtdMaterialPrest($id_prest_conta) {
+    public static function QtdMaterialPrest($id_prest_conta)
+    {
 
         $con = Conexao::getInstance();
 
@@ -609,7 +631,8 @@ aju_h_pedido_prest.total_familia_at
 
     /* id´s prestação de contas */
 
-    public static function id_prest_conta($id_pedido) {
+    public static function id_prest_conta($id_pedido)
+    {
 
         $con = Conexao::getInstance();
 
@@ -629,7 +652,6 @@ aju_h_pedido_prest.total_familia_at
 
             return implode("','", $dados);
         } catch (Exception $e) {
-            
         }
     }
 
@@ -637,7 +659,8 @@ aju_h_pedido_prest.total_familia_at
      *  Total de materiais para prestação de contas 
      * @param id_pedido
      */
-    public static function totalMaterialPrestConta($id_pedido) {
+    public static function totalMaterialPrestConta($id_pedido)
+    {
 
         $con = Conexao::getInstance();
 
@@ -666,7 +689,8 @@ aju_h_pedido_prest.total_familia_at
      *  Total de materiais para prestação de contas 
      * @param id_pedido
      */
-    public static function totalMaterialBeneficiarios($id_pedido) {
+    public static function totalMaterialBeneficiarios($id_pedido)
+    {
 
         $con = Conexao::getInstance();
 
@@ -697,36 +721,87 @@ aju_h_pedido_prest.total_familia_at
      *  homologacao de prestacao de contas
      * @param id_pedido
      */
-    public static function homologar($dados) {
+    public static function homologar($dados)
+    {
 
         $id_pedido = isset($dados['id_pedido']) ? $dados['id_pedido'] : "";
         $_usuario = $_COOKIE['seguranca']['matricula'] . " " . $_COOKIE['seguranca']['nome_usuario'];
         $_parecer = isset($dados['txtParecer']) ? $dados['txtParecer'] : "";
-        
 
-            $con = Conexao::getInstance();
 
-            $sql = "UPDATE aju_h_pedido_pedid
+        $con = Conexao::getInstance();
+
+        $sql = "UPDATE aju_h_pedido_pedid
                     SET status_prest =  :status_prest,
                         parecer_prest = :parecer_prest,
                         usuario_homolog = :usuario_homolog,
                         data_aprovacao = :data_aprovacao
                         WHERE id = :id_pedido";
-            try {
+        try {
 
-                $result = $con->prepare($sql);
-                $result->bindValue(":status_prest", $dados['rbParecer']);
-                $result->bindValue(":parecer_prest", nl2br($_parecer));
-                $result->bindValue(":usuario_homolog", $_usuario);
-                $result->bindValue(":data_aprovacao", date('Y-m-d H:i:s'));
-                $result->bindValue(":id_pedido", $id_pedido);
-                $result->execute();
+            $result = $con->prepare($sql);
+            $result->bindValue(":status_prest", $dados['rbParecer']);
+            $result->bindValue(":parecer_prest", nl2br($_parecer));
+            $result->bindValue(":usuario_homolog", $_usuario);
+            $result->bindValue(":data_aprovacao", date('Y-m-d H:i:s'));
+            $result->bindValue(":id_pedido", $id_pedido);
+            $result->execute();
 
-                return true;
-            } catch (Exception $e) {
-                return $e->getMessage() . "";
-            }
-        
+            return true;
+        } catch (Exception $e) {
+            return $e->getMessage() . "";
+        }
     }
+
+
+    public function getHistorico($pedido_id)
+    {
+
+        $con = Conexao::getInstance();
+        $historicos = [];
+
+        $sql = "Select *from aju_h_hist_prest_conta where pedido_id = " . $pedido_id;
+
+
+        $result = $con->query($sql);
+
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            $historicos[] = $linha;
+        }
+
+        return $historicos;
+    }
+
+
+    public static function storeHistorico($dados)
+    {
+
+        $con = Conexao::getInstance();
+        $sql = "INSERT INTO aju_h_hist_prest_conta (pedido_id,
+                                                historico,
+                                                historico_data,
+                                                user_id)
+                                    		      VALUES (:pedido_id,
+                                                    	  :historico,
+                                                    	  :historico_data,
+                                                          :user_id)";
+
+        try {
+
+            $result = $con->prepare($sql);
+            $result->bindValue(":pedido_id", $dados['pedido_id']);
+            $result->bindValue(":historico", $dados['historico']);
+            $result->bindValue(":historico_data", $dados['historico_data']);
+            $result->bindValue(":user_id", $dados['user_id']);
+            $result->execute();
+
+            //Log::GravaLog("Cadastro de Dispositivo: " . $dados['telefone'] . " " . $_COOKIE['seguranca']['login'], "aju_log");
+
+            return true;
+        } catch (Exception $e) {
+            return $e->getMessage() . "Erro ao inserir Historico Prest. Contas";
+        }
+    }
+
 
 }
