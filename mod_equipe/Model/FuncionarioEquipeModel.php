@@ -106,6 +106,9 @@ class FuncionarioEquipeModel extends Model {
 
         try {
 
+            //var_dump($dados);
+            //die();
+
             $result = $con->prepare($sql);
             
             $result->bindValue(":id_funcionario",$dados['txt_id_funcionario']);
@@ -134,6 +137,7 @@ class FuncionarioEquipeModel extends Model {
 
             
             $result->execute();
+
 
             #Log::GravaLog("Atualizar Cadastro de Categoria : " . $dados['nome'] . " " . $_COOKIE['seguranca']['login'], "aju_log");
 

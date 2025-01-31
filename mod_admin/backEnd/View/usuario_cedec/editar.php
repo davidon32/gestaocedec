@@ -34,8 +34,7 @@ $dados = $usuario->getDadoUsuario($id_usuario);
         <td>Mudar Senha</td>
         <td><input type="checkbox" id="ck_tr_senha" name="ck_tr_senha"></td>
     </tr>
-</table>
-<table id="dv_senha" class="table" align="center">
+
     
         <tr>
             <td>Senha:</td>
@@ -45,8 +44,7 @@ $dados = $usuario->getDadoUsuario($id_usuario);
             <td>Repetir a Senha:</td>
             <td><input type="password" name="senha" class="form-control" id="txtSenha" style="wi50px" value="">
         </tr>
-</table>
-<table class="table" align="center">
+
     <tr>
         <td style="color:red">Email Recuperação Senha:</td>
         <td><input type="email" name="email_rec" class="form-control" size="40" value="<?php print $dados['email_rec']; ?>"></td>
@@ -58,6 +56,108 @@ $dados = $usuario->getDadoUsuario($id_usuario);
     <tr>
         <td>Email Informações 2:</td>
         <td><input type="email" name="txtEmailInfo2" class="form-control" size="40" value="<?php print $dados['email_info2']; ?>"></td>
+    </tr>
+
+    <tr>
+        <td>CPF:</td>
+        <td><input type="text" name="txtCpf" id="txtCpf" class="form-control" size="40" value="<?php print $dados['cpf']; ?>"></td>
+    </tr>
+    <tr>
+        <td>Posto:</td>
+        <td>
+        <select name="sel_posto" id="sel_posto" class="form form-control">
+            <option><?=$dados['posto']?></option>
+            <option>Escolha uma Opção</option>
+            <option>GOVERNADOR</option>
+            <option>SECRET.GOV</option>
+            <option>CEL PM</option>
+            <option>CEP BM</option>
+            <option>TEN CEL PM</option>
+            <option>TEN CEM BM</option>
+            <option>MAJ PM</option>
+            <option>MAJ BM</option>
+            <option>CAP PM</option>
+            <option>CAP BM</option>
+            <option>TEN BM</option>
+            <option>TEN PM</option>
+            <option>SUB TEN PM</option>
+            <option>SUB TEN BM</option>
+            <option>1º SGT PM</option>
+            <option>1º SGT BM</option>
+            <option>2º SGT PM</option>
+            <option>2º SGT BM</option>
+            <option>3º SGT PM</option>
+            <option>2º SGT BM</option>
+            <option>SD PM</option>
+            <option>SD BM</option>
+            <option>CB PM</option>
+            <option>CB BM</option>
+            <option>SC</option>
+            <option>FC</option>
+        </select>
+        </td>
+    </tr>
+    <tr>
+    <td>Função</td>
+    <td>
+        <select name="sel_funcao" id="sel_funcao" class="form form-control">
+            <option><?=$dados['funcao']?></option>
+            <option>Escolha uma Opção</option>
+            <option>GOVERNADOR</option>
+            <option>VICE GOVERNADOR</option>
+            <option>SECRETARIO</option>
+            <option>SUPERINTENDÊNCIA</option>
+            <option>CHEFIA</option>
+            <option>DIRETORIA</option>
+            <option>DIRETOR</option>
+            <option>ASSESSORIA</option>
+            <option>REDEC</option>
+            <option>AUXILIAR I</option>
+            <option>AUXILIAR II</option>
+            <option>MOTORISTA</option>
+        </select>
+    </td>
+    </tr>
+    <tr>
+        <td>Seção: </td>
+        <td>
+        <select name="sel_secao" id="sel_secao" class="form form-control">
+            <option><?=$dados['secao']?></option>
+            <option>Escolha uma Opção</option>
+            <option>CHEFIA</option>
+            <option>SGRD</option>
+            <option>DRD</option>
+            <option>SGRRD</option>
+            <option>DRRD</option>
+            <option>SADM</option>
+            <option>STO</option>
+            <option>DEPOS</option>
+            <option>DADM</option>
+            <option>DEDC</option>
+            <option>CCE</option>
+            <option>DTEC</option>
+<!--            <option>DAR - Inativo</option>-->
+            <option>SECRETARIA</option>
+            <option>DPLAN</option>
+            <option>DLOG</option>
+            <option>DLS</option>
+            <option>REDEC</option>
+            <option>NCO</option>
+            <option>GMG</option>
+            <option>ADS</option>
+            <option>GOV</option>
+            <option>CEDEC</option>
+            <option>DSB</option>
+        </select>
+        </td>
+    </tr>
+    <tr>
+        <td>Telefone:</td>
+        <td><input type="text" name="txtTelefone" id="txtTelefone" class="form-control"  value="<?php print $dados['telefone']; ?>"></td>
+    </tr>
+    <tr>
+        <td>Whatsapp:</td>
+        <td><input type="text" name="txtZap" id="txtZap" class="form-control"  value="<?php print $dados['celular']; ?>"></td>
     </tr>
 </table> 
     <?php
@@ -147,6 +247,7 @@ $dados = $usuario->getDadoUsuario($id_usuario);
     $(document).ready(function () {
         
         $("#dv_senha").hide();
+        $("#txtCpf").mask("999.999.999-99");
         
         /* */
         $("#ck_tr_senha").click(function(){

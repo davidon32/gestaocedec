@@ -137,23 +137,23 @@ $dadosDeposito = Deposito::ListaDeposito();
 
     <div class="col-md-12">
         <label>Representante Beneficiario:</label><span class='tile'> ( Representante Prefeitura / Coordenador Municipal ) </span>
-        <input type="text" class="form-control" name="resp_receb" id="resp_receb" maxlength="50" title="Representante Prefeitura ou responsavel pela retirada do material" required />
+        <input type="text" class="form-control" name="resp_receb" id="resp_receb" maxlength="50" title="Representante Prefeitura ou responsavel pela retirada do material" />
     </div>
     <div class="col-md-6">
         <label>C.I:</label>  <span class='tile'>( Identidade do Representante ) </span>
-        <input type="text" class="form-control" name="resp_receb_ci" id="resp_receb_ci" maxlength="15" title="Identidade do Representante" required />
+        <input type="text" class="form-control" name="resp_receb_ci" id="resp_receb_ci" maxlength="15" title="Identidade do Representante"  />
     </div>
     <div class="col-md-6">
         <label>CPF:</label>  <span class='tile'>( CPF do Representante ) </span>
-        <input type="text" class="form-control" name="resp_receb_cpf" data-mask='999.999.999-99' id="resp_receb_cpf" maxlength="20" title="CPF do Representante " required />
+        <input type="text" class="form-control" name="resp_receb_cpf" data-mask='999.999.999-99' id="resp_receb_cpf" maxlength="20" title="CPF do Representante "  />
     </div>
     <div class="col-md-6">
         <label>Veículo:</label>  <span class='tile'>( VEÍCULO que vai fazer a retirada do Material ) </span>
-        <input type="text" class="form-control" name="resp_receb_veiculo" id="resp_receb_veiculo" maxlength="50" title="VEÍCULO que vai fazer a retirada do Material" required />
+        <input type="text" class="form-control" name="resp_receb_veiculo" id="resp_receb_veiculo" maxlength="50" title="VEÍCULO que vai fazer a retirada do Material"  />
     </div>
     <div class="col-md-6">
         <label>Placa:</label>  <span class='tile'>( PLACA veículo que vai fazer retirada do Material ) </span>
-        <input type="text" class="form-control" name="pl_resp_receb" id="pl_resp_receb" maxlength="15" title="PLACA veículo que vai fazer retirada do Material" required />
+        <input type="text" class="form-control" name="pl_resp_receb" id="pl_resp_receb" maxlength="15" title="PLACA veículo que vai fazer retirada do Material"  />
     </div>
 
     <div class="col-md-12"><hr></div>

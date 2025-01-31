@@ -955,7 +955,13 @@ class Usuario extends UsuarioModel {
                     cedec_funcionario.email as email_info1,
                     cedec_funcionario.email2 as email_info2,
                     cedec_funcionario.num_masp,
-                    cedec_funcionario.secao as secao
+                    cedec_funcionario.secao as secao,
+                    cedec_usuario.cpf,
+                    cedec_funcionario.posto,
+                    cedec_funcionario.secao,
+                    cedec_funcionario.funcao,
+                    cedec_funcionario.telefone,
+                    cedec_funcionario.celular
                         FROM cedec_usuario
                             inner join cedec_funcionario
                             on cedec_usuario.id_funcionario = cedec_funcionario.id_funcionario
@@ -1017,7 +1023,8 @@ class Usuario extends UsuarioModel {
 							it_m_comdec,
 							it_m_apoio,
 							it_m_poco,
-							it_m_escola
+							it_m_escola,
+                            cpf
 							FROM cedec_usuario
 							WHERE id_funcionario = :id_funcionario';
 
@@ -1899,7 +1906,7 @@ class Usuario extends UsuarioModel {
     }
 
     /** cadastro de funcionario */
-    function cadFuncionario($numPolicia, $nomeComp, $usuario, $setor, $email, $email2, $posto, $id_rpm, $secao) {
+    function cadFuncionario($numPolicia, $nomeComp, $setor, $email, $email2, $posto, $id_rpm, $secao, $desc_funcao, $cpf, $cargo) {
 
         $con = Conexao::getInstance();
 
@@ -1907,18 +1914,26 @@ class Usuario extends UsuarioModel {
 						nome,
 						orgao,
 						email,
-                                                email2,
-                                                posto,
-                                                id_rpm,
-                                                secao)
+                        email2,
+                        posto,
+                        id_rpm,
+                        secao,
+                        desc_funcao,
+                        cpf,
+                        cargo)
 						VALUES("' . $numPolicia . '",
 							"' . $nomeComp . '",
 							"' . $setor . '",
 							"' . $email . '",
 							"' . $email2 . '",
-                                                        "' . $posto . '",
-                                                        "' . $id_rpm . '",
-                                                        "' . $secao . '")';
+                            "' . $posto . '",
+                            "' . $id_rpm . '",
+                            "' . $secao . '",
+                            "' . $desc_funcao . '",
+                            "' . $cpf . '",
+                            "' . $cargo . '"
+                            
+                            )';
         try {
             $result = $con->query($sql);
             return true;
@@ -1936,8 +1951,18 @@ class Usuario extends UsuarioModel {
 
         $con = Conexao::getInstance();
 
-        $sql = "Select * from cedec_usuario 
-			where nome like '%" . $nome . "%'";
+        $sql = "SELECT cedec_usuario.id_usuario,
+cedec_usuario.login,
+cedec_usuario.nome,
+cedec_usuario.email_rec,
+cedec_usuario.ultimo_acesso,
+cedec_funcionario.posto,
+cedec_funcionario.id_funcionario,
+cedec_usuario.situacao
+FROM cedec_usuario
+INNER JOIN cedec_funcionario
+ON cedec_usuario.id_funcionario = cedec_funcionario.id_funcionario
+WHERE cedec_usuario.nome LIKE '%" . $nome . "%'";
 
         $result = $con->query($sql);
 
@@ -2466,7 +2491,7 @@ and cedec_usuario.nome not in('SUPORTE') " . $filtro . "
         
         //var_dump($id_func_chefe_gm);
 
-        $filtro = (!empty($_GET['tipo'])) ? " and desc_funcao = 'Agente Regional de DC' order by cedec_rpm.id " : " and desc_funcao not like 'Agente Regional de DC%' order by $id_chefe cedec_usuario.nome";
+        $filtro = (!empty($_GET['tipo'])) ? " and desc_funcao = 'Agente Regional de DC' order by cedec_rpm.id, cargo " : " and desc_funcao not like 'Agente Regional de DC%' order by $id_chefe cedec_usuario.nome";
         $sql = "select 
 cedec_usuario.id_usuario,
 cedec_usuario.nome,
@@ -2488,6 +2513,7 @@ cedec_funcionario.id_rpm,
 cedec_funcionario.posto,
 cedec_funcionario.num_masp,
 cedec_funcionario.email2,
+cedec_funcionario.cargo,
 cedec_rpm.nome as rpm,
 cedec_usuario.cpf,
 aju_deposito.nome as dep_avancado

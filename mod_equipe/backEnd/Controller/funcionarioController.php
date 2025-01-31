@@ -28,6 +28,8 @@ class funcionarioController extends Controller {
                                    'id_usuario'=>$post['txt_id_usuario'],
                                    'situacao' =>$dados['situacao']);
 
+            $post['txt_dt_nascimento'] = DataMysql::dataVisual($post['txt_dt_nascimento']);
+
             $funcionario->edit($post);
             $usuario->AtualizaEmail($dadosEmailRec);
             

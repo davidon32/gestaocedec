@@ -191,4 +191,42 @@ class h_pedido_prestController extends Controller {
         }
     }
 
+
+    /**
+     * 
+     */
+    public function historico(){
+        
+        $view = $this->h_pedido_prest->view($_GET['id']);
+        $pedido_id = isset($_GET['id']) ? $_GET['id'] : "";
+
+        $user_id = $_COOKIE['seguranca']['idUser'];
+
+        $historicos = $this->h_pedido_prest->getHistorico($_GET['id']);
+        
+        include_once 'mod_ajuda/backEnd/View/ajuda_h/h_pedido_prest/view_historico.php';
+        
+    }
+
+
+    public function storeHistorico()
+    {
+
+        $post = isset($_POST) ? $_POST : "";
+        
+        if(H_pedido_prestajuda_hModel::storeHistorico($post)){
+
+            print "<script>
+                alert('Registro Gravado com Sucesso !');
+                    setTimeout(function() {
+                        history.back(); 
+                        }, 500);
+                   </script>";
+           
+        }
+        
+
+    }
+    
+
 }

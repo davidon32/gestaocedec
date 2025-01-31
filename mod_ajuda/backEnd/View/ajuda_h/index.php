@@ -32,7 +32,7 @@ $id_redec = $_COOKIE['seguranca']['id_rpm'];
 //$_edicao = ($_SERVER['REQUEST_METHOD'] == "POST") ? ;
 
 
-
+$perfil = $_COOKIE['seguranca']['funcao'];
 
 
 $data = array();
@@ -251,7 +251,7 @@ $response = json_encode($data);
           <td>";
 
                                 # EDITAR
-                                if ($pedid['status'] < 4) {
+                                if( ($pedid['status'] < 4) && ($perfil != "REDEC") ){
                                     print "<a href='" . FuncaoBase::geraLink('ajuda', 'h_pedido_pedid', 'edit', array('id' => $pedid['id'], 'voltar' => 'idx_recente')) . "' title='Editar Pedido'><img src='/core/imagem/editar.png'></a> |";
 
                                     # devolver para ediçao
@@ -264,8 +264,9 @@ $response = json_encode($data);
                                 # prestação de contas
                                 if ($pedid['status'] == 6 || $pedid['status'] == 9) {
 
-                                    print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_prest', 'index', array('id' => $pedid['id'])) . "' title='Presatação de contas'><img width='25' src='/core/imagem/relatorio.png'></a>|";
+                                    print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_prest', 'index', array('id' => $pedid['id'])) . "' title='Prestação de contas'><img width='25' src='/core/imagem/relatorio.png'></a>|";
                                     print "&nbsp;&nbsp;<a href='' style='color:" . $cor['fonte'] . "; font-size:14pt;' title='Percentual de Conclusão da Prestação de Contas do Pedido'>" . $percent . "%</a> |";
+                                    print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_prest', 'historico', array('id' => $pedid['id'])) . "' title='Adicionar Observações na Prestação de Contas'><img width='25' src='/core/imagem/comment.png'></a>|";
                                 }
                                 
                                 # analise DRD
@@ -276,18 +277,18 @@ $response = json_encode($data);
                                 #  }
 
                                 # analise_dlog
-                                if ($permissao[0]['analista_dlog'] == 1 && $pedid['status'] < 3) {
+                                if ($permissao[0]['analista_dlog'] == 1 && $pedid['status'] < 3 && $perfil != "REDEC") {
 
                                     print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar' => 'idx_recente', 'an' => 'analise_dlog')) . "' title='Despacho DLOG'><img width='25' src='/core/imagem/dlog.png'></a>";
                                 }
 
                                 # analise_coord
-                                if (($permissao[0]['analista_coord'] == 1) && ($pedid['status'] == 3)) {
+                                if (($permissao[0]['analista_coord'] == 1) && ($pedid['status'] == 3) && ($perfil != "REDEC")) {
                                     print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar' => 'idx_recente', 'an' => 'analise_coord')) . "' title='Despacho Coordenador Adjunto'><img width='25' src='/core/imagem/boss.png'></a>";
                                 }
 
                                 # Apos despacho do Chefe Dlog
-                                if (($pedid['status'] >= 4) && ($pedid['status'] <= 5)) {
+                                if (($pedid['status'] >= 4) && ($pedid['status'] <= 5) && ($perfil != "REDEC") ) {
                                     print "<a href='index.php" . FuncaoBase::geraLink('ajuda', 'h_pedido_an_tec', 'cadastro', array('id' => $pedid['id'], 'voltar' => 'idx_recente', 'an' => 'analise_coord')) . "' title='Despacho Dlog'><img width='25' src='/core/imagem/dlog.png'></a>";
                                 }
 
