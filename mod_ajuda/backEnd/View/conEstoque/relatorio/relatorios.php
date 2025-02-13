@@ -24,13 +24,13 @@ $sel_material = isset($_POST['selMaterial']) ? $_POST['selMaterial'] : "";
 //and YEAR(aju_item.dataLibera) = "2022" 
 //group by aju_unidade.singular
 
-if ($_opcao == '1') {
+if ($_opcao == '1') { // ok evento e todos
     include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/resumo_diario.php';
     exit();
 } else if ($_opcao2 == '2') {
     include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/resumo_distribuicao_material.php';
     exit();
-} else if ($sel_material) {
+} else if ($sel_material) { // ok por evento e todos
     include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/por_material.php';
 } else {
     include_once 'mod_ajuda/backEnd/View/conEstoque/relatorio/resumo_geral.php';

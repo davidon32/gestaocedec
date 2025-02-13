@@ -67,6 +67,11 @@
     $id_municipio= isset($_POST['id_municipio']) ? $_POST['id_municipio'] : NULL;
     $pesquisar   = isset($_POST['pesquisar'])    ? $_POST['pesquisar']    : NULL;
     $ck_diario   = isset($_POST['ck_diario'])    ? $_POST['ck_diario']    : NULL;
+    
+    $evento          = isset($_POST['sel_evento'])      ? $_POST['sel_evento']      : NULL;
+    $todos_liberados = isset($_POST['todos_liberados']) ? $_POST['todos_liberados'] : NULL;
+
+
 ?>
 <div class="row">
     <div class="col-md-12 text-center">
@@ -79,6 +84,17 @@
         <p style="text-align:text-center"><h4> Período : <?=$txtDtInicial;?> a <?=$txtDtFinal;?></h4></p>
     </div>
 
+    <?php
+    if ($todos_liberados == 1) {
+        print "<div class='row'>";
+        print "<div class='col-md-12'>";
+        print "<h5><p class=\"text-danger font-weight-bold text-center\">";
+        print "Obs: Este relatório está contabilizando os Materiais que por ventura estão Liberados, porém não foram retirados no Depósito.";
+        print "</p></h5></div></div>";
+    }
+
+    ?>
+
     <!-- material liberado -->
     <div class="col-md-12 text-center">
         <h3>MATERIAL LIBERADO</h3>
@@ -88,7 +104,12 @@
         $coluna = "style='text-align: center;background-color: #BDBDBD;'";
 
             #@ relatorio com filtro de opcoes
-		$dados = $_relatorioAjuda->MaterialLiberadoResumoDiario($txtDtInicial, $txtDtFinal, $id_municipio, $id_deposito, false);
+		$dados = $_relatorioAjuda->MaterialLiberadoResumoDiario($txtDtInicial,
+         $txtDtFinal,
+          $id_municipio,
+           $id_deposito,
+             $evento,
+              $todos_liberados);
 
         //var_dump($dados);
         print "<table class='table table-bordered table-condensed'>";

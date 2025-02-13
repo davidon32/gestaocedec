@@ -9,14 +9,27 @@
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php";?>
 
+<?php
+
+// $corpo = "Corpo \n outra linha";
+// $assunto = "assunto Teste";
+//     var_dump(Email::emailIndividual('demetrio.passos@defesacivil.mg.gov.br', $assunto, $corpo));
+//     die();
+
+    ?>
  
+
     <!-- configuracoes do sistema -->
-    <div class="col-md-2">
+    <div class="col">
         <a href='<?=FuncaoBase::geraLink("admin","release", "index")?>' class="btn btn-primary">Release</a>
     </div>
     
-    <div class="col-md-2">
+    <div class="col">
         <a href='#' class="btn btn-primary">Backup Sistema</a>
+    </div>
+
+    <div class="col">
+        <a href='<?=FuncaoBase::geraLink("admin","adm", "emailteste")?>' class="btn btn-primary">Email</a>
     </div>
     <div class="col-md-12 text-center">
     <br>

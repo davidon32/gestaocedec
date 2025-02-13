@@ -961,8 +961,7 @@ class Compdec {
         $result = $con->query($sql);
         
         return $result->fetchAll(PDO::FETCH_ASSOC);
-        
-        
+         
     }
     
     

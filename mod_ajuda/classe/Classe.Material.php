@@ -627,14 +627,26 @@ class Material {
     /**
      * Lista de Eventos que tem liberacao
      */
-    public static function materiaisLiberadosEvento() {
+    public static function materiaisLiberadosEvento($evento) {
 
         $con = Conexao::getInstance();
+
+        if(is_array($evento)) {
+            $eventos = "in (".implode(", ", array_map(function($numero) {
+                return '"' . $numero . '"';
+            }, $evento));
+
+            $eventos = $eventos.")"; 
+            
+        }else {
+            $eventos = " ='".$evento."'";
+        }
 
         $dados = array();
 
         $sql = "SELECT COUNT(quantidade) as qtd, evento FROM aju_item
-				WHERE situacao <= '1' and evento IS NOT NULL 
+				WHERE situacao <= '1' 
+                and evento ".$eventos."
 				GROUP BY evento
 				ORDER By evento";
 

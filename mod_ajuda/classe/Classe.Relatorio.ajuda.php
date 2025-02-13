@@ -802,9 +802,16 @@ class RelatorioAju extends DataMysql
         $_dt_inicial = false,
         $_dt_final = false,
         $_id_municipio = false,
-        $_dep_destino = false
+        $_dep_destino = false,
+        $_evento = false,
+        $_todos_liberados = false
     ) {
 
+        if($_todos_liberados == 0){
+            $todos_lib = "= 1";
+        } else {
+            $todos_lib = "< 2";
+        }
 
         $liberacoes = array();
 
@@ -857,6 +864,12 @@ class RelatorioAju extends DataMysql
         elseif ((!$_dt_inicial) && (!$_dt_final) && ($_id_municipio) && (!$_dep_destino)) {
             $filtro = 'and  id_municipio = ' . $_id_municipio;
         }
+
+        if($_evento !='todos') {
+            $filtro .= " and aju_liberacao.evento = '".$_evento."' ";
+        }
+
+            $filtro .= " and aju_liberacao.situacao ".$todos_lib." ";
 
 
         $sql1 = 'SELECT id_liberacao, datalibera,

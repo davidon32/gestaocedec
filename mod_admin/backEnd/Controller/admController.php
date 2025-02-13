@@ -75,7 +75,7 @@
                 SqlGenerics::Inserir('cedec_usuario',
                         array('id_deposito'=> $deposito,
                             'nome'=> $nomeComp,
-                            'senha'=>md5('cedec199'),
+                            'senha'=>md5('gmgcedec199'),
                             'email_rec'=>$email,
                             'nivel'=>0,
                             'situacao'=>1,
@@ -104,9 +104,9 @@
 
                 #com_permissao
                 $redec['nivel'] = 0;
-                $redec['cad_compdec'] = 0;
+                $redec['cad_comdec'] = 0;
                 $redec['cad_consulta'] = 0;
-                $redec['cad_user_valida'] = 0;
+                $redec['admuser'] = 0;
                 $redec['alt_comdec'] = 0;
 
                 #pmda
@@ -124,9 +124,9 @@
 
                     #com_permissao
                     $redec['nivel'] = 1;
-                    $redec['cad_compdec'] = 1;
+                    $redec['cad_comdec'] = 1;
                     $redec['cad_consulta'] = 1;
-                    $redec['cad_user_valida'] = 1;
+                    $redec['admuser'] = 1;
                     $redec['alt_comdec'] = 1;
 
                     $redec['pmda'] = 1;
@@ -178,9 +178,9 @@
                                                             'nivel'=>0,
                                                             'id_usuario'=> Usuario::getIdUsuario($username),
                                                             'nivel' => $redec['nivel'],
-                                                            'cad_compdec' => $redec['cad_compdec'],
+                                                            'cad_comdec' => $redec['cad_comdec'],
                                                             'cad_consulta' => $redec['cad_consulta'],
-                                                            'cad_user_valida' => $redec['cad_user_valida'],
+                                                            'admuser' => $redec['admuser'],
                                                             'alt_comdec' => $redec['alt_comdec']
                                                         ));
                 
@@ -197,7 +197,10 @@
                                                             'pmda' => $rede['pmda']
                                                         ));
                 
+                ## Enviar Email para o Solicitante
+                $mensagem = "Prezado Senhor(a),\n Foi criado o seu acesso parao SDC- Sistema de Defesa Civiln \n\n Acesse: https://www.sistema.defesacivil.mg.gov.br\n Usuário:".$username." \nSenha Provisória : gmgcedec199 n\ Efetue a troca de sua senha";
                 
+                Email::emailIndividual($email_info1, 'Cadastro Realizado no SDC', $mensagem );
                                
                     print "<script>
                                 alert('Registro Gravado com Sucesso');
@@ -344,8 +347,8 @@
         include_once('mod_admin/backEnd/View/release/index.php');
         
     }
-    
-    
+
+   
     /*
      * relatorios
      * 
@@ -500,10 +503,9 @@ MSG;
         include_once 'mod_admin/backEnd/View/usuario_cedec/verificar_user.php';
         
         //var_dump("verificar_user");
-        
-        
+          
     }
-    
+ 
     
     
 

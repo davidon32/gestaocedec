@@ -29,7 +29,7 @@ $singulars = $singular->singular();
     <legend>Relatório Resumo de Liberações </legend>
 </p>
 
-<div class="col-md-3">
+<div class="col-md-6">
     <form method="POST" action="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')); ?>&ac=itn&modulo=ajuda&controller=relatorio&action=relatorio" name="frm_rel_liberacao">
 
 
@@ -52,7 +52,7 @@ $singulars = $singular->singular();
             <?php $_municipio->PegaMunicipio(); ?>
             <br>
         </div>
-
+        
         <div class="col-md-12">
             <label>Evento</label>
             <select name="sel_evento" id="sel_evento" class="form form-control">
@@ -65,11 +65,12 @@ $singulars = $singular->singular();
             </select>
             <br>
         </div>
+       
 
 
 
 </div>
-<div class='col-md-3'>
+<div class='col-md-6'>
 
     <!--    <div class="col-md-12">
         <label>Ano:</label>
@@ -107,6 +108,13 @@ $singulars = $singular->singular();
         <br>
     </div>
 
+    <div class="col-md-12" id="opcao_todos">
+            <label class="text-warning">Buscar Todas as Liberações que ainda estão esperando o Município Buscar no Depósito </label>
+            <input type="radio" value="0" name="todos_liberados" id="ck_nao" checked>Não <br>
+            <input type="radio" value="1" name="todos_liberados" id="ck_sim" >Sim 
+            <br>
+        </div>
+
     <div class="col-md-12">
         <br>
         <label>
@@ -126,13 +134,15 @@ $singulars = $singular->singular();
     <label><input type="checkbox" name="ck_resumo_distr" id="ck_resumo_distr" value='2'>Resumo Distribuição de Materiais <h6>( Resumo Quantitativo de Materiais distribuídos )</label>
         -->
 
-<div class="col-6">
+</div>
+
+<!--{# <div class="col-6">
     <div class="row text-center">
         <legend></legend>
     </div>
 
 
-</div>
+</div> -->
 <div class="col-md-12">
 
 
@@ -157,9 +167,25 @@ $singulars = $singular->singular();
 <script type="text/javascript">
     $(document).ready(function() {
 
+        $("#opcao_todos").hide();
+
+        $("#selMaterial").change(function(){
+
+            if($(this).val() != "") {
+                $("#opcao_todos").show();
+            }else {
+                $("#opcao_todos").hide();
+            }
+        });
+
+
+
         $("#ck_diario").change(function() {
             if ($("#ck_diario").is(":checked")) {
+                $("#opcao_todos").show();
                 $("#ck_resumo_distr").prop('checked', false);
+            }else {
+                $("#opcao_todos").hide();
             }
         });
 

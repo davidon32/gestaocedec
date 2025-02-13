@@ -16,6 +16,8 @@ include_once "core/Model/Model.php";
         
             include_once("mod_admin/View/master.php");
         }
+
+    
         
  
 }?>

@@ -360,6 +360,8 @@ class Ajuda {
 
     public static function relPorMaterial(array $param) {
 
+        //var_dump($param);
+
         $con = Conexao::getInstance();
 
         //var_dump($param);
@@ -368,9 +370,22 @@ class Ajuda {
         $dt_inicial   = isset($param['txtDtInicial']) ? $param['txtDtInicial'] : "";
         $dt_final     = isset($param['txtDtFinal'])   ? $param['txtDtFinal'] : "";
         $id_municipio = isset($param['id_municipio']) ? $param['id_municipio'] : "";
+        $evento       = isset($param['sel_evento']) ? $param['sel_evento'] : "";
+        
+        $liberacao_todos = isset($param['todos_liberados']) ? $param['todos_liberados'] : "";
+        
+        if($liberacao_todos == 0){
+            $todos_lib = "= 1";
+        } else {
+            $todos_lib = "< 2";
+        }
 
-        $filtro = "";
+        $filtro = " and aju_item.situacao ".$todos_lib." ";
+        
         $filtro .= (!empty($material)) ? " and aju_unidade.singular = '" . $material . "' " : "";
+
+        #evento
+        $filtro .= (!empty($evento)) ? " and aju_liberacao.evento = '" . $evento . "' " : "";
 
         #data Inicial       
         $filtro .= ( (!empty($dt_inicial)) && (empty($dt_final)) ) ? " and aju_item.dataLibera >='".DataMysql::dataForm($dt_inicial)."' " : "";
@@ -380,6 +395,7 @@ class Ajuda {
         
         #data inicial e final        
         $filtro .= ( (!empty($dt_inicial)) && (!empty($dt_final)) ) ? " and aju_item.dataLibera between '".DataMysql::dataForm($dt_inicial)."' and '".DataMysql::dataForm($dt_final)."' " : "";
+
 
         $sql = "select sum(aju_item.quantidade) as quantidade,
                 aju_unidade.singular,
@@ -392,10 +408,8 @@ class Ajuda {
                 INNER JOIN cedec_municipio
                 ON aju_liberacao.id_municipio = cedec_municipio.id_municipio
                 Where aju_item.id_item > 0
-                and aju_item.situacao < 2
                 " . $filtro . "
                 group by aju_unidade.singular, cedec_municipio.id_municipio";
-
         
         /*
 

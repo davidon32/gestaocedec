@@ -34,74 +34,75 @@ if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
 
 
     $controller = isset($_GET['controller']) ? $_GET['controller'] . "Controller" : "indexController";
-    $action = isset($_GET['action']) ? $_GET['action'] : "index";
 
+    $action = isset($_GET['action']) ? $_GET['action'] : "index";
+    
     $param = isset($_GET['param']) ? "&param=" . $_GET['param'] : "";
     $modulo = isset($_GET['modulo']) ? $_GET['modulo'] : "index";
-
+    
     $acesso = isset($_COOKIE['seguranca']['tipo']) ? $_COOKIE['seguranca']['tipo'] : null;
-
+    
     # Acesso Externo
     # Acesso Interno
     # Acesso sem login
     # Acesso Comun (raiz modulo)
     # acesso externo
-
+    
     $acesso1 = isset($_GET['externo']) ? $_GET['externo'] : "";
-
+    
     $email = isset($caminho[2]) ? substr($caminho[2], strpos($caminho[2], 'email') + 6) : "";
     $hash = isset($caminho[2]) ? substr($caminho[2], 0, 32) : "";
-
-
+    
+    
     /* usuario externo */
-
+    
     if(!empty($email) && !empty($hash)) {
         $verificaTrSenhaEx = Usuario::buscaTrSenha($email, $hash);
         /* interno */
         $verificaTrSenhaCedec = Usuario::buscaTrSenhaCedec($email, $hash);
     }
-
+    
     
     //print_r($parametro);
     //print(Usuario::buscaTrSenhaCedec($email, $hash));
     //die();
-
+    
     # compdec
     if (isset($verificaTrSenhaEx['troca'])) {
         $tipo = 'Compdec';
         include_once 'mod_equipe/View/usuario/trsenha_compdec.php';
-    
-    # cedec
+        
+        # cedec
     } else if (isset($verificaTrSenhaCedec) && ($verificaTrSenhaCedec)) {
         $tipo = 'Cedec';
         include_once 'mod_equipe/View/usuario/trsenha_cedec.php';
         //die();
     } else {
-
+        
         if (preg_match('/email/', $_SERVER['REQUEST_URI'])) {
             header('Location:/index.php');
         }
-
+        
         $evento = isset($caminho[1]) ? $caminho[1] : "";
         /* if ($evento == 'evento') {
-          header('Location :evento.php');
-          } else */
-        if ((isset($caminho[2]) && ($caminho[2] === 'mapa')) && ((isset($caminho[3]) && $caminho[3] === 'site'))) { # mapas
-            $controller = 'relatorio';
-            $action = 'mapa';
-            include_once "mod_ajuda/backEnd/Controller/relatorioController.php";
+            header('Location :evento.php');
+            } else */
+            if ((isset($caminho[2]) && ($caminho[2] === 'mapa')) && ((isset($caminho[3]) && $caminho[3] === 'site'))) { # mapas
+                $controller = 'relatorio';
+                $action = 'mapa';
+                include_once "mod_ajuda/backEnd/Controller/relatorioController.php";
             $app = new relatorioController();
             $app->mapa();
 
-
+            
             /* acesso externo sem login */
         } else if ($acesso1 == md5('externo')) {
-
+            
             /* não exist Controller */
             if (file_exists("mod_" . $modulo . "/Controller/" . $controller . ".php")) {
                 include_once "mod_" . $modulo . "/Controller/" . $controller . ".php";
             } else {
-
+                
                 header('Location:index.php');
             }
         } else if (
@@ -115,80 +116,80 @@ if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
             ($action === 'mapa') ||
             ($action === 'usuarioRegionaisSite') ||
             ($action === 'lista_munic_reg_site')
-        ) {
-            /* não exist Controller */
-            if (file_exists("mod_" . $modulo . "/Controller/" . $controller . ".php")) {
-
-                include_once "mod_" . $modulo . "/Controller/" . $controller . ".php";
-            } else {
-                print "mod_" . $modulo . "/Controller/" . $controller . ".php";
-
-                header('Location:index.php');
-            }
-        } else if ((isset($caminho[1]) && $caminho[1] == "tdap")) { # TDAP
-            $controller = (isset($caminho[2])) ? ucfirst($caminho[2]) : "";
-            $action = (isset($caminho[3])) ? $caminho[3] : "";
-            $id = (isset($caminho[4])) ? $caminho[4] : "";
-
-            include_once("/plugins/api-rest-php/view/" . ucfirst($controller) . "/" . $action . ".php");
-
-            if (file_exists("/plugins/api-rest-php/view/" . ucfirst($controller) . "/" . $action . ".php")) {
-                include_once("/plugins/api-rest-php/view/" . ucfirst($controller) . "/" . $action . ".php");
-            } else {
-
-                header('Location:index.php');
-            }
-        } else if (isset($_COOKIE['seguranca']['tipo'])) {
-
-            if ($acesso === "e") {
-                $ac = "frontEnd/";
-            } elseif ($acesso === "i") {
-                $ac = "backEnd/";
-            }
-
-
-
-            //include_once "mod_" . $modulo . "/" . $ac . "Controller/" . $controller . ".php";
-            /* não exist Controller */
-            if (file_exists("mod_" . $modulo . "/" . $ac . "Controller/" . $controller . ".php")) {
-                include_once "mod_" . $modulo . "/" . $ac . "Controller/" . $controller . ".php";
-            } else {
-                header('Location:index.php');
-            }
-        } else if (!isset($_COOKIE['seguranca']['tipo'])) { # redireciona para pagina de login
-            ##### Acesso gravar usuario novo
-            if ($controller == 'novoUserController') {
-                if (file_exists("mod_" . $modulo . "/Controller/" . $controller . ".php")) {
-                    include_once "mod_" . $modulo . "/" . "Controller/" . $controller . ".php";
-                } else {
-                    print "p";
-                }
-
-
-                # acesso defesa civil agora
-            } else if (
-                //($controller == 'agoraController') && ($action == 'listasite') ||
-                ($action == 'cadastro') ||
-                ($controller == "cceController" && $action == 'boletimsite') ||
-                //($controller == "cceController" && $action == 'boletimsite1') ||
-                ($action == "listacompdecativa") ||
-                ($controller == 'agoraController' && $action == 'view') ||
-                ($controller == 'agoraController' && $action == 'gravarComentario') ||
-                ($controller == 'agoraController' && $action == 'cadpost') ||
-                ($controller == 'agoraController' && $action == 'postagem')
             ) {
-
+                /* não exist Controller */
+                if (file_exists("mod_" . $modulo . "/Controller/" . $controller . ".php")) {
+                    
+                    include_once "mod_" . $modulo . "/Controller/" . $controller . ".php";
+                } else {
+                    print "mod_" . $modulo . "/Controller/" . $controller . ".php";
+                    
+                    header('Location:index.php');
+                }
+            } else if ((isset($caminho[1]) && $caminho[1] == "tdap")) { # TDAP
+                $controller = (isset($caminho[2])) ? ucfirst($caminho[2]) : "";
+                $action = (isset($caminho[3])) ? $caminho[3] : "";
+                $id = (isset($caminho[4])) ? $caminho[4] : "";
+                
+                include_once("/plugins/api-rest-php/view/" . ucfirst($controller) . "/" . $action . ".php");
+                
+                if (file_exists("/plugins/api-rest-php/view/" . ucfirst($controller) . "/" . $action . ".php")) {
+                    include_once("/plugins/api-rest-php/view/" . ucfirst($controller) . "/" . $action . ".php");
+                } else {
+                    
+                    header('Location:index.php');
+                }
+            } else if (isset($_COOKIE['seguranca']['tipo'])) {
+                
+                if ($acesso === "e") {
+                    $ac = "frontEnd/";
+                } elseif ($acesso === "i") {
+                    $ac = "backEnd/";
+                }
+                
+                
+                
+                //include_once "mod_" . $modulo . "/" . $ac . "Controller/" . $controller . ".php";
+                /* não exist Controller */
+                if (file_exists("mod_" . $modulo . "/" . $ac . "Controller/" . $controller . ".php")) {
+                    include_once "mod_" . $modulo . "/" . $ac . "Controller/" . $controller . ".php";
+                } else {
+                    header('Location:index.php');
+                }
+            } else if (!isset($_COOKIE['seguranca']['tipo'])) { # redireciona para pagina de login
+                ##### Acesso gravar usuario novo
+                if ($controller == 'novoUserController') {
+                    if (file_exists("mod_" . $modulo . "/Controller/" . $controller . ".php")) {
+                        include_once "mod_" . $modulo . "/" . "Controller/" . $controller . ".php";
+                    } else {
+                        print "p";
+                    }
+                    
+                    
+                    # acesso defesa civil agora
+                } else if (
+                    //($controller == 'agoraController') && ($action == 'listasite') ||
+                    ($action == 'cadastro') ||
+                    ($controller == "cceController" && $action == 'boletimsite') ||
+                    //($controller == "cceController" && $action == 'boletimsite1') ||
+                    ($action == "listacompdecativa") ||
+                    ($controller == 'agoraController' && $action == 'view') ||
+                    ($controller == 'agoraController' && $action == 'gravarComentario') ||
+                    ($controller == 'agoraController' && $action == 'cadpost') ||
+                    ($controller == 'agoraController' && $action == 'postagem')
+                    ) {
+                        
                 //($controller == 'agoraController' && $action == 'view') ||
                 //($controller == 'agoraController' && $action == 'gravarComentario') ||
                 //($controller == 'agoraController' && $action == 'cadpost') ||
                 // ($controller == 'agoraController' && $action == 'postagem')
-
-
+                
+                
                 $ac = 'backEnd/';
                 if (file_exists("mod_" . $modulo . "/" . $ac . "Controller/" . $controller . ".php")) {
                     include_once "mod_" . $modulo . "/" . $ac . "Controller/" . $controller . ".php";
                 } else {
-
+                    
                     header('Location:index.php');
                 }
             } else {
@@ -205,15 +206,16 @@ if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
             }
         }
         if (class_exists($controller)) {
-
+            
             $app = new $controller();
-
+            
             if ($action != 'mapa') {
-
-                //die();
+                
                 if (method_exists($app, $action)) {
+
                     $app->$action();
                 } else {
+                    die();
                     print <<<EOT
 <div style='width:500px;padding:0; margin:0 auto;'>
 <p style='font-size:20pt;float:left'>Ocorreu um erro interno !<br>chamada nao encontrada : <i style='color:blue'>$action</i></p>
