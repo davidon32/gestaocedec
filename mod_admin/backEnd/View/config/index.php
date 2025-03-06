@@ -35,6 +35,8 @@
     <br>
     <a class="btn btn-success" href="?token=<?=hash('sha256', md5(VERSAO).date('dmY'));?>&ac=&modulo=index&controller=index&action=menu">Voltar</a>
 </div>
+
+
        
 <!-- =================== RODAPE CORPO ==================== -->
 <?php include_once "template/page/corpoRodape.php";?>

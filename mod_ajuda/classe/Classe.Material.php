@@ -680,6 +680,7 @@ class Material {
 						aju_produto.depDestino,
 						aju_produto.validade,
 						aju_produto.nota_fiscal,
+						aju_produto.tipo,
                                                 aju_produto.id_entrada,
                                                 aju_unidade.descricao,
                                                 aju_produto.cancelado,

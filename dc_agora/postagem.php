@@ -14,12 +14,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     
-    <!--<meta property="og:url"                content="http://www.defesacivil.mg.gov.br/dc_agora/index.php" />
-    <meta property="og:type"               content="article" />
-    <meta property="og:title"              content="" />
-    <meta property="og:description"        content="" />
-    <meta property="og:image"              content="http://www.defesacivil.mg.gov.br/anexo/def_civil_agora/<?= $dados['imagem1']; ?>" />-->
-    
+        
     <style>
             @font-face {
                 font-family: "Droid Sans";

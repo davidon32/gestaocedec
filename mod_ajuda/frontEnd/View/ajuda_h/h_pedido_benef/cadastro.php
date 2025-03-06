@@ -30,8 +30,8 @@ $id = isset($_GET['id']) ? $_GET['id'] : "";
     </div>
     <div class='row'>
         <div class='col-md-6'>
-            <label>Identidade do Beneficiário (<span style="color:red"> este campo só aceita Números da Identidade </span> )</label>
-            <input type="number" class='form form-control' name='rg' id='rg' maxlength='14' required >
+            <label>CPF do Beneficiário (<span style="color:red"> este campo só aceita Números da Identidade </span> )</label>
+            <input type="number" class='form form-control' name='rg' id='rg' maxlength='11' required >
         </div>
     </div>
     <div class='row'>
@@ -87,6 +87,8 @@ if (isset($_GET['id_pedido'])) {
         /* close focus pesquisa */
 
         $('#data_entrega').mask('99/99/9999');
+
+        $('#rg').mask("99999999999");
 
         $("#frmH_pedido_benef").trigger("reset");
 

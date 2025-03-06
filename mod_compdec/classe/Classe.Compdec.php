@@ -970,7 +970,13 @@ class Compdec {
         
         $con = Conexao::getInstance();
         
-        $sql = "select nome, telefone, celular, email from com_eq_comdec where funcao = 'Coordenador' AND id_municipio = ".$id_municipio;
+        $sql = "select nome, 
+        telefone, 
+        celular, 
+        email from com_eq_comdec
+        where funcao = 'Coordenador' 
+        AND id_municipio = ".$id_municipio."
+        and com_eq_comdec.status = '1'";
         
         $result = $con->query($sql);
         

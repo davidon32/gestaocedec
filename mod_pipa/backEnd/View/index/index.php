@@ -27,8 +27,8 @@ foreach ($alertaPreCadCom as $value) {
 
 <div class="col-md-12">
     
-    <div class="col-md-6 text-center">
-        <a href="<?= FuncaoBase::geraLink("pipa", "pipa", "pmdaindex", array('a'=>'adm'))?>"><img width="80" src='/core/imagem/adm_pmda.png' title='Administração dos PMDA´s'></a><br>PMDA
+    <div class="col-md-4 text-center" style="">
+        <a class="thumbnail" href="<?= FuncaoBase::geraLink("pipa", "pipa", "pmdaindex", array('a'=>'adm'))?>"><img width="135" src='/core/imagem/adm_pmda.png' title='Administração dos PMDA´s'><br>PMDA</a>
         <br><br>
         </div>
     
@@ -39,9 +39,15 @@ foreach ($alertaPreCadCom as $value) {
             $permissao = Usuario::getPermissao('aju_permissao', 'tdap');
 
             if ($permissao == "1") {
-                print "<a href=\"?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=ajuda&controller=tdap&action=index\" title=\"TDAP QRCode\">";
-                print "<img src=\"core/imagem/tdap.png\" width=\"80px\"><br>TDAP</a>";
+
+            print "<a class=\"thumbnail\" href=\"?token=".hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=tdap\" title=\"TDAP\"><img width=\"155\" src=\"core/imagem/pipa.png\"><br />TDAP</a>";
+
+                # tdap antigo
+                // print "<a href=\"?token=" . hash('sha256', md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=ajuda&controller=tdap&action=index\" title=\"TDAP QRCode\">";
+                // print "<img src=\"core/imagem/tdap.png\" width=\"80px\"><br>TDAP</a>";
             } else {
+
+                #tdap antigo
                 print "<img class=\"imgCinza\" src=\"core/imagem/tdap.png\" width=\"80px\"  height=\"80px\" title=\"Usuario sem Acesso\">";
                 print "<br> TDAP";
             }

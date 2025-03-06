@@ -25,7 +25,7 @@ $id_municipio = $_COOKIE['seguranca']['id_municipio'];
 
 $data_doc = Compdec::verificadoc($id_municipio);
 
-var_dump($data_doc);
+//var_dump($data_doc);
 //die();
 
 //var_dump($data_doc);
@@ -97,6 +97,8 @@ print '<td align="center">
 //                    <a class="" href="" title="Prazo Terminou as 16:00 do dia 10/08/2021 para Envio de plano de Contingencia"><img class="imgCinza" alt="core/imagem/plano.png" src="core/imagem/plano.png"><br></a>
 //                </td>';
 //}
+
+
 ?>
 
 
@@ -136,6 +138,11 @@ print '<td align="center">
 <div class="col-md-3 text-center" style="height: 190px;">
     <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=vistoria" ?>" title="Relatório de Vistoria/Interdição"><img width="135" src="core/imagem/vistoria_interdicao_teste.png"><br />Vistoria/Interdição</a>
 </div>
+
+<!--CISTERNA-->
+<div class="col-md-3 text-center" style="height: 190px;">
+    <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=cisterna" ?>" title="Cadastro de Beneficiários"><img width="105" src="core/imagem/poco.png"><br />Convivência com Seca</a>
+</div>
 <!--VISTORIA DESATIVADO -->
 <!--    <div class="col-md-3 text-center" style="height: 190px;">
         <a class="thumbnail" title="Relatório de Vistoria/Interdição"><img width="155" src="core/imagem/vistoria_conversao.png"><br />Vistoria/Interdição</a>
@@ -146,6 +153,10 @@ print '<td align="center">
 <!--<div class="col-md-3 text-center" style="height: 190px;">
     <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=mah" ?>" title="Pedidos de Ajuda Humanitária"><img width="135" src="core/imagem/pedido_cesta.png"><br />Pedido de Ajuda Humanitária</a>
 </div>-->
+<!--<div class="col-md-3 text-center" style="height: 200px;">
+        <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=cisterna" ?>" title=">Projeto Convivência com a Seca"><img width="105" src="core/imagem/poco.png"><br />Projeto Convivência com a Seca</a>
+    </div>-->
+
 <?php } ?>
 <?php
 //}

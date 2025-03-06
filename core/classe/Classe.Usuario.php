@@ -101,7 +101,7 @@ class Usuario extends UsuarioModel {
             return true;
         } catch (Exception $e) {
 
-            print $result->debugDumpParams();
+            //print $result->debugDumpParams();
 
             print FuncaoBase::getError($e->getMessage(), 'Mensagem');
         }
@@ -2351,6 +2351,26 @@ WHERE cedec_usuario.nome LIKE '%" . $nome . "%'";
         return $dados;
     }
 
+    public function getDadosUsuario($id_usuario) {
+
+        $con = Conexao::getInstance();
+
+        $dados = null;
+
+        $sql = "select id_usuario, 
+                login
+                from cedec_usuario
+                where id_usuario = '" . $id_usuario . "'";
+
+        $result = $con->query($sql);
+
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+            $dados = $linha;
+        }
+
+        return $dados;
+    }
+
     public function getDadosUsuarioEx($id_usuario) {
 
         $con = Conexao::getInstance();
@@ -2855,6 +2875,90 @@ and cedec_usuario.id_usuario != 79
         return $result->fetchAll(PDO::FETCH_ASSOC);
         
         
+    }
+
+
+    /* get data user  */
+    public static function getUsuarioToken($token)
+    {
+        
+        //$sql = "select *from cedec_usuario where token_access ='".$token."'";
+
+        $sql = "SELECT 	cedec_usuario.login as login,
+		cedec_usuario.id_usuario as id_usuario,
+		cedec_usuario.nivel as nivel,
+		cedec_usuario.it_m_deposito as m_deposito,
+		cedec_usuario.it_m_pipa as m_pipa,
+		cedec_usuario.it_m_cce as m_cce,
+		cedec_usuario.it_m_decretacao as m_decretacao,
+		cedec_usuario.id_deposito as id_deposito,
+		cedec_usuario.trsenha as trsenha,
+		cedec_usuario.email_rec as email_rec,
+		cedec_funcionario.id_funcionario as id_funcionario,
+		cedec_funcionario.nome as nome,
+		cedec_funcionario.num_masp,
+                cedec_funcionario.id_rpm,
+                cedec_funcionario.posto,
+                cedec_funcionario.diretor,
+				cedec_funcionario.secao,
+                                cedec_funcionario.orgao,
+                                cedec_funcionario.funcao as funcao,
+                pip_permissao.pmda_operador as pmdaoperador,
+                pip_permissao.pmda_dlog as pmdadlog
+		FROM cedec_usuario
+		INNER JOIN cedec_funcionario
+		ON cedec_usuario.id_funcionario = cedec_funcionario.id_funcionario
+                INNER JOIN pip_permissao
+		ON cedec_usuario.login = pip_permissao.login
+		WHERE cedec_usuario.token_access = '".$token."'  
+        AND cedec_usuario.situacao = 1";
+
+        // -- .cpf = :cpf
+		// -- " . $filter_senha . "
+		// -- OR
+		// -- cedec_usuario.email_rec = :cpf
+		// -- " . $filter_senha . "
+		// -- AND cedec_usuario.situacao = 1";
+
+        $con = Conexao::getInstance();
+
+        //var_dump($sql);
+               
+        $result = $con->query($sql);
+               
+        return $result->fetch(PDO::FETCH_ASSOC);
+
+
+    }
+
+
+    /* get data user Externo */
+    public static function getUsuarioExToken($token)
+    {
+        
+        $sql = "Select cedec_user_ex.id,
+		cedec_user_ex.usuario,
+		cedec_user_ex.email_rec,
+		cedec_user_ex.id_municipio as id_municipio,
+		cedec_user_ex.trsenha,
+		cedec_user_ex.situacao,
+		cedec_user_ex.validade,
+                cedec_user_ex.reset,
+		cedec_municipio.nome
+			FROM cedec_user_ex
+			INNER JOIN cedec_municipio
+			ON 
+			cedec_user_ex.id_municipio = cedec_municipio.id_municipio
+				WHERE cedec_user_ex.token_access = '".$token."'
+                AND cedec_user_ex.situacao = 'ATIVADO'";
+				
+                $con = Conexao::getInstance();
+               
+                $result = $con->query($sql);
+                       
+                return $result->fetch(PDO::FETCH_ASSOC);
+
+
     }
 
 

@@ -31,7 +31,7 @@
 
 
     <?php
-    if ($_COOKIE['seguranca']['idUser'] == 1) { ?>
+    if  ($_COOKIE['seguranca']['idUser'] == 1) { ?>
         <!--RAT-->
         <!--        <div class="col-md-3 text-center" style="height: 190px; ">
             <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=rat" ?>" title="Relatório de Atividades"><img width="155" src="core/imagem/rat_teste.png"><br />RAT</a>
@@ -47,12 +47,12 @@
         </div>-->
 
 <!--RAT-->
-<div class="col-md-3 text-center" style="height: 200px">
+<div class="col-md-3 text-center" style="height:200px<?php ?>">
     <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=rat" ?>" title="Relatório de Atividades Técnicas"><img width="155" src="core/imagem/rat_teste.png"><br />RAT</a>
 </div>
 
 <!--VISTORIA-->
-<div class="col-md-3 text-center" style="height: 200px">
+<div class="col-md-3 text-center" style="height: 200px;">
     <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=vistoria" ?>" title="Relatório de Vistoria/Interdição"><img width="135" src="core/imagem/vistoria_interdicao_teste.png"><br />Vistoria/Interdição</a>
 </div>
 <!--VISTORIA DESABILITAR -->
@@ -79,13 +79,14 @@ if ($_COOKIE['seguranca']['idUser'] == 1) { ?>
 # autorização entrada sistema cisterna
 $autorizacao = [
     "M1296844",
-    "S126282",
+     "S126282",
+     "M1552631",
 ];
-if (in_array($_COOKIE['seguranca']['login'], $autorizacao)) {
+if( (in_array($_COOKIE['seguranca']['login'], $autorizacao)) || ($_COOKIE['seguranca']['idUser'] == 855)  ){
     //<!--CISTERNA -->
 ?>
     <div class="col-md-3 text-center" style="height: 200px;">
-        <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=cisterna" ?>" title="Relatório de Vistoria/Interdição"><img width="105" src="core/imagem/poco.png"><br />Projeto Convivência com a Seca</a>
+        <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=cisterna" ?>" title=">Projeto Convivência com a Seca"><img width="105" src="core/imagem/poco.png"><br />Projeto Convivência com a Seca</a>
     </div>
 <?php
 } else {

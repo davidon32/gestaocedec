@@ -139,8 +139,6 @@ class pipaController extends Controller {
 
     public function resetarSenha() {
 
-        //var_dump($_POST);
-        //die();
 
         $btn = isset($_POST['btnAtua']) ? $_POST['btnAtua'] : "";
         $funcao = isset($_POST['funcao']) ? $_POST['funcao'] : "";
@@ -165,8 +163,11 @@ class pipaController extends Controller {
                 //die();
 
                     /* atualizar email no lara */
-                    $url = "http://www.sdc.mg.gov.br/api/auth/update";
-                    //$url = "http://sdc.net:8081/api/auth/update";
+                    if($_SERVER['HTTP_HOST'] == 'sdcold.net:8081') {
+                        $url = "http://sdc.net:8081/api/auth/update";
+                    }else {
+                        $url = "http://www.sdc.mg.gov.br/api/auth/update";
+                    }
                     $api = FuncaoBase::Api([
                                 'url' => $url,
                                 'post' => 1,
@@ -184,6 +185,9 @@ class pipaController extends Controller {
 
                     $result = $api;
 
+                    //var_dump($result);
+                    //die();
+
                     # atualiza lara
                     if ($result['result'] == 1) {
                         print "<script>
@@ -194,6 +198,7 @@ class pipaController extends Controller {
                             if (isset($dado['ckReset'])) {
             
                                 $email_rec = $_POST['email_rec'];
+                                $cpf = $_POST['cpf'];
             
                                 $email = "<style>
                                     body {
@@ -226,7 +231,7 @@ class pipaController extends Controller {
                                         http://sistema.defesacivil.mg.gov.br
                                         <br>
                                         <br>
-                                        Usuario : <b>" . $email_rec . "</b> 
+                                        Usuario CPF: <b>" . str_replace(['.','-'], "", $cpf) . "</b> 
                                         <br>
                                         <br>
                                         Senha   : <b>defesa199</b>
@@ -240,7 +245,19 @@ class pipaController extends Controller {
                                     <p class='text-center'><a class='btn btn-primary' href='" . FuncaoBase::geraLink('pipa', 'pipa', 'pesquisaUsuario') . "' >Voltar</a></p>
                                     </div>";
             
-                                //Email::emailIndividual($email_rec, 'Senha SDC Recuperada', "<html>".$email."</html>");
+                                    $dados_envio = [
+                                        'para'      => $email_rec,
+                                        'nomePara'  => 'Municipio de '.$dado['textUsuario']."'",
+                                        'assunto'   => utf8_decode('Recuperação de Senha do SDC - '.$email_rec),
+                                        'corpo'     => utf8_decode($email),
+                                        'alt'       => 'Email com Instruções para recuperação de senha'
+                                    ];
+
+                                    $enviaEmail = new Email();
+                
+                                    $enviaEmail->newMail($dados_envio);
+                    
+                                    //Email::emailIndividual($email_rec, 'Senha SDC Recuperada', "<html>".$email."</html>");
             
             
                                 print $email;

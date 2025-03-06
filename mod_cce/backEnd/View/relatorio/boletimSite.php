@@ -85,12 +85,15 @@ $dados = $boletim->relatoriosite($getAno);
                            		foreach ($dados as $key=>$value) {
                            			
                            		$extensao = substr($value['nome'], -3, 3);
-									print "<tr>";
+
+								   $nome =  "Boletim nº ". $value['descricao']. " de ".DataMysql::dataExtensoDocumento(DataMysql::dataVisual($value['data']));
+									
+								   print "<tr>";
 									print "<td>".($key+1)."</td>";
 									print "<td>";
 									print "<a href='anexo/boletim/".$value['nome']."' style='text-decoration:none; color:#F00;' title='Clique para fazer download do documento !' download>";
 									print ($extensao == "pdf") ? "<img src='core/imagem/pdf.png' width='25'> " : "<img src='core/imagem/odt.png' width='25'>";
-									print "Boletim nº ". $value['descricao']. " de ".DataMysql::dataExtensoDocumento(DataMysql::dataVisual($value['data']));
+									print $nome;
 									print (!empty($value['complemento'])) ? " (<span style='font-style:italic'>".$value['complemento']."</span> )" : $value['complemento'];
 									print "</a></td>";
 								    print "<td>".$extensao."</td>";

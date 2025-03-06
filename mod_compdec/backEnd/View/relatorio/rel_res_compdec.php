@@ -66,10 +66,7 @@
                             <td><b>".$_totalSemCompdec."</b></td>
                         </tr>
                         
-                        <tr>
-                            <td>Total Inativa ( Existe Lei de Criação e não tem Coordenador atuante ):</td>
-                            <td><b>".$_totalInativa."</b></td>
-                        </tr>
+                        
                         <tr>
                             <td><b>Total</b></td>
                             <td><b>".$_totalCompdec = $_totalExistente + $_totalSemCompdec."</b></td>

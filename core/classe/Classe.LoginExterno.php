@@ -23,6 +23,58 @@ class LoginExterno extends Log {
     private static $_id_municipio;
     private $linha;
     private $dados;
+    private $idUser;
+
+
+    public static function logarTokenEx($token)
+    {
+
+        $usuarioExData = Usuario::getUsuarioExToken($token);
+
+        if ($usuarioExData) {
+
+            self::$_id_municipio = $usuarioExData['id_municipio'];
+            self::$login = $usuarioExData['usuario'];
+
+            // Abre sessao
+            self::SetCookieExterno($usuarioExData);
+
+            /* troca de senha */
+            if ($usuarioExData['trsenha'] == 1) {
+                include_once 'mod_equipe/View/usuario/trsenha_compdec.php';
+            } else {
+                return true;               
+            }
+
+        }else {
+            return false;
+        }
+        
+    }
+
+     /**
+     * gerar token
+     * 
+     */
+    static function gravarTokenEx($token, $cpf)
+    {
+
+        $sql = "UPDATE cedec_user_ex
+              SET token_access = :token
+              WHERE cpf = :cpf";
+        try {
+
+            $result = Conexao::getInstance()->prepare($sql);
+            $result->bindValue(":cpf", $cpf);
+            $result->bindValue(":token", $token);
+
+            $result->execute();
+            return true;
+        } catch (Exception $e) {
+            return $e->getMessage() . 'Código: 13';
+        }
+    }
+
 
     /**
      * 
@@ -30,8 +82,8 @@ class LoginExterno extends Log {
      * 
      * 
      */
-    public function logarExterno($_login, $senha, $redireciona = false) {
-        
+    public function logarExterno($cpf, $senha, $redireciona = false) {
+       
         $con = Conexao::getInstance();
 
         $_senha = "";
@@ -46,7 +98,7 @@ class LoginExterno extends Log {
             $filter_senha = " AND cedec_user_ex.senha = :senha ";
         }
 
-        if ((($_login != "") && ($_login != null)) && (($senha != "") && ($senha != null))) {
+        if ((($cpf != "") && ($cpf != null)) && (($senha != "") && ($senha != null))) {
 
             $_senha = md5($senha);
 
@@ -63,7 +115,7 @@ class LoginExterno extends Log {
 			INNER JOIN cedec_municipio
 			ON 
 			cedec_user_ex.id_municipio = cedec_municipio.id_municipio
-				WHERE cedec_user_ex.usuario = :login
+				WHERE cedec_user_ex.cpf = :cpf
 				".$filter_senha."
 				OR
 				cedec_user_ex.email_rec = :email_rec
@@ -72,8 +124,8 @@ class LoginExterno extends Log {
 
             $result = $con->prepare($sql);
 
-            $result->bindValue(":login", $_login);
-            $result->bindValue(":email_rec", $_login);
+            $result->bindValue(":cpf", $cpf);
+            $result->bindValue(":email_rec", $cpf);
 
             //print $sql;
             //print $_senha;
@@ -90,26 +142,18 @@ class LoginExterno extends Log {
             while ($dados = $result->fetch(PDO::FETCH_ASSOC)) {
                 $linha = $dados;
             }
-            
-            if (!$linha) {
-
-                
-                return ['page' => '', 'acesso'=>''];
-            } else if ($linha && ($linha['situacao'] == "DESATIVADO")) {
+           
+            if ($linha && ($linha['situacao'] == "DESATIVADO")) {
 
                 print '<script> alert("Usuario EXPIRADO !");
 			/* history.back(); */
 			window.location = "index.php";
 			</script>';
-            } elseif ($linha && self::VerificaBrowser()) {
+            } elseif ($linha) {
 
 
                 self::$_id_municipio = $linha['id_municipio'];
                 self::$login = $linha['usuario'];
-
-                
-                
-
 
                 /* controla o numero de acessos atualização dos dados */
                 //$qtd_acesso = self::pegaQtdAcesso($linha['id']);
@@ -133,7 +177,7 @@ class LoginExterno extends Log {
                     //}
                 }
             } else {
-                return "mozila";
+                return false;
             }
         } else {
             return false;

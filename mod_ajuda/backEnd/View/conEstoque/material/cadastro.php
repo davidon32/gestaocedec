@@ -121,6 +121,7 @@ $dadosDeposito = Deposito::ListaDeposito();
 				<tr><th class="text-center">Numero Entrada</th>
 				<th class="text-center">Data Entrada</th>
 				<th class="text-center">Nome</th>
+				<th class="text-center">Tipo Entrada</th>
 				<th class="text-center">Origem de Entrada</th>
 				<th class="text-center">Deposito Destino</th>
 				<th class="text-center">Obs</th>
@@ -145,6 +146,7 @@ $dadosDeposito = Deposito::ListaDeposito();
 						print "<tr><td ".$cancelado.">".$value['id_produto']."</td>
 								<td ".$cancelado.">". DataMysql::dataVisual($value['dtEntradaSaida'])."</td>
 								<td ".$cancelado.">".$value['codProd']."-".$value['nome']."- ".$value['descricao']."</td>
+								<td ".$cancelado.">".$value['tipo']."</td>
 								<td ".$cancelado.">".$value['origem']."</td>
 								<td ".$cancelado.">".$value['depDestino']."</td>
 								<td ".$cancelado.">".$value['obs']."</td>

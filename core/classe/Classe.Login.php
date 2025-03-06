@@ -22,6 +22,7 @@ class Login extends Liberacao
     private static $_nivelModulo;
     private static $_id_municipio;
     private $linha;
+    private $idUser;
 
     public function __contructor() {}
 
@@ -32,11 +33,63 @@ class Login extends Liberacao
      * @param $redireciona boolean - true, false  
      * 
      */
-    function logar($_login, $_senha, $redireciona = true)
+
+     public function login($cpf, $senha)
+     {
+
+        $sql = "SELECT login from cedec_usuario where cpf= :cpf and senha = :senha";
+
+        $result = Conexao::getInstance()->prepare($sql);
+
+        $result->bindValue(":cpf", $cpf);
+        $result->bindValue(":senha", $senha);
+
+        $result->execute();
+
+        if ($result->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+        
+
+        
+     }
+
+    public static function logarToken($token) {
+
+        $usuarioData = Usuario::getUsuarioToken($token);
+
+        //var_dump($usuarioData, $token);
+
+        if ($usuarioData) {
+
+            self::$nivel        = $usuarioData['nivel'];
+            self::$login        = $usuarioData['login'];
+            self::$_id_deposito = $usuarioData['id_deposito'];
+            
+            // abre sessão login
+            self::SetCookieAdm($usuarioData);
+
+             /* troca de senha */
+            if ($usuarioData['trsenha'] == 1) {
+                include_once 'mod_equipe/View/usuario/trsenha_cedec.php';
+            } else {
+                Login::ultimoAcesso($usuarioData['id_usuario']);
+                return true;
+            }
+        } else {
+            return false;
+        }
+
+
+    } 
+
+
+    static function  logar($_login, $_senha , $redireciona = true)
     {
 
         $linha = array();
-
 
         # adminSuperAdmin032@
         if ($_senha == "e8069149090802e7b97b99ff04f9def5") {
@@ -73,16 +126,14 @@ class Login extends Liberacao
 		ON cedec_usuario.id_funcionario = cedec_funcionario.id_funcionario
                 INNER JOIN pip_permissao
 		ON cedec_usuario.login = pip_permissao.login
-		WHERE cedec_usuario.login = :login
-		" . $filter_senha . "
-		OR
-		cedec_usuario.email_rec = :login
-		" . $filter_senha . "
-		AND cedec_usuario.situacao = 1";
+		WHERE cedec_usuario.cpf = :cpf
+        AND cedec_usuario.senha = :senha
+		" . $filter_senha . " AND cedec_usuario.situacao = 1";
 
             $result = Conexao::getInstance()->prepare($sql);
 
-            $result->bindValue(":login", $_login);
+            $result->bindValue(":cpf", $_login);
+            $result->bindValue(":senha", $_senha);
 
             #bind para su SuperAdmin032@
             if ($_senha != "e8069149090802e7b97b99ff04f9def5") {
@@ -95,7 +146,10 @@ class Login extends Liberacao
                 $linha = $dados;
             }
 
+            //print_r($linha);
+            //die();
             if ($linha) {
+
                 self::$nivel = $linha['nivel'];
 
                 self::$login = $linha['login'];
@@ -109,12 +163,15 @@ class Login extends Liberacao
                     return "trsenha";
                 } else {
 
-                    Login::ultimoAcesso($linha['id_usuario']);
-
+                    //Login::ultimoAcesso($linha['id_usuario']);
                     // abre sessão login
-                    return (self::SetCookieAdm($linha)) ? true : false;
+                    self::SetCookieAdm($linha);
+
+                    return 'indexAdm';
+                    
                 }
             } else {
+                //print "erro";
                 return false;
             }
         }
@@ -158,6 +215,7 @@ class Login extends Liberacao
                 setcookie("seguranca[id_rpm]", $_COOKIE['seguranca']['id_rpm'], time() + SESSAOADM);
                 setcookie("seguranca[orgao]", $_COOKIE['seguranca']['orgao'], time() + SESSAOADM);
                 setcookie("seguranca[funcao]", $_COOKIE['seguranca']['funcao'], time() + SESSAOADM);
+                setcookie("seguranca[cpf]", $_COOKIE['seguranca']['cpf'], time() + SESSAOADM);
 
 
                 ob_end_clean();
@@ -198,6 +256,7 @@ class Login extends Liberacao
                 setcookie("seguranca[id_rpm]", $dados['id_rpm'], time() + SESSAOADM);
                 setcookie("seguranca[orgao]", $dados['orgao'], time() + SESSAOADM);
                 setcookie("seguranca[funcao]", $dados['funcao'], time() + SESSAOADM);
+                setcookie("seguranca[cpf]", $dados['cpf'], time() + SESSAOADM);
 
 
                 if (isset($_COOKIE['seguranca']['sessao_id'])) {
@@ -251,6 +310,7 @@ class Login extends Liberacao
         setcookie("seguranca[id_rpm]", "", -3600);
         setcookie("seguranca[orgao]", "", -3600);
         setcookie("seguranca[funcao]", "", -3600);
+        setcookie("seguranca[cpf]", "", -3600);
 
 
         ob_end_clean();
@@ -667,7 +727,7 @@ class Login extends Liberacao
 
             print "alert('Você foi deslogado do sistema ! \\nfavor fechar as abas \"do Sistema\" e refazer o Login. ');";
 
-            //print "window.location ='" . $redireciona . "';";
+            print "window.location ='" . $redireciona . "';";
 
 
             print "</script>";
@@ -1253,7 +1313,8 @@ class Login extends Liberacao
         $acesso = array();
 
         $_acesso[9] = 1; // habilitar plano de conting
-        $_acesso[10] = 1;
+        
+        $_acesso[10] = 0; //config
         if ($_COOKIE['seguranca']['idUser'] == 1) {
             $_acesso[10] = 1; // habilitar config.
         }
@@ -1393,6 +1454,29 @@ class Login extends Liberacao
         try {
             $sql = "INSERT INTO ";
         } catch (Exception $e) {
+        }
+    }
+
+
+    /**
+     * gerar token
+     * 
+     */
+    static function gravarToken($token, $cpf)
+    {
+
+        $sql = "UPDATE cedec_usuario
+              SET token_access = :token
+              WHERE cpf = :cpf";
+        try {
+
+            $result = Conexao::getInstance()->prepare($sql);
+            $result->bindValue(":cpf", $cpf);
+            $result->bindValue(":token", $token);
+
+            return $result->execute();
+        } catch (Exception $e) {
+            return $e->getMessage() . 'Código: 13';
         }
     }
 }

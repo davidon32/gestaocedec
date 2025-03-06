@@ -31,13 +31,14 @@ $id_user = $_COOKIE['seguranca']['idUser'];
 
 /* route sdclara */
 $routeList = [
-    "paebm" => 'drrd',
-    "rat" => 'rat',
-    "vistoria" => 'vistoria',
-    "compdec" => 'compdec',
+    "paebm"      => 'drrd',
+    "rat"        => 'rat',
+    "vistoria"   => 'vistoria',
+    "compdec"    => 'compdec',
     "paebmindex" => 'drrd',
-    "mah" => 'mah',
-    "cisterna" => 'cisterna',
+    "mah"        => 'mah',
+    "cisterna"   => 'cisterna',
+    "tdap"       => 'tdap',
     
 ];
 

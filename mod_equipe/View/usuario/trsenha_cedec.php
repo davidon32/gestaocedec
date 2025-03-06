@@ -131,7 +131,8 @@
             # grava a troca de senha via (Administrador CEDEC) sistema.
         } else {
 
-            $dados = $usuario->getDadosUsuarioEx($_COOKIE['seguranca']['idUser']);
+            $dados = $usuario->getDadosUsuario($_COOKIE['seguranca']['idUser']);
+
             #interno
             if (empty($externo)) {
 
@@ -139,9 +140,12 @@
 
                 if ($campo_branco) {
 
-                    $_loginExt = new LoginExterno();
+                    $_login = new Login();
 
-                    if ($_loginExt->TrocaSenha($dados['usuario'], $senha_nova)) {
+                    //var_dump($dados);
+                    //die();
+
+                    if ($_login->TrocaSenha($dados['login'], $senha_nova)) {
 
                         print "<script type='text/javascript'>";
 

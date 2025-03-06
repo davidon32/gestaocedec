@@ -13,6 +13,8 @@ class Anexo extends FuncaoBase  {
 	 * @return upload de arquivos adicionando a hora no final do arquivo como hash.
 	 */
 	public static function upload($caminho, $file, $inputName, $hash = false, $nome_arquivo = false){
+
+		
 	
                 $ext = Anexo::getExtensao(basename($file[$inputName]['name']));
 		
@@ -22,6 +24,8 @@ class Anexo extends FuncaoBase  {
                 
 			# verifica o hash para o nome original do arquivo 
 			$nomeArquivo = (strlen($hash) > 0) ? $hash."_".$nome_arquivo.".".$ext : $nome_arquivo.".".$ext; 
+			var_dump($nomeArquivo);
+		die();
 
 		}else {
                     $nome_regular = substr(FuncaoBase::sanitizeString(basename($file[$inputName]['name'])), 0, 20);
