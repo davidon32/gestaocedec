@@ -140,9 +140,10 @@ print '<td align="center">
 </div>
 
 <!--CISTERNA-->
-<div class="col-md-3 text-center" style="height: 190px;">
+
+<!--<div class="col-md-3 text-center" style="height: 190px;">
     <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=cisterna" ?>" title="Cadastro de Beneficiários"><img width="105" src="core/imagem/poco.png"><br />Convivência com Seca</a>
-</div>
+</div>-->
 <!--VISTORIA DESATIVADO -->
 <!--    <div class="col-md-3 text-center" style="height: 190px;">
         <a class="thumbnail" title="Relatório de Vistoria/Interdição"><img width="155" src="core/imagem/vistoria_conversao.png"><br />Vistoria/Interdição</a>

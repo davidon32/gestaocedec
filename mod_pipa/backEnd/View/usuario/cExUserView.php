@@ -85,7 +85,9 @@ if (!$membro_compdec) {
             <br>
             <input type="checkbox" id="ckReset" name="ckReset">
 
-            <label>Resetar Senha</label><br>Padrão:   <b style='color:red'>defesa199</b> 
+            <label style="color: red;"><h3>Marque está opção para Resetar Senha</h3></label>
+            <br>
+            Senha Padrão:   <b style='color:red'>defesa199</b> 
         </div>
 
     </div>

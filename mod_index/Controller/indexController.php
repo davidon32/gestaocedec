@@ -26,7 +26,10 @@ class indexController extends Controller
             //          window.location.href = 'https://www.sdc.mg.gov.br/index.php';
             //     </script>";
         //}
-        header('Location: https://www.sdc.mg.gov.br/index.php');
+        # producao
+        //header('Location: https://www.sdc.mg.gov.br/index.php');
+        #develop
+        header('Location: http://sdc.net:8081/index.php');
 
     }
 

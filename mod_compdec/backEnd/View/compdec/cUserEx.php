@@ -81,7 +81,7 @@ if(!empty($dados['tmpAnexo'])){
 
 <!-- Password input-->
 <div class="control-group">
-  <label class="control-label" for="passwordinput">Conf. Senha</label>
+  <h><label class="control-label" for="passwordinput">Conf. Senha</label>
   <div class="controls">
     <input id="senha" name="senha" type="password" value="<?=$dados['senha'] ?>" class="input-xlarge" readonly="readonly">
     <span>Senha Padrao : "portal199"</span>&nbsp;<span id="btnResetar" class="btn btn-primary">Resetar Senha</span>

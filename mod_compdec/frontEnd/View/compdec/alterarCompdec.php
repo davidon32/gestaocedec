@@ -116,16 +116,28 @@ if ($desatualiza > 0 ) {
                 <td>
                     <table class="table">
                         <tr>
-                            <td>Prefeito:</td><td><input class="form-control" type="text" value="<?= $dadosMunicipio['prefeito']; ?>" name="txtPrefeito" id="txtPrefeito" maxlength="29"></td>
+                            <td>Prefeito:</td>
+                            <td>
+                                <input class="form-control" type="text" value="<?= $dadosMunicipio['prefeito']; ?>" name="txtPrefeito" id="txtPrefeito" maxlength="29">
+                            </td>
                         </tr>
                         <tr>
-                            <td>Endereço:</td><td><input class="form-control" type="text" value="<?= $dadosMunicipio['endereco']; ?>" name="txtEndPref" id="txtEndPref" maxlength="69"></td>
+                            <td>Endereço:</td>
+                            <td>
+                                <input class="form-control" type="text" value="<?= $dadosMunicipio['endereco']; ?>" name="txtEndPref" id="txtEndPref" maxlength="69">
+                            </td>
                         </tr>
                         <tr>
-                            <td>Bairro:</td><td><input class="form-control" type="text" value="<?= $dadosMunicipio['bairro']; ?>" name="txtBairroPref" id="txtBairroPref" maxlength="44"></td>
+                            <td>Bairro:</td>
+                            <td>
+                                <input class="form-control" type="text" value="<?= $dadosMunicipio['bairro']; ?>" name="txtBairroPref" id="txtBairroPref" maxlength="44">
+                            </td>
                         </tr>
                         <tr>
-                            <td>Cep:</td><td><input class="form-control" type="text" value="<?= $dadosMunicipio['cep']; ?>" name="txtCepPref" id="txtCepPref" maxlength="9"></td>
+                            <td>Cep:</td>
+                            <td>
+                                <input class="form-control" type="text" value="<?= $dadosMunicipio['cep']; ?>" name="txtCepPref" id="txtCepPref" maxlength="9">
+                            </td>
                         </tr>
                     </table>
                 </td>
