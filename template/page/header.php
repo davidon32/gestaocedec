@@ -86,72 +86,57 @@ $secao = isset($pageSession['session']['seguranca']['secao']) ? $pageSession['se
     background-position: center center;
     background-size: 100px;
   }    
+
+.logout-link .logout-img {
+    transition: filter 0.2s, transform 0.2s;
+}
+.logout-link:hover .logout-img {
+    filter: brightness(1.5) drop-shadow(0 0 4px #fff);
+}
 </style>
     
 <div class="overlay1"> <i class="fa fa-cog fa-spin fa-5x fa-fw"></i><span class="sr-only">Loading...</span> </div>
 
 <!-- BARRA SUPERIOR USUARIO  -->
 <header class="main-header print">
-    <nav class="navbar navbar-static-top d-flex">
-        <div>
-            <a href="#" class="sidebar-toggle"><img style="border-radius:6px; width: 200px" src="/core/imagem/logo_modelo_1-160X44-a.png"></a>
-        </div>
+    <nav class="navbar navbar-static-top">
+        <!-- <a href="#" class="sidebar-toggle"><img style="border-radius:6px; width: 200px" src="/core/imagem/logo_modelo_1-160X44-a.png"></a> -->
 
-        <div class="navbar-custom-menu" >
-            <ul class="nav navbar-nav">
-                <li class="dropdown tasks-menu">
-                    <a class="dropdown-toggle" href="<?= FuncaoBase::geraLink("index", "index", "logout") ?>" title="Sair com Segurança do Sistema">
-                        <img src="/core/imagem/desligar.png">
-                    </a>
-                </li>
-
-                <li class="dropdown user user-menu" style="min-width: 200px;">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding:0;" title="Nome do Usuario do Sistema">
-
-                        <?php
-                        if (isset($pageSession['session']['seguranca']['externo'])) {
-                            print $pageSession['session']['seguranca']['nome_usuario'];
-                        } else {
-                            print $posto." ".substr($pageSession['session']['seguranca']['nome_usuario'], 0, 20)."..";
-                            print "( ".$secao." )";
-                        }
-                        ?>
-                        <script>start_countdown();</script>
-                    </a>
-                    <p id="countdown" style="margin:0; font-size:14px; color: #ffffff; float: right" title="Tempo Restante de Sessão"></p>
-
-                    <ul class="dropdown-menu">
-                        <li class="user-header">
-                            <img  src="<?= $gravataremail; ?>" class="img-circle" alt="User Image">
-
-                            <br>
-                            <br>
-                            <p style="text-align: left; font-size: 10pt;">Recuperação de Senha :<br>
-                                <span class="hidden-xs"><?= isset($pageSession['session']['seguranca']['email_rec']) ? $pageSession['session']['seguranca']['email_rec'] : "Sem Email de Recuperação de senha"; ?></span>
-                            </p>
-                            <small>Membro desde : </small>
-
-
-
-                        </li>
-                      
-                        <!-- Menu Footer-->
-                        <li class="user-footer">
-
-                            <?php
-                            if (isset($pageSession['session']['seguranca']['externo'])) {
+        <!-- <div class="navbar-custom-menu" > -->
+            <!-- <ul class=""> -->
+                <div style="display: flex; flex-direction: row; align-items: center; height: 100%; margin: 10px; justify-content:space-between">
+                    <div>
+                        <img style="border-radius:6px; width: 200px" src="/core/imagem/logo_modelo_1-160X44-a.png">
+                    </div>
+                    <div>
+                        <div style="display: flex; flex-direction: row; align-items: center; gap: 10px;">
+                            <div class="dropdown user user-menu" style="min-width: 200px; display: flex; flex-direction: column; align-items: flex-end; padding-right: 10px; justify-content: center; height: 100%;">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: #ffffff; padding:0;" title="Nome do Usuario do Sistema">
+                                    <?php
+                                    if (isset($pageSession['session']['seguranca']['externo'])) {
+                                        print $pageSession['session']['seguranca']['nome_usuario'];
+                                    } else {
+                                        print $posto." ".substr($pageSession['session']['seguranca']['nome_usuario'], 0, 20)."..";
+                                        print "( ".$secao." )";
+                                    }
+                                    ?>
+                                    <script>start_countdown();</script>
+                                </a>
+                                <p id="countdown" style="margin:0; font-size:14px; color: #ffffff;" title="Tempo Restante de Sessão"></p>
                                 
-                            } else {
-                                print "<div class=\"pull-left\">";
-                                print "<div class='pull-left'><a href='" . FuncaoBase::geraLink("admin", "adm", "perfil", array('id' => $pageSession['session']['seguranca']['idUser'])) . "' class=\"btn btn-default btn-flat\" title='Alterar senha / email de recuperação '>Perfil</a></div>
-                                <div class='pull-right'><a href='" . FuncaoBase::geraLink("equipe", "funcionario", "alterar", array('id' => $pageSession['session']['seguranca']['idUser'])) . "' class=\"btn btn-default btn-flat\" title='Atualize / Complete o seus dados'>Dados Funcionário</a></div>
-                      </div>";
-                            }
-                            ?>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+                            </div>
+                            <div class="dropdown tasks-menu" style="display: flex; align-items: center; height: 100%;">
+                                <a class="dropdown-toggle logout-link" href="<?= FuncaoBase::geraLink("index", "index", "logout") ?>" title="Sair com Segurança do Sistema">
+                                    <img src="/core/imagem/logout_white.png" class="logout-img">
+                                </a>
+                            </div>
+                            <style>
+                            </style>
+                        </div>
+                    </div>
+
+                <!-- </div> -->
+            <!-- </ul> -->
         </div>
         <!-- final itens usuario-->
     </nav>
