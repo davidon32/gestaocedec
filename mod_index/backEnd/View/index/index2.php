@@ -10,6 +10,46 @@
 <!-- =================== CORPO  ============================ -->
 <?php include_once "template/page/corpoHeader.php"; ?>
 
+<style>
+.dashboard-button {
+    background-color: white;
+    border: 0;
+    border-radius: 12px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard-button:hover{
+    transform: translateY(-1px);
+    box-shadow: 0 0px 16px rgba(0, 0, 0, 0.2);
+}
+
+.dashboard-button img {
+    -webkit-filter: grayscale(100%);
+       -moz-filter: grayscale(100%);
+         -o-filter: grayscale(100%);
+        -ms-filter: grayscale(100%);
+            filter: grayscale(100%);
+    transition: filter 0.3s ease-in;
+}
+
+.dashboard-button:hover img {
+    -webkit-filter: grayscale(0%);
+       -moz-filter: grayscale(0%);
+         -o-filter: grayscale(0%);
+        -ms-filter: grayscale(0%);
+            filter: grayscale(0%);
+    transition: filter 0.1s ease-in;
+}
+
+</style>
+
 <div class="col-md-12 text-center">
     <p style="text-center"><a href='<?= FuncaoBase::geraLink("index", "index", "index1") ?>' class='btn btn-primary'>Voltar</a></p>
 </div>
@@ -48,12 +88,12 @@
 
 <!--RAT-->
 <div class="col-md-3 text-center" style="height:200px<?php ?>">
-    <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=rat" ?>" title="Relatório de Atividades Técnicas"><img width="155" src="core/imagem/rat_teste.png"><br />RAT</a>
+    <a class="thumbnail dashboard-button" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=rat" ?>" title="Relatório de Atividades Técnicas"><img width="155" src="core/imagem/rat_teste.png"><br />RAT</a>
 </div>
 
 <!--VISTORIA-->
 <div class="col-md-3 text-center" style="height: 200px;">
-    <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=vistoria" ?>" title="Relatório de Vistoria/Interdição"><img width="135" src="core/imagem/vistoria_interdicao_teste.png"><br />Vistoria/Interdição</a>
+    <a class="thumbnail dashboard-button" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=vistoria" ?>" title="Relatório de Vistoria/Interdição"><img width="135" src="core/imagem/vistoria_interdicao_teste.png"><br />Vistoria/Interdição</a>
 </div>
 <!--VISTORIA DESABILITAR -->
 <!--    <div class="col-md-3 text-center" style="height: 190px;">
@@ -61,7 +101,7 @@
     </div>-->
 
 <div class="col-md-3 text-center" style="height: 200px;">
-    <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=paebm" ?>" title="Protocolo PaeBM"><img width="120" src="core/imagem/pae.png"><br />Pae</a>
+    <a class="thumbnail dashboard-button" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=paebm" ?>" title="Protocolo PaeBM"><img width="120" src="core/imagem/pae.png"><br />Pae</a>
 </div>
 
 <?php
@@ -69,7 +109,7 @@
 if ($_COOKIE['seguranca']['idUser'] == 1) { ?>
     <!--CADASTRO COMPDEC-->
     <div class="col-md-3 text-center" style="height: 200px;">
-        <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=compdec" ?>" title="Informações do Compdec"><img width="90" src="core/imagem/comdec.png"><br />Informações COMPDEC</a>
+        <a class="thumbnail dashboard-button" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=compdec" ?>" title="Informações do Compdec"><img width="90" src="core/imagem/comdec.png"><br />Informações COMPDEC</a>
     </div>
 
 <?php } ?>
@@ -86,7 +126,7 @@ if( (in_array($_COOKIE['seguranca']['login'], $autorizacao)) || ($_COOKIE['segur
     //<!--CISTERNA -->
 ?>
     <div class="col-md-3 text-center" style="height: 200px;">
-        <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=cisterna" ?>" title=">Projeto Convivência com a Seca"><img width="105" src="core/imagem/poco.png"><br />Projeto Convivência com a Seca</a>
+        <a class="thumbnail dashboard-button" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=cisterna" ?>" title=">Projeto Convivência com a Seca"><img width="105" src="core/imagem/poco.png"><br />Projeto Convivência com a Seca</a>
     </div>
 <?php
 } else {
