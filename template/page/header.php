@@ -133,14 +133,24 @@ $secao = isset($pageSession['session']['seguranca']['secao']) ? $pageSession['se
                                     </li>
                                     <?php
                                     if (!isset($pageSession['session']['seguranca']['externo'])) {
-                                        ?>
-                                        <li style="margin-bottom: 5px;">
-                                            <a href="<?= FuncaoBase::geraLink("admin", "adm", "perfil", array('id' => $pageSession['session']['seguranca']['idUser'])) ?>" class="btn btn-default btn-flat btn-block" title="Alterar senha / email de recuperação " style="text-align:left;">Perfil</a>
+                                    ?>
+                                        <li style="margin-bottom: 8px;">
+                                            <a href="<?= FuncaoBase::geraLink("admin", "adm", "perfil", array('id' => $pageSession['session']['seguranca']['idUser'])) ?>"
+                                               class="btn btn-primary btn-block"
+                                               title="Alterar senha / email de recuperação"
+                                               style="text-align:left; border-radius: 5px; background: #337ab7; color: #fff; border: none; box-shadow: 0 2px 6px rgba(0,0,0,0.08); font-weight: 500;">
+                                                <i class="fa fa-user-circle" style="margin-right: 8px;"></i> Perfil
+                                            </a>
                                         </li>
                                         <li>
-                                            <a href="<?= FuncaoBase::geraLink("equipe", "funcionario", "alterar", array('id' => $pageSession['session']['seguranca']['idUser'])) ?>" class="btn btn-default btn-flat btn-block" title="Atualize / Complete o seus dados" style="text-align:left;">Dados Funcionário</a>
+                                            <a href="<?= FuncaoBase::geraLink("equipe", "funcionario", "alterar", array('id' => $pageSession['session']['seguranca']['idUser'])) ?>"
+                                               class="btn btn-success btn-block"
+                                               title="Atualize / Complete o seus dados"
+                                               style="text-align:left; border-radius: 5px; background: #5cb85c; color: #fff; border: none; box-shadow: 0 2px 6px rgba(0,0,0,0.08); font-weight: 500;">
+                                                <i class="fa fa-id-card" style="margin-right: 8px;"></i> Dados Funcionário
+                                            </a>
                                         </li>
-                                        <?php
+                                    <?php
                                     }
                                     ?>
                                 </ul>
