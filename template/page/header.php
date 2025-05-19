@@ -92,118 +92,19 @@ $secao = isset($pageSession['session']['seguranca']['secao']) ? $pageSession['se
 
 <!-- BARRA SUPERIOR USUARIO  -->
 <header class="main-header print">
-    <!-- Logo -->
-    <!--<a href="http://www.defesacivil.mg.gov.br" class="logo">
-    <!-- mini logo for sidebar mini 50x50 pixels -->
-    <!--<span class="logo-mini"><b>SGE</b></span>
-    <!-- logo for regular state and mobile devices -->
-     <!--<span class="logo-lg"><b>CEDEC-MG</b></span>
-  </a>
-    <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top">
-        <a href="#" class="sidebar-toggle"><img style="border-radius:6px; width: 200px" src="/core/imagem/logo_modelo_1-160X44-a.png"></a>
-        <!-- Sidebar toggle button remover barra lateral
-        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </a>-->
+    <nav class="navbar navbar-static-top d-flex">
+        <div>
+            <a href="#" class="sidebar-toggle"><img style="border-radius:6px; width: 200px" src="/core/imagem/logo_modelo_1-160X44-a.png"></a>
+        </div>
 
-        <!-- inicio itens usuario -->
-
-        <div class="navbar-custom-menu">
+        <div class="navbar-custom-menu" >
             <ul class="nav navbar-nav">
-                <!-- Messages: style can be found in dropdown.less-->
-                <li class="dropdown messages-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-envelope-o"></i>
-                        <span class="label label-success">0</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="header">Você tem 1 Mensagens</li>
-                        <li>
-                            <!-- inner menu: contains the actual data -->
-                            <ul class="menu">
-                                <?php Usuario::mensagemSuporte($pageSession); ?>
-                            </ul>
-                        </li>
-                        <li class="footer"><a href="#">Ver todas as Mensagens</a></li>
-                    </ul>
-                </li>
-                <!-- Notifications: style can be found in dropdown.less -->
-                <li class="dropdown notifications-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-bell-o"></i>
-                        <span class="label label-warning">
-                            <!--Qtd mensagens-->
-                            
-                            
-                            <?php 
-                            
-                            //var_dump(class_exists(msgController::class));
-                            print count(msgController::mensagem(['municipio_id'=>7221]));
-                            
-                            ?>
-                        </span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="header">Voçê tem 1 notificação</li>
-                        <li>
-                            <!-- inner menu: contains the actual data -->
-                            <ul class="menu">
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-users text-aqua"></i> 5 atualizações de núcleo do sistema ativada
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="footer"><a href="#">Ver todas</a></li>
-                    </ul>
-                </li>
-                <!-- Tasks: style can be found in dropdown.less -->
-                <li class="dropdown tasks-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-flag-o"></i>
-                        <span class="label label-danger">0</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="header">Você tem 1 Tarefa pendente</li>
-                        <li>
-                            <!-- inner menu: contains the actual data -->
-                            <ul class="menu">
-                                <li><!-- Task item -->
-                                    <a href="#">
-                                        <h3>
-                                            Tarefa teste
-                                            <small class="pull-right">20%</small>
-                                        </h3>
-                                        <div class="progress xs">
-                                            <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
-                                                 aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                <span class="sr-only">20% Completa</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <!-- end task item -->
-                            </ul>
-                        </li>
-                        <li class="footer">
-                            <a href="#">Ver todas as Tarefas</a>
-                        </li>
-                    </ul>
-
-
-                </li>
                 <li class="dropdown tasks-menu">
                     <a class="dropdown-toggle" href="<?= FuncaoBase::geraLink("index", "index", "logout") ?>" title="Sair com Segurança do Sistema">
                         <img src="/core/imagem/desligar.png">
                     </a>
                 </li>
-                
-                <!-- User Account: style can be found in dropdown.less -->
+
                 <li class="dropdown user user-menu" style="min-width: 200px;">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding:0;" title="Nome do Usuario do Sistema">
 
@@ -220,7 +121,6 @@ $secao = isset($pageSession['session']['seguranca']['secao']) ? $pageSession['se
                     <p id="countdown" style="margin:0; font-size:14px; color: #ffffff; float: right" title="Tempo Restante de Sessão"></p>
 
                     <ul class="dropdown-menu">
-                        <!-- User image -->
                         <li class="user-header">
                             <img  src="<?= $gravataremail; ?>" class="img-circle" alt="User Image">
 
@@ -234,21 +134,7 @@ $secao = isset($pageSession['session']['seguranca']['secao']) ? $pageSession['se
 
 
                         </li>
-                        <!-- Menu Body -->
-                        <li class="user-body">
-                            <!-- <div class="row">
-                              <div class="col-xs-4 text-center">
-                                <a href="#">Followers</a>
-                              </div>
-                              <div class="col-xs-4 text-center">
-                                <a href="#">Sales</a>
-                              </div>
-                              <div class="col-xs-4 text-center">
-                                <a href="#">Friends</a>
-                              </div>
-                            </div> -->
-                            <!-- /.row -->
-                        </li>
+                      
                         <!-- Menu Footer-->
                         <li class="user-footer">
 
@@ -262,16 +148,9 @@ $secao = isset($pageSession['session']['seguranca']['secao']) ? $pageSession['se
                       </div>";
                             }
                             ?>
-                            <div class="pull-right">
-<!--                                <a href="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')); ?>&ac=itn&modulo=index&controller=index&action=logout" class="btn btn-default btn-flat">Logout</a>-->
-                            </div>
                         </li>
                     </ul>
                 </li>
-                <!-- Control Sidebar Toggle Button -->
-<!--                <li>
-                  <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                </li>-->
             </ul>
         </div>
         <!-- final itens usuario-->
