@@ -109,7 +109,9 @@ $secao = isset($pageSession['session']['seguranca']['secao']) ? $pageSession['se
             <!-- <ul class=""> -->
                 <div style="display: flex; flex-direction: row; align-items: center; height: 100%; margin: 10px; justify-content:space-between">
                     <div>
-                        <img style="border-radius:6px; width: 200px" src="/core/imagem/logo_modelo_1-160X44-a.png">
+                        <a href="/index.php?modulo=index&controller=index&action=index1">
+                            <img style="border-radius:6px; width: 200px" src="/core/imagem/logo_modelo_1-160X44-a.png" alt="Home">
+                        </a>
                     </div>
                     <div>
                         <div style="display: flex; flex-direction: row; align-items: center; gap: 10px;">
