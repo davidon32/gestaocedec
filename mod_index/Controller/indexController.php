@@ -14,11 +14,11 @@ class indexController extends Controller
         //include "template/page/login.php";
         // Login::UnsetCookieAdm();
         // LoginExterno::UnsetCookieExterno();
-        // if ($_SERVER['HTTP_HOST'] == 'sdcold.net:8081') {
+        // if ($_SERVER['HTTP_HOST'] == 'localhost:8081') {
 
-        //     header('Location: http://sdc.net:8081/index.php');
+        //     header('Location: http://localhost:8000/index.php');
         //     // print "<script>
-        //     //          //window.location.href = 'http://sdc.net:8081/index.php';
+        //     //          //window.location.href = 'http://localhost:8000/index.php';
         //     //     </script>";
         // } else {
             //header('Location: https://www.sdc.mg.gov.br/index.php');
@@ -29,7 +29,7 @@ class indexController extends Controller
         # producao
         //header('Location: https://www.sdc.mg.gov.br/index.php');
         #develop
-        header('Location: http://sdc.net:8081/index.php');
+        header('Location: http://localhost:8000/index.php');
 
     }
 
@@ -281,8 +281,8 @@ class indexController extends Controller
 
         //var_dump($_SERVER['HTTP_HOST']);
 
-        if ($_SERVER['HTTP_HOST'] == 'sdcold.net:8081') {
-            header('Location: http://sdc.net:8081/index.php');
+        if ($_SERVER['HTTP_HOST'] == 'localhost:8081') {
+            header('Location: http://localhost:8000/index.php');
         } else {
             header('Location: http://sdc.mg.gov.br/index.php');
         }

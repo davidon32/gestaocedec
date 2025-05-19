@@ -163,8 +163,8 @@ class pipaController extends Controller {
                 //die();
 
                     /* atualizar email no lara */
-                    if($_SERVER['HTTP_HOST'] == 'sdcold.net:8081') {
-                        $url = "http://sdc.net:8081/api/auth/update";
+                    if($_SERVER['HTTP_HOST'] == 'localhost:8081') {
+                        $url = "http://localhost:8000/api/auth/update";
                     }else {
                         $url = "http://www.sdc.mg.gov.br/api/auth/update";
                     }

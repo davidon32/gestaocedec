@@ -19,7 +19,7 @@ if(isset($pageSession)){
 ?>
 <html>
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" name="robots" content="noindex">
   <meta http-equiv="Content-Language" content="pt-BR">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title><?=$pageSession['titulo'];?></title>

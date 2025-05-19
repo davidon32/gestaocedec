@@ -27,8 +27,8 @@ if (($_SERVER['HTTP_HOST'] == 'sistema.defesacivil.mg.gov.br') || ($_SERVER['HTT
     $url_ex = 'http://sdc.mg.gov.br/api/auth/userex';
     $log_path = '/web/anexo/curl.log';
 } else {
-    $url = 'http://sdcold.net:8081/api/auth/user';
-    $url_ex = 'http://sdcold.net:8081/api/auth/userex';
+    $url = 'http://localhost:8081/api/auth/user';
+    $url_ex = 'http://localhost:8081/api/auth/userex';
     $log_path = 'log/curl.log';
 }
 

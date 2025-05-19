@@ -14,7 +14,7 @@ $session = $_SESSION;
 <!-- =================== HEADER ============================ -->
 <?php include_once "template/page/header.php";?>
 <!-- =================== MENU  ============================ -->
-<?php //include_once "template/page/menu.php";?>
+<?php include_once "template/page/menu.php";?>
 <!-- =================== CORPO  ============================ -->
 <?PHP require_once "corpo.php"; ?>
 <!-- =================== RODAPE  ============================ -->

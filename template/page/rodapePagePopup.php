@@ -81,7 +81,7 @@
         $(this).val(retira_acentos($(this).val()));
 
   });
-});
+})
 </script>
 </body>
 </html>

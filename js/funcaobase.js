@@ -195,11 +195,8 @@ function geraLink(modulo, controller, action, hash, param = false) {
     if (param) {
         searchParams = "&" + new URLSearchParams(param).toString();
     }
-    
-    var num_hash = hash.replace(/[^0-9]/g,'');
-    
-    console.log(num_hash);
-    var link = 'index.php?token=' + stringToHash(num_hash) + '&modulo=' + modulo + '&controller=' + controller + '&action=' + action + searchParams;
+
+    var link = 'index.php?token=' + stringToHash(hash) + '&modulo=' + modulo + '&controller=' + controller + '&action=' + action + searchParams;
 
     return link;
 
@@ -213,15 +210,5 @@ function caracterestante(textarea, span, length) {
     });
 }
 
-
-/* comversao data padrao DB */
-function DataBanco(data) {
-    return data.substr(6,4)+"-"+data.substr(3,2)+"-"+data.substr(0,2);
-}
-
-
-function DataVisual(data) {
-    return data.substr(6,4)+"-"+data.substr(3,2)+"-"+data.substr(0,2);
-}
 
 

@@ -13,7 +13,7 @@
             
                 font-size: 10px;
                 padding: 0;
-                margin: 0;
+                margin: 0
                 border-spacing :0;
            
             }
@@ -22,7 +22,7 @@
             
                 font-size: 11px;
                 padding: 0;
-                margin: 0;
+                margin: 0
                 border-spacing :0;
            
             }
@@ -31,7 +31,7 @@
             
                 font-size: 11px;
                 padding: 0;
-                margin: 0;
+                margin: 0
                 border-spacing :0;
                 text-align: center;
            
@@ -124,7 +124,7 @@
 
 
                 .paginaLandscape {
-                    min-width: 29.7cm;
+                    min-width: 29.7cm; */
                     /* min-height: 28cm; */
                    min-height: 21cm;
                     padding: 0.5cm;
