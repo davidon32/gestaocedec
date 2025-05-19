@@ -15,7 +15,6 @@ $secao = isset($pageSession['session']['seguranca']['secao']) ? $pageSession['se
 <script type="text/javascript">
     function start_countdown()
     {
-
         var sessao_expira = new Date(<?= isset($_COOKIE['seguranca']['sessao']) ? $_COOKIE['seguranca']['sessao'] : "0"; ?> * 1000);
 
         myVar = setInterval(function ()
@@ -71,6 +70,10 @@ $secao = isset($pageSession['session']['seguranca']['secao']) ? $pageSession['se
         }, 1000)
         
     }
+
+    $(function() {
+        $('.dropdown-toggle').dropdown();
+    });
 </script>
 <style>
 .overlay1 {
@@ -122,8 +125,26 @@ $secao = isset($pageSession['session']['seguranca']['secao']) ? $pageSession['se
                                     ?>
                                     <script>start_countdown();</script>
                                 </a>
-                                <p id="countdown" style="margin:0; font-size:14px; color: #ffffff;" title="Tempo Restante de Sessão"></p>
-                                
+                                <ul class="dropdown-menu" style="right:0; left:auto; min-width: 260px; padding: 15px; background: #222d32; color: #fff;">
+                                    <li>
+                                        <p style="text-align: left; font-size: 10pt; margin-bottom: 10px;">Recuperação de Senha :<br>
+                                            <span class="hidden-xs"><?= isset($pageSession['session']['seguranca']['email_rec']) ? $pageSession['session']['seguranca']['email_rec'] : "Sem Email de Recuperação de senha"; ?></span>
+                                        </p>
+                                    </li>
+                                    <?php
+                                    if (!isset($pageSession['session']['seguranca']['externo'])) {
+                                        ?>
+                                        <li style="margin-bottom: 5px;">
+                                            <a href="<?= FuncaoBase::geraLink("admin", "adm", "perfil", array('id' => $pageSession['session']['seguranca']['idUser'])) ?>" class="btn btn-default btn-flat btn-block" title="Alterar senha / email de recuperação " style="text-align:left;">Perfil</a>
+                                        </li>
+                                        <li>
+                                            <a href="<?= FuncaoBase::geraLink("equipe", "funcionario", "alterar", array('id' => $pageSession['session']['seguranca']['idUser'])) ?>" class="btn btn-default btn-flat btn-block" title="Atualize / Complete o seus dados" style="text-align:left;">Dados Funcionário</a>
+                                        </li>
+                                        <?php
+                                    }
+                                    ?>
+                                </ul>
+                                <p id="countdown" style="margin:0; font-size:14px; color: #ffffff;" title="Tempo Restante de Sessão">SESSÃO: <span class="fa fa-refresh fa-spin" style="margin-right: 5px;"></p>
                             </div>
                             <div class="dropdown tasks-menu" style="display: flex; align-items: center; height: 100%;">
                                 <a class="dropdown-toggle logout-link" href="<?= FuncaoBase::geraLink("index", "index", "logout") ?>" title="Sair com Segurança do Sistema">
