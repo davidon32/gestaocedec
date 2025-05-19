@@ -76,6 +76,12 @@ $secao = isset($pageSession['session']['seguranca']['secao']) ? $pageSession['se
     });
 </script>
 <style>
+.navbar {
+    /* background: linear-gradient(360deg,rgb(127, 165, 226),rgb(133, 165, 216) 100%); */
+    background: linear-gradient(360deg,rgb(235, 235, 235),rgb(255, 255, 255) 100%);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
 .overlay1 {
     position: fixed;
     width: 100%;
@@ -90,11 +96,25 @@ $secao = isset($pageSession['session']['seguranca']['secao']) ? $pageSession['se
     background-size: 100px;
   }    
 
-.logout-link .logout-img {
-    transition: filter 0.2s, transform 0.2s;
+.logout-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #1557c1;
+    border-radius: 5px;
+    padding: 8px 14px;
+    margin-left: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    transition: background 0.2s, box-shadow 0.2s;
+    border: none;
+    cursor: pointer;
 }
-.logout-link:hover .logout-img {
-    filter: brightness(1.5) drop-shadow(0 0 4px #fff);
+
+.nav-bar-logo {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.11);
+}
+.logout-link:hover {
+    background:rgb(11, 66, 155);
 }
 </style>
     
@@ -110,22 +130,30 @@ $secao = isset($pageSession['session']['seguranca']['secao']) ? $pageSession['se
                 <div style="display: flex; flex-direction: row; align-items: center; height: 100%; margin: 10px; justify-content:space-between">
                     <div>
                         <a href="/index.php?modulo=index&controller=index&action=index1">
-                            <img style="border-radius:6px; width: 200px" src="/core/imagem/logo_modelo_1-160X44-a.png" alt="Home">
+                            <img class="nav-bar-logo" style="border-radius:6px; width: 200px" src="/core/imagem/logo_modelo_1-160X44-a.png" alt="Home">
                         </a>
                     </div>
                     <div>
                         <div style="display: flex; flex-direction: row; align-items: center; gap: 10px;">
                             <div class="dropdown user user-menu" style="min-width: 200px; display: flex; flex-direction: column; align-items: flex-end; padding-right: 10px; justify-content: center; height: 100%;">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: #ffffff; padding:0;" title="Nome do Usuario do Sistema">
-                                    <?php
-                                    if (isset($pageSession['session']['seguranca']['externo'])) {
-                                        print $pageSession['session']['seguranca']['nome_usuario'];
-                                    } else {
-                                        print $posto." ".substr($pageSession['session']['seguranca']['nome_usuario'], 0, 20)."..";
-                                        print "( ".$secao." )";
-                                    }
-                                    ?>
-                                    <script>start_countdown();</script>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:#1557c1; padding:0; line-height: 1;" title="Nome do Usuario do Sistema">
+                                    <span style="display: flex; flex-direction: column; align-items: flex-end;">
+                                        <?php if (isset($pageSession['session']['seguranca']['externo'])): ?>
+                                            <span style="font-weight: 600; color: #1557c1; font-size: 16px;">
+                                                <?= htmlspecialchars($pageSession['session']['seguranca']['nome_usuario']) ?>
+                                            </span>
+                                        <?php else: ?>
+                                     
+                                            <span style="font-weight: 600; color: #1557c1; font-size: 16px; margin: 0">
+                                                <?= htmlspecialchars($pageSession['session']['seguranca']['nome_usuario']) ?>
+                                            </span>
+                                            <div>
+                                                <span style="font-size: 12px; color: #888; font-weight: 500;"><?= htmlspecialchars($posto) ?></span>
+                                                <span style="font-size: 12px; color: #5cb85c; font-weight: 500;"><?= htmlspecialchars($secao) ?></span>
+                                            </div>
+                                        <?php endif; ?>
+                                        <script>start_countdown();</script>
+                                    </span>
                                 </a>
                                 <ul class="dropdown-menu" style="right:0; left:auto; min-width: 260px; padding: 15px; background: #222d32; color: #fff;">
                                     <li>
@@ -140,7 +168,7 @@ $secao = isset($pageSession['session']['seguranca']['secao']) ? $pageSession['se
                                             <a href="<?= FuncaoBase::geraLink("admin", "adm", "perfil", array('id' => $pageSession['session']['seguranca']['idUser'])) ?>"
                                                class="btn btn-primary btn-block"
                                                title="Alterar senha / email de recuperação"
-                                               style="text-align:left; border-radius: 5px; background: #337ab7; color: #fff; border: none; box-shadow: 0 2px 6px rgba(0,0,0,0.08); font-weight: 500;">
+                                               style="text-align:left; border-radius: 5px; background: #1557c1; color: #fff; border: none; box-shadow: 0 2px 6px rgba(0,0,0,0.08); font-weight: 500;">
                                                 <i class="fa fa-user-circle" style="margin-right: 8px;"></i> Perfil
                                             </a>
                                         </li>
@@ -156,11 +184,17 @@ $secao = isset($pageSession['session']['seguranca']['secao']) ? $pageSession['se
                                     }
                                     ?>
                                 </ul>
-                                <p id="countdown" style="margin:0; font-size:14px; color: #ffffff;" title="Tempo Restante de Sessão">SESSÃO: <span class="fa fa-refresh fa-spin" style="margin-right: 5px;"></p>
+                                <p id="countdown" style="margin:0; font-size:14px; color:#1557c1; font-weight: bold;" title="Tempo Restante de Sessão">SESSÃO: <span class="fa fa-refresh fa-spin" style="margin-right: 5px;"></p>
                             </div>
                             <div class="dropdown tasks-menu" style="display: flex; align-items: center; height: 100%;">
-                                <a class="dropdown-toggle logout-link" href="<?= FuncaoBase::geraLink("index", "index", "logout") ?>" title="Sair com Segurança do Sistema">
-                                    <img src="/core/imagem/logout_white.png" class="logout-img">
+                                <a class="dropdown-toggle logout-link" 
+                                    href="<?= FuncaoBase::geraLink("index", "index", "logout") ?>" 
+                                    title="Sair com Segurança do Sistema"
+                                    style="
+                                        
+                                    ">
+                                     <img src="/core/imagem/logout_white.png" class="logout-img" style="width: 22px; height: 22px; filter: brightness(2); margin-right: 6px;">
+                                     <span style="color: #fff; font-weight: 500; font-size: 15px;">Sair</span>
                                 </a>
                             </div>
                             <style>
