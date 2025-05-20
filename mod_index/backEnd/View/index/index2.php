@@ -20,8 +20,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
     cursor: pointer;
+    padding: 10%;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -30,22 +30,8 @@
     box-shadow: 0 0px 16px rgba(0, 0, 0, 0.2);
 }
 
-.dashboard-button img {
-    -webkit-filter: grayscale(100%);
-       -moz-filter: grayscale(100%);
-         -o-filter: grayscale(100%);
-        -ms-filter: grayscale(100%);
-            filter: grayscale(100%);
-    transition: filter 0.3s ease-in;
-}
-
-.dashboard-button:hover img {
-    -webkit-filter: grayscale(0%);
-       -moz-filter: grayscale(0%);
-         -o-filter: grayscale(0%);
-        -ms-filter: grayscale(0%);
-            filter: grayscale(0%);
-    transition: filter 0.1s ease-in;
+.dashboard-button i {
+    padding-bottom: 10px;
 }
 
 </style>
@@ -70,15 +56,51 @@
     ?>
 
 
+    <?php if($_COOKIE['seguranca']['idUser'] == 1) { ?>
+    <div class="col-md-3 text-center" style="height: 200px;">
+        <a class="thumbnail dashboard-button" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=rat" ?>" title="Módulo RAT">
+            <i class="fa fa-file fa-5x"></i>RAT
+        </a>
+    </div>
+    <div class="col-md-3 text-center" style="height: 200px;">
+        <a class="thumbnail dashboard-button" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=vistoria" ?>" title="Relatório de Vistoria/Interdição">
+            <i class="fa fa-clipboard fa-5x"></i>Vistoria/Interdição
+        </a>
+    </div>
+    <div class="col-md-3 text-center" style="height: 200px;">
+        <a class="thumbnail dashboard-button" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=paebm" ?>" title="Protocolo PaeBM">
+            <i class="fa fa-list-alt fa-5x"></i>PAE
+        </a>
+    </div>
+    <?php if ($_COOKIE['seguranca']['idUser'] == 1) { ?>
+    <div class="col-md-3 text-center" style="height: 200px;">
+        <a class="thumbnail dashboard-button" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=compdec" ?>" title="Informações do Compdec">
+            <i class="fa fa-users fa-5x"></i>Informações COMPDEC (CADASTRO)
+        </a>
+    </div>
+    <?php } ?>
     <?php
-    if  ($_COOKIE['seguranca']['idUser'] == 1) { ?>
-        <!--RAT-->
-        <!--        <div class="col-md-3 text-center" style="height: 190px; ">
-            <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=rat" ?>" title="Relatório de Atividades"><img width="155" src="core/imagem/rat_teste.png"><br />RAT</a>
-        </div>-->
-        <!--VISTORIA-->
-        <!--        <div class="col-md-3 text-center" style="height: 190px;">
-        <a class="thumbnail" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=vistoria" ?>" title="Relatório de Vistoria/Interdição"><img width="135" src="core/imagem/vistoria_interdicao_teste.png"><br />Vistoria/Interdição</a>-->
+    # autorização entrada sistema cisterna
+        $autorizacao = [
+            "M1296844",
+            "S126282",
+            "M1552631",
+        ];
+        if( (in_array($_COOKIE['seguranca']['login'], $autorizacao)) || ($_COOKIE['seguranca']['idUser'] == 855)  ){
+            //<!--CISTERNA -->
+    ?>
+        <div class="col-md-3 text-center" style="height: 200px;">
+            <a class="thumbnail dashboard-button" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=cisterna" ?>" title="Projeto Convivência com a Seca">
+                <i class="fa fa-tint fa-5x"></i>Projeto Convivência com a Seca
+            </a></div>
+    <?php
+        } else {
+            print "<div class=\"col-md-3 text-center\" style=\"height: 200px;\">";
+            print "<img class=\"imgCinza\" src=\"core/imagem/poco.png\" width=\"105\" title=\"Usuario sem Acesso !\">";
+            print " <br>Projeto Convivência com a Seca";
+            print "</div>";
+        }
+    ?>
 </div>
 <?php } ?>
 <!--RAT DESABILITAR -->
@@ -87,59 +109,18 @@
         </div>-->
 
 <!--RAT-->
-<div class="col-md-3 text-center" style="height:200px<?php ?>">
-    <a class="thumbnail dashboard-button" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=rat" ?>" title="Relatório de Atividades Técnicas"><img width="155" src="core/imagem/rat_teste.png"><br />RAT</a>
-</div>
+<!-- <div class="col-md-3 text-center" style="height:200px<?php ?>">
+    <i class="fa fa-exclamation-triangle fa-5x"></i>
+    <a class="thumbnail dashboard-button" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=rat" ?>" title="Relatório de Atividades Técnicas">
+        <img width="155" src="core/imagem/rat_teste.png">RAT</a>
+</div> -->
 
-<!--VISTORIA-->
-<div class="col-md-3 text-center" style="height: 200px;">
-    <a class="thumbnail dashboard-button" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=vistoria" ?>" title="Relatório de Vistoria/Interdição"><img width="135" src="core/imagem/vistoria_interdicao_teste.png"><br />Vistoria/Interdição</a>
-</div>
+
+
 <!--VISTORIA DESABILITAR -->
 <!--    <div class="col-md-3 text-center" style="height: 190px;">
         <a class="thumbnail" title="Relatório de Vistoria/Interdição"><img width="135" src="core/imagem/vistoria_conversao.png"><br />Vistoria/Interdição</a>
     </div>-->
-
-<div class="col-md-3 text-center" style="height: 200px;">
-    <a class="thumbnail dashboard-button" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=paebm" ?>" title="Protocolo PaeBM"><img width="120" src="core/imagem/pae.png"><br />Pae</a>
-</div>
-
-<?php
-
-if ($_COOKIE['seguranca']['idUser'] == 1) { ?>
-    <!--CADASTRO COMPDEC-->
-    <div class="col-md-3 text-center" style="height: 200px;">
-        <a class="thumbnail dashboard-button" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=compdec" ?>" title="Informações do Compdec"><img width="90" src="core/imagem/comdec.png"><br />Informações COMPDEC</a>
-    </div>
-
-<?php } ?>
-
-
-<?php
-# autorização entrada sistema cisterna
-$autorizacao = [
-    "M1296844",
-     "S126282",
-     "M1552631",
-];
-if( (in_array($_COOKIE['seguranca']['login'], $autorizacao)) || ($_COOKIE['seguranca']['idUser'] == 855)  ){
-    //<!--CISTERNA -->
-?>
-    <div class="col-md-3 text-center" style="height: 200px;">
-        <a class="thumbnail dashboard-button" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=cisterna" ?>" title=">Projeto Convivência com a Seca"><img width="105" src="core/imagem/poco.png"><br />Projeto Convivência com a Seca</a>
-    </div>
-<?php
-} else {
-    print "<div class=\"col-md-3 text-center\" style=\"height: 200px;\">";
-    print "<img class=\"imgCinza\" src=\"core/imagem/poco.png\" width=\"105\" title=\"Usuario sem Acesso !\">";
-    print " <br>Projeto Convivência com a Seca";
-    print "</div>";
-}
-?>
-
-
-
-
 
 </div>
 <!-- =================== RODAPE CORPO ==================== -->
