@@ -1,5 +1,4 @@
 <?php
-
 class Conexao {
 
     public static $instance;
@@ -9,8 +8,7 @@ class Conexao {
     }
 
     public static function getInstance() {
-        
-        
+
 
         if (!isset(self::$instance)) {
 
@@ -49,18 +47,6 @@ class Conexao {
                 }
             } else {
                  try {
-                    // Load .env file if it exists
-                    if (file_exists(__DIR__ . '/../../.env')) {
-                        $lines = file(__DIR__ . '/../../.env', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-                        foreach ($lines as $line) {
-                            if (strpos(trim($line), '#') === 0) continue;
-                            list($key, $value) = array_map('trim', explode('=', $line, 2));
-                            if (!array_key_exists($key, $_ENV)) {
-                                $_ENV[$key] = $value;
-                                putenv("$key=$value");
-                            }
-                        }
-                    }
                     $host     = getenv('DB_HOST');
                     $port     = getenv('DB_PORT');
                     $name     = getenv('DB_DATABASE');
