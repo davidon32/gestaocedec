@@ -29,7 +29,7 @@ class indexController extends Controller
         # producao
         //header('Location: https://www.sdc.mg.gov.br/index.php');
         #develop
-        header('Location: http://sdc.net:8081/index.php');
+        header('Location: http://sdc.net:8081/login');
 
     }
 

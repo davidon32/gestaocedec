@@ -5,8 +5,8 @@ if (isset($pageSession['session']['seguranca']['nome_usuario'])) {
 print "<script>";
 print "window.location.href='index.php'";
 print "</script>";
-}
 
+}
 $posto = isset($pageSession['session']['seguranca']['posto']) ? $pageSession['session']['seguranca']['posto'] : "";
 
 $secao = isset($pageSession['session']['seguranca']['secao']) ? $pageSession['session']['seguranca']['secao'] : "";
