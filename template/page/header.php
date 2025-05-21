@@ -5,8 +5,8 @@ if (isset($pageSession['session']['seguranca']['nome_usuario'])) {
 print "<script>";
 print "window.location.href='index.php'";
 print "</script>";
-}
 
+}
 $posto = isset($pageSession['session']['seguranca']['posto']) ? $pageSession['session']['seguranca']['posto'] : "";
 
 $secao = isset($pageSession['session']['seguranca']['secao']) ? $pageSession['session']['seguranca']['secao'] : "";
@@ -15,7 +15,6 @@ $secao = isset($pageSession['session']['seguranca']['secao']) ? $pageSession['se
 <script type="text/javascript">
     function start_countdown()
     {
-
         var sessao_expira = new Date(<?= isset($_COOKIE['seguranca']['sessao']) ? $_COOKIE['seguranca']['sessao'] : "0"; ?> * 1000);
 
         myVar = setInterval(function ()
@@ -71,8 +70,18 @@ $secao = isset($pageSession['session']['seguranca']['secao']) ? $pageSession['se
         }, 1000)
         
     }
+
+    $(function() {
+        $('.dropdown-toggle').dropdown();
+    });
 </script>
 <style>
+.navbar {
+    /* background: linear-gradient(360deg,rgb(127, 165, 226),rgb(133, 165, 216) 100%); */
+    background: linear-gradient(360deg,rgb(235, 235, 235),rgb(255, 255, 255) 100%);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
 .overlay1 {
     position: fixed;
     width: 100%;
@@ -86,193 +95,115 @@ $secao = isset($pageSession['session']['seguranca']['secao']) ? $pageSession['se
     background-position: center center;
     background-size: 100px;
   }    
+
+.logout-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #1557c1;
+    border-radius: 5px;
+    padding: 8px 14px;
+    margin-left: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    transition: background 0.2s, box-shadow 0.2s;
+    border: none;
+    cursor: pointer;
+}
+
+.nav-bar-logo {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.11);
+}
+.logout-link:hover {
+    background:rgb(11, 66, 155);
+}
 </style>
     
 <div class="overlay1"> <i class="fa fa-cog fa-spin fa-5x fa-fw"></i><span class="sr-only">Loading...</span> </div>
 
 <!-- BARRA SUPERIOR USUARIO  -->
 <header class="main-header print">
-    <!-- Logo -->
-    <!--<a href="http://www.defesacivil.mg.gov.br" class="logo">
-    <!-- mini logo for sidebar mini 50x50 pixels -->
-    <!--<span class="logo-mini"><b>SGE</b></span>
-    <!-- logo for regular state and mobile devices -->
-     <!--<span class="logo-lg"><b>CEDEC-MG</b></span>
-  </a>
-    <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
-        <a href="#" class="sidebar-toggle"><img style="border-radius:6px; width: 200px" src="/core/imagem/logo_modelo_1-160X44-a.png"></a>
-        <!-- Sidebar toggle button remover barra lateral
-        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </a>-->
+        <!-- <a href="#" class="sidebar-toggle"><img style="border-radius:6px; width: 200px" src="/core/imagem/logo_modelo_1-160X44-a.png"></a> -->
 
-        <!-- inicio itens usuario -->
-
-        <div class="navbar-custom-menu">
-            <ul class="nav navbar-nav">
-                <!-- Messages: style can be found in dropdown.less-->
-                <li class="dropdown messages-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-envelope-o"></i>
-                        <span class="label label-success">0</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="header">Você tem 1 Mensagens</li>
-                        <li>
-                            <!-- inner menu: contains the actual data -->
-                            <ul class="menu">
-                                <?php Usuario::mensagemSuporte($pageSession); ?>
-                            </ul>
-                        </li>
-                        <li class="footer"><a href="#">Ver todas as Mensagens</a></li>
-                    </ul>
-                </li>
-                <!-- Notifications: style can be found in dropdown.less -->
-                <li class="dropdown notifications-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-bell-o"></i>
-                        <span class="label label-warning">
-                            <!--Qtd mensagens-->
-                            
-                            
-                            <?php 
-                            
-                            //var_dump(class_exists(msgController::class));
-                            print count(msgController::mensagem(['municipio_id'=>7221]));
-                            
-                            ?>
-                        </span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="header">Voçê tem 1 notificação</li>
-                        <li>
-                            <!-- inner menu: contains the actual data -->
-                            <ul class="menu">
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-users text-aqua"></i> 5 atualizações de núcleo do sistema ativada
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="footer"><a href="#">Ver todas</a></li>
-                    </ul>
-                </li>
-                <!-- Tasks: style can be found in dropdown.less -->
-                <li class="dropdown tasks-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-flag-o"></i>
-                        <span class="label label-danger">0</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="header">Você tem 1 Tarefa pendente</li>
-                        <li>
-                            <!-- inner menu: contains the actual data -->
-                            <ul class="menu">
-                                <li><!-- Task item -->
-                                    <a href="#">
-                                        <h3>
-                                            Tarefa teste
-                                            <small class="pull-right">20%</small>
-                                        </h3>
-                                        <div class="progress xs">
-                                            <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
-                                                 aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                <span class="sr-only">20% Completa</span>
+        <!-- <div class="navbar-custom-menu" > -->
+            <!-- <ul class=""> -->
+                <div style="display: flex; flex-direction: row; align-items: center; height: 100%; margin: 10px; justify-content:space-between">
+                    <div>
+                        <a href="/index.php?modulo=index&controller=index&action=index1">
+                            <img class="nav-bar-logo" style="border-radius:6px; width: 200px" src="/core/imagem/logo_modelo_1-160X44-a.png" alt="Home">
+                        </a>
+                    </div>
+                    <div>
+                        <div style="display: flex; flex-direction: row; align-items: center; gap: 10px;">
+                            <div class="dropdown user user-menu" style="min-width: 200px; display: flex; flex-direction: column; align-items: flex-end; padding-right: 10px; justify-content: center; height: 100%;">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:#1557c1; padding:0; line-height: 1;" title="Nome do Usuario do Sistema">
+                                    <span style="display: flex; flex-direction: column; align-items: flex-end;">
+                                        <?php if (isset($pageSession['session']['seguranca']['externo'])): ?>
+                                            <span style="font-weight: 600; color: #1557c1; font-size: 16px;">
+                                                <?= htmlspecialchars($pageSession['session']['seguranca']['nome_usuario']) ?>
+                                            </span>
+                                        <?php else: ?>
+                                     
+                                            <span style="font-weight: 600; color: #1557c1; font-size: 16px; margin: 0">
+                                                <?= htmlspecialchars($pageSession['session']['seguranca']['nome_usuario']) ?>
+                                            </span>
+                                            <div>
+                                                <span style="font-size: 12px; color: #888; font-weight: 500;"><?= htmlspecialchars($posto) ?></span>
+                                                <span style="font-size: 12px; color: #5cb85c; font-weight: 500;"><?= htmlspecialchars($secao) ?></span>
                                             </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <!-- end task item -->
-                            </ul>
-                        </li>
-                        <li class="footer">
-                            <a href="#">Ver todas as Tarefas</a>
-                        </li>
-                    </ul>
-
-
-                </li>
-                <li class="dropdown tasks-menu">
-                    <a class="dropdown-toggle" href="<?= FuncaoBase::geraLink("index", "index", "logout") ?>" title="Sair com Segurança do Sistema">
-                        <img src="/core/imagem/desligar.png">
-                    </a>
-                </li>
-                
-                <!-- User Account: style can be found in dropdown.less -->
-                <li class="dropdown user user-menu" style="min-width: 200px;">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding:0;" title="Nome do Usuario do Sistema">
-
-                        <?php
-                        if (isset($pageSession['session']['seguranca']['externo'])) {
-                            print $pageSession['session']['seguranca']['nome_usuario'];
-                        } else {
-                            print $posto." ".substr($pageSession['session']['seguranca']['nome_usuario'], 0, 20)."..";
-                            print "( ".$secao." )";
-                        }
-                        ?>
-                        <script>start_countdown();</script>
-                    </a>
-                    <p id="countdown" style="margin:0; font-size:14px; color: #ffffff; float: right" title="Tempo Restante de Sessão"></p>
-
-                    <ul class="dropdown-menu">
-                        <!-- User image -->
-                        <li class="user-header">
-                            <img  src="<?= $gravataremail; ?>" class="img-circle" alt="User Image">
-
-                            <br>
-                            <br>
-                            <p style="text-align: left; font-size: 10pt;">Recuperação de Senha :<br>
-                                <span class="hidden-xs"><?= isset($pageSession['session']['seguranca']['email_rec']) ? $pageSession['session']['seguranca']['email_rec'] : "Sem Email de Recuperação de senha"; ?></span>
-                            </p>
-                            <small>Membro desde : </small>
-
-
-
-                        </li>
-                        <!-- Menu Body -->
-                        <li class="user-body">
-                            <!-- <div class="row">
-                              <div class="col-xs-4 text-center">
-                                <a href="#">Followers</a>
-                              </div>
-                              <div class="col-xs-4 text-center">
-                                <a href="#">Sales</a>
-                              </div>
-                              <div class="col-xs-4 text-center">
-                                <a href="#">Friends</a>
-                              </div>
-                            </div> -->
-                            <!-- /.row -->
-                        </li>
-                        <!-- Menu Footer-->
-                        <li class="user-footer">
-
-                            <?php
-                            if (isset($pageSession['session']['seguranca']['externo'])) {
-                                
-                            } else {
-                                print "<div class=\"pull-left\">";
-                                print "<div class='pull-left'><a href='" . FuncaoBase::geraLink("admin", "adm", "perfil", array('id' => $pageSession['session']['seguranca']['idUser'])) . "' class=\"btn btn-default btn-flat\" title='Alterar senha / email de recuperação '>Perfil</a></div>
-                                <div class='pull-right'><a href='" . FuncaoBase::geraLink("equipe", "funcionario", "alterar", array('id' => $pageSession['session']['seguranca']['idUser'])) . "' class=\"btn btn-default btn-flat\" title='Atualize / Complete o seus dados'>Dados Funcionário</a></div>
-                      </div>";
-                            }
-                            ?>
-                            <div class="pull-right">
-<!--                                <a href="?token=<?= hash('sha256', md5(VERSAO) . date('dmY')); ?>&ac=itn&modulo=index&controller=index&action=logout" class="btn btn-default btn-flat">Logout</a>-->
+                                        <?php endif; ?>
+                                        <script>start_countdown();</script>
+                                    </span>
+                                </a>
+                                <ul class="dropdown-menu" style="right:0; left:auto; min-width: 260px; padding: 15px; background: #222d32; color: #fff;">
+                                    <li>
+                                        <p style="text-align: left; font-size: 10pt; margin-bottom: 10px;">Recuperação de Senha :<br>
+                                            <span class="hidden-xs"><?= isset($pageSession['session']['seguranca']['email_rec']) ? $pageSession['session']['seguranca']['email_rec'] : "Sem Email de Recuperação de senha"; ?></span>
+                                        </p>
+                                    </li>
+                                    <?php
+                                    if (!isset($pageSession['session']['seguranca']['externo'])) {
+                                    ?>
+                                        <li style="margin-bottom: 8px;">
+                                            <a href="<?= FuncaoBase::geraLink("admin", "adm", "perfil", array('id' => $pageSession['session']['seguranca']['idUser'])) ?>"
+                                               class="btn btn-primary btn-block"
+                                               title="Alterar senha / email de recuperação"
+                                               style="text-align:left; border-radius: 5px; background: #1557c1; color: #fff; border: none; box-shadow: 0 2px 6px rgba(0,0,0,0.08); font-weight: 500;">
+                                                <i class="fa fa-user-circle" style="margin-right: 8px;"></i> Perfil
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="<?= FuncaoBase::geraLink("equipe", "funcionario", "alterar", array('id' => $pageSession['session']['seguranca']['idUser'])) ?>"
+                                               class="btn btn-success btn-block"
+                                               title="Atualize / Complete o seus dados"
+                                               style="text-align:left; border-radius: 5px; background: #5cb85c; color: #fff; border: none; box-shadow: 0 2px 6px rgba(0,0,0,0.08); font-weight: 500;">
+                                                <i class="fa fa-id-card" style="margin-right: 8px;"></i> Dados Funcionário
+                                            </a>
+                                        </li>
+                                    <?php
+                                    }
+                                    ?>
+                                </ul>
+                                <p id="countdown" style="margin:0; font-size:14px; color:#1557c1; font-weight: bold;" title="Tempo Restante de Sessão">SESSÃO: <span class="fa fa-refresh fa-spin" style="margin-right: 5px;"></p>
                             </div>
-                        </li>
-                    </ul>
-                </li>
-                <!-- Control Sidebar Toggle Button -->
-<!--                <li>
-                  <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                </li>-->
-            </ul>
+                            <div class="dropdown tasks-menu" style="display: flex; align-items: center; height: 100%;">
+                                <a class="dropdown-toggle logout-link" 
+                                    href="<?= FuncaoBase::geraLink("index", "index", "logout") ?>" 
+                                    title="Sair com Segurança do Sistema"
+                                    style="
+                                        
+                                    ">
+                                     <img src="/core/imagem/logout_white.png" class="logout-img" style="width: 22px; height: 22px; filter: brightness(2); margin-right: 6px;">
+                                     <span style="color: #fff; font-weight: 500; font-size: 15px;">Sair</span>
+                                </a>
+                            </div>
+                            <style>
+                            </style>
+                        </div>
+                    </div>
+
+                <!-- </div> -->
+            <!-- </ul> -->
         </div>
         <!-- final itens usuario-->
     </nav>

@@ -29,7 +29,13 @@ class indexController extends Controller
         # producao
         //header('Location: https://www.sdc.mg.gov.br/index.php');
         #develop
-        header('Location: http://sdc.net:8081/index.php');
+        if (($_SERVER['HTTP_HOST'] == 'sistema.defesacivil.mg.gov.br') || ($_SERVER['HTTP_HOST'] == 'www.sistema.defesacivil.mg.gov.br')) {
+            header('Location: https://www.sdc.mg.gov.br/index.php');
+        } else if ($_SERVER['HTTP_HOST'] == 'sdcold.net:8081') {
+            header('Location: http://sdc.net:8081/login');
+        } else {
+            header('Location: http://'.getenv('SDC_HOST').'/login');
+        }
 
     }
 
@@ -283,8 +289,10 @@ class indexController extends Controller
 
         if ($_SERVER['HTTP_HOST'] == 'sdcold.net:8081') {
             header('Location: http://sdc.net:8081/index.php');
-        } else {
+        } else if ($_SERVER['HTTP_HOST'] == 'sistema.defesacivil.mg.gov.br') {
             header('Location: http://sdc.mg.gov.br/index.php');
+        } else {
+            header('Location: http://'.getenv('SDC_HOST').'/index.php');
         }
     }
 

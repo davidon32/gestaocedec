@@ -961,7 +961,7 @@ class Login extends Liberacao
                   &nbsp;&nbsp;<img style=\"vertical-align:middle\" src=\"/mod_ajuda/imagem/".$_imagem."\">
                   &nbsp;&nbsp;<span style='font-size:10px;'>
                   Libera&ccedil;&atilde;o Nº: ".$linha['id_liberacao']." - ".DataMysql::dataVisual($linha['dataLibera'])." - ".$diasRestantePgto." dia(s) restante(s)</a>
-                  </span><br />"; */
+                  </span>"; */
                 print "<ul class=\"todo-lis\">
 										 <li>
 								 
@@ -985,7 +985,7 @@ class Login extends Liberacao
                   &nbsp;&nbsp;<img style=\"vertical-align:middle\" src=\"/mod_ajuda/imagem/".$_imagem."\">
                   &nbsp;&nbsp;<span style='font-size:10px;'>
                   Libera&ccedil;&atilde;o Nº: ".$linha['id_liberacao']." - ".$linha['dataLibera']." - liberado ha ".$dif->days."  dia(s)</a>
-                  </span><br />"; */
+                  </span>"; */
             }
         } catch (Exception $e) {
 
@@ -1297,17 +1297,17 @@ class Login extends Liberacao
 
 
         $chave_acesso = array(
-            '0' => '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=compdec&controller=compdec&action=index" title="Módulo Cadastro Compdec"><img src="core/imagem/comdec.png"><br />Informações Compdec</a>',
-            '1' => '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=ajuda&controller=index&action=index" title="Módulo Ajuda Humanitária"><img src="core/imagem/pedido_cesta.png" width=\'140\'><br />Ajuda Humanitária</a>',
-            '2' => '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=pipa&controller=pipa&action=index" title="Módulo TDAP Transporte e Distribuição de Água Potável"><img src="core/imagem/pipa.png"><br />TDAP</a>',
-            '3' => '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=cce&controller=cce&action=index" title="Módulo Controle de Emergência"><img src="core/imagem/cce.png"><br />Controle de Emergência</a>',
-            '4' => '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=decreto&controller=index&action=index" title="Módulo Processo de Decretação"><img src="core/imagem/processo.png"><br />Processo de Decretação</a>',
-            '5' => '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=equipe&controller=index&action=index" title="Módulo Equipe de Apoio"><img src="core/imagem/equipe.png"><br />Equipe de Apoio</a>',
-            '6' => '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=escola&secao=menu" title="Módulo Escola de Defesa Civil"><img src="core/imagem/escola.png"><br />Escola de Defesa Civil</a>',
-            '7' => '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=registro&controller=index&action=index" title="Registro de Desastre"><img src="core/imagem/registro.png"><br />Registro Desastre</a>',
-            '8' => '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=cedec&controller=index&action=index" title="Módulo CEDEC"><img src="core/imagem/cedec.png"><br />CEDEC</a>',
-            '9' => '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=compdec&controller=plano&action=indexplano" title="Plano de Contingência"><img width="120" src="core/imagem/plano.png"><br />Plano Contingência</a>',
-            '10' => '<a class="thumbnail" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=admin&controller=index&action=index" title="Configurações"><img width="120" src="core/imagem/config.png"><br />Configurações</a>'
+            '0' => '<a class="thumbnail dashboard-button" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=compdec&controller=compdec&action=index" title="Módulo Cadastro Compdec"><i class="fa fa-building fa-5x"></i>Informações Compdec</a>',
+            '1' => '<a class="thumbnail dashboard-button" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=ajuda&controller=index&action=index" title="Módulo Ajuda Humanitária"><i class="fa fa-heart fa-5x"></i>Ajuda Humanitária</a>',
+            '2' => '<a class="thumbnail dashboard-button" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=pipa&controller=pipa&action=index" title="Módulo TDAP Transporte e Distribuição de Água Potável"><i class="fa fa-truck fa-5x"></i>TDAP</a>',
+            '3' => '<a class="thumbnail dashboard-button" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=cce&controller=cce&action=index" title="Módulo Controle de Emergência"><i class="fa fa-exclamation-triangle fa-5x"></i>Controle de Emergência</a>',
+            '4' => '<a class="thumbnail dashboard-button" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=decreto&controller=index&action=index" title="Módulo Processo de Decretação"><i class="fa fa-file-signature fa-5x"></i>Processo de Decretação</a>',
+            '5' => '<a class="thumbnail dashboard-button" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=equipe&controller=index&action=index" title="Módulo Equipe de Apoio"><i class="fa fa-users fa-5x"></i>Equipe de Apoio</a>',
+            '6' => '<a class="thumbnail dashboard-button" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=escola&secao=menu" title="Módulo Escola de Defesa Civil"><i class="fa fa-graduation-cap fa-5x"></i>Escola de Defesa Civil</a>',
+            '7' => '<a class="thumbnail dashboard-button" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=registro&controller=index&action=index" title="Registro de Desastre"><i class="fa fa-book fa-5x"></i>Registro Desastre</a>',
+            '8' => '<a class="thumbnail dashboard-button" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=cedec&controller=index&action=index" title="Módulo CEDEC"><i class="fa fa-university fa-5x"></i>CEDEC</a>',
+            '9' => '<a class="thumbnail dashboard-button" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=compdec&controller=plano&action=indexplano" title="Plano de Contingência"><i class="fa fa-file-text fa-5x"></i>Plano Contingência</a>',
+            '10' => '<a class="thumbnail dashboard-button" href="?token=' . hash("sha256", md5(VERSAO) . date('dmY')) . '&ac=itn&modulo=admin&controller=index&action=index" title="Configurações"><i class="fa fa-cogs fa-5x"></i>Configurações</a>'
         );
 
         $acesso = array();

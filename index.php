@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/helper.php';
 
 if (!isset($_SESSION)) {
     session_start();
@@ -12,6 +13,8 @@ if (!defined('VERSAO')) {
 include 'core/system/config/config.inc.php';
 include_once 'core/include.php';
 include 'core/system/msg/msg.php';
+
+loadEnvFile();
 
 if (MANUTENCAO && $_SERVER['SERVER_NAME'] != 'desenvolvimento.gestaocedec') {
     include('index_manutencao.php');
