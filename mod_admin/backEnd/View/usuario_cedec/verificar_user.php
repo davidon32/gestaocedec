@@ -26,9 +26,13 @@ if (($_SERVER['HTTP_HOST'] == 'sistema.defesacivil.mg.gov.br') || ($_SERVER['HTT
     $url = 'http://sdc.mg.gov.br/api/auth/user';
     $url_ex = 'http://sdc.mg.gov.br/api/auth/userex';
     $log_path = '/web/anexo/curl.log';
-} else {
+} else if ($_SERVER['HTTP_HOST'] == 'sdcold.net:8081') {
     $url = 'http://sdcold.net:8081/api/auth/user';
     $url_ex = 'http://sdcold.net:8081/api/auth/userex';
+    $log_path = 'log/curl.log';
+} else {
+    $url = 'http://'.getenv('SDCOLD_HOST').'/api/auth/user';
+    $url_ex = 'http://'.getenv('SDCOLD_HOST').'/api/auth/userex';
     $log_path = 'log/curl.log';
 }
 

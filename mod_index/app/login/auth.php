@@ -65,12 +65,16 @@ if (($_SERVER['HTTP_HOST'] == 'sistema.defesacivil.mg.gov.br') || ($_SERVER['HTT
         $url_redirect = "http://sdc.mg.gov.br/index.php";
         //$log_path = 'log/curl.log';
 # ca
-} else {
+} else if ($_SERVER['HTTP_HOST'] == 'sdcold.net:8081') {
     $protocolo = CURLPROTO_HTTP;
     $url = 'http://sdc.net:8081/api/auth/login';
     $url_redirect = 'http://sdc.net:8081';
     //$log_path = 'log/curl.log';
+} else {
+    $url = 'http://'.getenv('SDC_HOST').'/api/auth/login';
+    $url_redirect = 'http://'.getenv('SDC_HOST');
 }
+
 
 
 if ((is_null($cpf)) && (!is_numeric($cpf))) {

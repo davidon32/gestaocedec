@@ -283,8 +283,10 @@ class indexController extends Controller
 
         if ($_SERVER['HTTP_HOST'] == 'sdcold.net:8081') {
             header('Location: http://sdc.net:8081/index.php');
-        } else {
+        } else if ($_SERVER['HTTP_HOST'] == 'sistema.defesacivil.mg.gov.br') {
             header('Location: http://sdc.mg.gov.br/index.php');
+        } else {
+            header('Location: http://'.getenv('SDC_HOST').'/index.php');
         }
     }
 
