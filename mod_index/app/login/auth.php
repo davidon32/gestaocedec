@@ -37,7 +37,7 @@ $routeList = [
     "compdec"    => 'compdec',
     "paebmindex" => 'drrd',
     "mah"        => 'mah',
-    "cisterna"   => 'cisterna/index',
+    "cisterna"   => 'cisterna',
     "tdap"       => 'tdap',
     
 ];
@@ -67,8 +67,8 @@ if (($_SERVER['HTTP_HOST'] == 'sistema.defesacivil.mg.gov.br') || ($_SERVER['HTT
 # ca
 } else {
     $protocolo = CURLPROTO_HTTP;
-    $url = 'http://localhost:8000/api/auth/login';
-    $url_redirect = 'http://localhost:8000';
+    $url = 'http://sdc.net:8081/api/auth/login';
+    $url_redirect = 'http://sdc.net:8081';
     //$log_path = 'log/curl.log';
 }
 
@@ -100,6 +100,7 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
 
     <?php
 } else {
+
     $ch = curl_init();
 
     curl_setopt_array($ch, [
@@ -132,11 +133,11 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
     ]);
 
     $resultado = curl_exec($ch);
-    var_dump($resultado);
+
     if (curl_errno($ch)) {
         print "log: " . curl_error($ch);
     }
- 
+
     curl_close($ch);
 
     $ret = json_decode($resultado);
