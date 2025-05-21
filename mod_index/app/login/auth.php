@@ -37,7 +37,7 @@ $routeList = [
     "compdec"    => 'compdec',
     "paebmindex" => 'drrd',
     "mah"        => 'mah',
-    "cisterna"   => 'cisterna',
+    "cisterna"   => 'cisterna/index',
     "tdap"       => 'tdap',
     
 ];
