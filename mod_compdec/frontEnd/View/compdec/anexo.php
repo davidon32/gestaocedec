@@ -19,9 +19,9 @@ if ($opcao == 'gravarleis') {
     $result = $anexo->gravarLeisCompdec($post, $files);
     print json_encode($result);
     die();
-//		print "<script type='text/javascript'>";
-//		print "alert('Documento anexado com Sucesso !');";
-//		print "</script>";
+    //		print "<script type='text/javascript'>";
+    //		print "alert('Documento anexado com Sucesso !');";
+    //		print "</script>";
 } elseif ($opcao == "delete") {
 
 
@@ -47,6 +47,7 @@ print '<table class="table table-condensed tbl" id="tbl_anexo">
 			<tr>
 				<th class="col-md-1">#</th>
 				<th class="col-md-1">Data </th>
+				<th class="col-md-1">Validade </th>
 	 			<th class="col-md-1">Tipo Doc.</th>
 				<th class="col-md-3">Nome Arquivo</th>
 				<th class="col-md-3">Descrição</th>
@@ -68,23 +69,30 @@ foreach ($dados as $key => $value) {
     $anexoResult = $anexo->previewAnexo($value['id']);
 
     //$valido = (!empty($value['validade'])) ? "style='background-color:#00FF80;' title='Documento validado pela CEDEC'" : "style='background-color:#FA5858;' title='Documento validado pela CEDEC'";
-    $valido = "";
+    $valido = FuncaoBase::verificarTempoData($value['dt_anexo'], 'P6M');
+    $validade = FuncaoBase::adicionarIntervaloDataSimples($value['dt_anexo'], 'P6M');
+
+    if ($valido) {
+        $vencido = " style='background-color:#FA5858;' title='Documento está com mais de 6 meses no sistema' ";
+    } else {
+        $vencido = "";
+    }
 
     print '<tr>
-				<td ' . $bg . ' ' . $valido . '>' . ($key + 1) . '</td>
-				<td ' . $bg . ' ' . $valido . '>' . DataMysql::dataCompletaVisual($value['dt_anexo']) . '</td>
-				<td ' . $bg . ' ' . $valido . '>' . $anexo->enumTipo($value['tipo']) . '</td>
-				<td ' . $bg . ' ' . $valido . '>' . $value['arquivo'] . '</td>
-				<td ' . $bg . ' ' . $valido . '>' . $value['descricao'] . '</td>
-				<!--<td ' . $valido . '>' . DataMysql::dataVisual($value['validade']) . '</td>-->
-                                <td ' . $bg . ' ' . $valido . '>';
+				<td ' . $bg . ' ' . $vencido . '>' . ($key + 1) . '</td>
+				<td ' . $bg . ' ' . $vencido . '>' . DataMysql::dataCompletaVisual($value['dt_anexo']) . '</td>
+				<td ' . $bg . ' ' . $vencido . '>' . DataMysql::dataVisual($validade) . '</td>
+				<td ' . $bg . ' ' . $vencido . '>' . $anexo->enumTipo($value['tipo']) . '</td>
+				<td ' . $bg . ' ' . $vencido . '>' . $value['arquivo'] . '</td>
+				<td ' . $bg . ' ' . $vencido . '>' . $value['descricao'] . '</td>
+				<!--<td ' . $vencido . '>' . DataMysql::dataVisual($value['validade']) . '</td>-->
+                                <td ' . $bg . ' ' . $vencido . '>';
 
-    print (($anexoResult['existe']) ? '<a onclick="javascript:anexoView(\'anexo/anexo_leis/' . $anexoResult['arquivo'] . '\')"><img width="30px" src="/core/imagem/impressao.png" title="Visualizar"></a>' : '<img src=\'/core/imagem/cancela.png\' width=\'30px\' title=\'Arquivo nao disponível favor apagar este registro e adicionar outro arquivo\'>');
+    print(($anexoResult['existe']) ? '<a onclick="javascript:anexoView(\'anexo/anexo_leis/' . $anexoResult['arquivo'] . '\')"><img width="30px" src="/core/imagem/impressao.png" title="Visualizar"></a>' : '<img src=\'/core/imagem/cancela.png\' width=\'30px\' title=\'Arquivo nao disponível favor apagar este registro e adicionar outro arquivo\'>');
     print '	&nbsp;&nbsp;<img width="30px" src="/core/imagem/delete.png" title="Deletar" onclick="javascript:deletarAnexoLei(' . $value['id'] . ', \'' . $value['arquivo'] . '\', \'' . $value['id_municipio'] . '\');"></a>';
-//				if(empty($value['validade'])){
-//                                }
+    //				if(empty($value['validade'])){
+    //                                }
     print '</td></tr>';
 }
 
 print '</table>';
-?>

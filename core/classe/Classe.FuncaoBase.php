@@ -360,9 +360,7 @@ class FuncaoBase extends Exception
     ######################################################################################
     #@protecao imput
 
-    function prot()
-    {
-    }
+    function prot() {}
 
     ######################################################################################
     #@ combo, select dinamico universal
@@ -1052,9 +1050,7 @@ class FuncaoBase extends Exception
      * @param type $param
      * 
      */
-    function implode_array($param)
-    {
-    }
+    function implode_array($param) {}
 
     /**
      * @param array['url]
@@ -1118,5 +1114,65 @@ class FuncaoBase extends Exception
         curl_close($cURLConnection);
 
         return json_decode($result, true);
+    }
+
+
+    /**
+     * Undocumented function
+     *
+     * @param [type] $dataString
+     * @param [type] $intervalo
+     * @return void
+     * ex: 'P6M' 6 meses
+     * P1D: Adicionar 1 dia.
+      *  P1M: Adicionar 1 mês.
+      *  P1Y: Adicionar 1 ano.
+      *  PT2H: Adicionar 2 horas.
+      *  PT30M: Adicionar 30 minutos.
+      *  PT1H30M: Adicionar 1 hora e 30 minutos.
+      *  P2Y3M15D: Adicionar 2 anos, 3 meses e 15 dias.
+     */
+    static function verificarTempoData($dataString, $intervalo)
+    {
+        // Cria um objeto DateTime para a data fornecida
+        $dataVerificar = new DateTime($dataString);
+
+        // Obtém a data atual
+        $dataAtual = new DateTime();
+
+        // Subtrai 6 meses da data atual
+        $seisMesesAtras = (clone $dataAtual)->sub(new DateInterval($intervalo));
+
+        // Compara a data fornecida com a data de 6 meses atrás
+        return $dataVerificar < $seisMesesAtras;
+    }
+
+
+/**
+ * Undocumented function
+ *
+ * @param string $dataString
+ * @param string $intervaloString
+ * @return void
+ * * P1D: Adicionar 1 dia.
+      *  P1M: Adicionar 1 mês.
+      *  P1Y: Adicionar 1 ano.
+      *  PT2H: Adicionar 2 horas.
+      *  PT30M: Adicionar 30 minutos.
+      *  PT1H30M: Adicionar 1 hora e 30 minutos.
+      *  P2Y3M15D: Adicionar 2 anos, 3 meses e 15 dias.
+ */
+    static function adicionarIntervaloDataSimples(string $dataString, string $intervaloString)
+    {
+        try {
+            $data = new DateTime($dataString);
+            $intervalo = new DateInterval($intervaloString);
+            $data->add($intervalo);
+            return $data->format('Y-m-d');
+        } catch (Exception $e) {
+            // Tratar erros de formato de data ou intervalo
+            error_log("Erro ao adicionar intervalo à data: " . $e->getMessage());
+            return false;
+        }
     }
 }

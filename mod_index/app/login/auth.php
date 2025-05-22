@@ -37,7 +37,7 @@ $routeList = [
     "compdec"    => 'compdec',
     "paebmindex" => 'drrd',
     "mah"        => 'mah',
-    "cisterna"   => 'cisterna/index',
+    "cisterna"   => 'cisterna/menu',
     "tdap"       => 'tdap',
     
 ];
@@ -132,7 +132,7 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
         CURLOPT_SSL_VERIFYPEER => 1,
         CURLOPT_RETURNTRANSFER => 1,
         CURLOPT_PROTOCOLS => CURLPROTO_HTTP,
-        CURLOPT_VERBOSE => false,
+        CURLOPT_VERBOSE => true,
         //CURLOPT_STDERR => fopen($log_path, 'w+'),
     ]);
 

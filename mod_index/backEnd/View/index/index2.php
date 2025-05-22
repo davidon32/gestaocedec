@@ -70,7 +70,6 @@
                 <i class="fa fa-list-alt fa-5x"></i>PAE
             </a>
         </div>
-        <?php if ($_COOKIE['seguranca']['idUser'] == 1) { ?>
             <div class="col-md-3 text-center" style="height: 200px;">
                 <a class="thumbnail dashboard-button" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=compdec" ?>" title="Informações do Compdec">
                     <i class="fa fa-users fa-5x"></i>Informações COMPDEC (CADASTRO)
@@ -87,7 +86,8 @@
             "S104069",
             "S100460",
             "M1489596",
-            "S165427"
+            "S165427",
+            "S125569",
         ];
         if ((in_array($_COOKIE['seguranca']['login'], $autorizacao)) || ($_COOKIE['seguranca']['idUser'] == 855)) {
             //<!--CISTERNA -->
@@ -108,7 +108,7 @@
 </div>
 
 <!--RAT DESABILITAR -->
-<!--<div class="col-md-3 text-center" style="height: 190px; ">
+<!--<div class="text-center col-md-3" style="height: 190px; ">
             <a class="thumbnail" title="Relatório de Atividades"><img width="155" src="core/imagem/rat_conversao.png"><br />RAT</a>
         </div>-->
 
@@ -122,7 +122,7 @@
 
 
 <!--VISTORIA DESABILITAR -->
-<!--    <div class="col-md-3 text-center" style="height: 190px;">
+<!--    <div class="text-center col-md-3" style="height: 190px;">
         <a class="thumbnail" title="Relatório de Vistoria/Interdição"><img width="135" src="core/imagem/vistoria_conversao.png"><br />Vistoria/Interdição</a>
     </div>-->
 

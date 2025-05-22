@@ -19,7 +19,7 @@ if(isset($pageSession)){
 ?>
 <html>
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" name="robots" content="noindex, nofollow">
   <meta http-equiv="Content-Language" content="pt-BR">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title><?=$pageSession['titulo'];?></title>
@@ -51,7 +51,7 @@ if(isset($pageSession)){
 <link rel="stylesheet" href="/plugins/select2/css/select2.css"/>
 
    <!-- Google Font -->
-  <!--<!--removido Google Fontes-->
+  <!--removido Google Fontes-->
 
   <style type="text/css">
 

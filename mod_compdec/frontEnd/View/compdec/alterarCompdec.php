@@ -46,16 +46,15 @@ $cpf_coordenador = $lista_membros[$key_equipe]['cpf'];
 
 $desatualiza = count($status_anexo);
 
-
-if ($desatualiza > 0 ) {
+if ($desatualiza == 0 ) {
 
     $voltar = "<button class=\"btn btn-success\" type=\"button\" onclick=\"focus_secao('tblAnexoLeis')\" title='Favor REANEXAR a lei de criação o decreto de regulamentação da lei e a portaria de nomeação do Coordenador Municipal'>Voltar</button>";
     $gravar = "<button class=\"btn btn-success\" type=\"button\" onclick=\"focus_secao('tblAnexoLeis')\" title='Favor REANEXAR a lei de criação o decreto de regulamentação da lei e a portaria de nomeação do Coordenador Municipal'>Gravar</button>";
-    $alert = "<p class='alert alert-warning'>Prezado Coordenador, PARA continuar a usar o sistema, é necessário REANEXAR os documentos no SDC, Lei de Criação da COMPDEC, Decreto de Regulamentação e Portaria de Nomeação do Coordenador, é necessários que a Todos os Documentos sejan reanexados.</p>";
+    $alert = "<h4 class='alert alert-warning '>Prezado Coordenador, <br>PARA continuar a usar o sistema, é necessário REANEXAR os seguintes documentos no SDC: <br>Lei de Criação da COMPDEC<br> Decreto de Regulamentação e ou Portaria de Nomeação do Coordenador<br> é necessários que a Todos os Documentos sejan reanexados.</h4>";
 } else if(is_null($cpf_coordenador)) {
     $voltar = "<button class=\"btn btn-success\" type=\"button\" onclick=\"focus_secao('tblAnexoLeis')\" title='Favor Atualizar o CPF do Coordenador na Seção Equipe da COMPDEC'>Voltar</button>";
     $gravar = "<button class=\"btn btn-success\" type=\"button\" onclick=\"focus_secao('tblAnexoLeis')\" title='Favor Atualizar o CPF do Coordenador na Seção Equipe da COMPDEC'>Gravar</button>";
-    $alert = "<p class='alert alert-warning'>Prezado Coordenador,, PARA continuar a usar o sistema, é necessário Atualizar o CPF do Coordenador da COMPDEC, vá na seção Equipe abaixo desta página para realizar a atualização</p>";
+    $alert = "<p class='alert alert-warning'>Prezado Coordenador, <br> PARA continuar a usar o sistema, é necessário Atualizar o CPF do Coordenador da COMPDEC, vá na seção Equipe abaixo desta página para realizar a atualização</p>";
     
 }else {
     $voltar = "<a class=\"btn btn-success\" href=" . FuncaoBase::geraLink("index", "index", "menue") . ">Voltar</a>";
@@ -270,7 +269,7 @@ if ($desatualiza > 0 ) {
         <label>Qual a capacitação dos Membros ?</label>
         <input class="form-control" name='txt_cap_nupdec' id='txt_cap_nupdec' value="<?php print $_dados[0]['capacitacao_nupdec'] ?>" maxlength="70">
         <br><br>
-        <button class="" type="button" name="btnDados" id="btnDados">-</button>
+        <button class="btn btn-link" style="text-decoration:none; opacity: 0" type="button" name="btnDados" id="btnDados">-</button>
     </div>
 
     <!-- ABA DADOS PARTE 2 -->
