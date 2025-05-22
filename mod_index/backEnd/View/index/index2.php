@@ -50,14 +50,27 @@
 
     # MOSTRA MODULOS
     Login::mostraModulos(Login::acessoModulo($pageSession['session']['seguranca']['login']));
-
     //var_dump(Login::acessoModulo($pageSession['session']['seguranca']['login']));
     ?>
 
-
+    <div class="col-md-3 text-center" style="height: 200px;">
+        <a class="thumbnail dashboard-button" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=rat" ?>" title="Módulo RAT">
+            <i class="fa fa-file fa-5x"></i>RAT
+        </a>
+    </div>
+    <div class="col-md-3 text-center" style="height: 200px;">
+        <a class="thumbnail dashboard-button" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=vistoria" ?>" title="Relatório de Vistoria/Interdição">
+            <i class="fa fa-clipboard fa-5x"></i>Vistoria/Interdição
+        </a>
+    </div>
+    <div class="col-md-3 text-center" style="height: 200px;">
+        <a class="thumbnail dashboard-button" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=paebm" ?>" title="Protocolo PaeBM">
+            <i class="fa fa-list-alt fa-5x"></i>PAE
+        </a>
+    </div>
         <div class="col-md-3 text-center" style="height: 200px;">
-            <a class="thumbnail dashboard-button" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=rat" ?>" title="Módulo RAT">
-                <i class="fa fa-file fa-5x"></i>RAT
+            <a class="thumbnail dashboard-button" href="?token=<?= hash("sha256", md5(VERSAO) . date('dmY')) . "&ac=itn&modulo=index&controller=index&action=compdec" ?>" title="Informações do Compdec">
+                <i class="fa fa-users fa-5x"></i>Informações COMPDEC (CADASTRO)
             </a>
         </div>
         <div class="col-md-3 text-center" style="height: 200px;">
@@ -99,12 +112,14 @@
             </div>
         <?php
         } else {
-            print "<div class=\"col-md-3 text-center\" style=\"height: 200px;\">";
-            print "<img class=\"imgCinza\" src=\"core/imagem/poco.png\" width=\"105\" title=\"Usuario sem Acesso !\">";
-            print " <br>Projeto Convivência com a Seca";
-            print "</div>";
-        }
         ?>
+            <div class="col-md-3 text-center" style="height: 200px;">
+                <img class="imgCinza" src="core/imagem/poco.png" width="105" title="Usuario sem Acesso !">
+                <br>Projeto Convivência com a Seca
+            </div>
+        <?php
+        } // fecha else do cisterna
+    ?>
 </div>
 
 <!--RAT DESABILITAR -->
@@ -126,7 +141,6 @@
         <a class="thumbnail" title="Relatório de Vistoria/Interdição"><img width="135" src="core/imagem/vistoria_conversao.png"><br />Vistoria/Interdição</a>
     </div>-->
 
-</div>
 <!-- =================== RODAPE CORPO ==================== -->
 <?php include_once "template/page/corpoRodape.php"; ?>
 <!-- =================== RODAPE  ======================== -->
