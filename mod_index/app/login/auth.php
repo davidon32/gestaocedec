@@ -153,7 +153,8 @@ if ((is_null($cpf)) && (!is_numeric($cpf))) {
 
     if (!is_null($token)) {
         print "<script>";
-        print "window.location.href = '" . $url_redirect . '/' . $route . '?token=' . $token . '&routeInicio=' . $routeInicio . "'";
+        $encodedSessionCookie = base64_encode(json_encode($_COOKIE['seguranca']['sessao'])); 
+        print "window.location.href = '" . $url_redirect . '/' . $route . '?token=' . $token . '&routeInicio=' . $routeInicio . '&sessionCookie=' . urlencode($encodedSessionCookie) . "'";
         print "</script>";
     } else {
         # enviar email com erro 
